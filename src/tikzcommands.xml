@@ -1,0 +1,262 @@
+<tikzcommands title="&amp;Insert">
+	<item description="\\begin{tikzpicture}[&lt;options&gt;]" insert="\\begin{tikzpicture}\n\n\\end{tikzpicture}" dx="0" dy="1" type="0"/>
+	<item description="\\end{tikzpicture}" insert="\\end{tikzpicture}" dx="17" dy="0" type="1"/>
+	<item description="\\begin{scope}[&lt;options&gt;]" insert="\\begin{scope}\n\n\\end{scope}" dx="0" dy="1" type="0"/>
+	<item description="\\end{scope}" insert="\\end{scope}" dx="11" dy="0" type="1"/>
+	<item description="\\foreach &lt;variable&gt; in {&lt;list&gt;}" insert="\\foreach  in {}" dx="9" dy="0" type="1"/>
+	<item name="\foreach with iteration" description="\\foreach \\x in {&lt;first&gt;,&lt;first+step&gt;,...,&lt;last&gt;}" insert="\\foreach \\x in {,,...,}" dx="16" dy="0" type="1"/>
+	<item name="\foreach with custom text" description="\\foreach \\x/\\xtext in {&lt;value1&gt;/&lt;text1&gt;,&lt;value2&gt;/&lt;text2&gt;}" insert="\\foreach \\x/\\xtext in {/,/}" dx="23" dy="0" type="1"/>
+	<item description="\\breakforeach" insert="\\breakforeach" dx="13" dy="0" type="1"/>
+	<item description="\\ifnum" insert="\\ifnum" dx="7" dy="0" type="1"/>
+	<item description="\\matrix" insert="\\matrix" dx="8" dy="0" type="1"/>
+	<section title="&amp;Draw">
+		<item description="\\&amp;draw" insert="\\draw ;" dx="6" dy="0" type="1"/>
+		<item description="\\&amp;fill[&lt;color&gt;]" insert="\\fill ;" dx="6" dy="0" type="1"/>
+		<item description="\\&amp;filldraw[fill=&lt;color&gt;, draw=&lt;color&gt;]" insert="\\filldraw[fill=, draw=] ;" dx="15" dy="0" type="1"/>
+		<item description="\\pa&amp;ttern" insert="\\pattern ;" dx="9" dy="0" type="1"/>
+		<item description="\\&amp;shade" insert="\\shade ;" dx="7" dy="0" type="1"/>
+		<item description="\\&amp;shadedraw" insert="\\shadedraw ;" dx="11" dy="0" type="1"/>
+		<item description="\\&amp;clip" insert="\\clip ;" dx="6" dy="0" type="1"/>
+		<item description="\\&amp;path" insert="\\path ;" dx="6" dy="0" type="1"/>
+		<item name="Specify &amp;coordinate" description="\\coordinate (&lt;name&gt;) at (&lt;x&gt;,&lt;y&gt;)" insert="\\coordinate () at (,);" dx="13" dy="0" type="1"/>
+		<item name="&amp;Node" description="\\node (&lt;name&gt;) at (&lt;x&gt;,&lt;y&gt;) {&lt;text&gt;}" insert="\\node () at (,) {};" dx="7" dy="0" type="1"/>
+		<item description="\\useas&amp;boundingbox" insert="\\useasboundingbox ;" dx="18" dy="0" type="1"/>
+		<item name="&amp;Clip and draw the clipping contours" insert="\\clip[draw] ;" dx="12" dy="0" type="1"/>
+		<separator/>
+		<item name="Draw &amp;line between two points" insert="\\draw (,) -- (,);" dx="7" dy="0" type="0"/>
+		<item name="Draw p&amp;olygon" insert="\\draw (,) -- (,) -- (,) -- cycle;" dx="7" dy="0" type="0"/>
+		<item name="&amp;Clip rectangle" insert="\\clip (,) rectangle (,);" dx="7" dy="0" type="0"/>
+	</section>
+	<section title="Draw &amp;to Next Point">
+		<item name="&amp;Move to point" description="&lt;end point&gt;" insert=" (,)" dx="2" dy="0" type="0"/>
+		<item name="&amp;Move to relative point" description="+&lt;end point&gt;" insert=" +(,)" dx="3" dy="0" type="0"/>
+		<item name="&amp;Move to relative point" description="++&lt;end point&gt;" insert=" ++(,)" dx="4" dy="0" type="0"/>
+		<item name="&amp;Line to" description="-- &lt;end point&gt;" insert=" -- (,)" dx="5" dy="0" type="2"/>
+		<item name="&amp;Line to relative point" description="-- +&lt;end point&gt;" insert=" -- +(,)" dx="6" dy="0" type="2"/>
+		<item name="&amp;Line to relative point" description="-- ++&lt;end point&gt;" insert=" -- ++(,)" dx="7" dy="0" type="2"/>
+		<item name="&amp;Line to node" description="-- (&lt;label&gt;)" insert=" -- ()" dx="5" dy="0" type="0"/>
+		<item name="&amp;Line to node with anchor" description="-- (&lt;label&gt;.&lt;north/south/...&gt;) " insert=" -- (.)" dx="5" dy="0" type="0"/>
+		<item name="C&amp;urve to" description=".. controls &lt;ctrl1&gt; and &lt;ctrl2&gt; .. &lt;end point&gt;" insert=" .. controls (,) and (,) .. (,)" dx="14" dy="0" type="2"/>
+		<item name="C&amp;ycle" description="-- cycle" insert=" -- cycle" dx="9" dy="0" type="2"/>
+		<item name="&amp;To" description="to &lt;end point&gt;" insert=" to (,)" dx="5" dy="0" type="2"/>
+		<item name="&amp;Node" description="node {&lt;text&gt;}" insert="node {} " dx="6" dy="0" type="2"/>
+		<item name="&amp;Node" description="node [&lt;options&gt;] (&lt;label&gt;) {&lt;text&gt;}" insert="node[] () {} " dx="5" dy="0" type="2"/>
+		<section title="&amp;Specifying Coordinates">
+			<item name="&amp;Absolute point" description="(&lt;xcoord&gt;,&lt;ycoord&gt;)" insert="(,)" dx="1" dy="0" type="0"/>
+			<item name="Point &amp;relative to initial position" description="+(&lt;xcoord&gt;,&lt;ycoord&gt;)" insert="+(,)" dx="2" dy="0" type="0"/>
+			<item name="Point &amp;relative to previous position" description="++(&lt;xcoord&gt;,&lt;ycoord&gt;)" insert="++(,)" dx="3" dy="0" type="0"/>
+			<item name="&amp;Polar coordinates" description="(&lt;degree&gt;:&lt;radius&gt;)" insert="(:)" dx="1" dy="0" type="0"/>
+			<item name="&amp;Intersection of two lines" description="(intersection of &lt;x1&gt;,&lt;y1&gt;--&lt;x2&gt;,&lt;y2&gt; and &lt;x3&gt;,&lt;y3&gt;--&lt;x4&gt;,&lt;y4&gt;)" insert="(intersection of ,--, and ,--,)" dx="17" dy="0" type="0"/>
+		</section>
+		<section title="&amp;Curves">
+			<item name="&amp;Rectangle" description="rectangle &lt;corner&gt;" insert=" rectangle (,)" dx="12" dy="0" type="2"/>
+			<item name="&amp;Circle" description="circle (&lt;radius&gt;)" insert=" circle ()" dx="9" dy="0" type="2"/>
+			<item name="&amp;Ellipse" description="ellipse (&lt;half width&gt; and &lt;half height&gt;)" insert=" ellipse ( and )" dx="10" dy="0" type="2"/>
+			<item name="&amp;Arc" description="arc (&lt;start angle&gt;:&lt;end angle&gt;:&lt;radius&gt; and &lt;half height&gt;)" insert=" arc (::)" dx="6" dy="0" type="2"/>
+			<item name="&amp;Parabola" description="parabola[&lt;options&gt;] bend &lt;bend coord&gt; &lt;end point&gt;" insert=" parabola (,)" dx="11" dy="0" type="2"/>
+			<item name="&amp;Sine curve in [0, pi/2]" description="sin &lt;end point&gt;" insert=" sin (,)" dx="6" dy="0" type="2"/>
+			<item name="&amp;Cosine curve in [0, pi/2]" description="cos &lt;end point&gt;" insert=" cos (,)" dx="6" dy="0" type="2"/>
+			<item name="&amp;Grid" description="grid &lt;end point&gt;" insert=" grid (,)" dx="7" dy="0" type="2"/>
+		</section>
+	</section>
+	<section title="&amp;Arrows">
+		<item insert="-&gt;" dx="2" dy="0" type="3"/>
+		<item insert="-&gt;&gt;" dx="3" dy="0" type="3"/>
+		<item insert="-&gt;|" dx="3" dy="0" type="3"/>
+		<item insert="-to" dx="3" dy="0" type="3"/>
+		<item insert="-latex" dx="6" dy="0" type="3"/>
+		<item insert="-stealth" dx="8" dy="0" type="3"/>
+		<separator/>
+		<item insert="&lt;-" dx="2" dy="0" type="3"/>
+		<item insert="&lt;&lt;-" dx="3" dy="0" type="3"/>
+		<item insert="|&lt;-" dx="3" dy="0" type="3"/>
+		<item insert="to-" dx="3" dy="0" type="3"/>
+		<item insert="latex-" dx="6" dy="0" type="3"/>
+		<item insert="stealth-" dx="8" dy="0" type="3"/>
+		<separator/>
+		<item insert="&lt;-&gt;" dx="3" dy="0" type="3"/>
+		<item insert="&lt;&lt;-&gt;&gt;" dx="5" dy="0" type="3"/>
+		<item insert="|&lt;-&gt;|" dx="5" dy="0" type="3"/>
+		<item insert="to-to" dx="5" dy="0" type="3"/>
+		<item insert="latex-latex" dx="11" dy="0" type="3"/>
+		<item insert="stealth-stealth" dx="15" dy="0" type="3"/>
+		<separator/>
+		<item description="&gt;=&lt;arrow tip kind&gt;" insert="&gt;=" dx="2" dy="0" type="3"/>
+		<item name="&amp;Shorten start of line" description="shorten &lt;=&lt;dimension&gt;" insert="shorten &lt;=" dx="10" dy="0" type="3"/>
+		<item name="&amp;Shorten end of line" description="shorten &gt;=&lt;dimension&gt;" insert="shorten &gt;=" dx="10" dy="0" type="3"/>
+	</section>
+	<section title="&amp;Options">
+		<item description="&amp;domain=&lt;start&gt;:&lt;end&gt;" insert="domain=:" dx="7" dy="0" type="3"/>
+		<item description="x=&lt;dimension&gt;" insert="x=" dx="2" dy="0" type="3"/>
+		<item description="y=&lt;dimension&gt;" insert="y=" dx="2" dy="0" type="3"/>
+		<item description="c&amp;olor=&lt;color name&gt;" insert="color=" dx="6" dy="0" type="3"/>
+		<item description="&amp;draw" insert="draw" dx="4" dy="0" type="3"/>
+		<item description="&amp;fill" insert="fill=" dx="5" dy="0" type="3"/>
+		<item description="&amp;opacity=&lt;degree&gt;" insert="opacity=" dx="8" dy="0" type="3"/>
+		<item description="&amp;draw opacity=&lt;value&gt;" insert="draw opacity=" dx="13" dy="0" type="3"/>
+		<item description="&amp;fill opacity=&lt;value&gt;" insert="fill opacity=" dx="13" dy="0" type="3"/>
+		<item description="&amp;text opacity=&lt;value&gt;" insert="text opacity=" dx="13" dy="0" type="3"/>
+		<item description="st&amp;yle" insert="style=" dx="6" dy="0" type="3"/>
+		<item description="an&amp;gle=&lt;degree&gt;" insert="angle=" dx="6" dy="0" type="3"/>
+		<item description="&amp;rotate=&lt;degree&gt;" insert="rotate=" dx="7" dy="0" type="3"/>
+		<item description="rounded &amp;corners" insert="rounded corners" dx="15" dy="0" type="3"/>
+		<item description="rounded &amp;corners=&lt;inset&gt;" insert="rounded corners=" dx="16" dy="0" type="3"/>
+		<item description="sharp &amp;corners" insert="sharp corners" dx="13" dy="0" type="3"/>
+		<item description="Define c&amp;olor" description="\\colorlet{&lt;name&gt;}{&lt;value&gt;}" insert="\colorlet{}{}" dx="10" dy="0" type="1"/>
+		<item description="Define st&amp;yle" description="\\tikzstyle{&lt;name&gt;}=[&lt;options&gt;]" insert="\\tikzstyle{}=[]" dx="11" dy="0" type="1"/>
+		<item description="Add to st&amp;yle" description="\\tikzstyle{&lt;name&gt;}+=[&lt;options&gt;]" insert="\\tikzstyle{}+=[]" dx="11" dy="0" type="1"/>
+		<item name="Define style for &amp;every path" description="\\tikzstyle{every path}=[&lt;options&gt;]" insert="\\tikzstyle{every path}=[]" dx="24" dy="0" type="0"/>
+		<section title="&amp;Node Options">
+			<item description="&amp;anchor=&lt;north/south/...&gt;" insert="anchor=" dx="7" dy="0" type="3"/>
+			<separator/>
+			<item description="&amp;left" insert="left" dx="4" dy="0" type="3"/>
+			<item description="&amp;right" insert="right" dx="5" dy="0" type="3"/>
+			<item description="&amp;below" insert="below" dx="5" dy="0" type="3"/>
+			<item description="&amp;below left" insert="below left" dx="10" dy="0" type="3"/>
+			<item description="&amp;below right" insert="below right" dx="11" dy="0" type="3"/>
+			<item description="&amp;above" insert="above" dx="5" dy="0" type="3"/>
+			<item description="&amp;above left" insert="above left" dx="10" dy="0" type="3"/>
+			<item description="&amp;above right" insert="above right" dx="11" dy="0" type="3"/>
+			<separator/>
+			<item description="&amp;left=&lt;dimension&gt;" insert="left=" dx="5" dy="0" type="3"/>
+			<item description="&amp;right=&lt;dimension&gt;" insert="right=" dx="6" dy="0" type="3"/>
+			<item description="&amp;below=&lt;dimension&gt;" insert="below=" dx="6" dy="0" type="3"/>
+			<item description="&amp;below left=&lt;dimension&gt;" insert="below left=" dx="11" dy="0" type="3"/>
+			<item description="&amp;below right=&lt;dimension&gt;" insert="below right=" dx="12" dy="0" type="3"/>
+			<item description="&amp;above=&lt;dimension&gt;" insert="above=" dx="6" dy="0" type="3"/>
+			<item description="&amp;above left=&lt;dimension&gt;" insert="above left=" dx="11" dy="0" type="3"/>
+			<item description="&amp;above right=&lt;dimension&gt;" insert="above right=" dx="12" dy="0" type="3"/>
+			<separator/>
+			<item name="Set node at &amp;start of path" description="at start" insert="at start" dx="8" dy="0" type="3"/>
+			<item name="Set node very near &amp;start of path" description="very near start" insert="very near start" dx="15" dy="0" type="3"/>
+			<item name="Set node near &amp;start of path" description="near start" insert="near start" dx="10" dy="0" type="3"/>
+			<item name="Set node &amp;midway path" description="midway" insert="midway" dx="6" dy="0" type="3"/>
+			<item name="Set node near &amp;end of path" description="near end" insert="near end" dx="8" dy="0" type="3"/>
+			<item name="Set node very near &amp;end of path" description="very near end" insert="very near end" dx="13" dy="0" type="3"/>
+			<item name="Set node at &amp;end of path" description="at end" insert="at end" dx="6" dy="0" type="3"/>
+			<item name="Set relative &amp;position of node on path" description="pos=&lt;fraction&gt;" insert="pos=" dx="4" dy="0" type="3"/>
+			<separator/>
+			<item name="Set &amp;text width in node" description="text width=&lt;dimension&gt;" insert="text width=" dx="11" dy="0" type="3"/>
+			<item name="Set &amp;text in node justified" description="text justified" insert="text justified" dx="14" dy="0" type="3"/>
+			<item name="Align &amp;text in node to the left" description="text ragged" insert="text ragged" dx="11" dy="0" type="3"/>
+			<item name="Align &amp;text to the left without hyphenation" description="text badly ragged" insert="text badly ragged" dx="17" dy="0" type="3"/>
+			<item name="Center &amp;text in node" description="text centered" insert="text centered" dx="13" dy="0" type="3"/>
+			<item name="Center &amp;text without hyphenation" description="text badly centered" insert="text badly centered" dx="19" dy="0" type="3"/>
+			<item name="Set &amp;text height in node" description="text heigth=&lt;dimension&gt;" insert="text height=" dx="12" dy="0" type="3"/>
+			<item name="Set &amp;text depth in node" description="text depth=&lt;dimension&gt;" insert="text depth=" dx="11" dy="0" type="3"/>
+			<item name="Set &amp;separation between text and node shape" description="inner sep=&lt;dimension&gt;" insert="inner sep=" dx="10" dy="0" type="3"/>
+			<item name="Set &amp;separation outside node shape" description="outer sep=&lt;dimension&gt;" insert="outer sep=" dx="10" dy="0" type="3"/>
+			<item name="Set minimum &amp;height of node" description="minimum height=&lt;dimension&gt;" insert="minimum height=" dx="15" dy="0" type="3"/>
+			<item name="Set minimum &amp;width of node" description="minimum width=&lt;dimension&gt;" insert="minimum width=" dx="14" dy="0" type="3"/>
+			<separator/>
+			<item name="Set node &amp;sloped in the direction of path" description="sloped" insert="sloped" dx="6" dy="0" type="3"/>
+			<item name="Set &amp;shape of node" description="shape=&lt;rectangle/circle/coordinate&gt;" insert="shape=" dx="6" dy="0" type="3"/>
+			<item name="&amp;Define style for every node" description="\\tikzstyle{every node}=[&lt;options&gt;]" insert="\\tikzstyle{every node}=[]" dx="24" dy="0" type="0"/>
+			<item name="&amp;Define style for every &lt;shape&gt; node" description="\\tikzstyle{every &lt;rectangle/circle/...&gt; node}=[&lt;options&gt;]" insert="\\tikzstyle{every  node}=[]" dx="17" dy="0" type="0"/>
+		</section>
+		<section title="&amp;Line Options">
+			<item description="&amp;line width=&lt;dimension&gt;" insert="line width=" dx="11" dy="0" type="3"/>
+			<item description="&amp;ultra thin" insert="ultra thin" dx="10" dy="0" type="3"/>
+			<item description="&amp;very thin" insert="very thin" dx="9" dy="0" type="3"/>
+			<item description="&amp;thin" insert="thin" dx="4" dy="0" type="3"/>
+			<item description="&amp;semi thick" insert="semi thick" dx="10" dy="0" type="3"/>
+			<item description="&amp;thick" insert="thick" dx="5" dy="0" type="3"/>
+			<item description="&amp;very thick" insert="very thick" dx="10" dy="0" type="3"/>
+			<item description="&amp;ultra thick" insert="ultra thick" dx="11" dy="0" type="3"/>
+			<item description="&amp;cap=&lt;round/rect/butt&gt;" insert="cap=" dx="4" dy="0" type="3"/>
+			<item description="&amp;join=&lt;round/bevel/miter&gt;" insert="join=" dx="5" dy="0" type="3"/>
+			<item name="Maximal length of &amp;miter join" description="miter limit=&lt;factor&gt;" insert="miter limit=" dx="12" dy="0" type="3"/>
+		</section>
+		<section title="&amp;Dash Patterns">
+			<item description="dash &amp;pattern=&lt;dash pattern&gt;" insert="dash pattern=" dx="13" dy="0" type="3"/>
+			<item name="&amp;Equal lines" description="on &lt;dimension&gt; off &lt;dimension&gt;" insert="on  off " dx="3" dy="0" type="0"/>
+			<item name="&amp;Alternating lines" description="on &lt;dim&gt; off &lt;dim&gt; on &lt;dim&gt; off &lt;dim&gt;" insert="on  off  on  off " dx="3" dy="0" type="0"/>
+			<item name="S&amp;hift dash start" description="dash phase=&lt;dash phase&gt;" insert="dash phase=" dx="11" dy="0" type="3"/>
+			<item description="&amp;solid" insert="solid" dx="5" dy="0" type="3"/>
+			<item description="d&amp;otted" insert="dotted" dx="6" dy="0" type="3"/>
+			<item description="densely d&amp;otted" insert="densely dotted" dx="14" dy="0" type="3"/>
+			<item description="loosely d&amp;otted" insert="loosely dotted" dx="14" dy="0" type="3"/>
+			<item description="d&amp;ashed" insert="dashed" dx="6" dy="0" type="3"/>
+			<item description="densely d&amp;ashed" insert="densely dashed" dx="14" dy="0" type="3"/>
+			<item description="loosely d&amp;ashed" insert="loosely dashed" dx="14" dy="0" type="3"/>
+		</section>
+		<section title="&amp;Shade Options">
+			<item description="&amp;draw=&lt;color name&gt;" insert="draw=" dx="5" dy="0" type="3"/>
+			<item description="&amp;top color=&lt;color name&gt;" insert="top color=" dx="10" dy="0" type="3"/>
+			<item description="&amp;bottom color=&lt;color name&gt;" insert="bottom color=" dx="13" dy="0" type="3"/>
+			<item description="&amp;left color=&lt;color name&gt;" insert="left color=" dx="11" dy="0" type="3"/>
+			<item description="&amp;right color=&lt;color name&gt;" insert="right color=" dx="12" dy="0" type="3"/>
+			<item description="&amp;inner color=&lt;color name&gt;" insert="inner color=" dx="12" dy="0" type="3"/>
+			<item description="&amp;outer color=&lt;color name&gt;" insert="outer color=" dx="12" dy="0" type="3"/>
+		</section>
+		<section title="&amp;Snaked Lines Options">
+			<item description="&amp;snake=&lt;zigzag/brace/triangles/coil/expanding waves/bump/saw&gt;" insert="snake=" dx="6" dy="0" type="3"/>
+			<item description="&amp;segment length=&lt;dimension&gt;" insert="segment length=" dx="15" dy="0" type="3"/>
+			<item description="&amp;segment object length=&lt;dimension&gt;" insert="segment object length=" dx="22" dy="0" type="3"/>
+			<item description="segment &amp;aspect=&lt;ratio&gt;" insert="segment aspect=" dx="15" dy="0" type="3"/>
+			<item description="segment &amp;angle=&lt;degrees&gt;" insert="segment angle=" dx="14" dy="0" type="3"/>
+			<item description="segment &amp;amplitude=&lt;dimension&gt;" insert="segment amplitude=" dx="18" dy="0" type="3"/>
+			<item description="&amp;gap before snake=&lt;dimension&gt;" insert="gap before snake=" dx="17" dy="0" type="3"/>
+			<item description="&amp;gap after snake=&lt;dimension&gt;" insert="gap after snake=" dx="16" dy="0" type="3"/>
+			<item description="&amp;gap around snake=&lt;dimension&gt;" insert="gap around snake=" dx="17" dy="0" type="3"/>
+			<item description="&amp;line before snake=&lt;dimension&gt;" insert="line before snake=" dx="18" dy="0" type="3"/>
+			<item description="&amp;line after snake=&lt;dimension&gt;" insert="line after snake=" dx="17" dy="0" type="3"/>
+			<item description="&amp;line around snake=&lt;dimension&gt;" insert="line around snake=" dx="18" dy="0" type="3"/>
+			<item description="&amp;raise snake=&lt;dimension&gt;" insert="raise snake=" dx="13" dy="0" type="3"/>
+			<item description="&amp;mirror snake" insert="mirror snake" dx="14" dy="0" type="3"/>
+			<item description="style=snake &amp;triangles 45" insert="style=snake triangles 45" dx="24" dy="0" type="3"/>
+			<item description="style=snake &amp;triangles 60" insert="style=snake triangles 60" dx="24" dy="0" type="3"/>
+			<item description="style=snake &amp;triangles 90" insert="style=snake triangles 90" dx="24" dy="0" type="3"/>
+		</section>
+	</section>
+	<section title="&amp;Path Options">
+		<section title="&amp;Transformations on Subsequent Objects in Path">
+			<item name="S&amp;hift horizontally" description="xshift=&lt;dimension&gt;" insert="xshift=" dx="7" dy="0" type="3"/>
+			<item name="S&amp;hift vertically" description="yshift=&lt;dimension&gt;" insert="yshift=" dx="7" dy="0" type="3"/>
+			<item name="S&amp;hift to a point" description="shift={(&lt;xcoord&gt;,&lt;ycoord&gt;)}" insert="shift=" dx="6" dy="0" type="3"/>
+			<item name="&amp;Cancel all transformations except shift" description="shift only" insert="shift only" dx="10" dy="0" type="3"/>
+			<item name="&amp;Rotate by angle" description="rotate=&lt;degree&gt;" insert="rotate={(,)}" dx="9" dy="0" type="3"/>
+			<item name="&amp;Rotate around a point" description="rotate around={&lt;angle&gt;:(&lt;xcoord&gt;,&lt;ycoord&gt;)}" insert="rotate around={:(,)}" dx="15" dy="0" type="3"/>
+			<item name="S&amp;cale horizontally" description="xscale=&lt;factor&gt;" insert="xscale=" dx="7" dy="0" type="3"/>
+			<item name="S&amp;cale vertically" description="yscale=&lt;factor&gt;" insert="yshift=" dx="7" dy="0" type="3"/>
+			<item name="S&amp;cale in both directions" description="scale=&lt;factor&gt;" insert="scale=" dx="6" dy="0" type="3"/>
+			<item name="&amp;Flip horizontally" description="xscale=-1" insert="xscale=-1" dx="9" dy="0" type="3"/>
+			<item name="&amp;Flip vertically" description="yscale=-1" insert="yscale=-1" dx="9" dy="0" type="3"/>
+			<item name="&amp;Slant horizontally" description="xslant=&lt;factor&gt;" insert="xslant=" dx="7" dy="0" type="3"/>
+			<item name="&amp;Slant vertically" description="yslant=&lt;factor&gt;" insert="yslant=" dx="7" dy="0" type="3"/>
+			<item name="C&amp;oordinate transformation" description="cm={&lt;a11&gt;,&lt;a12&gt;,&lt;a21&gt;,&lt;a22&gt;,(&lt;x0&gt;,&lt;y0&gt;)}" insert="cm={,,,,(,)}" dx="4" dy="0" type="3"/>
+		</section>
+		<section title="Para&amp;bola Options">
+			<item description="&amp;bend=&lt;coordinate&gt;" insert="bend=" dx="5" dy="0" type="3"/>
+			<item description="bend &amp;pos=&lt;fraction&gt;" insert="bend pos=" dx="9" dy="0" type="3"/>
+			<item description="parabola &amp;height=&lt;dimension&gt;" insert="parabola height=" dx="16" dy="0" type="3"/>
+			<item description="style=bend at &amp;start" insert="style=bend at start" dx="19" dy="0" type="3"/>
+			<item description="style=bend at &amp;end" insert="style=bend at end" dx="17" dy="0" type="3"/>
+			<separator/>
+			<item name="Parabola with specified &amp;width and height" insert=" parabola[bend=0.5] bend +(0,) + (,0)" dx="29" dy="0" type="0"/>
+		</section>
+		<section title="&amp;Grid Options">
+			<item description="&amp;step=&lt;number or dimension or coordinate&gt;" insert="step=" dx="5" dy="0" type="3"/>
+			<item description="&amp;step=(&lt;degree&gt;:&lt;radius&gt;)" insert="step=(:)" dx="6" dy="0" type="3"/>
+			<item description="&amp;xstep=&lt;number or dimension&gt;" insert="xstep=" dx="6" dy="0" type="3"/>
+			<item description="&amp;ystep=&lt;number or dimension&gt;" insert="ystep=" dx="6" dy="0" type="3"/>
+			<item description="style=&amp;help lines" insert="style=help lines" dx="16" dy="0" type="3"/>
+			<separator/>
+			<item name="Draw &quot;subdued&quot; &amp;grid with specified step" insert="\\draw[style=help lines] (,) grid[step=(:)] (,);" dx="25" dy="0" type="0"/>
+		</section>
+		<section title="&amp;To Options">
+			<item description="&amp;out=&lt;degree&gt;" insert="out=" dx="4" dy="0" type="3"/>
+			<item description="&amp;in=&lt;degree&gt;" insert="in=" dx="3" dy="0" type="3"/>
+			<item description="&amp;to path=&lt;path&gt;" insert="to path={}" dx="9" dy="0" type="3"/>
+			<item description="\\tikzto&amp;start" insert="\\tikztostart" dx="12" dy="0" type="1"/>
+			<item description="\\tikztot&amp;arget" insert="\\tikztotarget" dx="13" dy="0" type="1"/>
+			<item description="\\tikzto&amp;nodes" insert="\\tikztonodes" dx="12" dy="0" type="1"/>
+			<item description="executed at &amp;begin=&lt;code&gt;" insert="executed at begin=" dx="18" dy="0" type="3"/>
+			<item description="executed at &amp;end=&lt;code&gt;" insert="executed at end=" dx="16" dy="0" type="3"/>
+			<separator/>
+			<item name="&quot;to&quot; curved with &amp;label" description="to[out=&lt;degree&gt;,in=&lt;degree&gt;] node {&lt;label&gt;} &lt;end point&gt;" insert=" to[out=,in=] node[sloped,above] {} (,)" dx="8" dy="0" type="0"/>
+			<item name="&quot;to&quot; curved with to &amp;path" description="to[to path=&lt;path&gt;] &lt;end point&gt;" insert=" to[to path={.. controls +(,) and (,) .. (\\tikztotarget) \\tikztonodes}] (,)" dx="27" dy="0" type="0"/>
+			<item name="&amp;Define style for every to" description="\\tikzstyle{every to}=[&lt;options&gt;]" insert="\\tikzstyle{every to}=[]" dx="22" dy="0" type="0"/>
+		</section>
+	</section>
+</tikzcommands>

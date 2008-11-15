@@ -1,0 +1,108 @@
+/***************************************************************************
+ *   Copyright (C) 2008 by Glad Deschrijver                                *
+ *   Glad.Deschrijver@UGent.be                                             *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
+
+#ifndef TIKZEDITORVIEW_H
+#define TIKZEDITORVIEW_H
+
+#include <QWidget>
+//#include "tikzcommandinserter.h"
+
+class QAction;
+class QCompleter;
+class QMenu;
+//class QSyntaxHighlighter;
+class QTextEdit;
+class QToolBar;
+class GoToLineWidget;
+class ReplaceWidget;
+class TemplateWidget;
+class TikzEditor;
+//class TikzHighlighter;
+
+class TikzEditorView:public QWidget
+{
+	Q_OBJECT
+
+public:
+	TikzEditorView(QWidget *parent = 0);
+	virtual ~TikzEditorView();
+	void setTemplateFile(const QString &fileName);
+	void setReplaceText(const QString &replace);
+	QString templateFile() const;
+	QTextEdit *editor();
+	QMenu *createMenu();
+	QToolBar *createToolBar();
+	void applySettings();
+	void setLine(const QString &line);
+	void setCompleter (QCompleter *completer);
+
+public slots:
+	void goToLine(int lineNumber);
+
+signals:
+	void modificationChanged(bool changed);
+	void contentsChanged();
+	void cursorPositionChanged(int row, int col);
+	void templateFileChanged(const QString &fileName);
+	void setSearchFromBegin(bool searchFromBegin);
+
+private slots:
+	void setPasteEnabled();
+	void showCursorPosition();
+	void editGoToLine();
+	void editIndent();
+	void editComment();
+	void editUncomment();
+	void editFind();
+	void editFindNext();
+	void editFindPrevious();
+	void editReplace();
+	bool search(const QString &text, bool isCaseSensitive = false, bool findWholeWords = false, bool forward = true, bool startAtCursor = true);
+	void replace(const QString &replacement);
+	void replace(const QString &text, const QString &replacement, bool isCaseSensitive = false, bool findWholeWords = false, bool forward = true, bool startAtCursor = true);
+	void replaceAll(const QString &text, const QString &replacement, bool isCaseSensitive = false, bool findWholeWords = false, bool forward = true, bool startAtCursor = true);
+
+private:
+	void setFont(const QFont &editorFont);
+	void createActions();
+	void setLine(int lineNumber);
+
+	QWidget *m_parentWidget;
+	TemplateWidget *m_templateWidget;
+	TikzEditor *m_tikzEditor;
+	ReplaceWidget *m_replaceWidget;
+	GoToLineWidget *m_goToLineWidget;
+
+//	TikzHighlighter *tikzHighlighter;
+
+//	TikzCommandInserter *commandInserter;
+
+	QAction *m_undoAction;
+	QAction *m_redoAction;
+	QAction *m_cutAction;
+	QAction *m_copyAction;
+	QAction *m_pasteAction;
+	QAction *m_selectAllAction;
+	QList<QAction*> m_editActions;
+
+//	int customHighlighting;
+};
+
+#endif

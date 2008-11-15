@@ -1,0 +1,18 @@
+ktikz (0.7) hardy; urgency=low
+
+  * Upgraded to release 0.7
+
+ -- Florian Hackenberger <florian@hackenberger.at>  Sat, 15 Nov 2008 14:47:54 +0100
+
+ktikz (0.6-1) unstable; urgency=low
+
+  * Updated source version to 0.6
+
+ -- Florian Hackenberger <fhackenberger@hackenberger.at>  Sun, 23 Mar 2008 09:19:36 +0100
+
+ktikz (0.4-1) unstable; urgency=low
+
+  * Initial release of the debian package for ktikz
+
+ -- Florian Hackenberger <florian@hackenberger.at>  Tue, 11 Sep 2007 15:32:17 +0200
+

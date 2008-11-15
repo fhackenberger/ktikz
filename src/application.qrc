@@ -1,0 +1,46 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+	<file>tikzcommands.xml</file>
+	<file>images/ktikz-22.png</file>
+	<file>images/ktikz-128.png</file>
+	<!-- File menu -->
+	<file>images/document-new.png</file>
+	<file>images/document-open.png</file>
+	<file>images/document-open-recent.png</file>
+	<file>images/document-save.png</file>
+	<file>images/document-save-as.png</file>
+	<file>images/document-export.png</file>
+	<file>images/application-exit.png</file>
+	<!-- Edit menu -->
+	<file>images/edit-undo.png</file>
+	<file>images/edit-redo.png</file>
+	<file>images/edit-copy.png</file>
+	<file>images/edit-cut.png</file>
+	<file>images/edit-paste.png</file>
+	<file>images/format-indent-more.png</file>
+	<file>images/edit-find.png</file>
+	<file>images/go-up.png</file>
+	<file>images/go-down.png</file>
+	<file>images/window-close.png</file>
+	<file>images/go-jump.png</file>
+	<!-- Export -->
+	<file>images/image-x-eps.png</file>
+	<file>images/application-pdf.png</file>
+	<file>images/image-png.png</file>
+	<!-- View -->
+	<file>images/zoom-in.png</file>
+	<file>images/zoom-out.png</file>
+	<file>images/go-previous.png</file>
+	<file>images/go-next.png</file>
+	<file>images/process-stop.png</file>
+	<file>images/run-build.png</file>
+	<file>images/application-x-executable.png</file>
+	<!-- Configure -->
+	<file>images/configure-toolbars.png</file>
+	<file>images/configure.png</file>
+	<!-- Help -->
+	<file>images/help-contents.png</file>
+	<file>images/help-contextual.png</file>
+	<file>images/qt-logo-22.png</file>
+</qresource>
+</RCC>

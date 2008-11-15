@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+\tikzstyle{level 1}=[sibling distance=25mm]
+\tikzstyle{level 2}=[sibling distance=10mm]
+\node[circle,draw](state){$s$}
+  child {node[circle,fill,text=white,draw](action1){$a_1$}
+    child{node[circle,draw](state11){$s_{11}$}}
+    child{node[circle,draw](state12){$s_{12}$}}
+  }
+  child {node[circle,fill,text=white,draw](action2){$a_2$}
+    child{node[circle,draw](state21){$s_{21}$}}
+    child{node[circle,draw](state22){$s_{22}$}}
+    child{node[circle,draw](state23){$s_{23}$}}
+  }
+  child {node[circle,fill,text=white,draw](action3){$a_3$}
+    child {node[circle,draw](state31){$s_{31}$}}
+    child {node[circle,draw](state32){$s_{32}$}}
+  };
+\path[draw=red] (state) edge [curve to,bend left=3] (action3);
+\path[draw=red] (action3) edge [curve to,bend left=5] node [right] {r} (state32);
+\path[draw=red] (-2.3,1) -- +(1,0) node[right] {$\mathcal{P}^{a_3}_{ss'_1}\left(\mathcal{R}^{a_3}_{ss'_{32}}+\gamma V^\pi (s'_{32})\right)$};
+\end{tikzpicture}

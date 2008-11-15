@@ -1,0 +1,27 @@
+The following Ubuntu packages are required for compilation
+(not counting an ordinary C++ development environment and a
+standard LaTeX environment)
+qt4-dev-tools
+libqt4-dev
+libpoppler-qt-dev
+libpoppler-qt4-dev
+pgf
+preview-latex-style
+
+Edit the paths in conf.pri
+Create the translation files:
+  lrelease src/src.pro
+Run the following commands in the main directory:
+  qmake
+  make
+  make translations (if you want to install the translations)
+  make install
+
+Note that qmake will tell you where the files will be installed. If
+you don't like the installation directories, you can change them in
+the file conf.pri before running make.
+
+Make sure to make the changes in conf.pri before running make and
+make also sure to run "lrelease src.pro" in the src directory or
+alternatively run "make translations" in the main directory, otherwise
+the translation files will not be installed correctly.

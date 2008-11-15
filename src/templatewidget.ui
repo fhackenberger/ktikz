@@ -1,0 +1,65 @@
+<ui version="4.0" >
+ <class>TemplateWidget</class>
+ <widget class="QWidget" name="TemplateWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>45</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Choose Template</string>
+  </property>
+  <layout class="QHBoxLayout" >
+   <item>
+    <widget class="QLabel" name="templateLabel" >
+     <property name="whatsThis" >
+      <string>&lt;p>Give the file name of the template containing the LaTeX code in which the TikZ picture will be included and which will be typesetted to produce the preview image.&lt;br />If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p></string>
+     </property>
+     <property name="text" >
+      <string>&amp;Template:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>templateEdit</cstring>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="templateEdit" >
+     <property name="whatsThis" >
+      <string>&lt;p>Give the file name of the template containing the LaTeX code in which the TikZ picture will be included and which will be typesetted to produce the preview image.&lt;br />If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p></string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QToolButton" name="templateChooseButton" >
+     <property name="whatsThis" >
+      <string>&lt;p>Select the template file.&lt;/p></string>
+     </property>
+     <property name="text" >
+      <string/>
+     </property>
+     <property name="icon" >
+      <iconset resource="application.qrc" >:/images/document-open.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="templateEditButton" >
+     <property name="whatsThis" >
+      <string>&lt;p>Edit this template with an external editor specified in the "Configure" dialog.&lt;/p></string>
+     </property>
+     <property name="text" >
+      <string>Edit</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="application.qrc" />
+ </resources>
+ <connections/>
+</ui>
