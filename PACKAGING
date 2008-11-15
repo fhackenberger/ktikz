@@ -1,0 +1,27 @@
+The Ubuntu/debian package infrastructure can be found in ./debian
+In order to compile a releasable package, you need a pbuilder
+environment. Please follow the Ubuntu packaging guide:
+https://wiki.ubuntu.com/PackagingGuide/Complete#The Personal Builder: pbuilder
+
+A debian package is created in two steps. The first step is to create
+a source package which describes all changes relative to the release
+tarball. Create a release tarball using:
+make package
+
+Untar this release tarball to /tmp and copy the debian directory
+cp ktikz-VERSION.tar.gz /tmp
+tar --directory /tmp -xf ktikz-VERSION.tar.gz
+cp -aR debian /tmp/ktikz-VERSION/
+cd /tmp/ktikz-VERSION
+
+The next step is to create the source package
+cd /tmp/ktikz-VERSION
+debuild -S
+
+Now you should have a .dsc file in /tmp. The next step is to compile
+the binary package using pbuilder:
+cd /tmp
+pbuilder --build ktikz_VERSION.dsc
+
+If the build finished successfully you should have the result in
+/var/cache/pbuilder/result/ktikz_VERSION_ARCH.deb
