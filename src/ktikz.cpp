@@ -137,7 +137,10 @@ ktikz::~ktikz()
 void ktikz::closeEvent(QCloseEvent *event)
 {
 	if (maybeSave())
+	{
+		QApplication::restoreOverrideCursor();
 		event->accept();
+	}
 	else
 		event->ignore();
 }
@@ -168,7 +171,8 @@ void ktikz::open()
 		QFileInfo lastFileInfo(m_lastDocument);
 		lastDir = lastFileInfo.absolutePath();
 	}
-	QString fileName = QFileDialog::getOpenFileName(this, tr("Open PGF source file"), lastDir);
+	QString filter = QString("%1 (*.pgf *.tikz *.tex);;%2 (*.*)").arg(tr("PGF files")).arg(tr("All files"));
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Open PGF source file"), lastDir, filter);
 	if (!fileName.isEmpty())
 		loadFile(fileName);
 }
@@ -187,7 +191,7 @@ bool ktikz::saveAs()
 	if (!m_lastDocument.isEmpty())
 	{
 		QFileInfo lastFileInfo(m_lastDocument);
-		lastDir = lastFileInfo.absoluteFilePath();
+		lastDir = (m_currentFile.isEmpty()) ? lastFileInfo.absolutePath() : lastFileInfo.absoluteFilePath();
 	}
 	QString fileName = QFileDialog::getSaveFileName(this, tr("Save PGF source file"), lastDir);
 	if (fileName.isEmpty())
@@ -209,7 +213,7 @@ bool ktikz::exportImage()
 		QFileInfo lastFileInfo(m_lastDocument);
 		lastDir = lastFileInfo.absolutePath() + "/" + lastFileInfo.completeBaseName() + "." + action->data().toString();
 	}
-	QString filter = QString("%1 (*." + action->data().toString() + ");;%2 (*.*)").arg(action->text()).arg(tr("All files"));
+	QString filter = QString("%1 (*." + action->data().toString() + ");;%2 (*.*)").arg(action->text().remove('&')).arg(tr("All files"));
 	QString fileName = QFileDialog::getSaveFileName(this, tr("Export image"), lastDir, filter);
 	if (!fileName.isEmpty())
 	{
@@ -265,6 +269,11 @@ void ktikz::about()
 void ktikz::setDocumentModified(bool isModified)
 {
 	setWindowModified(isModified);
+	m_saveAction->setEnabled(isModified);
+	if (m_currentFile.isEmpty() && !isModified)
+		m_saveAsAction->setEnabled(false);
+	else
+		m_saveAsAction->setEnabled(true);
 }
 
 void ktikz::logUpdated()
@@ -465,6 +474,7 @@ void ktikz::createToolBars()
 	m_fileToolBar->addAction(m_newAction);
 	m_fileToolBar->addAction(m_openAction);
 	m_fileToolBar->addAction(m_saveAction);
+	m_fileToolBar->addAction(m_closeAction);
 
 	m_editToolBar = m_tikzEditorView->createToolBar();
 	addToolBar(m_editToolBar);
@@ -481,6 +491,30 @@ void ktikz::createToolBars()
 	m_shellEscapeButton->setDefaultAction(m_shellEscapeAction);
 	m_shellEscapeButton->setCheckable(true);
 	m_runToolBar->addWidget(m_shellEscapeButton);
+
+	setToolBarStyle();
+}
+
+void ktikz::setToolBarStyle()
+{
+	QSettings settings;
+	settings.beginGroup("MainWindow");
+
+	int toolBarStyleNumber = settings.value("ToolBarStyle", 0).toInt();
+	Qt::ToolButtonStyle toolBarStyle = Qt::ToolButtonIconOnly;
+	switch (toolBarStyleNumber)
+	{
+		case 0: toolBarStyle = Qt::ToolButtonIconOnly; break;
+		case 1: toolBarStyle = Qt::ToolButtonTextOnly; break;
+		case 2: toolBarStyle = Qt::ToolButtonTextBesideIcon; break;
+		case 3: toolBarStyle = Qt::ToolButtonTextUnderIcon; break;
+	}
+
+	m_fileToolBar->setToolButtonStyle(toolBarStyle);
+	m_editToolBar->setToolButtonStyle(toolBarStyle);
+	m_viewToolBar->setToolButtonStyle(toolBarStyle);
+	m_runToolBar->setToolButtonStyle(toolBarStyle);
+	m_shellEscapeButton->setToolButtonStyle(toolBarStyle);
 }
 
 void ktikz::createCommandInsertWidget()
@@ -573,12 +607,12 @@ void ktikz::applySettings()
 	m_shellEscapeButton->setChecked(m_useShellEscaping);
 	m_tikzController->setShellEscaping(m_useShellEscaping);
 
+	QString replaceText = settings.value("TemplateReplaceText", "<>").toString();
+	m_tikzEditorView->setReplaceText(replaceText);
+	m_tikzController->setReplaceText(replaceText); // first set replaceText before setting templateFile
 	QString templateFile = settings.value("TemplateFile").toString();
 	m_tikzEditorView->setTemplateFile(templateFile);
 	m_tikzController->setTemplateFile(templateFile);
-	QString replaceText = settings.value("TemplateReplaceText", "<>").toString();
-	m_tikzEditorView->setReplaceText(replaceText);
-	m_tikzController->setReplaceText(replaceText);
 
 	m_tikzEditorView->applySettings();
 
@@ -617,6 +651,7 @@ void ktikz::applySettings()
 	m_tikzHighlighter->rehighlight();
 
 	createRecentFilesList();
+	setToolBarStyle();
 }
 
 void ktikz::readSettings()
@@ -624,9 +659,9 @@ void ktikz::readSettings()
 	QSettings settings;
 	settings.beginGroup("MainWindow");
 //	QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
+//	move(pos);
 	QSize size = settings.value("size", QSize(800, 600)).toSize();
 	resize(size);
-//	move(pos);
 	restoreState(settings.value("MainWindowState").toByteArray());
 	settings.endGroup();
 
@@ -646,6 +681,17 @@ void ktikz::writeSettings()
 //	settings.setValue("pos", pos());
 	settings.setValue("size", size());
 	settings.setValue("MainWindowState", saveState());
+/*
+	int toolBarStyleNumber = 0;
+	switch (m_fileToolBar->toolButtonStyle())
+	{
+		case Qt::ToolButtonIconOnly: toolBarStyleNumber = 0; break;
+		case Qt::ToolButtonTextOnly: toolBarStyleNumber = 1; break;
+		case Qt::ToolButtonTextBesideIcon: toolBarStyleNumber = 2; break;
+		case Qt::ToolButtonTextUnderIcon: toolBarStyleNumber = 3; break;
+	}
+	settings.setValue("ToolBarStyle", toolBarStyleNumber);
+*/
 	settings.endGroup();
 
 	if (m_recentFilesList.size() > 0)
@@ -675,7 +721,7 @@ bool ktikz::maybeSave()
 
 void ktikz::loadFile(const QString &fileName)
 {
-	if (!m_currentFile.isEmpty())
+	if (!m_tikzEditorView->editor()->document()->isEmpty())
 	{
 		ktikz *newMainWindow = new ktikz;
 		newMainWindow->loadFile(fileName);
@@ -791,7 +837,7 @@ void ktikz::setCurrentFile(const QString &fileName)
 {
 	m_currentFile = fileName;
 	m_tikzEditorView->editor()->document()->setModified(false);
-	setWindowModified(false);
+	setDocumentModified(false);
 
 	QString shownName;
 	if (m_currentFile.isEmpty())

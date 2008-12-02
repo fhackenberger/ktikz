@@ -19,7 +19,13 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#ifdef KTIKZ_USE_KDE
+#include <KAboutData>
+#include <KApplication>
+#include <KCmdLineArgs>
+#else
 #include <QApplication>
+#endif
 #include <QDir>
 #include <QFileInfo>
 #include <QLibraryInfo>
@@ -92,7 +98,13 @@ int main(int argc, char *argv[])
 	Q_INIT_RESOURCE(application);
 	qInstallMsgHandler(debugOutput);
 
+#ifdef KTIKZ_USE_KDE
+	KAboutData aboutData("ktikz", 0, ki18n("KTikZ"), APPVERSION);
+	KCmdLineArgs::init(argc, argv, &aboutData);
+	KApplication app;
+#else
 	QApplication app(argc, argv);
+#endif
 	QCoreApplication::setOrganizationName("Florian Hackenberger");
 	QCoreApplication::setApplicationName("TikZ editor");
 

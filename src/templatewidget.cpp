@@ -19,31 +19,60 @@
  ***************************************************************************/
 
 #include <QApplication>
+#include <QComboBox>
 #include <QLineEdit>
 #include <QFileDialog>
 #include <QKeyEvent>
 #include <QProcess>
+#include <QSettings>
+
+#include "lineedit.h"
 #include "templatewidget.h"
 
 TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
+	ui.templateCombo->setLineEdit(new LineEdit(this));
+	ui.templateCombo->setMinimumContentsLength(20);
 
 	connect(ui.templateChooseButton, SIGNAL(clicked()),
 	        this, SLOT(setTemplateFile()));
 	connect(ui.templateEditButton, SIGNAL(clicked()),
 	        this, SLOT(editTemplateFile()));
-	connect(ui.templateEdit, SIGNAL(textChanged(const QString&)),
+	connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(const QString&)),
 	        this, SIGNAL(fileNameChanged(const QString&)));
+
+	readRecentTemplates();
 }
 
 TemplateWidget::~TemplateWidget()
 {
+	saveRecentTemplates();
+}
+
+void TemplateWidget::readRecentTemplates()
+{
+	QSettings settings;
+	ui.templateCombo->setMaxCount(settings.value("TemplateRecentNumber", 5).toInt());
+	ui.templateCombo->addItems(settings.value("TemplateRecent").toStringList());
+}
+
+void TemplateWidget::saveRecentTemplates()
+{
+	QSettings settings;
+	QStringList recentTemplates;
+	for (int i = 0; i < ui.templateCombo->count(); ++i)
+		recentTemplates << ui.templateCombo->itemText(i);
+	settings.setValue("TemplateRecent", recentTemplates);
 }
 
 void TemplateWidget::setFileName(const QString &fileName)
 {
-	ui.templateEdit->setText(fileName);
+	int index = ui.templateCombo->findText(fileName);
+	if (index >= 0) // then remove item in order to re-add it at the top
+		ui.templateCombo->removeItem(index);
+	ui.templateCombo->insertItem(0, fileName);
+	ui.templateCombo->lineEdit()->setText(fileName);
 }
 
 void TemplateWidget::setReplaceText(const QString &replace)
@@ -52,10 +81,19 @@ void TemplateWidget::setReplaceText(const QString &replace)
 	replaceText.replace("&", "&amp;");
 	replaceText.replace("<", "&lt;");
 	replaceText.replace(">", "&gt;");
+	QString templateDescription(tr("<p>The template contains the code "
+	    "of a complete LaTeX document in which the TikZ picture will be "
+	    "included and which will be typesetted to produce the preview "
+	    "image.  The string %1 in the template will be replaced by the "
+	    "TikZ code.</p>").arg(replaceText));
+	ui.templateCombo->setWhatsThis(tr("<p>Give the file name of the LaTeX "
+	    "template.  If this input field is empty or contains an invalid "
+	    "file name, an internal default template will be used.</p>")
+	    + templateDescription);
+	ui.templateLabel->setWhatsThis(ui.templateCombo->whatsThis());
 	ui.templateEditButton->setWhatsThis(tr("<p>Edit this template with "
 	    "an external editor specified in the \"Configure\" dialog.</p>")
-	    + tr("<p>The string %1 in the template will be replaced by the "
-	    "TikZ code.</p>").arg(replaceText));
+	    + templateDescription);
 }
 
 void TemplateWidget::setEditor(const QString &editor)
@@ -65,17 +103,17 @@ void TemplateWidget::setEditor(const QString &editor)
 
 QString TemplateWidget::fileName() const
 {
-	return ui.templateEdit->text();
+	return ui.templateCombo->currentText();
 }
 
 void TemplateWidget::setTemplateFile()
 {
 	const QString fileName = QFileDialog::getOpenFileName(this,
-	    tr("Select a template file"), ui.templateEdit->text(),
+	    tr("Select a template file"), ui.templateCombo->currentText(),
 	    QString("%1 (*.pgs *.tex);;%2 (*.*)")
 	    .arg(tr("KTikZ template files")).arg(tr("All files")));
 	if (!fileName.isEmpty())
-		ui.templateEdit->setText(fileName);
+		setFileName(fileName);
 }
 
 void TemplateWidget::editTemplateFile()
@@ -83,7 +121,7 @@ void TemplateWidget::editTemplateFile()
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
 	QStringList editorArguments;
-	editorArguments << ui.templateEdit->text();
+	editorArguments << ui.templateCombo->currentText();
 
 	QProcess process;
 	process.startDetached(m_editor, editorArguments);
@@ -93,6 +131,8 @@ void TemplateWidget::editTemplateFile()
 
 void TemplateWidget::keyPressEvent(QKeyEvent *event)
 {
+	if (event->key() == Qt::Key_Return)
+		setFileName(ui.templateCombo->currentText());
 	if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Return)
 		emit focusEditor();
 	QWidget::keyPressEvent(event);

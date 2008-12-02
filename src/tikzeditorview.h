@@ -32,11 +32,12 @@ class QTextEdit;
 class QToolBar;
 class GoToLineWidget;
 class ReplaceWidget;
+class ReplaceCurrentWidget;
 class TemplateWidget;
 class TikzEditor;
 //class TikzHighlighter;
 
-class TikzEditorView:public QWidget
+class TikzEditorView : public QWidget
 {
 	Q_OBJECT
 
@@ -88,6 +89,7 @@ private:
 	TemplateWidget *m_templateWidget;
 	TikzEditor *m_tikzEditor;
 	ReplaceWidget *m_replaceWidget;
+	ReplaceCurrentWidget *m_replaceCurrentWidget;
 	GoToLineWidget *m_goToLineWidget;
 
 //	TikzHighlighter *tikzHighlighter;

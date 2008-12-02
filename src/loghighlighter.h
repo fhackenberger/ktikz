@@ -50,8 +50,8 @@ private:
 	};
 	/// All highlighting rules with their formatting for easy iteration
 	QVector<HighlightingRule> m_highlightingRules;
-	/// The regular expression for the statistics output by LaTeX
-	QRegExp m_statisticsStartExpression;
+	/// The start of the statistics output by LaTeX
+	QString m_statisticsStartExpression;
 	/// The highlighting format for LaTeX statistics
 	QTextCharFormat m_statisticsFormat;
 };

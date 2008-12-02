@@ -50,7 +50,7 @@ LogHighlighter::LogHighlighter(QTextDocument *parent)
 
 	m_statisticsFormat.setForeground(Qt::darkGray);
 //	m_statisticsFormat.setFontPointSize(5.0);
-	m_statisticsStartExpression = QRegExp("Here is how much of TeX's memory you used:");
+	m_statisticsStartExpression = "Here is how much of TeX's memory you used:";
 }
 
 LogHighlighter::~LogHighlighter()
@@ -62,13 +62,16 @@ void LogHighlighter::highlightBlock(const QString &text)
 	// Try each highlighting pattern and apply formatting if it matches
 	foreach (HighlightingRule rule, m_highlightingRules)
 	{
-		const QRegExp expression(rule.pattern);
-		int index = text.indexOf(expression);
+//		const QRegExp expression(rule.pattern);
+//		int index = text.indexOf(expression);
+		QRegExp expression(rule.pattern);
+		int index = expression.indexIn(text);
 		while (index >= 0)
 		{
 			int length = expression.matchedLength();
 			setFormat(index, length, rule.format);
-			index = text.indexOf(expression, index + length);
+//			index = text.indexOf(expression, index + length);
+			index = expression.indexIn(text, index + length);
 		}
 	}
 	// The current block state tracks multiline formatting

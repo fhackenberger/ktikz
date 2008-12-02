@@ -21,6 +21,7 @@
 #include <QAction>
 #include <QApplication>
 #include <QCheckBox>
+#include <QComboBox>
 #include <QDialogButtonBox>
 #include <QDir>
 #include <QFileDialog>
@@ -41,6 +42,7 @@
 #include "colorbutton.h"
 #include "configappearancewidget.h"
 #include "configdialog.h"
+#include "lineedit.h"
 
 ConfigDialog::ConfigDialog(QWidget *parent) : QDialog(parent)
 {
@@ -97,6 +99,10 @@ void ConfigDialog::readSettings()
 	m_editorEdit->setText(settings.value("TemplateEditor", "kwrite").toString());
 	m_replaceEdit->setText(settings.value("TemplateReplaceText", "<>").toString());
 
+	settings.beginGroup("MainWindow");
+	m_toolBarStyleCombo->setCurrentIndex(settings.value("ToolBarStyle", 0).toInt());
+	settings.endGroup();
+
 	settings.beginGroup("Editor");
 	const QString textFontString = settings.value("Font", qApp->font().toString()).toString();
 	m_textFont.fromString(textFontString);
@@ -133,6 +139,10 @@ void ConfigDialog::writeSettings()
 	settings.setValue("PdftopsCommand", m_pdftopsCommand);
 	settings.setValue("TemplateEditor", m_editorEdit->text());
 	settings.setValue("TemplateReplaceText", m_replaceEdit->text());
+
+	settings.beginGroup("MainWindow");
+	settings.setValue("ToolBarStyle", m_toolBarStyleCombo->currentIndex());
+	settings.endGroup();
 
 	settings.beginGroup("Editor");
 	settings.setValue("Font", m_textFont.toString());
@@ -238,9 +248,29 @@ QWidget *ConfigDialog::generalPage()
 	QWidget *commandsInDockWidget = new QWidget;
 	commandsInDockWidget->setLayout(commandsInDockLayout);
 
+	QLabel *toolBarStyleLabel = new QLabel(tr("&Toolbar style:"));
+	m_toolBarStyleCombo = new QComboBox();
+	const QString toolBarStyleWhatsThis = "<p>" + tr("Select the style in "
+	    "which the toolbar will be displayed.") + "</p>";
+	toolBarStyleLabel->setWhatsThis(toolBarStyleWhatsThis);
+	toolBarStyleLabel->setBuddy(m_toolBarStyleCombo);
+	m_toolBarStyleCombo->setWhatsThis(toolBarStyleWhatsThis);
+	m_toolBarStyleCombo->addItem(tr("Icons only"));
+	m_toolBarStyleCombo->addItem(tr("Text only"));
+	m_toolBarStyleCombo->addItem(tr("Text alongside icons"));
+	m_toolBarStyleCombo->addItem(tr("Text under icons"));
+	QWidget *toolBarStyleBox = new QWidget;
+	QHBoxLayout *toolBarStyleLayout = new QHBoxLayout;
+	toolBarStyleLayout->addWidget(toolBarStyleLabel);
+	toolBarStyleLayout->addWidget(m_toolBarStyleCombo);
+	toolBarStyleLayout->addStretch();
+	toolBarStyleLayout->setMargin(0);
+	toolBarStyleBox->setLayout(toolBarStyleLayout);
+
 	QVBoxLayout *interfaceLayout = new QVBoxLayout;
 	interfaceLayout->addWidget(historyLengthBox);
 	interfaceLayout->addWidget(commandsInDockWidget);
+	interfaceLayout->addWidget(toolBarStyleBox);
 	QGroupBox *interfaceBox = new QGroupBox(tr("Interface"));
 	interfaceBox->setLayout(interfaceLayout);
 
@@ -261,7 +291,7 @@ QWidget *ConfigDialog::typesettingPage()
 	// Commands
 	const QString latexWhatsThis = "<p>" + tr("Enter the path to the LaTeX executable here.") + "</p>";
 	QLabel *latexLabel = new QLabel(tr("&LaTeX command:"));
-	m_latexEdit = new QLineEdit;
+	m_latexEdit = new LineEdit;
 	m_latexEdit->setWhatsThis(latexWhatsThis);
 	latexLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	latexLabel->setWhatsThis(latexWhatsThis);
@@ -275,7 +305,7 @@ QWidget *ConfigDialog::typesettingPage()
 
 	const QString pdftopsWhatsThis = "<p>" + tr("Enter the path to the pdftops executable here.") + "</p>";
 	QLabel *pdftopsLabel = new QLabel(tr("&Pdftops command:"));
-	m_pdftopsEdit = new QLineEdit;
+	m_pdftopsEdit = new LineEdit;
 	m_pdftopsEdit->setWhatsThis(pdftopsWhatsThis);
 	pdftopsLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	pdftopsLabel->setWhatsThis(pdftopsWhatsThis);
@@ -300,7 +330,7 @@ QWidget *ConfigDialog::typesettingPage()
 	// Templates
 	const QString replaceWhatsThis = "<p>" + tr("Enter the text which will be replaced by the TikZ code in the template here.") + "</p>";
 	QLabel *replaceLabel = new QLabel(tr("&Replace text:"));
-	m_replaceEdit = new QLineEdit;
+	m_replaceEdit = new LineEdit;
 	m_replaceEdit->setWhatsThis(replaceWhatsThis);
 	replaceLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	replaceLabel->setWhatsThis(replaceWhatsThis);
@@ -308,7 +338,7 @@ QWidget *ConfigDialog::typesettingPage()
 
 	const QString editorWhatsThis = "<p>" + tr("Enter the path to the executable of the text editor for the template here.") + "</p>";
 	QLabel *editorLabel = new QLabel(tr("&Editor command:"));
-	m_editorEdit = new QLineEdit;
+	m_editorEdit = new LineEdit;
 	m_editorEdit->setWhatsThis(editorWhatsThis);
 	editorLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	editorLabel->setWhatsThis(editorWhatsThis);

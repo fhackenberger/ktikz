@@ -30,6 +30,7 @@
 #include "editgotolinewidget.h"
 #include "editindentdialog.h"
 #include "editreplacewidget.h"
+#include "editreplacecurrentwidget.h"
 #include "templatewidget.h"
 #include "tikzeditor.h"
 //#include "tikzeditorhighlighter.h"
@@ -54,6 +55,8 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 
 	m_replaceWidget = new ReplaceWidget(this);
 	m_replaceWidget->setVisible(false);
+	m_replaceCurrentWidget = new ReplaceCurrentWidget(this);
+	m_replaceCurrentWidget->setVisible(false);
 
 	m_goToLineWidget = new GoToLineWidget(this);
 	m_goToLineWidget->setVisible(false);
@@ -68,6 +71,7 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	mainLayout->addWidget(m_templateWidget);
 	mainLayout->addWidget(m_tikzEditor);
 	mainLayout->addWidget(m_replaceWidget);
+	mainLayout->addWidget(m_replaceCurrentWidget);
 	mainLayout->addWidget(m_goToLineWidget);
 
 	createActions();
@@ -88,6 +92,16 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	        this, SLOT(replace(QString, QString, bool, bool, bool)));
 	connect(m_replaceWidget, SIGNAL(focusEditor()),
 	        m_tikzEditor, SLOT(setFocus()));
+	connect(m_replaceCurrentWidget, SIGNAL(showReplaceWidget()),
+	        m_replaceWidget, SLOT(show()));
+	connect(m_replaceCurrentWidget, SIGNAL(search(QString, bool, bool, bool, bool)),
+	        this, SLOT(search(QString, bool, bool, bool, bool)));
+	connect(m_replaceCurrentWidget, SIGNAL(replace(QString)),
+	        this, SLOT(replace(QString)));
+	connect(m_replaceCurrentWidget, SIGNAL(replaceAll(QString, QString, bool, bool, bool, bool)),
+	        this, SLOT(replaceAll(QString, QString, bool, bool, bool, bool)));
+	connect(m_replaceCurrentWidget, SIGNAL(setSearchFromBegin(bool)),
+	        this, SIGNAL(setSearchFromBegin(bool)));
 	connect(m_goToLineWidget, SIGNAL(goToLine(int)),
 	        this, SLOT(goToLine(int)));
 }
@@ -105,9 +119,6 @@ QTextEdit *TikzEditorView::editor()
 void TikzEditorView::setFont(const QFont &editorFont)
 {
 	m_tikzEditor->setFont(editorFont);
-//	m_tikzEditor->setFontPointSize(editorFont.pointSizeF()); // doesn't work, so do it the hard way:
-	const QStringList fontAttributes = editorFont.toString().split(",");
-	m_tikzEditor->setFontPointSize(fontAttributes.at(1).toInt());
 	m_tikzEditor->setTabStopWidth(m_tikzEditor->fontMetrics().width("    "));
 }
 
@@ -259,9 +270,9 @@ QToolBar *TikzEditorView::createToolBar()
 	editToolBar->setObjectName("EditToolBar");
 	editToolBar->addAction(m_undoAction);
 	editToolBar->addAction(m_redoAction);
-	editToolBar->addAction(m_cutAction);
-	editToolBar->addAction(m_copyAction);
-	editToolBar->addAction(m_pasteAction);
+//	editToolBar->addAction(m_cutAction);
+//	editToolBar->addAction(m_copyAction);
+//	editToolBar->addAction(m_pasteAction);
 	return editToolBar;
 }
 
@@ -277,7 +288,9 @@ void TikzEditorView::applySettings()
 	m_templateWidget->setEditor(settings.value("TemplateEditor", "kwrite").toString());
 
 	settings.beginGroup("Editor");
-	setFont(QFont(settings.value("Font", qApp->font().toString()).toString()));
+	QFont editorFont;
+	editorFont.fromString(settings.value("Font", qApp->font().toString()).toString());
+	setFont(editorFont);
 	m_tikzEditor->setShowMatchingBrackets(settings.value("ShowMatchingBrackets", true).toBool());
 	m_tikzEditor->setShowWhiteSpaces(settings.value("ShowWhiteSpaces", false).toBool());
 	m_tikzEditor->setMatchingColor(settings.value("ColorMatchingBrackets", Qt::yellow).value<QColor>());
@@ -536,12 +549,15 @@ void TikzEditorView::editFindPrevious()
 
 void TikzEditorView::editReplace()
 {
+/*
 	m_goToLineWidget->setVisible(false);
 	m_replaceWidget->setVisible(true);
 	m_replaceWidget->setFocus();
 	const QTextCursor textCursor = m_tikzEditor->textCursor();
 	if (textCursor.hasSelection())
 		m_replaceWidget->setText(textCursor.selectedText());
+*/
+	editFind();
 }
 
 void TikzEditorView::replace(const QString &replacement)
@@ -552,10 +568,12 @@ void TikzEditorView::replace(const QString &replacement)
 	if (textCursor.hasSelection())
 	{
 		start = textCursor.selectionStart();
+		textCursor.beginEditBlock();
 		textCursor.removeSelectedText();
 		textCursor.insertText(replacement);
 		textCursor.setPosition(start, QTextCursor::MoveAnchor);
 		textCursor.setPosition(start + replacement.length(), QTextCursor::KeepAnchor);
+		textCursor.endEditBlock();
 		m_tikzEditor->setTextCursor(textCursor);
 	}
 }
@@ -563,6 +581,11 @@ void TikzEditorView::replace(const QString &replacement)
 void TikzEditorView::replace(const QString &text, const QString &replacement,
     bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor)
 {
+	m_replaceWidget->setVisible(false);
+	m_replaceCurrentWidget->setReplacement(text, replacement);
+	m_replaceCurrentWidget->setVisible(true);
+	m_replaceCurrentWidget->search(text, replacement, isCaseSensitive, findWholeWords, forward, startAtCursor);
+/*
 	bool go = true;
 	while (go && search(text, isCaseSensitive, findWholeWords, forward, startAtCursor))
 	{
@@ -589,6 +612,7 @@ void TikzEditorView::replace(const QString &text, const QString &replacement,
 	}
 	if (go)
 		emit setSearchFromBegin(true);
+*/
 }
 
 void TikzEditorView::replaceAll(const QString &text, const QString &replacement,

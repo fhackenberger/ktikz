@@ -41,6 +41,9 @@
 		<item name="&amp;To" description="to &lt;end point&gt;" insert=" to (,)" dx="5" dy="0" type="2"/>
 		<item name="&amp;Node" description="node {&lt;text&gt;}" insert="node {} " dx="6" dy="0" type="2"/>
 		<item name="&amp;Node" description="node [&lt;options&gt;] (&lt;label&gt;) {&lt;text&gt;}" insert="node[] () {} " dx="5" dy="0" type="2"/>
+		<item name="&amp;Plot" description="plot [&lt;options&gt;]" insert="plot []" dx="5" dy="0" type="2"/>
+		<item name="&amp;Function" description="function {&lt;function&gt;}" insert="function {}" dx="9" dy="0" type="2"/>
+		<item name="&amp;Plot function" description="plot [&lt;options&gt;] function {&lt;function&gt;}" insert="plot [] function {}" dx="18" dy="0" type="2"/>
 		<section title="&amp;Specifying Coordinates">
 			<item name="&amp;Absolute point" description="(&lt;xcoord&gt;,&lt;ycoord&gt;)" insert="(,)" dx="1" dy="0" type="0"/>
 			<item name="Point &amp;relative to initial position" description="+(&lt;xcoord&gt;,&lt;ycoord&gt;)" insert="+(,)" dx="2" dy="0" type="0"/>
@@ -86,7 +89,6 @@
 		<item name="&amp;Shorten end of line" description="shorten &gt;=&lt;dimension&gt;" insert="shorten &gt;=" dx="10" dy="0" type="3"/>
 	</section>
 	<section title="&amp;Options">
-		<item description="&amp;domain=&lt;start&gt;:&lt;end&gt;" insert="domain=:" dx="7" dy="0" type="3"/>
 		<item description="x=&lt;dimension&gt;" insert="x=" dx="2" dy="0" type="3"/>
 		<item description="y=&lt;dimension&gt;" insert="y=" dx="2" dy="0" type="3"/>
 		<item description="c&amp;olor=&lt;color name&gt;" insert="color=" dx="6" dy="0" type="3"/>
@@ -166,6 +168,12 @@
 			<item description="&amp;cap=&lt;round/rect/butt&gt;" insert="cap=" dx="4" dy="0" type="3"/>
 			<item description="&amp;join=&lt;round/bevel/miter&gt;" insert="join=" dx="5" dy="0" type="3"/>
 			<item name="Maximal length of &amp;miter join" description="miter limit=&lt;factor&gt;" insert="miter limit=" dx="12" dy="0" type="3"/>
+		</section>
+		<section title="&amp;Plot Options">
+			<item description="&amp;domain=&lt;start&gt;:&lt;end&gt;" insert="domain=:" dx="7" dy="0" type="3"/>
+			<item description="&amp;id=&lt;name&gt;" insert="id=" dx="3" dy="0" type="3"/>
+			<item description="&amp;samples=&lt;number&gt;" insert="samples=" dx="8" dy="0" type="3"/>
+			<item description="s&amp;mooth" insert="smooth" dx="6" dy="0" type="3"/>
 		</section>
 		<section title="&amp;Dash Patterns">
 			<item description="dash &amp;pattern=&lt;dash pattern&gt;" insert="dash pattern=" dx="13" dy="0" type="3"/>

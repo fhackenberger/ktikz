@@ -47,6 +47,9 @@ private slots:
 	void editTemplateFile();
 
 private:
+	void readRecentTemplates();
+	void saveRecentTemplates();
+
 	Ui::TemplateWidget ui;
 
 	QString m_editor;

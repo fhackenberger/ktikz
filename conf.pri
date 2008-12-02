@@ -1,7 +1,7 @@
 # Override the defaults specified in defaults.pri
 
 # installation prefix:
-#PREFIX = $$(HOME)/Applications
+PREFIX = $$(HOME)/Applications
 
 # install binary here:
 #BINDIR = $${PREFIX}/bin
@@ -10,7 +10,7 @@
 #TRANSLATIONSDIR = $${PREFIX}/share/ktikz
 
 # install desktop file here (*nix only):
-#DESKTOPDIR = $$(HOME)/.local/share/applications
+DESKTOPDIR = $$(HOME)/.local/share/applications
 
 # compile in debug mode:
 #CONFIG += debug
@@ -22,3 +22,8 @@ CONFIG += release
 QMAKECOMMAND = qmake-qt4
 # lrelease command:
 LRELEASECOMMAND = lrelease-qt4
+
+# use KDE4 file dialogs:
+CONFIG += usekde # hide this to disable KDE file dialogs
+KDE_INCLUDEDIRS = /usr/lib/kde4/include/KDE /usr/lib/kde4/include
+KDE_LIBDIRS = /usr/lib/kde4/lib

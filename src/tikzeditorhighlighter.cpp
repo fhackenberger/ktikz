@@ -110,14 +110,17 @@ void TikzHighlighter::highlightBlock(const QString &text)
 	// Try each highlighting pattern and apply formatting if it matches
 	foreach (HighlightingRule rule, m_highlightingRules)
 	{
-		const QRegExp expression(rule.pattern);
-		int index = text.indexOf(expression);
+//		const QRegExp expression(rule.pattern);
+//		int index = text.indexOf(expression);
+		QRegExp expression(rule.pattern);
+		int index = expression.indexIn(text);
 		while (index >= 0)
 		{
 			int length = expression.matchedLength();
 			if (index == 0 || text.at(index-1) != '\\')
 				setFormat(index, length, m_formatList[rule.type]);
-			index = text.indexOf(expression, index + length);
+//			index = text.indexOf(expression, index + length);
+			index = expression.indexIn(text, index + length);
 		}
 	}
 	setCurrentBlockState(0);

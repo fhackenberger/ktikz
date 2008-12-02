@@ -1,3 +1,29 @@
+Version 0.8 (2008-11-20):
+- allow text under icons in toolbar
+- remove bug: when a second ktikz window is closed while typesetting,
+  the cursor is not restored from busy to normal
+- remove bug: when the document is untitled and not yet saved, then
+  opening a file opens the file in the current window, destroying the
+  unsaved text
+- added some tikz commands to the list of commands
+- disable "Save" and "Save As" actions when the file in the text editor
+  is the same as on disk
+- replace the "Replace this occurrence" dialog by a widget shown at the
+  bottom of the text editor
+- added filter "PGF files" in "Open File" dialog
+- the previously selected templates can now be selected from a combobox
+- added "Clear" button to each line edit
+- remove bug: the size of the default font did not change after setting
+  a new font size in the config dialog
+- new way of writing the temporary latex and pgf files, this also solves
+  the bug in which the line numbers in the log window did not correspond
+  to the line numbers in the editor
+- each time the template is changed a new QTemporaryFile is used, this
+  avoids the bug that if the template contains less characters, then the
+  bottom of the old template is still there in the file (luckily latex
+  stops parsing at the first \end{document}, so this bug was not visible)
+- allow to use KDE4 file dialogs when the appropriate variable in conf.pri
+  is set
 Version 0.7 (2008-08-26):
 - disable previous image button if the first image is shown, disable
   next image button if the last image is shown

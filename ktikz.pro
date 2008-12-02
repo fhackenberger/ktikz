@@ -23,6 +23,15 @@ unix:!macx {
 message()
 message("If you would like to change these paths,")
 message("please adjust conf.pri to your needs and rerun qmake.")
+message()
+USEKDEMESSAGE1 = "In order to enable KDE file dialogs in this application,"
+USEKDEMESSAGE2 = "unhide the line \"CONFIG += usekde\" in conf.pri."
+usekde {
+	USEKDEMESSAGE1 = "In order to disable KDE file dialogs in this application,"
+	USEKDEMESSAGE2 = "hide the line \"CONFIG += usekde\" in conf.pri."
+}
+message($${USEKDEMESSAGE1})
+message($${USEKDEMESSAGE2})
 
 QMAKE_EXTRA_UNIX_TARGETS += PACKAGE
 PACKAGE.target = package

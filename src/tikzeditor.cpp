@@ -340,7 +340,7 @@ QString TikzEditor::textUnderCursor() const
 
 void TikzEditor::keyPressEvent(QKeyEvent *event)
 {
-    const Qt::KeyboardModifiers modifier = QApplication::keyboardModifiers();
+	const Qt::KeyboardModifiers modifier = QApplication::keyboardModifiers();
 
 	/* completer */
 	if (m_completer && m_completer->popup()->isVisible())

@@ -23,7 +23,6 @@
 #define TIKZPNGWIDGET_H
 
 #include <QMutex>
-#include <QTemporaryFile>
 #include <QThread>
 #include <QTime>
 #include <QWaitCondition>
@@ -67,7 +66,9 @@ signals:
 
 protected:
 	QString getParsedLogText(QTextStream *logStream) const;
+	void parseLogFile();
 	void run();
+	void createTempLatexFile();
 	void createTempTikzFile();
 	bool runProcess(const QString &name, const QString &command, const QStringList &arguments, const QString &workingDir = 0);
 	bool generateEpsFile();
@@ -88,9 +89,11 @@ protected:
 	bool m_runFailed;
 	bool m_keepRunning;
 
-	QTemporaryFile m_tikzTempFile;
+	QString m_tikzTempFileBaseName;
 	QString m_templateFileName;
 	QString m_tikzReplaceText;
+	int m_templateStartLineNumber;
+	bool m_templateChanged;
 
 	QString m_latexCommand;
 	QString m_pdftopsCommand;

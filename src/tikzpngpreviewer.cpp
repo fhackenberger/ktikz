@@ -24,20 +24,19 @@
 #include <QDir>
 #include <QPixmap>
 #include <QProcess>
+#include <QTemporaryFile>
 #include <QTextEdit>
 #include <QTextStream>
 
 #include "tikzpngpreviewer.h"
 
 TikzPngPreviewer::TikzPngPreviewer(const QTextEdit* tikzTextEdit)
-    : m_minUpdateInterval(0, 0, 1 /*sec*/, 0), m_tikzTempFile(QDir::tempPath() + "/ktikz/ktikzXXXXXX.tex")
+    : m_minUpdateInterval(0, 0, 1 /*sec*/, 0)
 {
 	m_tikzTextEdit = tikzTextEdit;
 	m_tikzPdfDoc = 0;
 	m_tikzTextEditEmpty = true;
 	m_updateScheduled = false;
-	m_tikzTempFile.open();
-	m_tikzTempFile.setAutoRemove(false);
 	m_runFailed = false;
 	m_keepRunning = true;
 	m_process = 0;
@@ -53,13 +52,14 @@ TikzPngPreviewer::~TikzPngPreviewer()
 	m_keepRunning = false;
 	m_updateRequested.wakeAll();
 	wait();
+	emit processRunning(false);
 
 	if (m_tikzPdfDoc)
 		delete m_tikzPdfDoc;
 
 	// removing all temporary files
 	qDebug() << "removing tempfiles";
-	if (!cleanUp())
+	if (!m_tikzTempFileBaseName.isEmpty() && !cleanUp())
 		qCritical() << "Error: removing tempfiles failed";
 }
 
@@ -81,11 +81,13 @@ void TikzPngPreviewer::setShellEscaping(bool useShellEscaping)
 void TikzPngPreviewer::setTemplateFile(const QString &fileName)
 {
 	m_templateFileName = fileName;
+//	createTempLatexFile(); // for some obscure reason, this does not work
+	m_templateChanged = true;
 }
 
 void TikzPngPreviewer::setTemplateFileAndRegenerate(const QString &fileName)
 {
-	m_templateFileName = fileName;
+	setTemplateFile(fileName);
 	regeneratePreview();
 }
 
@@ -118,7 +120,8 @@ QString TikzPngPreviewer::getParsedLogText(QTextStream *logStream) const
 		if (keywordPatterns.at(0).indexIn(logLine) > -1)
 		{
 			// show error message and correct line number
-			QString lineNum = QString::number(keywordPatterns[0].cap(2).toInt() - 7);
+//			QString lineNum = QString::number(keywordPatterns[0].cap(2).toInt() - m_templateStartLineNumber);
+			QString lineNum = QString::number(keywordPatterns[0].cap(2).toInt());
 			const QString errorMsg = keywordPatterns[0].cap(3);
 			logText += "[LaTeX] Line " + lineNum + ": " + errorMsg;
 
@@ -160,6 +163,38 @@ QString TikzPngPreviewer::getParsedLogText(QTextStream *logStream) const
 	return logText;
 }
 
+void TikzPngPreviewer::parseLogFile()
+{
+	const QFileInfo latexLogFileInfo = QFileInfo(m_tikzTempFileBaseName + ".log");
+	QFile latexLogFile(latexLogFileInfo.absoluteFilePath());
+	if (!latexLogFile.open(QFile::ReadOnly))
+	{
+		if (!m_tikzTextEditEmpty)
+		{
+			m_shortLogText += "\n[LaTeX] " + tr("Warning: could not load LaTeX logfile.");
+			qWarning() << "Warning: could not load latex logfile:" << qPrintable(latexLogFileInfo.absoluteFilePath());
+		}
+		else
+		{
+			m_shortLogText = "";
+			m_logText = "";
+		}
+	}
+	else
+	{
+		m_memberLock.lock();
+		QTextStream latexLog(&latexLogFile);
+		if (m_runFailed && !m_shortLogText.contains("Process aborted"))
+			m_shortLogText = getParsedLogText(&latexLog);
+		latexLog.seek(0);
+		m_logText += latexLog.readAll();
+		latexLogFile.close();
+		m_memberLock.unlock();
+	}
+	emit shortLogUpdated(m_shortLogText, m_runFailed);
+//	emit logUpdated(m_runFailed);
+}
+
 bool TikzPngPreviewer::hasRunFailed()
 {
 	const QMutexLocker lock(&m_memberLock);
@@ -188,10 +223,9 @@ void TikzPngPreviewer::run()
 			createTempTikzFile();
 			m_memberLock.unlock();
 			m_logText = "";
-			const QFileInfo tikzTempFileInfo(m_tikzTempFile);
 			if (generatePdfFile())
 			{
-				const QFileInfo tikzPdfFileInfo(tikzTempFileInfo.absolutePath(), tikzTempFileInfo.completeBaseName() + ".pdf");
+				const QFileInfo tikzPdfFileInfo(m_tikzTempFileBaseName + ".pdf");
 				if (!tikzPdfFileInfo.exists())
 					qWarning() << "Error:" << qPrintable(tikzPdfFileInfo.absoluteFilePath()) << "does not exists";
 				else
@@ -212,35 +246,7 @@ void TikzPngPreviewer::run()
 					}
 				}
 			}
-			// parse contents of the log file
-			const QFileInfo latexLogFileInfo = QFileInfo(tikzTempFileInfo.absolutePath(), tikzTempFileInfo.completeBaseName() + ".log");
-			QFile latexLogFile(latexLogFileInfo.absoluteFilePath());
-			if (!latexLogFile.open(QFile::ReadOnly))
-			{
-				if (!m_tikzTextEditEmpty)
-				{
-					m_shortLogText += "\n[LaTeX] " + tr("Warning: could not load LaTeX logfile.");
-					qWarning() << "Warning: could not load latex logfile:" << qPrintable(latexLogFileInfo.absoluteFilePath());
-				}
-				else
-				{
-					m_shortLogText = "";
-					m_logText = "";
-				}
-			}
-			else
-			{
-				m_memberLock.lock();
-				QTextStream latexLog(&latexLogFile);
-				if (m_runFailed && !m_shortLogText.contains("Process aborted"))
-					m_shortLogText = getParsedLogText(&latexLog);
-				latexLog.seek(0);
-				m_logText += latexLog.readAll();
-				latexLogFile.close();
-				m_memberLock.unlock();
-			}
-			emit shortLogUpdated(m_shortLogText, m_runFailed);
-//			emit logUpdated(m_runFailed);
+			parseLogFile();
 			m_memberLock.lock();
 		}
 		else
@@ -249,45 +255,72 @@ void TikzPngPreviewer::run()
 	}
 }
 
+void TikzPngPreviewer::createTempLatexFile()
+{
+	cleanUp();
+	QTemporaryFile tikzTempFile(QDir::tempPath() + "/ktikz/ktikzXXXXXX.tex");
+	tikzTempFile.open();
+	tikzTempFile.setAutoRemove(false);
+
+	const QFileInfo tikzTempFileInfo = QFileInfo(tikzTempFile);
+	m_tikzTempFileBaseName = tikzTempFileInfo.absolutePath() + "/" + tikzTempFileInfo.completeBaseName();
+	const QString inputTikzCode = "\\input{" + m_tikzTempFileBaseName + ".pgf}";
+
+	QTextStream tikzStream(&tikzTempFile);
+
+	QFile templateFile(m_templateFileName);
+	if (templateFile.open(QIODevice::ReadOnly)) // if user-specified template file is readable
+	{
+		QTextStream templateFileStream(&templateFile);
+		QString templateLine;
+		for (int i = 1; !templateFileStream.atEnd(); ++i)
+		{
+			templateLine = templateFileStream.readLine();
+			if (templateLine.indexOf(m_tikzReplaceText) >= 0)
+			{
+				templateLine.replace(m_tikzReplaceText, inputTikzCode);
+				m_templateStartLineNumber = i;
+			}
+			tikzStream << templateLine << '\n';
+		}
+	}
+	else // use our own template
+	{
+		tikzStream << "\\documentclass[12pt]{article}\n"
+		    << "\\usepackage{tikz}\n"
+		    << "\\usepackage{pgf}\n"
+		    << "\\usepackage[active,pdftex,tightpage]{preview}\n"
+		    << "\\PreviewEnvironment[]{tikzpicture}\n"
+			<< "\\begin{document}\n"
+			<< inputTikzCode + "\n"
+			<< "\\end{document}\n";
+		m_templateStartLineNumber = 7;
+	}
+
+	qDebug() << "latex code written to:" << qPrintable(QFileInfo(tikzTempFile).absoluteFilePath());
+}
+
 void TikzPngPreviewer::createTempTikzFile()
 {
-	QString latexText;
-
-	if (m_tikzTempFile.open())
+	if (m_tikzTextEdit->document()->isEmpty()) // avoid that the previous picture is still displayed
 	{
-		if (m_tikzString.isEmpty()) // avoid that the previous picture is still displayed
-		{
-			m_tikzTextEditEmpty = true;
-			return;
-		}
+		m_tikzTextEditEmpty = true;
+		return;
+	}
 
-		QFile templateFile(m_templateFileName);
-		if (templateFile.open(QIODevice::ReadOnly))
-		{
-			QTextStream *templateFileStream = new QTextStream(&templateFile);
-			latexText = templateFileStream->readAll();
-			latexText.replace(m_tikzReplaceText, m_tikzString.toLatin1());
-			delete templateFileStream;
-		}
-		else
-		{
-			latexText = QString("\\documentclass[12pt]{article}\n")
-			    + "\\usepackage{tikz}\n"
-			    + "\\usepackage{pgf}\n"
-			    + "\\usepackage[active,pdftex,tightpage]{preview}\n"
-			    + "\\PreviewEnvironment[]{tikzpicture}\n"
-				+ "\\begin{document}\n"
-				+ m_tikzString.toLatin1() + "\n"
-				+ "\\end{document}\n";
-		}
+	if (m_templateChanged)
+	{
+		createTempLatexFile();
+		m_templateChanged = false;
+	}
 
-		QTextStream tikzStream(&m_tikzTempFile);
-		tikzStream << latexText << endl;
-		m_tikzTempFile.close();
-
-		qDebug() << "tikz code written to:" << qPrintable(QFileInfo(m_tikzTempFile).absoluteFilePath());
-		m_shortLogText = "[LaTeX] " + tr("Running...");
-		emit shortLogUpdated(m_shortLogText, m_runFailed);
+	QFile tikzTempTikzFile(m_tikzTempFileBaseName + ".pgf");
+	if (tikzTempTikzFile.open(QIODevice::WriteOnly))
+	{
+		QTextStream tikzStream(&tikzTempTikzFile);
+		tikzStream << m_tikzTextEdit->toPlainText() << endl;
+		tikzTempTikzFile.close();
+		qDebug() << "tikz code written to:" << qPrintable(QFileInfo(tikzTempTikzFile).absoluteFilePath());
 	}
 }
 
@@ -380,23 +413,19 @@ void TikzPngPreviewer::abortProcess()
 
 bool TikzPngPreviewer::generateEpsFile()
 {
-	const QFileInfo tikzTempFileInfo = QFileInfo(m_tikzTempFile);
-	const QString fileNameBase = tikzTempFileInfo.absolutePath() + "/" + tikzTempFileInfo.completeBaseName();
 	QStringList pdftopsArguments;
-	pdftopsArguments << fileNameBase + ".pdf" << fileNameBase + ".eps";
+	pdftopsArguments << m_tikzTempFileBaseName + ".pdf" << m_tikzTempFileBaseName + ".eps";
 	return runProcess("pdftops", m_pdftopsCommand, pdftopsArguments);
 }
 
 bool TikzPngPreviewer::generatePdfFile()
 {
 	// remove log file before running pdflatex again
-	const QFileInfo tikzTempFileInfo = QFileInfo(m_tikzTempFile);
-	const QString fileNameBase = tikzTempFileInfo.absolutePath() + "/" + tikzTempFileInfo.completeBaseName();
-	QDir::root().remove(fileNameBase + ".log");
+	QDir::root().remove(m_tikzTempFileBaseName + ".log");
 
-	if (m_tikzTextEditEmpty)
+	if (m_tikzTextEditEmpty) // if the text edit is empty, then clean up files and preview
 	{
-		QDir::root().remove(fileNameBase + ".pdf");
+		QDir::root().remove(m_tikzTempFileBaseName + ".pdf");
 		if (m_tikzPdfDoc)
 			delete m_tikzPdfDoc;
 		m_tikzPdfDoc = 0;
@@ -407,14 +436,19 @@ bool TikzPngPreviewer::generatePdfFile()
 	QStringList latexArguments;
 	if (m_useShellEscaping)
 		latexArguments << "-shell-escape";
-	latexArguments << "-halt-on-error" << "-file-line-error" << "-interaction" << "batchmode" << "-output-directory" << tikzTempFileInfo.absolutePath() << tikzTempFileInfo.absoluteFilePath();
-	return runProcess("LaTeX", m_latexCommand, latexArguments, tikzTempFileInfo.absolutePath());
+	latexArguments << "-halt-on-error" << "-file-line-error"
+	    << "-interaction" << "batchmode" << "-output-directory"
+	    << QFileInfo(m_tikzTempFileBaseName + ".tex").absolutePath()
+	    << m_tikzTempFileBaseName + ".tex";
+
+	m_shortLogText = "[LaTeX] " + tr("Running...");
+	emit shortLogUpdated(m_shortLogText, m_runFailed);
+	return runProcess("LaTeX", m_latexCommand, latexArguments, m_tikzTempFileBaseName + ".tex");
 }
 
 void TikzPngPreviewer::regeneratePreview()
 {
 	const QMutexLocker locker(&m_memberLock);
-	m_tikzString = m_tikzTextEdit->toPlainText();
 	m_updateScheduled = true;
 	m_updateTimer.start();
 	m_updateRequested.wakeAll();
@@ -426,13 +460,12 @@ bool TikzPngPreviewer::exportImage(const QString &fileName, const QString &type)
 	if (!fileName.endsWith(type))
 		fileName2 = fileName + "." + type;
 
-	const QFileInfo tikzTempFileInfo(m_tikzTempFile);
-	const QFileInfo tikzPdfFileInfo = QFileInfo(tikzTempFileInfo.absolutePath(), tikzTempFileInfo.completeBaseName() + ".pdf");
+	const QFileInfo tikzPdfFileInfo(m_tikzTempFileBaseName + ".pdf");
 
 	if (type == "eps")
 	{
 		if (!generateEpsFile()) return false;
-		const QFileInfo tikzEpsFileInfo = QFileInfo(tikzTempFileInfo.absolutePath(), tikzTempFileInfo.completeBaseName() + ".eps");
+		const QFileInfo tikzEpsFileInfo(m_tikzTempFileBaseName + ".eps");
 		QFile::remove(fileName2);
 		return QFile::copy(tikzEpsFileInfo.absoluteFilePath(), fileName2);
 	}
@@ -448,7 +481,7 @@ bool TikzPngPreviewer::cleanUp()
 {
 	bool success = true;
 
-	const QFileInfo tikzTempFileInfo(m_tikzTempFile);
+	const QFileInfo tikzTempFileInfo(m_tikzTempFileBaseName + ".tex");
 	QDir tikzTempDir(tikzTempFileInfo.absolutePath());
 	QStringList filters;
 	filters << tikzTempFileInfo.completeBaseName() + ".*";

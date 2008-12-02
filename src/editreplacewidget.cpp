@@ -20,11 +20,15 @@
 
 #include <QLineEdit>
 #include <QKeyEvent>
+
+#include "lineedit.h"
 #include "editreplacewidget.h"
 
 ReplaceWidget::ReplaceWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
+	ui.comboBoxFind->setLineEdit(new LineEdit(this));
+	ui.comboBoxReplace->setLineEdit(new LineEdit(this));
 
 	setFocusProxy(ui.comboBoxFind);
 

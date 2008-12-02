@@ -10,6 +10,5 @@
   commands similar to keditbookmarks
 - Space and tab markers should resize according to font size
 - Allow changing the color of the space and tab markers
-- Bug: if the size of the main font is changed, the font size only
-  changes after restarting the program (this could be a bug
-  in QTextEdit)
+- Remove crash when zooming while ktikz is typesetting
+- Create a new process for each window opened by the "New" action.

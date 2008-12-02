@@ -24,6 +24,7 @@
 #include <QDialog>
 
 class QCheckBox;
+class QComboBox;
 class QDialogButtonBox;
 class QLineEdit;
 class QSpinBox;
@@ -66,6 +67,7 @@ private:
 
 	QSpinBox *m_historyLengthSpinBox;
 	QCheckBox *m_commandsInDockCheck;
+	QComboBox *m_toolBarStyleCombo;
 
 	QLineEdit *m_latexEdit;
 	QLineEdit *m_pdftopsEdit;

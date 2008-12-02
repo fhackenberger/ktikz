@@ -85,6 +85,7 @@ private:
 	void createActions();
 	void createMenus();
 	void createToolBars();
+	void setToolBarStyle();
 	void createCommandInsertWidget();
 	void createStatusBar();
 	void readSettings();

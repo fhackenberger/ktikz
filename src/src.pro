@@ -8,6 +8,11 @@ CONFIG += warn_on \
 	qt
 QT += xml
 LIBS += -lpoppler-qt4
+usekde {
+	DEFINES += KTIKZ_USE_KDE
+	INCLUDEPATH += $${KDE_INCLUDEDIRS}
+	LIBS += -lpoppler-qt4 -L$${KDE_LIBDIRS} -lkfile
+}
 
 DEFINES += APPVERSION=\\\"$${APPVERSION}\\\"
 DEFINES += KTIKZ_INSTALL_TRANSLATIONS=\\\"$${TRANSLATIONSDIR}\\\"
@@ -34,7 +39,9 @@ SOURCES += aboutdialog.cpp \
 	editgotolinewidget.cpp \
 	editindentdialog.cpp \
 	editreplacewidget.cpp \
+	editreplacecurrentwidget.cpp \
 	ktikz.cpp \
+	lineedit.cpp \
 	loghighlighter.cpp \
 	logtextedit.cpp \
 	main.cpp \

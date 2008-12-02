@@ -16,27 +16,39 @@
    <item>
     <widget class="QLabel" name="templateLabel" >
      <property name="whatsThis" >
-      <string>&lt;p>Give the file name of the template containing the LaTeX code in which the TikZ picture will be included and which will be typesetted to produce the preview image.&lt;br />If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p></string>
+      <string>&lt;p>Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p></string>
      </property>
      <property name="text" >
       <string>&amp;Template:</string>
      </property>
      <property name="buddy" >
-      <cstring>templateEdit</cstring>
+      <cstring>templateCombo</cstring>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="templateEdit" >
+    <widget class="QComboBox" name="templateCombo" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="whatsThis" >
-      <string>&lt;p>Give the file name of the template containing the LaTeX code in which the TikZ picture will be included and which will be typesetted to produce the preview image.&lt;br />If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p></string>
+      <string>&lt;p>Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p></string>
+     </property>
+     <property name="editable" >
+      <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QToolButton" name="templateChooseButton" >
+     <property name="toolTip" >
+      <string>&lt;p>Select template file&lt;/p></string>
+     </property>
      <property name="whatsThis" >
-      <string>&lt;p>Select the template file.&lt;/p></string>
+      <string>&lt;p>Browse to an existing template file.&lt;/p></string>
      </property>
      <property name="text" >
       <string/>
@@ -48,6 +60,9 @@
    </item>
    <item>
     <widget class="QPushButton" name="templateEditButton" >
+     <property name="toolTip" >
+      <string>&lt;p>Edit template file&lt;/p></string>
+     </property>
      <property name="whatsThis" >
       <string>&lt;p>Edit this template with an external editor specified in the "Configure" dialog.&lt;/p></string>
      </property>

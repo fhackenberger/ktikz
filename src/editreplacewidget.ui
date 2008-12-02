@@ -51,14 +51,14 @@
      <item>
       <widget class="QCheckBox" name="checkBoxWholeWords" >
        <property name="text" >
-        <string>Whole words</string>
+        <string>&amp;Whole words</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QCheckBox" name="checkBoxCaseSensitive" >
        <property name="text" >
-        <string>Case sensitive</string>
+        <string>&amp;Case sensitive</string>
        </property>
       </widget>
      </item>
@@ -124,14 +124,14 @@
      <item>
       <widget class="QPushButton" name="pushButtonFind" >
        <property name="text" >
-        <string>Find</string>
+        <string>&amp;Find</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonReplace" >
        <property name="text" >
-        <string>Replace</string>
+        <string>&amp;Replace</string>
        </property>
       </widget>
      </item>
