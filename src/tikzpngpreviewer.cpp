@@ -443,7 +443,7 @@ bool TikzPngPreviewer::generatePdfFile()
 
 	m_shortLogText = "[LaTeX] " + tr("Running...");
 	emit shortLogUpdated(m_shortLogText, m_runFailed);
-	return runProcess("LaTeX", m_latexCommand, latexArguments, m_tikzTempFileBaseName + ".tex");
+	return runProcess("LaTeX", m_latexCommand, latexArguments, QFileInfo(m_tikzTempFileBaseName).absolutePath());
 }
 
 void TikzPngPreviewer::regeneratePreview()

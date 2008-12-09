@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="fr">
-<defaultcodec></defaultcodec>
 <context>
     <name>AboutDialog</name>
     <message>
@@ -541,6 +540,7 @@
         <translation type="obsolete">&amp;Options</translation>
     </message>
     <message>
+        <location filename="" line="0"/>
         <source>&amp;Positions</source>
         <translation type="obsolete">&amp;Positions</translation>
     </message>
@@ -1257,32 +1257,32 @@ Continuer à partir de la fin ?</translation>
 <context>
     <name>TikzPngPreviewer</name>
     <message>
-        <location filename="tikzpngpreviewer.cpp" line="355"/>
+        <location filename="tikzpngpreviewer.cpp" line="387"/>
         <source>Process finished successfully.</source>
         <translation>Processus terminé avec succès.</translation>
     </message>
     <message>
-        <location filename="tikzpngpreviewer.cpp" line="211"/>
+        <location filename="tikzpngpreviewer.cpp" line="244"/>
         <source>Error: loading PDF failed, the file is probably corrupted.</source>
         <translation>Erreur : impossible de charger le PDF, le fichier est probablement corrompu.</translation>
     </message>
     <message>
-        <location filename="tikzpngpreviewer.cpp" line="223"/>
+        <location filename="tikzpngpreviewer.cpp" line="174"/>
         <source>Warning: could not load LaTeX logfile.</source>
         <translation>Attention : impossible de charger le fichier log de LaTeX.</translation>
     </message>
     <message>
-        <location filename="tikzpngpreviewer.cpp" line="290"/>
+        <location filename="tikzpngpreviewer.cpp" line="444"/>
         <source>Running...</source>
         <translation>Exécutant...</translation>
     </message>
     <message>
-        <location filename="tikzpngpreviewer.cpp" line="350"/>
+        <location filename="tikzpngpreviewer.cpp" line="382"/>
         <source>Process aborted.</source>
         <translation>Processus terminé de force.</translation>
     </message>
     <message>
-        <location filename="tikzpngpreviewer.cpp" line="360"/>
+        <location filename="tikzpngpreviewer.cpp" line="392"/>
         <source>Error: run failed.</source>
         <translation>Erreur : exécution failli.</translation>
     </message>

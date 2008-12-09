@@ -816,32 +816,32 @@ Continuar al fin?</translation>
 <context>
     <name>TikzPngPreviewer</name>
     <message>
-        <location filename="tikzpngpreviewer.cpp" line="355"/>
+        <location filename="tikzpngpreviewer.cpp" line="387"/>
         <source>Process finished successfully.</source>
         <translation>Proceso terminado con éxito.</translation>
     </message>
     <message>
-        <location filename="tikzpngpreviewer.cpp" line="211"/>
+        <location filename="tikzpngpreviewer.cpp" line="244"/>
         <source>Error: loading PDF failed, the file is probably corrupted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="tikzpngpreviewer.cpp" line="223"/>
+        <location filename="tikzpngpreviewer.cpp" line="174"/>
         <source>Warning: could not load LaTeX logfile.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="tikzpngpreviewer.cpp" line="290"/>
+        <location filename="tikzpngpreviewer.cpp" line="444"/>
         <source>Running...</source>
         <translation>Ejecutando...</translation>
     </message>
     <message>
-        <location filename="tikzpngpreviewer.cpp" line="350"/>
+        <location filename="tikzpngpreviewer.cpp" line="382"/>
         <source>Process aborted.</source>
         <translation>Proceso abortado.</translation>
     </message>
     <message>
-        <location filename="tikzpngpreviewer.cpp" line="360"/>
+        <location filename="tikzpngpreviewer.cpp" line="392"/>
         <source>Error: run failed.</source>
         <translation type="unfinished"></translation>
     </message>
