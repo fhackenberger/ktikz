@@ -24,6 +24,8 @@ Version 0.8 (2008-11-20):
   stops parsing at the first \end{document}, so this bug was not visible)
 - allow to use KDE4 file dialogs when the appropriate variable in conf.pri
   is set
+- remove bug (I hope) that caused ktikz to crash when zooming while ktikz
+  is typesetting
 Version 0.7 (2008-08-26):
 - disable previous image button if the first image is shown, disable
   next image button if the last image is shown

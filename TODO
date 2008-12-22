@@ -10,5 +10,4 @@
   commands similar to keditbookmarks
 - Space and tab markers should resize according to font size
 - Allow changing the color of the space and tab markers
-- Remove crash when zooming while ktikz is typesetting
 - Create a new process for each window opened by the "New" action.

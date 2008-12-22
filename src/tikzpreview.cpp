@@ -43,6 +43,7 @@ TikzPreview::TikzPreview(QWidget *parent)
 
 	m_tikzPdfDoc = 0;
 	m_currentPage = 0;
+	m_processRunning = false;
 
 	QSettings settings;
 	m_zoomFactor = settings.value("ZoomFactor", 1).toDouble();
@@ -161,10 +162,13 @@ void TikzPreview::showPdfPage()
 
 	if (!m_tikzPdfDoc || m_tikzPdfDoc->numPages() < 1) return;
 
-	Poppler::Page *pdfPage = m_tikzPdfDoc->page(m_currentPage);
-	m_tikzPixmapItem->setPixmap(QPixmap::fromImage(pdfPage->renderToImage(m_zoomFactor * 72, m_zoomFactor * 72)));
-	m_tikzPixmapItem->update();
-	delete pdfPage;
+	if (!m_processRunning)
+	{
+		Poppler::Page *pdfPage = m_tikzPdfDoc->page(m_currentPage);
+		m_tikzPixmapItem->setPixmap(QPixmap::fromImage(pdfPage->renderToImage(m_zoomFactor * 72, m_zoomFactor * 72)));
+		m_tikzPixmapItem->update();
+		delete pdfPage;
+	}
 }
 
 void TikzPreview::pixmapUpdated(Poppler::Document *tikzPdfDoc)
@@ -284,6 +288,11 @@ QToolBar *TikzPreview::getViewToolBar()
 QPixmap TikzPreview::getPixmap() const
 {
 	return m_tikzPixmapItem->pixmap();
+}
+
+void TikzPreview::setProcessRunning(bool isRunning)
+{
+	m_processRunning = isRunning;
 }
 
 void TikzPreview::wheelEvent(QWheelEvent *event)

@@ -288,6 +288,7 @@ void ktikz::setProcessRunning(bool isRunning)
 		QApplication::setOverrideCursor(Qt::BusyCursor);
 	else
 		QApplication::restoreOverrideCursor();
+	m_tikzView->setProcessRunning(isRunning);
 }
 
 /***************************************************************************/

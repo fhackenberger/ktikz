@@ -39,6 +39,7 @@ public:
 	QList<QAction*> getActions();
 	QToolBar *getViewToolBar();
 	QPixmap getPixmap() const;
+	void setProcessRunning(bool isRunning);
 
 public slots:
 	void pixmapUpdated(Poppler::Document *tikzPdfDoc);
@@ -65,6 +66,7 @@ private:
 
 	QGraphicsScene *m_tikzScene;
 	QGraphicsPixmapItem *m_tikzPixmapItem;
+	bool m_processRunning;
 
 	QToolBar *m_viewToolBar;
 	QComboBox *m_zoomCombo;
