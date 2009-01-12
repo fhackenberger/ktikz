@@ -28,6 +28,8 @@
 #include <QTextEdit>
 #include <QTextStream>
 
+#include <poppler-qt4.h>
+
 #include "tikzpngpreviewer.h"
 
 TikzPngPreviewer::TikzPngPreviewer(const QTextEdit* tikzTextEdit)
@@ -184,7 +186,7 @@ void TikzPngPreviewer::parseLogFile()
 	{
 		m_memberLock.lock();
 		QTextStream latexLog(&latexLogFile);
-		if (m_runFailed && !m_shortLogText.contains("Process aborted"))
+		if (m_runFailed && !m_shortLogText.contains(tr("Process aborted")))
 			m_shortLogText = getParsedLogText(&latexLog);
 		latexLog.seek(0);
 		m_logText += latexLog.readAll();
@@ -287,13 +289,13 @@ void TikzPngPreviewer::createTempLatexFile()
 	else // use our own template
 	{
 		tikzStream << "\\documentclass[12pt]{article}\n"
-		    << "\\usepackage{tikz}\n"
-		    << "\\usepackage{pgf}\n"
-		    << "\\usepackage[active,pdftex,tightpage]{preview}\n"
-		    << "\\PreviewEnvironment[]{tikzpicture}\n"
-			<< "\\begin{document}\n"
-			<< inputTikzCode + "\n"
-			<< "\\end{document}\n";
+		    "\\usepackage{tikz}\n"
+		    "\\usepackage{pgf}\n"
+		    "\\usepackage[active,pdftex,tightpage]{preview}\n"
+		    "\\PreviewEnvironment[]{tikzpicture}\n"
+			"\\begin{document}\n"
+			+ inputTikzCode + "\n"
+			"\\end{document}\n";
 		m_templateStartLineNumber = 7;
 	}
 
@@ -337,7 +339,7 @@ bool TikzPngPreviewer::runProcess(const QString &name, const QString &command, c
 
 	if (!m_templateFileName.isEmpty())
 	{
-		QFileInfo templateFileInfo(m_templateFileName);
+		const QFileInfo templateFileInfo(m_templateFileName);
 		QStringList env = QProcess::systemEnvironment();
 		QRegExp rx("^TEXINPUTS=(.*)", Qt::CaseInsensitive);
 		if (env.indexOf(rx) >= 0)

@@ -56,10 +56,9 @@ ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent)
 	connect(buttonGroup, SIGNAL(buttonClicked(QAbstractButton*)), this, SLOT(toggleCustom()));
 
 	m_itemTable = new QTableWidget(this);
-	QString itemWhatsThis = "<p>" + tr("Select the structure "
+	m_itemTable->setWhatsThis("<p>" + tr("Select the structure "
 	    "appearing in the TikZ code for which you want to change "
-	    "the fonts and colors.") + "</p>";
-	m_itemTable->setWhatsThis(itemWhatsThis);
+	    "the fonts and colors.") + "</p>");
 	m_itemTable->setShowGrid(true);
 	m_itemTable->horizontalHeader()->hide();
 	m_itemTable->verticalHeader()->hide();
@@ -81,18 +80,16 @@ ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent)
 	connect(m_itemTable, SIGNAL(currentItemChanged(QTableWidgetItem*,QTableWidgetItem*)), this, SLOT(setItemHighlighted(QTableWidgetItem*)));
 
 	m_fontButton = new QPushButton(tr("Change fo&nt"));
-	QString fontWhatsThis = "<p>" + tr("Select the font in which "
+	m_fontButton->setWhatsThis("<p>" + tr("Select the font in which "
 	    "the structure that you selected in the box above should "
-	    "be displayed.") + "</p>";
-	m_fontButton->setWhatsThis(fontWhatsThis);
+	    "be displayed.") + "</p>");
 	m_fontButton->setEnabled(false);
 	connect(m_fontButton, SIGNAL(clicked()), this, SLOT(showFontDialog()));
 
 	m_colorButton = new QPushButton(tr("Change co&lor"));
-	QString colorWhatsThis = "<p>" + tr("Select the text color in "
+	m_colorButton->setWhatsThis("<p>" + tr("Select the text color in "
 	    "which the structure that you selected in the box above "
-	    "should be displayed.") + "</p>";
-	m_colorButton->setWhatsThis(colorWhatsThis);
+	    "should be displayed.") + "</p>");
 	m_colorButton->setEnabled(false);
 	connect(m_colorButton, SIGNAL(clicked()), this, SLOT(showColorDialog()));
 
@@ -119,7 +116,7 @@ void ConfigAppearanceWidget::setItemHighlighted(QTableWidgetItem *item)
 
 void ConfigAppearanceWidget::setItemToolTip(QTableWidgetItem *item, const QFont &font)
 {
-	QFontMetrics metrics(font);
+	const QFontMetrics metrics(font);
 	m_itemTable->setRowHeight(m_itemHighlighted, metrics.height() + m_itemMargin);
 	if (metrics.width(item->text()) >= m_itemTable->contentsRect().width() - 30)
 		item->setToolTip(item->text());
@@ -142,7 +139,7 @@ void ConfigAppearanceWidget::showEvent(QShowEvent*)
 
 void ConfigAppearanceWidget::addItem(const QString &titleName)
 {
-	int itemTableRowNum = m_itemTable->rowCount();
+	const int itemTableRowNum = m_itemTable->rowCount();
 	m_itemTable->setRowCount(itemTableRowNum+1);
 
 	QTableWidgetItem *item = new QTableWidgetItem;
@@ -154,23 +151,20 @@ void ConfigAppearanceWidget::addItem(const QString &titleName)
 
 void ConfigAppearanceWidget::addItemFont(const QString &fontName)
 {
-	int rowNum = m_itemFonts.size();
+	const int rowNum = m_itemFonts.size();
 	m_itemFonts.append(fontName);
 
 	QFont font;
 	font.fromString(fontName);
 	m_itemTable->item(rowNum, 0)->setFont(font);
-
-	QFontMetrics metrics(font);
-	m_itemTable->setRowHeight(rowNum, metrics.height() + m_itemMargin);
+	m_itemTable->setRowHeight(rowNum, QFontMetrics(font).height() + m_itemMargin);
 }
 
 void ConfigAppearanceWidget::addItemColor(const QString &colorName)
 {
 	int rowNum = m_itemFonts.size();
 	m_itemColors.append(colorName);
-	QColor color(colorName);
-	m_itemTable->item(rowNum, 0)->setForeground(color);
+	m_itemTable->item(rowNum, 0)->setForeground(QColor(colorName));
 	toggleCustom();
 }
 
@@ -188,9 +182,7 @@ void ConfigAppearanceWidget::setItemFonts(const QStringList &fontNames)
 		QFont font;
 		font.fromString(m_itemFonts.at(i));
 		m_itemTable->item(i, 0)->setFont(font);
-
-		QFontMetrics metrics(font);
-		m_itemTable->setRowHeight(i, metrics.height() + m_itemMargin);
+		m_itemTable->setRowHeight(i, QFontMetrics(font).height() + m_itemMargin);
 	}
 }
 
@@ -198,10 +190,7 @@ void ConfigAppearanceWidget::setItemColors(const QStringList &colorNames)
 {
 	m_itemColors = colorNames;
 	for (int i = 0; i < m_itemColors.size(); ++i)
-	{
-		QColor color(m_itemColors.at(i));
-		m_itemTable->item(i, 0)->setForeground(color);
-	}
+		m_itemTable->item(i, 0)->setForeground(QColor(m_itemColors.at(i)));
 	toggleCustom();
 }
 
@@ -235,19 +224,13 @@ void ConfigAppearanceWidget::toggleCustom()
 	{
 		m_appearanceWidget->setEnabled(true);
 		for (int i = 0; i < m_itemColors.size(); ++i)
-		{
-			QColor color(m_itemColors.at(i));
-			m_itemTable->item(i, 0)->setForeground(color);
-		}
+			m_itemTable->item(i, 0)->setForeground(QColor(m_itemColors.at(i)));
 	}
 	else
 	{
 		m_appearanceWidget->setEnabled(false);
 		for (int i = 0; i < m_itemColors.size(); ++i)
-		{
-			QColor color(QApplication::style()->standardPalette().color(QPalette::Disabled, QPalette::Text));
-			m_itemTable->item(i, 0)->setForeground(color);
-		}
+			m_itemTable->item(i, 0)->setForeground(QApplication::style()->standardPalette().color(QPalette::Disabled, QPalette::Text));
 	}
 }
 
@@ -282,17 +265,14 @@ void ConfigAppearanceWidget::readSettings(const QString &settingsGroup)
 	QSettings settings;
 	settings.beginGroup(settingsGroup);
 	m_custom = settings.value("Customize", true).toBool();
-	int numOfRules = settings.value("Number", 0).toInt();
+	const int numOfRules = settings.value("Number", 0).toInt();
 	for (int i = 0; i < numOfRules; ++i)
 	{
-		QString name = settings.value("Item" + QString::number(i) + "/Name").toString();
-		QString colorName = settings.value("Item" + QString::number(i) + "/Color").toString();
-		QString fontName = settings.value("Item" + QString::number(i) + "/Font").toString();
-		num = m_typeNames.indexOf(name);
+		num = m_typeNames.indexOf(settings.value("Item" + QString::number(i) + "/Name").toString());
 		if (num >= 0)
 		{
-			m_itemColors[num] = colorName;
-			m_itemFonts[num] = fontName;
+			m_itemColors[num] = settings.value("Item" + QString::number(i) + "/Color").toString();
+			m_itemFonts[num] = settings.value("Item" + QString::number(i) + "/Font").toString();
 		}
 	}
 	settings.endGroup();
@@ -332,7 +312,7 @@ void ConfigAppearanceWidget::showFontDialog()
 	bool ok;
 	QFont currentFont;
 	currentFont.fromString(m_itemFonts.at(m_itemHighlighted));
-	QFont newFont = QFontDialog::getFont(&ok, currentFont, this);
+	const QFont newFont = QFontDialog::getFont(&ok, currentFont, this);
 	if (ok)
 	{
 		QTableWidgetItem *item = m_itemTable->item(m_itemHighlighted, 0);
@@ -346,8 +326,8 @@ void ConfigAppearanceWidget::showColorDialog()
 {
 	if (m_itemHighlighted < 0) return;
 
-	QColor currentColor(m_itemColors.at(m_itemHighlighted));
-	QColor newColor = QColorDialog::getColor(currentColor, this);
+	const QColor currentColor(m_itemColors.at(m_itemHighlighted));
+	const QColor newColor = QColorDialog::getColor(currentColor, this);
 	if (newColor.isValid())
 	{
 		m_itemColors.replace(m_itemHighlighted, newColor.name());
@@ -359,7 +339,7 @@ void ConfigAppearanceWidget::showColorDialog()
 void ConfigAppearanceWidget::setHighlightedForeground(const QString &colorName)
 {
 	QPalette palette = m_itemTable->palette();
-	QColor color(colorName);
+	const QColor color(colorName);
 	palette.setColor(QPalette::Normal, QPalette::HighlightedText, color);
 	palette.setColor(QPalette::Inactive, QPalette::HighlightedText, color);
 	palette.setColor(QPalette::Disabled, QPalette::HighlightedText, QApplication::style()->standardPalette().color(QPalette::Disabled, QPalette::Text));

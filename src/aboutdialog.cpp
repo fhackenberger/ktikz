@@ -32,18 +32,17 @@ AboutDialog::AboutDialog(QWidget *parent)
 	    .arg(tr("TikZ editor")).arg(tr("Copyright 2007-2008 Florian Hackenberger and Glad Deschrijver"))
 	    .arg(tr("This is a program for creating TikZ (from the LaTeX pgf package) diagrams."))
 	    .arg(APPVERSION);
-	QString text = "<p>";
-	text += tr("This program is free software; you can redistribute it and/or "
+	const QString text = "<p>"
+	    + tr("This program is free software; you can redistribute it and/or "
 	    "modify it under the terms of the GNU General Public License "
 	    "as published by the Free Software Foundation; either version 2 "
-	    "of the License, or (at your option) any later version.");
-	text += "</p>";
-	text += "<p>";
-	text += tr("This program is distributed in the hope that it will be useful, "
+	    "of the License, or (at your option) any later version.")
+	    + "</p><p>"
+	    + tr("This program is distributed in the hope that it will be useful, "
 	    "but WITHOUT ANY WARRANTY; without even the implied warranty of "
 	    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
-	    "GNU General Public License for more details.");
-	text += "</p>";
+	    "GNU General Public License for more details.")
+	    + "</p>";
 
 	QLabel *pixmapLabel = new QLabel;
 	pixmapLabel->setPixmap(QPixmap(":/images/ktikz-128.png"));

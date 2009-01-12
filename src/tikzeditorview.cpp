@@ -328,11 +328,9 @@ void TikzEditorView::applySettings()
 void TikzEditorView::showCursorPosition()
 {
 	QTextCursor cur = m_tikzEditor->textCursor();
-	int curPos = cur.position();
-	int startPos;
+	const int curPos = cur.position();
 	cur.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
-	startPos = cur.position();
-	emit cursorPositionChanged(cur.blockNumber() + 1, curPos - startPos + 1);
+	emit cursorPositionChanged(cur.blockNumber() + 1, curPos - cur.position() + 1);
 }
 
 /***************************************************************************/
@@ -421,7 +419,7 @@ void TikzEditorView::editComment()
 	if (textCursor.hasSelection())
 	{
 		textCursor.beginEditBlock();
-		int start = textCursor.selectionStart();
+		const int start = textCursor.selectionStart();
 		int end = textCursor.selectionEnd();
 		textCursor.setPosition(start, QTextCursor::MoveAnchor);
 		textCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
@@ -448,7 +446,7 @@ void TikzEditorView::editUncomment()
 	if (textCursor.hasSelection())
 	{
 		textCursor.beginEditBlock();
-		int start = textCursor.selectionStart();
+		const int start = textCursor.selectionStart();
 		int end = textCursor.selectionEnd() - 2;
 		textCursor.setPosition(start, QTextCursor::MoveAnchor);
 		textCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
@@ -562,12 +560,11 @@ void TikzEditorView::editReplace()
 
 void TikzEditorView::replace(const QString &replacement)
 {
-	int start;
 	QTextCursor textCursor = m_tikzEditor->textCursor();
 
 	if (textCursor.hasSelection())
 	{
-		start = textCursor.selectionStart();
+		const int start = textCursor.selectionStart();
 		textCursor.beginEditBlock();
 		textCursor.removeSelectedText();
 		textCursor.insertText(replacement);

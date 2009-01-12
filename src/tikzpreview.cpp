@@ -28,6 +28,8 @@
 #include <QSettings>
 #include <QToolBar>
 
+#include <poppler-qt4.h>
+
 #include "tikzpreview.h"
 
 TikzPreview::TikzPreview(QWidget *parent)
@@ -50,10 +52,12 @@ TikzPreview::TikzPreview(QWidget *parent)
 	m_oldZoomFactor = m_zoomFactor;
 	m_minZoomFactor = 0.1;
 	m_maxZoomFactor = 6;
-	m_isZooming = false;
+	m_hasZoomed = false;
 
 	createActions();
 	createViewToolBar();
+
+	setZoomFactor(m_zoomFactor);
 }
 
 TikzPreview::~TikzPreview()
@@ -77,12 +81,12 @@ QSize TikzPreview::sizeHint() const
 
 void TikzPreview::centerView()
 {
-	m_isZooming = true;
+	m_hasZoomed = true;
 }
 
 void TikzPreview::paintEvent(QPaintEvent *event)
 {
-	if (m_isZooming)
+	if (m_hasZoomed)
 	{
 		/* center the viewport on the same object in the image
 		 * that was previously the center (in order to avoid
@@ -92,50 +96,45 @@ void TikzPreview::paintEvent(QPaintEvent *event)
 		centerOn((horizontalScrollBar()->value() + viewport()->width() / 2) * zoomFraction,
 			(verticalScrollBar()->value() + viewport()->height() / 2) * zoomFraction);
 		m_oldZoomFactor = m_zoomFactor; // m_oldZoomFactor must be set here and not in the zoom functions below in order to avoid skipping some steps when the user zooms fast
-		m_isZooming = false;
+		m_hasZoomed = false;
 	}
 	QGraphicsView::paintEvent(event);
 }
 
-void TikzPreview::setZoomFactor()
+void TikzPreview::setZoomFactor(double zoomFactor)
 {
-	m_zoomFactor = m_zoomCombo->lineEdit()->text().remove(QRegExp("[^\\d\\.]*")).toDouble() / 100;
-
+	m_zoomFactor = zoomFactor;
+	// adjust zoom factor
 	if (m_zoomFactor < m_minZoomFactor)
 		m_zoomFactor = m_minZoomFactor;
 	else if (m_zoomFactor > m_maxZoomFactor)
 		m_zoomFactor = m_maxZoomFactor;
 
+	// add current zoom factor to the list of zoom factors
+	m_zoomCombo->lineEdit()->setText(QString::number(m_zoomFactor * 100) + "%");
+
+	m_zoomInAction->setEnabled(m_zoomFactor < m_maxZoomFactor);
+	m_zoomOutAction->setEnabled(m_zoomFactor > m_minZoomFactor);
+
 	showPdfPage();
 	centerView();
+}
+
+void TikzPreview::setZoomFactor()
+{
+	setZoomFactor(m_zoomCombo->lineEdit()->text().remove(QRegExp("[^\\d\\.]*")).toDouble() / 100);
 }
 
 void TikzPreview::zoomIn()
 {
-	if (m_zoomFactor < 0.999999)
-		m_zoomFactor += 0.1;
-	else if (m_zoomFactor < 1.999999)
-		m_zoomFactor += 0.2;
-	else
-		m_zoomFactor += 0.5;
-	if (m_zoomFactor > m_maxZoomFactor)
-		m_zoomFactor = m_maxZoomFactor;
-	showPdfPage();
-	centerView();
+	setZoomFactor(m_zoomFactor + ((m_zoomFactor > 0.99) ?
+	    (m_zoomFactor > 1.99 ? 0.5 : 0.2) : 0.1));
 }
 
 void TikzPreview::zoomOut()
 {
-	if (m_zoomFactor < 1.000001)
-		m_zoomFactor -= 0.1;
-	else if (m_zoomFactor < 2.000001)
-		m_zoomFactor -= 0.2;
-	else
-		m_zoomFactor -= 0.5;
-	if (m_zoomFactor < m_minZoomFactor)
-		m_zoomFactor = m_minZoomFactor;
-	showPdfPage();
-	centerView();
+	setZoomFactor(m_zoomFactor - ((m_zoomFactor > 1.01) ?
+	    (m_zoomFactor > 2.01 ? 0.5 : 0.2) : 0.1));
 }
 
 void TikzPreview::showPreviousPage()
@@ -158,8 +157,6 @@ void TikzPreview::showNextPage()
 
 void TikzPreview::showPdfPage()
 {
-	m_zoomCombo->lineEdit()->setText(QString::number(m_zoomFactor * 100) + "%");
-
 	if (!m_tikzPdfDoc || m_tikzPdfDoc->numPages() < 1) return;
 
 	if (!m_processRunning)
@@ -173,31 +170,21 @@ void TikzPreview::showPdfPage()
 
 void TikzPreview::pixmapUpdated(Poppler::Document *tikzPdfDoc)
 {
-    if (!tikzPdfDoc)
-        pixmapUpdatedEmpty();
-    else
+	m_tikzPdfDoc = tikzPdfDoc;
+
+    if (!m_tikzPdfDoc)
 	{
-		m_tikzPdfDoc = tikzPdfDoc;
-        pixmapUpdated();
+		m_tikzPixmapItem->setPixmap(QPixmap());
+		m_tikzPixmapItem->update();
+		return;
 	}
-}
 
-void TikzPreview::pixmapUpdatedEmpty()
-{
-	m_tikzPixmapItem->setPixmap(QPixmap());
-	m_tikzPixmapItem->update();
-}
-
-void TikzPreview::pixmapUpdated()
-{
 	m_tikzPdfDoc->setRenderBackend(Poppler::Document::SplashBackend);
 	m_tikzPdfDoc->setRenderHint(Poppler::Document::Antialiasing, true);
 	m_tikzPdfDoc->setRenderHint(Poppler::Document::TextAntialiasing, true);
 	const int numOfPages = m_tikzPdfDoc->numPages();
 
-	bool visible = false;
-	if (numOfPages > 1)
-		visible = true;
+	const bool visible = (numOfPages > 1);
 	m_viewToolBar->actions().at(m_viewToolBar->actions().indexOf(m_previousPageAction)-1)->setVisible(visible); // show separator
 	m_previousPageAction->setVisible(visible);
 	m_nextPageAction->setVisible(visible);

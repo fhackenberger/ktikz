@@ -68,7 +68,7 @@ void TemplateWidget::saveRecentTemplates()
 
 void TemplateWidget::setFileName(const QString &fileName)
 {
-	int index = ui.templateCombo->findText(fileName);
+	const int index = ui.templateCombo->findText(fileName);
 	if (index >= 0) // then remove item in order to re-add it at the top
 		ui.templateCombo->removeItem(index);
 	ui.templateCombo->insertItem(0, fileName);
@@ -81,7 +81,7 @@ void TemplateWidget::setReplaceText(const QString &replace)
 	replaceText.replace("&", "&amp;");
 	replaceText.replace("<", "&lt;");
 	replaceText.replace(">", "&gt;");
-	QString templateDescription(tr("<p>The template contains the code "
+	const QString templateDescription(tr("<p>The template contains the code "
 	    "of a complete LaTeX document in which the TikZ picture will be "
 	    "included and which will be typesetted to produce the preview "
 	    "image.  The string %1 in the template will be replaced by the "

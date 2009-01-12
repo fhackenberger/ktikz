@@ -56,8 +56,8 @@ void debugOutput(QtMsgType type, const char *msg)
 
 bool findTranslator(QTranslator *translator, const QString &transName, const QString &transDir)
 {
-	QString qmFile = transName + ".qm";
-	QFileInfo fi(QDir(transDir), qmFile);
+	const QString qmFile = transName + ".qm";
+	const QFileInfo fi(QDir(transDir), qmFile);
 	if (fi.exists())
 		return translator->load(qmFile, transDir);
 	return false;
@@ -65,8 +65,8 @@ bool findTranslator(QTranslator *translator, const QString &transName, const QSt
 
 QTranslator *createTranslator(const QString &transName, const QString &transDir)
 {
-	QString locale = QString(QLocale::system().name());
-	QString localeShort = locale.left(2).toLower();
+	const QString locale = QString(QLocale::system().name());
+	const QString localeShort = locale.left(2).toLower();
 
 	bool foundTranslator = false;
 	QTranslator *translator = new QTranslator(0);
@@ -78,7 +78,7 @@ QTranslator *createTranslator(const QString &transName, const QString &transDir)
 		foundTranslator = findTranslator(translator, transName + "_" + localeShort, transDir);
 	// find in dir which was set during compilation
 #ifdef KTIKZ_INSTALL_TRANSLATIONS
-	QDir qmPath(KTIKZ_INSTALL_TRANSLATIONS);
+	const QDir qmPath(KTIKZ_INSTALL_TRANSLATIONS);
 	if (!foundTranslator)
 		foundTranslator = findTranslator(translator, transName + "_" + locale, qmPath.absolutePath());
 	if (!foundTranslator)
@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
 	QCoreApplication::setOrganizationName("Florian Hackenberger");
 	QCoreApplication::setApplicationName("TikZ editor");
 
-	QString translationsDirPath = qgetenv("KTIKZ_TRANSLATIONS_DIR");
+	const QString translationsDirPath = qgetenv("KTIKZ_TRANSLATIONS_DIR");
 	app.installTranslator(createTranslator("qt", QLibraryInfo::location(QLibraryInfo::TranslationsPath)));
 	app.installTranslator(createTranslator("ktikz", translationsDirPath));
 
@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
 
 	if (argc > 1)
 	{
-		QFileInfo fi(argv[1]);
+		const QFileInfo fi(argv[1]);
 		mainWindow->loadFile(fi.absoluteFilePath());
 	}
 

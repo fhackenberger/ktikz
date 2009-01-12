@@ -22,10 +22,14 @@
 #define TIKZPREVIEW_H
 
 #include <QGraphicsView>
-#include <poppler-qt4.h>
 
 class QComboBox;
 class QToolBar;
+
+namespace Poppler
+{
+	class Document;
+}
 
 class TikzPreview : public QGraphicsView
 {
@@ -58,11 +62,10 @@ private slots:
 
 private:
 	void centerView();
+	void setZoomFactor(double zoomFactor);
 	void createActions();
 	void createViewToolBar();
 	void showPdfPage();
-	void pixmapUpdatedEmpty();
-	void pixmapUpdated();
 
 	QGraphicsScene *m_tikzScene;
 	QGraphicsPixmapItem *m_tikzPixmapItem;
@@ -81,7 +84,7 @@ private:
 	double m_zoomFactor;
 	double m_minZoomFactor;
 	double m_maxZoomFactor;
-	bool m_isZooming;
+	bool m_hasZoomed;
 };
 
 #endif

@@ -68,7 +68,7 @@ void LogHighlighter::highlightBlock(const QString &text)
 		int index = expression.indexIn(text);
 		while (index >= 0)
 		{
-			int length = expression.matchedLength();
+			const int length = expression.matchedLength();
 			setFormat(index, length, rule.format);
 //			index = text.indexOf(expression, index + length);
 			index = expression.indexIn(text, index + length);

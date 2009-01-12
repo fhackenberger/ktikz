@@ -27,11 +27,15 @@
 #include <QTime>
 #include <QWaitCondition>
 
-#include <poppler-qt4.h>
-
 class QPixmap;
 class QProcess;
 class QTextEdit;
+class QTextStream;
+
+namespace Poppler
+{
+	class Document;
+}
 
 /**
  * @author Florian Hackenberger <florian@hackenberger.at>

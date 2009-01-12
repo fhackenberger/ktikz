@@ -64,7 +64,7 @@ QMap<QString, QTextCharFormat> TikzHighlighter::getDefaultHighlightFormats()
 	QMap<QString, QTextCharFormat> formatList;
 	if (m_commandInserter)
 		formatList = m_commandInserter->getDefaultHighlightFormats();
-	int currentIndex = m_highlightTypeNames.size() - 2;
+	const int currentIndex = m_highlightTypeNames.size() - 2;
 
 	QTextCharFormat keywordFormat;
 	keywordFormat.setForeground(Qt::darkBlue);
@@ -116,7 +116,7 @@ void TikzHighlighter::highlightBlock(const QString &text)
 		int index = expression.indexIn(text);
 		while (index >= 0)
 		{
-			int length = expression.matchedLength();
+			const int length = expression.matchedLength();
 			if (index == 0 || text.at(index-1) != '\\')
 				setFormat(index, length, m_formatList[rule.type]);
 //			index = text.indexOf(expression, index + length);

@@ -24,15 +24,11 @@
  ***************************************************************************/
 
 #include <QAbstractItemView>
-#include <QAction>
 #include <QApplication>
-#include <QClipboard>
 #include <QCompleter>
-#include <QMenu>
 #include <QPainter>
 #include <QPalette>
 #include <QScrollBar>
-#include <QStyle>
 #include <QTextBlock>
 #include <QTextLayout>
 
@@ -479,7 +475,7 @@ void TikzEditor::setCompleter(QCompleter *completer)
 
 void TikzEditor::insertCompletion(const QString &completion)
 {
-	if (m_completer->widget() != this)
+	if (!m_completer || m_completer->widget() != this)
 		return;
 
 	QTextCursor cursor = textCursor();
