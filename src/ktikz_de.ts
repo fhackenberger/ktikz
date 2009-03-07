@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de">
+<defaultcodec></defaultcodec>
 <context>
     <name>AboutDialog</name>
     <message>
@@ -276,32 +277,32 @@
     <message>
         <location filename="configdialog.cpp" line="251"/>
         <source>&amp;Toolbar style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Werkzeugleis&amp;tenstil</translation>
     </message>
     <message>
         <location filename="configdialog.cpp" line="254"/>
         <source>Select the style in which the toolbar will be displayed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie den Stil der Werkzeugleiste aus</translation>
     </message>
     <message>
         <location filename="configdialog.cpp" line="258"/>
         <source>Icons only</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur Symbole</translation>
     </message>
     <message>
         <location filename="configdialog.cpp" line="259"/>
         <source>Text only</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur Text</translation>
     </message>
     <message>
         <location filename="configdialog.cpp" line="260"/>
         <source>Text alongside icons</source>
-        <translation type="unfinished"></translation>
+        <translation>Text und Symbole</translation>
     </message>
     <message>
         <location filename="configdialog.cpp" line="261"/>
         <source>Text under icons</source>
-        <translation type="unfinished"></translation>
+        <translation>Text unter Symbolen</translation>
     </message>
 </context>
 <context>
@@ -360,7 +361,7 @@
     <message>
         <location filename="lineedit.cpp" line="23"/>
         <source>Clear input field</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingabefeld leeren</translation>
     </message>
 </context>
 <context>
@@ -368,27 +369,27 @@
     <message>
         <location filename="editreplacecurrentwidget.cpp" line="32"/>
         <source>&amp;Replace</source>
-        <translation type="unfinished">Ersetze</translation>
+        <translation>E&amp;rsetze</translation>
     </message>
     <message>
         <location filename="editreplacecurrentwidget.cpp" line="33"/>
         <source>Replace &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Alle ersetzen</translation>
     </message>
     <message>
         <location filename="editreplacecurrentwidget.cpp" line="34"/>
         <source>&amp;Don&apos;t Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nicht Ersetzen</translation>
     </message>
     <message>
         <location filename="editreplacecurrentwidget.cpp" line="35"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbre&amp;chen</translation>
     </message>
     <message>
         <location filename="editreplacecurrentwidget.cpp" line="64"/>
         <source>Replace %1 by %2?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 duch %2 ersetzen?</translation>
     </message>
 </context>
 <context>
@@ -411,12 +412,12 @@
     <message>
         <location filename="editreplacewidget.ui" line="54"/>
         <source>&amp;Whole words</source>
-        <translation type="unfinished">Ganze Worte</translation>
+        <translation>Ganze &amp;Worte</translation>
     </message>
     <message>
         <location filename="editreplacewidget.ui" line="61"/>
         <source>&amp;Case sensitive</source>
-        <translation type="unfinished">Groß/kleinschreibung berücksichtigen</translation>
+        <translation>Groß/kleins&amp;chreibung berücksichtigen</translation>
     </message>
     <message>
         <location filename="editreplacewidget.ui" line="70"/>
@@ -436,12 +437,12 @@
     <message>
         <location filename="editreplacewidget.ui" line="127"/>
         <source>&amp;Find</source>
-        <translation type="unfinished">Suche</translation>
+        <translation>&amp;Suche</translation>
     </message>
     <message>
         <location filename="editreplacewidget.ui" line="134"/>
         <source>&amp;Replace</source>
-        <translation type="unfinished">Ersetze</translation>
+        <translation>E&amp;rsetze</translation>
     </message>
 </context>
 <context>
@@ -479,7 +480,7 @@
     <message>
         <location filename="templatewidget.ui" line="38"/>
         <source>&lt;p&gt;Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Geben Sie den Dateinamen der LaTeX Vorlage an. Wenn dieses Feld leer bleibt oder einen ungültigen Pfad enthält wird eine Standardvorlage verwendet.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="templatewidget.ui" line="22"/>
@@ -489,7 +490,7 @@
     <message>
         <location filename="templatewidget.ui" line="48"/>
         <source>&lt;p&gt;Select template file&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;Wählen Sie die Vorlagedatei aus.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Wählen Sie die Vorlagedatei aus.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="templatewidget.ui" line="70"/>
@@ -499,17 +500,17 @@
     <message>
         <location filename="templatewidget.ui" line="51"/>
         <source>&lt;p&gt;Browse to an existing template file.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Nach einer existierenden Vorlagendatei suchen.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="templatewidget.ui" line="64"/>
         <source>&lt;p&gt;Edit template file&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Vorlage bearbeiten&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="templatewidget.cpp" line="88"/>
         <source>&lt;p&gt;The template contains the code of a complete LaTeX document in which the TikZ picture will be included and which will be typesetted to produce the preview image.  The string %1 in the template will be replaced by the TikZ code.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Die Vorlage enhält den code für ein komplettes LaTeX Dokument in das die TikZ Zeichnung inkludiert wird. Das Resultat wird von LaTeX übersetzt um daraus die Vorschau zu erstellen. Die Zeichenkette %1 in der Vorlage wird duch den TikZ code ersetzt.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1269,27 +1270,27 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="ktikz.cpp" line="369"/>
         <source>S&amp;hell Escape</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="ktikz.cpp" line="370"/>
         <source>Enable the \write18{shell-command} feature</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="ktikz.cpp" line="372"/>
         <source>Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="ktikz.cpp" line="372"/>
         <source>Warning:</source>
-        <translation type="unfinished"></translation>
+        <translation>Warnung:</translation>
     </message>
     <message>
         <location filename="ktikz.cpp" line="372"/>
         <source>Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese option kann zur Auführung von Schadcode führen! Überprüfen sie den LaTeX code um zu sehen welche Kommandos ausgeführt werden.</translation>
     </message>
     <message>
         <location filename="ktikz.cpp" line="334"/>
@@ -1299,12 +1300,12 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="ktikz.cpp" line="326"/>
         <source>Close the current document</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelles Dokument schließen</translation>
     </message>
     <message>
         <location filename="ktikz.cpp" line="327"/>
         <source>&amp;Close File</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei s&amp;chließen</translation>
     </message>
     <message>
         <location filename="ktikz.cpp" line="377"/>
@@ -1314,7 +1315,7 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="ktikz.cpp" line="174"/>
         <source>PGF files</source>
-        <translation type="unfinished"></translation>
+        <translation>PGF Dateien</translation>
     </message>
 </context>
 </TS>
