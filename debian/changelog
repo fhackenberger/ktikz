@@ -1,3 +1,24 @@
+ktikz (0.7-0.1) unstable; urgency=low
+
+  * Make a normal Debian package, not a native one.
+  * Create and install a minimal man page.
+  * debian/rules:
+    - Use distclean in clean target.
+    - Make sure auto-generated src/ktikz.desktop is removed in clean target.
+    - Call dh_desktop (Fix lintian warning: ktikz:
+      desktop-mimetype-without-update-call).
+    - Call dh_installmenu.
+    - Remove unused stuff from original dh_make template.
+  * debian/control:
+    - Fix lintian 'E: ktikz: description-starts-with-package-name'.
+    - Add Homepage and Vcs-Svn fields.
+    - Bump Standards-Version to 3.8.0. No changes required.
+  * debian/copyright: Improved wording. Fix some lintian warnings:
+    - Fix lintian 'copyright-refers-to-versionless-license-file'.
+    - Fix lintian 'copyright-contains-dh_make-todo-boilerplate'.
+
+ -- Agustin Martin Domingo <agustin.martin@hispalinux.es>  Mon, 02 Mar 2009 15:49:30 +0100
+
 ktikz (0.7) hardy; urgency=low
 
   * Upgraded to release 0.7

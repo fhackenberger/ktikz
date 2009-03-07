@@ -1,24 +1,39 @@
 This package was debianized by Florian Hackenberger <florian@hackenberger.at> on
 Tue, 11 Sep 2007 15:32:17 +0200.
 
-It was downloaded from http://www.hackenberger.at/blog/ktikz-editor-for-the-tikz-language/
+It was downloaded from http://www.hackenberger.at/ktikz
 
 Upstream Author: Florian Hackenberger <florian@hackenberger.at>
 
-Copyright: 2007 Florian Hackenberger <florian@hackenberger.at>
-           2007 Glad Deschrijver
+Copyright (C) 2007-2008 Florian Hackenberger <florian@hackenberger.at>
+Copyright (C) 2007-2008 Glad Deschrijver
 
-License: GPL
+License: GPL version 2 or later
 
-  You should have received a copy of the GNU General Public License with the
-  Debian GNU/Linux distribution in file /usr/share/common-licenses/GPL; if
-  not, write to the Free Software Foundation, Inc., 51 Franklin St, Fifth
-  Floor, Boston, MA 02110-1301, USA.
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
 
-The Debian packaging is (C) 2007, Florian Hackenberger <florian@hackenberger.at> and
-is licensed under the GPL, see `/usr/share/common-licenses/GPL'.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the
 
-# Please also look if there are files or directories which have a
-# different copyright/license attached and list them here.
+  Free Software Foundation, Inc.,
+  51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+
+Debian packaging is
+
+  Copyright (C) 2007-2008, Florian Hackenberger <florian@hackenberger.at>
+
+and is also licensed under the GPL
+
+On Debian systems, the complete text of the GNU General Public License
+version 2 can be found in /usr/share/common-licenses/GPL-2 file. Text
+for higher versions is available in the same directory.
+
 

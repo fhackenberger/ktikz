@@ -2,13 +2,15 @@ Source: ktikz
 Section: graphics
 Priority: extra
 Maintainer: Florian Hackenberger <florian@hackenberger.at>
-Build-Depends: debhelper (>= 5), qt4-dev-tools, libqt4-dev (>= 4.3.0), libpoppler-qt4-dev 
-Standards-Version: 3.7.2
+Build-Depends: debhelper (>= 5), qt4-dev-tools, libqt4-dev (>= 4.3.0), libpoppler-qt4-dev
+Homepage: http://www.hackenberger.at/ktikz-editor-for-the-tikz-language
+Vcs-Svn: svn://hackenberger.at/svnroot/ktikz/trunk
+Standards-Version: 3.8.0
 
 Package: ktikz
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, pgf, preview-latex-style
 Suggests: poppler-utils
-Description: KtikZ - Editor for the TikZ language
+Description: Editor for the TikZ language
  KtikZ is a small application helping you to create TikZ
  (from the LaTeX pgf package) diagrams for your publications.
