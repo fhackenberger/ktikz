@@ -34,7 +34,12 @@ class QLabel;
 class QMenu;
 class QSyntaxHighlighter;
 class QToolButton;
-class Poppler::Document;
+
+namespace Poppler
+{
+	class Document;
+}
+
 class AboutDialog;
 class ConfigDialog;
 class LogTextEdit;

@@ -40,7 +40,7 @@ namespace Poppler
 /**
  * @author Florian Hackenberger <florian@hackenberger.at>
  */
-class TikzPngPreviewer : protected QThread
+class TikzPngPreviewer : public QThread
 {
 	Q_OBJECT
 
