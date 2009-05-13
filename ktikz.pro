@@ -20,6 +20,10 @@ unix:!macx {
 	message(The desktop file will be installed in)
 	message("  $${DESKTOPDIR}")
 }
+usekde {
+	message(KDE includes: $${KDE_INCLUDEDIRS})
+	message(KDE libs: $${KDE_LIBDIRS})
+}
 message()
 message("If you would like to change these paths,")
 message("please adjust conf.pri to your needs and rerun qmake.")

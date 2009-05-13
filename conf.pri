@@ -34,5 +34,5 @@ LRELEASECOMMAND = lrelease-qt4
 
 # use KDE4 file dialogs:
 #CONFIG += usekde # hide this to disable KDE file dialogs
-KDE_INCLUDEDIRS = /usr/lib/kde4/include/KDE /usr/lib/kde4/include
-KDE_LIBDIRS = /usr/lib/kde4/lib
+#KDE_INCLUDEDIRS = /usr/lib/kde4/include/KDE /usr/lib/kde4/include
+#KDE_LIBDIRS = /usr/lib/kde4/lib

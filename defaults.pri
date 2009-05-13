@@ -6,6 +6,14 @@ isEmpty(QMAKECOMMAND) {
 isEmpty(LRELEASECOMMAND) {
 	LRELEASECOMMAND = lrelease
 }
+isEmpty(KDE_INCLUDEDIRS) {
+	KDE_PREFIX = $$system(kde4-config --prefix)
+	KDE_INCLUDEDIRS = $${KDE_PREFIX}/include/KDE $${KDE_PREFIX}/include
+}
+isEmpty(KDE_LIBDIRS) {
+	KDE_PREFIX = $$system(kde4-config --prefix)
+	KDE_LIBDIRS = $${KDE_PREFIX}/lib
+}
 
 unix:!macx {
 	isEmpty(PREFIX) {
