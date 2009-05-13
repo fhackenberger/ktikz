@@ -42,7 +42,7 @@
    <item>
     <widget class="QPushButton" name="pushButtonGo" >
      <property name="text" >
-      <string>Go</string>
+      <string>&amp;Go</string>
      </property>
     </widget>
    </item>

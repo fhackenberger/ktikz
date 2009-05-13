@@ -55,6 +55,8 @@ void TemplateWidget::readRecentTemplates()
 	QSettings settings;
 	ui.templateCombo->setMaxCount(settings.value("TemplateRecentNumber", 5).toInt());
 	ui.templateCombo->addItems(settings.value("TemplateRecent").toStringList());
+//	ui.templateCombo->setCurrentIndex(ui.templateCombo->findText(settings.value("TemplateFile").toString()));
+	ui.templateCombo->setCurrentIndex(0);
 }
 
 void TemplateWidget::saveRecentTemplates()
@@ -73,6 +75,7 @@ void TemplateWidget::setFileName(const QString &fileName)
 		ui.templateCombo->removeItem(index);
 	ui.templateCombo->insertItem(0, fileName);
 	ui.templateCombo->lineEdit()->setText(fileName);
+	ui.templateCombo->setCurrentIndex(0);
 }
 
 void TemplateWidget::setReplaceText(const QString &replace)

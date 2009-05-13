@@ -28,11 +28,22 @@
 AboutDialog::AboutDialog(QWidget *parent)
     : QDialog(parent)
 {
-	const QString msg = QString("<h1>%1 %4</h1><p>%2</p><p>%3</p>")
-	    .arg(tr("TikZ editor")).arg(tr("Copyright 2007-2008 Florian Hackenberger and Glad Deschrijver"))
-	    .arg(tr("This is a program for creating TikZ (from the LaTeX pgf package) diagrams."))
-	    .arg(APPVERSION);
-	const QString text = "<p>"
+	QLabel *pixmapLabel = new QLabel;
+	pixmapLabel->setPixmap(QPixmap(":/images/ktikz-128.png"));
+	QLabel *label = new QLabel(QString("<h1>%1 %2</h1><p>%3</p><p>%4</p>")
+	    .arg(tr("TikZ editor"))
+	    .arg(APPVERSION)
+	    .arg(tr("Copyright 2007-2008 Florian Hackenberger and Glad Deschrijver"))
+	    .arg(tr("This is a program for creating TikZ (from the LaTeX pgf package) diagrams.")));
+	label->setWordWrap(true);
+
+	QWidget *topWidget = new QWidget;
+	QHBoxLayout *topLayout = new QHBoxLayout;
+	topLayout->addWidget(pixmapLabel);
+	topLayout->addWidget(label);
+	topWidget->setLayout(topLayout);
+
+	QTextEdit *textEdit = new QTextEdit("<p>"
 	    + tr("This program is free software; you can redistribute it and/or "
 	    "modify it under the terms of the GNU General Public License "
 	    "as published by the Free Software Foundation; either version 2 "
@@ -42,20 +53,7 @@ AboutDialog::AboutDialog(QWidget *parent)
 	    "but WITHOUT ANY WARRANTY; without even the implied warranty of "
 	    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
 	    "GNU General Public License for more details.")
-	    + "</p>";
-
-	QLabel *pixmapLabel = new QLabel;
-	pixmapLabel->setPixmap(QPixmap(":/images/ktikz-128.png"));
-	QLabel *label = new QLabel(msg);
-	label->setWordWrap(true);
-
-	QWidget *topWidget = new QWidget;
-	QHBoxLayout *topLayout = new QHBoxLayout;
-	topLayout->addWidget(pixmapLabel);
-	topLayout->addWidget(label);
-	topWidget->setLayout(topLayout);
-
-	QTextEdit *textEdit = new QTextEdit(text);
+	    + "</p>");
 	textEdit->setReadOnly(true);
 	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
 	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));

@@ -258,6 +258,7 @@ QMenu *TikzEditorView::createMenu()
 	editMenu->addAction(m_cutAction);
 	editMenu->addAction(m_copyAction);
 	editMenu->addAction(m_pasteAction);
+	editMenu->addSeparator();
 	editMenu->addAction(m_selectAllAction);
 	editMenu->addSeparator();
 	editMenu->addActions(m_editActions);

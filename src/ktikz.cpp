@@ -325,9 +325,10 @@ void ktikz::createActions()
 	connect(m_saveAsAction, SIGNAL(triggered()), this, SLOT(saveAs()));
 
 	QString closeWhatsThis = tr("Close the current document");
-	m_closeAction = new QAction(QIcon(":/images/window-close.png"), tr("&Close File"), this);
+	m_closeAction = new QAction(QIcon(":/images/window-close.png"), tr("&Close"), this);
 	m_closeAction->setShortcut(QKeySequence::Close);
 	m_closeAction->setStatusTip(closeWhatsThis);
+	m_closeAction->setToolTip(tr("Close File"));
 	m_closeAction->setWhatsThis("<p>" + closeWhatsThis + "</p>");
 	connect(m_closeAction, SIGNAL(triggered()), this, SLOT(closeFile()));
 
@@ -418,11 +419,12 @@ void ktikz::createMenus()
 	fileMenu->addAction(m_newAction);
 	fileMenu->addAction(m_openAction);
 	fileMenu->addMenu(m_recentMenu);
-	fileMenu->addAction(m_closeAction);
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_saveAction);
 	fileMenu->addAction(m_saveAsAction);
 	fileMenu->addMenu(exportMenu);
+	fileMenu->addSeparator();
+	fileMenu->addAction(m_closeAction);
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_exitAction);
 
