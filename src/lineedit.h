@@ -20,9 +20,10 @@ class LineEdit : public QLineEdit
 
 public:
 	LineEdit(QWidget *parent = 0);
+	virtual QSize sizeHint() const;
 
 protected:
-	void resizeEvent(QResizeEvent *);
+	void resizeEvent(QResizeEvent *event);
 
 private slots:
 	void updateClearButton(const QString &text);

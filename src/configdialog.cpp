@@ -31,6 +31,8 @@
 #include <QKeyEvent>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMessageBox>
+#include <QProcess>
 #include <QPushButton>
 #include <QSettings>
 #include <QSpinBox>
@@ -92,10 +94,12 @@ void ConfigDialog::readSettings()
 	m_appearance->readSettings("Highlighting");
 
 	QSettings settings;
-	m_numRecentFiles = settings.value("RecentFilesNumber", 10).toInt();
+	m_historyLengthSpinBox->setValue(settings.value("RecentFilesNumber", 10).toInt());
 	m_commandsInDock = settings.value("CommandsInDock", false).toBool();
-	m_latexCommand = settings.value("LatexCommand", "pdflatex").toString();
-	m_pdftopsCommand = settings.value("PdftopsCommand", "pdftops").toString();
+	m_commandsInDockCheck->setChecked(m_commandsInDock);
+	m_tikzDocEdit->setText(settings.value("TikzDocumentation").toString());
+	m_latexEdit->setText(settings.value("LatexCommand", "pdflatex").toString());
+	m_pdftopsEdit->setText(settings.value("PdftopsCommand", "pdftops").toString());
 	m_editorEdit->setText(settings.value("TemplateEditor", "kwrite").toString());
 	m_replaceEdit->setText(settings.value("TemplateReplaceText", "<>").toString());
 
@@ -104,39 +108,25 @@ void ConfigDialog::readSettings()
 	settings.endGroup();
 
 	settings.beginGroup("Editor");
-	const QString textFontString = settings.value("Font", qApp->font().toString()).toString();
-	m_textFont.fromString(textFontString);
+	m_textFont.fromString(settings.value("Font", qApp->font().toString()).toString());
+	m_textFontEdit->setText(m_textFont.family() + " " + QString::number(m_textFont.pointSize()));
+	m_textFontEdit->setFont(m_textFont);
 	m_showMatchingCheck->setChecked(settings.value("ShowMatchingBrackets", true).toBool());
 	m_showWhiteSpacesCheck->setChecked(settings.value("ShowWhiteSpaces", false).toBool());
 	m_matchingColorButton->setColor(settings.value("ColorMatchingBrackets", Qt::yellow).value<QColor>());
 	settings.endGroup();
-
-	setSettings();
-}
-
-void ConfigDialog::setSettings()
-{
-	m_textFontEdit->setText(m_textFont.family() + " " + QString::number(m_textFont.pointSize()));
-	m_textFontEdit->setFont(m_textFont);
-	m_historyLengthSpinBox->setValue(m_numRecentFiles);
-	m_commandsInDockCheck->setChecked(m_commandsInDock);
-	m_latexEdit->setText(m_latexCommand);
-	m_pdftopsEdit->setText(m_pdftopsCommand);
 
 	m_appearance->setSettings();
 }
 
 void ConfigDialog::writeSettings()
 {
-	m_numRecentFiles = m_historyLengthSpinBox->value();
-	m_latexCommand = m_latexEdit->text();
-	m_pdftopsCommand = m_pdftopsEdit->text();
-
 	QSettings settings;
-	settings.setValue("RecentFilesNumber", m_numRecentFiles);
+	settings.setValue("RecentFilesNumber", m_historyLengthSpinBox->value());
 	settings.setValue("CommandsInDock", m_commandsInDock);
-	settings.setValue("LatexCommand", m_latexCommand);
-	settings.setValue("PdftopsCommand", m_pdftopsCommand);
+	settings.setValue("TikzDocumentation", m_tikzDocEdit->text());
+	settings.setValue("LatexCommand", m_latexEdit->text());
+	settings.setValue("PdftopsCommand", m_pdftopsEdit->text());
 	settings.setValue("TemplateEditor", m_editorEdit->text());
 	settings.setValue("TemplateReplaceText", m_replaceEdit->text());
 
@@ -274,10 +264,48 @@ QWidget *ConfigDialog::generalPage()
 	QGroupBox *interfaceBox = new QGroupBox(tr("Interface"));
 	interfaceBox->setLayout(interfaceLayout);
 
+	// Help
+	const QString tikzDocWhatsThis = "<p>" + tr("Enter the path to the file containing the TikZ documentation here.") + "</p>";
+	QLabel *tikzDocLabel = new QLabel(tr("&TikZ documentation:"));
+	m_tikzDocEdit = new LineEdit;
+	m_tikzDocEdit->setWhatsThis(tikzDocWhatsThis);
+	m_tikzDocEdit->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+	tikzDocLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+	tikzDocLabel->setWhatsThis(tikzDocWhatsThis);
+	tikzDocLabel->setBuddy(m_tikzDocEdit);
+	QToolButton *tikzDocButton = new QToolButton;
+	tikzDocButton->setIcon(QIcon(":/images/document-open.png"));
+	tikzDocButton->setToolTip(tr("Browse file"));
+	tikzDocButton->setWhatsThis("<p>" + tr("Browse to the file containing the TikZ documentation.") + "</p>");
+	tikzDocButton->setObjectName("tikzDocButton");
+	connect(tikzDocButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
+	QPushButton *tikzDocSearchButton = new QPushButton(tr("&Search"));
+	//tikzDocSearchButton->setTooltip(tr("Search the TikZ documentation in the TeX directory structure."));
+	tikzDocSearchButton->setWhatsThis("<p>" + tr("Press this button ot search the file containing the TikZ documentation in the TeX directory structure using kpsewhich.") + "</p>");
+	connect(tikzDocSearchButton, SIGNAL(clicked()), this, SLOT(searchTikzDocumentation()));
+
+	QGridLayout *tikzDocLayout = new QGridLayout;
+	QWidget *tikzDocWidget1 = new QWidget;
+	QHBoxLayout *tikzDocLayout1 = new QHBoxLayout(tikzDocWidget1);
+	tikzDocLayout1->addWidget(m_tikzDocEdit);
+	tikzDocLayout1->addWidget(tikzDocButton);
+	tikzDocLayout1->setMargin(0);
+	QWidget *tikzDocWidget2 = new QWidget;
+	QHBoxLayout *tikzDocLayout2 = new QHBoxLayout(tikzDocWidget2);
+	tikzDocLayout2->addWidget(tikzDocSearchButton);
+	tikzDocLayout2->addStretch();
+	tikzDocLayout2->setMargin(0);
+	tikzDocLayout->addWidget(tikzDocLabel, 0, 0);
+	tikzDocLayout->addWidget(tikzDocWidget1, 0, 1);
+	tikzDocLayout->addWidget(tikzDocWidget2, 1, 1);
+	QGroupBox *tikzDocBox = new QGroupBox(tr("Help"));
+	tikzDocBox->setLayout(tikzDocLayout);
+
 	// Put everything together
 	QVBoxLayout *layout = new QVBoxLayout;
 	layout->addWidget(editorBox);
 	layout->addWidget(interfaceBox);
+	layout->addWidget(tikzDocBox);
 	layout->addStretch();
 	page->setLayout(layout);
 
@@ -293,6 +321,7 @@ QWidget *ConfigDialog::typesettingPage()
 	QLabel *latexLabel = new QLabel(tr("&LaTeX command:"));
 	m_latexEdit = new LineEdit;
 	m_latexEdit->setWhatsThis(latexWhatsThis);
+	m_latexEdit->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
 	latexLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	latexLabel->setWhatsThis(latexWhatsThis);
 	latexLabel->setBuddy(m_latexEdit);
@@ -307,6 +336,7 @@ QWidget *ConfigDialog::typesettingPage()
 	QLabel *pdftopsLabel = new QLabel(tr("&Pdftops command:"));
 	m_pdftopsEdit = new LineEdit;
 	m_pdftopsEdit->setWhatsThis(pdftopsWhatsThis);
+	m_pdftopsEdit->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
 	pdftopsLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	pdftopsLabel->setWhatsThis(pdftopsWhatsThis);
 	pdftopsLabel->setBuddy(m_pdftopsEdit);
@@ -332,6 +362,7 @@ QWidget *ConfigDialog::typesettingPage()
 	QLabel *replaceLabel = new QLabel(tr("&Replace text:"));
 	m_replaceEdit = new LineEdit;
 	m_replaceEdit->setWhatsThis(replaceWhatsThis);
+	m_replaceEdit->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
 	replaceLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	replaceLabel->setWhatsThis(replaceWhatsThis);
 	replaceLabel->setBuddy(m_replaceEdit);
@@ -340,6 +371,7 @@ QWidget *ConfigDialog::typesettingPage()
 	QLabel *editorLabel = new QLabel(tr("&Editor command:"));
 	m_editorEdit = new LineEdit;
 	m_editorEdit->setWhatsThis(editorWhatsThis);
+	m_editorEdit->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
 	editorLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	editorLabel->setWhatsThis(editorWhatsThis);
 	editorLabel->setBuddy(m_editorEdit);
@@ -381,6 +413,27 @@ QWidget *ConfigDialog::appearancePage(QWidget *parent)
 	return page;
 }
 
+void ConfigDialog::searchTikzDocumentation()
+{
+	const QString kpsewhichCommand = "kpsewhich";
+	QStringList kpsewhichArguments;
+	kpsewhichArguments << "--format" << "TeX system documentation" << "pgfmanual.pdf";
+
+	QProcess process;
+	process.start(kpsewhichCommand, kpsewhichArguments);
+	process.waitForStarted(1000);
+	while (process.state() != QProcess::NotRunning)
+		process.waitForFinished(100 /*msec*/);
+
+	QString tikzDocFile = process.readAllStandardOutput();
+	tikzDocFile = tikzDocFile.trimmed();
+	if (tikzDocFile.isEmpty())
+		QMessageBox::warning(this, tr("TikZ editor"),
+		                     tr("Cannot find TikZ documentation."));
+	else
+		m_tikzDocEdit->setText(tikzDocFile);
+}
+
 void ConfigDialog::setCommandsInDock(bool inDock)
 {
 	m_commandsInDock = inDock;
@@ -398,12 +451,24 @@ void ConfigDialog::selectFont()
 	}
 }
 
-void ConfigDialog::browseCommand(QLineEdit *lineEdit)
+void ConfigDialog::browseCommand(QLineEdit *lineEdit, bool isProgram)
 {
-	QString location = QFileDialog::getOpenFileName(this,
-	    tr("Browse program"), QDir::rootPath(),
-	    QString("%1 (*)").arg(tr("Program")), 0,
-	    QFileDialog::DontResolveSymlinks);
+	QString location;
+	if (isProgram)
+	{
+		location = QFileDialog::getOpenFileName(this,
+		    tr("Browse program"), QDir::rootPath(),
+		    QString("%1 (*)").arg(tr("Program")), 0,
+		    QFileDialog::DontResolveSymlinks);
+	}
+	else
+	{
+		const QString oldLocation = lineEdit->text();
+		location = QFileDialog::getOpenFileName(this,
+		    tr("Browse file"),
+		    (!oldLocation.isEmpty()) ? oldLocation : QDir::homePath(),
+		    QString("%1 (*.*)").arg(tr("All files")));
+	}
 	if (!location.isEmpty())
 	{
 		location.replace("\\", "/");
@@ -420,6 +485,8 @@ void ConfigDialog::browseCommand()
 		browseCommand(m_pdftopsEdit);
 	else if (button->objectName() == "editorButton")
 		browseCommand(m_editorEdit);
+	else if (button->objectName() == "tikzDocButton")
+		browseCommand(m_tikzDocEdit, false);
 }
 
 void ConfigDialog::accept()

@@ -50,11 +50,10 @@ signals:
 	void settingsChanged();
 
 private:
-	void setSettings();
 	QWidget *generalPage();
 	QWidget *typesettingPage();
 	QWidget *appearancePage(QWidget *parent);
-	void browseCommand(QLineEdit *lineEdit);
+	void browseCommand(QLineEdit *lineEdit, bool isProgram = true);
 	void keyPressEvent(QKeyEvent *event);
 
 	QTabWidget *m_centerWidget;
@@ -69,13 +68,12 @@ private:
 	QCheckBox *m_commandsInDockCheck;
 	QComboBox *m_toolBarStyleCombo;
 
+	QLineEdit *m_tikzDocEdit;
+
 	QLineEdit *m_latexEdit;
 	QLineEdit *m_pdftopsEdit;
 	QFont m_textFont;
-	int m_numRecentFiles;
 	bool m_commandsInDock;
-	QString m_latexCommand;
-	QString m_pdftopsCommand;
 
 	QLineEdit *m_replaceEdit;
 	QLineEdit *m_editorEdit;
@@ -83,6 +81,7 @@ private:
 	ConfigAppearanceWidget *m_appearance;
 
 private slots:
+	void searchTikzDocumentation();
 	void setCommandsInDock(bool inDock);
 	void selectFont();
 	void browseCommand();

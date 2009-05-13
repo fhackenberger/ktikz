@@ -24,19 +24,31 @@ LineEdit::LineEdit(QWidget *parent)
 	m_clearButton->hide();
 	connect(m_clearButton, SIGNAL(clicked()), this, SLOT(clear()));
 	connect(this, SIGNAL(textChanged(const QString&)), this, SLOT(updateClearButton(const QString&)));
-	const int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
-	setStyleSheet(QString("QLineEdit { padding-right: %1px; }").arg(m_clearButton->sizeHint().width() + frameWidth + 1));
+//	const int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
+//	setStyleSheet(QString("QLineEdit { padding-right: %1px; width: %2px; height: %3px; }")
+//	    .arg(m_clearButton->sizeHint().width() + frameWidth + 1)
+//	    .arg(sizeHint().width())
+//	    .arg(sizeHint().height()));
+	setStyleSheet(QString("QLineEdit { padding-right: %1px; }")
+	    .arg(m_clearButton->sizeHint().width() + style()->pixelMetric(QStyle::PM_DefaultFrameWidth) + 1));
 //	QSize msz = minimumSizeHint();
 //	setMinimumSize(qMax(msz.width(), m_clearButton->sizeHint().height() + frameWidth * 2 + 2),
 //	               qMax(msz.height(), m_clearButton->sizeHint().height() + frameWidth * 2 + 2));
 }
 
-void LineEdit::resizeEvent(QResizeEvent *)
+QSize LineEdit::sizeHint() const
+{
+	const QSize msz = QLineEdit::sizeHint();
+	const int minimumHeight = m_clearButton->sizeHint().height() + style()->pixelMetric(QStyle::PM_DefaultFrameWidth) * 2;
+	return QSize(qMax(msz.width(), minimumHeight + 2), qMax(msz.height(), minimumHeight));
+}
+
+void LineEdit::resizeEvent(QResizeEvent *event)
 {
 	const QSize sz = m_clearButton->sizeHint();
-	const int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
-	m_clearButton->move(rect().right() - frameWidth - sz.width(),
-	                  (rect().bottom() + 1 - sz.height())/2);
+	m_clearButton->move(rect().right() - style()->pixelMetric(QStyle::PM_DefaultFrameWidth) - sz.width(),
+	                    (rect().bottom() + 1 - sz.height()) / 2);
+	QLineEdit::resizeEvent(event);
 }
 
 void LineEdit::updateClearButton(const QString &text)

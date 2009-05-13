@@ -26,6 +26,11 @@ Version 0.8 (2008-11-20):
   is set
 - remove bug (I hope) that caused ktikz to crash when zooming while ktikz
   is typesetting
+- remove bug that on startup the item selected in the template combobox
+  did not correspond to the text in the lineedit of the combobox
+- correct the height of the lineedits in the configuration dialog
+- the path to the TikZ documentation must now be set in the configuration
+  dialog
 Version 0.7 (2008-08-26):
 - disable previous image button if the first image is shown, disable
   next image button if the last image is shown
