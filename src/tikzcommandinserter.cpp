@@ -278,7 +278,7 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
 
 	QListWidget *tikzListWidget = new QListWidget;
 	addListWidgetItems(tikzListWidget, m_tikzSections, false);
-	connect(tikzListWidget, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
+	connect(tikzListWidget, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
 	connect(tikzListWidget, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
 	connect(tikzListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
 	commandsCombo->addItem(tr("General"));
@@ -288,7 +288,7 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
 	{
 		QListWidget *tikzListWidget = new QListWidget;
 		addListWidgetItems(tikzListWidget, m_tikzSections.children.at(i));
-		connect(tikzListWidget, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
+		connect(tikzListWidget, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
 		connect(tikzListWidget, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
 		connect(tikzListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
 

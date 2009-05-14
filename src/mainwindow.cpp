@@ -42,16 +42,16 @@
 
 #include "aboutdialog.h"
 #include "configdialog.h"
-#include "ktikz.h"
 #include "loghighlighter.h"
 #include "logtextedit.h"
+#include "mainwindow.h"
 #include "tikzeditorhighlighter.h"
 #include "tikzeditorview.h"
 #include "tikzpreview.h"
 
 #include <poppler-qt4.h>
 
-ktikz::ktikz()
+MainWindow::MainWindow()
 {
 	m_aboutDialog = 0;
 	m_configDialog = 0;
@@ -59,6 +59,11 @@ ktikz::ktikz()
 
 	setWindowIcon(QIcon(":/images/ktikz-22.png"));
 	setAttribute(Qt::WA_DeleteOnClose);
+
+	setCorner(Qt::TopLeftCorner, Qt::LeftDockWidgetArea);
+	setCorner(Qt::TopRightCorner, Qt::RightDockWidgetArea);
+	setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
+	setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
 	m_tikzEditorView = new TikzEditorView(this);
 	m_commandInserter = new TikzCommandInserter(this);
@@ -101,20 +106,20 @@ ktikz::ktikz()
 
 	connect(m_tikzEditorView, SIGNAL(modificationChanged(bool)),
 	        this, SLOT(setDocumentModified(bool)));
-	connect(m_tikzEditorView, SIGNAL(cursorPositionChanged(int, int)),
-	        this, SLOT(showCursorPosition(int, int)));
+	connect(m_tikzEditorView, SIGNAL(cursorPositionChanged(int,int)),
+	        this, SLOT(showCursorPosition(int,int)));
 	connect(m_tikzController, SIGNAL(pixmapUpdated(Poppler::Document*)),
 	        m_tikzView, SLOT(pixmapUpdated(Poppler::Document*)));
-	connect(m_tikzController, SIGNAL(shortLogUpdated(const QString&, bool)),
-	        m_logTextEdit, SLOT(logUpdated(const QString&, bool)));
+	connect(m_tikzController, SIGNAL(shortLogUpdated(QString,bool)),
+	        m_logTextEdit, SLOT(logUpdated(QString,bool)));
 
 	readSettings(); // must be run after defining tikzController and tikzHighlighter, and after creating the toolbars, and after the connects
 
 	// the following connects must happen after readSettings() because otherwise in that function the following signals would be unnecessarily triggered
 	connect(m_tikzEditorView, SIGNAL(contentsChanged()),
 	        m_tikzController, SLOT(regeneratePreview()));
-	connect(m_tikzEditorView, SIGNAL(templateFileChanged(const QString&)),
-	        m_tikzController, SLOT(setTemplateFileAndRegenerate(const QString&)));
+	connect(m_tikzEditorView, SIGNAL(templateFileChanged(QString)),
+	        m_tikzController, SLOT(setTemplateFileAndRegenerate(QString)));
 
 	setCurrentFile("");
 	setDocumentModified(false);
@@ -125,7 +130,7 @@ ktikz::ktikz()
 		QDir::temp().mkdir("ktikz");
 }
 
-ktikz::~ktikz()
+MainWindow::~MainWindow()
 {
 	writeSettings();
 
@@ -134,7 +139,7 @@ ktikz::~ktikz()
 	m_tikzHighlighter->deleteLater();
 }
 
-void ktikz::closeEvent(QCloseEvent *event)
+void MainWindow::closeEvent(QCloseEvent *event)
 {
 	if (maybeSave())
 	{
@@ -145,13 +150,13 @@ void ktikz::closeEvent(QCloseEvent *event)
 		event->ignore();
 }
 
-void ktikz::newFile()
+void MainWindow::newFile()
 {
-	ktikz *newMainWindow = new ktikz;
+	MainWindow *newMainWindow = new MainWindow;
 	newMainWindow->show();
 }
 
-void ktikz::closeFile()
+void MainWindow::closeFile()
 {
 	if (maybeSave())
 	{
@@ -163,7 +168,7 @@ void ktikz::closeFile()
 	}
 }
 
-void ktikz::open()
+void MainWindow::open()
 {
 	QString lastDir;
 	if (!m_lastDocument.isEmpty())
@@ -177,7 +182,7 @@ void ktikz::open()
 		loadFile(fileName);
 }
 
-bool ktikz::save()
+bool MainWindow::save()
 {
 	if (m_currentFile.isEmpty())
 		return saveAs();
@@ -185,7 +190,7 @@ bool ktikz::save()
 		return saveFile(m_currentFile);
 }
 
-bool ktikz::saveAs()
+bool MainWindow::saveAs()
 {
 	QString lastDir;
 	if (!m_lastDocument.isEmpty())
@@ -200,7 +205,7 @@ bool ktikz::saveAs()
 	return saveFile(fileName);
 }
 
-bool ktikz::exportImage()
+bool MainWindow::exportImage()
 {
 	QAction *action = qobject_cast<QAction*>(sender());
 
@@ -232,22 +237,12 @@ bool ktikz::exportImage()
 
 /***************************************************************************/
 
-void ktikz::showTikzDocumentation()
+void MainWindow::showTikzDocumentation()
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
-	QString kpsewhichCommand = "kpsewhich";
-	QStringList kpsewhichArguments;
-	kpsewhichArguments << "--format" << "TeX system documentation" << "pgfmanual.pdf";
-
-	QProcess process;
-	process.start(kpsewhichCommand, kpsewhichArguments);
-	process.waitForStarted(1000);
-	while (process.state() != QProcess::NotRunning)
-		process.waitForFinished(100 /*msec*/);
-
-	QString tikzDocFile = process.readAllStandardOutput();
-	tikzDocFile = tikzDocFile.trimmed();
+	QSettings settings;
+	QString tikzDocFile = settings.value("TikzDocumentation").toString();
 	if (tikzDocFile.isEmpty())
 		QMessageBox::warning(this, tr("TikZ editor"),
 		                     tr("Cannot find TikZ documentation."));
@@ -257,7 +252,7 @@ void ktikz::showTikzDocumentation()
 	QApplication::restoreOverrideCursor();
 }
 
-void ktikz::about()
+void MainWindow::about()
 {
 	if (!m_aboutDialog)
 		m_aboutDialog = new AboutDialog(this);
@@ -266,7 +261,7 @@ void ktikz::about()
 
 /***************************************************************************/
 
-void ktikz::setDocumentModified(bool isModified)
+void MainWindow::setDocumentModified(bool isModified)
 {
 	setWindowModified(isModified);
 	m_saveAction->setEnabled(isModified);
@@ -276,12 +271,12 @@ void ktikz::setDocumentModified(bool isModified)
 		m_saveAsAction->setEnabled(true);
 }
 
-void ktikz::logUpdated()
+void MainWindow::logUpdated()
 {
 	m_logTextEdit->logUpdated(m_tikzController->getLogText(), m_tikzController->hasRunFailed());
 }
 
-void ktikz::setProcessRunning(bool isRunning)
+void MainWindow::setProcessRunning(bool isRunning)
 {
 	m_procStopAction->setEnabled(isRunning);
 	if (isRunning)
@@ -293,7 +288,7 @@ void ktikz::setProcessRunning(bool isRunning)
 
 /***************************************************************************/
 
-void ktikz::createActions()
+void MainWindow::createActions()
 {
 	/* Open */
 
@@ -334,7 +329,7 @@ void ktikz::createActions()
 
 	QString exitWhatsThis = tr("Exit the application");
 	m_exitAction = new QAction(QIcon(":/images/application-exit.png"), tr("&Quit"), this);
-	m_exitAction->setShortcut(tr("Ctrl+Q", "Quit"));
+	m_exitAction->setShortcut(tr("Ctrl+Q", "File|Quit"));
 	m_exitAction->setStatusTip(exitWhatsThis);
 	m_exitAction->setWhatsThis("<p>" + exitWhatsThis + "</p>");
 	connect(m_exitAction, SIGNAL(triggered()), this, SLOT(close()));
@@ -357,7 +352,7 @@ void ktikz::createActions()
 	/* View */
 
 	m_procStopAction = new QAction(QIcon(":/images/process-stop.png"), tr("&Stop Process"), this);
-	m_procStopAction->setShortcut(tr("Escape", "Stop process"));
+	m_procStopAction->setShortcut(tr("Escape", "View|Stop process"));
 	m_procStopAction->setStatusTip(tr("Abort current process"));
 	m_procStopAction->setWhatsThis("<p>" + tr("Abort the execution of the currently running process.") + "</p>");
 	m_procStopAction->setEnabled(false);
@@ -402,7 +397,7 @@ void ktikz::createActions()
 	        this, SLOT(setProcessRunning(bool)));
 }
 
-void ktikz::createMenus()
+void MainWindow::createMenus()
 {
 	m_recentMenu = new QMenu(tr("Open &Recent"), this);
 	m_recentMenu->setIcon(QIcon(":/images/document-open-recent.png"));
@@ -470,7 +465,7 @@ void ktikz::createMenus()
 	helpMenu->addAction(m_aboutQtAction);
 }
 
-void ktikz::createToolBars()
+void MainWindow::createToolBars()
 {
 	m_fileToolBar = addToolBar(tr("File"));
 	m_fileToolBar->setObjectName("FileToolBar");
@@ -498,7 +493,7 @@ void ktikz::createToolBars()
 	setToolBarStyle();
 }
 
-void ktikz::setToolBarStyle()
+void MainWindow::setToolBarStyle()
 {
 	QSettings settings;
 	settings.beginGroup("MainWindow");
@@ -520,7 +515,7 @@ void ktikz::setToolBarStyle()
 	m_shellEscapeButton->setToolButtonStyle(toolBarStyle);
 }
 
-void ktikz::createCommandInsertWidget()
+void MainWindow::createCommandInsertWidget()
 {
 	QSettings settings;
 	bool commandsInDock = settings.value("CommandsInDock", false).toBool();
@@ -528,7 +523,7 @@ void ktikz::createCommandInsertWidget()
 	{
 		m_commandsDock = m_commandInserter->getDockWidget(this);
 		addDockWidget(Qt::LeftDockWidgetArea, m_commandsDock);
-		connect(m_commandInserter, SIGNAL(showStatusMessage(QString, int)), statusBar(), SLOT(showMessage(QString, int)));
+		connect(m_commandInserter, SIGNAL(showStatusMessage(QString,int)), statusBar(), SLOT(showMessage(QString,int)));
 
 		m_sideBarMenu->insertAction(m_sideBarMenu->actions().at(1), m_commandsDock->toggleViewAction());
 		connect(m_commandsDock->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(setDockWidgetStatusTip(bool)));
@@ -537,7 +532,7 @@ void ktikz::createCommandInsertWidget()
 		menuBar()->insertMenu(m_settingsMenu->menuAction(), m_commandInserter->getMenu());
 }
 
-void ktikz::createStatusBar()
+void MainWindow::createStatusBar()
 {
 	QStatusBar *status = statusBar();
 
@@ -548,7 +543,7 @@ void ktikz::createStatusBar()
 	status->showMessage(tr("Ready"));
 }
 
-void ktikz::setDockWidgetStatusTip(bool enabled)
+void MainWindow::setDockWidgetStatusTip(bool enabled)
 {
 	QAction *action = qobject_cast<QAction*>(sender());
 	QString dockName = action->text();
@@ -559,7 +554,7 @@ void ktikz::setDockWidgetStatusTip(bool enabled)
 		action->setStatusTip(tr("Show sidebar \"%1\"").arg(dockName));
 }
 
-void ktikz::setToolBarStatusTip(bool enabled)
+void MainWindow::setToolBarStatusTip(bool enabled)
 {
 	QAction *action = qobject_cast<QAction*>(sender());
 	if (enabled)
@@ -570,7 +565,7 @@ void ktikz::setToolBarStatusTip(bool enabled)
 
 /***************************************************************************/
 
-void ktikz::configure()
+void MainWindow::configure()
 {
 	if (!m_configDialog)
 	{
@@ -584,7 +579,7 @@ void ktikz::configure()
 	m_configDialog->exec();
 }
 
-void ktikz::toggleShellEscaping()
+void MainWindow::toggleShellEscaping()
 {
 	m_useShellEscaping = !m_shellEscapeButton->isChecked();
 	m_shellEscapeButton->setChecked(m_useShellEscaping);
@@ -593,10 +588,10 @@ void ktikz::toggleShellEscaping()
 	settings.setValue("UseShellEscaping", m_useShellEscaping);
 
 	m_tikzController->setShellEscaping(m_useShellEscaping);
-	m_tikzController->regeneratePreview();
+	m_tikzController->generatePreview();
 }
 
-void ktikz::applySettings()
+void MainWindow::applySettings()
 {
 	QSettings settings;
 
@@ -657,7 +652,7 @@ void ktikz::applySettings()
 	setToolBarStyle();
 }
 
-void ktikz::readSettings()
+void MainWindow::readSettings()
 {
 	QSettings settings;
 	settings.beginGroup("MainWindow");
@@ -674,7 +669,7 @@ void ktikz::readSettings()
 	applySettings();
 }
 
-void ktikz::writeSettings()
+void MainWindow::writeSettings()
 {
 	QSettings settings;
 
@@ -704,7 +699,7 @@ void ktikz::writeSettings()
 
 /***************************************************************************/
 
-bool ktikz::maybeSave()
+bool MainWindow::maybeSave()
 {
 	if (m_tikzEditorView->editor()->document()->isModified())
 	{
@@ -722,11 +717,11 @@ bool ktikz::maybeSave()
 	return true;
 }
 
-void ktikz::loadFile(const QString &fileName)
+void MainWindow::loadFile(const QString &fileName)
 {
 	if (!m_tikzEditorView->editor()->document()->isEmpty())
 	{
-		ktikz *newMainWindow = new ktikz;
+		MainWindow *newMainWindow = new MainWindow;
 		newMainWindow->loadFile(fileName);
 		newMainWindow->show();
 		return;
@@ -742,10 +737,15 @@ void ktikz::loadFile(const QString &fileName)
 		return;
 	}
 
+	disconnect(m_tikzEditorView, SIGNAL(contentsChanged()),
+	        m_tikzController, SLOT(regeneratePreview()));
 	QTextStream in(&file);
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	m_tikzEditorView->editor()->setPlainText(in.readAll());
 	QApplication::restoreOverrideCursor();
+	m_tikzController->generatePreview();
+	connect(m_tikzEditorView, SIGNAL(contentsChanged()),
+	        m_tikzController, SLOT(regeneratePreview()));
 
 	m_lastDocument = fileName;
 	setCurrentFile(fileName);
@@ -753,7 +753,7 @@ void ktikz::loadFile(const QString &fileName)
 	statusBar()->showMessage(tr("File loaded"), 2000);
 }
 
-bool ktikz::saveFile(const QString &fileName)
+bool MainWindow::saveFile(const QString &fileName)
 {
 	QFile file(fileName);
 	if (!file.open(QFile::WriteOnly | QFile::Text))
@@ -777,14 +777,14 @@ bool ktikz::saveFile(const QString &fileName)
 	return true;
 }
 
-void ktikz::openRecentFile()
+void MainWindow::openRecentFile()
 {
 	QAction *action = qobject_cast<QAction*>(sender());
 	if (action)
 		loadFile(action->data().toString());
 }
 
-void ktikz::addToRecentFilesList(const QString &fileName)
+void MainWindow::addToRecentFilesList(const QString &fileName)
 {
 	if (m_recentFilesList.contains(fileName))
 		m_recentFilesList.move(m_recentFilesList.indexOf(fileName), 0);
@@ -797,7 +797,7 @@ void ktikz::addToRecentFilesList(const QString &fileName)
 	updateRecentFilesList();
 }
 
-void ktikz::createRecentFilesList()
+void MainWindow::createRecentFilesList()
 {
 	m_recentFileActions.clear();
 	QAction *action;
@@ -819,7 +819,7 @@ void ktikz::createRecentFilesList()
 	m_recentMenu->addActions(m_recentFileActions);
 }
 
-void ktikz::updateRecentFilesList()
+void MainWindow::updateRecentFilesList()
 {
 	if (m_recentFilesList.count() > 0)
 		m_recentMenu->setEnabled(true);
@@ -836,7 +836,7 @@ void ktikz::updateRecentFilesList()
 		m_recentFileActions[i]->setVisible(false);
 }
 
-void ktikz::setCurrentFile(const QString &fileName)
+void MainWindow::setCurrentFile(const QString &fileName)
 {
 	m_currentFile = fileName;
 	m_tikzEditorView->editor()->document()->setModified(false);
@@ -851,21 +851,21 @@ void ktikz::setCurrentFile(const QString &fileName)
 	setWindowTitle(tr("%1[*] - %2").arg(shownName).arg(tr("TikZ editor")));
 }
 
-QString ktikz::strippedName(const QString &fullFileName)
+QString MainWindow::strippedName(const QString &fullFileName)
 {
 	return QFileInfo(fullFileName).fileName();
 }
 
 /***************************************************************************/
 
-void ktikz::showCursorPosition(int row, int col)
+void MainWindow::showCursorPosition(int row, int col)
 {
 	m_positionLabel->setText(tr("Line:") + " " + QString::number(row) + "\t" + tr("Col:") + " " + QString::number(col));
 }
 
 /***************************************************************************/
 
-void ktikz::updateCompleter()
+void MainWindow::updateCompleter()
 {
 	QStringList words = m_commandInserter->getCommandWords();
 	QStringListModel *model = new QStringListModel(words, m_completer);

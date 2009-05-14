@@ -19,8 +19,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef KTIKZ_H
-#define KTIKZ_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include <QMainWindow>
 #include "tikzpngpreviewer.h"
@@ -50,13 +50,13 @@ class TikzPreview;
 /** Provides a tiny application for simple editing of TikZ graphics
  * @author Florian Hackenberger
  */
-class ktikz : public QMainWindow
+class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	ktikz();
-	virtual ~ktikz();
+	MainWindow();
+	virtual ~MainWindow();
 
 	void loadFile(const QString &fileName);
 

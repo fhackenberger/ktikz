@@ -40,11 +40,11 @@ SOURCES += aboutdialog.cpp \
 	editindentdialog.cpp \
 	editreplacewidget.cpp \
 	editreplacecurrentwidget.cpp \
-	ktikz.cpp \
 	lineedit.cpp \
 	loghighlighter.cpp \
 	logtextedit.cpp \
 	main.cpp \
+	mainwindow.cpp \
 	templatewidget.cpp \
 	tikzcommandinserter.cpp \
 	tikzcommandwidget.cpp \

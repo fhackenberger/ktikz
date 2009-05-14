@@ -32,7 +32,7 @@
 #include <QLocale>
 #include <QTranslator>
 
-#include "ktikz.h"
+#include "mainwindow.h"
 
 void debugOutput(QtMsgType type, const char *msg)
 {
@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
 	app.installTranslator(createTranslator("qt", QLibraryInfo::location(QLibraryInfo::TranslationsPath)));
 	app.installTranslator(createTranslator("ktikz", translationsDirPath));
 
-	ktikz *mainWindow = new ktikz;
+	MainWindow *mainWindow = new MainWindow;
 	mainWindow->show();
 
 	if (argc > 1)

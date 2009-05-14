@@ -470,7 +470,7 @@ void TikzEditor::setCompleter(QCompleter *completer)
 	m_completer->setWidget(this);
 	m_completer->setCompletionMode(QCompleter::PopupCompletion);
 	m_completer->setCaseSensitivity(Qt::CaseInsensitive);
-	connect(m_completer, SIGNAL(activated(const QString&)), this, SLOT(insertCompletion(const QString&)));
+	connect(m_completer, SIGNAL(activated(QString)), this, SLOT(insertCompletion(QString)));
 }
 
 void TikzEditor::insertCompletion(const QString &completion)

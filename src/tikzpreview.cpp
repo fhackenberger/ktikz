@@ -211,13 +211,13 @@ void TikzPreview::createActions()
 	connect(m_zoomOutAction, SIGNAL(triggered()), this, SLOT(zoomOut()));
 
 	m_previousPageAction = new QAction(QIcon(":/images/go-previous.png"), tr("&Previous image"), this);
-	m_previousPageAction->setShortcut(tr("Alt+Left", "Go to previous page"));
+	m_previousPageAction->setShortcut(tr("Alt+Left", "View|Go to previous page"));
 	m_previousPageAction->setStatusTip(tr("Show previous image in preview"));
 	m_previousPageAction->setWhatsThis("<p>" + tr("Show the preview of the previous tikzpicture in the TikZ code.") + "</p>");
 	connect(m_previousPageAction, SIGNAL(triggered()), this, SLOT(showPreviousPage()));
 
 	m_nextPageAction = new QAction(QIcon(":/images/go-next.png"), tr("&Next image"), this);
-	m_nextPageAction->setShortcut(tr("Alt+Right", "Go to next page"));
+	m_nextPageAction->setShortcut(tr("Alt+Right", "View|Go to next page"));
 	m_nextPageAction->setStatusTip(tr("Show next image in preview"));
 	m_nextPageAction->setWhatsThis("<p>" + tr("Show the preview of the next tikzpicture in the TikZ code.") + "</p>");
 	connect(m_nextPageAction, SIGNAL(triggered()), this, SLOT(showNextPage()));

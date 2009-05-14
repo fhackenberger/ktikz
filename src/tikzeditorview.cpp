@@ -76,8 +76,8 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 
 	createActions();
 
-	connect(m_templateWidget, SIGNAL(fileNameChanged(const QString&)),
-	        this, SIGNAL(templateFileChanged(const QString&)));
+	connect(m_templateWidget, SIGNAL(fileNameChanged(QString)),
+	        this, SIGNAL(templateFileChanged(QString)));
 	connect(m_templateWidget, SIGNAL(focusEditor()),
 	        m_tikzEditor, SLOT(setFocus()));
 	connect(m_tikzEditor->document(), SIGNAL(modificationChanged(bool)),
@@ -86,20 +86,20 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	        this, SIGNAL(contentsChanged()));
 	connect(m_tikzEditor, SIGNAL(cursorPositionChanged()),
 	        this, SLOT(showCursorPosition()));
-	connect(m_replaceWidget, SIGNAL(search(QString, bool, bool, bool)),
-	        this, SLOT(search(QString, bool, bool, bool)));
-	connect(m_replaceWidget, SIGNAL(replace(QString, QString, bool, bool, bool)),
-	        this, SLOT(replace(QString, QString, bool, bool, bool)));
+	connect(m_replaceWidget, SIGNAL(search(QString,bool,bool,bool)),
+	        this, SLOT(search(QString,bool,bool,bool)));
+	connect(m_replaceWidget, SIGNAL(replace(QString,QString,bool,bool,bool)),
+	        this, SLOT(replace(QString,QString,bool,bool,bool)));
 	connect(m_replaceWidget, SIGNAL(focusEditor()),
 	        m_tikzEditor, SLOT(setFocus()));
 	connect(m_replaceCurrentWidget, SIGNAL(showReplaceWidget()),
 	        m_replaceWidget, SLOT(show()));
-	connect(m_replaceCurrentWidget, SIGNAL(search(QString, bool, bool, bool, bool)),
-	        this, SLOT(search(QString, bool, bool, bool, bool)));
+	connect(m_replaceCurrentWidget, SIGNAL(search(QString,bool,bool,bool,bool)),
+	        this, SLOT(search(QString,bool,bool,bool,bool)));
 	connect(m_replaceCurrentWidget, SIGNAL(replace(QString)),
 	        this, SLOT(replace(QString)));
-	connect(m_replaceCurrentWidget, SIGNAL(replaceAll(QString, QString, bool, bool, bool, bool)),
-	        this, SLOT(replaceAll(QString, QString, bool, bool, bool, bool)));
+	connect(m_replaceCurrentWidget, SIGNAL(replaceAll(QString,QString,bool,bool,bool,bool)),
+	        this, SLOT(replaceAll(QString,QString,bool,bool,bool,bool)));
 	connect(m_replaceCurrentWidget, SIGNAL(setSearchFromBegin(bool)),
 	        this, SIGNAL(setSearchFromBegin(bool)));
 	connect(m_goToLineWidget, SIGNAL(goToLine(int)),
@@ -181,19 +181,19 @@ void TikzEditorView::createActions()
 
 	QAction *action;
 	action = new QAction(QIcon(":/images/format-indent-more.png"), tr("&Indent..."), this);
-	action->setShortcut(tr("Ctrl+I", "Indent"));
+	action->setShortcut(tr("Ctrl+I", "Edit|Indent"));
 	action->setStatusTip(tr("Indent the current line or selection"));
 	connect(action, SIGNAL(triggered()), this, SLOT(editIndent()));
 	m_editActions.append(action);
 
 	action = new QAction(tr("C&omment"), this);
-	action->setShortcut(tr("Ctrl+D", "Comment"));
+	action->setShortcut(tr("Ctrl+D", "Edit|Comment"));
 	action->setStatusTip(tr("Comment the current line or selection"));
 	connect(action, SIGNAL(triggered()), this, SLOT(editComment()));
 	m_editActions.append(action);
 
 	action = new QAction(tr("Unco&mment"), this);
-	action->setShortcut(tr("Ctrl+Shift+D", "Uncomment"));
+	action->setShortcut(tr("Ctrl+Shift+D", "Edit|Uncomment"));
 	action->setStatusTip(tr("Uncomment the current line or selection"));
 	connect(action, SIGNAL(triggered()), this, SLOT(editUncomment()));
 	m_editActions.append(action);
@@ -227,7 +227,8 @@ void TikzEditorView::createActions()
 	m_editActions.append(action);
 
 	action = new QAction(QIcon(":/images/go-jump.png"), tr("&Go to Line..."), this);
-	action->setShortcut(Qt::CTRL+Qt::Key_G);
+//	action->setShortcut(Qt::CTRL+Qt::Key_G);
+	action->setShortcut(tr("Ctrl+G", "Edit|Go to Line"));
 	action->setStatusTip(tr("Go to a certain line in the document"));
 	connect(action, SIGNAL(triggered()), this, SLOT(editGoToLine()));
 	m_editActions.append(action);

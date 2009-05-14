@@ -55,6 +55,7 @@ public:
 	QString getLogText() const;
 	bool hasRunFailed();
 	bool exportImage(const QString &fileName, const QString &type);
+	void generatePreview();
 
 public slots:
 	void setTemplateFile(const QString &fileName);
@@ -64,13 +65,16 @@ public slots:
 
 signals:
 	void pixmapUpdated(Poppler::Document *tikzPdfDoc);
+	void setExportActionsEnabled(bool enabled);
 	void shortLogUpdated(const QString &logText, bool runFailed);
 //	void logUpdated(bool runFailed);
 	void processRunning(bool isRunning);
 
 protected:
+	void setMinUpdateInterval(const QTime &interval);
 	QString getParsedLogText(QTextStream *logStream) const;
 	void parseLogFile();
+	void createPreview();
 	void run();
 	void createTempLatexFile();
 	void createTempTikzFile();

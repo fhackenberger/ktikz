@@ -39,8 +39,8 @@ TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 	        this, SLOT(setTemplateFile()));
 	connect(ui.templateEditButton, SIGNAL(clicked()),
 	        this, SLOT(editTemplateFile()));
-	connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(const QString&)),
-	        this, SIGNAL(fileNameChanged(const QString&)));
+	connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)),
+	        this, SIGNAL(fileNameChanged(QString)));
 
 	readRecentTemplates();
 }

@@ -31,6 +31,8 @@ Version 0.8 (2008-11-20):
 - correct the height of the lineedits in the configuration dialog
 - the path to the TikZ documentation must now be set in the configuration
   dialog
+- don't wait one second before typesetting when a file is loaded or when
+  the template is changed
 Version 0.7 (2008-08-26):
 - disable previous image button if the first image is shown, disable
   next image button if the last image is shown

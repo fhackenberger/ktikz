@@ -32,8 +32,10 @@
 
 #include "tikzpngpreviewer.h"
 
+const QTime s_standardMinUpdateInterval(0, 0, 1 /*sec*/, 0);
+
 TikzPngPreviewer::TikzPngPreviewer(const QTextEdit* tikzTextEdit)
-    : m_minUpdateInterval(0, 0, 1 /*sec*/, 0)
+    : m_minUpdateInterval(s_standardMinUpdateInterval)
 {
 	m_tikzTextEdit = tikzTextEdit;
 	m_tikzPdfDoc = 0;
@@ -90,12 +92,17 @@ void TikzPngPreviewer::setTemplateFile(const QString &fileName)
 void TikzPngPreviewer::setTemplateFileAndRegenerate(const QString &fileName)
 {
 	setTemplateFile(fileName);
-	regeneratePreview();
+	generatePreview();
 }
 
 void TikzPngPreviewer::setReplaceText(const QString &replace)
 {
 	m_tikzReplaceText = replace;
+}
+
+void TikzPngPreviewer::setMinUpdateInterval(const QTime &interval)
+{
+	m_minUpdateInterval = interval;
 }
 
 QString TikzPngPreviewer::getLogText() const
@@ -197,6 +204,40 @@ void TikzPngPreviewer::parseLogFile()
 //	emit logUpdated(m_runFailed);
 }
 
+void TikzPngPreviewer::createPreview()
+{
+	emit setExportActionsEnabled(false);
+	createTempTikzFile();
+	m_logText = "";
+	if (generatePdfFile())
+	{
+		const QFileInfo tikzPdfFileInfo(m_tikzTempFileBaseName + ".pdf");
+		if (!tikzPdfFileInfo.exists())
+			qWarning() << "Error:" << qPrintable(tikzPdfFileInfo.absoluteFilePath()) << "does not exists";
+		else
+		{
+			// Update widget
+			if (m_tikzPdfDoc)
+				delete m_tikzPdfDoc;
+			m_tikzPdfDoc = Poppler::Document::load(tikzPdfFileInfo.absoluteFilePath());
+			if (m_tikzPdfDoc)
+			{
+				m_shortLogText = "[LaTeX] " + tr("Process finished successfully.");
+				emit pixmapUpdated(m_tikzPdfDoc);
+				emit setExportActionsEnabled(true);
+			}
+			else
+			{
+				m_shortLogText = "[LaTeX] " + tr("Error: loading PDF failed, the file is probably corrupted.");
+				qWarning() << "Error: loading PDF failed, the file is probably corrupted:" << qPrintable(tikzPdfFileInfo.absoluteFilePath());
+			}
+		}
+	}
+	parseLogFile();
+}
+
+/***************************************************************************/
+
 bool TikzPngPreviewer::hasRunFailed()
 {
 	const QMutexLocker lock(&m_memberLock);
@@ -222,40 +263,32 @@ void TikzPngPreviewer::run()
 			m_tikzTextEditEmpty = false;
 			m_runFailed = false;
 			m_updateScheduled = false;
-			createTempTikzFile();
 			m_memberLock.unlock();
-			m_logText = "";
-			if (generatePdfFile())
-			{
-				const QFileInfo tikzPdfFileInfo(m_tikzTempFileBaseName + ".pdf");
-				if (!tikzPdfFileInfo.exists())
-					qWarning() << "Error:" << qPrintable(tikzPdfFileInfo.absoluteFilePath()) << "does not exists";
-				else
-				{
-					// Update widget
-					if (m_tikzPdfDoc)
-						delete m_tikzPdfDoc;
-					m_tikzPdfDoc = Poppler::Document::load(tikzPdfFileInfo.absoluteFilePath());
-					if (m_tikzPdfDoc)
-					{
-						m_shortLogText = "[LaTeX] " + tr("Process finished successfully.");
-						emit pixmapUpdated(m_tikzPdfDoc);
-					}
-					else
-					{
-						m_shortLogText = "[LaTeX] " + tr("Error: loading PDF failed, the file is probably corrupted.");
-						qWarning() << "Error: loading PDF failed, the file is probably corrupted:" << qPrintable(tikzPdfFileInfo.absoluteFilePath());
-					}
-				}
-			}
-			parseLogFile();
+			createPreview();
 			m_memberLock.lock();
+			setMinUpdateInterval(s_standardMinUpdateInterval);
 		}
 		else
 			m_updateRequested.wait(&m_memberLock);
 		m_memberLock.unlock();
 	}
 }
+
+void TikzPngPreviewer::regeneratePreview()
+{
+	const QMutexLocker locker(&m_memberLock);
+	m_updateScheduled = true;
+	m_updateTimer.start();
+	m_updateRequested.wakeAll();
+}
+
+void TikzPngPreviewer::generatePreview()
+{
+	setMinUpdateInterval(QTime(0, 0, 0, 0));
+	regeneratePreview();
+}
+
+/***************************************************************************/
 
 void TikzPngPreviewer::createTempLatexFile()
 {
@@ -446,14 +479,6 @@ bool TikzPngPreviewer::generatePdfFile()
 	m_shortLogText = "[LaTeX] " + tr("Running...");
 	emit shortLogUpdated(m_shortLogText, m_runFailed);
 	return runProcess("LaTeX", m_latexCommand, latexArguments, QFileInfo(m_tikzTempFileBaseName).absolutePath());
-}
-
-void TikzPngPreviewer::regeneratePreview()
-{
-	const QMutexLocker locker(&m_memberLock);
-	m_updateScheduled = true;
-	m_updateTimer.start();
-	m_updateRequested.wakeAll();
 }
 
 bool TikzPngPreviewer::exportImage(const QString &fileName, const QString &type)
