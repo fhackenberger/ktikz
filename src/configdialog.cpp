@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Glad Deschrijver                                *
- *   Glad.Deschrijver@UGent.be                                             *
+ *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -22,8 +22,10 @@
 #include <QApplication>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QCompleter>
 #include <QDialogButtonBox>
 #include <QDir>
+#include <QDirModel>
 #include <QFileDialog>
 #include <QFontDialog>
 #include <QGridLayout>
@@ -270,6 +272,10 @@ QWidget *ConfigDialog::generalPage()
 	m_tikzDocEdit = new LineEdit;
 	m_tikzDocEdit->setWhatsThis(tikzDocWhatsThis);
 	m_tikzDocEdit->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+	QCompleter *completer = new QCompleter(this);
+	completer->setModel(new QDirModel(completer));
+	completer->setCompletionMode(QCompleter::PopupCompletion);
+	m_tikzDocEdit->setCompleter(completer);
 	tikzDocLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	tikzDocLabel->setWhatsThis(tikzDocWhatsThis);
 	tikzDocLabel->setBuddy(m_tikzDocEdit);
@@ -316,12 +322,17 @@ QWidget *ConfigDialog::typesettingPage()
 {
 	QWidget *page = new QWidget;
 
+	QCompleter *completer = new QCompleter(this);
+	completer->setModel(new QDirModel(completer));
+	completer->setCompletionMode(QCompleter::PopupCompletion);
+
 	// Commands
 	const QString latexWhatsThis = "<p>" + tr("Enter the path to the LaTeX executable here.") + "</p>";
 	QLabel *latexLabel = new QLabel(tr("&LaTeX command:"));
 	m_latexEdit = new LineEdit;
 	m_latexEdit->setWhatsThis(latexWhatsThis);
 	m_latexEdit->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+	m_latexEdit->setCompleter(completer);
 	latexLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	latexLabel->setWhatsThis(latexWhatsThis);
 	latexLabel->setBuddy(m_latexEdit);
@@ -337,6 +348,7 @@ QWidget *ConfigDialog::typesettingPage()
 	m_pdftopsEdit = new LineEdit;
 	m_pdftopsEdit->setWhatsThis(pdftopsWhatsThis);
 	m_pdftopsEdit->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+	m_pdftopsEdit->setCompleter(completer);
 	pdftopsLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	pdftopsLabel->setWhatsThis(pdftopsWhatsThis);
 	pdftopsLabel->setBuddy(m_pdftopsEdit);
@@ -372,6 +384,7 @@ QWidget *ConfigDialog::typesettingPage()
 	m_editorEdit = new LineEdit;
 	m_editorEdit->setWhatsThis(editorWhatsThis);
 	m_editorEdit->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+	m_editorEdit->setCompleter(completer);
 	editorLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	editorLabel->setWhatsThis(editorWhatsThis);
 	editorLabel->setBuddy(m_editorEdit);

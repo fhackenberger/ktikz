@@ -1,4 +1,4 @@
-Version 0.8 (2008-11-20):
+Version 0.8 (2009-05-25):
 - allow text under icons in toolbar
 - remove bug: when a second ktikz window is closed while typesetting,
   the cursor is not restored from busy to normal
@@ -31,8 +31,19 @@ Version 0.8 (2008-11-20):
 - correct the height of the lineedits in the configuration dialog
 - the path to the TikZ documentation must now be set in the configuration
   dialog
-- don't wait one second before typesetting when a file is loaded or when
-  the template is changed
+- don't wait one second before generating the preview when a file is
+  loaded, the template is changed or shell escaping is toggled
+- only files are used now as a template file (previously directories
+  and everything with a valid path was used), otherwise the default
+  template is used
+- if the replacement text is empty, then the default template is used
+  instead of giving non-informative errors
+- when the commands dock is visible (instead of the menu), the code that
+  will be inserted is visible on hovering the item in the list
+- clicking on an item in the commands dock only includes the corresponding
+  code once (instead of twice)
+- added file name completion to the template line edit and the line edits in
+  the configuration dialog
 Version 0.7 (2008-08-26):
 - disable previous image button if the first image is shown, disable
   next image button if the last image is shown

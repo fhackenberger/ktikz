@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2007-2008 by Glad Deschrijver                           *
- *   Glad.Deschrijver@UGent.be                                             *
+ *   Copyright (C) 2007-2009 by Glad Deschrijver                           *
+ *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -277,10 +277,12 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
 	connect(commandsCombo, SIGNAL(currentIndexChanged(int)), commandsStack, SLOT(setCurrentIndex(int)));
 
 	QListWidget *tikzListWidget = new QListWidget;
-	addListWidgetItems(tikzListWidget, m_tikzSections, false);
+	addListWidgetItems(tikzListWidget, m_tikzSections, false); // don't add children
+	tikzListWidget->setMouseTracking(true);
 	connect(tikzListWidget, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
+	connect(tikzListWidget, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
 	connect(tikzListWidget, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
-	connect(tikzListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
+//	connect(tikzListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
 	commandsCombo->addItem(tr("General"));
 	commandsStack->addWidget(tikzListWidget);
 
@@ -288,9 +290,11 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
 	{
 		QListWidget *tikzListWidget = new QListWidget;
 		addListWidgetItems(tikzListWidget, m_tikzSections.children.at(i));
+		tikzListWidget->setMouseTracking(true);
 		connect(tikzListWidget, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
+		connect(tikzListWidget, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
 		connect(tikzListWidget, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
-		connect(tikzListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
+//		connect(tikzListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
 
 		QString comboItemText = m_tikzSections.children.at(i).title;
 		commandsCombo->addItem(comboItemText.remove('&'));

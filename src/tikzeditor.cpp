@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2008 by Glad Deschrijver                                *
- *   Glad.Deschrijver@UGent.be                                             *
+ *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   Bracket matching and white space showing code originally from         *
  *   qdevelop: (C) 2006 Jean-Luc Biord (http://qdevelop.org)               *

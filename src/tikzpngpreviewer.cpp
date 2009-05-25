@@ -2,6 +2,7 @@
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *   Copyright (C) 2007-2008 by Glad Deschrijver                           *
  *   florian@hackenberger.at                                               *
+ *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -176,7 +177,7 @@ void TikzPngPreviewer::parseLogFile()
 {
 	const QFileInfo latexLogFileInfo = QFileInfo(m_tikzTempFileBaseName + ".log");
 	QFile latexLogFile(latexLogFileInfo.absoluteFilePath());
-	if (!latexLogFile.open(QFile::ReadOnly))
+	if (!latexLogFile.open(QFile::ReadOnly | QIODevice::Text))
 	{
 		if (!m_tikzTextEditEmpty)
 		{
@@ -193,7 +194,7 @@ void TikzPngPreviewer::parseLogFile()
 	{
 		m_memberLock.lock();
 		QTextStream latexLog(&latexLogFile);
-		if (m_runFailed && !m_shortLogText.contains(tr("Process aborted")))
+		if (m_runFailed && !m_shortLogText.contains(tr("Process aborted.")))
 			m_shortLogText = getParsedLogText(&latexLog);
 		latexLog.seek(0);
 		m_logText += latexLog.readAll();
@@ -304,7 +305,9 @@ void TikzPngPreviewer::createTempLatexFile()
 	QTextStream tikzStream(&tikzTempFile);
 
 	QFile templateFile(m_templateFileName);
-	if (templateFile.open(QIODevice::ReadOnly)) // if user-specified template file is readable
+	if (QFileInfo(templateFile).isFile()
+	    && templateFile.open(QIODevice::ReadOnly | QIODevice::Text) // if user-specified template file is readable
+		&& !m_tikzReplaceText.isEmpty())
 	{
 		QTextStream templateFileStream(&templateFile);
 		QString templateLine;

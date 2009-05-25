@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2008 by Glad Deschrijver                                *
- *   Glad.Deschrijver@UGent.be                                             *
+ *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -20,6 +20,8 @@
 
 #include <QApplication>
 #include <QComboBox>
+#include <QCompleter>
+#include <QDirModel>
 #include <QLineEdit>
 #include <QFileDialog>
 #include <QKeyEvent>
@@ -34,6 +36,11 @@ TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 	ui.setupUi(this);
 	ui.templateCombo->setLineEdit(new LineEdit(this));
 	ui.templateCombo->setMinimumContentsLength(20);
+
+	QCompleter *completer = new QCompleter(this);
+	completer->setModel(new QDirModel(completer));
+	completer->setCompletionMode(QCompleter::PopupCompletion);
+	ui.templateCombo->setCompleter(completer);
 
 	connect(ui.templateChooseButton, SIGNAL(clicked()),
 	        this, SLOT(setTemplateFile()));
@@ -70,11 +77,15 @@ void TemplateWidget::saveRecentTemplates()
 
 void TemplateWidget::setFileName(const QString &fileName)
 {
+	disconnect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)),
+	        this, SIGNAL(fileNameChanged(QString)));
 	const int index = ui.templateCombo->findText(fileName);
 	if (index >= 0) // then remove item in order to re-add it at the top
 		ui.templateCombo->removeItem(index);
 	ui.templateCombo->insertItem(0, fileName);
 	ui.templateCombo->lineEdit()->setText(fileName);
+	connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)),
+	        this, SIGNAL(fileNameChanged(QString)));
 	ui.templateCombo->setCurrentIndex(0);
 }
 

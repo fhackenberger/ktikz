@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Glad Deschrijver                                *
- *   Glad.Deschrijver@UGent.be                                             *
+ *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   Original code from SpeedCrunch                                        *
  *                                                                         *
