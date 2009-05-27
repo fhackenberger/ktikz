@@ -31,6 +31,7 @@
 #include <QLabel>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QPlainTextEdit>
 #include <QProcess>
 #include <QSettings>
 #include <QStatusBar>
@@ -46,9 +47,11 @@
 #include "loghighlighter.h"
 #include "logtextedit.h"
 #include "mainwindow.h"
+#include "tikzcommandinserter.h"
 #include "tikzeditorhighlighter.h"
 #include "tikzeditorview.h"
 #include "tikzpreview.h"
+#include "tikzpreviewgenerator.h"
 
 #include <poppler-qt4.h>
 
@@ -72,7 +75,7 @@ MainWindow::MainWindow()
 	m_tikzHighlighter = new TikzHighlighter(m_commandInserter, m_tikzEditorView->editor()->document());
 	m_tikzHighlighter->rehighlight(); // avoid that textEdit emits the signal contentsChanged() when it is still empty
 	m_tikzView = new TikzPreview(this);
-	m_tikzController = new TikzPngPreviewer(m_tikzEditorView->editor());
+	m_tikzController = new TikzPreviewGenerator(m_tikzEditorView->editor());
 
 	m_logDock = new QDockWidget(this);
 	m_logDock->setObjectName("LogDock");

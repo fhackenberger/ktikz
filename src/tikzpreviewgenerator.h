@@ -20,8 +20,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef TIKZPNGWIDGET_H
-#define TIKZPNGWIDGET_H
+#ifndef TIKZPREVIEWGENERATOR_H
+#define TIKZPREVIEWGENERATOR_H
 
 #include <QMutex>
 #include <QThread>
@@ -30,7 +30,7 @@
 
 class QPixmap;
 class QProcess;
-class QTextEdit;
+class QPlainTextEdit;
 class QTextStream;
 
 namespace Poppler
@@ -41,13 +41,13 @@ namespace Poppler
 /**
  * @author Florian Hackenberger <florian@hackenberger.at>
  */
-class TikzPngPreviewer : public QThread
+class TikzPreviewGenerator : public QThread
 {
 	Q_OBJECT
 
 public:
-	TikzPngPreviewer(const QTextEdit* tikzTextEdit);
-	virtual ~TikzPngPreviewer();
+	TikzPreviewGenerator(const QPlainTextEdit* tikzTextEdit);
+	virtual ~TikzPreviewGenerator();
 
 	void setLatexCommand(const QString &command);
 	void setPdftopsCommand(const QString &command);
@@ -84,7 +84,7 @@ protected:
 	bool generatePdfFile();
 	bool cleanUp();
 
-	const QTextEdit *m_tikzTextEdit;
+	const QPlainTextEdit *m_tikzTextEdit;
 	Poppler::Document *m_tikzPdfDoc;
 	bool m_tikzTextEditEmpty;
 

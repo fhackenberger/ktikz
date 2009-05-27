@@ -29,7 +29,7 @@ class QDomElement;
 class QListWidget;
 class QListWidgetItem;
 class QMenu;
-class QTextEdit;
+class QPlainTextEdit;
 class QTextCharFormat;
 class HighlightingRule;
 
@@ -61,7 +61,7 @@ public:
 	QStringList getCommandWords();
 	QMenu *getMenu();
 	QDockWidget *getDockWidget(QWidget *parent = 0);
-	void setEditor(QTextEdit *textEdit);
+	void setEditor(QPlainTextEdit *textEdit);
 	QMap<QString, QTextCharFormat> getDefaultHighlightFormats();
 	QStringList getTranslatedHighlightTypeNames();
 	QStringList getHighlightTypeNames();
@@ -85,7 +85,7 @@ private:
 	TikzCommand newCommand(const QString &name, const QString &command, int dx, int dy, int type = 0);
 	TikzCommand newCommand(const QString &name, const QString &description, const QString &command, int dx, int dy, int type = 0);
 
-	QTextEdit *m_mainEdit;
+	QPlainTextEdit *m_mainEdit;
 	QWidget *m_parentWidget;
 	TikzCommandList m_tikzSections;
 	QList<TikzCommand> m_tikzCommandsList;

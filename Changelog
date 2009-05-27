@@ -39,11 +39,17 @@ Version 0.8 (2009-05-25):
 - if the replacement text is empty, then the default template is used
   instead of giving non-informative errors
 - when the commands dock is visible (instead of the menu), the code that
-  will be inserted is visible on hovering the item in the list
+  will be inserted is visible in the status bar on hovering the item in
+  the list
 - clicking on an item in the commands dock only includes the corresponding
   code once (instead of twice)
-- added file name completion to the template line edit and the line edits in
-  the configuration dialog
+- added file name completion to the template line edit and the line edits
+  in the configuration dialog
+- space and tab markers resize according to the font size of the main text
+- the color of the space and tab markers can be changed in the
+  configuration dialog
+- white space and tabulator settings are separate now
+- scrolling in the text edit with the arrow keys is faster now
 Version 0.7 (2008-08-26):
 - disable previous image button if the first image is shown, disable
   next image button if the last image is shown

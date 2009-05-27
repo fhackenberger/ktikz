@@ -30,7 +30,7 @@
 #include <QMessageBox>
 #include <QStackedWidget>
 #include <QTextCursor>
-#include <QTextEdit>
+#include <QPlainTextEdit>
 
 #include "tikzeditorhighlighter.h"
 #include "tikzcommandinserter.h"
@@ -315,7 +315,7 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
 	return tikzDock;
 }
 
-void TikzCommandInserter::setEditor(QTextEdit *textEdit)
+void TikzCommandInserter::setEditor(QPlainTextEdit *textEdit)
 {
 	m_mainEdit = textEdit;
 }

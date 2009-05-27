@@ -1,0 +1,16 @@
+% PGF style template to be used in the ktikz program
+\documentclass[a4paper,twoside,11pt]{book}
+\usepackage{amsmath}
+\usepackage[charter]{mathdesign}
+\DeclareFontFamily{OMS}{mdbch}{\skewchar\font=48}
+\DeclareFontShape{OMS}{mdbch}{m}{n}{<->s*[0.96] mdbchr7y}{}
+\DeclareFontShape{OMS}{mdbch}{m}{it}{<->ssub * mdbch/m/n}{}
+\DeclareFontShape{OMS}{mdbch}{b}{n}{<->s*[0.96] mdbchb7y}{}
+\DeclareFontShape{OMS}{mdbch}{bx}{n}{<->ssub * mdbch/b/n}{}
+\usepackage{tikz}
+%\usepackage{color}
+\usepackage[active,pdftex,tightpage]{preview}
+\PreviewEnvironment[]{tikzpicture}
+\begin{document}
+<>
+\end{document}

@@ -51,8 +51,8 @@ SOURCES += aboutdialog.cpp \
 	tikzeditor.cpp \
 	tikzeditorhighlighter.cpp \
 	tikzeditorview.cpp \
-	tikzpngpreviewer.cpp \
-	tikzpreview.cpp
+	tikzpreview.cpp \
+	tikzpreviewgenerator.cpp
 HEADERS += $$headerFiles($$SOURCES)
 RESOURCES = application.qrc
 TRANSLATIONS = ktikz_de.ts ktikz_es.ts ktikz_fr.ts

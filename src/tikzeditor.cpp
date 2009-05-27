@@ -1,9 +1,17 @@
 /***************************************************************************
- *   Copyright (C) 2008 by Glad Deschrijver                                *
+ *   Copyright (C) 2008-2009 by Glad Deschrijver                           *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   Bracket matching and white space showing code originally from         *
  *   qdevelop: (C) 2006 Jean-Luc Biord (http://qdevelop.org)               *
+ *   Enhanced version of bracket matching inspired by codeedit example in  *
+ *   the Qt documentation: (C) 2009 Nokia Corporation and/or its           *
+ *   subsidiary(-ies) (qt-info@nokia.com)                                  *
+ *   Enhanced white space and tab marking code based on katerenderer which *
+ *   is part of the KDE libraries: (C) 2007 Mirko Stocker <me@misto.ch>,   *
+ *   (C) 2003-2005 Hamish Rodda <rodda@kde.org>, (C) 2001 Christoph        *
+ *   Cullmann <cullmann@kde.org>, (C) 2001 Joseph Wenninger                *
+ *   <jowenn@kde.org>, (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de> *
  *   Completion code originally from texmaker:                             *
  *   (C) 2003-2008 Pascal Brachet (http://www.xm1math.net/texmaker)        *
  *                                                                         *
@@ -34,60 +42,27 @@
 
 #include "tikzeditor.h"
 
-static const char *const tabPixmap_img[] =
+TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
-	/* width height ncolors cpp [x_hot y_hot] */
-	"8 8 3 2 0 0",
-	/* colors */
-	"  s none       m none  c none",
-	"O s iconColor1 m black c black",
-	"X s iconColor2 m black c #B0B0B0",
-	/* pixels */
-	"  X     X       ",
-	"    X     X     ",
-	"      X     X   ",
-	"        X     X ",
-	"      X     X   ",
-	"    X     X     ",
-	"  X     X       ",
-	"                ",
-};
-
-static const char *const spacePixmap_img[] =
-{
-	/* width height ncolors cpp [x_hot y_hot] */
-	"8 8 3 2 0 0",
-	/* colors */
-	"  s none       m none  c none",
-	"O s iconColor1 m black c black",
-	"X s iconColor2 m black c #B0B0B0",
-	/* pixels */
-	"                ",
-	"                ",
- 	"                ",
-	"                ",
-	"                ",
-	"      X         ",
-	"      X X       ",
-	"                ",
-};
-
-TikzEditor::TikzEditor(QWidget *parent) : QTextEdit(parent)
-{
-	m_tabPixmap = QPixmap(tabPixmap_img);
-	m_spacePixmap = QPixmap(spacePixmap_img);
 	m_showWhiteSpaces = true;
 	m_showMatchingBrackets = true;
 	m_matchingColor = Qt::yellow;
 
 	m_completer = 0;
 
-	setAcceptRichText(false);
 //	setLineWidth(0);
 //	setFrameShape(QFrame::NoFrame);
 
-	connect(this, SIGNAL(cursorPositionChanged()), viewport(), SLOT(update()));
-	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
+	const QColor lineColor(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::Base));
+	const QColor altLineColor(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::AlternateBase));
+	if (lineColor == altLineColor)
+		m_highlightCurrentLineColor = lineColor.darker(105);
+	else
+		m_highlightCurrentLineColor = altLineColor;
+	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
+	highlightCurrentLine();
+
+//	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(matchBrackets()));
 }
 
@@ -95,8 +70,55 @@ TikzEditor::~TikzEditor()
 {
 }
 
+void TikzEditor::highlightCurrentLine()
+{
+/*
+	// this hides the white space and tab marks on the current line :-(
+	QList<QTextEdit::ExtraSelection> extraSelections;
+	if (!isReadOnly())
+	{
+		QTextEdit::ExtraSelection selection;
+		selection.format.setBackground(m_highlightCurrentLineColor);
+		selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+		selection.cursor = textCursor();
+		selection.cursor.clearSelection();
+		extraSelections.append(selection);
+	}
+	setExtraSelections(extraSelections);
+
+	// highlight the currently selected brackets (if any)
+	matchBrackets();
+*/
+
+	// update the area covering the previously highlighted line (updating the whole viewport is too slow :-( )
+	m_previousHighlightedLine.moveTop(m_previousHighlightedLine.top() - (verticalScrollBar()->value() - m_oldVerticalScrollBarValue + 0.5) * m_previousHighlightedLine.height());
+	m_previousHighlightedLine.setHeight(2 * m_previousHighlightedLine.height()); // should be large enough to cover the previous line (ugly hack :-( )
+	viewport()->update(m_previousHighlightedLine);
+
+	// update the area covering the currently highlighted line
+	QRect rect = cursorRect();
+	rect.setX(0);
+	rect.setWidth(viewport()->width());
+	viewport()->update(rect);
+
+	m_previousHighlightedLine = rect;
+	m_oldVerticalScrollBarValue = verticalScrollBar()->value();
+}
+
 void TikzEditor::matchBrackets()
 {
+	// clear previous bracket highlighting
+	QList<QTextEdit::ExtraSelection> extraSelections;
+	if (!isReadOnly())
+	{
+		QTextEdit::ExtraSelection selection;
+		selection.cursor = textCursor();
+		selection.cursor.clearSelection();
+		extraSelections.append(selection);
+	}
+	setExtraSelections(extraSelections);
+
+	// find current matching brackets
 	m_matchingBegin = -1;
 	m_matchingEnd = -1;
 	if (!m_showMatchingBrackets) return;
@@ -106,57 +128,42 @@ void TikzEditor::matchBrackets()
 	const QString matchText = m_plainText;
 	const QTextCursor cursor = textCursor();
 	int pos = cursor.position();
-//	if (pos == -1 || cursor.atEnd() || !QString("({[]})").contains(m_plainText.at(pos)))
-//		return;
 	if (pos == -1)
 		return;
-	else if (cursor.atEnd() || !QString("({[]})").contains(m_plainText.at(pos)))
+	else if (cursor.atEnd() || !QString("({[]})").contains(m_plainText.at(pos))) // if the cursor is not next to a bracket, then there is nothing to match, so return
 	{
 		if (pos <= 0 || !QString("({[]})").contains(m_plainText.at(--pos)))
 			return;
 	}
 
-	QChar car;
-	if (pos != -1)
-	{
-		if (!cursor.atEnd())
-			car = matchText.at(pos);
-		else
-			car = matchText.at(pos - 1);
-	}
+	// get corresponding opening/closing bracket and search direction
+	QChar car = (!cursor.atEnd()) ? matchText.at(pos) : matchText.at(pos - 1);
 	QChar matchCar;
 	long inc = 1;
 	if (car == '(') matchCar = ')';
 	else if (car == '{') matchCar = '}';
 	else if (car == '[') matchCar = ']';
-	else if (car == ')')
-	{
-		matchCar = '(';
-		inc = -1;
-	}
-	else if (car == '}')
-	{
-		matchCar = '{';
-		inc = -1;
-	}
-	else if(car == ']')
-	{
-		matchCar = '[';
-		inc = -1;
-	}
 	else
-		return;
+	{
+		inc = -1;
+		if (car == ')') matchCar = '(';
+		else if (car == '}') matchCar = '{';
+		else if (car == ']') matchCar = '[';
+		else
+			return;
+	}
 
+	// find location of the corresponding bracket
 	m_matchingBegin = pos;
-	int nb = 0;
+	int numOfMatchCharsToSkip = 0;
 	do
 	{
 		if (matchText.at(pos) == car)
-			nb++;
+			numOfMatchCharsToSkip++;
 		else if (matchText.at(pos) == matchCar)
 		{
-			nb--;
-			if(nb == 0)
+			numOfMatchCharsToSkip--;
+			if (numOfMatchCharsToSkip == 0)
 			{
 				m_matchingEnd = pos;
 				break;
@@ -165,40 +172,123 @@ void TikzEditor::matchBrackets()
 		pos += inc;
 	}
 	while (pos >= 0 && pos < matchText.length());
+
 	if (m_matchingBegin > m_matchingEnd)
 		qSwap(m_matchingBegin, m_matchingEnd);
+
+	// if there is a match, then show it
+	if (m_matchingBegin != -1)
+		showMatchingBrackets();
 }
 
-void TikzEditor::setShowMatchingBrackets(bool showMatchingBrackets)
+void TikzEditor::showMatchingBrackets()
 {
-	m_showMatchingBrackets = showMatchingBrackets;
+	for (QTextBlock block = firstVisibleBlock(); block.isValid(); block = block.next())
+	{
+		if (blockBoundingGeometry(block).top() > viewport()->height())
+			break;
+
+		const QString text = block.text();
+		const int textLength = text.length();
+
+		for (int i = 0; i < textLength; ++i)
+		{
+			if (block.position() + i == m_matchingBegin || block.position() + i == m_matchingEnd)
+			{
+				QList<QTextEdit::ExtraSelection> extraSelectionList = extraSelections();
+				if (!isReadOnly())
+				{
+					QTextEdit::ExtraSelection selection;
+					selection.format.setBackground(m_matchingColor);
+					selection.cursor = textCursor();
+					selection.cursor.setPosition(block.position() + i, QTextCursor::MoveAnchor);
+					selection.cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+					extraSelectionList.append(selection);
+				}
+				setExtraSelections(extraSelectionList);
+			}
+		}
+	}
 }
 
-void TikzEditor::setMatchingColor(const QColor &matchingColor)
+void TikzEditor::setShowWhiteSpaces(bool show)
 {
-	m_matchingColor = matchingColor;
+	m_showWhiteSpaces = show;
 }
 
-void TikzEditor::setShowWhiteSpaces(bool showWhiteSpaces)
+void TikzEditor::setShowTabulators(bool show)
 {
-	m_showWhiteSpaces = showWhiteSpaces;
+	m_showTabulators = show;
+}
+
+void TikzEditor::setShowMatchingBrackets(bool show)
+{
+	m_showMatchingBrackets = show;
+}
+
+void TikzEditor::setWhiteSpacesColor(const QColor &color)
+{
+	m_whiteSpacesColor = color;
+}
+
+void TikzEditor::setTabulatorsColor(const QColor &color)
+{
+	m_tabulatorsColor = color;
+}
+
+void TikzEditor::setMatchingColor(const QColor &color)
+{
+	m_matchingColor = color;
+}
+
+uint TikzEditor::spaceWidth() const
+{
+	return QFontMetrics(document()->defaultFont()).width(' ');
+}
+
+void TikzEditor::paintTabstop(QPainter &painter, qreal x, qreal y)
+{
+	QPen penBackup(painter.pen());
+	QPen pen(m_tabulatorsColor);
+	pen.setWidthF(qMax(0.5, spaceWidth() * .1));
+	pen.setCapStyle(Qt::RoundCap);
+	painter.setPen(pen);
+
+	// FIXME: optimize for speed!
+	qreal dist = spaceWidth() * 0.3;
+	QPointF points[8];
+	points[0] = QPointF(x - dist, y - dist);
+	points[1] = QPointF(x, y);
+	points[2] = QPointF(x, y);
+	points[3] = QPointF(x - dist, y + dist);
+	x += spaceWidth() / 3.0;
+	points[4] = QPointF(x - dist, y - dist);
+	points[5] = QPointF(x, y);
+	points[6] = QPointF(x, y);
+	points[7] = QPointF(x - dist, y + dist);
+	painter.drawLines(points, 4);
+	painter.setPen(penBackup);
+}
+
+void TikzEditor::paintSpace(QPainter &painter, qreal x, qreal y)
+{
+	QPen penBackup(painter.pen());
+	QPen pen(m_whiteSpacesColor);
+	pen.setWidthF(spaceWidth() / 3.5);
+	pen.setCapStyle(Qt::RoundCap);
+	painter.setPen(pen);
+
+	painter.drawPoint(QPointF(x, y));
+	painter.setPen(penBackup);
 }
 
 void TikzEditor::printWhiteSpaces(QPainter &painter)
 {
-	const int contentsY = verticalScrollBar()->value();
-	const qreal pageBottom = contentsY + viewport()->height();
 	const QFontMetrics fontMetrics = QFontMetrics(document()->defaultFont());
 
-	for (QTextBlock block = document()->begin(); block.isValid(); block = block.next())
+	for (QTextBlock block = firstVisibleBlock(); block.isValid(); block = block.next())
 	{
-		QTextLayout *layout = block.layout();
-		const QRectF boundingRect = layout->boundingRect();
-		const QPointF position = layout->position();
-
-		if (position.y() + boundingRect.height() < contentsY)
-			continue;
-		if (position.y() > pageBottom)
+		if (blockBoundingGeometry(block).top() > viewport()->height())
 			break;
 
 		const QString text = block.text();
@@ -210,63 +300,33 @@ void TikzEditor::printWhiteSpaces(QPainter &painter)
 			cursor.setPosition(block.position() + i, QTextCursor::MoveAnchor);
 			const QRect rect = cursorRect(cursor);
 
-			if (block.position() + i == m_matchingBegin || block.position() + i == m_matchingEnd)
-			{
-				QTextCursor cursor2 = textCursor();
-				cursor2.setPosition(block.position() + i, QTextCursor::MoveAnchor);
-				QRect rect2 = cursorRect(cursor2);
-				if (QString("({[").contains(m_plainText.at(block.position() + i)))
-					rect2.adjust(rect2.width() / 3, rect2.height() - 1, rect2.width() / 3, 0);
-				else
-					rect2.adjust(rect2.width() / 4, rect2.height() - 1, rect2.width() / 4, 0);
-				const int charWidth = fontMetrics.width(m_plainText.at(block.position() + i));
-				// Underline brackets
-				//rect2.adjust(0, 0, charWidth, 0);
-				//painter.setPen(m_matchingColor);
-				//painter.drawRect(rect2);
-				// Fill brackets bounding box
-				rect2.adjust(0, -fontMetrics.height(), charWidth, 0);
-				painter.fillRect(rect2, QBrush(m_matchingColor));
-			}
+//			const QFontMetrics fontMetrics = QFontMetrics(cursor.charFormat().font());
 
-			if (m_showWhiteSpaces)
-			{
-				QPixmap *pixmap = 0;
-				if (text.at(i) == ' ')
-					pixmap = &m_spacePixmap;
-				else if (text.at(i) == '\t')
-					pixmap = &m_tabPixmap;
-				else
-					continue;
-				painter.drawPixmap(rect.x(), rect.y() + fontMetrics.height() / 2 - 5, *pixmap);
-			}
+			if (m_showWhiteSpaces && text.at(i) == ' ')
+				paintSpace(painter, rect.x() + spaceWidth() / 2.0, rect.y() + fontMetrics.height() / 2.0);
+			else if (m_showTabulators && text.at(i) == '\t')
+				paintTabstop(painter, rect.x() + spaceWidth() / 2.0, rect.y() + fontMetrics.height() / 2.0);
 		}
 	}
 }
 
 void TikzEditor::paintEvent(QPaintEvent *event)
 {
-	const QColor lineColor(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::Base));
-	const QColor altLineColor(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::AlternateBase));
-	QBrush brush;
-	if (lineColor == altLineColor)
-		brush = QBrush(lineColor.darker(105));
-	else
-		brush = QBrush(altLineColor);
+	QPainter painter(viewport());
 
+	// highlight current line
 	QRect rect = cursorRect();
 	rect.setX(0);
 	rect.setWidth(viewport()->width());
-	QPainter painter(viewport());
-	painter.fillRect(rect, brush);
+	painter.fillRect(rect, QBrush(m_highlightCurrentLineColor));
+
+	// show white spaces and tabulators
+	if (m_showWhiteSpaces || m_showTabulators)
+		printWhiteSpaces(painter);
+
 	painter.end();
 
-	QPainter painter2(viewport());
-	if (m_showWhiteSpaces || m_matchingBegin != -1)
-		printWhiteSpaces(painter2);
-	painter2.end();
-
-	QTextEdit::paintEvent(event);
+	QPlainTextEdit::paintEvent(event);
 }
 
 void TikzEditor::goToLine(int line)
@@ -296,9 +356,12 @@ void TikzEditor::setCursorPosition(int row, int col)
 	setTextCursor(cursor);
 
 	// make sure that the cursor is in the middle of the visible area
+/*
 	ensureCursorVisible();
 	const int newPosition = verticalScrollBar()->value() + cursorRect().top() - viewport()->height() / 2;
 	verticalScrollBar()->setValue(newPosition);
+*/
+	centerCursor();
 	setFocus();
 }
 
@@ -355,19 +418,18 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 	}
 
 	/* scroll viewport when Ctrl+Up and Ctrl+Down are pressed */
-	if (event->key() == Qt::Key_Up && event->modifiers() == Qt::ControlModifier)
+	if (event->modifiers() == Qt::ControlModifier && event->key() == Qt::Key_Up)
 	{
-		const QRect rect = cursorRect();
-		const int dy = -rect.height() + verticalScrollBar()->value();
+		const int dy = -1 + verticalScrollBar()->value();
 		verticalScrollBar()->setValue(dy);
 	}
-	else if (event->key() == Qt::Key_Down && event->modifiers() == Qt::ControlModifier)
+	else if (event->modifiers() == Qt::ControlModifier && event->key() == Qt::Key_Down)
 	{
-		const QRect rect = cursorRect();
-		const int dy = rect.height() + verticalScrollBar()->value();
+		const int dy = 1 + verticalScrollBar()->value();
 		verticalScrollBar()->setValue(dy);
 	}
 	/* ensure that PageUp and PageDown keep the cursor at the same visible place */
+/*
 	else if (event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown)
 	{
 		const QTextCursor::MoveOperation moveOperation
@@ -385,6 +447,7 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 		verticalScrollBar()->setValue(newPosition);
 		ensureCursorVisible();
 	}
+*/
 	/* the first time End is pressed moves the cursor to the end of the line, the second time to the end of the block */
 	else if (event->key() == Qt::Key_Home
         && !(modifier & Qt::ControlModifier)
@@ -413,11 +476,12 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 	/* keys that change the content without moving the cursor may alter the brackets too */
 	else if (event->key() == Qt::Key_Delete || (event->key() == Qt::Key_Z && (modifier & Qt::ControlModifier)))
 	{
-		QTextEdit::keyPressEvent(event);
+		QPlainTextEdit::keyPressEvent(event);
+		highlightCurrentLine();
 		matchBrackets(); // calculate new bracket highlighting
 	}
 	else
-		QTextEdit::keyPressEvent(event);
+		QPlainTextEdit::keyPressEvent(event);
 
 	/* completer */
 	if (m_completer)
@@ -440,7 +504,10 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 			if (m_completer->completionPrefix() != m_completer->currentCompletion())
 //			    || m_completer->completionCount() > 1)
 			{
-				QRect rect = cursorRect();
+				QTextCursor cursor = textCursor();
+				cursor.movePosition(QTextCursor::StartOfWord);
+				QRect rect = cursorRect(cursor);
+				rect.translate(5, 5);
 				rect.setWidth(m_completer->popup()->sizeHintForColumn(0)
 				    + m_completer->popup()->verticalScrollBar()->sizeHint().width());
 				m_completer->complete(rect); // show popup
@@ -455,7 +522,7 @@ void TikzEditor::focusInEvent(QFocusEvent *event)
 {
 	if (m_completer)
 		m_completer->setWidget(this);
-	QTextEdit::focusInEvent(event);
+	QPlainTextEdit::focusInEvent(event);
 }
 
 void TikzEditor::setCompleter(QCompleter *completer)

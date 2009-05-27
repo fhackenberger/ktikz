@@ -60,8 +60,11 @@ private:
 	QDialogButtonBox *m_buttonBox;
 
 	QLineEdit *m_textFontEdit;
-	QCheckBox *m_showMatchingCheck;
 	QCheckBox *m_showWhiteSpacesCheck;
+	QCheckBox *m_showTabulatorsCheck;
+	QCheckBox *m_showMatchingCheck;
+	ColorButton *m_whiteSpacesColorButton;
+	ColorButton *m_tabulatorsColorButton;
 	ColorButton *m_matchingColorButton;
 
 	QSpinBox *m_historyLengthSpinBox;

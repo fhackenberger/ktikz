@@ -113,8 +113,11 @@ void ConfigDialog::readSettings()
 	m_textFont.fromString(settings.value("Font", qApp->font().toString()).toString());
 	m_textFontEdit->setText(m_textFont.family() + " " + QString::number(m_textFont.pointSize()));
 	m_textFontEdit->setFont(m_textFont);
-	m_showMatchingCheck->setChecked(settings.value("ShowMatchingBrackets", true).toBool());
 	m_showWhiteSpacesCheck->setChecked(settings.value("ShowWhiteSpaces", false).toBool());
+	m_showTabulatorsCheck->setChecked(settings.value("ShowTabulators", false).toBool());
+	m_showMatchingCheck->setChecked(settings.value("ShowMatchingBrackets", true).toBool());
+	m_whiteSpacesColorButton->setColor(settings.value("ColorWhiteSpaces", Qt::gray).value<QColor>());
+	m_tabulatorsColorButton->setColor(settings.value("ColorTabulators", Qt::gray).value<QColor>());
 	m_matchingColorButton->setColor(settings.value("ColorMatchingBrackets", Qt::yellow).value<QColor>());
 	settings.endGroup();
 
@@ -138,8 +141,11 @@ void ConfigDialog::writeSettings()
 
 	settings.beginGroup("Editor");
 	settings.setValue("Font", m_textFont.toString());
-	settings.setValue("ShowMatchingBrackets", m_showMatchingCheck->isChecked());
 	settings.setValue("ShowWhiteSpaces", m_showWhiteSpacesCheck->isChecked());
+	settings.setValue("ShowTabulators", m_showTabulatorsCheck->isChecked());
+	settings.setValue("ShowMatchingBrackets", m_showMatchingCheck->isChecked());
+	settings.setValue("ColorWhiteSpaces", m_whiteSpacesColorButton->getColor());
+	settings.setValue("ColorTabulators", m_tabulatorsColorButton->getColor());
 	settings.setValue("ColorMatchingBrackets", m_matchingColorButton->getColor());
 	settings.endGroup();
 
@@ -170,37 +176,75 @@ QWidget *ConfigDialog::generalPage()
 	textFontLayout->setMargin(0);
 	textFontWidget->setLayout(textFontLayout);
 
+	m_showWhiteSpacesCheck = new QCheckBox(tr("Show &white spaces"));
+	m_showWhiteSpacesCheck->setWhatsThis("<p>" + tr("Show white spaces "
+	    "in the text by replacing them with special "
+	    "symbols.  These symbols will not be saved on disk.") + "</p>");
+	m_showTabulatorsCheck = new QCheckBox(tr("Show t&abulators"));
+	m_showTabulatorsCheck->setWhatsThis("<p>" + tr("Show tabulators "
+	    "in the text by replacing them with special "
+	    "symbols.  These symbols will not be saved on disk.") + "</p>");
 	m_showMatchingCheck = new QCheckBox(tr("Show matching &brackets"));
 	m_showMatchingCheck->setWhatsThis("<p>" + tr("If the cursor is on "
 	    "a bracket ({[]}), then the corresponding opening/closing "
 	    "bracket will be highlighted.") + "</p>");
-	m_showWhiteSpacesCheck = new QCheckBox(tr("Show &white spaces"));
-	m_showWhiteSpacesCheck->setWhatsThis("<p>" + tr("Show white spaces "
-	    "(spaces, tabs) in the text by replacing them with special "
-	    "symbols.  These symbols will not be saved on disk.") + "</p>");
+	const QString whiteSpacesColorWhatsThis = "<p>" + tr("Select the color "
+	    "in which the white spaces will be shown.") + "</p>";
+	QLabel *whiteSpacesColorLabel = new QLabel(tr("&Use color:"));
+	whiteSpacesColorLabel->setWhatsThis(whiteSpacesColorWhatsThis);
+	whiteSpacesColorLabel->setAlignment(Qt::AlignRight);
+	m_whiteSpacesColorButton = new ColorButton();
+	m_whiteSpacesColorButton->setMinimumSize(24, 24);
+	m_whiteSpacesColorButton->setMaximumSize(24, 24);
+	m_whiteSpacesColorButton->setWhatsThis(whiteSpacesColorWhatsThis);
+	whiteSpacesColorLabel->setBuddy(m_whiteSpacesColorButton);
+	const QString tabulatorsColorWhatsThis = "<p>" + tr("Select the color "
+	    "in which the tabulators will be shown.") + "</p>";
+	QLabel *tabulatorsColorLabel = new QLabel(tr("Use &color:"));
+	tabulatorsColorLabel->setWhatsThis(tabulatorsColorWhatsThis);
+	tabulatorsColorLabel->setAlignment(Qt::AlignRight);
+	m_tabulatorsColorButton = new ColorButton();
+	m_tabulatorsColorButton->setMinimumSize(24, 24);
+	m_tabulatorsColorButton->setMaximumSize(24, 24);
+	m_tabulatorsColorButton->setWhatsThis(tabulatorsColorWhatsThis);
+	tabulatorsColorLabel->setBuddy(m_tabulatorsColorButton);
 	const QString matchingColorWhatsThis = "<p>" + tr("Select the color "
 	    "in which the highlighted brackets will be shown.") + "</p>";
-	QLabel *matchingColorLabel = new QLabel(tr("Brackets matching &color:"));
+	QLabel *matchingColorLabel = new QLabel(tr("Use c&olor:"));
 	matchingColorLabel->setWhatsThis(matchingColorWhatsThis);
+	matchingColorLabel->setAlignment(Qt::AlignRight);
 	m_matchingColorButton = new ColorButton();
 	m_matchingColorButton->setMinimumSize(24, 24);
 	m_matchingColorButton->setMaximumSize(24, 24);
 	m_matchingColorButton->setWhatsThis(matchingColorWhatsThis);
 	matchingColorLabel->setBuddy(m_matchingColorButton);
 	QWidget *showMatchingWidget = new QWidget;
-	showMatchingWidget->setEnabled(m_showMatchingCheck->isChecked());
-	QHBoxLayout *showMatchingLayout = new QHBoxLayout(showMatchingWidget);
-	showMatchingLayout->addSpacing(20);
-	showMatchingLayout->addWidget(matchingColorLabel);
-	showMatchingLayout->addWidget(m_matchingColorButton);
-	showMatchingLayout->addStretch();
+	QGridLayout *showMatchingLayout = new QGridLayout(showMatchingWidget);
+	showMatchingLayout->addWidget(m_showWhiteSpacesCheck, 0, 0);
+	showMatchingLayout->addWidget(whiteSpacesColorLabel, 0, 1);
+	showMatchingLayout->addWidget(m_whiteSpacesColorButton, 0, 2);
+	showMatchingLayout->addWidget(m_showTabulatorsCheck, 1, 0);
+	showMatchingLayout->addWidget(tabulatorsColorLabel, 1, 1);
+	showMatchingLayout->addWidget(m_tabulatorsColorButton, 1, 2);
+	showMatchingLayout->addWidget(m_showMatchingCheck, 2, 0);
+	showMatchingLayout->addWidget(matchingColorLabel, 2, 1);
+	showMatchingLayout->addWidget(m_matchingColorButton, 2, 2);
 	showMatchingLayout->setMargin(0);
-	connect(m_showMatchingCheck, SIGNAL(toggled(bool)), showMatchingWidget, SLOT(setEnabled(bool)));
+	whiteSpacesColorLabel->setEnabled(m_showWhiteSpacesCheck->isChecked());
+	m_whiteSpacesColorButton->setEnabled(m_showWhiteSpacesCheck->isChecked());
+	connect(m_showWhiteSpacesCheck, SIGNAL(toggled(bool)), whiteSpacesColorLabel, SLOT(setEnabled(bool)));
+	connect(m_showWhiteSpacesCheck, SIGNAL(toggled(bool)), m_whiteSpacesColorButton, SLOT(setEnabled(bool)));
+	tabulatorsColorLabel->setEnabled(m_showTabulatorsCheck->isChecked());
+	m_tabulatorsColorButton->setEnabled(m_showTabulatorsCheck->isChecked());
+	connect(m_showTabulatorsCheck, SIGNAL(toggled(bool)), tabulatorsColorLabel, SLOT(setEnabled(bool)));
+	connect(m_showTabulatorsCheck, SIGNAL(toggled(bool)), m_tabulatorsColorButton, SLOT(setEnabled(bool)));
+	matchingColorLabel->setEnabled(m_showMatchingCheck->isChecked());
+	m_matchingColorButton->setEnabled(m_showMatchingCheck->isChecked());
+	connect(m_showMatchingCheck, SIGNAL(toggled(bool)), matchingColorLabel, SLOT(setEnabled(bool)));
+	connect(m_showMatchingCheck, SIGNAL(toggled(bool)), m_matchingColorButton, SLOT(setEnabled(bool)));
 
 	QVBoxLayout *editorLayout = new QVBoxLayout;
 	editorLayout->addWidget(textFontWidget);
-	editorLayout->addWidget(m_showWhiteSpacesCheck);
-	editorLayout->addWidget(m_showMatchingCheck);
 	editorLayout->addWidget(showMatchingWidget);
 	QGroupBox *editorBox = new QGroupBox(tr("Editor"));
 	editorBox->setLayout(editorLayout);
@@ -240,7 +284,7 @@ QWidget *ConfigDialog::generalPage()
 	QWidget *commandsInDockWidget = new QWidget;
 	commandsInDockWidget->setLayout(commandsInDockLayout);
 
-	QLabel *toolBarStyleLabel = new QLabel(tr("&Toolbar style:"));
+	QLabel *toolBarStyleLabel = new QLabel(tr("Toolbar st&yle:"));
 	m_toolBarStyleCombo = new QComboBox();
 	const QString toolBarStyleWhatsThis = "<p>" + tr("Select the style in "
 	    "which the toolbar will be displayed.") + "</p>";
@@ -268,7 +312,7 @@ QWidget *ConfigDialog::generalPage()
 
 	// Help
 	const QString tikzDocWhatsThis = "<p>" + tr("Enter the path to the file containing the TikZ documentation here.") + "</p>";
-	QLabel *tikzDocLabel = new QLabel(tr("&TikZ documentation:"));
+	QLabel *tikzDocLabel = new QLabel(tr("Ti&kZ documentation:"));
 	m_tikzDocEdit = new LineEdit;
 	m_tikzDocEdit->setWhatsThis(tikzDocWhatsThis);
 	m_tikzDocEdit->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);

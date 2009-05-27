@@ -28,7 +28,7 @@ class QAction;
 class QCompleter;
 class QMenu;
 //class QSyntaxHighlighter;
-class QTextEdit;
+class QPlainTextEdit;
 class QToolBar;
 class GoToLineWidget;
 class ReplaceWidget;
@@ -47,7 +47,7 @@ public:
 	void setTemplateFile(const QString &fileName);
 	void setReplaceText(const QString &replace);
 	QString templateFile() const;
-	QTextEdit *editor();
+	QPlainTextEdit *editor();
 	QMenu *createMenu();
 	QToolBar *createToolBar();
 	void applySettings();

@@ -24,8 +24,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "tikzpngpreviewer.h"
-#include "tikzcommandinserter.h"
 
 class QAction;
 class QCloseEvent;
@@ -44,9 +42,11 @@ namespace Poppler
 class AboutDialog;
 class ConfigDialog;
 class LogTextEdit;
+class TikzCommandInserter;
 class TikzEditorView;
 class TikzHighlighter;
 class TikzPreview;
+class TikzPreviewGenerator;
 
 /** Provides a tiny application for simple editing of TikZ graphics
  * @author Florian Hackenberger
@@ -115,7 +115,7 @@ private:
 	QDockWidget *m_previewDock;
 	Poppler::Document *m_tikzPdfDoc;
 	TikzPreview *m_tikzView;
-	TikzPngPreviewer *m_tikzController;
+	TikzPreviewGenerator *m_tikzController;
 
 	QDockWidget *m_logDock;
 	LogTextEdit *m_logTextEdit;

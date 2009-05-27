@@ -111,7 +111,7 @@ TikzEditorView::~TikzEditorView()
 //	tikzHighlighter->deleteLater();
 }
 
-QTextEdit *TikzEditorView::editor()
+QPlainTextEdit *TikzEditorView::editor()
 {
 	return m_tikzEditor;
 }
@@ -293,8 +293,11 @@ void TikzEditorView::applySettings()
 	QFont editorFont;
 	editorFont.fromString(settings.value("Font", qApp->font().toString()).toString());
 	setFont(editorFont);
-	m_tikzEditor->setShowMatchingBrackets(settings.value("ShowMatchingBrackets", true).toBool());
 	m_tikzEditor->setShowWhiteSpaces(settings.value("ShowWhiteSpaces", false).toBool());
+	m_tikzEditor->setShowTabulators(settings.value("ShowTabulators", false).toBool());
+	m_tikzEditor->setShowMatchingBrackets(settings.value("ShowMatchingBrackets", true).toBool());
+	m_tikzEditor->setWhiteSpacesColor(settings.value("ColorWhiteSpaces", Qt::gray).value<QColor>());
+	m_tikzEditor->setTabulatorsColor(settings.value("ColorTabulators", Qt::gray).value<QColor>());
 	m_tikzEditor->setMatchingColor(settings.value("ColorMatchingBrackets", Qt::yellow).value<QColor>());
 	settings.endGroup();
 

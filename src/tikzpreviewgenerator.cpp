@@ -26,16 +26,16 @@
 #include <QPixmap>
 #include <QProcess>
 #include <QTemporaryFile>
-#include <QTextEdit>
+#include <QPlainTextEdit>
 #include <QTextStream>
 
 #include <poppler-qt4.h>
 
-#include "tikzpngpreviewer.h"
+#include "tikzpreviewgenerator.h"
 
 const QTime s_standardMinUpdateInterval(0, 0, 1 /*sec*/, 0);
 
-TikzPngPreviewer::TikzPngPreviewer(const QTextEdit* tikzTextEdit)
+TikzPreviewGenerator::TikzPreviewGenerator(const QPlainTextEdit* tikzTextEdit)
     : m_minUpdateInterval(s_standardMinUpdateInterval)
 {
 	m_tikzTextEdit = tikzTextEdit;
@@ -51,7 +51,7 @@ TikzPngPreviewer::TikzPngPreviewer(const QTextEdit* tikzTextEdit)
 	start();
 }
 
-TikzPngPreviewer::~TikzPngPreviewer()
+TikzPreviewGenerator::~TikzPreviewGenerator()
 {
 	// stop the thread before destroying this object
 	m_keepRunning = false;
@@ -68,51 +68,51 @@ TikzPngPreviewer::~TikzPngPreviewer()
 		qCritical() << "Error: removing tempfiles failed";
 }
 
-void TikzPngPreviewer::setLatexCommand(const QString &command)
+void TikzPreviewGenerator::setLatexCommand(const QString &command)
 {
 	m_latexCommand = command;
 }
 
-void TikzPngPreviewer::setPdftopsCommand(const QString &command)
+void TikzPreviewGenerator::setPdftopsCommand(const QString &command)
 {
 	m_pdftopsCommand = command;
 }
 
-void TikzPngPreviewer::setShellEscaping(bool useShellEscaping)
+void TikzPreviewGenerator::setShellEscaping(bool useShellEscaping)
 {
 	m_useShellEscaping = useShellEscaping;
 }
 
-void TikzPngPreviewer::setTemplateFile(const QString &fileName)
+void TikzPreviewGenerator::setTemplateFile(const QString &fileName)
 {
 	m_templateFileName = fileName;
 //	createTempLatexFile(); // for some obscure reason, this does not work
 	m_templateChanged = true;
 }
 
-void TikzPngPreviewer::setTemplateFileAndRegenerate(const QString &fileName)
+void TikzPreviewGenerator::setTemplateFileAndRegenerate(const QString &fileName)
 {
 	setTemplateFile(fileName);
 	generatePreview();
 }
 
-void TikzPngPreviewer::setReplaceText(const QString &replace)
+void TikzPreviewGenerator::setReplaceText(const QString &replace)
 {
 	m_tikzReplaceText = replace;
 }
 
-void TikzPngPreviewer::setMinUpdateInterval(const QTime &interval)
+void TikzPreviewGenerator::setMinUpdateInterval(const QTime &interval)
 {
 	m_minUpdateInterval = interval;
 }
 
-QString TikzPngPreviewer::getLogText() const
+QString TikzPreviewGenerator::getLogText() const
 {
 	const QMutexLocker lock(&m_memberLock);
 	return m_logText;
 }
 
-QString TikzPngPreviewer::getParsedLogText(QTextStream *logStream) const
+QString TikzPreviewGenerator::getParsedLogText(QTextStream *logStream) const
 {
 	QString logText;
 
@@ -173,7 +173,7 @@ QString TikzPngPreviewer::getParsedLogText(QTextStream *logStream) const
 	return logText;
 }
 
-void TikzPngPreviewer::parseLogFile()
+void TikzPreviewGenerator::parseLogFile()
 {
 	const QFileInfo latexLogFileInfo = QFileInfo(m_tikzTempFileBaseName + ".log");
 	QFile latexLogFile(latexLogFileInfo.absoluteFilePath());
@@ -205,7 +205,7 @@ void TikzPngPreviewer::parseLogFile()
 //	emit logUpdated(m_runFailed);
 }
 
-void TikzPngPreviewer::createPreview()
+void TikzPreviewGenerator::createPreview()
 {
 	emit setExportActionsEnabled(false);
 	createTempTikzFile();
@@ -239,13 +239,13 @@ void TikzPngPreviewer::createPreview()
 
 /***************************************************************************/
 
-bool TikzPngPreviewer::hasRunFailed()
+bool TikzPreviewGenerator::hasRunFailed()
 {
 	const QMutexLocker lock(&m_memberLock);
 	return m_runFailed;
 }
 
-void TikzPngPreviewer::run()
+void TikzPreviewGenerator::run()
 {
 	while (m_keepRunning)
 	{
@@ -275,7 +275,7 @@ void TikzPngPreviewer::run()
 	}
 }
 
-void TikzPngPreviewer::regeneratePreview()
+void TikzPreviewGenerator::regeneratePreview()
 {
 	const QMutexLocker locker(&m_memberLock);
 	m_updateScheduled = true;
@@ -283,7 +283,7 @@ void TikzPngPreviewer::regeneratePreview()
 	m_updateRequested.wakeAll();
 }
 
-void TikzPngPreviewer::generatePreview()
+void TikzPreviewGenerator::generatePreview()
 {
 	setMinUpdateInterval(QTime(0, 0, 0, 0));
 	regeneratePreview();
@@ -291,7 +291,7 @@ void TikzPngPreviewer::generatePreview()
 
 /***************************************************************************/
 
-void TikzPngPreviewer::createTempLatexFile()
+void TikzPreviewGenerator::createTempLatexFile()
 {
 	cleanUp();
 	QTemporaryFile tikzTempFile(QDir::tempPath() + "/ktikz/ktikzXXXXXX.tex");
@@ -338,7 +338,7 @@ void TikzPngPreviewer::createTempLatexFile()
 	qDebug() << "latex code written to:" << qPrintable(QFileInfo(tikzTempFile).absoluteFilePath());
 }
 
-void TikzPngPreviewer::createTempTikzFile()
+void TikzPreviewGenerator::createTempTikzFile()
 {
 	if (m_tikzTextEdit->document()->isEmpty()) // avoid that the previous picture is still displayed
 	{
@@ -362,7 +362,7 @@ void TikzPngPreviewer::createTempTikzFile()
 	}
 }
 
-bool TikzPngPreviewer::runProcess(const QString &name, const QString &command, const QStringList &arguments, const QString &workingDir)
+bool TikzPreviewGenerator::runProcess(const QString &name, const QString &command, const QStringList &arguments, const QString &workingDir)
 {
 	/* setting the font of a QListWidgetItem in TikzCommandInserter::addListWidgetItems
 	 * causes the program to hang here with a "Xlib: unexpected async reply" when inserting text in the textEdit;
@@ -440,7 +440,7 @@ bool TikzPngPreviewer::runProcess(const QString &name, const QString &command, c
 	return !m_runFailed;
 }
 
-void TikzPngPreviewer::abortProcess()
+void TikzPreviewGenerator::abortProcess()
 {
 	if (m_process)
 	{
@@ -449,14 +449,14 @@ void TikzPngPreviewer::abortProcess()
 	}
 }
 
-bool TikzPngPreviewer::generateEpsFile()
+bool TikzPreviewGenerator::generateEpsFile()
 {
 	QStringList pdftopsArguments;
 	pdftopsArguments << m_tikzTempFileBaseName + ".pdf" << m_tikzTempFileBaseName + ".eps";
 	return runProcess("pdftops", m_pdftopsCommand, pdftopsArguments);
 }
 
-bool TikzPngPreviewer::generatePdfFile()
+bool TikzPreviewGenerator::generatePdfFile()
 {
 	// remove log file before running pdflatex again
 	QDir::root().remove(m_tikzTempFileBaseName + ".log");
@@ -484,7 +484,7 @@ bool TikzPngPreviewer::generatePdfFile()
 	return runProcess("LaTeX", m_latexCommand, latexArguments, QFileInfo(m_tikzTempFileBaseName).absolutePath());
 }
 
-bool TikzPngPreviewer::exportImage(const QString &fileName, const QString &type)
+bool TikzPreviewGenerator::exportImage(const QString &fileName, const QString &type)
 {
 	QString fileName2 = fileName;
 	if (!fileName.endsWith(type))
@@ -507,7 +507,7 @@ bool TikzPngPreviewer::exportImage(const QString &fileName, const QString &type)
 	return false;
 }
 
-bool TikzPngPreviewer::cleanUp()
+bool TikzPreviewGenerator::cleanUp()
 {
 	bool success = true;
 

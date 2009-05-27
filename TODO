@@ -8,6 +8,4 @@
   for each translation?)
 - Make a graphical tool for editing the XML file containing the TikZ
   commands similar to keditbookmarks
-- Space and tab markers should resize according to font size
-- Allow changing the color of the space and tab markers
 - Create a new process for each window opened by the "New" action.
