@@ -84,8 +84,10 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	        this, SIGNAL(modificationChanged(bool)));
 	connect(m_tikzEditor->document(), SIGNAL(contentsChanged()),
 	        this, SIGNAL(contentsChanged()));
-	connect(m_tikzEditor, SIGNAL(cursorPositionChanged()),
-	        this, SLOT(showCursorPosition()));
+//	connect(m_tikzEditor, SIGNAL(cursorPositionChanged()),
+//	        this, SLOT(showCursorPosition()));
+	connect(m_tikzEditor, SIGNAL(cursorPositionChanged(int,int)),
+	        this, SIGNAL(cursorPositionChanged(int,int)));
 	connect(m_replaceWidget, SIGNAL(search(QString,bool,bool,bool)),
 	        this, SLOT(search(QString,bool,bool,bool)));
 	connect(m_replaceWidget, SIGNAL(replace(QString,QString,bool,bool,bool)),
@@ -330,6 +332,7 @@ void TikzEditorView::applySettings()
 
 /***************************************************************************/
 
+/*
 void TikzEditorView::showCursorPosition()
 {
 	QTextCursor cur = m_tikzEditor->textCursor();
@@ -337,6 +340,7 @@ void TikzEditorView::showCursorPosition()
 	cur.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
 	emit cursorPositionChanged(cur.blockNumber() + 1, curPos - cur.position() + 1);
 }
+*/
 
 /***************************************************************************/
 /* Go to line */

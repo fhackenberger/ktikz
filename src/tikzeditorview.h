@@ -66,7 +66,7 @@ signals:
 
 private slots:
 	void setPasteEnabled();
-	void showCursorPosition();
+//	void showCursorPosition();
 	void editGoToLine();
 	void editIndent();
 	void editComment();

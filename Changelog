@@ -50,6 +50,7 @@ Version 0.8 (2009-05-25):
   configuration dialog
 - white space and tabulator settings are separate now
 - scrolling in the text edit with the arrow keys is faster now
+- better completion of \begin{... and \end{...
 Version 0.7 (2008-08-26):
 - disable previous image button if the first image is shown, disable
   next image button if the last image is shown

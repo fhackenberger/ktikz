@@ -45,7 +45,10 @@
 TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
 	m_showWhiteSpaces = true;
+	m_showTabulators = true;
 	m_showMatchingBrackets = true;
+	m_whiteSpacesColor = Qt::gray;
+	m_tabulatorsColor = Qt::gray;
 	m_matchingColor = Qt::yellow;
 
 	m_completer = 0;
@@ -62,7 +65,7 @@ TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
 	highlightCurrentLine();
 
-//	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
+	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(matchBrackets()));
 }
 
@@ -387,13 +390,30 @@ QString TikzEditor::textUnderCursor() const
 {
 	QTextCursor cursor = textCursor();
 	const int oldPos = cursor.position();
-	cursor.select(QTextCursor::WordUnderCursor);
-	const int newPos = cursor.selectionStart();
-	cursor.setPosition(newPos, QTextCursor::MoveAnchor);
+//	cursor.select(QTextCursor::WordUnderCursor);
+//	const int newPos = cursor.selectionStart();
+	int newPos;
+	for (newPos = oldPos; newPos > 0;)
+	{
+		cursor.setPosition(--newPos, QTextCursor::KeepAnchor);
+		if (cursor.selectedText().trimmed().isEmpty()) // if the current char is a whitespace
+		{
+			cursor.clearSelection();
+			cursor.setPosition(++newPos, QTextCursor::MoveAnchor);
+			break;
+		}
+		else if (cursor.selectedText() == "\\" || cursor.atBlockStart())
+		{
+			cursor.clearSelection();
+			break;
+		}
+		cursor.clearSelection();
+	}
+//	cursor.setPosition(newPos, QTextCursor::MoveAnchor);
 	cursor.setPosition(oldPos, QTextCursor::KeepAnchor);
 	QString word = cursor.selectedText();
-	if (word.right(1) != word.trimmed().right(1))
-		word = "";
+//	if (word.right(1) != word.trimmed().right(1))
+//		word = "";
 	return word;
 }
 
@@ -450,8 +470,8 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 */
 	/* the first time End is pressed moves the cursor to the end of the line, the second time to the end of the block */
 	else if (event->key() == Qt::Key_Home
-        && !(modifier & Qt::ControlModifier)
-        && !(modifier & Qt::ShiftModifier))
+	    && !(modifier & Qt::ControlModifier)
+	    && !(modifier & Qt::ShiftModifier))
 	{
 		QTextCursor cursor = textCursor();
 		const int oldPosition = cursor.position();
@@ -462,8 +482,8 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 		ensureCursorVisible();
 	}
 	else if (event->key() == Qt::Key_End
-        && !(modifier & Qt::ControlModifier)
-        && !(modifier & Qt::ShiftModifier))
+	    && !(modifier & Qt::ControlModifier)
+	    && !(modifier & Qt::ShiftModifier))
 	{
 		QTextCursor cursor = textCursor();
 		const int oldPosition = cursor.position();
@@ -489,8 +509,9 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 //		const QString endOfWord("~!@#$%^&*()_+{}|:\"<>?,./;'[]-= ");
 		const QString completionPrefix = textUnderCursor();
 		if ((event->modifiers() & (Qt::ControlModifier | Qt::AltModifier))
-		    || event->text().isEmpty() || completionPrefix.length() < 3)
-//	    	|| endOfWord.contains(event->text().right(1)))
+		    || (event->text().isEmpty() && event->key() != Qt::Key_AltGr)
+		    || completionPrefix.length() < 3)
+//		    || endOfWord.contains(event->text().right(1)))
 		{
 			m_completer->popup()->hide();
 		}
@@ -505,7 +526,8 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 //			    || m_completer->completionCount() > 1)
 			{
 				QTextCursor cursor = textCursor();
-				cursor.movePosition(QTextCursor::StartOfWord);
+//				cursor.movePosition(QTextCursor::StartOfWord);
+				cursor.movePosition(QTextCursor::Left, QTextCursor::MoveAnchor, m_completer->completionPrefix().length());
 				QRect rect = cursorRect(cursor);
 				rect.translate(5, 5);
 				rect.setWidth(m_completer->popup()->sizeHintForColumn(0)

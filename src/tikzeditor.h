@@ -30,6 +30,7 @@ class QString;
 class TikzEditor : public QPlainTextEdit
 {
 	Q_OBJECT
+	Q_PROPERTY(int numOfLines READ numOfLines)
 
 public:
 	TikzEditor(QWidget *parent = 0);
@@ -41,8 +42,6 @@ public:
 	void setTabulatorsColor(const QColor &color);
 	void setMatchingColor(const QColor &color);
 	void goToLine(int line);
-	int getCursorPosition(int row, int col) const;
-	void setCursorPosition(int row, int col);
 	int numOfLines() const;
 	void setCompleter(QCompleter *completer);
 
@@ -64,6 +63,8 @@ private:
 	void paintSpace(QPainter &painter, qreal x, qreal y);
 	void printWhiteSpaces(QPainter &painter);
 	QString textUnderCursor() const;
+	int getCursorPosition(int row, int col) const;
+	void setCursorPosition(int row, int col);
 
 	QColor m_highlightCurrentLineColor;
 	QRect m_previousHighlightedLine;
