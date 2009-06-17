@@ -18,6 +18,10 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#ifdef KTIKZ_USE_KDE
+#include <KIcon>
+#endif
+
 #include <QApplication>
 #include <QComboBox>
 #include <QCompleter>
@@ -36,6 +40,9 @@ TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 	ui.setupUi(this);
 	ui.templateCombo->setLineEdit(new LineEdit(this));
 	ui.templateCombo->setMinimumContentsLength(20);
+#ifdef KTIKZ_USE_KDE
+	ui.templateChooseButton->setIcon(KIcon("document-open"));
+#endif
 
 	QCompleter *completer = new QCompleter(this);
 	completer->setModel(new QDirModel(completer));
@@ -83,7 +90,8 @@ void TemplateWidget::setFileName(const QString &fileName)
 	if (index >= 0) // then remove item in order to re-add it at the top
 		ui.templateCombo->removeItem(index);
 	ui.templateCombo->insertItem(0, fileName);
-	ui.templateCombo->lineEdit()->setText(fileName);
+//	ui.templateCombo->lineEdit()->setText(fileName);
+	ui.templateCombo->lineEdit()->setText("");
 	connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)),
 	        this, SIGNAL(fileNameChanged(QString)));
 	ui.templateCombo->setCurrentIndex(0);

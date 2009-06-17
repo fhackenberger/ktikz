@@ -18,6 +18,12 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#ifdef KTIKZ_USE_KDE
+#include <KAction>
+#include <KLocalizedString>
+#include <KStandardAction>
+#endif
+
 #include <QAction>
 #include <QComboBox>
 #include <QContextMenuEvent>
@@ -176,6 +182,8 @@ void TikzPreview::pixmapUpdated(Poppler::Document *tikzPdfDoc)
 	{
 		m_tikzPixmapItem->setPixmap(QPixmap());
 		m_tikzPixmapItem->update();
+		m_previousPageAction->setVisible(false);
+		m_nextPageAction->setVisible(false);
 		return;
 	}
 
@@ -198,6 +206,19 @@ void TikzPreview::pixmapUpdated(Poppler::Document *tikzPdfDoc)
 
 void TikzPreview::createActions()
 {
+#ifdef KTIKZ_USE_KDE
+	m_zoomInAction = KStandardAction::zoomIn(this, SLOT(zoomIn()), this);
+	m_zoomInAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Zoom preview in by a predetermined factor</para>"));
+
+	m_zoomOutAction = KStandardAction::zoomOut(this, SLOT(zoomOut()), this);
+	m_zoomOutAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Zoom preview out by a predetermined factor</para>"));
+
+	m_previousPageAction = KStandardAction::prior(this, SLOT(showPreviousPage()), this);
+	m_previousPageAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Show the preview of the previous tikzpicture in the TikZ code</para>"));
+
+	m_nextPageAction = KStandardAction::next(this, SLOT(showNextPage()), this);
+	m_nextPageAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Show the preview of the next tikzpicture in the TikZ code</para>"));
+#else
 	m_zoomInAction = new QAction(QIcon(":/images/zoom-in.png"), tr("Zoom &In"), this);
 	m_zoomInAction->setShortcut(QKeySequence::ZoomIn);
 	m_zoomInAction->setStatusTip(tr("Zoom preview in"));
@@ -221,6 +242,7 @@ void TikzPreview::createActions()
 	m_nextPageAction->setStatusTip(tr("Show next image in preview"));
 	m_nextPageAction->setWhatsThis("<p>" + tr("Show the preview of the next tikzpicture in the TikZ code.") + "</p>");
 	connect(m_nextPageAction, SIGNAL(triggered()), this, SLOT(showNextPage()));
+#endif
 
 	m_previousPageAction->setVisible(false);
 	m_previousPageAction->setEnabled(false);

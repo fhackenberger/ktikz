@@ -18,6 +18,10 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#ifdef KTIKZ_USE_KDE
+#include <KIcon>
+#endif
+
 #include <QLineEdit>
 #include <QKeyEvent>
 
@@ -29,6 +33,9 @@ ReplaceWidget::ReplaceWidget(QWidget *parent) : QWidget(parent)
 	ui.setupUi(this);
 	ui.comboBoxFind->setLineEdit(new LineEdit(this));
 	ui.comboBoxReplace->setLineEdit(new LineEdit(this));
+#ifdef KTIKZ_USE_KDE
+	ui.pushButtonClose->setIcon(KIcon("window-close"));
+#endif
 
 	setFocusProxy(ui.comboBoxFind);
 

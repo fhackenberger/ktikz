@@ -51,6 +51,12 @@ Version 0.8 (2009-05-25):
 - white space and tabulator settings are separate now
 - scrolling in the text edit with the arrow keys is faster now
 - better completion of \begin{... and \end{...
+- allow to use the icons set in KDE4 when the appropriate variable in
+  conf.pri is set
+- remove bug that the "Next Image" and "Previous Image" buttons remained
+  visible when emptying the code text area
+- remove bug statustip of the toggle view actions in the Settings menu is
+  not shown when a toolbar or sidebar is hidden on startup
 Version 0.7 (2008-08-26):
 - disable previous image button if the first image is shown, disable
   next image button if the last image is shown

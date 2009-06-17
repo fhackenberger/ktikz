@@ -20,6 +20,12 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#ifdef KTIKZ_USE_KDE
+#include <KAction>
+#include <KLocalizedString>
+#include <KStandardAction>
+#endif
+
 #include <QDebug>
 #include <QAction>
 #include <QApplication>
@@ -292,8 +298,81 @@ void MainWindow::setProcessRunning(bool isRunning)
 
 /***************************************************************************/
 
+#ifdef KTIKZ_USE_KDE
+void MainWindow::toggleWhatsThisMode()
+{
+	if (QWhatsThis::inWhatsThisMode())
+		QWhatsThis::leaveWhatsThisMode();
+	else
+		QWhatsThis::enterWhatsThisMode();
+}
+#endif
+
 void MainWindow::createActions()
 {
+#ifdef KTIKZ_USE_KDE
+	/* Open */
+
+	m_newAction = KStandardAction::openNew(this, SLOT(newFile()), this);
+	m_newAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Create a new document</para>"));
+
+	m_openAction = KStandardAction::open(this, SLOT(open()), this);
+	m_openAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Open an existing file</para>"));
+
+	m_saveAction = KStandardAction::save(this, SLOT(save()), this);
+	m_saveAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Save the current document to disk</para>"));
+
+	m_saveAsAction = KStandardAction::saveAs(this, SLOT(saveAs()), this);
+	m_saveAsAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Save the document under a new name</para>"));
+
+	m_closeAction = KStandardAction::close(this, SLOT(closeFile()), this);
+	m_closeAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Close the current document</para>"));
+
+	m_exitAction = KStandardAction::quit(this, SLOT(close()), this);
+	m_exitAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Exit the application</para>"));
+
+	m_exportEpsAction = new KAction(KIcon("images-x-eps"), i18n("Encapsulated PostScript (EPS)"), this);
+	m_exportEpsAction->setData("eps");
+	connect(m_exportEpsAction, SIGNAL(triggered()), this, SLOT(exportImage()));
+
+	m_exportPdfAction = new KAction(KIcon("application-pdf"), i18n("Portable Document Format (PDF)"), this);
+	m_exportPdfAction->setData("pdf");
+	connect(m_exportPdfAction, SIGNAL(triggered()), this, SLOT(exportImage()));
+
+	m_exportPngAction = new KAction(KIcon("image-png"), i18n("Portable Network Graphics (PNG)"), this);
+	m_exportPngAction->setData("png");
+	connect(m_exportPngAction, SIGNAL(triggered()), this, SLOT(exportImage()));
+
+	/* View */
+
+	m_procStopAction = new KAction(KIcon("process-stop"), i18n("&Stop Process"), this);
+	m_procStopAction->setShortcut(i18nc("View|Stop Process", "Escape"));
+	m_procStopAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Abort the execution of the currently running process</para>"));
+	m_procStopAction->setEnabled(false);
+	connect(m_procStopAction, SIGNAL(triggered()), m_tikzController, SLOT(abortProcess()));
+
+	m_viewLogAction = new KAction(KIcon("run-build"), i18n("View &Log"), this);
+	m_viewLogAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Show the log messages produced by the last executed process in the Messages box.</para>"));
+	connect(m_viewLogAction, SIGNAL(triggered()), this, SLOT(logUpdated()));
+
+	m_shellEscapeAction = new KAction(KIcon("application-x-executable"), i18n("S&hell Escape"), this);
+	m_shellEscapeAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.</para>"
+	    "<para><warning>Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.</warning></para>"));
+	connect(m_shellEscapeAction, SIGNAL(triggered()), this, SLOT(toggleShellEscaping()));
+
+	/* Configure */
+
+	m_configureAction = KStandardAction::preferences(this, SLOT(configure()), this);
+	m_configureAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Configure the settings of this application</para>"));
+
+	/* Help */
+
+	m_showTikzDocAction = KStandardAction::helpContents(this, SLOT(showTikzDocumentation()), this);
+	m_showTikzDocAction->setText(i18n("TikZ &Manual"));
+	m_showTikzDocAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Show the manual of TikZ and PGF</para>"));
+
+	m_whatsThisAction = KStandardAction::whatsThis(this, SLOT(toggleWhatsThisMode()), this);
+#else
 	/* Open */
 
 	QString newWhatsThis = tr("Create a new document");
@@ -384,6 +463,7 @@ void MainWindow::createActions()
 	m_showTikzDocAction = new QAction(QIcon(":/images/help-contents.png"), tr("TikZ &Manual"), this);
 	m_showTikzDocAction->setStatusTip(tr("Show the manual of TikZ and PGF"));
 	connect(m_showTikzDocAction, SIGNAL(triggered()), this, SLOT(showTikzDocumentation()));
+#endif
 
 	m_aboutAction = new QAction(QIcon(":/images/ktikz-22.png"), tr("&About"), this);
 	m_aboutAction->setStatusTip(tr("Show the application's About box"));
@@ -393,9 +473,11 @@ void MainWindow::createActions()
 	m_aboutQtAction->setStatusTip(tr("Show the Qt library's About box"));
 	connect(m_aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 
+#ifndef KTIKZ_USE_KDE
 	m_whatsThisAction = QWhatsThis::createAction(this);
 	m_whatsThisAction->setIcon(QIcon(":/images/help-contextual.png"));
 	m_whatsThisAction->setStatusTip(tr("Show simple description of any widget"));
+#endif
 
 	connect(m_tikzController, SIGNAL(processRunning(bool)),
 	        this, SLOT(setProcessRunning(bool)));
@@ -404,12 +486,20 @@ void MainWindow::createActions()
 void MainWindow::createMenus()
 {
 	m_recentMenu = new QMenu(tr("Open &Recent"), this);
+#ifdef KTIKZ_USE_KDE
+	m_recentMenu->setIcon(KIcon("document-open-recent"));
+#else
 	m_recentMenu->setIcon(QIcon(":/images/document-open-recent.png"));
 	m_recentMenu->menuAction()->setStatusTip(tr("Open a recently opened file"));
+#endif
 
 	QMenu *exportMenu = new QMenu(tr("E&xport"), this);
+#ifdef KTIKZ_USE_KDE
+	exportMenu->setIcon(KIcon("document-export"));
+#else
 	exportMenu->setIcon(QIcon(":/images/document-export.png"));
 	exportMenu->menuAction()->setStatusTip(tr("Export image to various formats"));
+#endif
 	exportMenu->addAction(m_exportEpsAction);
 	exportMenu->addAction(m_exportPdfAction);
 	exportMenu->addAction(m_exportPngAction);
@@ -437,18 +527,32 @@ void MainWindow::createMenus()
 
 	m_settingsMenu = menuBar()->addMenu(tr("&Settings"));
 	QMenu *toolBarMenu = new QMenu(tr("&Toolbars"), this);
+#ifdef KTIKZ_USE_KDE
+	toolBarMenu->setIcon(KIcon("configure-toolbars"));
+#else
 	toolBarMenu->setIcon(QIcon(":/images/configure-toolbars.png"));
 	toolBarMenu->menuAction()->setStatusTip(tr("Show or hide toolbars"));
+#endif
 	toolBarMenu->addAction(m_fileToolBar->toggleViewAction());
 	toolBarMenu->addAction(m_editToolBar->toggleViewAction());
 	toolBarMenu->addAction(m_viewToolBar->toggleViewAction());
 	toolBarMenu->addAction(m_runToolBar->toggleViewAction());
+	m_fileToolBar->toggleViewAction()->setStatusTip(tr("Show toolbar \"%1\"").arg(m_fileToolBar->windowTitle()));
+	m_editToolBar->toggleViewAction()->setStatusTip(tr("Show toolbar \"%1\"").arg(m_editToolBar->windowTitle()));
+	m_viewToolBar->toggleViewAction()->setStatusTip(tr("Show toolbar \"%1\"").arg(m_viewToolBar->windowTitle()));
+	m_runToolBar->toggleViewAction()->setStatusTip(tr("Show toolbar \"%1\"").arg(m_runToolBar->windowTitle()));
 	m_settingsMenu->addMenu(toolBarMenu);
 	m_sideBarMenu = new QMenu(tr("&Sidebars"), this);
+#ifdef KTIKZ_USE_KDE
+	m_sideBarMenu->setIcon(KIcon("configure-toolbars"));
+#else
 	m_sideBarMenu->setIcon(QIcon(":/images/configure-toolbars.png"));
 	m_sideBarMenu->menuAction()->setStatusTip(tr("Show or hide sidebars"));
+#endif
 	m_sideBarMenu->addAction(m_previewDock->toggleViewAction());
 	m_sideBarMenu->addAction(m_logDock->toggleViewAction());
+	m_previewDock->toggleViewAction()->setStatusTip(tr("Show sidebar \"%1\"").arg(m_previewDock->windowTitle()));
+	m_logDock->toggleViewAction()->setStatusTip(tr("Show sidebar \"%1\"").arg(m_logDock->windowTitle()));
 	m_settingsMenu->addMenu(m_sideBarMenu);
 	m_settingsMenu->addSeparator();
 	m_settingsMenu->addAction(m_configureAction);
@@ -517,6 +621,8 @@ void MainWindow::setToolBarStyle()
 	m_viewToolBar->setToolButtonStyle(toolBarStyle);
 	m_runToolBar->setToolButtonStyle(toolBarStyle);
 	m_shellEscapeButton->setToolButtonStyle(toolBarStyle);
+
+	settings.endGroup();
 }
 
 void MainWindow::createCommandInsertWidget()
@@ -682,7 +788,7 @@ void MainWindow::writeSettings()
 	settings.beginGroup("MainWindow");
 //	settings.setValue("pos", pos());
 	settings.setValue("size", size());
-	settings.setValue("MainWindowState", saveState());
+	settings.setValue("MainWindowState", QMainWindow::saveState());
 /*
 	int toolBarStyleNumber = 0;
 	switch (m_fileToolBar->toolButtonStyle())
@@ -707,13 +813,13 @@ bool MainWindow::maybeSave()
 {
 	if (m_tikzEditorView->editor()->document()->isModified())
 	{
-		int ret = QMessageBox::warning(this, tr("TikZ editor"),
-		                               tr("The document has been modified.\n"
-		                                  "Do you want to save your changes?"),
-		                               QMessageBox::Yes | QMessageBox::Default,
-		                               QMessageBox::No,
-		                               QMessageBox::Cancel | QMessageBox::Escape);
-		if (ret == QMessageBox::Yes)
+		const int ret = QMessageBox::warning(this, tr("TikZ editor"),
+		    tr("The document has been modified.\n"
+		       "Do you want to save your changes?"),
+		    QMessageBox::Save | QMessageBox::Default,
+		    QMessageBox::Discard,
+		    QMessageBox::Cancel | QMessageBox::Escape);
+		if (ret == QMessageBox::Save)
 			return save();
 		else if (ret == QMessageBox::Cancel)
 			return false;
@@ -742,7 +848,7 @@ void MainWindow::loadFile(const QString &fileName)
 	}
 
 	disconnect(m_tikzEditorView, SIGNAL(contentsChanged()),
-	        m_tikzController, SLOT(regeneratePreview()));
+	           m_tikzController, SLOT(regeneratePreview()));
 	QTextStream in(&file);
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	m_tikzEditorView->editor()->setPlainText(in.readAll());

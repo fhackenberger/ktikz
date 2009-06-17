@@ -18,6 +18,10 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#ifdef KTIKZ_USE_KDE
+#include <KIcon>
+#endif
+
 #include <QAction>
 #include <QApplication>
 #include <QCheckBox>
@@ -59,7 +63,11 @@ ConfigDialog::ConfigDialog(QWidget *parent) : QDialog(parent)
 
 	m_buttonBox = new QDialogButtonBox;
 	QAction *whatsThisAction = QWhatsThis::createAction(this);
+#ifdef KTIKZ_USE_KDE
+	whatsThisAction->setIcon(KIcon("help-contextual"));
+#else
 	whatsThisAction->setIcon(QIcon(":/images/help-contextual.png"));
+#endif
 	QToolButton *whatsThisButton = new QToolButton(this);
 	whatsThisButton->setDefaultAction(whatsThisAction);
 	whatsThisButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored);
@@ -324,7 +332,11 @@ QWidget *ConfigDialog::generalPage()
 	tikzDocLabel->setWhatsThis(tikzDocWhatsThis);
 	tikzDocLabel->setBuddy(m_tikzDocEdit);
 	QToolButton *tikzDocButton = new QToolButton;
+#ifdef KTIKZ_USE_KDE
+	tikzDocButton->setIcon(KIcon("document-open"));
+#else
 	tikzDocButton->setIcon(QIcon(":/images/document-open.png"));
+#endif
 	tikzDocButton->setToolTip(tr("Browse file"));
 	tikzDocButton->setWhatsThis("<p>" + tr("Browse to the file containing the TikZ documentation.") + "</p>");
 	tikzDocButton->setObjectName("tikzDocButton");
@@ -381,7 +393,11 @@ QWidget *ConfigDialog::typesettingPage()
 	latexLabel->setWhatsThis(latexWhatsThis);
 	latexLabel->setBuddy(m_latexEdit);
 	QToolButton *latexButton = new QToolButton;
+#ifdef KTIKZ_USE_KDE
+	latexButton->setIcon(KIcon("document-open"));
+#else
 	latexButton->setIcon(QIcon(":/images/document-open.png"));
+#endif
 	latexButton->setToolTip(tr("Browse command"));
 	latexButton->setWhatsThis("<p>" + tr("Browse to the LaTeX executable.") + "</p>");
 	latexButton->setObjectName("latexButton");
@@ -397,7 +413,11 @@ QWidget *ConfigDialog::typesettingPage()
 	pdftopsLabel->setWhatsThis(pdftopsWhatsThis);
 	pdftopsLabel->setBuddy(m_pdftopsEdit);
 	QToolButton *pdftopsButton = new QToolButton;
+#ifdef KTIKZ_USE_KDE
+	pdftopsButton->setIcon(KIcon("document-open"));
+#else
 	pdftopsButton->setIcon(QIcon(":/images/document-open.png"));
+#endif
 	pdftopsButton->setToolTip(tr("Browse command"));
 	pdftopsButton->setWhatsThis("<p>" + tr("Browse to the pdftops executable.") + "</p>");
 	pdftopsButton->setObjectName("pdftopsButton");
@@ -433,7 +453,11 @@ QWidget *ConfigDialog::typesettingPage()
 	editorLabel->setWhatsThis(editorWhatsThis);
 	editorLabel->setBuddy(m_editorEdit);
 	QToolButton *editorButton = new QToolButton;
+#ifdef KTIKZ_USE_KDE
+	editorButton->setIcon(KIcon("document-open"));
+#else
 	editorButton->setIcon(QIcon(":/images/document-open.png"));
+#endif
 	editorButton->setToolTip(tr("Browse command"));
 	editorButton->setWhatsThis("<p>" + tr("Browse to the editor executable.") + "</p>");
 	editorButton->setObjectName("editorButton");

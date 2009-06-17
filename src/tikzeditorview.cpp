@@ -18,6 +18,12 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#ifdef KTIKZ_USE_KDE
+#include <KAction>
+#include <KLocalizedString>
+#include <KStandardAction>
+#endif
+
 #include <QAction>
 #include <QApplication>
 #include <QClipboard>
@@ -141,6 +147,68 @@ QString TikzEditorView::templateFile() const
 
 void TikzEditorView::createActions()
 {
+#ifdef KTIKZ_USE_KDE
+	m_undoAction = KStandardAction::undo(m_tikzEditor, SLOT(undo()), this);
+	m_undoAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Undo the previous action</para>"));
+
+	m_redoAction = KStandardAction::redo(m_tikzEditor, SLOT(redo()), this);
+	m_redoAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Redo the previous undone action</para>"));
+
+	m_cutAction = KStandardAction::cut(m_tikzEditor, SLOT(cut()), this);
+	m_cutAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Cut the current selection's content to the clipboard</para>"));
+
+	m_copyAction = KStandardAction::copy(m_tikzEditor, SLOT(copy()), this);
+	m_copyAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Copy the current selection's content to the clipboard</para>"));
+
+	m_pasteAction = KStandardAction::paste(m_tikzEditor, SLOT(paste()), this);
+	m_pasteAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Paste the clipboard's contents into the current selection</para>"));
+
+	m_selectAllAction = KStandardAction::selectAll(m_tikzEditor, SLOT(selectAll()), this);
+	m_selectAllAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Select all the content</para>"));
+
+	QAction *action;
+	action = new KAction(KIcon("format-indent-more"), i18n("&Indent..."), this);
+	action->setShortcut(i18nc("Edit|Indent", "Ctrl+I"));
+	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Indent the current line or selection</para>"));
+	connect(action, SIGNAL(triggered()), this, SLOT(editIndent()));
+	m_editActions.append(action);
+
+	action = new KAction(i18n("C&omment"), this);
+	action->setShortcut(i18nc("Edit|Comment", "Ctrl+D"));
+	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Comment the current line or selection</para>"));
+	connect(action, SIGNAL(triggered()), this, SLOT(editComment()));
+	m_editActions.append(action);
+
+	action = new KAction(i18n("Unco&mment"), this);
+	action->setShortcut(i18nc("Edit|Uncomment", "Ctrl+Shift+D"));
+	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Uncomment the current line or selection</para>"));
+	connect(action, SIGNAL(triggered()), this, SLOT(editUncomment()));
+	m_editActions.append(action);
+
+	action = new QAction(this);
+	action->setSeparator(true);
+	m_editActions.append(action);
+
+	action = KStandardAction::find(this, SLOT(editFind()), this);
+	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Look up a piece of text in the document</para>"));
+	m_editActions.append(action);
+
+	action = KStandardAction::findNext(this, SLOT(editFindNext()), this);
+	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Search the next occurrence of a text</para>"));
+	m_editActions.append(action);
+
+	action = KStandardAction::findPrev(this, SLOT(editFindPrevious()), this);
+	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Search the previous occurrence of a text</para>"));
+	m_editActions.append(action);
+
+	action = KStandardAction::replace(this, SLOT(editReplace()), this);
+	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Search and replace a piece of text in the document</para>"));
+	m_editActions.append(action);
+
+	action = KStandardAction::gotoLine(this, SLOT(editGoToLine()), this);
+	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Go to a certain line in the document</para>"));
+	m_editActions.append(action);
+#else
 	const QString undoWhatsThis = tr("Undo the previous action");
 	m_undoAction = new QAction(QIcon(":/images/edit-undo.png"), tr("&Undo"), this);
 	m_undoAction->setShortcut(QKeySequence::Undo);
@@ -234,6 +302,7 @@ void TikzEditorView::createActions()
 	action->setStatusTip(tr("Go to a certain line in the document"));
 	connect(action, SIGNAL(triggered()), this, SLOT(editGoToLine()));
 	m_editActions.append(action);
+#endif
 
 	m_undoAction->setEnabled(false);
 	m_redoAction->setEnabled(false);

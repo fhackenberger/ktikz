@@ -85,6 +85,9 @@ private slots:
 	void applySettings();
 	void setDocumentModified(bool isModified);
 	void logUpdated();
+#ifdef KTIKZ_USE_KDE
+	void toggleWhatsThisMode();
+#endif
 	void showCursorPosition(int row, int col);
 
 private:
