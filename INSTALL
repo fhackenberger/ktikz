@@ -1,6 +1,6 @@
 The following Ubuntu packages are required for compilation
 (not counting an ordinary C++ development environment and a
-standard LaTeX environment)
+standard LaTeX environment):
 qt4-dev-tools
 libqt4-dev
 libpoppler-qt-dev
