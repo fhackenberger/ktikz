@@ -18,11 +18,12 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "templatewidget.h"
+
 #ifdef KTIKZ_USE_KDE
 #include <KIcon>
 #endif
 
-#include <QApplication>
 #include <QComboBox>
 #include <QCompleter>
 #include <QDirModel>
@@ -32,8 +33,8 @@
 #include <QProcess>
 #include <QSettings>
 
+#include "ktikzapplication.h"
 #include "lineedit.h"
-#include "templatewidget.h"
 
 TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 {
@@ -69,7 +70,6 @@ void TemplateWidget::readRecentTemplates()
 	QSettings settings;
 	ui.templateCombo->setMaxCount(settings.value("TemplateRecentNumber", 5).toInt());
 	ui.templateCombo->addItems(settings.value("TemplateRecent").toStringList());
-//	ui.templateCombo->setCurrentIndex(ui.templateCombo->findText(settings.value("TemplateFile").toString()));
 	ui.templateCombo->setCurrentIndex(0);
 }
 
@@ -90,7 +90,6 @@ void TemplateWidget::setFileName(const QString &fileName)
 	if (index >= 0) // then remove item in order to re-add it at the top
 		ui.templateCombo->removeItem(index);
 	ui.templateCombo->insertItem(0, fileName);
-//	ui.templateCombo->lineEdit()->setText(fileName);
 	ui.templateCombo->lineEdit()->setText("");
 	connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)),
 	        this, SIGNAL(fileNameChanged(QString)));
@@ -133,7 +132,8 @@ void TemplateWidget::setTemplateFile()
 	const QString fileName = QFileDialog::getOpenFileName(this,
 	    tr("Select a template file"), ui.templateCombo->currentText(),
 	    QString("%1 (*.pgs *.tex);;%2 (*.*)")
-	    .arg(tr("KTikZ template files")).arg(tr("All files")));
+	    .arg(tr("%1 template files").arg(KtikzApplication::applicationName()))
+	    .arg(tr("All files")));
 	if (!fileName.isEmpty())
 		setFileName(fileName);
 }

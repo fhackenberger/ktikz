@@ -20,8 +20,6 @@
 
 #include "ktikzapplication.h"
 
-#include <QDebug>
-
 #ifdef KTIKZ_USE_KDE
 
 #else
@@ -104,6 +102,11 @@ KtikzApplication::~KtikzApplication()
 	// don't delete the MainWindow's here because they are already deleted on close
 }
 
+QString KtikzApplication::applicationName()
+{
+	return "KTikZ";
+}
+
 void KtikzApplication::commitData(QSessionManager &manager)
 {
 	m_saveSession = true;
@@ -116,7 +119,7 @@ void KtikzApplication::commitData(QSessionManager &manager)
 			if (mainWindowList.at(i)->isDocumentModified())
 			{
 				const int ret = QMessageBox::warning(mainWindowList.at(i),
-				    tr("TikZ editor"),
+				    applicationName(),
 				    tr("The document \"%1\" has been modified.\n"
 				       "Do you want to save your changes?").arg(mainWindowList.at(i)->currentFileName()),
 				    QMessageBox::Save | QMessageBox::Default,

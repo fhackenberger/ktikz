@@ -23,7 +23,6 @@
 #endif
 
 #include <QAction>
-#include <QApplication>
 #include <QCheckBox>
 #include <QComboBox>
 #include <QCompleter>
@@ -50,11 +49,12 @@
 #include "colorbutton.h"
 #include "configappearancewidget.h"
 #include "configdialog.h"
+#include "ktikzapplication.h"
 #include "lineedit.h"
 
 ConfigDialog::ConfigDialog(QWidget *parent) : QDialog(parent)
 {
-	setWindowTitle(tr("Configure TikZ editor"));
+	setWindowTitle(tr("Configure %1").arg(KtikzApplication::applicationName()));
 
 	m_centerWidget = new QTabWidget;
 	m_centerWidget->addTab(generalPage(), tr("&General"));
@@ -516,7 +516,7 @@ void ConfigDialog::searchTikzDocumentation()
 	QString tikzDocFile = process.readAllStandardOutput();
 	tikzDocFile = tikzDocFile.trimmed();
 	if (tikzDocFile.isEmpty())
-		QMessageBox::warning(this, tr("TikZ editor"),
+		QMessageBox::warning(this, KtikzApplication::applicationName(),
 		                     tr("Cannot find TikZ documentation."));
 	else
 		m_tikzDocEdit->setText(tikzDocFile);

@@ -41,13 +41,13 @@ ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent)
 	m_itemMargin = 10;
 
 	m_standardAppearanceCheck = new QRadioButton(tr("&Standard"));
-	m_standardAppearanceCheck->setWhatsThis("<p>" + tr("When this option "
+	m_standardAppearanceCheck->setWhatsThis(tr("<p>When this option "
 	    "is checked, the default fonts and colors are used in "
-	    "the output.") + "</p>");
+	    "the output.</p>"));
 	m_customAppearanceCheck = new QRadioButton(tr("&Custom"));
-	m_customAppearanceCheck->setWhatsThis("<p>" + tr("When this option "
+	m_customAppearanceCheck->setWhatsThis(tr("<p>When this option "
 	    "is checked, the fonts and colors defined below will be used "
-	    "in the output instead of the default ones.") + "</p>");
+	    "in the output instead of the default ones.</p>"));
 
 	QButtonGroup *buttonGroup = new QButtonGroup(this);
 	buttonGroup->addButton(m_standardAppearanceCheck);
@@ -56,9 +56,9 @@ ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent)
 	connect(buttonGroup, SIGNAL(buttonClicked(QAbstractButton*)), this, SLOT(toggleCustom()));
 
 	m_itemTable = new QTableWidget(this);
-	m_itemTable->setWhatsThis("<p>" + tr("Select the structure "
+	m_itemTable->setWhatsThis(tr("<p>Select the structure "
 	    "appearing in the TikZ code for which you want to change "
-	    "the fonts and colors.") + "</p>");
+	    "the fonts and colors.</p>"));
 	m_itemTable->setShowGrid(true);
 	m_itemTable->horizontalHeader()->hide();
 	m_itemTable->verticalHeader()->hide();
@@ -80,16 +80,16 @@ ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent)
 	connect(m_itemTable, SIGNAL(currentItemChanged(QTableWidgetItem*,QTableWidgetItem*)), this, SLOT(setItemHighlighted(QTableWidgetItem*)));
 
 	m_fontButton = new QPushButton(tr("Change fo&nt"));
-	m_fontButton->setWhatsThis("<p>" + tr("Select the font in which "
+	m_fontButton->setWhatsThis(tr("<p>Select the font in which "
 	    "the structure that you selected in the box above should "
-	    "be displayed.") + "</p>");
+	    "be displayed.</p>"));
 	m_fontButton->setEnabled(false);
 	connect(m_fontButton, SIGNAL(clicked()), this, SLOT(showFontDialog()));
 
 	m_colorButton = new QPushButton(tr("Change co&lor"));
-	m_colorButton->setWhatsThis("<p>" + tr("Select the text color in "
+	m_colorButton->setWhatsThis(tr("<p>Select the text color in "
 	    "which the structure that you selected in the box above "
-	    "should be displayed.") + "</p>");
+	    "should be displayed.</p>"));
 	m_colorButton->setEnabled(false);
 	connect(m_colorButton, SIGNAL(clicked()), this, SLOT(showColorDialog()));
 

@@ -260,10 +260,10 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
 	tikzDock->setAllowedAreas(Qt::AllDockWidgetAreas);
 	tikzDock->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
 	tikzDock->setWindowTitle(m_tikzSections.title);
-	tikzDock->setWhatsThis("<p>" + tr("This is a list of TikZ "
+	tikzDock->setWhatsThis(tr("<p>This is a list of TikZ "
 	    "commands.  You can insert these commands in your code by "
 	    "clicking on them.  You can obtain more commands by "
-	    "changing the category in the combo box.") + "</p>");
+	    "changing the category in the combo box.</p>"));
 
 	QAction *focusTikzDockAction = new QAction(parent);
 	focusTikzDockAction->setShortcut(QKeySequence(tr("Alt+I")));

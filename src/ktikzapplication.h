@@ -43,6 +43,7 @@ public:
 	virtual ~KtikzApplication();
 
 	void init();
+	static QString applicationName();
 
 protected:
 	void commitData(QSessionManager &manager);

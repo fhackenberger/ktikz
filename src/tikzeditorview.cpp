@@ -50,9 +50,9 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	m_templateWidget = new TemplateWidget(this);
 
 	m_tikzEditor = new TikzEditor;
-	m_tikzEditor->setWhatsThis("<p>" + tr("Enter your TikZ code here.  "
+	m_tikzEditor->setWhatsThis(tr("<p>Enter your TikZ code here.  "
 	    "The code should begin with \\begin{tikzpicture} and end with "
-	    "\\end{tikzpicture}.") + "</p>");
+	    "\\end{tikzpicture}.</p>"));
 /*
 	commandInserter = new TikzCommandInserter(tikzEditor, this);
 	tikzHighlighter = new TikzHighlighter(commandInserter, tikzEditor->document());
@@ -452,7 +452,7 @@ void TikzEditorView::editGoToLine()
 
 void TikzEditorView::editIndent()
 {
-	IndentDialog *indentDialog = new IndentDialog(this, "Indent");
+	IndentDialog *indentDialog = new IndentDialog(this, tr("Indent"));
 	if (!indentDialog->exec())
 	{
 		delete indentDialog;

@@ -20,15 +20,15 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "mainwindow.h"
+
 #ifdef KTIKZ_USE_KDE
 #include <KAction>
 #include <KLocalizedString>
 #include <KStandardAction>
 #endif
 
-#include <QDebug>
 #include <QAction>
-#include <QApplication>
 #include <QCloseEvent>
 #include <QCompleter>
 #include <QDesktopServices>
@@ -50,9 +50,9 @@
 
 #include "aboutdialog.h"
 #include "configdialog.h"
+#include "ktikzapplication.h"
 #include "loghighlighter.h"
 #include "logtextedit.h"
-#include "mainwindow.h"
 #include "tikzcommandinserter.h"
 #include "tikzeditorhighlighter.h"
 #include "tikzeditorview.h"
@@ -95,10 +95,10 @@ MainWindow::MainWindow()
 	m_logDock->setWindowTitle(tr("Messages"));
 	addDockWidget(Qt::BottomDockWidgetArea, m_logDock);
 	m_logTextEdit = new LogTextEdit;
-	m_logTextEdit->setWhatsThis("<p>" + tr("The messages produced by "
+	m_logTextEdit->setWhatsThis(tr("<p>The messages produced by "
 	    "LaTeX are shown here.  If your TikZ code contains errors, "
 	    "then a red border will appear and the errors will be "
-	    "highlighted.") + "</p>");
+	    "highlighted.</p>"));
 	m_logTextEdit->setReadOnly(true);
 	m_logHighlighter = new LogHighlighter(m_logTextEdit->document());
 	m_logDock->setWidget(m_logTextEdit);
@@ -194,11 +194,11 @@ void MainWindow::open()
 	QString lastDir;
 	if (!m_lastDocument.isEmpty())
 	{
-		QFileInfo lastFileInfo(m_lastDocument);
+		const QFileInfo lastFileInfo(m_lastDocument);
 		lastDir = lastFileInfo.absolutePath();
 	}
-	QString filter = QString("%1 (*.pgf *.tikz *.tex);;%2 (*.*)").arg(tr("PGF files")).arg(tr("All files"));
-	QString fileName = QFileDialog::getOpenFileName(this, tr("Open PGF source file"), lastDir, filter);
+	const QString filter = QString("%1 (*.pgf *.tikz *.tex);;%2 (*.*)").arg(tr("PGF files")).arg(tr("All files"));
+	const QString fileName = QFileDialog::getOpenFileName(this, tr("Open PGF source file"), lastDir, filter);
 	if (!fileName.isEmpty())
 		loadFile(fileName);
 }
@@ -216,10 +216,11 @@ bool MainWindow::saveAs()
 	QString lastDir;
 	if (!m_lastDocument.isEmpty())
 	{
-		QFileInfo lastFileInfo(m_lastDocument);
+		const QFileInfo lastFileInfo(m_lastDocument);
 		lastDir = (m_currentFile.isEmpty()) ? lastFileInfo.absolutePath() : lastFileInfo.absoluteFilePath();
 	}
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Save PGF source file"), lastDir);
+	const QString filter = QString("%1 (*.pgf *.tikz *.tex);;%2 (*.*)").arg(tr("PGF files")).arg(tr("All files"));
+	const QString fileName = QFileDialog::getSaveFileName(this, tr("Save PGF source file"), lastDir, filter);
 	if (fileName.isEmpty())
 		return false;
 
@@ -265,7 +266,7 @@ void MainWindow::showTikzDocumentation()
 	QSettings settings;
 	QString tikzDocFile = settings.value("TikzDocumentation").toString();
 	if (tikzDocFile.isEmpty())
-		QMessageBox::warning(this, tr("TikZ editor"),
+		QMessageBox::warning(this, KtikzApplication::applicationName(),
 		                     tr("Cannot find TikZ documentation."));
 	else
 		QDesktopServices::openUrl(QUrl("file://" + tikzDocFile));
@@ -453,24 +454,24 @@ void MainWindow::createActions()
 	m_procStopAction = new QAction(QIcon(":/images/process-stop.png"), tr("&Stop Process"), this);
 	m_procStopAction->setShortcut(tr("Escape", "View|Stop process"));
 	m_procStopAction->setStatusTip(tr("Abort current process"));
-	m_procStopAction->setWhatsThis("<p>" + tr("Abort the execution of the currently running process.") + "</p>");
+	m_procStopAction->setWhatsThis(tr("<p>Abort the execution of the currently running process.</p>"));
 	m_procStopAction->setEnabled(false);
 	connect(m_procStopAction, SIGNAL(triggered()), m_tikzController, SLOT(abortProcess()));
 
 	m_viewLogAction = new QAction(QIcon(":/images/run-build.png"), tr("View &Log"), this);
 	m_viewLogAction->setStatusTip(tr("View log messages produced by the last executed process"));
-	m_viewLogAction->setWhatsThis("<p>" + tr("Show the log messages produced by the last executed process in the Messages box.") + "</p>");
+	m_viewLogAction->setWhatsThis(tr("<p>Show the log messages produced by the last executed process in the Messages box.</p>"));
 	connect(m_viewLogAction, SIGNAL(triggered()), this, SLOT(logUpdated()));
 
 	m_shellEscapeAction = new QAction(QIcon(":/images/application-x-executable.png"), tr("S&hell Escape"), this);
 	m_shellEscapeAction->setStatusTip(tr("Enable the \\write18{shell-command} feature"));
-	m_shellEscapeAction->setWhatsThis("<p>" + tr("Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.")
-	    + "</p><p><strong>" + tr("Warning:") + "</strong> " + tr("Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.") + "</p>");
+	m_shellEscapeAction->setWhatsThis(tr("<p>Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ."
+	    "</p><p><strong>Warning:</strong> Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.</p>"));
 	connect(m_shellEscapeAction, SIGNAL(triggered()), this, SLOT(toggleShellEscaping()));
 
 	/* Configure */
 
-	m_configureAction = new QAction(QIcon(":/images/configure.png"), tr("&Configure..."), this);
+	m_configureAction = new QAction(QIcon(":/images/configure.png"), tr("&Configure %1...").arg(KtikzApplication::applicationName()), this);
 	m_configureAction->setStatusTip(tr("Configure the settings of this application"));
 	connect(m_configureAction, SIGNAL(triggered()), this, SLOT(configure()));
 
@@ -481,7 +482,7 @@ void MainWindow::createActions()
 	connect(m_showTikzDocAction, SIGNAL(triggered()), this, SLOT(showTikzDocumentation()));
 #endif
 
-	m_aboutAction = new QAction(QIcon(":/images/ktikz-22.png"), tr("&About"), this);
+	m_aboutAction = new QAction(QIcon(":/images/ktikz-22.png"), tr("&About %1").arg(KtikzApplication::applicationName()), this);
 	m_aboutAction->setStatusTip(tr("Show the application's About box"));
 	connect(m_aboutAction, SIGNAL(triggered()), this, SLOT(about()));
 
@@ -836,7 +837,7 @@ bool MainWindow::maybeSave()
 {
 	if (m_tikzEditorView->editor()->document()->isModified())
 	{
-		const int ret = QMessageBox::warning(this, tr("TikZ editor"),
+		const int ret = QMessageBox::warning(this, KtikzApplication::applicationName(),
 		    tr("The document has been modified.\n"
 		       "Do you want to save your changes?"),
 		    QMessageBox::Save | QMessageBox::Default,
@@ -863,7 +864,7 @@ void MainWindow::loadFile(const QString &fileName)
 	QFile file(fileName);
 	if (!file.open(QFile::ReadOnly | QFile::Text))
 	{
-		QMessageBox::warning(this, tr("TikZ editor"),
+		QMessageBox::warning(this, KtikzApplication::applicationName(),
 		                     tr("Cannot read file %1:\n%2.")
 		                     .arg(fileName)
 		                     .arg(file.errorString()));
@@ -891,7 +892,7 @@ bool MainWindow::saveFile(const QString &fileName)
 	QFile file(fileName);
 	if (!file.open(QFile::WriteOnly | QFile::Text))
 	{
-		QMessageBox::warning(this, tr("TikZ editor"),
+		QMessageBox::warning(this, KtikzApplication::applicationName(),
 		                     tr("Cannot write file %1:\n%2.")
 		                     .arg(fileName)
 		                     .arg(file.errorString()));
@@ -984,7 +985,7 @@ void MainWindow::setCurrentFile(const QString &fileName)
 	m_currentFile = fileName;
 	m_tikzEditorView->editor()->document()->setModified(false);
 	setDocumentModified(false);
-	setWindowTitle(tr("%1[*] - %2").arg(currentFileName()).arg(tr("TikZ editor")));
+	setWindowTitle(tr("%1[*] - %2").arg(currentFileName()).arg(KtikzApplication::applicationName()));
 }
 
 QString MainWindow::strippedName(const QString &fullFileName) const

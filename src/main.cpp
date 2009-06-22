@@ -111,44 +111,12 @@ int main(int argc, char *argv[])
 
 	QCoreApplication::setOrganizationName("Florian Hackenberger");
 	QCoreApplication::setApplicationName("TikZ editor");
+	QCoreApplication::setApplicationVersion(APPVERSION);
 
 	const QString translationsDirPath = qgetenv("KTIKZ_TRANSLATIONS_DIR");
 	app.installTranslator(createTranslator("qt", QLibraryInfo::location(QLibraryInfo::TranslationsPath)));
 	app.installTranslator(createTranslator("ktikz", translationsDirPath));
 
-/*
-#ifdef KTIKZ_USE_KDE
-	if (app.isSessionRestored())
-	{
-//		kRestoreMainWindows<MainWindow>();
-	}
-	else
-	{
-		MainWindow *mainWindow = new MainWindow;
-		mainWindow->show();
-
-		KUrl url;
-		KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-		if (args->count() > 0)
-		{
-			url = args->url(0);
-			if (url.isValid() && url.isLocalFile())
-//				mainWindow->loadUrl(url);
-				mainWindow->loadFile(url.path());
-		}
-		args->clear();
-	}
-#else
-	MainWindow *mainWindow = new MainWindow;
-	mainWindow->show();
-
-	if (argc > 1)
-	{
-		const QFileInfo fi(argv[1]);
-		mainWindow->loadFile(fi.absoluteFilePath());
-	}
-#endif
-*/
 	app.init();
 
 	int success = app.exec();

@@ -45,9 +45,9 @@ TikzPreview::TikzPreview(QWidget *parent)
 	m_tikzPixmapItem = m_tikzScene->addPixmap(QPixmap());
 	setScene(m_tikzScene);
 	setDragMode(QGraphicsView::ScrollHandDrag);
-	setWhatsThis("<p>" + tr("Here the preview image of "
+	setWhatsThis(tr("<p>Here the preview image of "
 	    "your TikZ code is shown.  You can zoom in and out, and you "
-	    "can scroll the image by dragging it.") + "</p>");
+	    "can scroll the image by dragging it.</p>"));
 
 	m_tikzPdfDoc = 0;
 	m_currentPage = 0;
@@ -222,25 +222,25 @@ void TikzPreview::createActions()
 	m_zoomInAction = new QAction(QIcon(":/images/zoom-in.png"), tr("Zoom &In"), this);
 	m_zoomInAction->setShortcut(QKeySequence::ZoomIn);
 	m_zoomInAction->setStatusTip(tr("Zoom preview in"));
-	m_zoomInAction->setWhatsThis("<p>" + tr("Zoom preview in by a predetermined factor.") + "</p>");
+	m_zoomInAction->setWhatsThis(tr("<p>Zoom preview in by a predetermined factor.</p>"));
 	connect(m_zoomInAction, SIGNAL(triggered()), this, SLOT(zoomIn()));
 
 	m_zoomOutAction = new QAction(QIcon(":/images/zoom-out.png"), tr("Zoom &Out"), this);
 	m_zoomOutAction->setShortcut(QKeySequence::ZoomOut);
 	m_zoomOutAction->setStatusTip(tr("Zoom preview out"));
-	m_zoomOutAction->setWhatsThis("<p>" + tr("Zoom preview out by a predetermined factor.") + "</p>");
+	m_zoomOutAction->setWhatsThis(tr("<p>Zoom preview out by a predetermined factor.</p>"));
 	connect(m_zoomOutAction, SIGNAL(triggered()), this, SLOT(zoomOut()));
 
 	m_previousPageAction = new QAction(QIcon(":/images/go-previous.png"), tr("&Previous image"), this);
 	m_previousPageAction->setShortcut(tr("Alt+Left", "View|Go to previous page"));
 	m_previousPageAction->setStatusTip(tr("Show previous image in preview"));
-	m_previousPageAction->setWhatsThis("<p>" + tr("Show the preview of the previous tikzpicture in the TikZ code.") + "</p>");
+	m_previousPageAction->setWhatsThis(tr("<p>Show the preview of the previous tikzpicture in the TikZ code.</p>"));
 	connect(m_previousPageAction, SIGNAL(triggered()), this, SLOT(showPreviousPage()));
 
 	m_nextPageAction = new QAction(QIcon(":/images/go-next.png"), tr("&Next image"), this);
 	m_nextPageAction->setShortcut(tr("Alt+Right", "View|Go to next page"));
 	m_nextPageAction->setStatusTip(tr("Show next image in preview"));
-	m_nextPageAction->setWhatsThis("<p>" + tr("Show the preview of the next tikzpicture in the TikZ code.") + "</p>");
+	m_nextPageAction->setWhatsThis(tr("<p>Show the preview of the next tikzpicture in the TikZ code.</p>"));
 	connect(m_nextPageAction, SIGNAL(triggered()), this, SLOT(showNextPage()));
 #endif
 
@@ -268,9 +268,9 @@ void TikzPreview::createViewToolBar()
 	m_zoomCombo = new QComboBox;
 	m_zoomCombo->setEditable(true);
 	m_zoomCombo->setToolTip(tr("Select or insert zoom factor here"));
-	m_zoomCombo->setWhatsThis("<p>" + tr("Select the zoom factor here.  "
+	m_zoomCombo->setWhatsThis(tr("<p>Select the zoom factor here.  "
 	    "Alternatively, you can also introduce a zoom factor and "
-	    "press Enter.") + "</p>");
+	    "press Enter.</p>"));
 	m_zoomCombo->insertItems(0, zoomSizesList);
 	const QString zoomText = QString::number(m_zoomFactor * 100) + "%";
 	m_zoomCombo->setCurrentIndex(m_zoomCombo->findText(zoomText));
