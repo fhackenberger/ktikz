@@ -127,6 +127,7 @@ void ConfigDialog::readSettings()
 	m_whiteSpacesColorButton->setColor(settings.value("ColorWhiteSpaces", Qt::gray).value<QColor>());
 	m_tabulatorsColorButton->setColor(settings.value("ColorTabulators", Qt::gray).value<QColor>());
 	m_matchingColorButton->setColor(settings.value("ColorMatchingBrackets", Qt::yellow).value<QColor>());
+	m_useCompletionCheck->setChecked(settings.value("UseCompletion", true).toBool());
 	settings.endGroup();
 
 	m_appearance->setSettings();
@@ -155,6 +156,7 @@ void ConfigDialog::writeSettings()
 	settings.setValue("ColorWhiteSpaces", m_whiteSpacesColorButton->getColor());
 	settings.setValue("ColorTabulators", m_tabulatorsColorButton->getColor());
 	settings.setValue("ColorMatchingBrackets", m_matchingColorButton->getColor());
+	settings.setValue("UseCompletion", m_useCompletionCheck->isChecked());
 	settings.endGroup();
 
 	m_appearance->writeSettings("Highlighting");
@@ -165,13 +167,13 @@ QWidget *ConfigDialog::generalPage()
 	QWidget *page = new QWidget;
 
 	// Editor
-	const QString textFontWhatsThis = "<p>" + tr("Select the font of the main text.") + "</p>";
+	const QString textFontWhatsThis = tr("<p>Select the font of the main text.</p>");
 	m_textFontEdit = new QLineEdit;
 	m_textFontEdit->setReadOnly(true);
 	m_textFontEdit->setWhatsThis(textFontWhatsThis);
 	QPushButton *textFontButton = new QPushButton(tr("Select"));
 	textFontButton->setToolTip(tr("Select font"));
-	textFontButton->setWhatsThis("<p>" + tr("Select the font of the main text.") + "</p>");
+	textFontButton->setWhatsThis(tr("<p>Select the font of the main text.</p>"));
 	connect(textFontButton, SIGNAL(clicked()), this, SLOT(selectFont()));
 	QLabel *textFontLabel = new QLabel(tr("Text &font:"));
 	textFontLabel->setWhatsThis(textFontWhatsThis);
@@ -185,19 +187,19 @@ QWidget *ConfigDialog::generalPage()
 	textFontWidget->setLayout(textFontLayout);
 
 	m_showWhiteSpacesCheck = new QCheckBox(tr("Show &white spaces"));
-	m_showWhiteSpacesCheck->setWhatsThis("<p>" + tr("Show white spaces "
-	    "in the text by replacing them with special "
-	    "symbols.  These symbols will not be saved on disk.") + "</p>");
+	m_showWhiteSpacesCheck->setWhatsThis(tr("<p>Show white spaces "
+	    "in the text by replacing them with special symbols.  These "
+	    "symbols will not be saved on disk.</p>"));
 	m_showTabulatorsCheck = new QCheckBox(tr("Show t&abulators"));
-	m_showTabulatorsCheck->setWhatsThis("<p>" + tr("Show tabulators "
-	    "in the text by replacing them with special "
-	    "symbols.  These symbols will not be saved on disk.") + "</p>");
+	m_showTabulatorsCheck->setWhatsThis(tr("<p>Show tabulators "
+	    "in the text by replacing them with special symbols.  These "
+	    "symbols will not be saved on disk.</p>"));
 	m_showMatchingCheck = new QCheckBox(tr("Show matching &brackets"));
-	m_showMatchingCheck->setWhatsThis("<p>" + tr("If the cursor is on "
+	m_showMatchingCheck->setWhatsThis(tr("<p>If the cursor is on "
 	    "a bracket ({[]}), then the corresponding opening/closing "
-	    "bracket will be highlighted.") + "</p>");
-	const QString whiteSpacesColorWhatsThis = "<p>" + tr("Select the color "
-	    "in which the white spaces will be shown.") + "</p>";
+	    "bracket will be highlighted.</p>"));
+	const QString whiteSpacesColorWhatsThis = tr("<p>Select the color "
+	    "in which the white spaces will be shown.</p>");
 	QLabel *whiteSpacesColorLabel = new QLabel(tr("&Use color:"));
 	whiteSpacesColorLabel->setWhatsThis(whiteSpacesColorWhatsThis);
 	whiteSpacesColorLabel->setAlignment(Qt::AlignRight);
@@ -206,8 +208,8 @@ QWidget *ConfigDialog::generalPage()
 	m_whiteSpacesColorButton->setMaximumSize(24, 24);
 	m_whiteSpacesColorButton->setWhatsThis(whiteSpacesColorWhatsThis);
 	whiteSpacesColorLabel->setBuddy(m_whiteSpacesColorButton);
-	const QString tabulatorsColorWhatsThis = "<p>" + tr("Select the color "
-	    "in which the tabulators will be shown.") + "</p>";
+	const QString tabulatorsColorWhatsThis = tr("<p>Select the color "
+	    "in which the tabulators will be shown.</p>");
 	QLabel *tabulatorsColorLabel = new QLabel(tr("Use &color:"));
 	tabulatorsColorLabel->setWhatsThis(tabulatorsColorWhatsThis);
 	tabulatorsColorLabel->setAlignment(Qt::AlignRight);
@@ -216,8 +218,8 @@ QWidget *ConfigDialog::generalPage()
 	m_tabulatorsColorButton->setMaximumSize(24, 24);
 	m_tabulatorsColorButton->setWhatsThis(tabulatorsColorWhatsThis);
 	tabulatorsColorLabel->setBuddy(m_tabulatorsColorButton);
-	const QString matchingColorWhatsThis = "<p>" + tr("Select the color "
-	    "in which the highlighted brackets will be shown.") + "</p>";
+	const QString matchingColorWhatsThis = tr("<p>Select the color "
+	    "in which the highlighted brackets will be shown.</p>");
 	QLabel *matchingColorLabel = new QLabel(tr("Use c&olor:"));
 	matchingColorLabel->setWhatsThis(matchingColorWhatsThis);
 	matchingColorLabel->setAlignment(Qt::AlignRight);
@@ -226,6 +228,10 @@ QWidget *ConfigDialog::generalPage()
 	m_matchingColorButton->setMaximumSize(24, 24);
 	m_matchingColorButton->setWhatsThis(matchingColorWhatsThis);
 	matchingColorLabel->setBuddy(m_matchingColorButton);
+	m_useCompletionCheck = new QCheckBox(tr("Use command &completion"));
+	m_useCompletionCheck->setWhatsThis(tr("<p>When the first letters of "
+	    "a TikZ command are typed in the text, a list of possible "
+	    "completions will be shown.</p>"));
 	QWidget *showMatchingWidget = new QWidget;
 	QGridLayout *showMatchingLayout = new QGridLayout(showMatchingWidget);
 	showMatchingLayout->addWidget(m_showWhiteSpacesCheck, 0, 0);
@@ -237,6 +243,7 @@ QWidget *ConfigDialog::generalPage()
 	showMatchingLayout->addWidget(m_showMatchingCheck, 2, 0);
 	showMatchingLayout->addWidget(matchingColorLabel, 2, 1);
 	showMatchingLayout->addWidget(m_matchingColorButton, 2, 2);
+	showMatchingLayout->addWidget(m_useCompletionCheck, 3, 0, 1, 3);
 	showMatchingLayout->setMargin(0);
 	whiteSpacesColorLabel->setEnabled(m_showWhiteSpacesCheck->isChecked());
 	m_whiteSpacesColorButton->setEnabled(m_showWhiteSpacesCheck->isChecked());
@@ -260,10 +267,10 @@ QWidget *ConfigDialog::generalPage()
 	// Interface
 	QLabel *historyLengthLabel = new QLabel(tr("&Number of entries in the \"Open Recent\" menu:"));
 	m_historyLengthSpinBox = new QSpinBox();
-	const QString historyLengthWhatsThis = "<p>" + tr("Select the maximum number "
+	const QString historyLengthWhatsThis = tr("<p>Select the maximum number "
 	    "of entries that appear in the \"Open Recent\" menu.  When "
 	    "the number of recently opened files exceeds this limit, "
-	    "the oldest entries will be lost.") + "</p>";
+	    "the oldest entries will be lost.</p>");
 	historyLengthLabel->setWhatsThis(historyLengthWhatsThis);
 	historyLengthLabel->setBuddy(m_historyLengthSpinBox);
 	m_historyLengthSpinBox->setWhatsThis(historyLengthWhatsThis);
@@ -276,11 +283,11 @@ QWidget *ConfigDialog::generalPage()
 
 	m_commandsInDockCheck = new QCheckBox(tr("Show TikZ "
 	    "commands in &dock instead of menu"));
-	m_commandsInDockCheck->setWhatsThis("<p>" + tr("If this option is "
+	m_commandsInDockCheck->setWhatsThis(tr("<p>If this option is "
 	    "checked, a dock widget is available with a list of TikZ "
 	    "commands which you can insert in your code by clicking on "
 	    "them.  If this option is not checked, the TikZ commands will "
-	    "be available in a menu instead.") + "</p>");
+	    "be available in a menu instead.</p>"));
 	connect(m_commandsInDockCheck, SIGNAL(toggled(bool)), this, SLOT(setCommandsInDock(bool)));
 	QLabel *commandsInDockLabel = new QLabel(tr("(you have to restart "
 	    "this program for this change to take effect)"));
@@ -294,8 +301,8 @@ QWidget *ConfigDialog::generalPage()
 
 	QLabel *toolBarStyleLabel = new QLabel(tr("Toolbar st&yle:"));
 	m_toolBarStyleCombo = new QComboBox();
-	const QString toolBarStyleWhatsThis = "<p>" + tr("Select the style in "
-	    "which the toolbar will be displayed.") + "</p>";
+	const QString toolBarStyleWhatsThis = tr("<p>Select the style in "
+	    "which the toolbar will be displayed.</p>");
 	toolBarStyleLabel->setWhatsThis(toolBarStyleWhatsThis);
 	toolBarStyleLabel->setBuddy(m_toolBarStyleCombo);
 	m_toolBarStyleCombo->setWhatsThis(toolBarStyleWhatsThis);
@@ -319,7 +326,7 @@ QWidget *ConfigDialog::generalPage()
 	interfaceBox->setLayout(interfaceLayout);
 
 	// Help
-	const QString tikzDocWhatsThis = "<p>" + tr("Enter the path to the file containing the TikZ documentation here.") + "</p>";
+	const QString tikzDocWhatsThis = tr("<p>Enter the path to the file containing the TikZ documentation here.</p>");
 	QLabel *tikzDocLabel = new QLabel(tr("Ti&kZ documentation:"));
 	m_tikzDocEdit = new LineEdit;
 	m_tikzDocEdit->setWhatsThis(tikzDocWhatsThis);
@@ -338,12 +345,12 @@ QWidget *ConfigDialog::generalPage()
 	tikzDocButton->setIcon(QIcon(":/images/document-open.png"));
 #endif
 	tikzDocButton->setToolTip(tr("Browse file"));
-	tikzDocButton->setWhatsThis("<p>" + tr("Browse to the file containing the TikZ documentation.") + "</p>");
+	tikzDocButton->setWhatsThis(tr("<p>Browse to the file containing the TikZ documentation.</p>"));
 	tikzDocButton->setObjectName("tikzDocButton");
 	connect(tikzDocButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
 	QPushButton *tikzDocSearchButton = new QPushButton(tr("&Search"));
 	//tikzDocSearchButton->setTooltip(tr("Search the TikZ documentation in the TeX directory structure."));
-	tikzDocSearchButton->setWhatsThis("<p>" + tr("Press this button ot search the file containing the TikZ documentation in the TeX directory structure using kpsewhich.") + "</p>");
+	tikzDocSearchButton->setWhatsThis(tr("<p>Press this button ot search the file containing the TikZ documentation in the TeX directory structure using kpsewhich.</p>"));
 	connect(tikzDocSearchButton, SIGNAL(clicked()), this, SLOT(searchTikzDocumentation()));
 
 	QGridLayout *tikzDocLayout = new QGridLayout;
@@ -383,7 +390,7 @@ QWidget *ConfigDialog::typesettingPage()
 	completer->setCompletionMode(QCompleter::PopupCompletion);
 
 	// Commands
-	const QString latexWhatsThis = "<p>" + tr("Enter the path to the LaTeX executable here.") + "</p>";
+	const QString latexWhatsThis = tr("<p>Enter the path to the LaTeX executable here.</p>");
 	QLabel *latexLabel = new QLabel(tr("&LaTeX command:"));
 	m_latexEdit = new LineEdit;
 	m_latexEdit->setWhatsThis(latexWhatsThis);
@@ -399,11 +406,11 @@ QWidget *ConfigDialog::typesettingPage()
 	latexButton->setIcon(QIcon(":/images/document-open.png"));
 #endif
 	latexButton->setToolTip(tr("Browse command"));
-	latexButton->setWhatsThis("<p>" + tr("Browse to the LaTeX executable.") + "</p>");
+	latexButton->setWhatsThis(tr("<p>Browse to the LaTeX executable.</p>"));
 	latexButton->setObjectName("latexButton");
 	connect(latexButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
 
-	const QString pdftopsWhatsThis = "<p>" + tr("Enter the path to the pdftops executable here.") + "</p>";
+	const QString pdftopsWhatsThis = tr("<p>Enter the path to the pdftops executable here.</p>");
 	QLabel *pdftopsLabel = new QLabel(tr("&Pdftops command:"));
 	m_pdftopsEdit = new LineEdit;
 	m_pdftopsEdit->setWhatsThis(pdftopsWhatsThis);
@@ -419,7 +426,7 @@ QWidget *ConfigDialog::typesettingPage()
 	pdftopsButton->setIcon(QIcon(":/images/document-open.png"));
 #endif
 	pdftopsButton->setToolTip(tr("Browse command"));
-	pdftopsButton->setWhatsThis("<p>" + tr("Browse to the pdftops executable.") + "</p>");
+	pdftopsButton->setWhatsThis(tr("<p>Browse to the pdftops executable.</p>"));
 	pdftopsButton->setObjectName("pdftopsButton");
 	connect(pdftopsButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
 
@@ -434,7 +441,7 @@ QWidget *ConfigDialog::typesettingPage()
 	commandsBox->setLayout(commandsLayout);
 
 	// Templates
-	const QString replaceWhatsThis = "<p>" + tr("Enter the text which will be replaced by the TikZ code in the template here.") + "</p>";
+	const QString replaceWhatsThis = tr("<p>Enter the text which will be replaced by the TikZ code in the template here.</p>");
 	QLabel *replaceLabel = new QLabel(tr("&Replace text:"));
 	m_replaceEdit = new LineEdit;
 	m_replaceEdit->setWhatsThis(replaceWhatsThis);
@@ -443,7 +450,7 @@ QWidget *ConfigDialog::typesettingPage()
 	replaceLabel->setWhatsThis(replaceWhatsThis);
 	replaceLabel->setBuddy(m_replaceEdit);
 
-	const QString editorWhatsThis = "<p>" + tr("Enter the path to the executable of the text editor for the template here.") + "</p>";
+	const QString editorWhatsThis = tr("<p>Enter the path to the executable of the text editor for the template here.</p>");
 	QLabel *editorLabel = new QLabel(tr("&Editor command:"));
 	m_editorEdit = new LineEdit;
 	m_editorEdit->setWhatsThis(editorWhatsThis);
@@ -459,7 +466,7 @@ QWidget *ConfigDialog::typesettingPage()
 	editorButton->setIcon(QIcon(":/images/document-open.png"));
 #endif
 	editorButton->setToolTip(tr("Browse command"));
-	editorButton->setWhatsThis("<p>" + tr("Browse to the editor executable.") + "</p>");
+	editorButton->setWhatsThis(tr("<p>Browse to the editor executable.</p>"));
 	editorButton->setObjectName("editorButton");
 	connect(editorButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
 

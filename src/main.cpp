@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
- *   Copyright (C) 2007 by Glad Deschrijver                                *
+ *   Copyright (C) 2007-2009 by Glad Deschrijver                           *
  *   florian@hackenberger.at                                               *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
@@ -22,10 +22,8 @@
 
 #ifdef KTIKZ_USE_KDE
 #include <KAboutData>
-#include <KApplication>
 #include <KCmdLineArgs>
-#else
-#include <QApplication>
+#include <KUrl>
 #endif
 #include <QDir>
 #include <QFileInfo>
@@ -33,6 +31,7 @@
 #include <QLocale>
 #include <QTranslator>
 
+#include "ktikzapplication.h"
 #include "mainwindow.h"
 
 void debugOutput(QtMsgType type, const char *msg)
@@ -102,10 +101,14 @@ int main(int argc, char *argv[])
 #ifdef KTIKZ_USE_KDE
 	KAboutData aboutData("ktikz", 0, ki18n("KTikZ"), APPVERSION);
 	KCmdLineArgs::init(argc, argv, &aboutData);
-	KApplication app;
-#else
-	QApplication app(argc, argv);
+
+	KCmdLineOptions options;
+	options.add("+[URL]", ki18n("TikZ document to open"));
+	KCmdLineArgs::addCmdLineOptions(options);
 #endif
+
+	KtikzApplication app(argc, argv);
+
 	QCoreApplication::setOrganizationName("Florian Hackenberger");
 	QCoreApplication::setApplicationName("TikZ editor");
 
@@ -113,6 +116,29 @@ int main(int argc, char *argv[])
 	app.installTranslator(createTranslator("qt", QLibraryInfo::location(QLibraryInfo::TranslationsPath)));
 	app.installTranslator(createTranslator("ktikz", translationsDirPath));
 
+/*
+#ifdef KTIKZ_USE_KDE
+	if (app.isSessionRestored())
+	{
+//		kRestoreMainWindows<MainWindow>();
+	}
+	else
+	{
+		MainWindow *mainWindow = new MainWindow;
+		mainWindow->show();
+
+		KUrl url;
+		KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+		if (args->count() > 0)
+		{
+			url = args->url(0);
+			if (url.isValid() && url.isLocalFile())
+//				mainWindow->loadUrl(url);
+				mainWindow->loadFile(url.path());
+		}
+		args->clear();
+	}
+#else
 	MainWindow *mainWindow = new MainWindow;
 	mainWindow->show();
 
@@ -121,12 +147,10 @@ int main(int argc, char *argv[])
 		const QFileInfo fi(argv[1]);
 		mainWindow->loadFile(fi.absoluteFilePath());
 	}
+#endif
+*/
+	app.init();
 
 	int success = app.exec();
-
-    QDir dir(QDir::tempPath() + "/ktikz");
-    if (dir.exists())
-        QDir::temp().rmdir("ktikz");
-
 	return success;
 }

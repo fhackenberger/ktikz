@@ -66,6 +66,7 @@ private:
 	ColorButton *m_whiteSpacesColorButton;
 	ColorButton *m_tabulatorsColorButton;
 	ColorButton *m_matchingColorButton;
+	QCheckBox *m_useCompletionCheck;
 
 	QSpinBox *m_historyLengthSpinBox;
 	QCheckBox *m_commandsInDockCheck;

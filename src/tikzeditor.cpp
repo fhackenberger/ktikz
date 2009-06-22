@@ -31,6 +31,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "tikzeditor.h"
+
 #include <QAbstractItemView>
 #include <QApplication>
 #include <QCompleter>
@@ -39,8 +41,6 @@
 #include <QScrollBar>
 #include <QTextBlock>
 #include <QTextLayout>
-
-#include "tikzeditor.h"
 
 TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
@@ -386,6 +386,11 @@ void TikzEditor::showCursorPosition()
 	emit cursorPositionChanged(cursor.blockNumber() + 1, cursorPosition - startPosition + 1);
 }
 
+/**
+ * Determines the word on which the cursor is positioned
+ * (necessary for completion).
+ */
+
 QString TikzEditor::textUnderCursor() const
 {
 	QTextCursor cursor = textCursor();
@@ -393,18 +398,25 @@ QString TikzEditor::textUnderCursor() const
 //	cursor.select(QTextCursor::WordUnderCursor);
 //	const int newPos = cursor.selectionStart();
 	int newPos;
-	for (newPos = oldPos; newPos > 0;)
+	for (newPos = oldPos; newPos > 0;) // move the cursor to the beginning of the word
 	{
 		cursor.setPosition(--newPos, QTextCursor::KeepAnchor);
-		if (cursor.selectedText().trimmed().isEmpty()) // if the current char is a whitespace
+		if (cursor.selectedText().trimmed().isEmpty()) // if the current char is a whitespace, then we have reached the beginning of the word
 		{
 			cursor.clearSelection();
 			cursor.setPosition(++newPos, QTextCursor::MoveAnchor);
 			break;
 		}
-		else if (cursor.selectedText() == "\\" || cursor.atBlockStart())
+		else if (cursor.selectedText() == "\\" || cursor.atBlockStart()) // these characters also delimit the beginning of the word (the beginning of a TikZ command)
 		{
 			cursor.clearSelection();
+			break;
+		}
+		else if (cursor.selectedText() == "["
+		    || cursor.selectedText() == ",") // these characters also delimit the beginning of the word (the beginning of a TikZ option)
+		{
+			cursor.clearSelection();
+			cursor.setPosition(++newPos, QTextCursor::MoveAnchor);
 			break;
 		}
 		cursor.clearSelection();

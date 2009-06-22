@@ -60,6 +60,14 @@ public:
 	virtual ~MainWindow();
 
 	void loadFile(const QString &fileName);
+	bool isDocumentModified() const;
+	QString currentFileName() const;
+	QString currentFileFullPath() const;
+
+	static QList<MainWindow*> mainWindowList() { return s_mainWindowList; }
+
+public slots:
+	bool save();
 
 signals:
 	void setSearchFromBegin(bool searchFromBegin);
@@ -74,7 +82,6 @@ private slots:
 	void newFile();
 	void closeFile();
 	void open();
-	bool save();
 	bool saveAs();
 	void openRecentFile();
 	bool exportImage();
@@ -102,12 +109,14 @@ private:
 	bool maybeSave();
 	bool saveFile(const QString &fileName);
 	void setCurrentFile(const QString &fileName);
-	QString strippedName(const QString &fullFileName);
+	QString strippedName(const QString &fullFileName) const;
 	void addToRecentFilesList(const QString &fileName);
 	void createRecentFilesList();
 	void updateRecentFilesList();
 	void showPdfPage();
 	void updateCompleter();
+
+	static QList<MainWindow*> s_mainWindowList;
 
 	TikzEditorView *m_tikzEditorView;
 	QString m_currentFile;

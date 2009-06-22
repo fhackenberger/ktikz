@@ -20,10 +20,10 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <QApplication>
-
-#include "tikzcommandinserter.h"
 #include "tikzeditorhighlighter.h"
+
+#include <QApplication>
+#include "tikzcommandinserter.h"
 
 TikzHighlighter::TikzHighlighter(TikzCommandInserter *commandInserter, QTextDocument *parent)
     : QSyntaxHighlighter(parent)

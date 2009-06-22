@@ -55,8 +55,12 @@ Version 0.8 (2009-05-25):
   conf.pri is set
 - remove bug that the "Next Image" and "Previous Image" buttons remained
   visible when emptying the code text area
-- remove bug statustip of the toggle view actions in the Settings menu is
+- remove bug: statustip of the toggle view actions in the Settings menu is
   not shown when a toolbar or sidebar is hidden on startup
+- add support for session management (open windows will be reopened after
+  logging out and logging in again)
+- added option in the config dialog to enable/disable completion of the
+  tikz commands
 Version 0.7 (2008-08-26):
 - disable previous image button if the first image is shown, disable
   next image button if the last image is shown

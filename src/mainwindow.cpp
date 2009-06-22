@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
- *   Copyright (C) 2007-2008 by Glad Deschrijver                           *
+ *   Copyright (C) 2007-2009 by Glad Deschrijver                           *
  *   florian@hackenberger.at                                               *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
@@ -61,11 +61,16 @@
 
 #include <poppler-qt4.h>
 
+QList<MainWindow*> MainWindow::s_mainWindowList;
+
 MainWindow::MainWindow()
 {
 	m_aboutDialog = 0;
 	m_configDialog = 0;
 	m_tikzPdfDoc = 0;
+	m_completer = 0;
+
+	s_mainWindowList.append(this);
 
 	setWindowIcon(QIcon(":/images/ktikz-22.png"));
 	setAttribute(Qt::WA_DeleteOnClose);
@@ -142,11 +147,17 @@ MainWindow::MainWindow()
 
 MainWindow::~MainWindow()
 {
+	s_mainWindowList.removeAll(this);
+
 	writeSettings();
 
 	delete m_tikzController;
 	m_logHighlighter->deleteLater();
 	m_tikzHighlighter->deleteLater();
+
+	QDir dir(QDir::tempPath() + "/ktikz");
+	if (dir.exists())
+		QDir::temp().rmdir("ktikz");
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -270,6 +281,11 @@ void MainWindow::about()
 }
 
 /***************************************************************************/
+
+bool MainWindow::isDocumentModified() const
+{
+	return isWindowModified();
+}
 
 void MainWindow::setDocumentModified(bool isModified)
 {
@@ -724,6 +740,23 @@ void MainWindow::applySettings()
 
 	m_tikzEditorView->applySettings();
 
+	settings.beginGroup("Editor");
+	m_useCompletion = settings.value("UseCompletion", true).toBool();
+	if (m_useCompletion)
+	{
+		if (!m_completer)
+			m_completer = new QCompleter(this);
+		updateCompleter();
+		m_tikzEditorView->setCompleter(m_completer);
+	}
+	else if (m_completer)
+	{
+		m_tikzEditorView->setCompleter(0); // do this before deleting m_completer because a signal is disconnected from m_completer
+		delete m_completer;
+		m_completer = 0;
+	}
+	settings.endGroup();
+
 	settings.beginGroup("Highlighting");
 	bool customHighlighting = settings.value("Customize", true).toBool();
 	QMap<QString, QTextCharFormat> formatList = m_tikzHighlighter->getDefaultHighlightFormats();
@@ -742,16 +775,6 @@ void MainWindow::applySettings()
 			format.setFont(font);
 			formatList[name] = format;
 		}
-	}
-	settings.endGroup();
-
-	settings.beginGroup("Editor");
-	m_useCompletion = settings.value("UseCompletion", true).toBool();
-	if (m_useCompletion)
-	{
-		m_completer = new QCompleter(this);
-		updateCompleter();
-		m_tikzEditorView->setCompleter(m_completer);
 	}
 	settings.endGroup();
 
@@ -946,22 +969,25 @@ void MainWindow::updateRecentFilesList()
 		m_recentFileActions[i]->setVisible(false);
 }
 
+QString MainWindow::currentFileName() const
+{
+	return (m_currentFile.isEmpty()) ? "untitled.txt" : strippedName(m_currentFile);
+}
+
+QString MainWindow::currentFileFullPath() const
+{
+	return m_currentFile;
+}
+
 void MainWindow::setCurrentFile(const QString &fileName)
 {
 	m_currentFile = fileName;
 	m_tikzEditorView->editor()->document()->setModified(false);
 	setDocumentModified(false);
-
-	QString shownName;
-	if (m_currentFile.isEmpty())
-		shownName = "untitled.txt";
-	else
-		shownName = strippedName(m_currentFile);
-
-	setWindowTitle(tr("%1[*] - %2").arg(shownName).arg(tr("TikZ editor")));
+	setWindowTitle(tr("%1[*] - %2").arg(currentFileName()).arg(tr("TikZ editor")));
 }
 
-QString MainWindow::strippedName(const QString &fullFileName)
+QString MainWindow::strippedName(const QString &fullFileName) const
 {
 	return QFileInfo(fullFileName).fileName();
 }

@@ -40,6 +40,7 @@ SOURCES += aboutdialog.cpp \
 	editindentdialog.cpp \
 	editreplacewidget.cpp \
 	editreplacecurrentwidget.cpp \
+	ktikzapplication.cpp \
 	lineedit.cpp \
 	loghighlighter.cpp \
 	logtextedit.cpp \

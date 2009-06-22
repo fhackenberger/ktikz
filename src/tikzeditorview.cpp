@@ -18,6 +18,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "tikzeditorview.h"
+
 #ifdef KTIKZ_USE_KDE
 #include <KAction>
 #include <KLocalizedString>
@@ -40,7 +42,6 @@
 #include "templatewidget.h"
 #include "tikzeditor.h"
 //#include "tikzeditorhighlighter.h"
-#include "tikzeditorview.h"
 
 TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 {
