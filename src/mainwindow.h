@@ -111,6 +111,7 @@ private:
 	void setCurrentFile(const QString &fileName);
 	QString strippedName(const QString &fullFileName) const;
 	void addToRecentFilesList(const QString &fileName);
+	void removeFromRecentFilesList(const QString &fileName);
 	void createRecentFilesList();
 	void updateRecentFilesList();
 	void showPdfPage();

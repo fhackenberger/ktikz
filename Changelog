@@ -61,6 +61,9 @@ Version 0.8 (2009-05-25):
   logging out and logging in again)
 - added option in the config dialog to enable/disable completion of the
   tikz commands
+- trying to open a file from the "Open Recent" menu that does not exist
+  anymore does not cause an empty window to be opened anymore, furthermore
+  the file is removed from the "Open Recent" list
 Version 0.7 (2008-08-26):
 - disable previous image button if the first image is shown, disable
   next image button if the last image is shown

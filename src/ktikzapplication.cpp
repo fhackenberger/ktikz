@@ -47,7 +47,7 @@ KtikzApplication::KtikzApplication(int argc, char **argv)
 	for (int i = 0; i < argc; ++i)
 		m_args << QString::fromLocal8Bit(argv[i]);
 #endif
-	m_saveSession = false;
+	m_firstTime = true;
 }
 
 void KtikzApplication::init()
@@ -70,6 +70,7 @@ void KtikzApplication::init()
 		settings.remove("");
 		settings.endGroup();
 
+		m_firstTime = false;
 		return;
 	}
 
@@ -109,11 +110,11 @@ QString KtikzApplication::applicationName()
 
 void KtikzApplication::commitData(QSessionManager &manager)
 {
-	m_saveSession = true;
-
 	if (manager.allowsInteraction())
 	{
+		QList<int> saveDocuments;
 		QList<MainWindow*> mainWindowList = MainWindow::mainWindowList();
+		// find out which documents to save
 		for (int i = 0; i < mainWindowList.size(); ++i)
 		{
 			if (mainWindowList.at(i)->isDocumentModified())
@@ -126,14 +127,17 @@ void KtikzApplication::commitData(QSessionManager &manager)
 				    QMessageBox::Discard,
 			    	QMessageBox::Cancel | QMessageBox::Escape);
 				if (ret == QMessageBox::Save)
-				{
-					manager.release();
-					if (!mainWindowList.at(i)->save())
-						manager.cancel();
-				}
+					saveDocuments << i; // store the number of the document that has to be saved
 				else if (ret == QMessageBox::Cancel)
 					manager.cancel();
 			}
+		}
+		manager.release(); // release the manager so that it can handle other programs
+		// do the actual saving
+		for (int i = 0; i < saveDocuments.size(); ++i)
+		{
+			if (!mainWindowList.at(saveDocuments.at(i))->save())
+				manager.cancel();
 		}
 	}
 	else
@@ -146,13 +150,25 @@ void KtikzApplication::saveState(QSessionManager &manager)
 {
 	Q_UNUSED(manager);
 
-	if (!m_saveSession)
+	QList<MainWindow*> mainWindowList = MainWindow::mainWindowList();
+	if (mainWindowList.size() == 0)
 		return;
+
+#ifdef Q_WS_X11
+	// in X11 the session manager calls savedState also on startup,
+    // we don't want to save anything at startup, so we return
+	// this is a dirty hack: it would be better to actually determine
+	// *when* this function is called
+	if (m_firstTime)
+	{
+		m_firstTime = false;
+		return;
+	}
+#endif
 
 	QSettings settings;
 	settings.beginGroup("Session" + qApp->sessionId());
 	settings.beginWriteArray("MainWindowList");
-	QList<MainWindow*> mainWindowList = MainWindow::mainWindowList();
 	for (int i = 0; i < mainWindowList.size(); ++i)
 	{
 		settings.setArrayIndex(i);

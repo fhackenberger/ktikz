@@ -53,7 +53,7 @@ private:
 #ifndef KTIKZ_USE_KDE
 	QStringList m_args;
 #endif
-	bool m_saveSession;
+	bool m_firstTime;
 };
 
 #endif

@@ -853,6 +853,19 @@ bool MainWindow::maybeSave()
 
 void MainWindow::loadFile(const QString &fileName)
 {
+	// check whether the file can be opened
+	QFile file(fileName);
+	if (!file.open(QFile::ReadOnly | QFile::Text))
+	{
+		QMessageBox::warning(this, KtikzApplication::applicationName(),
+		                     tr("Cannot read file %1:\n%2.")
+		                     .arg(fileName)
+		                     .arg(file.errorString()));
+		removeFromRecentFilesList(fileName);
+		return;
+	}
+
+	// only open a new window (if necessary) if the file can actually be opened
 	if (!m_tikzEditorView->editor()->document()->isEmpty())
 	{
 		MainWindow *newMainWindow = new MainWindow;
@@ -861,16 +874,7 @@ void MainWindow::loadFile(const QString &fileName)
 		return;
 	}
 
-	QFile file(fileName);
-	if (!file.open(QFile::ReadOnly | QFile::Text))
-	{
-		QMessageBox::warning(this, KtikzApplication::applicationName(),
-		                     tr("Cannot read file %1:\n%2.")
-		                     .arg(fileName)
-		                     .arg(file.errorString()));
-		return;
-	}
-
+	// load the file and generate preview
 	disconnect(m_tikzEditorView, SIGNAL(contentsChanged()),
 	           m_tikzController, SLOT(regeneratePreview()));
 	QTextStream in(&file);
@@ -928,6 +932,12 @@ void MainWindow::addToRecentFilesList(const QString &fileName)
 			m_recentFilesList.removeLast();
 		m_recentFilesList.prepend(fileName);
 	}
+	updateRecentFilesList();
+}
+
+void MainWindow::removeFromRecentFilesList(const QString &fileName)
+{
+	m_recentFilesList.removeAll(fileName);
 	updateRecentFilesList();
 }
 
