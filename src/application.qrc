@@ -40,6 +40,9 @@
 	<!-- Configure -->
 	<file>images/configure-toolbars.png</file>
 	<file>images/configure.png</file>
+	<file>images/accessories-text-editor.png</file>
+	<file>images/preferences-desktop-color.png</file>
+	<file>images/preferences-desktop-theme.png</file>
 	<!-- Help -->
 	<file>images/help-contents.png</file>
 	<file>images/help-contextual.png</file>

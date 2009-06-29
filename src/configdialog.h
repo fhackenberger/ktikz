@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007 by Glad Deschrijver                                *
+ *   Copyright (C) 2007-2009 by Glad Deschrijver                           *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -18,21 +18,19 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef CONFIGDIALOG_H
-#define CONFIGDIALOG_H
+#ifndef KTIKZ_CONFIGDIALOG_H
+#define KTIKZ_CONFIGDIALOG_H
 
 #include <QDialog>
 
-class QCheckBox;
-class QComboBox;
-class QDialogButtonBox;
-class QLineEdit;
-class QSpinBox;
-class QTabWidget;
+class QLabel;
+class QListWidgetItem;
+//class QTabWidget;
 class QTextCharFormat;
-class QWidget;
+
+class ConfigGeneralWidget;
+class ConfigEditorWidget;
 class ConfigAppearanceWidget;
-class ColorButton;
 
 class ConfigDialog : public QDialog
 {
@@ -40,55 +38,38 @@ class ConfigDialog : public QDialog
 
 public:
 	ConfigDialog(QWidget *parent = 0);
+
+	void readSettings();
+	void writeSettings();
+
 	void setTranslatedHighlightTypeNames(const QStringList &typeNames);
 	void setHighlightTypeNames(const QStringList &typeNames);
 	void setDefaultHighlightFormats(const QMap<QString, QTextCharFormat> &defaultFormatList);
-	void readSettings();
-	void writeSettings();
 
 signals:
 	void settingsChanged();
 
 private:
+	QWidget *centerWidget();
+	void addPage(QWidget *widget, const QString &title, const QString &iconName = 0);
 	QWidget *generalPage();
-	QWidget *typesettingPage();
-	QWidget *appearancePage(QWidget *parent);
-	void browseCommand(QLineEdit *lineEdit, bool isProgram = true);
+	QWidget *editorPage();
+	QWidget *appearancePage();
+
 	void keyPressEvent(QKeyEvent *event);
 
-	QTabWidget *m_centerWidget;
-	QDialogButtonBox *m_buttonBox;
+//	QTabWidget *m_pagesTabWidget;
+//	QStringList m_pageTitles;
 
-	QLineEdit *m_textFontEdit;
-	QCheckBox *m_showWhiteSpacesCheck;
-	QCheckBox *m_showTabulatorsCheck;
-	QCheckBox *m_showMatchingCheck;
-	ColorButton *m_whiteSpacesColorButton;
-	ColorButton *m_tabulatorsColorButton;
-	ColorButton *m_matchingColorButton;
-	QCheckBox *m_useCompletionCheck;
-
-	QSpinBox *m_historyLengthSpinBox;
-	QCheckBox *m_commandsInDockCheck;
-	QComboBox *m_toolBarStyleCombo;
-
-	QLineEdit *m_tikzDocEdit;
-
-	QLineEdit *m_latexEdit;
-	QLineEdit *m_pdftopsEdit;
-	QFont m_textFont;
-	bool m_commandsInDock;
-
-	QLineEdit *m_replaceEdit;
-	QLineEdit *m_editorEdit;
-
-	ConfigAppearanceWidget *m_appearance;
+	QList<QListWidgetItem*> m_pagesListWidgetItems;
+	QLabel *m_pagesTitleLabel;
+	QList<QWidget*> m_pageWidgets;
+	ConfigGeneralWidget *m_configGeneralWidget;
+	ConfigEditorWidget *m_configEditorWidget;
+	ConfigAppearanceWidget *m_configAppearanceWidget;
 
 private slots:
-	void searchTikzDocumentation();
-	void setCommandsInDock(bool inDock);
-	void selectFont();
-	void browseCommand();
+	void setCurrentPage(int page);
 	void accept();
 };
 

@@ -28,367 +28,542 @@
 <context>
     <name>ConfigAppearanceWidget</name>
     <message>
-        <location filename="configappearancewidget.cpp" line="43"/>
+        <location filename="configappearancewidget.ui" line="15"/>
         <source>&amp;Standard</source>
         <translation>E&amp;standar</translation>
     </message>
     <message>
-        <location filename="configappearancewidget.cpp" line="44"/>
+        <location filename="configappearancewidget.ui" line="12"/>
         <source>&lt;p&gt;When this option is checked, the default fonts and colors are used in the output.&lt;/p&gt;</source>
         <oldsource>When this option is checked, the default fonts and colors are used in the output.</oldsource>
         <translation>&lt;p&gt;Si esta opción está seleccionada, los tipos de letras y los colores predeterminados serán utilizado.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configappearancewidget.cpp" line="47"/>
+        <location filename="configappearancewidget.ui" line="6"/>
+        <source>Highlighting</source>
+        <translation>Resaltado</translation>
+    </message>
+    <message>
+        <location filename="configappearancewidget.ui" line="25"/>
         <source>&amp;Custom</source>
         <translation>&amp;Personalizar</translation>
     </message>
     <message>
-        <location filename="configappearancewidget.cpp" line="48"/>
+        <location filename="configappearancewidget.ui" line="95"/>
+        <source>Change &amp;font</source>
+        <translation>Cambiar &amp;tipo de letras</translation>
+    </message>
+    <message>
+        <location filename="configappearancewidget.ui" line="108"/>
+        <source>Change c&amp;olor</source>
+        <translation>Cambiar co&amp;lor</translation>
+    </message>
+    <message>
+        <location filename="configappearancewidget.ui" line="22"/>
         <source>&lt;p&gt;When this option is checked, the fonts and colors defined below will be used in the output instead of the default ones.&lt;/p&gt;</source>
         <oldsource>When this option is checked, the fonts and colors defined below will be used in the output instead of the default ones.</oldsource>
         <translation>&lt;p&gt;Si esta opción está seleccionada, los tipos de letras y los colores seleccionados por debajo serán utilizado en lugar de los predeterminados.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configappearancewidget.cpp" line="59"/>
+        <location filename="configappearancewidget.ui" line="35"/>
+        <source>Change st&amp;yle for:</source>
+        <translation>Cam&amp;biar estilo para:</translation>
+    </message>
+    <message>
+        <location filename="configappearancewidget.ui" line="41"/>
         <source>&lt;p&gt;Select the structure appearing in the TikZ code for which you want to change the fonts and colors.&lt;/p&gt;</source>
         <oldsource>Select the structure appearing in the TikZ code for which you want to change the fonts and colors.</oldsource>
         <translation>&lt;p&gt;Seleccionar la estructura apareciendo en el código TikZ para la cuál quiere cambiar el tipo de letras y el color.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configappearancewidget.cpp" line="82"/>
         <source>Change fo&amp;nt</source>
-        <translation>Cambiar &amp;tipo de letras</translation>
+        <translation type="obsolete">Cambiar &amp;tipo de letras</translation>
     </message>
     <message>
-        <location filename="configappearancewidget.cpp" line="83"/>
+        <location filename="configappearancewidget.ui" line="92"/>
         <source>&lt;p&gt;Select the font in which the structure that you selected in the box above should be displayed.&lt;/p&gt;</source>
         <oldsource>Select the font in which the structure that you selected in the box above should be displayed.</oldsource>
         <translation>&lt;p&gt;Seleccionar el tipo de letras para la estructura seleccionada por encima.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configappearancewidget.cpp" line="89"/>
         <source>Change co&amp;lor</source>
-        <translation>Cambiar co&amp;lor</translation>
+        <translation type="obsolete">Cambiar co&amp;lor</translation>
     </message>
     <message>
-        <location filename="configappearancewidget.cpp" line="90"/>
+        <location filename="configappearancewidget.ui" line="105"/>
         <source>&lt;p&gt;Select the text color in which the structure that you selected in the box above should be displayed.&lt;/p&gt;</source>
         <oldsource>Select the text color in which the structure that you selected in the box above should be displayed.</oldsource>
         <translation>&lt;p&gt;Seleccionar el color para la estructura seleccionada por encima.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configappearancewidget.cpp" line="96"/>
         <source>Change st&amp;yle for</source>
-        <translation>Cam&amp;biar estilo para</translation>
+        <translation type="obsolete">Cam&amp;biar estilo para</translation>
     </message>
 </context>
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="configdialog.cpp" line="57"/>
+        <location filename="configdialog.cpp" line="45"/>
         <source>Configure %1</source>
         <oldsource>Configure TikZ editor</oldsource>
         <translation>Configurar %1</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="60"/>
+        <location filename="configdialog.cpp" line="47"/>
         <source>&amp;General</source>
         <translation>&amp;General</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="62"/>
+        <location filename="configdialog.cpp" line="48"/>
+        <source>&amp;Editor</source>
+        <translation>&amp;Editor</translation>
+    </message>
+    <message>
+        <location filename="configdialog.cpp" line="49"/>
         <source>&amp;Highlighting</source>
         <translation>&amp;Resaltado</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="178"/>
         <source>Text &amp;font:</source>
-        <translation>&amp;Tipo de letras del texto:</translation>
+        <translation type="obsolete">&amp;Tipo de letras del texto:</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="174"/>
         <source>Select</source>
-        <translation>Seleccionar</translation>
+        <translation type="obsolete">Seleccionar</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="170"/>
-        <location filename="configdialog.cpp" line="176"/>
         <source>&lt;p&gt;Select the font of the main text.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Seleccionar el tipo de letras del texto principal.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Seleccionar el tipo de letras del texto principal.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="175"/>
         <source>Select font</source>
-        <translation>Seleccionar tipo de letras</translation>
+        <translation type="obsolete">Seleccionar tipo de letras</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="190"/>
-        <source>&lt;p&gt;Show white spaces in the text by replacing them with special symbols.  These symbols will not be saved on disk.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="193"/>
-        <source>Show t&amp;abulators</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="194"/>
-        <source>&lt;p&gt;Show tabulators in the text by replacing them with special symbols.  These symbols will not be saved on disk.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="198"/>
-        <source>&lt;p&gt;If the cursor is on a bracket ({[]}), then the corresponding opening/closing bracket will be highlighted.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="201"/>
-        <source>&lt;p&gt;Select the color in which the white spaces will be shown.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="203"/>
-        <source>&amp;Use color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="211"/>
-        <source>&lt;p&gt;Select the color in which the tabulators will be shown.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="213"/>
-        <source>Use &amp;color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="221"/>
         <source>&lt;p&gt;Select the color in which the highlighted brackets will be shown.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Seleccione el color para el resaltado de corchetes.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Seleccione el color para el resaltado de corchetes.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="223"/>
-        <source>Use c&amp;olor:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="231"/>
-        <source>Use command &amp;completion</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="232"/>
-        <source>&lt;p&gt;When the first letters of a TikZ command are typed in the text, a list of possible completions will be shown.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="268"/>
         <source>&amp;Number of entries in the &quot;Open Recent&quot; menu:</source>
-        <translation>&amp;Número de entradas en el menú &quot;Abrir reciente&quot;:</translation>
+        <translation type="obsolete">&amp;Número de entradas en el menú &quot;Abrir reciente&quot;:</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="270"/>
-        <source>&lt;p&gt;Select the maximum number of entries that appear in the &quot;Open Recent&quot; menu.  When the number of recently opened files exceeds this limit, the oldest entries will be lost.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="286"/>
-        <source>&lt;p&gt;If this option is checked, a dock widget is available with a list of TikZ commands which you can insert in your code by clicking on them.  If this option is not checked, the TikZ commands will be available in a menu instead.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="444"/>
         <source>&lt;p&gt;Enter the text which will be replaced by the TikZ code in the template here.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Introduzca el texto que será reemplazado con el código TikZ en el fichero de base.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Introduzca el texto que será reemplazado con el código TikZ en el fichero de base.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="453"/>
         <source>&lt;p&gt;Enter the path to the executable of the text editor for the template here.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Introduzca la ruta para el ejecutable del editor de textos aquí.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Introduzca la ruta para el ejecutable del editor de textos aquí.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="469"/>
         <source>&lt;p&gt;Browse to the editor executable.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Seleccione el ejecutable del editor.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Seleccione el ejecutable del editor.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="347"/>
-        <location filename="configdialog.cpp" line="556"/>
         <source>Browse file</source>
-        <translation>Seleccionar fichero</translation>
+        <translation type="obsolete">Seleccionar fichero</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="351"/>
         <source>&amp;Search</source>
-        <translation>&amp;Buscar</translation>
+        <translation type="obsolete">&amp;Buscar</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="370"/>
         <source>Help</source>
-        <translation>Ayuda</translation>
+        <translation type="obsolete">Ayuda</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="394"/>
         <source>&amp;LaTeX command:</source>
-        <translation>Comando &amp;LaTeX:</translation>
+        <translation type="obsolete">Comando &amp;LaTeX:</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="408"/>
-        <location filename="configdialog.cpp" line="428"/>
-        <location filename="configdialog.cpp" line="468"/>
         <source>Browse command</source>
-        <translation>Seleccionar comando</translation>
+        <translation type="obsolete">Seleccionar comando</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="414"/>
         <source>&amp;Pdftops command:</source>
-        <translation>Comando &amp;pdftops:</translation>
+        <translation type="obsolete">Comando &amp;pdftops:</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="520"/>
         <source>Cannot find TikZ documentation.</source>
-        <translation>Imposible de encontrar la documentación de TikZ.</translation>
+        <translation type="obsolete">Imposible de encontrar la documentación de TikZ.</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="548"/>
         <source>Browse program</source>
-        <translation>Seleccionar programa</translation>
+        <translation type="obsolete">Seleccionar programa</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="549"/>
         <source>Program</source>
-        <translation>Programa</translation>
+        <translation type="obsolete">Programa</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="558"/>
         <source>All files</source>
-        <translation>Todos los archivos</translation>
+        <translation type="obsolete">Todos los archivos</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="284"/>
         <source>Show TikZ commands in &amp;dock instead of menu</source>
-        <translation>Mostrar comandos TikZ en barra &amp;lateral en lugar de menu</translation>
+        <translation type="obsolete">Mostrar comandos TikZ en barra &amp;lateral en lugar de menu</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="292"/>
-        <source>(you have to restart this program for this change to take effect)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="302"/>
         <source>Toolbar st&amp;yle:</source>
-        <translation>Est&amp;ilo de la barra de herramientas:</translation>
+        <translation type="obsolete">Est&amp;ilo de la barra de herramientas:</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="304"/>
-        <source>&lt;p&gt;Select the style in which the toolbar will be displayed.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="325"/>
         <source>Interface</source>
-        <translation>Interfaz</translation>
+        <translation type="obsolete">Interfaz</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="329"/>
-        <source>&lt;p&gt;Enter the path to the file containing the TikZ documentation here.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="330"/>
-        <source>Ti&amp;kZ documentation:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="348"/>
-        <source>&lt;p&gt;Browse to the file containing the TikZ documentation.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="353"/>
-        <source>&lt;p&gt;Press this button ot search the file containing the TikZ documentation in the TeX directory structure using kpsewhich.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="configdialog.cpp" line="393"/>
         <source>&lt;p&gt;Enter the path to the LaTeX executable here.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Introduzca la ruta para el ejecutable LaTeX aquí.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Introduzca la ruta para el ejecutable LaTeX aquí.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="409"/>
         <source>&lt;p&gt;Browse to the LaTeX executable.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Seleccione el ejecutable LaTeX.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Seleccione el ejecutable LaTeX.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="413"/>
         <source>&lt;p&gt;Enter the path to the pdftops executable here.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Introduzca la ruta para el ejecutable pdftops aquí.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Introduzca la ruta para el ejecutable pdftops aquí.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="429"/>
         <source>&lt;p&gt;Browse to the pdftops executable.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Seleccione el ejecutable pdftops.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Seleccione el ejecutable pdftops.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="440"/>
         <source>Commands</source>
-        <translation>Comandos</translation>
+        <translation type="obsolete">Comandos</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="197"/>
         <source>Show matching &amp;brackets</source>
-        <translation>Resaltar &amp;corchetes</translation>
+        <translation type="obsolete">Resaltar &amp;corchetes</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="189"/>
         <source>Show &amp;white spaces</source>
-        <translation>Mostrar &amp;espacios</translation>
+        <translation type="obsolete">Mostrar &amp;espacios</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="264"/>
+        <source>Editor</source>
+        <translation type="obsolete">Editor</translation>
+    </message>
+    <message>
+        <source>&amp;Replace text:</source>
+        <translation type="obsolete">&amp;Texto de reemplazo:</translation>
+    </message>
+    <message>
+        <source>&amp;Editor command:</source>
+        <translation type="obsolete">Comando del &amp;editor:</translation>
+    </message>
+    <message>
+        <source>Templates</source>
+        <translation type="obsolete">Ficheros de base</translation>
+    </message>
+    <message>
+        <source>&amp;Typesetting</source>
+        <translation type="obsolete">Co&amp;mpilación</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigEditorWidget</name>
+    <message>
+        <location filename="configeditorwidget.ui" line="6"/>
+        <source>Configure Editor</source>
+        <translation>Configurar Editor</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="12"/>
         <source>Editor</source>
         <translation>Editor</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="445"/>
-        <source>&amp;Replace text:</source>
-        <translation>&amp;Texto de reemplazo:</translation>
+        <location filename="configeditorwidget.ui" line="20"/>
+        <location filename="configeditorwidget.ui" line="39"/>
+        <location filename="configeditorwidget.ui" line="49"/>
+        <source>&lt;p&gt;Select the font of the main text.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Seleccionar el tipo de letras del texto principal.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="454"/>
-        <source>&amp;Editor command:</source>
-        <translation>Comando del &amp;editor:</translation>
+        <location filename="configeditorwidget.ui" line="23"/>
+        <source>Text &amp;font:</source>
+        <translation>&amp;Tipo de letras del texto:</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="479"/>
+        <location filename="configeditorwidget.ui" line="52"/>
+        <source>Select</source>
+        <translation>Seleccionar</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="63"/>
+        <source>&lt;p&gt;Show white spaces in the text by replacing them with special symbols.  These symbols will not be saved on disk.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mostrar espacios en el texto cambiandolos con símbolos especiales.  Estos símbolos no serán guardado en el disco.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="66"/>
+        <source>Show &amp;white spaces</source>
+        <translation>Mostrar &amp;espacios</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="76"/>
+        <location filename="configeditorwidget.ui" line="95"/>
+        <source>&lt;p&gt;Select the color in which the spaces will be shown.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Seleccione el color con cuál los espacios serán mostrado.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="79"/>
+        <source>&amp;Use color:</source>
+        <translation>C&amp;olor:</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="102"/>
+        <source>&lt;p&gt;Show tabulators in the text by replacing them with special symbols.  These symbols will not be saved on disk.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mostrar tabuladores en el texto cambiandolos con símbolos especiales.  Estos símbolos no serán guardado en el disco.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="105"/>
+        <source>Show &amp;tabulators</source>
+        <translation>Mostrar ta&amp;buladores</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="115"/>
+        <location filename="configeditorwidget.ui" line="134"/>
+        <source>&lt;p&gt;Select the color in which the tabulators will be shown.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Seleccione el color con cuál los tabuladores serán mostrado.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="118"/>
+        <source>U&amp;se color:</source>
+        <translation>Co&amp;lor:</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="141"/>
+        <source>&lt;p&gt;If the cursor is on a bracket ({[]}), then the corresponding opening/closing bracket will be highlighted.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="144"/>
+        <source>Show matching &amp;brackets</source>
+        <translation>Resaltar &amp;corchetes</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="154"/>
+        <location filename="configeditorwidget.ui" line="173"/>
+        <source>&lt;p&gt;Select the color in which the highlighted brackets will be shown.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Seleccione el color para el resaltado de corchetes.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="157"/>
+        <source>Use c&amp;olor:</source>
+        <translation>Colo&amp;r:</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="182"/>
+        <source>&lt;p&gt;When the first letters of a TikZ command are typed in the text, a list of possible completions will be shown.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="185"/>
+        <source>Use command &amp;completion</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConfigGeneralWidget</name>
+    <message>
+        <location filename="configgeneralwidget.cpp" line="126"/>
+        <source>Cannot find TikZ documentation.</source>
+        <translation>Imposible de encontrar la documentación de TikZ.</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.cpp" line="138"/>
+        <source>Browse program</source>
+        <translation>Seleccionar programa</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.cpp" line="139"/>
+        <source>Program</source>
+        <translation>Programa</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.cpp" line="146"/>
+        <location filename="configgeneralwidget.ui" line="352"/>
+        <source>Browse file</source>
+        <translation>Seleccionar fichero</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.cpp" line="148"/>
+        <source>All files</source>
+        <translation>Todos los archivos</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="6"/>
+        <source>General</source>
+        <translation>General</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="12"/>
+        <source>Interface</source>
+        <translation>Interfaz</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="20"/>
+        <location filename="configgeneralwidget.ui" line="33"/>
+        <source>&lt;p&gt;Select the maximum number of entries that appear in the &quot;Open Recent&quot; menu.  When the number of recently opened files exceeds this limit, the oldest entries will be lost.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Seleccionar el número máximo de entradas en el menu &quot;Abrir reciente&quot;.  Quando el número de ficheros recientemente abiertos excede este limite, las entradas más viejos se eliminan.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="23"/>
+        <source>&amp;Number of entries in the &quot;Open Recent&quot; menu:</source>
+        <translation>&amp;Número de entradas en el menú &quot;Abrir reciente&quot;:</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="58"/>
+        <source>&lt;p&gt;If this option is checked, a dock widget is available with a list of TikZ commands which you can insert in your code by clicking on them.  If this option is not checked, the TikZ commands will be available in a menu instead.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="61"/>
+        <source>Show TikZ commands in &amp;dock instead of menu</source>
+        <translation>Mostrar comandos TikZ en &amp;barra lateral en lugar de menu</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="68"/>
+        <source>(you have to restart this program for this change to take effect)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="77"/>
+        <location filename="configgeneralwidget.ui" line="90"/>
+        <source>&lt;p&gt;Select the style in which the toolbar will be displayed.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Seleccione el estilo para la barra de herramientas.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="80"/>
+        <source>Toolbar st&amp;yle:</source>
+        <translation>Est&amp;ilo de la barra de herramientas:</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="94"/>
+        <source>Icons only</source>
+        <translation>Sólo iconos</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="99"/>
+        <source>Text only</source>
+        <translation>Sólo texto</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="104"/>
+        <source>Text alongside icons</source>
+        <translation>Texto junto a los iconos</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="109"/>
+        <source>Text under icons</source>
+        <translation>Texto bajo los iconos</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="135"/>
+        <source>Commands</source>
+        <translation>Comandos</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="141"/>
+        <location filename="configgeneralwidget.ui" line="163"/>
+        <source>&lt;p&gt;Enter the path to the LaTeX executable here.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Introduzca la ruta para el ejecutable LaTeX aquí.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="144"/>
+        <source>PDF&amp;LaTeX command:</source>
+        <translation>Comando PDF&amp;LaTeX:</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="170"/>
+        <location filename="configgeneralwidget.ui" line="213"/>
+        <location filename="configgeneralwidget.ui" line="294"/>
+        <source>Browse command</source>
+        <translation>Seleccionar comando</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="173"/>
+        <source>&lt;p&gt;Browse to the LaTeX executable.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Seleccione el ejecutable LaTeX.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="184"/>
+        <location filename="configgeneralwidget.ui" line="206"/>
+        <source>&lt;p&gt;Enter the path to the pdftops executable here.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Introduzca la ruta para el ejecutable pdftops aquí.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="187"/>
+        <source>&amp;Pdftops command:</source>
+        <translation>Comando &amp;pdftops:</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="216"/>
+        <source>&lt;p&gt;Browse to the pdftops executable.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Seleccione el ejecutable pdftops.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="230"/>
         <source>Templates</source>
         <translation>Ficheros de base</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="61"/>
-        <source>&amp;Typesetting</source>
-        <translation>Co&amp;mpilación</translation>
+        <location filename="configgeneralwidget.ui" line="236"/>
+        <location filename="configgeneralwidget.ui" line="258"/>
+        <source>&lt;p&gt;Enter the text which will be replaced by the TikZ code in the template here.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Introduzca el texto que será reemplazado con el código TikZ en el fichero de base.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="309"/>
-        <source>Icons only</source>
-        <translation type="unfinished"></translation>
+        <location filename="configgeneralwidget.ui" line="239"/>
+        <source>&amp;Replace text:</source>
+        <translation>Texto de &amp;reemplazo:</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="310"/>
-        <source>Text only</source>
-        <translation type="unfinished"></translation>
+        <location filename="configgeneralwidget.ui" line="265"/>
+        <location filename="configgeneralwidget.ui" line="287"/>
+        <source>&lt;p&gt;Enter the path to the executable of the text editor for the template here.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Introduzca la ruta para el ejecutable del editor de textos aquí.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="311"/>
-        <source>Text alongside icons</source>
-        <translation type="unfinished"></translation>
+        <location filename="configgeneralwidget.ui" line="268"/>
+        <source>Editor &amp;command:</source>
+        <translation>Comando del &amp;editor:</translation>
     </message>
     <message>
-        <location filename="configdialog.cpp" line="312"/>
-        <source>Text under icons</source>
-        <translation type="unfinished"></translation>
+        <location filename="configgeneralwidget.ui" line="297"/>
+        <source>&lt;p&gt;Browse to the editor executable.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Seleccione el ejecutable del editor.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="311"/>
+        <source>Help</source>
+        <translation>Ayuda</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="323"/>
+        <location filename="configgeneralwidget.ui" line="345"/>
+        <source>&lt;p&gt;Enter the path to the file containing the TikZ documentation here.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Introduzca la ruta para el fichero conteniendo la documentación de TikZ aquí.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="326"/>
+        <source>&amp;TikZ documentation:</source>
+        <translation>Documentación de &amp;TikZ:</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="355"/>
+        <source>&lt;p&gt;Browse to the file containing the TikZ documentation.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Seleccione el fichero conteniendo la documentación de TikZ.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="372"/>
+        <source>&lt;p&gt;Press this button to search the file containing the TikZ documentation in the TeX directory structure using kpsewhich.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Pulse este botón para buscar el fichero conteniendo la documentación de TikZ en la estructura de ficheros de TeX con kpsewhich.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="375"/>
+        <source>&amp;Search</source>
+        <translation>&amp;Buscar</translation>
     </message>
 </context>
 <context>
@@ -450,7 +625,7 @@
         <translation type="obsolete">Editor TikZ</translation>
     </message>
     <message>
-        <location filename="ktikzapplication.cpp" line="123"/>
+        <location filename="ktikzapplication.cpp" line="124"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>El documento &quot;%1&quot; ha sido modificado.
@@ -460,7 +635,7 @@ Do you want to save your changes?</source>
 <context>
     <name>LineEdit</name>
     <message>
-        <location filename="lineedit.cpp" line="23"/>
+        <location filename="lineedit.cpp" line="24"/>
         <source>Clear input field</source>
         <translation>Limpiar campo de entrada</translation>
     </message>
@@ -825,41 +1000,41 @@ Do you want to save your changes?</source>
 ¿Quiere guardar las modificaciones?</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="868"/>
+        <location filename="mainwindow.cpp" line="861"/>
         <source>Cannot read file %1:
 %2.</source>
         <translation>Imposible de cargar el fichero %1:
 %2.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="887"/>
+        <location filename="mainwindow.cpp" line="891"/>
         <source>File loaded</source>
         <translation>Fichero cargado</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="896"/>
+        <location filename="mainwindow.cpp" line="900"/>
         <source>Cannot write file %1:
 %2.</source>
         <translation>Imposible de guardar el fichero %1:
 %2.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="910"/>
+        <location filename="mainwindow.cpp" line="914"/>
         <source>File saved</source>
         <translation>Archivo guardado</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="988"/>
+        <location filename="mainwindow.cpp" line="998"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1000"/>
+        <location filename="mainwindow.cpp" line="1010"/>
         <source>Line:</source>
         <translation>Linea:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1000"/>
+        <location filename="mainwindow.cpp" line="1010"/>
         <source>Col:</source>
         <translation>Col:</translation>
     </message>
@@ -1315,7 +1490,7 @@ Continuar al fin?</translation>
     <message>
         <location filename="tikzeditorhighlighter.cpp" line="90"/>
         <source>Comments</source>
-        <translation type="unfinished"></translation>
+        <translation>Comentos</translation>
     </message>
 </context>
 <context>
@@ -1424,7 +1599,7 @@ Continuar al fin?</translation>
     <message>
         <location filename="tikzpreviewgenerator.cpp" line="184"/>
         <source>Warning: could not load LaTeX logfile.</source>
-        <translation type="unfinished"></translation>
+        <translation>Atención: imposible de abrir el fichero log de LaTeX</translation>
     </message>
     <message>
         <location filename="tikzpreviewgenerator.cpp" line="197"/>

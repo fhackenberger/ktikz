@@ -20,11 +20,12 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "colorbutton.h"
+
 #include <QApplication>
 #include <QColorDialog>
 #include <QPainter>
 #include <QStyle>
-#include "colorbutton.h"
 
 ColorButton::ColorButton(QWidget *parent) : QToolButton(parent)
 {
@@ -44,7 +45,7 @@ void ColorButton::showColorDialog()
 		setColor(newColor);
 }
 
-QColor ColorButton::getColor() const
+QColor ColorButton::color() const
 {
 	return m_color;
 }

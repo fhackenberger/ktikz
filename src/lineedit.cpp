@@ -8,6 +8,7 @@
 ****************************************************************************/
 
 #include "lineedit.h"
+
 #include <QToolButton>
 #include <QStyle>
 
@@ -31,9 +32,6 @@ LineEdit::LineEdit(QWidget *parent)
 //	    .arg(sizeHint().height()));
 	setStyleSheet(QString("QLineEdit { padding-right: %1px; }")
 	    .arg(m_clearButton->sizeHint().width() + style()->pixelMetric(QStyle::PM_DefaultFrameWidth) + 1));
-//	QSize msz = minimumSizeHint();
-//	setMinimumSize(qMax(msz.width(), m_clearButton->sizeHint().height() + frameWidth * 2 + 2),
-//	               qMax(msz.height(), m_clearButton->sizeHint().height() + frameWidth * 2 + 2));
 }
 
 QSize LineEdit::sizeHint() const

@@ -27,7 +27,10 @@ UI_DIR = ../build/ui
 
 ### Input
 
-FORMS += editgotolinewidget.ui \
+FORMS += configappearancewidget.ui \
+	configeditorwidget.ui \
+	configgeneralwidget.ui \
+	editgotolinewidget.ui \
 	editindentdialog.ui \
 	editreplacewidget.ui \
 	templatewidget.ui
@@ -36,6 +39,8 @@ SOURCES += aboutdialog.cpp \
 	colorbutton.cpp \
 	configappearancewidget.cpp \
 	configdialog.cpp \
+	configeditorwidget.cpp \
+	configgeneralwidget.cpp \
 	editgotolinewidget.cpp \
 	editindentdialog.cpp \
 	editreplacewidget.cpp \

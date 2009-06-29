@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007 by Glad Deschrijver                                *
+ *   Copyright (C) 2008-2009 by Glad Deschrijver                           *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -18,34 +18,31 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef KTIKZ_COLORBUTTON_H
-#define KTIKZ_COLORBUTTON_H
+#ifndef KTIKZ_CONFIGGENERALWIDGET_H
+#define KTIKZ_CONFIGGENERALWIDGET_H
 
-#include <QToolButton>
+#include <QWidget>
+#include "ui_configgeneralwidget.h"
 
-class ColorButton : public QToolButton
+class ConfigGeneralWidget : public QWidget
 {
 	Q_OBJECT
-	Q_PROPERTY(QColor color READ color WRITE setColor)
 
 public:
-	ColorButton(QWidget *parent = 0);
-	ColorButton(const QColor &color, QWidget *parent = 0);
+	ConfigGeneralWidget(QWidget *parent = 0);
 
-	QColor color() const;
-	void setColor(const QColor &color);
-
-signals:
-	void colorChanged();
+	void readSettings(const QString &settingsGroup);
+	void writeSettings(const QString &settingsGroup);
 
 protected:
-	void paintEvent(QPaintEvent*);
-
-private:
-	QColor m_color;
+	Ui::ConfigGeneralWidget ui;
 
 private slots:
-	void showColorDialog();
+	void searchTikzDocumentation();
+	void browseCommand();
+
+private:
+	void browseCommand(QLineEdit *lineEdit, bool isProgram = true);
 };
 
 #endif

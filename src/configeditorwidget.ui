@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConfigEditorWidget</class>
+ <widget class="QWidget" name="ConfigEditorWidget">
+  <property name="windowTitle">
+   <string>Configure Editor</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Editor</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="generalFontLabel">
+          <property name="whatsThis">
+           <string>&lt;p&gt;Select the font of the main text.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>Text &amp;font:</string>
+          </property>
+          <property name="buddy">
+           <cstring>generalFontButton</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="generalFontEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Select the font of the main text.&lt;/p&gt;</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="generalFontButton">
+          <property name="whatsThis">
+           <string>&lt;p&gt;Select the font of the main text.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>Select</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QCheckBox" name="showWhiteSpacesCheck">
+          <property name="whatsThis">
+           <string>&lt;p&gt;Show white spaces in the text by replacing them with special symbols.  These symbols will not be saved on disk.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>Show &amp;white spaces</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="colorWhiteSpacesLabel">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Select the color in which the spaces will be shown.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>&amp;Use color:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+          <property name="buddy">
+           <cstring>whiteSpacesColorButton</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="ColorButton" name="whiteSpacesColorButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Select the color in which the spaces will be shown.&lt;/p&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QCheckBox" name="showTabulatorsCheck">
+          <property name="whatsThis">
+           <string>&lt;p&gt;Show tabulators in the text by replacing them with special symbols.  These symbols will not be saved on disk.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>Show &amp;tabulators</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="colorTabulatorsLabel">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Select the color in which the tabulators will be shown.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>U&amp;se color:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+          <property name="buddy">
+           <cstring>tabulatorsColorButton</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="ColorButton" name="tabulatorsColorButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Select the color in which the tabulators will be shown.&lt;/p&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QCheckBox" name="showMatchingBracketsCheck">
+          <property name="whatsThis">
+           <string>&lt;p&gt;If the cursor is on a bracket ({[]}), then the corresponding opening/closing bracket will be highlighted.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>Show matching &amp;brackets</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="colorMatchingBracketsLabel">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Select the color in which the highlighted brackets will be shown.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>Use c&amp;olor:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+          <property name="buddy">
+           <cstring>matchingBracketsColorButton</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="ColorButton" name="matchingBracketsColorButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Select the color in which the highlighted brackets will be shown.&lt;/p&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="useCompletionCheck">
+        <property name="whatsThis">
+         <string>&lt;p&gt;When the first letters of a TikZ command are typed in the text, a list of possible completions will be shown.&lt;/p&gt;</string>
+        </property>
+        <property name="text">
+         <string>Use command &amp;completion</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ColorButton</class>
+   <extends>QToolButton</extends>
+   <header>colorbutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>showWhiteSpacesCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>colorWhiteSpacesLabel</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>102</x>
+     <y>78</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>226</x>
+     <y>79</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showTabulatorsCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>colorTabulatorsLabel</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>102</x>
+     <y>107</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>226</x>
+     <y>108</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showMatchingBracketsCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>colorMatchingBracketsLabel</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>102</x>
+     <y>136</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>226</x>
+     <y>137</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showWhiteSpacesCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>whiteSpacesColorButton</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>69</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>251</x>
+     <y>61</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showTabulatorsCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>tabulatorsColorButton</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>66</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>251</x>
+     <y>101</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showMatchingBracketsCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>matchingBracketsColorButton</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>88</x>
+     <y>131</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>251</x>
+     <y>131</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
