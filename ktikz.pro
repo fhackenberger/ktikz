@@ -50,7 +50,6 @@ ktikz.pro \
 TODO \
 src/*.h \
 src/*.cpp \
-src/*.qm \
 src/*.ts \
 src/*.qrc \
 src/*.desktop.template \

@@ -11,7 +11,7 @@ make package
 Untar this release tarball to /tmp and copy the debian directory
 cp ktikz-VERSION.tar.gz /tmp
 tar --directory /tmp -xf ktikz-VERSION.tar.gz
-cp -aR debian /tmp/ktikz-VERSION/
+rsync -r --exclude=.svn debian /tmp/ktikz-VERSION
 cd /tmp/ktikz-VERSION
 
 The next step is to create the source package

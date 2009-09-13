@@ -1,3 +1,9 @@
+ktikz (0.9-1) unstable; urgency=low
+
+  * Upgraded to the 0.9 upstream release
+
+ -- Florian Hackenberger <florian@hackenberger.at>  Sun, 13 Sep 2009 12:46:21 +0200
+
 ktikz (0.8-1) unstable; urgency=low
 
   * Adapted debian packaging infrastructure. Thanks to Agustin Martin.
