@@ -47,5 +47,6 @@
 	<file>images/help-contents.png</file>
 	<file>images/help-contextual.png</file>
 	<file>images/qt-logo-22.png</file>
+        <file>images/view-refresh.png</file>
 </qresource>
 </RCC>

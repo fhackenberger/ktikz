@@ -59,6 +59,22 @@
     </widget>
    </item>
    <item>
+    <widget class="QToolButton" name="templateReloadButton" >
+     <property name="toolTip" >
+      <string>&lt;p>Reload template file&lt;/p></string>
+     </property>
+     <property name="whatsThis" >
+      <string>&lt;p>Reload current template file.&lt;/p></string>
+     </property>
+     <property name="text" >
+      <string/>
+     </property>
+     <property name="icon" >
+      <iconset resource="application.qrc" >:/images/view-refresh.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QPushButton" name="templateEditButton" >
      <property name="toolTip" >
       <string>&lt;p>Edit template file&lt;/p></string>
