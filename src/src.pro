@@ -19,7 +19,7 @@ DEFINES += KTIKZ_INSTALL_TRANSLATIONS=\\\"$${TRANSLATIONSDIR}\\\"
 
 ### Build files
 
-DESTDIR = ../bin
+DESTDIR = ../build/bin
 MOC_DIR = ../build/moc
 OBJECTS_DIR = ../build/obj
 RCC_DIR = ../build/rcc

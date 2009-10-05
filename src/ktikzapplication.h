@@ -39,7 +39,7 @@ class KtikzApplication : public QApplication
 	Q_OBJECT
 
 public:
-	KtikzApplication(int argc, char **argv);
+	KtikzApplication(int &argc, char **argv);
 	virtual ~KtikzApplication();
 
 	void init();

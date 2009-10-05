@@ -20,6 +20,7 @@
 
 #include "configgeneralwidget.h"
 #ifdef KTIKZ_USE_KDE
+#include <KLocalizedString>
 #include <KMessageBox>
 #else
 #include <QMessageBox>

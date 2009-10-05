@@ -1,88 +1,83 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>TemplateWidget</class>
- <widget class="QWidget" name="TemplateWidget" >
-  <property name="geometry" >
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>400</width>
-    <height>45</height>
-   </rect>
-  </property>
-  <property name="windowTitle" >
+ <widget class="QWidget" name="TemplateWidget">
+  <property name="windowTitle">
    <string>Choose Template</string>
   </property>
-  <layout class="QHBoxLayout" >
+  <layout class="QHBoxLayout">
    <item>
-    <widget class="QLabel" name="templateLabel" >
-     <property name="whatsThis" >
-      <string>&lt;p>Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p></string>
+    <widget class="QLabel" name="templateLabel">
+     <property name="whatsThis">
+      <string>&lt;p&gt;Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p&gt;</string>
      </property>
-     <property name="text" >
+     <property name="text">
       <string>&amp;Template:</string>
      </property>
-     <property name="buddy" >
+     <property name="buddy">
       <cstring>templateCombo</cstring>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QComboBox" name="templateCombo" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+    <widget class="QComboBox" name="templateCombo">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="whatsThis" >
-      <string>&lt;p>Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p></string>
+     <property name="whatsThis">
+      <string>&lt;p&gt;Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p&gt;</string>
      </property>
-     <property name="editable" >
+     <property name="editable">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QToolButton" name="templateChooseButton" >
-     <property name="toolTip" >
-      <string>&lt;p>Select template file&lt;/p></string>
+    <widget class="QToolButton" name="templateChooseButton">
+     <property name="toolTip">
+      <string>&lt;p&gt;Select template file&lt;/p&gt;</string>
      </property>
-     <property name="whatsThis" >
-      <string>&lt;p>Browse to an existing template file.&lt;/p></string>
+     <property name="whatsThis">
+      <string>&lt;p&gt;Browse to an existing template file.&lt;/p&gt;</string>
      </property>
-     <property name="text" >
+     <property name="text">
       <string/>
      </property>
-     <property name="icon" >
-      <iconset resource="application.qrc" >:/images/document-open.png</iconset>
+     <property name="icon">
+      <iconset resource="application.qrc">
+       <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QToolButton" name="templateReloadButton" >
-     <property name="toolTip" >
-      <string>&lt;p>Reload template file&lt;/p></string>
+    <widget class="QToolButton" name="templateReloadButton">
+     <property name="toolTip">
+      <string>&lt;p&gt;Reload template file&lt;/p&gt;</string>
      </property>
-     <property name="whatsThis" >
-      <string>&lt;p>Reload current template file.&lt;/p></string>
+     <property name="whatsThis">
+      <string>&lt;p&gt;Reload current template file.&lt;/p&gt;</string>
      </property>
-     <property name="text" >
+     <property name="text">
       <string/>
      </property>
-     <property name="icon" >
-      <iconset resource="application.qrc" >:/images/view-refresh.png</iconset>
+     <property name="icon">
+      <iconset resource="application.qrc">
+       <normaloff>:/images/view-refresh.png</normaloff>:/images/view-refresh.png</iconset>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="templateEditButton" >
-     <property name="toolTip" >
-      <string>&lt;p>Edit template file&lt;/p></string>
+    <widget class="QPushButton" name="templateEditButton">
+     <property name="toolTip">
+      <string>&lt;p&gt;Edit template file&lt;/p&gt;</string>
      </property>
-     <property name="whatsThis" >
-      <string>&lt;p>Edit this template with an external editor specified in the "Configure" dialog.&lt;/p></string>
+     <property name="whatsThis">
+      <string>&lt;p&gt;Edit this template with an external editor specified in the &quot;Configure&quot; dialog.&lt;/p&gt;</string>
      </property>
-     <property name="text" >
+     <property name="text">
       <string>Edit</string>
      </property>
     </widget>
@@ -90,7 +85,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="application.qrc" />
+  <include location="application.qrc"/>
  </resources>
  <connections/>
 </ui>

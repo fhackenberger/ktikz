@@ -93,7 +93,7 @@ QTranslator *createTranslator(const QString &transName, const QString &transDir)
 	return translator;
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
 	Q_INIT_RESOURCE(application);
 	qInstallMsgHandler(debugOutput);

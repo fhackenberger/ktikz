@@ -45,7 +45,7 @@ protected:
 private slots:
 	void setTemplateFile();
 	void editTemplateFile();
-        void reloadTemplateFile();
+	void reloadTemplateFile();
 
 private:
 	void readRecentTemplates();

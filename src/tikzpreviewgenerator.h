@@ -71,6 +71,9 @@ signals:
 //	void logUpdated(bool runFailed);
 	void processRunning(bool isRunning);
 
+private slots:
+	void displayGnuplotNotExecutable();
+
 protected:
 	void setMinUpdateInterval(const QTime &interval);
 	QString getParsedLogText(QTextStream *logStream) const;
@@ -110,6 +113,8 @@ protected:
 	QString m_shortLogText;
 	QString m_logText;
 	bool m_useShellEscaping;
+
+	QProcess *m_checkGnuplotExecutable;
 };
 
 #endif

@@ -21,7 +21,8 @@
 #include "ktikzapplication.h"
 
 #ifdef KTIKZ_USE_KDE
-
+#include <KCmdLineArgs>
+#include <KUrl>
 #else
 #include <QFileInfo>
 #endif
@@ -33,7 +34,7 @@
 
 #include <poppler-qt4.h>
 
-KtikzApplication::KtikzApplication(int argc, char **argv)
+KtikzApplication::KtikzApplication(int &argc, char **argv)
 #ifdef KTIKZ_USE_KDE
     : KApplication()
 #else

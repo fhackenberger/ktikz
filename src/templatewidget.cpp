@@ -54,8 +54,8 @@ TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 	        this, SLOT(setTemplateFile()));
 	connect(ui.templateEditButton, SIGNAL(clicked()),
 	        this, SLOT(editTemplateFile()));
-        connect(ui.templateReloadButton, SIGNAL(clicked()),
-                this, SLOT(reloadTemplateFile()));
+	connect(ui.templateReloadButton, SIGNAL(clicked()),
+	        this, SLOT(reloadTemplateFile()));
 	connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)),
 	        this, SIGNAL(fileNameChanged(QString)));
 
@@ -152,12 +152,12 @@ void TemplateWidget::editTemplateFile()
 
 	QApplication::restoreOverrideCursor();
 
-        reloadTemplateFile();
+//	reloadTemplateFile();
 }
 
 void TemplateWidget::reloadTemplateFile()
 {
-    setFileName(fileName());
+	setFileName(fileName());
 }
 
 void TemplateWidget::keyPressEvent(QKeyEvent *event)

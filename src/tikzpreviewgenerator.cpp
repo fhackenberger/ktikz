@@ -81,6 +81,21 @@ void TikzPreviewGenerator::setPdftopsCommand(const QString &command)
 void TikzPreviewGenerator::setShellEscaping(bool useShellEscaping)
 {
 	m_useShellEscaping = useShellEscaping;
+
+	if (m_useShellEscaping)
+	{
+		QProcess *m_checkGnuplotExecutable = new QProcess(this);
+		m_checkGnuplotExecutable->start("gnuplot", QStringList() << "--version");
+		connect(m_checkGnuplotExecutable, SIGNAL(error(QProcess::ProcessError)), this, SLOT(displayGnuplotNotExecutable()));
+	}
+}
+
+void TikzPreviewGenerator::displayGnuplotNotExecutable()
+{
+	emit shortLogUpdated(tr("Gnuplot cannot be executed. Either Gnuplot is not installed "
+	    "or it is not available in the system PATH or you may have insufficient "
+	    "permissions to invoke the program."), false);
+//	m_checkGnuplotExecutable->deleteLater();
 }
 
 void TikzPreviewGenerator::setTemplateFile(const QString &fileName)
