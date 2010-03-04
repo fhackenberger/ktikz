@@ -9,3 +9,11 @@
 - Make a graphical tool for editing the XML file containing the TikZ
   commands similar to keditbookmarks
 - Create a new process for each window opened by the "New" action.
+- Complete tikzcommands.xml:
+
+  The following sections of the TikZ manual are implemented:
+  Section 13 complete (except \pgfextra)
+  Section 14 almost complete (except preaction=<options>, postaction=<options>,
+    decorate, decoration=<zigzag/...>)
+  Section 15 partially
+

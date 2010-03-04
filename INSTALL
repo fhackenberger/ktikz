@@ -61,6 +61,11 @@ in Konqueror):
   sudo make install
   sudo update-mime-database /usr/share/mime
 
+The last command is necessary because a new mimetype (text/x-pgf) is added
+to the system.  As a user one may additionally have to run
+  kbuildsycoca4
+or restart KDE so that konqueror uses the KPart for this mimetype.
+
 In order to uninstall ktikz run the following commands in the build directory:
   sudo make uninstall
   sudo update-mime-database /usr/share/mime
