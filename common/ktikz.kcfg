@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+ <include>kglobalsettings.h</include>
+ <kcfgfile name="ktikzrc" />
+ <group name="General Options">
+  <entry key="CommandsInDock" type="Bool">
+   <default>false</default>
+   <label>Whether the TikZ commands should be listed in a dock widget instead of in a menu.</label>
+  </entry>
+  <entry key="LatexCommand" type="Path">
+   <default>pdflatex</default>
+   <label>The path to the pdflatex command.</label>
+  </entry>
+  <entry key="PdftopsCommand" type="Path">
+   <default>pdftops</default>
+   <label>The path to the pdftops command.</label>
+  </entry>
+  <entry key="TikzDocumentation" type="Path">
+   <default></default>
+   <label>The path to the TikZ documentation file.</label>
+  </entry>
+  <entry key="UseShellEscaping" type="Bool">
+   <default>false</default>
+   <label>Whether to run pdflatex with the --shell-escape option.</label>
+  </entry>
+  <entry key="TemplateFile" type="Path">
+   <label>The file name of the currently used template.</label>
+  </entry>
+  <entry key="TemplateRecent" type="PathList">
+   <label>The list of file names of the previously used templates.</label>
+  </entry>
+  <entry key="TemplateReplaceText" type="String">
+   <default>&lt;&gt;</default>
+   <label>The text in the template file which is replaced by the TikZ code before typesetting.</label>
+  </entry>
+ </group>
+ <group name="Editor">
+  <entry key="GeneralFont" type="Font">
+   <default code="true">KGlobalSettings::fixedFont()</default>
+   <label>The font of the main text in the editor.</label>
+  </entry>
+  <entry key="ShowWhiteSpaces" type="Bool">
+   <default>false</default>
+   <label>Whether to show white spaces.</label>
+  </entry>
+  <entry key="ShowTabulators" type="Bool">
+   <default>false</default>
+   <label>Whether to show tabulators.</label>
+  </entry>
+  <entry key="ShowMatchingBrackets" type="Bool">
+   <default>true</default>
+   <label>Whether to highlight matching brackets.</label>
+  </entry>
+  <entry key="ColorWhiteSpaces" type="Color">
+   <default code="true">0xB0B0B0</default>
+   <label>The color used to highlight white spaces.</label>
+  </entry>
+  <entry key="ColorTabulators" type="Color">
+   <default code="true">0xB0B0B0</default>
+   <label>The color used to highlight tabulators.</label>
+  </entry>
+  <entry key="ColorMatchingBrackets" type="Color">
+   <default code="true">0xC8C800</default>
+   <label>The color used to highlight matching brackets.</label>
+  </entry>
+  <entry key="UseCompletion" type="Bool">
+   <default>true</default>
+   <label>Whether to use TikZ code completion.</label>
+  </entry>
+ </group>
+ <group name="Highlighting">
+  <entry key="Customize" type="Enum">
+   <default>Standard</default>
+   <choices>
+    <choice name="Standard" />
+    <choice name="Custom" />
+   </choices>
+   <label>The type of syntax highlighting.</label>
+  </entry>
+ </group>
+ <group name="Preview">
+  <entry key="ZoomFactor" type="Double">
+   <default>1.0</default>
+   <min>0.1</min>
+   <max>6.0</max>
+  </entry>
+  <label>The factor by which the preview is zoomed.</label>
+ </group>
+</kcfg>

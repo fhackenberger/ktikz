@@ -20,10 +20,7 @@
 
 #include "templatewidget.h"
 
-#ifdef KTIKZ_USE_KDE
-#include <KIcon>
-#endif
-
+#include <QApplication>
 #include <QComboBox>
 #include <QCompleter>
 #include <QDirModel>
@@ -33,17 +30,19 @@
 #include <QProcess>
 #include <QSettings>
 
-#include "ktikzapplication.h"
-#include "lineedit.h"
+#include "utils/icon.h"
+#include "utils/lineedit.h"
 
 TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
 	ui.templateCombo->setLineEdit(new LineEdit(this));
 	ui.templateCombo->setMinimumContentsLength(20);
-#ifdef KTIKZ_USE_KDE
-	ui.templateChooseButton->setIcon(KIcon("document-open"));
-#endif
+//	ui.templateChooseButton->setIcon(Icon("document-open"));
+	ui.templateChooseButton->setIcon(QIcon::fromTheme("document-open", Icon("document-open")));
+
+//	ui.templateReloadButton->setIcon(Icon("view-refresh"));
+	ui.templateReloadButton->setIcon(QIcon::fromTheme("view-refresh", Icon("view-refresh")));
 
 	QCompleter *completer = new QCompleter(this);
 	completer->setModel(new QDirModel(completer));
@@ -69,19 +68,22 @@ TemplateWidget::~TemplateWidget()
 
 void TemplateWidget::readRecentTemplates()
 {
-	QSettings settings;
-	ui.templateCombo->setMaxCount(settings.value("TemplateRecentNumber", 5).toInt());
-	ui.templateCombo->addItems(settings.value("TemplateRecent").toStringList());
-	ui.templateCombo->setCurrentIndex(0);
+	QSettings settings(ORGNAME, APPNAME);
+	ui.templateCombo->setMaxCount(settings.value("TemplateRecentNumber", 10).toInt());
+	const QStringList templateRecentList = settings.value("TemplateRecent").toStringList();
+	ui.templateCombo->addItems(templateRecentList);
+	const int index = templateRecentList.indexOf(settings.value("TemplateFile").toString());
+	ui.templateCombo->setCurrentIndex((index >= 0) ? index : 0);
 }
 
 void TemplateWidget::saveRecentTemplates()
 {
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	QStringList recentTemplates;
 	for (int i = 0; i < ui.templateCombo->count(); ++i)
 		recentTemplates << ui.templateCombo->itemText(i);
 	settings.setValue("TemplateRecent", recentTemplates);
+	settings.setValue("TemplateFile", ui.templateCombo->lineEdit()->text());
 }
 
 void TemplateWidget::setFileName(const QString &fileName)
@@ -134,7 +136,7 @@ void TemplateWidget::setTemplateFile()
 	const QString fileName = QFileDialog::getOpenFileName(this,
 	    tr("Select a template file"), ui.templateCombo->currentText(),
 	    QString("%1 (*.pgs *.tex);;%2 (*.*)")
-	    .arg(tr("%1 template files").arg(KtikzApplication::applicationName()))
+	    .arg(tr("%1 template files").arg(QCoreApplication::applicationName()))
 	    .arg(tr("All files")));
 	if (!fileName.isEmpty())
 		setFileName(fileName);

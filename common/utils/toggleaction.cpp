@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007 by Glad Deschrijver                                *
+ *   Copyright (C) 2009 by Glad Deschrijver                                *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -18,34 +18,58 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef KTIKZ_COLORBUTTON_H
-#define KTIKZ_COLORBUTTON_H
+#include "toggleaction.h"
 
-#include <QToolButton>
+#include "action.h"
+#include "icon.h"
 
-class ColorButton : public QToolButton
+#ifdef KTIKZ_USE_KDE
+#include <KActionCollection>
+
+ToggleAction::ToggleAction(QObject *parent, const QString &name)
+    : KToggleAction(parent)
 {
-	Q_OBJECT
-	Q_PROPERTY(QColor color READ color WRITE setColor)
+	if (!name.isEmpty())
+		Action::actionCollection()->addAction(name, this);
+}
 
-public:
-	ColorButton(QWidget *parent = 0);
-	ColorButton(const QColor &color, QWidget *parent = 0);
+ToggleAction::ToggleAction(const QString &text, QObject *parent, const QString &name)
+    : KToggleAction(text, parent)
+{
+	if (!name.isEmpty())
+		Action::actionCollection()->addAction(name, this);
+}
 
-	QColor color() const;
-	void setColor(const QColor &color);
+ToggleAction::ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name)
+    : KToggleAction(icon, text, parent)
+{
+	if (!name.isEmpty())
+		Action::actionCollection()->addAction(name, this);
+}
+#else
+ToggleAction::ToggleAction(QObject *parent, const QString &name)
+    : QAction(parent)
+{
+	init(name);
+}
 
-signals:
-	void colorChanged();
+ToggleAction::ToggleAction(const QString &text, QObject *parent, const QString &name)
+    : QAction(text, parent)
+{
+	init(name);
+}
 
-protected:
-	void paintEvent(QPaintEvent*);
+ToggleAction::ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name)
+    : QAction(icon, text, parent)
+{
+	init(name);
+}
 
-private:
-	QColor m_color;
+void ToggleAction::init(const QString &name)
+{
+	if (!name.isEmpty())
+		setObjectName(name);
 
-private slots:
-	void showColorDialog();
-};
-
+	setCheckable(true);
+}
 #endif

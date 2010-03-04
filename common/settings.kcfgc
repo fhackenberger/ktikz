@@ -1,0 +1,5 @@
+File=ktikz.kcfg
+ClassName=Settings
+Namespace=KTikZ
+Singleton=true
+Mutators=true

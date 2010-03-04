@@ -20,8 +20,8 @@
 
 #include "configeditorwidget.h"
 
-#include <QFontDialog>
 #include <QSettings>
+#include "../common/utils/fontdialog.h"
 
 ConfigEditorWidget::ConfigEditorWidget(QWidget *parent)
     : QWidget(parent)
@@ -33,7 +33,7 @@ ConfigEditorWidget::ConfigEditorWidget(QWidget *parent)
 
 void ConfigEditorWidget::readSettings(const QString &settingsGroup)
 {
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup(settingsGroup);
 	m_generalFont.fromString(settings.value("Font", qApp->font().toString()).toString());
 	ui.generalFontEdit->setText(m_generalFont.family() + " " + QString::number(m_generalFont.pointSize()));
@@ -50,7 +50,7 @@ void ConfigEditorWidget::readSettings(const QString &settingsGroup)
 
 void ConfigEditorWidget::writeSettings(const QString &settingsGroup)
 {
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup(settingsGroup);
 	settings.setValue("Font", m_generalFont.toString());
 	settings.setValue("ShowWhiteSpaces", ui.showWhiteSpacesCheck->isChecked());
@@ -66,7 +66,7 @@ void ConfigEditorWidget::writeSettings(const QString &settingsGroup)
 void ConfigEditorWidget::selectFont()
 {
 	bool ok;
-	const QFont newFont = QFontDialog::getFont(&ok, m_generalFont, this);
+	const QFont newFont = FontDialog::getFont(&ok, m_generalFont, this);
 	if (ok)
 	{
 		m_generalFont = newFont;

@@ -1,0 +1,35 @@
+<!DOCTYPE kpartgui>
+<kpartgui name="KTikZPart" version="4">
+<MenuBar>
+	<Menu name="file"><text context="@item:inmenu">&amp;File</text>
+		<Action name="file_save_as"/>
+		<Action name="file_export_as"/>
+	</Menu>
+	<Menu name="view"><text context="@item:inmenu">&amp;View</text>
+		<Action name="view_zoom_in"/>
+		<Action name="view_zoom_out"/>
+		<Separator/>
+		<Action name="view_previous_image"/>
+		<Action name="view_next_image"/>
+	</Menu>
+	<Menu name="process"><text context="@item:inmenu">&amp;Process</text>
+		<Action name="stop_process"/>
+		<Action name="view_log"/>
+		<Action name="shell_escape"/>
+	</Menu>
+	<Menu name="settings"><text context="@item:inmenu">&amp;Settings</text>
+		<Action name="options_configure"/>
+	</Menu>
+</MenuBar>
+<ToolBar name="mainToolBar"><text context="@title">Main Toolbar</text>
+	<Action name="stop_process"/>
+	<Action name="shell_escape"/>
+	<Separator/>
+	<Action name="view_zoom_in"/>
+	<Action name="zoom_to"/>
+	<Action name="view_zoom_out"/>
+	<Separator/>
+	<Action name="view_previous_image"/>
+	<Action name="view_next_image"/>
+</ToolBar>
+</kpartgui>

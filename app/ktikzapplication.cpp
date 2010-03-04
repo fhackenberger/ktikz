@@ -25,6 +25,7 @@
 #include <KUrl>
 #else
 #include <QFileInfo>
+#include <QUrl>
 #endif
 #include <QMessageBox>
 #include <QSessionManager>
@@ -55,7 +56,10 @@ void KtikzApplication::init()
 {
 	if (isSessionRestored())
 	{
-		QSettings settings;
+#ifdef KTIKZ_USE_KDE
+		kRestoreMainWindows<MainWindow>();
+#else
+		QSettings settings(ORGNAME, APPNAME);
 		settings.beginGroup("Session" + qApp->sessionId());
 		const int size = settings.beginReadArray("MainWindowList");
 		for (int i = 0; i < size; ++i)
@@ -65,13 +69,14 @@ void KtikzApplication::init()
 			MainWindow *mainWindow = new MainWindow;
 			mainWindow->show();
 			if (!fileName.isEmpty())
-				mainWindow->loadFile(fileName);
+				mainWindow->loadUrl(QUrl(fileName));
 		}
 		settings.endArray();
 		settings.remove("");
 		settings.endGroup();
 
 		m_firstTime = false;
+#endif
 		return;
 	}
 
@@ -85,15 +90,14 @@ void KtikzApplication::init()
 	{
 		url = args->url(0);
 		if (url.isValid() && url.isLocalFile())
-//			mainWindow->loadUrl(url);
-			mainWindow->loadFile(url.path());
+			mainWindow->loadUrl(url);
 	}
 	args->clear();
 #else
 	if (m_args.size() > 1)
 	{
 		const QFileInfo fi(m_args.at(1));
-		mainWindow->loadFile(fi.absoluteFilePath());
+		mainWindow->loadUrl(QUrl(fi.absoluteFilePath()));
 	}
 	m_args.clear();
 #endif
@@ -109,6 +113,7 @@ QString KtikzApplication::applicationName()
 	return "KTikZ";
 }
 
+#ifndef KTIKZ_USE_KDE
 void KtikzApplication::commitData(QSessionManager &manager)
 {
 	if (manager.allowsInteraction())
@@ -123,7 +128,7 @@ void KtikzApplication::commitData(QSessionManager &manager)
 				const int ret = QMessageBox::warning(mainWindowList.at(i),
 				    applicationName(),
 				    tr("The document \"%1\" has been modified.\n"
-				       "Do you want to save your changes?").arg(mainWindowList.at(i)->currentFileName()),
+				       "Do you want to save your changes?").arg(mainWindowList.at(i)->url().fileName()),
 				    QMessageBox::Save | QMessageBox::Default,
 				    QMessageBox::Discard,
 			    	QMessageBox::Cancel | QMessageBox::Escape);
@@ -167,14 +172,15 @@ void KtikzApplication::saveState(QSessionManager &manager)
 	}
 #endif
 
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup("Session" + qApp->sessionId());
 	settings.beginWriteArray("MainWindowList");
 	for (int i = 0; i < mainWindowList.size(); ++i)
 	{
 		settings.setArrayIndex(i);
-		settings.setValue("CurrentFile", mainWindowList.at(i)->currentFileFullPath());
+		settings.setValue("CurrentFile", mainWindowList.at(i)->url().fileName());
 	}
 	settings.endArray();
 	settings.endGroup();
 }
+#endif

@@ -49,7 +49,7 @@
            <string>&lt;p&gt;Select the font of the main text.&lt;/p&gt;</string>
           </property>
           <property name="text">
-           <string>Select</string>
+           <string>Choose...</string>
           </property>
          </widget>
         </item>
@@ -208,7 +208,7 @@
   <customwidget>
    <class>ColorButton</class>
    <extends>QToolButton</extends>
-   <header>colorbutton.h</header>
+   <header>../common/utils/colorbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

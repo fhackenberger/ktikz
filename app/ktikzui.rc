@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE kpartgui SYSTEM 'kpartgui.dtd'>
+<gui version="1" name="ktikz" >
+ <MenuBar>
+  <Menu noMerge="1" name="file" >
+   <text context="@item:inmenu" >&amp;File</text>
+   <Action name="file_new" />
+   <Action name="file_open" />
+   <Action name="file_open_recent" />
+   <Separator/>
+   <Action name="file_save" />
+   <Action name="file_save_as" />
+   <Action name="file_export_as" />
+   <Separator/>
+   <Action name="file_close" />
+   <Separator/>
+   <Action name="file_quit" />
+  </Menu>
+  <Menu noMerge="1" name="edit" >
+   <text context="@item:inmenu" >&amp;Edit</text>
+   <Action name="edit_undo" />
+   <Action name="edit_redo" />
+   <Separator/>
+   <Action name="edit_cut" />
+   <Action name="edit_copy" />
+   <Action name="edit_paste" />
+   <Separator/>
+   <Action name="edit_select_all" />
+   <Separator/>
+   <Action name="edit_indent" />
+   <Action name="edit_comment" />
+   <Action name="edit_uncomment" />
+   <Separator/>
+   <Action name="edit_find" />
+   <Action name="edit_find_next" />
+   <Action name="edit_find_prev" />
+   <Action name="edit_replace" />
+  </Menu>
+  <Menu noMerge="1" name="view" >
+   <text context="@item:inmenu" >&amp;View</text>
+   <Action name="view_zoom_in" />
+   <Action name="view_zoom_out" />
+   <Separator/>
+   <Action name="view_previous_image" />
+   <Action name="view_next_image" />
+  </Menu>
+  <Menu noMerge="1" name="go" >
+   <text context="@item:inmenu" >&amp;Go</text>
+   <Action name="go_goto_line" />
+  </Menu>
+  <Menu noMerge="1" name="process" >
+   <text context="@item:inmenu" >&amp;Process</text>
+   <Action name="stop_process" />
+   <Action name="view_log" />
+   <Action name="shell_escape" />
+  </Menu>
+  <Action name="insert" />
+  <Merge/>
+  <Menu noMerge="1" name="settings" >
+   <text context="@item:inmenu" >&amp;Settings</text>
+   <Merge name="StandardToolBarMenuHandler" />
+   <Menu name="sidebars" >
+    <text context="@item:inmenu" >&amp;Sidebars</text>
+    <Action name="toggle_preview" />
+    <Action name="toggle_log" />
+    <Action name="toggle_commands_list" />
+   </Menu>
+   <Action name="options_show_statusbar" />
+   <Separator/>
+   <Action name="options_configure_keybinding" />
+   <Action name="options_configure_toolbars" />
+   <Action name="options_configure" />
+  </Menu>
+  <Menu noMerge="1" name="help" >
+   <text context="@item:inmenu" >&amp;Help</text>
+   <Action name="help_contents" />
+   <Action name="show_tikz_doc" />
+   <Action name="help_whats_this" />
+   <Separator/>
+   <Action name="help_report_bug" />
+   <Separator/>
+   <Action name="switch_application_language" />
+   <Separator/>
+   <Action name="help_about_app" />
+   <Action name="help_about_kde" />
+  </Menu>
+ </MenuBar>
+ <ToolBar noMerge="1" name="mainToolBar" >
+  <text>File Toolbar</text>
+  <Action name="file_new" />
+  <Action name="file_open" />
+  <Action name="file_save" />
+  <Action name="file_close" />
+ </ToolBar>
+ <ToolBar noMerge="1" name="editToolBar" >
+  <text>Edit Toolbar</text>
+  <Action name="edit_undo" />
+  <Action name="edit_redo" />
+ </ToolBar>
+ <ToolBar noMerge="1" name="processToolBar" >
+  <text>Process Toolbar</text>
+  <Action name="stop_process" />
+  <Action name="view_log" />
+  <Action name="shell_escape" />
+ </ToolBar>
+ <ToolBar noMerge="1" name="viewToolBar" >
+  <text>View Toolbar</text>
+  <Action name="view_zoom_in" />
+  <Action name="zoom_to" />
+  <Action name="view_zoom_out" />
+  <Separator name="separator_0" />
+  <Action name="view_previous_image" />
+  <Action name="view_next_image" />
+ </ToolBar>
+</gui>

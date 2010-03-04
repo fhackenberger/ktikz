@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+Name=KTikZ - TikZ File Viewer
+Name[es]=Visor de ficheros TikZ - KTikZ
+Name[fr]=Visionneuse de fichiers TikZ - KTikZ
+MimeType=text/x-pgf
+X-KDE-ServiceTypes=KParts/ReadOnlyPart
+X-KDE-Library=ktikzpart
+InitialPreference=12
+Icon=ktikz

@@ -5,6 +5,7 @@
 	<file>images/ktikz-128.png</file>
 	<file>images/dialog-cancel.png</file>
 	<file>images/edit-clear-locationbar-rtl.png</file>
+	<file>images/view-refresh.png</file>
 	<!-- File menu -->
 	<file>images/document-new.png</file>
 	<file>images/document-open.png</file>
@@ -47,6 +48,5 @@
 	<file>images/help-contents.png</file>
 	<file>images/help-contextual.png</file>
 	<file>images/qt-logo-22.png</file>
-        <file>images/view-refresh.png</file>
 </qresource>
 </RCC>

@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
- *   Copyright (C) 2007-2008 by Glad Deschrijver                           *
+ *   Copyright (C) 2007-2009 by Glad Deschrijver                           *
  *   florian@hackenberger.at                                               *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
@@ -20,8 +20,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef TIKZPREVIEWGENERATOR_H
-#define TIKZPREVIEWGENERATOR_H
+#ifndef KTIKZ_TIKZPREVIEWGENERATOR_H
+#define KTIKZ_TIKZPREVIEWGENERATOR_H
 
 #include <QMutex>
 #include <QThread>
@@ -38,6 +38,8 @@ namespace Poppler
 	class Document;
 }
 
+class TikzPreviewController;
+
 /**
  * @author Florian Hackenberger <florian@hackenberger.at>
  */
@@ -46,27 +48,28 @@ class TikzPreviewGenerator : public QThread
 	Q_OBJECT
 
 public:
-	TikzPreviewGenerator(const QPlainTextEdit* tikzTextEdit);
-	virtual ~TikzPreviewGenerator();
+	TikzPreviewGenerator(TikzPreviewController *parent);
+	~TikzPreviewGenerator();
 
+	void setTikzFileBaseName(const QString &name);
 	void setLatexCommand(const QString &command);
 	void setPdftopsCommand(const QString &command);
 	void setShellEscaping(bool useShellEscaping);
-	void setReplaceText(const QString &replace);
 	QString getLogText() const;
 	bool hasRunFailed();
-	bool exportImage(const QString &fileName, const QString &type);
-	void generatePreview();
+	void generatePreview(bool templateChanged = false);
+	bool generateEpsFile();
 
 public slots:
 	void setTemplateFile(const QString &fileName);
-	void setTemplateFileAndRegenerate(const QString &fileName);
+	void setReplaceText(const QString &replace);
 	void abortProcess();
 	void regeneratePreview();
 
 signals:
 	void pixmapUpdated(Poppler::Document *tikzPdfDoc);
 	void setExportActionsEnabled(bool enabled);
+	void showErrorMessage(const QString &message);
 	void shortLogUpdated(const QString &logText, bool runFailed);
 //	void logUpdated(bool runFailed);
 	void processRunning(bool isRunning);
@@ -83,13 +86,11 @@ protected:
 	void createTempLatexFile();
 	void createTempTikzFile();
 	bool runProcess(const QString &name, const QString &command, const QStringList &arguments, const QString &workingDir = 0);
-	bool generateEpsFile();
 	bool generatePdfFile();
-	bool cleanUp();
 
-	const QPlainTextEdit *m_tikzTextEdit;
+	TikzPreviewController *m_parent;
 	Poppler::Document *m_tikzPdfDoc;
-	bool m_tikzTextEditEmpty;
+	QString m_tikzCode;
 
 	QProcess *m_process;
 	mutable QMutex m_memberLock;
@@ -101,15 +102,14 @@ protected:
 	bool m_runFailed;
 	bool m_keepRunning;
 
-	QString m_tikzTempFileBaseName;
+	QString m_tikzFileBaseName;
 	QString m_templateFileName;
 	QString m_tikzReplaceText;
-	int m_templateStartLineNumber;
+//	int m_templateStartLineNumber;
 	bool m_templateChanged;
 
 	QString m_latexCommand;
 	QString m_pdftopsCommand;
-	QString m_tikzString;
 	QString m_shortLogText;
 	QString m_logText;
 	bool m_useShellEscaping;

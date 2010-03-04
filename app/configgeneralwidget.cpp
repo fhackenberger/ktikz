@@ -19,34 +19,28 @@
  ***************************************************************************/
 
 #include "configgeneralwidget.h"
-#ifdef KTIKZ_USE_KDE
-#include <KLocalizedString>
-#include <KMessageBox>
-#else
-#include <QMessageBox>
-#endif
 
 #include <QCompleter>
 #include <QDirModel>
 #include <QFileDialog>
+#include <QMessageBox>
 #include <QProcess>
 #include <QSettings>
 
 #include "ktikzapplication.h"
+#include "../common/utils/icon.h"
 
 ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent)
     : QWidget(parent)
 {
 	ui.setupUi(this);
-/*
-	ui.url_LatexCommand->lineEdit()->setObjectName("kcfg_LatexCommand");
-	ui.url_LatexCommand->fileDialog()->setCaption(i18nc("@title:window", "Select LaTeX Executable"));
-	ui.url_PdftopsCommand->lineEdit()->setObjectName("kcfg_PdftopsCommand");
-	ui.url_PdftopsCommand->fileDialog()->setCaption(i18nc("@title:window", "Select Pdftops Executable"));
-	ui.url_TikzDocumentation->lineEdit()->setObjectName("kcfg_TikzDocumentation");
-	ui.url_TikzDocumentation->fileDialog()->setCaption(i18nc("@title:window", "Select TikZ documentation file"));
-*/
-	connect(ui.commandsInDockCheck, SIGNAL(toggled(bool)), this, SLOT(setCommandsInDock(bool)));
+
+#ifdef KTIKZ_USE_KDE
+	ui.historyLengthLabel->setVisible(false);
+	ui.historyLengthSpinBox->setVisible(false);
+	ui.toolBarStyleLabel->setVisible(false);
+	ui.toolBarStyleComboBox->setVisible(false);
+#endif
 
 	QCompleter *completer = new QCompleter(this);
 	completer->setModel(new QDirModel(completer));
@@ -56,12 +50,16 @@ ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent)
 	ui.pdftopsEdit->setCompleter(completer);
 	ui.editorEdit->setCompleter(completer);
 
-#ifdef KTIKZ_USE_KDE
-	ui.tikzDocButton->setIcon(KIcon("document-open"));
-	ui.latexButton->setIcon(KIcon("document-open"));
-	ui.pdftopsButton->setIcon(KIcon("document-open"));
-	ui.editorButton->setIcon(KIcon("document-open"));
-#endif
+//	ui.tikzDocButton->setIcon(Icon("document-open"));
+//	ui.latexButton->setIcon(Icon("document-open"));
+//	ui.pdftopsButton->setIcon(Icon("document-open"));
+//	ui.editorButton->setIcon(Icon("document-open"));
+	ui.tikzDocButton->setIcon(QIcon::fromTheme("document-open", Icon("document-open")));
+	ui.latexButton->setIcon(QIcon::fromTheme("document-open", Icon("document-open")));
+	ui.pdftopsButton->setIcon(QIcon::fromTheme("document-open", Icon("document-open")));
+	ui.editorButton->setIcon(QIcon::fromTheme("document-open", Icon("document-open")));
+
+	connect(ui.commandsInDockCheck, SIGNAL(toggled(bool)), this, SLOT(setCommandsInDock(bool)));
 	connect(ui.tikzDocButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
 	connect(ui.tikzDocSearchButton, SIGNAL(clicked()), this, SLOT(searchTikzDocumentation()));
 	connect(ui.latexButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
@@ -71,9 +69,11 @@ ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent)
 
 void ConfigGeneralWidget::readSettings(const QString &settingsGroup)
 {
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup(settingsGroup);
+#ifndef KTIKZ_USE_KDE
 	ui.historyLengthSpinBox->setValue(settings.value("RecentFilesNumber", 10).toInt());
+#endif
 	ui.commandsInDockCheck->setChecked(settings.value("CommandsInDock", false).toBool());
 	ui.tikzDocEdit->setText(settings.value("TikzDocumentation").toString());
 	ui.latexEdit->setText(settings.value("LatexCommand", "pdflatex").toString());
@@ -82,16 +82,20 @@ void ConfigGeneralWidget::readSettings(const QString &settingsGroup)
 	ui.replaceEdit->setText(settings.value("TemplateReplaceText", "<>").toString());
 	settings.endGroup();
 
+#ifndef KTIKZ_USE_KDE
 	settings.beginGroup("MainWindow");
 	ui.toolBarStyleComboBox->setCurrentIndex(settings.value("ToolBarStyle", 0).toInt());
 	settings.endGroup();
+#endif
 }
 
 void ConfigGeneralWidget::writeSettings(const QString &settingsGroup)
 {
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup(settingsGroup);
+#ifndef KTIKZ_USE_KDE
 	settings.setValue("RecentFilesNumber", ui.historyLengthSpinBox->value());
+#endif
 	settings.setValue("CommandsInDock", ui.commandsInDockCheck->isChecked());
 	settings.setValue("TikzDocumentation", ui.tikzDocEdit->text());
 	settings.setValue("LatexCommand", ui.latexEdit->text());
@@ -100,9 +104,11 @@ void ConfigGeneralWidget::writeSettings(const QString &settingsGroup)
 	settings.setValue("TemplateReplaceText", ui.replaceEdit->text());
 	settings.endGroup();
 
+#ifndef KTIKZ_USE_KDE
 	settings.beginGroup("MainWindow");
 	settings.setValue("ToolBarStyle", ui.toolBarStyleComboBox->currentIndex());
 	settings.endGroup();
+#endif
 }
 
 void ConfigGeneralWidget::searchTikzDocumentation()
@@ -120,12 +126,8 @@ void ConfigGeneralWidget::searchTikzDocumentation()
 	QString tikzDocFile = process.readAllStandardOutput();
 	tikzDocFile = tikzDocFile.trimmed();
 	if (tikzDocFile.isEmpty())
-#ifdef KTIKZ_USE_KDE
-		KMessageBox::sorry(this, i18nc("@info", "Cannot find TikZ documentation."));
-#else
 		QMessageBox::warning(this, KtikzApplication::applicationName(),
 		                     tr("Cannot find TikZ documentation."));
-#endif
 	else
 		ui.tikzDocEdit->setText(tikzDocFile);
 }
@@ -135,10 +137,10 @@ void ConfigGeneralWidget::browseCommand(QLineEdit *lineEdit, bool isProgram)
 	QString location;
 	if (isProgram)
 	{
-	location = QFileDialog::getOpenFileName(this,
-	    tr("Browse program"), QDir::rootPath(),
-	    QString("%1 (*)").arg(tr("Program")), 0,
-	    QFileDialog::DontResolveSymlinks);
+		location = QFileDialog::getOpenFileName(this,
+		    tr("Browse program"), QDir::rootPath(),
+		    QString("%1 (*)").arg(tr("Program")), 0,
+		    QFileDialog::DontResolveSymlinks);
 	}
 	else
 	{

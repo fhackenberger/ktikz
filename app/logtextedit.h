@@ -32,6 +32,7 @@ public:
 	virtual QSize sizeHint() const;
 
 public slots:
+	void logUpdated(const QString &logText);
 	void logUpdated(const QString &logText, bool runFailed);
 
 private:

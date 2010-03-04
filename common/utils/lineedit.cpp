@@ -1,6 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (c) 2007 Trolltech ASA <info@trolltech.com>
+** Modified (c) 2009 by Glad Deschrijver <glad.deschrijver@gmail.com>
 **
 ** Use, modification and distribution is allowed without limitation,
 ** warranty, liability or support of any kind.
@@ -9,11 +10,36 @@
 
 #include "lineedit.h"
 
+#ifdef KTIKZ_USE_KDE
+LineEdit::LineEdit(const QString &text, QWidget *parent)
+    : KLineEdit(text, parent)
+{
+	setClearButtonShown(true);
+}
+
+LineEdit::LineEdit(QWidget *parent)
+    : KLineEdit(parent)
+{
+	setClearButtonShown(true);
+}
+#else
 #include <QToolButton>
 #include <QStyle>
 
+LineEdit::LineEdit(const QString &text, QWidget *parent)
+    : QLineEdit(parent)
+{
+	init();
+	setText(text);
+}
+
 LineEdit::LineEdit(QWidget *parent)
     : QLineEdit(parent)
+{
+	init();
+}
+
+void LineEdit::init()
 {
 	m_clearButton = new QToolButton(this);
 	const QPixmap pixmap(":/images/edit-clear-locationbar-rtl.png");
@@ -53,3 +79,4 @@ void LineEdit::updateClearButton(const QString &text)
 {
 	m_clearButton->setVisible(!text.isEmpty());
 }
+#endif

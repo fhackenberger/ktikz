@@ -10,20 +10,30 @@ QT += xml
 LIBS += -lpoppler-qt4
 usekde {
 	DEFINES += KTIKZ_USE_KDE
-	INCLUDEPATH += $${KDE_INCLUDEDIRS}
+	INCLUDEPATH += $${KDE_INCLUDEDIRS} ../common
 	LIBS += -lpoppler-qt4 -L$${KDE_LIBDIRS} -lkfile
 }
 
+DEFINES += ORGNAME=\\\"$${ORGNAME}\\\"
+DEFINES += APPNAME=\\\"$${APPNAME}\\\"
 DEFINES += APPVERSION=\\\"$${APPVERSION}\\\"
 DEFINES += KTIKZ_INSTALL_TRANSLATIONS=\\\"$${TRANSLATIONSDIR}\\\"
 
 ### Build files
 
-DESTDIR = ../build/bin
-MOC_DIR = ../build/moc
-OBJECTS_DIR = ../build/obj
-RCC_DIR = ../build/rcc
-UI_DIR = ../build/ui
+usekde {
+	DESTDIR = ../buildkde
+	MOC_DIR = ../buildkde/moc
+	OBJECTS_DIR = ../buildkde/obj
+	RCC_DIR = ../buildkde/rcc
+	UI_DIR = ../buildkde/ui
+} else {
+	DESTDIR = ../buildqt
+	MOC_DIR = ../buildqt/moc
+	OBJECTS_DIR = ../buildqt/obj
+	RCC_DIR = ../buildqt/rcc
+	UI_DIR = ../buildqt/ui
+}
 
 ### Input
 
@@ -33,10 +43,18 @@ FORMS += configappearancewidget.ui \
 	editgotolinewidget.ui \
 	editindentdialog.ui \
 	editreplacewidget.ui \
-	templatewidget.ui
+	../common/templatewidget.ui
 #SOURCES += $$formSources($$FORMS) \ # linguist does not use translations in corresponding cpp files if we use this :-(
-SOURCES += aboutdialog.cpp \
-	colorbutton.cpp \
+SOURCES += ../common/utils/action.cpp \
+	../common/utils/colorbutton.cpp \
+	../common/utils/filedialog.cpp \
+	../common/utils/lineedit.cpp \
+	../common/utils/recentfilesaction.cpp \
+	../common/utils/standardaction.cpp \
+	../common/utils/selectaction.cpp \
+	../common/utils/toggleaction.cpp \
+	../common/utils/url.cpp \
+	aboutdialog.cpp \
 	configappearancewidget.cpp \
 	configdialog.cpp \
 	configeditorwidget.cpp \
@@ -46,26 +64,35 @@ SOURCES += aboutdialog.cpp \
 	editreplacewidget.cpp \
 	editreplacecurrentwidget.cpp \
 	ktikzapplication.cpp \
-	lineedit.cpp \
 	loghighlighter.cpp \
 	logtextedit.cpp \
 	main.cpp \
 	mainwindow.cpp \
-	templatewidget.cpp \
+	../common/templatewidget.cpp \
 	tikzcommandinserter.cpp \
 	tikzcommandwidget.cpp \
 	tikzeditor.cpp \
 	tikzeditorhighlighter.cpp \
 	tikzeditorview.cpp \
-	tikzpreview.cpp \
-	tikzpreviewgenerator.cpp
-HEADERS += $$headerFiles($$SOURCES)
+	../common/tikzpreview.cpp \
+	../common/tikzpreviewcontroller.cpp \
+	../common/tikzpreviewgenerator.cpp \
+	../common/tikzpreviewthread.cpp
+HEADERS += $$headerFiles($$SOURCES) \
+	../common/mainwidget.h \
+	../common/utils/colordialog.h \
+	../common/utils/fontdialog.h \
+	../common/utils/icon.h
 RESOURCES = application.qrc
 TRANSLATIONS = ktikz_de.ts ktikz_es.ts ktikz_fr.ts
 
 ### Output
 
-TARGET = ktikz
+usekde {
+	TARGET = ktikz
+} else {
+	TARGET = qtikz
+}
 target.path = $${BINDIR}
 INSTALLS += target
 

@@ -45,9 +45,11 @@ public:
 	void init();
 	static QString applicationName();
 
+#ifndef KTIKZ_USE_KDE
 protected:
 	void commitData(QSessionManager &manager);
 	void saveState(QSessionManager &manager);
+#endif
 
 private:
 #ifndef KTIKZ_USE_KDE

@@ -18,28 +18,40 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <QDebug>
 #include "configdialog.h"
 
-#ifdef KTIKZ_USE_KDE
-#include <KIcon>
-#include <KMessageBox>
-#endif
-
+#ifndef KTIKZ_USE_KDE
 #include <QDialogButtonBox>
 #include <QGridLayout>
-#include <QKeyEvent>
 #include <QListWidget>
 #include <QStackedWidget>
 //#include <QTabWidget>
 #include <QVBoxLayout>
+#endif
+#include <QKeyEvent>
 #include <QWhatsThis>
 
 #include "configgeneralwidget.h"
 #include "configeditorwidget.h"
 #include "configappearancewidget.h"
 #include "ktikzapplication.h"
+#include "../common/utils/icon.h"
 
+#ifdef KTIKZ_USE_KDE
+ConfigDialog::ConfigDialog(QWidget *parent) : KPageDialog(parent)
+{
+	setFaceType(List);
+	setCaption(tr("Configure %1").arg(KtikzApplication::applicationName()));
+	setButtons(KDialog::Ok | KDialog::Cancel | KDialog::Apply | KDialog::Help);
+
+	addPage(generalPage(), tr("&General"), "preferences-desktop-theme");
+	addPage(editorPage(), tr("&Editor"), "accessories-text-editor");
+	addPage(appearancePage(), tr("&Highlighting"), "preferences-desktop-color");
+
+	connect(this, SIGNAL(applyClicked()), this, SLOT(accept()));
+	connect(this, SIGNAL(okClicked()), this, SLOT(accept()));
+}
+#else
 ConfigDialog::ConfigDialog(QWidget *parent) : QDialog(parent)
 {
 	setWindowTitle(tr("Configure %1").arg(KtikzApplication::applicationName()));
@@ -50,11 +62,8 @@ ConfigDialog::ConfigDialog(QWidget *parent) : QDialog(parent)
 
 	QDialogButtonBox *buttonBox = new QDialogButtonBox;
 	QAction *whatsThisAction = QWhatsThis::createAction(this);
-#ifdef KTIKZ_USE_KDE
-	whatsThisAction->setIcon(KIcon("help-contextual"));
-#else
-	whatsThisAction->setIcon(QIcon(":/images/help-contextual.png"));
-#endif
+//	whatsThisAction->setIcon(Icon("help-contextual"));
+	whatsThisAction->setIcon(QIcon::fromTheme("help-contextual", Icon("help-contextual")));
 	QToolButton *whatsThisButton = new QToolButton(this);
 	whatsThisButton->setDefaultAction(whatsThisAction);
 	whatsThisButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored);
@@ -132,6 +141,7 @@ QWidget *ConfigDialog::centerWidget()
 
 	return mainWidget;
 }
+#endif
 
 void ConfigDialog::addPage(QWidget *widget, const QString &title, const QString &iconName)
 {
@@ -142,18 +152,28 @@ void ConfigDialog::addPage(QWidget *widget, const QString &title, const QString 
 */
 	QString title2 = title;
 	title2.remove('&');
-	QListWidgetItem *item = new QListWidgetItem(QIcon(":/images/" + iconName + ".png"), title2);
+#ifdef KTIKZ_USE_KDE
+	KPageWidgetItem *page = new KPageWidgetItem(widget, title2);
+	page->setHeader(title2);
+	page->setIcon(KIcon(iconName));
+	KPageDialog::addPage(page);
+#else
+//	QListWidgetItem *item = new QListWidgetItem(Icon(iconName), title2);
+	QListWidgetItem *item = new QListWidgetItem(QIcon::fromTheme(iconName, Icon(iconName)), title2);
 	item->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 	item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	m_pagesListWidgetItems << item;
 
 	m_pageWidgets << widget;
+#endif
 }
 
+#ifndef KTIKZ_USE_KDE
 void ConfigDialog::setCurrentPage(int page)
 {
 	m_pagesTitleLabel->setText(m_pagesListWidgetItems.at(page)->text());
 }
+#endif
 
 QWidget *ConfigDialog::generalPage()
 {
@@ -175,14 +195,14 @@ QWidget *ConfigDialog::appearancePage()
 
 void ConfigDialog::readSettings()
 {
-	m_configGeneralWidget->readSettings("General");
+	m_configGeneralWidget->readSettings("");
 	m_configEditorWidget->readSettings("Editor");
 	m_configAppearanceWidget->readSettings("Highlighting");
 }
 
 void ConfigDialog::writeSettings()
 {
-	m_configGeneralWidget->writeSettings("General");
+	m_configGeneralWidget->writeSettings("");
 	m_configEditorWidget->writeSettings("Editor");
 	m_configAppearanceWidget->writeSettings("Highlighting");
 }

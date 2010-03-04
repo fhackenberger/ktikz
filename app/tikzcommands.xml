@@ -107,6 +107,7 @@
 		<item description="Define c&amp;olor" description="\\colorlet{&lt;name&gt;}{&lt;value&gt;}" insert="\colorlet{}{}" dx="10" dy="0" type="1"/>
 		<item description="Define st&amp;yle" description="\\tikzstyle{&lt;name&gt;}=[&lt;options&gt;]" insert="\\tikzstyle{}=[]" dx="11" dy="0" type="1"/>
 		<item description="Add to st&amp;yle" description="\\tikzstyle{&lt;name&gt;}+=[&lt;options&gt;]" insert="\\tikzstyle{}+=[]" dx="11" dy="0" type="1"/>
+		<item description="Set &amp;definition" description="\\tikzset{&lt;variable&gt;=&lt;value&gt;}" insert="\\tikzset{=}" dx="9" dy="0" type="1"/>
 		<item name="Define style for &amp;every path" description="\\tikzstyle{every path}=[&lt;options&gt;]" insert="\\tikzstyle{every path}=[]" dx="24" dy="0" type="0"/>
 		<section title="&amp;Node Options">
 			<item description="&amp;anchor=&lt;north/south/...&gt;" insert="anchor=" dx="7" dy="0" type="3"/>
@@ -161,7 +162,7 @@
 			<item description="&amp;ultra thin" insert="ultra thin" dx="10" dy="0" type="3"/>
 			<item description="&amp;very thin" insert="very thin" dx="9" dy="0" type="3"/>
 			<item description="&amp;thin" insert="thin" dx="4" dy="0" type="3"/>
-			<item description="&amp;semi thick" insert="semi thick" dx="10" dy="0" type="3"/>
+			<item description="&amp;semithick" insert="semithick" dx="10" dy="0" type="3"/>
 			<item description="&amp;thick" insert="thick" dx="5" dy="0" type="3"/>
 			<item description="&amp;very thick" insert="very thick" dx="10" dy="0" type="3"/>
 			<item description="&amp;ultra thick" insert="ultra thick" dx="11" dy="0" type="3"/>

@@ -32,7 +32,7 @@ QMAKECOMMAND = qmake-qt4
 # lrelease command:
 LRELEASECOMMAND = lrelease-qt4
 
-# use KDE4 file dialogs:
-#CONFIG += usekde # hide this to disable KDE file dialogs
+# enable KDE4 integration:
+#CONFIG += usekde # unhide this to have KDE integration, hide this for the Qt-only version
 #KDE_INCLUDEDIRS = /usr/lib/kde4/include/KDE /usr/lib/kde4/include
 #KDE_LIBDIRS = /usr/lib/kde4/lib

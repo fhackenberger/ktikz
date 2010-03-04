@@ -18,24 +18,25 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifdef KTIKZ_USE_KDE
-#include <KIcon>
-#endif
+#include "editreplacewidget.h"
 
 #include <QLineEdit>
 #include <QKeyEvent>
 
-#include "lineedit.h"
-#include "editreplacewidget.h"
+#include "../common/utils/icon.h"
+#include "../common/utils/lineedit.h"
 
 ReplaceWidget::ReplaceWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
 	ui.comboBoxFind->setLineEdit(new LineEdit(this));
 	ui.comboBoxReplace->setLineEdit(new LineEdit(this));
-#ifdef KTIKZ_USE_KDE
-	ui.pushButtonClose->setIcon(KIcon("window-close"));
-#endif
+//	ui.pushButtonClose->setIcon(Icon("window-close"));
+//	ui.pushButtonBackward->setIcon(Icon("go-up"));
+//	ui.pushButtonForward->setIcon(Icon("go-down"));
+	ui.pushButtonClose->setIcon(QIcon::fromTheme("window-close", Icon("window-close")));
+	ui.pushButtonBackward->setIcon(QIcon::fromTheme("go-up", Icon("go-up")));
+	ui.pushButtonForward->setIcon(QIcon::fromTheme("go-down", Icon("go-down")));
 
 	setFocusProxy(ui.comboBoxFind);
 

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007-2008 by Glad Deschrijver                           *
+ *   Copyright (C) 2007 by Glad Deschrijver                                *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -18,73 +18,47 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef TIKZPREVIEW_H
-#define TIKZPREVIEW_H
+#ifndef KTIKZ_COLORBUTTON_H
+#define KTIKZ_COLORBUTTON_H
 
-#include <QGraphicsView>
+#ifdef KTIKZ_USE_KDE
+#include <KColorButton>
 
-class QComboBox;
-class QToolBar;
-
-namespace Poppler
-{
-	class Document;
-}
-
-class TikzPreview : public QGraphicsView
+class ColorButton : public KColorButton
 {
 	Q_OBJECT
 
 public:
-	TikzPreview(QWidget *parent = 0);
-	~TikzPreview();
+	ColorButton(QWidget *parent = 0) : KColorButton(parent) {}
+	ColorButton(const QColor &color, QWidget *parent = 0) : KColorButton(color, parent) {}
+};
+#else
+#include <QToolButton>
 
-	virtual QSize sizeHint() const;
-	QList<QAction*> getActions();
-	QToolBar *getViewToolBar();
-	QPixmap getPixmap() const;
-	void setProcessRunning(bool isRunning);
+class ColorButton : public QToolButton
+{
+	Q_OBJECT
+	Q_PROPERTY(QColor color READ color WRITE setColor)
 
-public slots:
-	void pixmapUpdated(Poppler::Document *tikzPdfDoc);
+public:
+	ColorButton(QWidget *parent = 0);
+	ColorButton(const QColor &color, QWidget *parent = 0);
+
+	QColor color() const;
+	void setColor(const QColor &color);
+
+signals:
+	void colorChanged();
 
 protected:
-	void contextMenuEvent(QContextMenuEvent *event);
-	void paintEvent(QPaintEvent *event);
-	void wheelEvent(QWheelEvent *event);
-
-private slots:
-	void setZoomFactor();
-	void zoomIn();
-	void zoomOut();
-	void showPreviousPage();
-	void showNextPage();
+	void paintEvent(QPaintEvent*);
 
 private:
-	void centerView();
-	void setZoomFactor(double zoomFactor);
-	void createActions();
-	void createViewToolBar();
-	void showPdfPage();
+	QColor m_color;
 
-	QGraphicsScene *m_tikzScene;
-	QGraphicsPixmapItem *m_tikzPixmapItem;
-	bool m_processRunning;
-
-	QToolBar *m_viewToolBar;
-	QComboBox *m_zoomCombo;
-	QAction *m_zoomInAction;
-	QAction *m_zoomOutAction;
-	QAction *m_previousPageAction;
-	QAction *m_nextPageAction;
-
-	Poppler::Document *m_tikzPdfDoc;
-	int m_currentPage;
-	double m_oldZoomFactor;
-	double m_zoomFactor;
-	double m_minZoomFactor;
-	double m_maxZoomFactor;
-	bool m_hasZoomed;
+private slots:
+	void showColorDialog();
 };
+#endif
 
 #endif

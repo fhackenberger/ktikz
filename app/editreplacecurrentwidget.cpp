@@ -18,9 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifdef KTIKZ_USE_KDE
-#include <KIcon>
-#endif
+#include "editreplacecurrentwidget.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -28,7 +26,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-#include "editreplacecurrentwidget.h"
+#include "../common/utils/icon.h"
 
 ReplaceCurrentWidget::ReplaceCurrentWidget(QWidget *parent) : QWidget(parent)
 {
@@ -37,11 +35,8 @@ ReplaceCurrentWidget::ReplaceCurrentWidget(QWidget *parent) : QWidget(parent)
 	QPushButton *replaceAllButton = new QPushButton(tr("Replace &All"));
 	QPushButton *dontReplaceButton = new QPushButton(tr("&Don't Replace"));
 	QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
-#ifdef KTIKZ_USE_KDE
-	cancelButton->setIcon(KIcon("dialog-cancel"));
-#else
-	cancelButton->setIcon(QIcon(":/images/dialog-cancel.png"));
-#endif
+//	cancelButton->setIcon(Icon("dialog-cancel"));
+	cancelButton->setIcon(QIcon::fromTheme("dialog-cancel", Icon("dialog-cancel")));
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 	QWidget *buttonsWidget = new QWidget;

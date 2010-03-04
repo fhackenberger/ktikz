@@ -23,7 +23,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#ifdef KTIKZ_USE_KDE
+#include <KXmlGuiWindow>
+class KUrl;
+#else
 #include <QMainWindow>
+class QUrl;
+#endif
+#include "../common/mainwidget.h"
 
 class QAction;
 class QCloseEvent;
@@ -34,24 +41,24 @@ class QMenu;
 class QSyntaxHighlighter;
 class QToolButton;
 
-namespace Poppler
-{
-	class Document;
-}
-
 class AboutDialog;
 class ConfigDialog;
 class LogTextEdit;
+class RecentFilesAction;
 class TikzCommandInserter;
 class TikzEditorView;
 class TikzHighlighter;
-class TikzPreview;
-class TikzPreviewGenerator;
+class TikzPreviewController;
+class Url;
 
 /** Provides a tiny application for simple editing of TikZ graphics
  * @author Florian Hackenberger
  */
-class MainWindow : public QMainWindow
+#ifdef KTIKZ_USE_KDE
+class MainWindow : public KXmlGuiWindow, public MainWidget
+#else
+class MainWindow : public QMainWindow, public MainWidget
+#endif
 {
 	Q_OBJECT
 
@@ -59,36 +66,39 @@ public:
 	MainWindow();
 	virtual ~MainWindow();
 
-	void loadFile(const QString &fileName);
 	bool isDocumentModified() const;
-	QString currentFileName() const;
-	QString currentFileFullPath() const;
+	QString tikzCode() const;
+	Url url() const;
 
 	static QList<MainWindow*> mainWindowList() { return s_mainWindowList; }
 
 public slots:
+	void loadUrl(const Url &url);
 	bool save();
 
 signals:
 	void setSearchFromBegin(bool searchFromBegin);
 
 protected:
+#ifdef KTIKZ_USE_KDE
+	bool queryClose();
+	void readProperties(const KConfigGroup &group);
+	void saveProperties(KConfigGroup &group);
+#endif
 	void closeEvent(QCloseEvent *event);
 
 private slots:
-	void setProcessRunning(bool isRunning);
 	void setDockWidgetStatusTip(bool enabled);
 	void setToolBarStatusTip(bool enabled);
 	void newFile();
 	void closeFile();
 	void open();
 	bool saveAs();
-	void openRecentFile();
-	bool exportImage();
 	void showTikzDocumentation();
+#ifndef KTIKZ_USE_KDE
 	void about();
+#endif
 	void configure();
-	void toggleShellEscaping();
 	void applySettings();
 	void setDocumentModified(bool isModified);
 	void logUpdated();
@@ -99,36 +109,32 @@ private slots:
 
 private:
 	void createActions();
+#ifndef KTIKZ_USE_KDE
 	void createMenus();
 	void createToolBars();
 	void setToolBarStyle();
+#endif
 	void createCommandInsertWidget();
 	void createStatusBar();
 	void readSettings();
 	void writeSettings();
 	bool maybeSave();
-	bool saveFile(const QString &fileName);
-	void setCurrentFile(const QString &fileName);
-	QString strippedName(const QString &fullFileName) const;
-	void addToRecentFilesList(const QString &fileName);
-	void removeFromRecentFilesList(const QString &fileName);
-	void createRecentFilesList();
-	void updateRecentFilesList();
+	bool saveUrl(const Url &url);
+	void setCurrentUrl(const Url &url);
+	QString strippedName(const Url &url) const;
 	void showPdfPage();
 	void updateCompleter();
 
 	static QList<MainWindow*> s_mainWindowList;
 
 	TikzEditorView *m_tikzEditorView;
-	QString m_currentFile;
 	TikzHighlighter *m_tikzHighlighter;
 	QCompleter *m_completer;
 	bool m_useCompletion;
 
+	TikzPreviewController *m_tikzPreviewController;
+
 	QDockWidget *m_previewDock;
-	Poppler::Document *m_tikzPdfDoc;
-	TikzPreview *m_tikzView;
-	TikzPreviewGenerator *m_tikzController;
 
 	QDockWidget *m_logDock;
 	LogTextEdit *m_logTextEdit;
@@ -139,7 +145,6 @@ private:
 
 	QLabel *m_positionLabel;
 
-	QMenu *m_recentMenu;
 	QMenu *m_settingsMenu;
 	QMenu *m_sideBarMenu;
 	QToolBar *m_fileToolBar;
@@ -148,8 +153,10 @@ private:
 	QToolBar *m_runToolBar;
 	QAction *m_newAction;
 	QAction *m_openAction;
+	RecentFilesAction *m_openRecentAction;
 	QAction *m_saveAction;
 	QAction *m_saveAsAction;
+	QAction *m_exportAction;
 	QAction *m_exportEpsAction;
 	QAction *m_exportPdfAction;
 	QAction *m_exportPngAction;
@@ -161,18 +168,18 @@ private:
 	QAction *m_configureAction;
 	QAction *m_showTikzDocAction;
 	QAction *m_whatsThisAction;
+#ifndef KTIKZ_USE_KDE
 	QAction *m_aboutAction;
 	QAction *m_aboutQtAction;
+#endif
 	QToolButton *m_shellEscapeButton;
 	bool m_useShellEscaping;
 
 	AboutDialog *m_aboutDialog;
 	ConfigDialog *m_configDialog;
 
-	QList<QAction*> m_recentFileActions;
-	QStringList m_recentFilesList;
-	int m_numOfRecentFiles;
-	QString m_lastDocument;
+	Url m_currentUrl;
+	Url m_lastUrl;
 };
 
 #endif

@@ -22,10 +22,11 @@
 
 #include <QApplication>
 #include <QButtonGroup>
-#include <QColorDialog>
-#include <QFontDialog>
 #include <QSettings>
 #include <QTextCharFormat>
+
+#include "../common/utils/colordialog.h"
+#include "../common/utils/fontdialog.h"
 
 ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent)
     : QWidget(parent)
@@ -60,7 +61,7 @@ ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent)
 void ConfigAppearanceWidget::readSettings(const QString &settingsGroup)
 {
 	int num;
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup(settingsGroup);
 	m_custom = settings.value("Customize", true).toBool();
 	const int numOfRules = settings.value("Number", 0).toInt();
@@ -84,7 +85,7 @@ void ConfigAppearanceWidget::writeSettings(const QString &settingsGroup)
 {
 	m_custom = getCustomizationType();
 
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup(settingsGroup);
 	settings.setValue("Customize", m_custom);
 	if (m_custom)
@@ -260,7 +261,7 @@ void ConfigAppearanceWidget::showFontDialog()
 	bool ok;
 	QFont currentFont;
 	currentFont.fromString(m_itemFonts.at(m_itemHighlighted));
-	const QFont newFont = QFontDialog::getFont(&ok, currentFont, this);
+	const QFont newFont = FontDialog::getFont(&ok, currentFont, this);
 	if (ok)
 	{
 		QTableWidgetItem *item = ui.itemTable->item(m_itemHighlighted, 0);
@@ -274,9 +275,10 @@ void ConfigAppearanceWidget::showColorDialog()
 {
 	if (m_itemHighlighted < 0) return;
 
+	bool ok;
 	const QColor currentColor(m_itemColors.at(m_itemHighlighted));
-	const QColor newColor = QColorDialog::getColor(currentColor, this);
-	if (newColor.isValid())
+	const QColor newColor = ColorDialog::getColor(&ok, currentColor, this);
+	if (ok)
 	{
 		m_itemColors.replace(m_itemHighlighted, newColor.name());
 		ui.itemTable->item(m_itemHighlighted, 0)->setForeground(newColor);

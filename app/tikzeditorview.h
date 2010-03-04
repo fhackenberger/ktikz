@@ -33,7 +33,6 @@ class QToolBar;
 class GoToLineWidget;
 class ReplaceWidget;
 class ReplaceCurrentWidget;
-class TemplateWidget;
 class TikzEditor;
 //class TikzHighlighter;
 
@@ -44,12 +43,10 @@ class TikzEditorView : public QWidget
 public:
 	TikzEditorView(QWidget *parent = 0);
 	virtual ~TikzEditorView();
-	void setTemplateFile(const QString &fileName);
-	void setReplaceText(const QString &replace);
-	QString templateFile() const;
+
 	QPlainTextEdit *editor();
-	QMenu *createMenu();
-	QToolBar *createToolBar();
+	QMenu *menu();
+	QToolBar *toolBar();
 	void applySettings();
 	void setLine(const QString &line);
 	void setCompleter (QCompleter *completer);
@@ -61,7 +58,6 @@ signals:
 	void modificationChanged(bool changed);
 	void contentsChanged();
 	void cursorPositionChanged(int row, int col);
-	void templateFileChanged(const QString &fileName);
 	void setSearchFromBegin(bool searchFromBegin);
 
 private slots:
@@ -86,7 +82,6 @@ private:
 	void setLine(int lineNumber);
 
 	QWidget *m_parentWidget;
-	TemplateWidget *m_templateWidget;
 	TikzEditor *m_tikzEditor;
 	ReplaceWidget *m_replaceWidget;
 	ReplaceCurrentWidget *m_replaceCurrentWidget;

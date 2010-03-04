@@ -92,7 +92,7 @@
          <string>&lt;p&gt;Select the font in which the structure that you selected in the box above should be displayed.&lt;/p&gt;</string>
         </property>
         <property name="text">
-         <string>Change &amp;font</string>
+         <string>Change &amp;font...</string>
         </property>
        </widget>
       </item>
@@ -105,7 +105,7 @@
          <string>&lt;p&gt;Select the text color in which the structure that you selected in the box above should be displayed.&lt;/p&gt;</string>
         </property>
         <property name="text">
-         <string>Change c&amp;olor</string>
+         <string>Change c&amp;olor...</string>
         </property>
        </widget>
       </item>

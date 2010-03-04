@@ -9,5 +9,3 @@
 - Make a graphical tool for editing the XML file containing the TikZ
   commands similar to keditbookmarks
 - Create a new process for each window opened by the "New" action.
-- Use designer for the config dialog
-- Do zooming in a different thread

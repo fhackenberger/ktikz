@@ -1,31 +1,21 @@
-Version 0.8 (2009-05-25):
-- allow text under icons in toolbar
-- remove bug: when a second ktikz window is closed while typesetting,
-  the cursor is not restored from busy to normal
-- remove bug: when the document is untitled and not yet saved, then
-  opening a file opens the file in the current window, destroying the
-  unsaved text
-- added some tikz commands to the list of commands
-- disable "Save" and "Save As" actions when the file in the text editor
-  is the same as on disk
-- replace the "Replace this occurrence" dialog by a widget shown at the
-  bottom of the text editor
-- added filter "PGF files" in "Open File" dialog
-- the previously selected templates can now be selected from a combobox
-- added "Clear" button to each line edit
-- remove bug: the size of the default font did not change after setting
-  a new font size in the config dialog
-- new way of writing the temporary latex and pgf files, this also solves
-  the bug in which the line numbers in the log window did not correspond
-  to the line numbers in the editor
-- each time the template is changed a new QTemporaryFile is used, this
-  avoids the bug that if the template contains less characters, then the
-  bottom of the old template is still there in the file (luckily latex
-  stops parsing at the first \end{document}, so this bug was not visible)
-- allow to use KDE4 file dialogs when the appropriate variable in conf.pri
-  is set
-- remove bug (I hope) that caused ktikz to crash when zooming while ktikz
-  is typesetting
+version 0.10 (2010-03-04):
+- KDE integration (the possibility to compile Qt-only still exists)
+- template files on remote machines can be used using KIO
+- TikZ source files on remote machines can be loaded, saved and exported
+  using KIO
+- error messages while generating the preview are shown in the preview
+  window itself
+- zooming is done in a separate thread now, so the interface is not blocked
+  when zooming at large sizes
+- a kpart is available that can be used to view TikZ source files in
+  konqueror (the kpart opens files having the text/x-pgf mimetype; if this
+  mimetype does not exist yet, then the user has to create it in the
+  systemsettings > Advanced > File Associations)
+- Remove bug which causes ktikz to hang (since Qt 4.6) when typesetting
+  a picture
+- Remove bug: cannot find TikZ documentation when selecting "TikZ Manual"
+  in the Help menu, even if configured correctly
+version 0.9 (2009-09-10):
 - remove bug that on startup the item selected in the template combobox
   did not correspond to the text in the lineedit of the combobox
 - correct the height of the lineedits in the configuration dialog
@@ -64,6 +54,34 @@ Version 0.8 (2009-05-25):
 - trying to open a file from the "Open Recent" menu that does not exist
   anymore does not cause an empty window to be opened anymore, furthermore
   the file is removed from the "Open Recent" list
+Version 0.8 (2009-05-25):
+- allow text under icons in toolbar
+- remove bug: when a second ktikz window is closed while typesetting,
+  the cursor is not restored from busy to normal
+- remove bug: when the document is untitled and not yet saved, then
+  opening a file opens the file in the current window, destroying the
+  unsaved text
+- added some tikz commands to the list of commands
+- disable "Save" and "Save As" actions when the file in the text editor
+  is the same as on disk
+- replace the "Replace this occurrence" dialog by a widget shown at the
+  bottom of the text editor
+- added filter "PGF files" in "Open File" dialog
+- the previously selected templates can now be selected from a combobox
+- added "Clear" button to each line edit
+- remove bug: the size of the default font did not change after setting
+  a new font size in the config dialog
+- new way of writing the temporary latex and pgf files, this also solves
+  the bug in which the line numbers in the log window did not correspond
+  to the line numbers in the editor
+- each time the template is changed a new QTemporaryFile is used, this
+  avoids the bug that if the template contains less characters, then the
+  bottom of the old template is still there in the file (luckily latex
+  stops parsing at the first \end{document}, so this bug was not visible)
+- allow to use KDE4 file dialogs when the appropriate variable in conf.pri
+  is set
+- remove bug (I hope) that caused ktikz to crash when zooming while ktikz
+  is typesetting
 Version 0.7 (2008-08-26):
 - disable previous image button if the first image is shown, disable
   next image button if the last image is shown

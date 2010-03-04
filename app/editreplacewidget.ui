@@ -1,136 +1,132 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>ReplaceWidget</class>
- <widget class="QWidget" name="ReplaceWidget" >
-  <property name="geometry" >
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>500</width>
-    <height>75</height>
-   </rect>
-  </property>
-  <property name="windowTitle" >
+ <widget class="QWidget" name="ReplaceWidget">
+  <property name="windowTitle">
    <string>Find and Replace</string>
   </property>
-  <layout class="QGridLayout" >
-   <item row="0" column="0" >
-    <widget class="QToolButton" name="pushButtonClose" >
-     <property name="toolTip" >
+  <layout class="QGridLayout">
+   <item row="0" column="0">
+    <widget class="QToolButton" name="pushButtonClose">
+     <property name="toolTip">
       <string>Close find and replace box</string>
      </property>
-     <property name="text" >
+     <property name="text">
       <string/>
      </property>
-     <property name="icon" >
-      <iconset resource="application.qrc" >:/images/window-close.png</iconset>
+     <property name="icon">
+      <iconset resource="application.qrc">
+       <normaloff>:/images/window-close.png</normaloff>:/images/window-close.png</iconset>
      </property>
     </widget>
    </item>
-   <item row="0" column="1" >
-    <widget class="QLabel" name="labelFind" >
-     <property name="text" >
+   <item row="0" column="1">
+    <widget class="QLabel" name="labelFind">
+     <property name="text">
       <string>Find:</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="2" >
-    <widget class="QComboBox" name="comboBoxFind" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+   <item row="0" column="2">
+    <widget class="QComboBox" name="comboBoxFind">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="editable" >
+     <property name="editable">
       <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="0" column="3" >
-    <layout class="QHBoxLayout" >
+   <item row="0" column="3">
+    <layout class="QHBoxLayout">
      <item>
-      <widget class="QCheckBox" name="checkBoxWholeWords" >
-       <property name="text" >
+      <widget class="QCheckBox" name="checkBoxWholeWords">
+       <property name="text">
         <string>&amp;Whole words</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBoxCaseSensitive" >
-       <property name="text" >
+      <widget class="QCheckBox" name="checkBoxCaseSensitive">
+       <property name="text">
         <string>&amp;Case sensitive</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="1" column="1" >
-    <widget class="QLabel" name="labelReplace" >
-     <property name="text" >
+   <item row="1" column="1">
+    <widget class="QLabel" name="labelReplace">
+     <property name="text">
       <string>Replace with:</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="2" >
-    <widget class="QComboBox" name="comboBoxReplace" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+   <item row="1" column="2">
+    <widget class="QComboBox" name="comboBoxReplace">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="editable" >
+     <property name="editable">
       <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="1" column="3" >
-    <layout class="QHBoxLayout" >
+   <item row="1" column="3">
+    <layout class="QHBoxLayout">
      <item>
-      <widget class="QToolButton" name="pushButtonBackward" >
-       <property name="toolTip" >
+      <widget class="QToolButton" name="pushButtonBackward">
+       <property name="toolTip">
         <string>Search backward</string>
        </property>
-       <property name="text" >
+       <property name="text">
         <string/>
        </property>
-       <property name="icon" >
-        <iconset resource="application.qrc" >:/images/go-up.png</iconset>
+       <property name="icon">
+        <iconset resource="application.qrc">
+         <normaloff>:/images/go-up.png</normaloff>:/images/go-up.png</iconset>
        </property>
-       <property name="checkable" >
+       <property name="checkable">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="pushButtonForward" >
-       <property name="toolTip" >
+      <widget class="QToolButton" name="pushButtonForward">
+       <property name="toolTip">
         <string>Search forward</string>
        </property>
-       <property name="text" >
+       <property name="text">
         <string/>
        </property>
-       <property name="icon" >
-        <iconset resource="application.qrc" >:/images/go-down.png</iconset>
+       <property name="icon">
+        <iconset resource="application.qrc">
+         <normaloff>:/images/go-down.png</normaloff>:/images/go-down.png</iconset>
        </property>
-       <property name="checkable" >
+       <property name="checkable">
         <bool>true</bool>
        </property>
-       <property name="checked" >
+       <property name="checked">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonFind" >
-       <property name="text" >
+      <widget class="QPushButton" name="pushButtonFind">
+       <property name="text">
         <string>&amp;Find</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonReplace" >
-       <property name="text" >
+      <widget class="QPushButton" name="pushButtonReplace">
+       <property name="text">
         <string>&amp;Replace</string>
        </property>
       </widget>
@@ -151,7 +147,7 @@
   <tabstop>pushButtonReplace</tabstop>
  </tabstops>
  <resources>
-  <include location="application.qrc" />
+  <include location="application.qrc"/>
  </resources>
  <connections/>
 </ui>

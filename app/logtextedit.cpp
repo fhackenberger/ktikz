@@ -30,6 +30,11 @@ QSize LogTextEdit::sizeHint() const
 	return QSize(300, 90);
 }
 
+void LogTextEdit::logUpdated(const QString &logText)
+{
+	setPlainText(logText);
+}
+
 void LogTextEdit::logUpdated(const QString &logText, bool runFailed)
 {
 	setPlainText(logText);

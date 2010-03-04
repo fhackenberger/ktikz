@@ -1,57 +1,51 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>GoToLineWidget</class>
- <widget class="QWidget" name="GoToLineWidget" >
-  <property name="geometry" >
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>500</width>
-    <height>45</height>
-   </rect>
-  </property>
-  <property name="windowTitle" >
+ <widget class="QWidget" name="GoToLineWidget">
+  <property name="windowTitle">
    <string>Go To Line</string>
   </property>
-  <layout class="QHBoxLayout" >
+  <layout class="QHBoxLayout">
    <item>
-    <widget class="QToolButton" name="pushButtonClose" >
-     <property name="toolTip" >
+    <widget class="QToolButton" name="pushButtonClose">
+     <property name="toolTip">
       <string>Close go to line box</string>
      </property>
-     <property name="text" >
+     <property name="text">
       <string/>
      </property>
-     <property name="icon" >
-      <iconset resource="application.qrc" >:/images/window-close.png</iconset>
+     <property name="icon">
+      <iconset resource="application.qrc">
+       <normaloff>:/images/window-close.png</normaloff>:/images/window-close.png</iconset>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="labelGo" >
-     <property name="text" >
+    <widget class="QLabel" name="labelGo">
+     <property name="text">
       <string>Go to line:</string>
      </property>
-     <property name="buddy" >
+     <property name="buddy">
       <cstring>spinBoxGo</cstring>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QSpinBox" name="spinBoxGo" />
+    <widget class="QSpinBox" name="spinBoxGo"/>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButtonGo" >
-     <property name="text" >
+    <widget class="QPushButton" name="pushButtonGo">
+     <property name="text">
       <string>&amp;Go</string>
      </property>
     </widget>
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>40</width>
        <height>20</height>
@@ -67,7 +61,7 @@
   <tabstop>pushButtonGo</tabstop>
  </tabstops>
  <resources>
-  <include location="application.qrc" />
+  <include location="application.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -18,20 +18,17 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifdef KTIKZ_USE_KDE
-#include <KIcon>
-#endif
+#include "editgotolinewidget.h"
 
 #include <QKeyEvent>
-#include "editgotolinewidget.h"
+#include "../common/utils/icon.h"
 
 GoToLineWidget::GoToLineWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
 	ui.spinBoxGo->setMinimum(1);
-#ifdef KTIKZ_USE_KDE
-	ui.pushButtonClose->setIcon(KIcon("window-close"));
-#endif
+//	ui.pushButtonClose->setIcon(Icon("window-close"));
+	ui.pushButtonClose->setIcon(QIcon::fromTheme("window-close", Icon("window-close")));
 
 	setFocusProxy(ui.spinBoxGo);
 

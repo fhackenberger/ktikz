@@ -45,7 +45,7 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>40</width>
-            <height>20</height>
+            <height>0</height>
            </size>
           </property>
          </spacer>
@@ -119,7 +119,7 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>40</width>
-            <height>20</height>
+            <height>0</height>
            </size>
           </property>
          </spacer>
@@ -134,7 +134,7 @@
      <property name="title">
       <string>Commands</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2">
+     <layout class="QFormLayout" name="formLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="latexLabel">
         <property name="whatsThis">
@@ -143,40 +143,41 @@
         <property name="text">
          <string>PDF&amp;LaTeX command:</string>
         </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
         <property name="buddy">
          <cstring>latexEdit</cstring>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="LineEdit" name="latexEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;p&gt;Enter the path to the LaTeX executable here.&lt;/p&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QToolButton" name="latexButton">
-        <property name="toolTip">
-         <string>Browse command</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;p&gt;Browse to the LaTeX executable.&lt;/p&gt;</string>
-        </property>
-        <property name="icon">
-         <iconset resource="application.qrc">
-          <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="LineEdit" name="latexEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Enter the path to the LaTeX executable here.&lt;/p&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="latexButton">
+          <property name="toolTip">
+           <string>Browse command</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Browse to the LaTeX executable.&lt;/p&gt;</string>
+          </property>
+          <property name="icon">
+           <iconset resource="application.qrc">
+            <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="pdftopsLabel">
@@ -186,40 +187,41 @@
         <property name="text">
          <string>&amp;Pdftops command:</string>
         </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
         <property name="buddy">
          <cstring>pdftopsEdit</cstring>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="LineEdit" name="pdftopsEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;p&gt;Enter the path to the pdftops executable here.&lt;/p&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QToolButton" name="pdftopsButton">
-        <property name="toolTip">
-         <string>Browse command</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;p&gt;Browse to the pdftops executable.&lt;/p&gt;</string>
-        </property>
-        <property name="icon">
-         <iconset resource="application.qrc">
-          <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="LineEdit" name="pdftopsEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Enter the path to the pdftops executable here.&lt;/p&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="pdftopsButton">
+          <property name="toolTip">
+           <string>Browse command</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Browse to the pdftops executable.&lt;/p&gt;</string>
+          </property>
+          <property name="icon">
+           <iconset resource="application.qrc">
+            <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -229,7 +231,7 @@
      <property name="title">
       <string>Templates</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
+     <layout class="QFormLayout" name="formLayout_2">
       <item row="0" column="0">
        <widget class="QLabel" name="replaceLabel">
         <property name="whatsThis">
@@ -238,15 +240,12 @@
         <property name="text">
          <string>&amp;Replace text:</string>
         </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
         <property name="buddy">
          <cstring>replaceEdit</cstring>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="2">
+      <item row="0" column="1">
        <widget class="LineEdit" name="replaceEdit">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
@@ -267,40 +266,41 @@
         <property name="text">
          <string>Editor &amp;command:</string>
         </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
         <property name="buddy">
          <cstring>editorEdit</cstring>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="LineEdit" name="editorEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;p&gt;Enter the path to the executable of the text editor for the template here.&lt;/p&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QToolButton" name="editorButton">
-        <property name="toolTip">
-         <string>Browse command</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;p&gt;Browse to the editor executable.&lt;/p&gt;</string>
-        </property>
-        <property name="icon">
-         <iconset resource="application.qrc">
-          <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="LineEdit" name="editorEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Enter the path to the executable of the text editor for the template here.&lt;/p&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="editorButton">
+          <property name="toolTip">
+           <string>Browse command</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Browse to the editor executable.&lt;/p&gt;</string>
+          </property>
+          <property name="icon">
+           <iconset resource="application.qrc">
+            <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -310,7 +310,7 @@
      <property name="title">
       <string>Help</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_4">
+     <layout class="QFormLayout" name="formLayout_3">
       <item row="0" column="0">
        <widget class="QLabel" name="tikzDocLabel">
         <property name="sizePolicy">
@@ -325,69 +325,74 @@
         <property name="text">
          <string>&amp;TikZ documentation:</string>
         </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
         <property name="buddy">
          <cstring>tikzDocEdit</cstring>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="2">
-       <widget class="LineEdit" name="tikzDocEdit">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;p&gt;Enter the path to the file containing the TikZ documentation here.&lt;/p&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QToolButton" name="tikzDocButton">
-        <property name="toolTip">
-         <string>Browse file</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;p&gt;Browse to the file containing the TikZ documentation.&lt;/p&gt;</string>
-        </property>
-        <property name="icon">
-         <iconset resource="application.qrc">
-          <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
-        </property>
-       </widget>
+      <item row="0" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <item>
+         <widget class="LineEdit" name="tikzDocEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Enter the path to the file containing the TikZ documentation here.&lt;/p&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="tikzDocButton">
+          <property name="toolTip">
+           <string>Browse file</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Browse to the file containing the TikZ documentation.&lt;/p&gt;</string>
+          </property>
+          <property name="icon">
+           <iconset resource="application.qrc">
+            <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item row="1" column="1">
-       <widget class="QPushButton" name="tikzDocSearchButton">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;p&gt;Press this button to search the file containing the TikZ documentation in the TeX directory structure using kpsewhich.&lt;/p&gt;</string>
-        </property>
-        <property name="text">
-         <string>&amp;Search</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" colspan="2">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QPushButton" name="tikzDocSearchButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Press this button to search the file containing the TikZ documentation in the TeX directory structure using kpsewhich.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>&amp;Search</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -411,7 +416,7 @@
   <customwidget>
    <class>LineEdit</class>
    <extends>QLineEdit</extends>
-   <header>lineedit.h</header>
+   <header>../common/utils/lineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources>

@@ -20,13 +20,6 @@
 
 #include "tikzeditorview.h"
 
-#ifdef KTIKZ_USE_KDE
-#include <KAction>
-#include <KLocalizedString>
-#include <KStandardAction>
-#endif
-
-#include <QAction>
 #include <QApplication>
 #include <QClipboard>
 #include <QMenu>
@@ -39,15 +32,15 @@
 #include "editindentdialog.h"
 #include "editreplacewidget.h"
 #include "editreplacecurrentwidget.h"
-#include "templatewidget.h"
 #include "tikzeditor.h"
 //#include "tikzeditorhighlighter.h"
+#include "../common/utils/action.h"
+#include "../common/utils/icon.h"
+#include "../common/utils/standardaction.h"
 
 TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 {
 	m_parentWidget = parent;
-
-	m_templateWidget = new TemplateWidget(this);
 
 	m_tikzEditor = new TikzEditor;
 	m_tikzEditor->setWhatsThis(tr("<p>Enter your TikZ code here.  "
@@ -75,7 +68,6 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 	mainLayout->setSpacing(0);
 	mainLayout->setMargin(0);
-	mainLayout->addWidget(m_templateWidget);
 	mainLayout->addWidget(m_tikzEditor);
 	mainLayout->addWidget(m_replaceWidget);
 	mainLayout->addWidget(m_replaceCurrentWidget);
@@ -83,16 +75,10 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 
 	createActions();
 
-	connect(m_templateWidget, SIGNAL(fileNameChanged(QString)),
-	        this, SIGNAL(templateFileChanged(QString)));
-	connect(m_templateWidget, SIGNAL(focusEditor()),
-	        m_tikzEditor, SLOT(setFocus()));
 	connect(m_tikzEditor->document(), SIGNAL(modificationChanged(bool)),
 	        this, SIGNAL(modificationChanged(bool)));
 	connect(m_tikzEditor->document(), SIGNAL(contentsChanged()),
 	        this, SIGNAL(contentsChanged()));
-//	connect(m_tikzEditor, SIGNAL(cursorPositionChanged()),
-//	        this, SLOT(showCursorPosition()));
 	connect(m_tikzEditor, SIGNAL(cursorPositionChanged(int,int)),
 	        this, SIGNAL(cursorPositionChanged(int,int)));
 	connect(m_replaceWidget, SIGNAL(search(QString,bool,bool,bool)),
@@ -131,185 +117,76 @@ void TikzEditorView::setFont(const QFont &editorFont)
 	m_tikzEditor->setTabStopWidth(m_tikzEditor->fontMetrics().width("    "));
 }
 
-void TikzEditorView::setTemplateFile(const QString &fileName)
-{
-	m_templateWidget->setFileName(fileName);
-}
-
-void TikzEditorView::setReplaceText(const QString &replace)
-{
-	m_templateWidget->setReplaceText(replace);
-}
-
-QString TikzEditorView::templateFile() const
-{
-	return m_templateWidget->fileName();
-}
-
 void TikzEditorView::createActions()
 {
-#ifdef KTIKZ_USE_KDE
-	m_undoAction = KStandardAction::undo(m_tikzEditor, SLOT(undo()), this);
-	m_undoAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Undo the previous action</para>"));
-
-	m_redoAction = KStandardAction::redo(m_tikzEditor, SLOT(redo()), this);
-	m_redoAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Redo the previous undone action</para>"));
-
-	m_cutAction = KStandardAction::cut(m_tikzEditor, SLOT(cut()), this);
-	m_cutAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Cut the current selection's content to the clipboard</para>"));
-
-	m_copyAction = KStandardAction::copy(m_tikzEditor, SLOT(copy()), this);
-	m_copyAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Copy the current selection's content to the clipboard</para>"));
-
-	m_pasteAction = KStandardAction::paste(m_tikzEditor, SLOT(paste()), this);
-	m_pasteAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Paste the clipboard's contents into the current selection</para>"));
-
-	m_selectAllAction = KStandardAction::selectAll(m_tikzEditor, SLOT(selectAll()), this);
-	m_selectAllAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Select all the content</para>"));
-
-	QAction *action;
-	action = new KAction(KIcon("format-indent-more"), i18n("&Indent..."), this);
-	action->setShortcut(i18nc("Edit|Indent", "Ctrl+I"));
-	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Indent the current line or selection</para>"));
-	connect(action, SIGNAL(triggered()), this, SLOT(editIndent()));
-	m_editActions.append(action);
-
-	action = new KAction(i18n("C&omment"), this);
-	action->setShortcut(i18nc("Edit|Comment", "Ctrl+D"));
-	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Comment the current line or selection</para>"));
-	connect(action, SIGNAL(triggered()), this, SLOT(editComment()));
-	m_editActions.append(action);
-
-	action = new KAction(i18n("Unco&mment"), this);
-	action->setShortcut(i18nc("Edit|Uncomment", "Ctrl+Shift+D"));
-	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Uncomment the current line or selection</para>"));
-	connect(action, SIGNAL(triggered()), this, SLOT(editUncomment()));
-	m_editActions.append(action);
-
-	action = new QAction(this);
-	action->setSeparator(true);
-	m_editActions.append(action);
-
-	action = KStandardAction::find(this, SLOT(editFind()), this);
-	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Look up a piece of text in the document</para>"));
-	m_editActions.append(action);
-
-	action = KStandardAction::findNext(this, SLOT(editFindNext()), this);
-	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Search the next occurrence of a text</para>"));
-	m_editActions.append(action);
-
-	action = KStandardAction::findPrev(this, SLOT(editFindPrevious()), this);
-	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Search the previous occurrence of a text</para>"));
-	m_editActions.append(action);
-
-	action = KStandardAction::replace(this, SLOT(editReplace()), this);
-	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Search and replace a piece of text in the document</para>"));
-	m_editActions.append(action);
-
-	action = KStandardAction::gotoLine(this, SLOT(editGoToLine()), this);
-	action->setWhatsThis(i18nc("@info:whatsthis", "<para>Go to a certain line in the document</para>"));
-	m_editActions.append(action);
-#else
-	const QString undoWhatsThis = tr("Undo the previous action");
-	m_undoAction = new QAction(QIcon(":/images/edit-undo.png"), tr("&Undo"), this);
-	m_undoAction->setShortcut(QKeySequence::Undo);
-	m_undoAction->setStatusTip(undoWhatsThis);
-	m_undoAction->setWhatsThis("<p>" + undoWhatsThis + "</p>");
-	connect(m_undoAction, SIGNAL(triggered()), m_tikzEditor, SLOT(undo()));
-
-	const QString redoWhatsThis = tr("Redo the previous undone action");
-	m_redoAction = new QAction(QIcon(":/images/edit-redo.png"), tr("Re&do"), this);
-	m_redoAction->setShortcut(QKeySequence::Redo);
-	m_redoAction->setStatusTip(redoWhatsThis);
-	m_redoAction->setWhatsThis("<p>" + redoWhatsThis + "</p>");
-	connect(m_redoAction, SIGNAL(triggered()), m_tikzEditor, SLOT(redo()));
-
-	const QString cutWhatsThis = tr("Cut the current selection's contents to the clipboard");
-	m_cutAction = new QAction(QIcon(":/images/edit-cut.png"), tr("Cu&t"), this);
-	m_cutAction->setShortcut(QKeySequence::Cut);
-	m_cutAction->setStatusTip(cutWhatsThis);
-	m_cutAction->setWhatsThis("<p>" + cutWhatsThis + "</p>");
-	connect(m_cutAction, SIGNAL(triggered()), m_tikzEditor, SLOT(cut()));
-
-	const QString copyWhatsThis = tr("Copy the current selection's contents to the clipboard");
-	m_copyAction = new QAction(QIcon(":/images/edit-copy.png"), tr("&Copy"), this);
-	m_copyAction->setShortcut(QKeySequence::Copy);
-	m_copyAction->setStatusTip(copyWhatsThis);
-	m_copyAction->setWhatsThis("<p>" + copyWhatsThis + "</p>");
-	connect(m_copyAction, SIGNAL(triggered()), m_tikzEditor, SLOT(copy()));
-
-	const QString pasteWhatsThis = tr("Paste the clipboard's contents into the current selection");
-	m_pasteAction = new QAction(QIcon(":/images/edit-paste.png"), tr("&Paste"), this);
-	m_pasteAction->setShortcut(QKeySequence::Paste);
-	m_pasteAction->setStatusTip(pasteWhatsThis);
-	m_pasteAction->setWhatsThis("<p>" + pasteWhatsThis + "</p>");
-	connect(m_pasteAction, SIGNAL(triggered()), m_tikzEditor, SLOT(paste()));
-
-	m_selectAllAction = new QAction(tr("Select &All"), this);
-	m_selectAllAction->setShortcut(QKeySequence::SelectAll);
+	m_undoAction = StandardAction::undo(m_tikzEditor, SLOT(undo()), this);
+	m_redoAction = StandardAction::redo(m_tikzEditor, SLOT(redo()), this);
+	m_cutAction = StandardAction::cut(m_tikzEditor, SLOT(cut()), this);
+	m_copyAction = StandardAction::copy(m_tikzEditor, SLOT(copy()), this);
+	m_pasteAction = StandardAction::paste(m_tikzEditor, SLOT(paste()), this);
+	m_selectAllAction = StandardAction::selectAll(m_tikzEditor, SLOT(selectAll()), this);
+	m_undoAction->setStatusTip(tr("Undo the previous action"));
+	m_redoAction->setStatusTip(tr("Redo the previous undone action"));
+	m_cutAction->setStatusTip(tr("Cut the current selection's contents to the clipboard"));
+	m_copyAction->setStatusTip(tr("Copy the current selection's contents to the clipboard"));
+	m_pasteAction->setStatusTip(tr("Paste the clipboard's contents into the current selection"));
 	m_selectAllAction->setStatusTip(tr("Select all the content"));
-	connect(m_selectAllAction, SIGNAL(triggered()), m_tikzEditor, SLOT(selectAll()));
+	m_undoAction->setWhatsThis(tr("<p>Undo the previous action.</p>"));
+	m_redoAction->setWhatsThis(tr("<p>Redo the previous undone action.</p>"));
+	m_cutAction->setWhatsThis(tr("<p>Cut the current selection's contents to the clipboard.</p>"));
+	m_copyAction->setWhatsThis(tr("<p>Copy the current selection's contents to the clipboard.</p>"));
+	m_pasteAction->setWhatsThis(tr("<p>Paste the clipboard's contents into the current selection.</p>"));
+	m_selectAllAction->setWhatsThis(tr("<p>Select all the content.</p>"));
 
-	QAction *action;
-	action = new QAction(QIcon(":/images/format-indent-more.png"), tr("&Indent..."), this);
+	Action *action;
+//	action = new Action(Icon("format-indent-more"), tr("&Indent..."), this, "edit_indent");
+	action = new Action(QIcon::fromTheme("format-indent-more", Icon("format-indent-more")), tr("&Indent..."), this, "edit_indent");
 	action->setShortcut(tr("Ctrl+I", "Edit|Indent"));
 	action->setStatusTip(tr("Indent the current line or selection"));
+	action->setWhatsThis(tr("<p>Indent the current line or selection.</p>"));
 	connect(action, SIGNAL(triggered()), this, SLOT(editIndent()));
 	m_editActions.append(action);
 
-	action = new QAction(tr("C&omment"), this);
+	action = new Action(tr("C&omment"), this, "edit_comment");
 	action->setShortcut(tr("Ctrl+D", "Edit|Comment"));
 	action->setStatusTip(tr("Comment the current line or selection"));
+	action->setWhatsThis(tr("<p>Comment the current line or selection.</p>"));
 	connect(action, SIGNAL(triggered()), this, SLOT(editComment()));
 	m_editActions.append(action);
 
-	action = new QAction(tr("Unco&mment"), this);
+	action = new Action(tr("Unco&mment"), this, "edit_uncomment");
 	action->setShortcut(tr("Ctrl+Shift+D", "Edit|Uncomment"));
 	action->setStatusTip(tr("Uncomment the current line or selection"));
+	action->setWhatsThis(tr("<p>Uncomment the current line or selection.</p>"));
 	connect(action, SIGNAL(triggered()), this, SLOT(editUncomment()));
 	m_editActions.append(action);
 
-	action = new QAction(this);
+	action = new Action(this);
 	action->setSeparator(true);
 	m_editActions.append(action);
 
-	action = new QAction(QIcon(":/images/edit-find.png"), tr("&Find..."), this);
-	action->setShortcut(QKeySequence::Find);
-	action->setStatusTip(tr("Look up a piece of text in the document"));
-	connect(action, SIGNAL(triggered()), this, SLOT(editFind()));
-	m_editActions.append(action);
-
-	action = new QAction(QIcon(":/images/go-down.png"), tr("Find &Next"), this);
-	action->setShortcut(QKeySequence::FindNext);
-	action->setStatusTip(tr("Search the next occurrence of a text"));
-	connect(action, SIGNAL(triggered()), this, SLOT(editFindNext()));
-	m_editActions.append(action);
-
-	action = new QAction(QIcon(":/images/go-up.png"), tr("Find Pre&vious"), this);
-	action->setShortcut(QKeySequence::FindPrevious);
-	action->setStatusTip(tr("Search the previous occurrence of a text"));
-	connect(action, SIGNAL(triggered()), this, SLOT(editFindPrevious()));
-	m_editActions.append(action);
-
-	action = new QAction(tr("&Replace..."), this);
-	action->setShortcut(QKeySequence::Replace);
-	action->setStatusTip(tr("Search and replace a piece of text in the document"));
-	connect(action, SIGNAL(triggered()), this, SLOT(editReplace()));
-	m_editActions.append(action);
-
-	action = new QAction(QIcon(":/images/go-jump.png"), tr("&Go to Line..."), this);
-//	action->setShortcut(Qt::CTRL+Qt::Key_G);
-	action->setShortcut(tr("Ctrl+G", "Edit|Go to Line"));
-	action->setStatusTip(tr("Go to a certain line in the document"));
-	connect(action, SIGNAL(triggered()), this, SLOT(editGoToLine()));
-	m_editActions.append(action);
-#endif
+	m_editActions.append(StandardAction::find(this, SLOT(editFind()), this));
+	m_editActions.append(StandardAction::findNext(this, SLOT(editFindNext()), this));
+	m_editActions.append(StandardAction::findPrev(this, SLOT(editFindPrevious()), this));
+	m_editActions.append(StandardAction::replace(this, SLOT(editReplace()), this));
+	m_editActions.append(StandardAction::gotoLine(this, SLOT(editGoToLine()), this));
+	m_editActions.at(4)->setStatusTip(tr("Look up a piece of text in the document"));
+	m_editActions.at(5)->setStatusTip(tr("Search the next occurrence of a text"));
+	m_editActions.at(6)->setStatusTip(tr("Search the previous occurrence of a text"));
+	m_editActions.at(7)->setStatusTip(tr("Search and replace a piece of text in the document"));
+	m_editActions.at(8)->setStatusTip(tr("Go to a certain line in the document"));
+	m_editActions.at(4)->setWhatsThis(tr("<p>Look up a piece of text in the document.</p>"));
+	m_editActions.at(5)->setWhatsThis(tr("<p>Search the next occurrence of a text.</p>"));
+	m_editActions.at(6)->setWhatsThis(tr("<p>Search the previous occurrence of a text.</p>"));
+	m_editActions.at(7)->setWhatsThis(tr("<p>Search and replace a piece of text in the document.</p>"));
+	m_editActions.at(8)->setWhatsThis(tr("<p>Go to a certain line in the document.</p>"));
 
 	m_undoAction->setEnabled(false);
 	m_redoAction->setEnabled(false);
 	m_cutAction->setEnabled(false);
 	m_copyAction->setEnabled(false);
 	m_pasteAction->setEnabled(m_tikzEditor->canPaste());
+
 	connect(m_tikzEditor, SIGNAL(undoAvailable(bool)),
 	        m_undoAction, SLOT(setEnabled(bool)));
 	connect(m_tikzEditor, SIGNAL(redoAvailable(bool)),
@@ -322,7 +199,7 @@ void TikzEditorView::createActions()
 	        this, SLOT(setPasteEnabled()));
 }
 
-QMenu *TikzEditorView::createMenu()
+QMenu *TikzEditorView::menu()
 {
 	QMenu *editMenu = new QMenu(tr("&Edit"), m_parentWidget);
 	editMenu->addAction(m_undoAction);
@@ -338,7 +215,7 @@ QMenu *TikzEditorView::createMenu()
 	return editMenu;
 }
 
-QToolBar *TikzEditorView::createToolBar()
+QToolBar *TikzEditorView::toolBar()
 {
 	QToolBar *editToolBar = new QToolBar(tr("Edit"), m_parentWidget);
 	editToolBar->setObjectName("EditToolBar");
@@ -357,9 +234,7 @@ void TikzEditorView::setPasteEnabled()
 
 void TikzEditorView::applySettings()
 {
-	QSettings settings;
-
-	m_templateWidget->setEditor(settings.value("TemplateEditor", "kwrite").toString());
+	QSettings settings(ORGNAME, APPNAME);
 
 	settings.beginGroup("Editor");
 	QFont editorFont;

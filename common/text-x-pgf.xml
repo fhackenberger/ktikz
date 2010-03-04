@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+    <mime-type type="text/x-pgf">
+        <sub-class-of type="text/plain"/>
+        <comment>PGF document</comment>
+        <comment xml:lang="be@latin">Dakument PGF</comment>
+        <comment xml:lang="bg">Документ — PGF</comment>
+        <comment xml:lang="ca">document PGF</comment>
+        <comment xml:lang="cs">Dokument PGF</comment>
+        <comment xml:lang="da">PGF-dokument</comment>
+        <comment xml:lang="de">PGF-Dokument</comment>
+        <comment xml:lang="el">έγγραφο PGF</comment>
+        <comment xml:lang="en_GB">PGF document</comment>
+        <comment xml:lang="eo">PGF-dokumento</comment>
+        <comment xml:lang="es">documento PGF</comment>
+        <comment xml:lang="eu">PGF dokumentua</comment>
+        <comment xml:lang="fi">PGF-asiakirja</comment>
+        <comment xml:lang="fr">document PGF</comment>
+        <comment xml:lang="ga">cáipéis PGF</comment>
+        <comment xml:lang="hu">PGF-dokumentum</comment>
+        <comment xml:lang="id">Dokumen PGF</comment>
+        <comment xml:lang="it">Documento PGF</comment>
+        <comment xml:lang="ja">PGF ドキュメント</comment>
+        <comment xml:lang="ko">PGF 문서</comment>
+        <comment xml:lang="lt">PGF dokumentas</comment>
+        <comment xml:lang="ms">Dokumen PGF</comment>
+        <comment xml:lang="nb">PGF-dokument</comment>
+        <comment xml:lang="nl">PGF-document</comment>
+        <comment xml:lang="nn">PGF-dokument</comment>
+        <comment xml:lang="pl">Dokument PGF</comment>
+        <comment xml:lang="pt">documento PGF</comment>
+        <comment xml:lang="pt_BR">Documento PGF</comment>
+        <comment xml:lang="ru">документ PGF</comment>
+        <comment xml:lang="sq">Dokument PGF</comment>
+        <comment xml:lang="sr">PGF документ</comment>
+        <comment xml:lang="sv">PGF-dokument</comment>
+        <comment xml:lang="uk">Документ PGF</comment>
+        <comment xml:lang="vi">Tài liệu PGF</comment>
+        <comment xml:lang="zh_CN">PGF 文档</comment>
+        <comment xml:lang="zh_TW">PGF 文件</comment>
+        <acronym>PGF</acronym>
+        <expanded-acronym>Portable Graphics Format</expanded-acronym>
+        <generic-icon name="text-x-pgf"/>
+        <glob pattern="*.pgf"></glob>
+        <glob pattern="*.tikz"></glob>
+        <magic priority="40">
+            <match value="tikzpicture" type="string" offset="0:256"/>
+        </magic>
+    </mime-type>
+</mime-info>

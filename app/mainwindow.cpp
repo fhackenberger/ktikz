@@ -20,73 +20,106 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include <QDebug>
 #include "mainwindow.h"
 
 #ifdef KTIKZ_USE_KDE
-#include <KAction>
+#include <KActionCollection>
+#include <KConfigGroup>
 #include <KLocalizedString>
+#include <KMenuBar>
+#include <KMessageBox>
+#include <KSaveFile>
 #include <KStandardAction>
+#include <KStatusBar>
+#include <KXMLGUIFactory>
+#include <KIO/Job>
+#include <KIO/NetAccess>
+#else
+#include <QMenuBar>
+#include <QStatusBar>
+#include "aboutdialog.h"
 #endif
 
-#include <QAction>
 #include <QCloseEvent>
 #include <QCompleter>
 #include <QDesktopServices>
 #include <QDockWidget>
 #include <QFileDialog>
 #include <QLabel>
-#include <QMenuBar>
 #include <QMessageBox>
 #include <QPlainTextEdit>
 #include <QProcess>
 #include <QSettings>
-#include <QStatusBar>
 #include <QStringListModel>
 #include <QTextStream>
 #include <QToolBar>
 #include <QToolButton>
-#include <QUrl>
+//#include <QUrl>
+#include <QVBoxLayout>
 #include <QWhatsThis>
 
-#include "aboutdialog.h"
 #include "configdialog.h"
 #include "ktikzapplication.h"
 #include "loghighlighter.h"
 #include "logtextedit.h"
+#include "../common/templatewidget.h"
 #include "tikzcommandinserter.h"
 #include "tikzeditorhighlighter.h"
 #include "tikzeditorview.h"
-#include "tikzpreview.h"
-#include "tikzpreviewgenerator.h"
+#include "../common/tikzpreviewcontroller.h"
+#include "../common/tikzpreview.h"
+#include "../common/utils/action.h"
+#include "../common/utils/filedialog.h"
+#include "../common/utils/icon.h"
+#include "../common/utils/recentfilesaction.h"
+#include "../common/utils/standardaction.h"
+#include "../common/utils/toggleaction.h"
+#include "../common/utils/url.h"
 
 #include <poppler-qt4.h>
 
 QList<MainWindow*> MainWindow::s_mainWindowList;
+static const QString s_tempFileName = "tikzcode.pgf";
 
 MainWindow::MainWindow()
 {
 	m_aboutDialog = 0;
 	m_configDialog = 0;
-	m_tikzPdfDoc = 0;
 	m_completer = 0;
 
 	s_mainWindowList.append(this);
+	QStringList themeSearchPaths;
+	themeSearchPaths << QDir::homePath() + "/.local/share/icons/";
+	themeSearchPaths << QIcon::themeSearchPaths();
+	QIcon::setThemeSearchPaths(themeSearchPaths);
 
 	setWindowIcon(QIcon(":/images/ktikz-22.png"));
 	setAttribute(Qt::WA_DeleteOnClose);
+#ifdef KTIKZ_USE_KDE
+	setObjectName("ktikz#");
+	Action::setActionCollection(actionCollection());
+#endif
 
 	setCorner(Qt::TopLeftCorner, Qt::LeftDockWidgetArea);
 	setCorner(Qt::TopRightCorner, Qt::RightDockWidgetArea);
 	setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
 	setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
+	m_tikzPreviewController = new TikzPreviewController(this);
+
 	m_tikzEditorView = new TikzEditorView(this);
 	m_commandInserter = new TikzCommandInserter(this);
 	m_commandInserter->setEditor(m_tikzEditorView->editor());
 	m_tikzHighlighter = new TikzHighlighter(m_commandInserter, m_tikzEditorView->editor()->document());
 	m_tikzHighlighter->rehighlight(); // avoid that textEdit emits the signal contentsChanged() when it is still empty
-	m_tikzView = new TikzPreview(this);
-	m_tikzController = new TikzPreviewGenerator(m_tikzEditorView->editor());
+
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout(mainWidget);
+	mainLayout->setSpacing(0);
+	mainLayout->setMargin(0);
+	mainLayout->addWidget(m_tikzPreviewController->templateWidget());
+	mainLayout->addWidget(m_tikzEditorView);
 
 	m_logDock = new QDockWidget(this);
 	m_logDock->setObjectName("LogDock");
@@ -108,35 +141,40 @@ MainWindow::MainWindow()
 	m_previewDock->setAllowedAreas(Qt::AllDockWidgetAreas);
 	m_previewDock->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
 	m_previewDock->setWindowTitle(tr("Preview"));
-	m_previewDock->setWidget(m_tikzView);
+	m_previewDock->setWidget(m_tikzPreviewController->tikzPreview());
 	addDockWidget(Qt::RightDockWidgetArea, m_previewDock);
 
-	setCentralWidget(m_tikzEditorView);
+	setCentralWidget(mainWidget);
 
 	createActions();
+#ifndef KTIKZ_USE_KDE
 	createToolBars(); // run first in order to be able to add file/editToolBar->toggleViewAction() to the menu
 	createMenus();
+#endif
 	createCommandInsertWidget(); // must happen after createMenus and before readSettings
 	createStatusBar();
+
+#ifdef KTIKZ_USE_KDE
+	setupGUI(ToolBar | Keys | StatusBar | Save);
+	setXMLFile("ktikzui.rc");
+	createGUI();
+	guiFactory()->addClient(this);
+#endif
 
 	connect(m_tikzEditorView, SIGNAL(modificationChanged(bool)),
 	        this, SLOT(setDocumentModified(bool)));
 	connect(m_tikzEditorView, SIGNAL(cursorPositionChanged(int,int)),
 	        this, SLOT(showCursorPosition(int,int)));
-	connect(m_tikzController, SIGNAL(pixmapUpdated(Poppler::Document*)),
-	        m_tikzView, SLOT(pixmapUpdated(Poppler::Document*)));
-	connect(m_tikzController, SIGNAL(shortLogUpdated(QString,bool)),
+	connect(m_tikzPreviewController, SIGNAL(logUpdated(QString,bool)),
 	        m_logTextEdit, SLOT(logUpdated(QString,bool)));
 
 	readSettings(); // must be run after defining tikzController and tikzHighlighter, and after creating the toolbars, and after the connects
 
 	// the following connects must happen after readSettings() because otherwise in that function the following signals would be unnecessarily triggered
 	connect(m_tikzEditorView, SIGNAL(contentsChanged()),
-	        m_tikzController, SLOT(regeneratePreview()));
-	connect(m_tikzEditorView, SIGNAL(templateFileChanged(QString)),
-	        m_tikzController, SLOT(setTemplateFileAndRegenerate(QString)));
+	        m_tikzPreviewController, SLOT(regeneratePreview()));
 
-	setCurrentFile("");
+	setCurrentUrl(Url());
 	setDocumentModified(false);
 	m_tikzEditorView->editor()->setFocus();
 
@@ -151,7 +189,7 @@ MainWindow::~MainWindow()
 
 	writeSettings();
 
-	delete m_tikzController;
+	delete m_tikzPreviewController;
 	m_logHighlighter->deleteLater();
 	m_tikzHighlighter->deleteLater();
 
@@ -159,6 +197,25 @@ MainWindow::~MainWindow()
 	if (dir.exists())
 		QDir::temp().rmdir("ktikz");
 }
+
+#ifdef KTIKZ_USE_KDE
+bool MainWindow::queryClose()
+{
+	return maybeSave();
+}
+
+void MainWindow::readProperties(const KConfigGroup &group)
+{
+	const KUrl url(group.readPathEntry("CurrentUrl", QString()));
+	if (url.isValid() && !url.isEmpty())
+		loadUrl(url);
+}
+
+void MainWindow::saveProperties(KConfigGroup &group)
+{
+	group.writePathEntry("CurrentUrl", m_currentUrl.url());
+}
+#endif
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
@@ -182,79 +239,33 @@ void MainWindow::closeFile()
 	if (maybeSave())
 	{
 		m_tikzEditorView->editor()->clear();
-		setCurrentFile("");
-		m_tikzController->abortProcess(); // abort still running processes
-		m_tikzView->pixmapUpdated(0); // empty preview
+		setCurrentUrl(Url());
+		m_tikzPreviewController->emptyPreview(); // abort still running processes
 		m_logTextEdit->logUpdated("", false); // clear log window
 	}
 }
 
 void MainWindow::open()
 {
-	QString lastDir;
-	if (!m_lastDocument.isEmpty())
-	{
-		const QFileInfo lastFileInfo(m_lastDocument);
-		lastDir = lastFileInfo.absolutePath();
-	}
-	const QString filter = QString("%1 (*.pgf *.tikz *.tex);;%2 (*.*)").arg(tr("PGF files")).arg(tr("All files"));
-	const QString fileName = QFileDialog::getOpenFileName(this, tr("Open PGF source file"), lastDir, filter);
-	if (!fileName.isEmpty())
-		loadFile(fileName);
+	const Url openUrl = FileDialog::getOpenUrl(this, tr("Open PGF source file"), m_lastUrl, QString("*.pgf *.tikz *.tex|%1\n*|%2").arg(tr("PGF files", "filter")).arg(tr("All files", "filter")));
+	if (openUrl.isValid() && !openUrl.isEmpty())
+		loadUrl(openUrl);
 }
 
 bool MainWindow::save()
 {
-	if (m_currentFile.isEmpty())
+	if (!m_currentUrl.isValid() || m_currentUrl.isEmpty())
 		return saveAs();
 	else
-		return saveFile(m_currentFile);
+		return saveUrl(m_currentUrl);
 }
 
 bool MainWindow::saveAs()
 {
-	QString lastDir;
-	if (!m_lastDocument.isEmpty())
-	{
-		const QFileInfo lastFileInfo(m_lastDocument);
-		lastDir = (m_currentFile.isEmpty()) ? lastFileInfo.absolutePath() : lastFileInfo.absoluteFilePath();
-	}
-	const QString filter = QString("%1 (*.pgf *.tikz *.tex);;%2 (*.*)").arg(tr("PGF files")).arg(tr("All files"));
-	const QString fileName = QFileDialog::getSaveFileName(this, tr("Save PGF source file"), lastDir, filter);
-	if (fileName.isEmpty())
+	const Url saveAsUrl = FileDialog::getSaveUrl(this, tr("Save PGF source file"), m_currentUrl, QString("*.pgf *.tikz *.tex|%1\n*|%2").arg(tr("PGF files", "filter")).arg(tr("All files", "filter")));
+	if (!saveAsUrl.isValid() || saveAsUrl.isEmpty())
 		return false;
-
-	return saveFile(fileName);
-}
-
-bool MainWindow::exportImage()
-{
-	QAction *action = qobject_cast<QAction*>(sender());
-
-	QPixmap tikzImage = m_tikzView->getPixmap();
-	if (tikzImage.isNull()) return false;
-
-	QString lastDir;
-	if (!m_lastDocument.isEmpty())
-	{
-		QFileInfo lastFileInfo(m_lastDocument);
-		lastDir = lastFileInfo.absolutePath() + "/" + lastFileInfo.completeBaseName() + "." + action->data().toString();
-	}
-	QString filter = QString("%1 (*." + action->data().toString() + ");;%2 (*.*)").arg(action->text().remove('&')).arg(tr("All files"));
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Export image"), lastDir, filter);
-	if (!fileName.isEmpty())
-	{
-		QString type = action->data().toString();
-		if (type == "png")
-		{
-			if (!fileName.endsWith(".png"))
-				fileName = fileName + ".png";
-			return tikzImage.save(fileName, "PNG");
-		}
-		else
-			return m_tikzController->exportImage(fileName, type);
-	}
-	return false;
+	return saveUrl(saveAsUrl);
 }
 
 /***************************************************************************/
@@ -263,25 +274,29 @@ void MainWindow::showTikzDocumentation()
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
-	QSettings settings;
-	settings.beginGroup("General");
+	QSettings settings(ORGNAME, APPNAME);
 	QString tikzDocFile = settings.value("TikzDocumentation").toString();
-	settings.endGroup();
-	if (tikzDocFile.isEmpty())
+
+	if (tikzDocFile.isEmpty() || !QFileInfo(tikzDocFile).exists())
 		QMessageBox::warning(this, KtikzApplication::applicationName(),
-		                     tr("Cannot find TikZ documentation."));
+		    tr("Cannot find TikZ documentation.\n"
+		    "Go to Settings -> Configure %1 and change in the \"General\" tab "
+            "the path to the TikZ documentation.")
+		    .arg(KtikzApplication::applicationName()));
 	else
 		QDesktopServices::openUrl(QUrl("file://" + tikzDocFile));
 
 	QApplication::restoreOverrideCursor();
 }
 
+#ifndef KTIKZ_USE_KDE
 void MainWindow::about()
 {
 	if (!m_aboutDialog)
 		m_aboutDialog = new AboutDialog(this);
 	m_aboutDialog->exec();
 }
+#endif
 
 /***************************************************************************/
 
@@ -294,25 +309,13 @@ void MainWindow::setDocumentModified(bool isModified)
 {
 	setWindowModified(isModified);
 	m_saveAction->setEnabled(isModified);
-	if (m_currentFile.isEmpty() && !isModified)
-		m_saveAsAction->setEnabled(false);
-	else
-		m_saveAsAction->setEnabled(true);
+	m_saveAsAction->setEnabled(m_currentUrl.isValid() && !m_currentUrl.isEmpty());
 }
 
 void MainWindow::logUpdated()
 {
-	m_logTextEdit->logUpdated(m_tikzController->getLogText(), m_tikzController->hasRunFailed());
-}
-
-void MainWindow::setProcessRunning(bool isRunning)
-{
-	m_procStopAction->setEnabled(isRunning);
-	if (isRunning)
-		QApplication::setOverrideCursor(Qt::BusyCursor);
-	else
-		QApplication::restoreOverrideCursor();
-	m_tikzView->setProcessRunning(isRunning);
+	m_logTextEdit->logUpdated(m_tikzPreviewController->getLogText());
+//	m_logTextEdit->logUpdated(m_tikzController->getLogText(), m_tikzController->hasRunFailed());
 }
 
 /***************************************************************************/
@@ -329,160 +332,63 @@ void MainWindow::toggleWhatsThisMode()
 
 void MainWindow::createActions()
 {
-#ifdef KTIKZ_USE_KDE
 	/* Open */
+	m_newAction = StandardAction::openNew(this, SLOT(newFile()), this);
+	m_openAction = StandardAction::open(this, SLOT(open()), this);
+	m_openRecentAction = StandardAction::openRecent(this, SLOT(loadUrl(Url)), this);
+	m_saveAction = StandardAction::save(this, SLOT(save()), this);
+	m_saveAsAction = StandardAction::saveAs(this, SLOT(saveAs()), this);
+	m_closeAction = StandardAction::close(this, SLOT(closeFile()), this);
+	m_exitAction = StandardAction::quit(this, SLOT(close()), this);
 
-	m_newAction = KStandardAction::openNew(this, SLOT(newFile()), this);
-	m_newAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Create a new document</para>"));
+	m_newAction->setStatusTip(tr("Create a new document"));
+	m_openAction->setStatusTip(tr("Open an existing file"));
+	m_openRecentAction->setStatusTip(tr("Open a recently opened file"));
+	m_saveAction->setStatusTip(tr("Save the current document to disk"));
+	m_saveAsAction->setStatusTip(tr("Save the document under a new name"));
+	m_closeAction->setStatusTip(tr("Close the current document"));
+	m_exitAction->setStatusTip(tr("Exit the application"));
 
-	m_openAction = KStandardAction::open(this, SLOT(open()), this);
-	m_openAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Open an existing file</para>"));
-
-	m_saveAction = KStandardAction::save(this, SLOT(save()), this);
-	m_saveAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Save the current document to disk</para>"));
-
-	m_saveAsAction = KStandardAction::saveAs(this, SLOT(saveAs()), this);
-	m_saveAsAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Save the document under a new name</para>"));
-
-	m_closeAction = KStandardAction::close(this, SLOT(closeFile()), this);
-	m_closeAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Close the current document</para>"));
-
-	m_exitAction = KStandardAction::quit(this, SLOT(close()), this);
-	m_exitAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Exit the application</para>"));
-
-	m_exportEpsAction = new KAction(KIcon("images-x-eps"), i18n("Encapsulated PostScript (EPS)"), this);
-	m_exportEpsAction->setData("eps");
-	connect(m_exportEpsAction, SIGNAL(triggered()), this, SLOT(exportImage()));
-
-	m_exportPdfAction = new KAction(KIcon("application-pdf"), i18n("Portable Document Format (PDF)"), this);
-	m_exportPdfAction->setData("pdf");
-	connect(m_exportPdfAction, SIGNAL(triggered()), this, SLOT(exportImage()));
-
-	m_exportPngAction = new KAction(KIcon("image-png"), i18n("Portable Network Graphics (PNG)"), this);
-	m_exportPngAction->setData("png");
-	connect(m_exportPngAction, SIGNAL(triggered()), this, SLOT(exportImage()));
+	m_newAction->setWhatsThis(tr("<p>Create a new document.</p>"));
+	m_openAction->setWhatsThis(tr("<p>Open an existing file.</p>"));
+	m_openRecentAction->setWhatsThis(tr("<p>Open a recently opened file.</p>"));
+	m_saveAction->setWhatsThis(tr("<p>Save the current document to disk.</p>"));
+	m_saveAsAction->setWhatsThis(tr("<p>Save the document under a new name.</p>"));
+	m_closeAction->setWhatsThis(tr("<p>Close the current document.</p>"));
+	m_exitAction->setWhatsThis(tr("<p>Exit the application.</p>"));
 
 	/* View */
-
-	m_procStopAction = new KAction(KIcon("process-stop"), i18n("&Stop Process"), this);
-	m_procStopAction->setShortcut(i18nc("View|Stop Process", "Escape"));
-	m_procStopAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Abort the execution of the currently running process</para>"));
-	m_procStopAction->setEnabled(false);
-	connect(m_procStopAction, SIGNAL(triggered()), m_tikzController, SLOT(abortProcess()));
-
-	m_viewLogAction = new KAction(KIcon("run-build"), i18n("View &Log"), this);
-	m_viewLogAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Show the log messages produced by the last executed process in the Messages box.</para>"));
-	connect(m_viewLogAction, SIGNAL(triggered()), this, SLOT(logUpdated()));
-
-	m_shellEscapeAction = new KAction(KIcon("application-x-executable"), i18n("S&hell Escape"), this);
-	m_shellEscapeAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.</para>"
-	    "<para><warning>Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.</warning></para>"));
-	connect(m_shellEscapeAction, SIGNAL(triggered()), this, SLOT(toggleShellEscaping()));
-
-	/* Configure */
-
-	m_configureAction = KStandardAction::preferences(this, SLOT(configure()), this);
-	m_configureAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Configure the settings of this application</para>"));
-
-	/* Help */
-
-	m_showTikzDocAction = KStandardAction::helpContents(this, SLOT(showTikzDocumentation()), this);
-	m_showTikzDocAction->setText(i18n("TikZ &Manual"));
-	m_showTikzDocAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Show the manual of TikZ and PGF</para>"));
-
-	m_whatsThisAction = KStandardAction::whatsThis(this, SLOT(toggleWhatsThisMode()), this);
-#else
-	/* Open */
-
-	QString newWhatsThis = tr("Create a new document");
-	m_newAction = new QAction(QIcon(":/images/document-new.png"), tr("&New"), this);
-	m_newAction->setShortcut(QKeySequence::New);
-	m_newAction->setStatusTip(newWhatsThis);
-	m_newAction->setWhatsThis("<p>" + newWhatsThis + "</p>");
-	connect(m_newAction, SIGNAL(triggered()), this, SLOT(newFile()));
-
-	QString openWhatsThis = tr("Open an existing file");
-	m_openAction = new QAction(QIcon(":/images/document-open.png"), tr("&Open..."), this);
-	m_openAction->setShortcut(QKeySequence::Open);
-	m_openAction->setStatusTip(openWhatsThis);
-	m_openAction->setWhatsThis("<p>" + openWhatsThis + "</p>");
-	connect(m_openAction, SIGNAL(triggered()), this, SLOT(open()));
-
-	QString saveWhatsThis = tr("Save the current document to disk");
-	m_saveAction = new QAction(QIcon(":/images/document-save.png"), tr("&Save"), this);
-	m_saveAction->setShortcut(QKeySequence::Save);
-	m_saveAction->setStatusTip(saveWhatsThis);
-	m_saveAction->setWhatsThis("<p>" + saveWhatsThis + "</p>");
-	connect(m_saveAction, SIGNAL(triggered()), this, SLOT(save()));
-
-	QString saveAsWhatsThis = tr("Save the document under a new name");
-	m_saveAsAction = new QAction(QIcon(":/images/document-save-as.png"), tr("Save &As..."), this);
-	m_saveAsAction->setStatusTip(saveAsWhatsThis);
-	m_saveAsAction->setWhatsThis("<p>" + saveAsWhatsThis + "</p>");
-	connect(m_saveAsAction, SIGNAL(triggered()), this, SLOT(saveAs()));
-
-	QString closeWhatsThis = tr("Close the current document");
-	m_closeAction = new QAction(QIcon(":/images/window-close.png"), tr("&Close"), this);
-	m_closeAction->setShortcut(QKeySequence::Close);
-	m_closeAction->setStatusTip(closeWhatsThis);
-	m_closeAction->setToolTip(tr("Close File"));
-	m_closeAction->setWhatsThis("<p>" + closeWhatsThis + "</p>");
-	connect(m_closeAction, SIGNAL(triggered()), this, SLOT(closeFile()));
-
-	QString exitWhatsThis = tr("Exit the application");
-	m_exitAction = new QAction(QIcon(":/images/application-exit.png"), tr("&Quit"), this);
-	m_exitAction->setShortcut(tr("Ctrl+Q", "File|Quit"));
-	m_exitAction->setStatusTip(exitWhatsThis);
-	m_exitAction->setWhatsThis("<p>" + exitWhatsThis + "</p>");
-	connect(m_exitAction, SIGNAL(triggered()), this, SLOT(close()));
-
-	m_exportEpsAction = new QAction(QIcon(":/images/image-x-eps.png"), tr("Encapsulated PostScript (EPS)"), this);
-	m_exportEpsAction->setData("eps");
-	m_exportEpsAction->setStatusTip(tr("Export to PostScript"));
-	connect(m_exportEpsAction, SIGNAL(triggered()), this, SLOT(exportImage()));
-
-	m_exportPdfAction = new QAction(QIcon(":/images/application-pdf.png"), tr("Portable Document Format (PDF)"), this);
-	m_exportPdfAction->setData("pdf");
-	m_exportPdfAction->setStatusTip(tr("Export to PDF"));
-	connect(m_exportPdfAction, SIGNAL(triggered()), this, SLOT(exportImage()));
-
-	m_exportPngAction = new QAction(QIcon(":/images/image-png.png"), tr("Portable Network Graphics (PNG)"), this);
-	m_exportPngAction->setData("png");
-	m_exportPngAction->setStatusTip(tr("Export to PNG"));
-	connect(m_exportPngAction, SIGNAL(triggered()), this, SLOT(exportImage()));
-
-	/* View */
-
-	m_procStopAction = new QAction(QIcon(":/images/process-stop.png"), tr("&Stop Process"), this);
-	m_procStopAction->setShortcut(tr("Escape", "View|Stop process"));
-	m_procStopAction->setStatusTip(tr("Abort current process"));
-	m_procStopAction->setWhatsThis(tr("<p>Abort the execution of the currently running process.</p>"));
-	m_procStopAction->setEnabled(false);
-	connect(m_procStopAction, SIGNAL(triggered()), m_tikzController, SLOT(abortProcess()));
-
-	m_viewLogAction = new QAction(QIcon(":/images/run-build.png"), tr("View &Log"), this);
+//	m_viewLogAction = new Action(Icon("run-build"), tr("View &Log"), this, "view_log");
+	m_viewLogAction = new Action(QIcon::fromTheme("run-build", Icon("run-build")), tr("View &Log"), this, "view_log");
 	m_viewLogAction->setStatusTip(tr("View log messages produced by the last executed process"));
 	m_viewLogAction->setWhatsThis(tr("<p>Show the log messages produced by the last executed process in the Messages box.</p>"));
 	connect(m_viewLogAction, SIGNAL(triggered()), this, SLOT(logUpdated()));
 
-	m_shellEscapeAction = new QAction(QIcon(":/images/application-x-executable.png"), tr("S&hell Escape"), this);
-	m_shellEscapeAction->setStatusTip(tr("Enable the \\write18{shell-command} feature"));
-	m_shellEscapeAction->setWhatsThis(tr("<p>Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ."
-	    "</p><p><strong>Warning:</strong> Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.</p>"));
-	connect(m_shellEscapeAction, SIGNAL(triggered()), this, SLOT(toggleShellEscaping()));
-
 	/* Configure */
-
-	m_configureAction = new QAction(QIcon(":/images/configure.png"), tr("&Configure %1...").arg(KtikzApplication::applicationName()), this);
+	m_configureAction = StandardAction::preferences(this, SLOT(configure()), this);
+	m_configureAction->setText(tr("&Configure %1...").arg(KtikzApplication::applicationName()));
 	m_configureAction->setStatusTip(tr("Configure the settings of this application"));
-	connect(m_configureAction, SIGNAL(triggered()), this, SLOT(configure()));
+	m_configureAction->setWhatsThis(tr("<p>Configure the settings of this application.</p>"));
+
+#ifdef KTIKZ_USE_KDE
+	actionCollection()->addAction("toggle_preview", m_previewDock->toggleViewAction());
+	actionCollection()->addAction("toggle_log", m_logDock->toggleViewAction());
+#endif
 
 	/* Help */
-
-	m_showTikzDocAction = new QAction(QIcon(":/images/help-contents.png"), tr("TikZ &Manual"), this);
+//	m_showTikzDocAction = new Action(Icon("help-contents"), tr("TikZ &Manual"), this, "show_tikz_doc");
+	m_showTikzDocAction = new Action(QIcon::fromTheme("help-contents", Icon("help-contents")), tr("TikZ &Manual"), this, "show_tikz_doc");
 	m_showTikzDocAction->setStatusTip(tr("Show the manual of TikZ and PGF"));
+	m_showTikzDocAction->setWhatsThis(tr("<p>Show the manual of TikZ and PGF.</p>"));
 	connect(m_showTikzDocAction, SIGNAL(triggered()), this, SLOT(showTikzDocumentation()));
-#endif
+
+#ifdef KTIKZ_USE_KDE
+	m_whatsThisAction = KStandardAction::whatsThis(this, SLOT(toggleWhatsThisMode()), this);
+#else
+	m_whatsThisAction = QWhatsThis::createAction(this);
+//	m_whatsThisAction->setIcon(QIcon(":/images/help-contextual.png"));
+	m_whatsThisAction->setIcon(QIcon::fromTheme("help-contextual", QIcon(":/images/help-contextual.png")));
+	m_whatsThisAction->setStatusTip(tr("Show simple description of any widget"));
 
 	m_aboutAction = new QAction(QIcon(":/images/ktikz-22.png"), tr("&About %1").arg(KtikzApplication::applicationName()), this);
 	m_aboutAction->setStatusTip(tr("Show the application's About box"));
@@ -491,67 +397,36 @@ void MainWindow::createActions()
 	m_aboutQtAction = new QAction(QIcon(":/images/qt-logo-22.png"), tr("About &Qt"), this);
 	m_aboutQtAction->setStatusTip(tr("Show the Qt library's About box"));
 	connect(m_aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
-
-#ifndef KTIKZ_USE_KDE
-	m_whatsThisAction = QWhatsThis::createAction(this);
-	m_whatsThisAction->setIcon(QIcon(":/images/help-contextual.png"));
-	m_whatsThisAction->setStatusTip(tr("Show simple description of any widget"));
 #endif
-
-	connect(m_tikzController, SIGNAL(processRunning(bool)),
-	        this, SLOT(setProcessRunning(bool)));
 }
 
+#ifndef KTIKZ_USE_KDE
 void MainWindow::createMenus()
 {
-	m_recentMenu = new QMenu(tr("Open &Recent"), this);
-#ifdef KTIKZ_USE_KDE
-	m_recentMenu->setIcon(KIcon("document-open-recent"));
-#else
-	m_recentMenu->setIcon(QIcon(":/images/document-open-recent.png"));
-	m_recentMenu->menuAction()->setStatusTip(tr("Open a recently opened file"));
-#endif
-
-	QMenu *exportMenu = new QMenu(tr("E&xport"), this);
-#ifdef KTIKZ_USE_KDE
-	exportMenu->setIcon(KIcon("document-export"));
-#else
-	exportMenu->setIcon(QIcon(":/images/document-export.png"));
-	exportMenu->menuAction()->setStatusTip(tr("Export image to various formats"));
-#endif
-	exportMenu->addAction(m_exportEpsAction);
-	exportMenu->addAction(m_exportPdfAction);
-	exportMenu->addAction(m_exportPngAction);
-
 	QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
 	fileMenu->addAction(m_newAction);
 	fileMenu->addAction(m_openAction);
-	fileMenu->addMenu(m_recentMenu);
+	fileMenu->addAction(m_openRecentAction);
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_saveAction);
 	fileMenu->addAction(m_saveAsAction);
-	fileMenu->addMenu(exportMenu);
+	fileMenu->addAction(m_tikzPreviewController->exportAction());
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_closeAction);
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_exitAction);
 
-	menuBar()->addMenu(m_tikzEditorView->createMenu());
+	menuBar()->addMenu(m_tikzEditorView->menu());
 
-	QMenu *viewMenu = menuBar()->addMenu(tr("&View"));
-	viewMenu->addActions(m_tikzView->getActions());
-	viewMenu->addSeparator();
-	viewMenu->addAction(m_procStopAction);
+	QMenu *viewMenu = m_tikzPreviewController->menu();
 	viewMenu->addAction(m_viewLogAction);
+	menuBar()->addMenu(viewMenu);
 
 	m_settingsMenu = menuBar()->addMenu(tr("&Settings"));
 	QMenu *toolBarMenu = new QMenu(tr("&Toolbars"), this);
-#ifdef KTIKZ_USE_KDE
-	toolBarMenu->setIcon(KIcon("configure-toolbars"));
-#else
-	toolBarMenu->setIcon(QIcon(":/images/configure-toolbars.png"));
+//	toolBarMenu->setIcon(Icon("configure-toolbars"));
+	toolBarMenu->setIcon(QIcon::fromTheme("configure-toolbars", Icon("configure-toolbars")));
 	toolBarMenu->menuAction()->setStatusTip(tr("Show or hide toolbars"));
-#endif
 	toolBarMenu->addAction(m_fileToolBar->toggleViewAction());
 	toolBarMenu->addAction(m_editToolBar->toggleViewAction());
 	toolBarMenu->addAction(m_viewToolBar->toggleViewAction());
@@ -562,12 +437,9 @@ void MainWindow::createMenus()
 	m_runToolBar->toggleViewAction()->setStatusTip(tr("Show toolbar \"%1\"").arg(m_runToolBar->windowTitle()));
 	m_settingsMenu->addMenu(toolBarMenu);
 	m_sideBarMenu = new QMenu(tr("&Sidebars"), this);
-#ifdef KTIKZ_USE_KDE
-	m_sideBarMenu->setIcon(KIcon("configure-toolbars"));
-#else
-	m_sideBarMenu->setIcon(QIcon(":/images/configure-toolbars.png"));
+//	m_sideBarMenu->setIcon(Icon("configure-toolbars"));
+	m_sideBarMenu->setIcon(QIcon::fromTheme("configure-toolbars", Icon("configure-toolbars")));
 	m_sideBarMenu->menuAction()->setStatusTip(tr("Show or hide sidebars"));
-#endif
 	m_sideBarMenu->addAction(m_previewDock->toggleViewAction());
 	m_sideBarMenu->addAction(m_logDock->toggleViewAction());
 	m_previewDock->toggleViewAction()->setStatusTip(tr("Show sidebar \"%1\"").arg(m_previewDock->windowTitle()));
@@ -601,28 +473,22 @@ void MainWindow::createToolBars()
 	m_fileToolBar->addAction(m_saveAction);
 	m_fileToolBar->addAction(m_closeAction);
 
-	m_editToolBar = m_tikzEditorView->createToolBar();
+	m_editToolBar = m_tikzEditorView->toolBar();
 	addToolBar(m_editToolBar);
 
-	m_viewToolBar = m_tikzView->getViewToolBar();
-	addToolBar(m_viewToolBar);
-
-	m_runToolBar = addToolBar(tr("Run"));
-	m_runToolBar->setObjectName("RunToolBar");
-	m_runToolBar->addAction(m_procStopAction);
-	m_runToolBar->addAction(m_viewLogAction);
-
-	m_shellEscapeButton = new QToolButton(this);
-	m_shellEscapeButton->setDefaultAction(m_shellEscapeAction);
-	m_shellEscapeButton->setCheckable(true);
-	m_runToolBar->addWidget(m_shellEscapeButton);
+	QList<QToolBar*> viewAndRunToolBars = m_tikzPreviewController->toolBars();
+	addToolBar(viewAndRunToolBars.at(0));
+	viewAndRunToolBars.at(1)->addAction(m_viewLogAction);
+	addToolBar(viewAndRunToolBars.at(1));
+	m_viewToolBar = viewAndRunToolBars.at(0);
+	m_runToolBar = viewAndRunToolBars.at(1);
 
 	setToolBarStyle();
 }
 
 void MainWindow::setToolBarStyle()
 {
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup("MainWindow");
 
 	int toolBarStyleNumber = settings.value("ToolBarStyle", 0).toInt();
@@ -637,28 +503,39 @@ void MainWindow::setToolBarStyle()
 
 	m_fileToolBar->setToolButtonStyle(toolBarStyle);
 	m_editToolBar->setToolButtonStyle(toolBarStyle);
-	m_viewToolBar->setToolButtonStyle(toolBarStyle);
-	m_runToolBar->setToolButtonStyle(toolBarStyle);
-	m_shellEscapeButton->setToolButtonStyle(toolBarStyle);
+	m_tikzPreviewController->setToolBarStyle(toolBarStyle);
 
 	settings.endGroup();
 }
+#endif
 
 void MainWindow::createCommandInsertWidget()
 {
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	bool commandsInDock = settings.value("CommandsInDock", false).toBool();
+
 	if (commandsInDock)
 	{
 		m_commandsDock = m_commandInserter->getDockWidget(this);
 		addDockWidget(Qt::LeftDockWidgetArea, m_commandsDock);
 		connect(m_commandInserter, SIGNAL(showStatusMessage(QString,int)), statusBar(), SLOT(showMessage(QString,int)));
 
+#ifdef KTIKZ_USE_KDE
+		actionCollection()->addAction("toggle_commands_list", m_commandsDock->toggleViewAction());
+#else
 		m_sideBarMenu->insertAction(m_sideBarMenu->actions().at(1), m_commandsDock->toggleViewAction());
+#endif
 		connect(m_commandsDock->toggleViewAction(), SIGNAL(toggled(bool)), this, SLOT(setDockWidgetStatusTip(bool)));
 	}
 	else
+	{
+#ifdef KTIKZ_USE_KDE
+		KAction *insertAction = new Action(tr("&Insert"), this, "insert");
+		insertAction->setMenu(m_commandInserter->getMenu());
+#else
 		menuBar()->insertMenu(m_settingsMenu->menuAction(), m_commandInserter->getMenu());
+#endif
+	}
 }
 
 void MainWindow::createStatusBar()
@@ -704,44 +581,20 @@ void MainWindow::configure()
 		m_configDialog->setDefaultHighlightFormats(m_tikzHighlighter->getDefaultHighlightFormats());
 		connect(m_configDialog, SIGNAL(settingsChanged()), this, SLOT(applySettings()));
 	}
+	disconnect(m_tikzEditorView, SIGNAL(contentsChanged()),
+	           m_tikzPreviewController, SLOT(regeneratePreview()));
 	m_configDialog->readSettings();
 	m_configDialog->exec();
-}
-
-void MainWindow::toggleShellEscaping()
-{
-	m_useShellEscaping = !m_shellEscapeButton->isChecked();
-	m_shellEscapeButton->setChecked(m_useShellEscaping);
-
-	QSettings settings;
-	settings.setValue("UseShellEscaping", m_useShellEscaping);
-
-	m_tikzController->setShellEscaping(m_useShellEscaping);
-	m_tikzController->generatePreview();
+	connect(m_tikzEditorView, SIGNAL(contentsChanged()),
+	        m_tikzPreviewController, SLOT(regeneratePreview()));
 }
 
 void MainWindow::applySettings()
 {
-	QSettings settings;
-
-	m_numOfRecentFiles = settings.value("RecentFilesNumber", 5).toInt();
-	QString latexCommand = settings.value("LatexCommand", "pdflatex").toString();
-	QString pdftopsCommand = settings.value("PdftopsCommand", "pdftops").toString();
-	m_tikzController->setLatexCommand(latexCommand);
-	m_tikzController->setPdftopsCommand(pdftopsCommand);
-
-	m_useShellEscaping = settings.value("UseShellEscaping", false).toBool();
-	m_shellEscapeButton->setChecked(m_useShellEscaping);
-	m_tikzController->setShellEscaping(m_useShellEscaping);
-
-	QString replaceText = settings.value("TemplateReplaceText", "<>").toString();
-	m_tikzEditorView->setReplaceText(replaceText);
-	m_tikzController->setReplaceText(replaceText); // first set replaceText before setting templateFile
-	QString templateFile = settings.value("TemplateFile").toString();
-	m_tikzEditorView->setTemplateFile(templateFile);
-	m_tikzController->setTemplateFile(templateFile);
+	QSettings settings(ORGNAME, APPNAME);
 
 	m_tikzEditorView->applySettings();
+	m_tikzPreviewController->applySettings();
 
 	settings.beginGroup("Editor");
 	m_useCompletion = settings.value("UseCompletion", true).toBool();
@@ -784,13 +637,17 @@ void MainWindow::applySettings()
 	m_tikzHighlighter->setTextCharFormats(formatList);
 	m_tikzHighlighter->rehighlight();
 
-	createRecentFilesList();
+	m_openRecentAction->createRecentFilesList();
+#ifndef KTIKZ_USE_KDE
 	setToolBarStyle();
+#endif
 }
 
 void MainWindow::readSettings()
 {
-	QSettings settings;
+	m_openRecentAction->loadEntries();
+
+	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup("MainWindow");
 //	QPoint pos = settings.value("pos", QPoint(200, 200)).toPoint();
 //	move(pos);
@@ -799,17 +656,16 @@ void MainWindow::readSettings()
 	restoreState(settings.value("MainWindowState").toByteArray());
 	settings.endGroup();
 
-	m_recentFilesList = settings.value("RecentFiles").toStringList();
-	m_lastDocument = settings.value("LastDocument").toString();
-
 	applySettings();
 }
 
 void MainWindow::writeSettings()
 {
-	QSettings settings;
+	m_openRecentAction->saveEntries();
 
-	settings.setValue("TemplateFile", m_tikzEditorView->templateFile());
+	QSettings settings(ORGNAME, APPNAME);
+
+//	settings.setValue("TemplateFile", m_tikzEditorView->templateFile());
 
 	settings.beginGroup("MainWindow");
 //	settings.setValue("pos", pos());
@@ -827,10 +683,6 @@ void MainWindow::writeSettings()
 	settings.setValue("ToolBarStyle", toolBarStyleNumber);
 */
 	settings.endGroup();
-
-	if (m_recentFilesList.size() > 0)
-		settings.setValue("RecentFiles", m_recentFilesList);
-	settings.setValue("LastDocument", m_lastDocument);
 }
 
 /***************************************************************************/
@@ -853,163 +705,171 @@ bool MainWindow::maybeSave()
 	return true;
 }
 
-void MainWindow::loadFile(const QString &fileName)
+void MainWindow::loadUrl(const Url &url)
 {
 	// check whether the file can be opened
-	QFile file(fileName);
-	if (!file.open(QFile::ReadOnly | QFile::Text))
+#ifdef KTIKZ_USE_KDE
+	if (!url.isValid() || url.isEmpty())
+		return;
+
+	const QString localFileName = url.isLocalFile() ? url.path() : m_tikzPreviewController->tempDir() + s_tempFileName;
+
+	if (!url.isLocalFile() && KIO::NetAccess::exists(url, KIO::NetAccess::SourceSide, this))
 	{
-		QMessageBox::warning(this, KtikzApplication::applicationName(),
-		                     tr("Cannot read file %1:\n%2.")
-		                     .arg(fileName)
-		                     .arg(file.errorString()));
-		removeFromRecentFilesList(fileName);
+		KIO::Job *job = KIO::file_copy(url, KUrl::fromPath(localFileName), -1, KIO::Overwrite | KIO::HideProgressInfo);
+		if (!KIO::NetAccess::synchronousRun(job, this))
+		{
+//			KMessageBox::information(this, i18nc("@info", "Could not copy <filename>%1</filename> to temporary file <filename>%2</filename>.", url.prettyUrl(), localFileName));
+			KMessageBox::information(this, tr("Could not copy \"%1\" to temporary file \"%2\".").arg(url.prettyUrl()).arg(localFileName));
+			return;
+		}
+	}
+
+	QFile localFile(localFileName);
+	if (!localFile.open(QFile::ReadOnly | QFile::Text))
+	{
+//		KMessageBox::error(this, i18nc("@info", "Cannot read file <filename>%1</filename>:<nl/><message>%2</message>", localFileName, localFile.errorString()), i18nc("@title:window", "File Read Error"));
+		KMessageBox::error(this, tr("Cannot read file \"%1\":\n%2").arg(localFileName).arg(localFile.errorString()), tr("File Read Error", "@title:window"));
+		m_openRecentAction->removeUrl(url);
 		return;
 	}
+#else
+	const QString fileName = url.path();
+	QFile localFile(fileName);
+	if (!localFile.open(QFile::ReadOnly | QFile::Text))
+	{
+		QMessageBox::warning(this, KtikzApplication::applicationName(),
+		                     tr("Cannot read file \"%1\":\n%2.")
+		                     .arg(fileName)
+		                     .arg(localFile.errorString()));
+		m_openRecentAction->removeUrl(Url(fileName));
+		return;
+	}
+#endif
 
 	// only open a new window (if necessary) if the file can actually be opened
 	if (!m_tikzEditorView->editor()->document()->isEmpty())
 	{
 		MainWindow *newMainWindow = new MainWindow;
-		newMainWindow->loadFile(fileName);
+		newMainWindow->loadUrl(url);
 		newMainWindow->show();
 		return;
 	}
 
 	// load the file and generate preview
 	disconnect(m_tikzEditorView, SIGNAL(contentsChanged()),
-	           m_tikzController, SLOT(regeneratePreview()));
-	QTextStream in(&file);
+	           m_tikzPreviewController, SLOT(regeneratePreview()));
+	QTextStream in(&localFile);
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	m_tikzEditorView->editor()->setPlainText(in.readAll());
 	QApplication::restoreOverrideCursor();
-	m_tikzController->generatePreview();
+	m_tikzPreviewController->generatePreview();
 	connect(m_tikzEditorView, SIGNAL(contentsChanged()),
-	        m_tikzController, SLOT(regeneratePreview()));
+	        m_tikzPreviewController, SLOT(regeneratePreview()));
 
-	m_lastDocument = fileName;
-	setCurrentFile(fileName);
-	addToRecentFilesList(fileName);
+	m_lastUrl = url;
+	setCurrentUrl(url);
+	m_openRecentAction->addUrl(url);
 	statusBar()->showMessage(tr("File loaded"), 2000);
 }
 
-bool MainWindow::saveFile(const QString &fileName)
+bool MainWindow::saveUrl(const Url &url)
 {
-	QFile file(fileName);
-	if (!file.open(QFile::WriteOnly | QFile::Text))
+	if (!url.isValid() || url.isEmpty())
+		return false;
+
+#ifdef KTIKZ_USE_KDE
+	const QString localFileName = url.isLocalFile() ? url.path() : m_tikzPreviewController->tempDir() + s_tempFileName;
+
+	KSaveFile localFile(localFileName);
+	if (!localFile.open())
 	{
-		QMessageBox::warning(this, KtikzApplication::applicationName(),
-		                     tr("Cannot write file %1:\n%2.")
-		                     .arg(fileName)
-		                     .arg(file.errorString()));
+//		KMessageBox::error(this, i18nc("@info", "Cannot write file <filename>%1</filename>:<nl/><message>%2</message>", localFileName, localFile.errorString()), i18nc("@title:window", "File Save Error"));
+		KMessageBox::error(this, tr("Cannot write file \"%1\":\n%2").arg(localFileName).arg(localFile.errorString()), tr("File Save Error", "@title:window"));
 		return false;
 	}
+#else
+	const QString fileName = url.path();
+	QFile localFile(fileName);
+	if (!localFile.open(QFile::WriteOnly | QFile::Text))
+	{
+		QMessageBox::warning(this, KtikzApplication::applicationName(),
+		                     tr("Cannot write file \"%1\":\n%2.")
+		                     .arg(fileName)
+		                     .arg(localFile.errorString()));
+		return false;
+	}
+#endif
 
-	QTextStream out(&file);
+	QTextStream out(&localFile);
 	QApplication::setOverrideCursor(Qt::WaitCursor);
-	out << m_tikzEditorView->editor()->toPlainText();
+	out << m_tikzEditorView->editor()->toPlainText().toUtf8();
+	out.flush();
 	QApplication::restoreOverrideCursor();
 
-	m_lastDocument = fileName;
-	setCurrentFile(fileName);
-	addToRecentFilesList(fileName);
-	statusBar()->showMessage(tr("File saved"), 2000);
+#ifdef KTIKZ_USE_KDE
+	if (!localFile.finalize())
+	{
+//		KMessageBox::error(this, i18nc("@info", "Cannot write file <filename>%1</filename>:<nl/><message>%2</message>", localFileName, localFile.errorString()), i18nc("@title:window", "File Save Error"));
+		KMessageBox::error(this, tr("Cannot write file \"%1\":\n%2").arg(localFileName).arg(localFile.errorString()), tr("File Save Error", "@title:window"));
+		return false;
+	}
+#endif
+	localFile.close();
+
+#ifdef KTIKZ_USE_KDE
+	if (!url.isLocalFile())
+	{
+		KIO::Job *job = KIO::file_copy(KUrl::fromPath(localFileName), url, -1, KIO::Overwrite | KIO::HideProgressInfo);
+		if (!KIO::NetAccess::synchronousRun(job, this))
+		{
+//			KMessageBox::information(this, i18nc("@info", "Could not copy temporary file <filename>%1</filename> to <filename>%2</filename>.", localFileName, url.prettyUrl()));
+			KMessageBox::information(this, tr("Could not copy temporary file \"%1\" to \"%2\".").arg(localFileName).arg(url.prettyUrl()));
+			return false;
+		}
+	}
+#endif
+
+	m_lastUrl = url;
+	setCurrentUrl(url);
+	m_openRecentAction->addUrl(url);
+	statusBar()->showMessage(tr("File saved", "@info:status"), 2000);
 	return true;
 }
 
-void MainWindow::openRecentFile()
+Url MainWindow::url() const
 {
-	QAction *action = qobject_cast<QAction*>(sender());
-	if (action)
-		loadFile(action->data().toString());
+	return m_currentUrl;
 }
 
-void MainWindow::addToRecentFilesList(const QString &fileName)
+void MainWindow::setCurrentUrl(const Url &url)
 {
-	if (m_recentFilesList.contains(fileName))
-		m_recentFilesList.move(m_recentFilesList.indexOf(fileName), 0);
-	else
-	{
-		if (m_recentFilesList.count() >= m_numOfRecentFiles)
-			m_recentFilesList.removeLast();
-		m_recentFilesList.prepend(fileName);
-	}
-	updateRecentFilesList();
-}
-
-void MainWindow::removeFromRecentFilesList(const QString &fileName)
-{
-	m_recentFilesList.removeAll(fileName);
-	updateRecentFilesList();
-}
-
-void MainWindow::createRecentFilesList()
-{
-	m_recentFileActions.clear();
-	QAction *action;
-	for (int i = 0; i < m_numOfRecentFiles; ++i)
-	{
-		action = new QAction(this);
-		action->setVisible(false);
-		connect(action, SIGNAL(triggered()), this, SLOT(openRecentFile()));
-		m_recentFileActions.append(action);
-	}
-
-	// when the user has decreased the maximum number of recent files, then we must remove the superfluous entries
-	while (m_recentFilesList.size() > m_numOfRecentFiles)
-		m_recentFilesList.removeLast();
-
-	updateRecentFilesList();
-
-	m_recentMenu->clear();
-	m_recentMenu->addActions(m_recentFileActions);
-}
-
-void MainWindow::updateRecentFilesList()
-{
-	if (m_recentFilesList.count() > 0)
-		m_recentMenu->setEnabled(true);
-	else
-		m_recentMenu->setEnabled(false);
-
-	for (int i = 0; i < m_recentFilesList.count(); ++i)
-	{
-		m_recentFileActions[i]->setText(m_recentFilesList.at(i));
-		m_recentFileActions[i]->setData(m_recentFilesList.at(i));
-		m_recentFileActions[i]->setVisible(true);
-	}
-	for (int i = m_recentFilesList.count(); i < m_numOfRecentFiles; ++i)
-		m_recentFileActions[i]->setVisible(false);
-}
-
-QString MainWindow::currentFileName() const
-{
-	return (m_currentFile.isEmpty()) ? "untitled.txt" : strippedName(m_currentFile);
-}
-
-QString MainWindow::currentFileFullPath() const
-{
-	return m_currentFile;
-}
-
-void MainWindow::setCurrentFile(const QString &fileName)
-{
-	m_currentFile = fileName;
+	m_currentUrl = url;
 	m_tikzEditorView->editor()->document()->setModified(false);
 	setDocumentModified(false);
-	setWindowTitle(tr("%1[*] - %2").arg(currentFileName()).arg(KtikzApplication::applicationName()));
+	setWindowTitle(tr("%1[*] - %2").arg(strippedName(m_currentUrl)).arg(KtikzApplication::applicationName()));
 }
 
-QString MainWindow::strippedName(const QString &fullFileName) const
+QString MainWindow::strippedName(const Url &url) const
 {
-	return QFileInfo(fullFileName).fileName();
+	if (!url.isValid() || url.isEmpty())
+		return "untitled.txt";
+	const QString fileName = url.fileName();
+	return (fileName.isEmpty()) ? "untitled.txt" : fileName;
 }
 
 /***************************************************************************/
 
 void MainWindow::showCursorPosition(int row, int col)
 {
-	m_positionLabel->setText(tr("Line:") + " " + QString::number(row) + "\t" + tr("Col:") + " " + QString::number(col));
+	m_positionLabel->setText(tr("Line: %1\tCol: %2", "@info:status").arg(QString::number(row)).arg(QString::number(col)));
+}
+
+/***************************************************************************/
+
+QString MainWindow::tikzCode() const
+{
+	return m_tikzEditorView->editor()->toPlainText();
 }
 
 /***************************************************************************/

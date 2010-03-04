@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.0" language="de">
-<defaultcodec></defaultcodec>
 <context>
     <name>AboutDialog</name>
     <message>
@@ -55,13 +54,15 @@
     </message>
     <message>
         <location filename="configappearancewidget.ui" line="95"/>
-        <source>Change &amp;font</source>
-        <translation>Schrift ä&amp;ndern</translation>
+        <source>Change &amp;font...</source>
+        <oldsource>Change &amp;font</oldsource>
+        <translation>Schrift ä&amp;ndern...</translation>
     </message>
     <message>
         <location filename="configappearancewidget.ui" line="108"/>
-        <source>Change c&amp;olor</source>
-        <translation>F&amp;arbe ändern</translation>
+        <source>Change c&amp;olor...</source>
+        <oldsource>Change c&amp;olor</oldsource>
+        <translation>F&amp;arbe ändern...</translation>
     </message>
     <message>
         <location filename="configappearancewidget.ui" line="22"/>
@@ -108,23 +109,27 @@
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="configdialog.cpp" line="45"/>
+        <location filename="configdialog.cpp" line="44"/>
+        <location filename="configdialog.cpp" line="57"/>
         <source>Configure %1</source>
         <oldsource>Configure TikZ editor</oldsource>
-        <translation type="unfinished">Konfiguration des %1s</translation>
+        <translation>Konfiguration des %1s</translation>
     </message>
     <message>
         <location filename="configdialog.cpp" line="47"/>
+        <location filename="configdialog.cpp" line="59"/>
         <source>&amp;General</source>
         <translation>All&amp;gemein</translation>
     </message>
     <message>
         <location filename="configdialog.cpp" line="48"/>
+        <location filename="configdialog.cpp" line="60"/>
         <source>&amp;Editor</source>
         <translation>&amp;Editor</translation>
     </message>
     <message>
         <location filename="configdialog.cpp" line="49"/>
+        <location filename="configdialog.cpp" line="61"/>
         <source>&amp;Highlighting</source>
         <translation>&amp;Hervorhebung</translation>
     </message>
@@ -386,7 +391,7 @@
     <message>
         <location filename="configeditorwidget.ui" line="6"/>
         <source>Configure Editor</source>
-        <translation type="unfinished">Einstellungen des Editors</translation>
+        <translation>Einstellungen des Editors</translation>
     </message>
     <message>
         <location filename="configeditorwidget.ui" line="12"/>
@@ -406,9 +411,13 @@
         <translation>Text Schri&amp;ft:</translation>
     </message>
     <message>
-        <location filename="configeditorwidget.ui" line="52"/>
         <source>Select</source>
-        <translation>Auswählen</translation>
+        <translation type="obsolete">Auswählen</translation>
+    </message>
+    <message>
+        <location filename="configeditorwidget.ui" line="52"/>
+        <source>Choose...</source>
+        <translation type="unfinished">Wählen...</translation>
     </message>
     <message>
         <location filename="configeditorwidget.ui" line="63"/>
@@ -492,23 +501,23 @@
         <translation>Das TikZ Handbuch konnte nicht gefunden werden.</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.cpp" line="138"/>
+        <location filename="configgeneralwidget.cpp" line="137"/>
         <source>Browse program</source>
         <translation>Durchsuchen</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.cpp" line="139"/>
+        <location filename="configgeneralwidget.cpp" line="138"/>
         <source>Program</source>
         <translation>Programm</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.cpp" line="146"/>
+        <location filename="configgeneralwidget.cpp" line="145"/>
         <location filename="configgeneralwidget.ui" line="352"/>
         <source>Browse file</source>
         <translation>Durchsuchen</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.cpp" line="148"/>
+        <location filename="configgeneralwidget.cpp" line="147"/>
         <source>All files</source>
         <translation>Alle Dateien</translation>
     </message>
@@ -688,24 +697,40 @@
     </message>
 </context>
 <context>
+    <name>FileDialog</name>
+    <message>
+        <location filename="../common/utils/filedialog.cpp" line="58"/>
+        <location filename="../common/utils/filedialog.cpp" line="105"/>
+        <source>File &quot;%1&quot; already exists.
+Do you want to overwrite it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/utils/filedialog.cpp" line="59"/>
+        <source>Overwrite</source>
+        <comment>@action:button</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GoToLineWidget</name>
     <message>
-        <location filename="editgotolinewidget.ui" line="13"/>
+        <location filename="editgotolinewidget.ui" line="6"/>
         <source>Go To Line</source>
         <translation>Zu Zeile gehen</translation>
     </message>
     <message>
-        <location filename="editgotolinewidget.ui" line="19"/>
+        <location filename="editgotolinewidget.ui" line="12"/>
         <source>Close go to line box</source>
         <translation>Box schließen</translation>
     </message>
     <message>
-        <location filename="editgotolinewidget.ui" line="32"/>
+        <location filename="editgotolinewidget.ui" line="26"/>
         <source>Go to line:</source>
         <translation>Zu Zeile gehen:</translation>
     </message>
     <message>
-        <location filename="editgotolinewidget.ui" line="45"/>
+        <location filename="editgotolinewidget.ui" line="39"/>
         <source>&amp;Go</source>
         <oldsource>Go</oldsource>
         <translation>&amp;Los</translation>
@@ -714,27 +739,27 @@
 <context>
     <name>IndentDialog</name>
     <message>
-        <location filename="editindentdialog.ui" line="5"/>
+        <location filename="editindentdialog.ui" line="6"/>
         <source>Indent Selection</source>
         <translation>Auswahl einrücken</translation>
     </message>
     <message>
-        <location filename="editindentdialog.ui" line="13"/>
+        <location filename="editindentdialog.ui" line="14"/>
         <source>Using &amp;spaces</source>
         <translation>&amp;Leerzeichen verwenden</translation>
     </message>
     <message>
-        <location filename="editindentdialog.ui" line="20"/>
+        <location filename="editindentdialog.ui" line="21"/>
         <source>&amp;Number of spaces:</source>
         <translation>A&amp;nzahl Leerzeichen:</translation>
     </message>
     <message>
-        <location filename="editindentdialog.ui" line="49"/>
+        <location filename="editindentdialog.ui" line="56"/>
         <source>Using &amp;tabs</source>
         <translation>&amp;Tabulatoren verwenden</translation>
     </message>
     <message>
-        <location filename="editindentdialog.ui" line="59"/>
+        <location filename="editindentdialog.ui" line="66"/>
         <source>Num&amp;ber of tabs:</source>
         <translation>Anzahl Ta&amp;bulatoren:</translation>
     </message>
@@ -746,7 +771,7 @@
         <translation type="obsolete">TikZ Editor</translation>
     </message>
     <message>
-        <location filename="ktikzapplication.cpp" line="124"/>
+        <location filename="ktikzapplication.cpp" line="130"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Das Dokument &quot;%1&quot; wurde verändert.
@@ -756,7 +781,7 @@ Wollen Sie die Änderungen speichern?</translation>
 <context>
     <name>LineEdit</name>
     <message>
-        <location filename="lineedit.cpp" line="24"/>
+        <location filename="../common/utils/lineedit.cpp" line="50"/>
         <source>Clear input field</source>
         <translation>Eingabefeld leeren</translation>
     </message>
@@ -764,430 +789,642 @@ Wollen Sie die Änderungen speichern?</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="mainwindow.cpp" line="95"/>
+        <location filename="mainwindow.cpp" line="124"/>
         <source>Messages</source>
         <translation>Meldungen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="98"/>
+        <location filename="mainwindow.cpp" line="127"/>
         <source>&lt;p&gt;The messages produced by LaTeX are shown here.  If your TikZ code contains errors, then a red border will appear and the errors will be highlighted.&lt;/p&gt;</source>
         <oldsource>The messages produced by LaTeX are shown here.  If your TikZ code contains errors, then a red border will appear and the errors will be highlighted.</oldsource>
         <translation>&lt;p&gt;Hier wird die LaTeX Ausgabe angezeigt.  Falls ihr TikZ code Fehler enthält, wird ein roter Rahmen angezeigt und die Fehler werden hervorgehoben.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="110"/>
+        <location filename="mainwindow.cpp" line="139"/>
         <source>Preview</source>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="200"/>
-        <location filename="mainwindow.cpp" line="222"/>
         <source>PGF files</source>
-        <translation>PGF Dateien</translation>
+        <translation type="obsolete">PGF Dateien</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="200"/>
-        <location filename="mainwindow.cpp" line="222"/>
-        <location filename="mainwindow.cpp" line="243"/>
         <source>All files</source>
-        <translation>Alle Dateien</translation>
+        <translation type="obsolete">Alle Dateien</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="201"/>
+        <location filename="mainwindow.cpp" line="246"/>
         <source>Open PGF source file</source>
         <translation>PGF Quelldatei öffnen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="223"/>
+        <location filename="mainwindow.cpp" line="246"/>
+        <location filename="mainwindow.cpp" line="261"/>
+        <source>PGF files</source>
+        <comment>filter</comment>
+        <translation>PGF Dateien</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="246"/>
+        <location filename="mainwindow.cpp" line="261"/>
+        <source>All files</source>
+        <comment>filter</comment>
+        <translation>Alle Dateien</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="261"/>
         <source>Save PGF source file</source>
         <translation>PFG Quelldatei speichern</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="244"/>
         <source>Export image</source>
-        <translation>Bild exportieren</translation>
+        <translation type="obsolete">Bild exportieren</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="270"/>
         <source>Cannot find TikZ documentation.</source>
-        <translation>Das TikZ Handbuch konnte nicht gefunden werden.</translation>
+        <translation type="obsolete">Das TikZ Handbuch konnte nicht gefunden werden.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="395"/>
+        <location filename="mainwindow.cpp" line="340"/>
         <source>Create a new document</source>
         <translation>Neues Dokument anlegen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="396"/>
         <source>&amp;New</source>
-        <translation>&amp;Neu</translation>
+        <translation type="obsolete">&amp;Neu</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="402"/>
+        <location filename="mainwindow.cpp" line="341"/>
         <source>Open an existing file</source>
         <translation>Existierende Datei öffnen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="403"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Öffnen...</translation>
+        <translation type="obsolete">&amp;Öffnen...</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="409"/>
+        <location filename="mainwindow.cpp" line="343"/>
         <source>Save the current document to disk</source>
         <translation>Das aktuelle Dokument speichern</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="410"/>
         <source>&amp;Save</source>
-        <translation>&amp;Speichern</translation>
+        <translation type="obsolete">&amp;Speichern</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="416"/>
+        <location filename="mainwindow.cpp" line="344"/>
         <source>Save the document under a new name</source>
         <translation>Das Dokument unter einem anderen Namen speichern</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="417"/>
         <source>Save &amp;As...</source>
-        <translation>Speichern &amp;unter...</translation>
+        <translation type="obsolete">Speichern &amp;unter...</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="422"/>
+        <location filename="mainwindow.cpp" line="345"/>
         <source>Close the current document</source>
         <translation>Aktuelles Dokument schließen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="423"/>
         <source>&amp;Close</source>
-        <translation>S&amp;chließen</translation>
+        <translation type="obsolete">S&amp;chließen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="426"/>
         <source>Close File</source>
-        <translation>Datei schließen</translation>
+        <translation type="obsolete">Datei schließen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="430"/>
+        <location filename="mainwindow.cpp" line="346"/>
         <source>Exit the application</source>
         <translation>Anwendung schließen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="431"/>
         <source>&amp;Quit</source>
-        <translation>S&amp;chließen</translation>
+        <translation type="obsolete">S&amp;chließen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="432"/>
         <source>Ctrl+Q</source>
         <comment>File|Quit</comment>
-        <translation>Strg+Q</translation>
+        <translation type="obsolete">Strg+Q</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="437"/>
         <source>Encapsulated PostScript (EPS)</source>
-        <translation>Encapsulated PostScript (EPS)</translation>
+        <translation type="obsolete">Encapsulated PostScript (EPS)</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="439"/>
         <source>Export to PostScript</source>
-        <translation>Nach PostScript exportieren</translation>
+        <translation type="obsolete">Nach PostScript exportieren</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="442"/>
         <source>Portable Document Format (PDF)</source>
-        <translation>Portable Document Format (PDF)</translation>
+        <translation type="obsolete">Portable Document Format (PDF)</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="444"/>
         <source>Export to PDF</source>
-        <translation>Nach PDF exportieren</translation>
+        <translation type="obsolete">Nach PDF exportieren</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="447"/>
         <source>Portable Network Graphics (PNG)</source>
-        <translation>Portable Network Graphics (PNG)</translation>
+        <translation type="obsolete">Portable Network Graphics (PNG)</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="449"/>
         <source>Export to PNG</source>
-        <translation>Nach PNG exportieren</translation>
+        <translation type="obsolete">Nach PNG exportieren</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="454"/>
         <source>&amp;Stop Process</source>
-        <translation>Proze&amp;ss abbrechen</translation>
+        <translation type="obsolete">Proze&amp;ss abbrechen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="455"/>
         <source>Escape</source>
         <comment>View|Stop process</comment>
-        <translation>Escape</translation>
+        <translation type="obsolete">Escape</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="456"/>
         <source>Abort current process</source>
-        <translation>Den aktuellen Prozess abbrechen</translation>
+        <translation type="obsolete">Den aktuellen Prozess abbrechen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="457"/>
         <source>&lt;p&gt;Abort the execution of the currently running process.&lt;/p&gt;</source>
         <oldsource>Abort the execution of the currently running process.</oldsource>
-        <translation>&lt;p&gt;Die Ausführung des laufenden Prozesses abbrechen.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Die Ausführung des laufenden Prozesses abbrechen.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="461"/>
+        <location filename="mainwindow.cpp" line="357"/>
         <source>View &amp;Log</source>
         <translation>&amp;Logdatei anzeigen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="462"/>
+        <location filename="mainwindow.cpp" line="358"/>
         <source>View log messages produced by the last executed process</source>
         <translation>Zeigt die Logdatei des zuletzt gelaufenen Prozesses an</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="463"/>
+        <location filename="mainwindow.cpp" line="359"/>
         <source>&lt;p&gt;Show the log messages produced by the last executed process in the Messages box.&lt;/p&gt;</source>
         <oldsource>Show the log messages produced by the last executed process in the Messages box.</oldsource>
         <translation>&lt;p&gt;Die Logdatei des zuletzt gelaufenen Prozesses in der Ausgabe-Box anzeigen.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="mainwindow.cpp" line="466"/>
-        <source>S&amp;hell Escape</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.cpp" line="467"/>
-        <source>Enable the \write18{shell-command} feature</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Configure...</source>
         <translation type="obsolete">&amp;Einstellungen...</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="475"/>
+        <location filename="mainwindow.cpp" line="365"/>
         <source>Configure the settings of this application</source>
         <translation>Die Einstellungen des Programms ändern</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="480"/>
+        <location filename="mainwindow.cpp" line="374"/>
         <source>TikZ &amp;Manual</source>
         <translation>TikZ &amp;Handbuch</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="481"/>
+        <location filename="mainwindow.cpp" line="375"/>
         <source>Show the manual of TikZ and PGF</source>
         <translation>Das TikZ und PGF Handbuch anzeigen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="485"/>
+        <location filename="mainwindow.cpp" line="386"/>
         <source>&amp;About %1</source>
         <oldsource>&amp;About</oldsource>
         <translation>Ü&amp;ber den %1</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="486"/>
+        <location filename="mainwindow.cpp" line="387"/>
         <source>Show the application&apos;s About box</source>
         <translation>Informationen über die Anwendung anzeigen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="489"/>
+        <location filename="mainwindow.cpp" line="390"/>
         <source>About &amp;Qt</source>
         <translation>Über &amp;Qt</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="490"/>
+        <location filename="mainwindow.cpp" line="391"/>
         <source>Show the Qt library&apos;s About box</source>
         <translation>Informationen über die Qt Bibliothek anzeigen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="496"/>
+        <location filename="mainwindow.cpp" line="384"/>
         <source>Show simple description of any widget</source>
         <translation>Beschreibung aller Widgets anzeigen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="505"/>
         <source>Open &amp;Recent</source>
-        <translation>&amp;Zuletzt geöffnet</translation>
+        <translation type="obsolete">&amp;Zuletzt geöffnet</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="510"/>
+        <location filename="mainwindow.cpp" line="342"/>
         <source>Open a recently opened file</source>
         <translation>Eine zuletzt geöffnete Datei laden</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="513"/>
         <source>E&amp;xport</source>
-        <translation>E&amp;xportieren</translation>
+        <translation type="obsolete">E&amp;xportieren</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="518"/>
         <source>Export image to various formats</source>
-        <translation>Bild exportieren</translation>
+        <translation type="obsolete">Bild exportieren</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="524"/>
+        <location filename="mainwindow.cpp" line="399"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="539"/>
         <source>&amp;View</source>
-        <translation>&amp;Anzeigen</translation>
+        <translation type="obsolete">&amp;Anzeigen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="545"/>
+        <location filename="mainwindow.cpp" line="418"/>
         <source>&amp;Settings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="546"/>
+        <location filename="mainwindow.cpp" line="419"/>
         <source>&amp;Toolbars</source>
         <translation>&amp;Symbolleiste</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="551"/>
+        <location filename="mainwindow.cpp" line="421"/>
         <source>Show or hide toolbars</source>
         <translation>Symbolleiste anzeigen oder verstecken</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="562"/>
+        <location filename="mainwindow.cpp" line="431"/>
         <source>&amp;Sidebars</source>
         <translation>S&amp;eitenleiste</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="567"/>
+        <location filename="mainwindow.cpp" line="433"/>
         <source>Show or hide sidebars</source>
         <translation>Seitenleiste anzeigen oder verstecken</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="585"/>
+        <location filename="mainwindow.cpp" line="450"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="595"/>
+        <location filename="mainwindow.cpp" line="460"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="608"/>
         <source>Run</source>
-        <translation>Ausführen</translation>
+        <translation type="obsolete">Ausführen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="670"/>
+        <location filename="mainwindow.cpp" line="540"/>
         <source>Ready</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="679"/>
+        <location filename="mainwindow.cpp" line="549"/>
         <source>Hide sidebar &quot;%1&quot;</source>
         <translation>Seitenleiste verstecken &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="571"/>
-        <location filename="mainwindow.cpp" line="572"/>
-        <location filename="mainwindow.cpp" line="681"/>
+        <location filename="mainwindow.cpp" line="436"/>
+        <location filename="mainwindow.cpp" line="437"/>
+        <location filename="mainwindow.cpp" line="551"/>
         <source>Show sidebar &quot;%1&quot;</source>
         <translation>Seitenleiste anzeigen &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="688"/>
+        <location filename="mainwindow.cpp" line="278"/>
+        <source>Cannot find TikZ documentation.
+Go to Settings -&gt; Configure %1 and change in the &quot;General&quot; tab the path to the TikZ documentation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="348"/>
+        <source>&lt;p&gt;Create a new document.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="349"/>
+        <source>&lt;p&gt;Open an existing file.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="350"/>
+        <source>&lt;p&gt;Open a recently opened file.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="351"/>
+        <source>&lt;p&gt;Save the current document to disk.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="352"/>
+        <source>&lt;p&gt;Save the document under a new name.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="353"/>
+        <source>&lt;p&gt;Close the current document.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="354"/>
+        <source>&lt;p&gt;Exit the application.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="366"/>
+        <source>&lt;p&gt;Configure the settings of this application.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="376"/>
+        <source>&lt;p&gt;Show the manual of TikZ and PGF.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="524"/>
+        <source>&amp;Insert</source>
+        <translation>E&amp;infügen</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="558"/>
         <source>Hide toolbar &quot;%1&quot;</source>
         <translation>Symbolleiste verstecken &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="557"/>
-        <location filename="mainwindow.cpp" line="558"/>
-        <location filename="mainwindow.cpp" line="559"/>
+        <location filename="mainwindow.cpp" line="714"/>
+        <source>Could not copy &quot;%1&quot; to temporary file &quot;%2&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="723"/>
+        <source>Cannot read file &quot;%1&quot;:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="723"/>
+        <source>File Read Error</source>
+        <comment>@title:window</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="733"/>
+        <source>Cannot read file &quot;%1&quot;:
+%2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="779"/>
+        <location filename="mainwindow.cpp" line="805"/>
+        <source>Cannot write file &quot;%1&quot;:
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="779"/>
+        <location filename="mainwindow.cpp" line="805"/>
+        <source>File Save Error</source>
+        <comment>@title:window</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="788"/>
+        <source>Cannot write file &quot;%1&quot;:
+%2.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="818"/>
+        <source>Could not copy temporary file &quot;%1&quot; to &quot;%2&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="827"/>
+        <source>File saved</source>
+        <comment>@info:status</comment>
+        <translation>Datei gespeichert</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="856"/>
+        <source>Line: %1	Col: %2</source>
+        <comment>@info:status</comment>
+        <translation>Zeile: %1	Spalte: %2</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="426"/>
+        <location filename="mainwindow.cpp" line="427"/>
+        <location filename="mainwindow.cpp" line="428"/>
+        <location filename="mainwindow.cpp" line="429"/>
         <location filename="mainwindow.cpp" line="560"/>
-        <location filename="mainwindow.cpp" line="690"/>
         <source>Show toolbar &quot;%1&quot;</source>
         <translation>Symbolleiste anzeigen &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="468"/>
         <source>&lt;p&gt;Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Warning:&lt;/strong&gt; Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p&gt;Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Warnung:&lt;/strong&gt; Diese option kann zur Auführung von Schadcode führen! Überprüfen sie den LaTeX code um zu sehen welche Kommandos ausgeführt werden.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Warnung:&lt;/strong&gt; Diese option kann zur Auführung von Schadcode führen! Überprüfen sie den LaTeX code um zu sehen welche Kommandos ausgeführt werden.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="474"/>
+        <location filename="mainwindow.cpp" line="364"/>
         <source>&amp;Configure %1...</source>
         <translation type="unfinished">&amp;Einstellungen %1...</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="841"/>
+        <location filename="mainwindow.cpp" line="686"/>
         <source>The document has been modified.
 Do you want to save your changes?</source>
         <translation>Das Dokument wurde verändert.
 Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="861"/>
         <source>Cannot read file %1:
 %2.</source>
-        <translation>Datei %1 konnte nicht gelesen werden:
+        <translation type="obsolete">Datei %1 konnte nicht gelesen werden:
 %2.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="891"/>
+        <location filename="mainwindow.cpp" line="764"/>
         <source>File loaded</source>
         <translation>Datei geladen</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="900"/>
         <source>Cannot write file %1:
 %2.</source>
-        <translation>Datei %1 konnte nicht geschrieben werden:
+        <translation type="obsolete">Datei %1 konnte nicht geschrieben werden:
 %2.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="914"/>
         <source>File saved</source>
-        <translation>Datei gespeichert</translation>
+        <translation type="obsolete">Datei gespeichert</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="998"/>
+        <location filename="mainwindow.cpp" line="841"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1010"/>
         <source>Line:</source>
-        <translation>Zeile:</translation>
+        <translation type="obsolete">Zeile:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1010"/>
         <source>Col:</source>
-        <translation>Spalte:</translation>
+        <translation type="obsolete">Spalte:</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="167"/>
+        <source>&amp;New</source>
+        <translation>&amp;Neu</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="168"/>
+        <source>&amp;Open...</source>
+        <translation>&amp;Öffnen...</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="169"/>
+        <source>&amp;Save</source>
+        <translation>&amp;Speichern</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="170"/>
+        <source>Save &amp;As...</source>
+        <translation>Speichern &amp;unter...</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="171"/>
+        <source>&amp;Close</source>
+        <translation>S&amp;chließen</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="172"/>
+        <source>&amp;Quit</source>
+        <translation>S&amp;chließen</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="173"/>
+        <source>&amp;Undo</source>
+        <translation>&amp;Rückgängig</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="174"/>
+        <source>Re&amp;do</source>
+        <translation>Wie&amp;derholen</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="175"/>
+        <source>Cu&amp;t</source>
+        <translation>&amp;Ausschneiden</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="176"/>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopieren</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="177"/>
+        <source>&amp;Paste</source>
+        <translation>&amp;Einfügen</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="178"/>
+        <source>Select &amp;All</source>
+        <translation>&amp;Alles auswählen</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="179"/>
+        <source>&amp;Find...</source>
+        <translation>&amp;Suchen...</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="180"/>
+        <source>Find &amp;Next</source>
+        <translation>&amp;Nächstes</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="181"/>
+        <source>Find Pre&amp;vious</source>
+        <translation>&amp;Vorheriges</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="182"/>
+        <source>&amp;Replace...</source>
+        <translation>E&amp;rsetzen...</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="183"/>
+        <source>&amp;Go to Line...</source>
+        <translation>Zu Zei&amp;le gehen...</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="184"/>
+        <source>Zoom &amp;In</source>
+        <translation>Ver&amp;größern</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="185"/>
+        <source>Zoom &amp;Out</source>
+        <translation>Ver&amp;kleinern</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="186"/>
+        <source>&amp;Configure %1...</source>
+        <translation type="unfinished">&amp;Einstellungen %1...</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="196"/>
+        <source>Ctrl+Q</source>
+        <comment>File|Quit</comment>
+        <translation>Strg+Q</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="198"/>
+        <source>Ctrl+G</source>
+        <comment>Edit|Go to Line</comment>
+        <translation>Strg+G</translation>
+    </message>
+    <message>
+        <location filename="../common/utils/standardaction.cpp" line="214"/>
+        <source>&amp;Open Recent</source>
+        <translation>&amp;Zuletzt geöffnet</translation>
+    </message>
+</context>
+<context>
+    <name>RecentFilesAction</name>
+    <message>
+        <location filename="../common/utils/recentfilesaction.cpp" line="108"/>
+        <source>Open &amp;Recent</source>
+        <translation>&amp;Zuletzt geöffnet</translation>
     </message>
 </context>
 <context>
     <name>ReplaceCurrentWidget</name>
     <message>
-        <location filename="editreplacecurrentwidget.cpp" line="36"/>
+        <location filename="editreplacecurrentwidget.cpp" line="34"/>
         <source>&amp;Replace</source>
         <translation>E&amp;rsetze</translation>
     </message>
     <message>
-        <location filename="editreplacecurrentwidget.cpp" line="37"/>
+        <location filename="editreplacecurrentwidget.cpp" line="35"/>
         <source>Replace &amp;All</source>
         <translation>&amp;Alle ersetzen</translation>
     </message>
     <message>
-        <location filename="editreplacecurrentwidget.cpp" line="38"/>
+        <location filename="editreplacecurrentwidget.cpp" line="36"/>
         <source>&amp;Don&apos;t Replace</source>
         <translation>&amp;Nicht Ersetzen</translation>
     </message>
     <message>
-        <location filename="editreplacecurrentwidget.cpp" line="39"/>
+        <location filename="editreplacecurrentwidget.cpp" line="37"/>
         <source>&amp;Cancel</source>
         <translation>Abbre&amp;chen</translation>
     </message>
     <message>
-        <location filename="editreplacecurrentwidget.cpp" line="73"/>
+        <location filename="editreplacecurrentwidget.cpp" line="67"/>
         <source>Replace %1 by %2?</source>
         <translation>%1 duch %2 ersetzen?</translation>
     </message>
@@ -1195,52 +1432,52 @@ Wollen Sie die Änderungen speichern?</translation>
 <context>
     <name>ReplaceWidget</name>
     <message>
-        <location filename="editreplacewidget.ui" line="13"/>
+        <location filename="editreplacewidget.ui" line="6"/>
         <source>Find and Replace</source>
         <translation>Suchen und Ersetzen</translation>
     </message>
     <message>
-        <location filename="editreplacewidget.ui" line="19"/>
+        <location filename="editreplacewidget.ui" line="12"/>
         <source>Close find and replace box</source>
         <translation>Box schließen</translation>
     </message>
     <message>
-        <location filename="editreplacewidget.ui" line="32"/>
+        <location filename="editreplacewidget.ui" line="26"/>
         <source>Find:</source>
         <translation>Suche:</translation>
     </message>
     <message>
-        <location filename="editreplacewidget.ui" line="54"/>
+        <location filename="editreplacewidget.ui" line="48"/>
         <source>&amp;Whole words</source>
         <translation>Ganze &amp;Worte</translation>
     </message>
     <message>
-        <location filename="editreplacewidget.ui" line="61"/>
+        <location filename="editreplacewidget.ui" line="55"/>
         <source>&amp;Case sensitive</source>
         <translation>Groß/kleins&amp;chreibung berücksichtigen</translation>
     </message>
     <message>
-        <location filename="editreplacewidget.ui" line="70"/>
+        <location filename="editreplacewidget.ui" line="64"/>
         <source>Replace with:</source>
         <translation>Ersetze mit:</translation>
     </message>
     <message>
-        <location filename="editreplacewidget.ui" line="92"/>
+        <location filename="editreplacewidget.ui" line="86"/>
         <source>Search backward</source>
         <translation>Rückwärts suchen</translation>
     </message>
     <message>
-        <location filename="editreplacewidget.ui" line="108"/>
+        <location filename="editreplacewidget.ui" line="103"/>
         <source>Search forward</source>
         <translation>Forwärts suchen</translation>
     </message>
     <message>
-        <location filename="editreplacewidget.ui" line="127"/>
+        <location filename="editreplacewidget.ui" line="123"/>
         <source>&amp;Find</source>
         <translation>&amp;Suche</translation>
     </message>
     <message>
-        <location filename="editreplacewidget.ui" line="134"/>
+        <location filename="editreplacewidget.ui" line="130"/>
         <source>&amp;Replace</source>
         <translation>E&amp;rsetze</translation>
     </message>
@@ -1248,8 +1485,8 @@ Wollen Sie die Änderungen speichern?</translation>
 <context>
     <name>TemplateWidget</name>
     <message>
-        <location filename="templatewidget.cpp" line="115"/>
-        <location filename="templatewidget.ui" line="67"/>
+        <location filename="../common/templatewidget.cpp" line="117"/>
+        <location filename="../common/templatewidget.ui" line="78"/>
         <source>&lt;p&gt;Edit this template with an external editor specified in the &quot;Configure&quot; dialog.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Diese Vorlage mit dem im &quot;Konfiguration&quot; Dialag eingestelltem externen Editor bearbeiten.&lt;/p&gt;</translation>
     </message>
@@ -1258,60 +1495,70 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation type="obsolete">&lt;p&gt;Der Text %1 in der Vorlage wird durch TikZ code ersetzt.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="templatewidget.cpp" line="133"/>
+        <location filename="../common/templatewidget.cpp" line="135"/>
         <source>Select a template file</source>
         <translation>Wählen Sie eine Vorlagedatei</translation>
     </message>
     <message>
-        <location filename="templatewidget.cpp" line="135"/>
+        <location filename="../common/templatewidget.cpp" line="137"/>
         <source>%1 template files</source>
         <oldsource>KTikZ template files</oldsource>
         <translation>%1 Vorlagen Dateien</translation>
     </message>
     <message>
-        <location filename="templatewidget.cpp" line="136"/>
+        <location filename="../common/templatewidget.cpp" line="138"/>
         <source>All files</source>
         <translation>Alle Dateien</translation>
     </message>
     <message>
-        <location filename="templatewidget.ui" line="13"/>
+        <location filename="../common/templatewidget.ui" line="6"/>
         <source>Choose Template</source>
         <translation>Vorlage wählen</translation>
     </message>
     <message>
-        <location filename="templatewidget.cpp" line="110"/>
-        <location filename="templatewidget.ui" line="19"/>
-        <location filename="templatewidget.ui" line="38"/>
+        <location filename="../common/templatewidget.cpp" line="112"/>
+        <location filename="../common/templatewidget.ui" line="12"/>
+        <location filename="../common/templatewidget.ui" line="31"/>
         <source>&lt;p&gt;Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Geben Sie den Dateinamen der LaTeX Vorlage an. Wenn dieses Feld leer bleibt oder einen ungültigen Pfad enthält wird eine Standardvorlage verwendet.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="templatewidget.ui" line="22"/>
+        <location filename="../common/templatewidget.ui" line="15"/>
         <source>&amp;Template:</source>
         <translation>&amp;Vorlage:</translation>
     </message>
     <message>
-        <location filename="templatewidget.ui" line="48"/>
+        <location filename="../common/templatewidget.ui" line="41"/>
         <source>&lt;p&gt;Select template file&lt;/p&gt;</source>
         <translation>&lt;p&gt;Wählen Sie die Vorlagedatei aus.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="templatewidget.ui" line="70"/>
+        <location filename="../common/templatewidget.ui" line="58"/>
+        <source>&lt;p&gt;Reload template file&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/templatewidget.ui" line="61"/>
+        <source>&lt;p&gt;Reload current template file.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/templatewidget.ui" line="81"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location filename="templatewidget.ui" line="51"/>
+        <location filename="../common/templatewidget.ui" line="44"/>
         <source>&lt;p&gt;Browse to an existing template file.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Nach einer existierenden Vorlagendatei suchen.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="templatewidget.ui" line="64"/>
+        <location filename="../common/templatewidget.ui" line="75"/>
         <source>&lt;p&gt;Edit template file&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vorlage bearbeiten&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="templatewidget.cpp" line="105"/>
+        <location filename="../common/templatewidget.cpp" line="107"/>
         <source>&lt;p&gt;The template contains the code of a complete LaTeX document in which the TikZ picture will be included and which will be typesetted to produce the preview image.  The string %1 in the template will be replaced by the TikZ code.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Die Vorlage enhält den code für ein komplettes LaTeX Dokument in das die TikZ Zeichnung inkludiert wird. Das Resultat wird von LaTeX übersetzt um daraus die Vorschau zu erstellen. Die Zeichenkette %1 in der Vorlage wird duch den TikZ code ersetzt.&lt;/p&gt;</translation>
     </message>
@@ -1379,192 +1626,250 @@ Wollen Sie die Änderungen speichern?</translation>
 <context>
     <name>TikzEditorView</name>
     <message>
-        <location filename="tikzeditorview.cpp" line="53"/>
+        <location filename="tikzeditorview.cpp" line="46"/>
         <source>&lt;p&gt;Enter your TikZ code here.  The code should begin with \begin{tikzpicture} and end with \end{tikzpicture}.&lt;/p&gt;</source>
         <oldsource>Enter your TikZ code here.  The code should begin with \begin{tikzpicture} and end with \end{tikzpicture}.</oldsource>
         <translation>&lt;p&gt;Geben sie hier TikZ code ein.  Der code sollte mit \begin{tikzpicture} beginnen und mit \end{tikzpicture} schließen.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="213"/>
+        <location filename="tikzeditorview.cpp" line="128"/>
         <source>Undo the previous action</source>
         <translation>Die letzte Aktion rückgängig machen</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="214"/>
         <source>&amp;Undo</source>
-        <translation>&amp;Rückgängig</translation>
+        <translation type="obsolete">&amp;Rückgängig</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="220"/>
+        <location filename="tikzeditorview.cpp" line="129"/>
         <source>Redo the previous undone action</source>
         <translation>Die letzte Aktion rückgängig machen</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="221"/>
         <source>Re&amp;do</source>
-        <translation>Wie&amp;derholen</translation>
+        <translation type="obsolete">Wie&amp;derholen</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="227"/>
+        <location filename="tikzeditorview.cpp" line="130"/>
         <source>Cut the current selection&apos;s contents to the clipboard</source>
         <translation>Die derzeitige Auswahl in die Zwischenablage ausschneiden</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="228"/>
         <source>Cu&amp;t</source>
-        <translation>&amp;Ausschneiden</translation>
+        <translation type="obsolete">&amp;Ausschneiden</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="234"/>
+        <location filename="tikzeditorview.cpp" line="131"/>
         <source>Copy the current selection&apos;s contents to the clipboard</source>
         <translation>Auswahl in die Zwischenablage kopieren</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="235"/>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopieren</translation>
+        <translation type="obsolete">&amp;Kopieren</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="241"/>
+        <location filename="tikzeditorview.cpp" line="132"/>
         <source>Paste the clipboard&apos;s contents into the current selection</source>
         <translation>Inhalt der Zwischenablage in die derzeitige Auswahl einfügen</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="242"/>
         <source>&amp;Paste</source>
-        <translation>&amp;Einfügen</translation>
+        <translation type="obsolete">&amp;Einfügen</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="248"/>
         <source>Select &amp;All</source>
-        <translation>&amp;Alles auswählen</translation>
+        <translation type="obsolete">&amp;Alles auswählen</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="250"/>
+        <location filename="tikzeditorview.cpp" line="133"/>
         <source>Select all the content</source>
         <translation>Gesamten Inhalt auswählen</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="254"/>
+        <location filename="tikzeditorview.cpp" line="134"/>
+        <source>&lt;p&gt;Undo the previous action.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Die letzte Aktion rückgängig machen.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="135"/>
+        <source>&lt;p&gt;Redo the previous undone action.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Die letzte Aktion rückgängig machen.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="136"/>
+        <source>&lt;p&gt;Cut the current selection&apos;s contents to the clipboard.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Die derzeitige Auswahl in die Zwischenablage ausschneiden.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="137"/>
+        <source>&lt;p&gt;Copy the current selection&apos;s contents to the clipboard.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Auswahl in die Zwischenablage kopieren.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="138"/>
+        <source>&lt;p&gt;Paste the clipboard&apos;s contents into the current selection.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Inhalt der Zwischenablage in die derzeitige Auswahl einfügen.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="139"/>
+        <source>&lt;p&gt;Select all the content.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Gesamten Inhalt auswählen.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="142"/>
         <source>&amp;Indent...</source>
         <translation>&amp;Einrücken...</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="256"/>
+        <location filename="tikzeditorview.cpp" line="144"/>
         <source>Indent the current line or selection</source>
         <translation>Die aktuelle Zeile oder Auswahl einrücken</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="260"/>
+        <location filename="tikzeditorview.cpp" line="145"/>
+        <source>&lt;p&gt;Indent the current line or selection.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Die aktuelle Zeile oder Auswahl einrücken.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="149"/>
         <source>C&amp;omment</source>
         <translation>K&amp;ommentar</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="262"/>
+        <location filename="tikzeditorview.cpp" line="151"/>
         <source>Comment the current line or selection</source>
         <translation>Die aktuelle Zeile oder Auswahl auskommentieren</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="266"/>
+        <location filename="tikzeditorview.cpp" line="152"/>
+        <source>&lt;p&gt;Comment the current line or selection.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Die aktuelle Zeile oder Auswahl auskommentieren.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="156"/>
         <source>Unco&amp;mment</source>
         <translation>Ko&amp;mmentar aufheben</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="255"/>
+        <location filename="tikzeditorview.cpp" line="159"/>
+        <source>&lt;p&gt;Uncomment the current line or selection.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Den Kommentar aufheben.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="143"/>
         <source>Ctrl+I</source>
         <comment>Edit|Indent</comment>
         <translation>Strg+E</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="261"/>
+        <location filename="tikzeditorview.cpp" line="150"/>
         <source>Ctrl+D</source>
         <comment>Edit|Comment</comment>
         <translation>Strg+D</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="267"/>
+        <location filename="tikzeditorview.cpp" line="157"/>
         <source>Ctrl+Shift+D</source>
         <comment>Edit|Uncomment</comment>
         <translation>Strg+Shift+D</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="268"/>
+        <location filename="tikzeditorview.cpp" line="158"/>
         <source>Uncomment the current line or selection</source>
         <translation>Den Kommentar aufheben</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="276"/>
         <source>&amp;Find...</source>
-        <translation>&amp;Suchen...</translation>
+        <translation type="obsolete">&amp;Suchen...</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="278"/>
+        <location filename="tikzeditorview.cpp" line="172"/>
         <source>Look up a piece of text in the document</source>
         <translation>Nach einem Stück Text im Dokument suchen</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="282"/>
         <source>Find &amp;Next</source>
-        <translation>&amp;Nächstes</translation>
+        <translation type="obsolete">&amp;Nächstes</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="284"/>
+        <location filename="tikzeditorview.cpp" line="173"/>
         <source>Search the next occurrence of a text</source>
         <translation>Nach dem nächsten Vorkommen des Textes suchen</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="288"/>
         <source>Find Pre&amp;vious</source>
-        <translation>&amp;Vorheriges</translation>
+        <translation type="obsolete">&amp;Vorheriges</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="290"/>
+        <location filename="tikzeditorview.cpp" line="174"/>
         <source>Search the previous occurrence of a text</source>
         <translation>Nach dem vorherigen Vorkommen des Textes suchen</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="294"/>
         <source>&amp;Replace...</source>
-        <translation>E&amp;rsetzen...</translation>
+        <translation type="obsolete">E&amp;rsetzen...</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="296"/>
+        <location filename="tikzeditorview.cpp" line="175"/>
         <source>Search and replace a piece of text in the document</source>
         <translation>Ein Stück Text im Dokument suchen und ersetzen</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="300"/>
         <source>&amp;Go to Line...</source>
-        <translation>Zu Zei&amp;le gehen...</translation>
+        <translation type="obsolete">Zu Zei&amp;le gehen...</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="302"/>
         <source>Ctrl+G</source>
         <comment>Edit|Go to Line</comment>
-        <translation type="unfinished">Strg+G</translation>
+        <translation type="obsolete">Strg+G</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="303"/>
+        <location filename="tikzeditorview.cpp" line="176"/>
         <source>Go to a certain line in the document</source>
         <translation>Zu einer bestimmten Zeile im Dokument springen</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="327"/>
+        <location filename="tikzeditorview.cpp" line="177"/>
+        <source>&lt;p&gt;Look up a piece of text in the document.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="178"/>
+        <source>&lt;p&gt;Search the next occurrence of a text.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="179"/>
+        <source>&lt;p&gt;Search the previous occurrence of a text.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="180"/>
+        <source>&lt;p&gt;Search and replace a piece of text in the document.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="181"/>
+        <source>&lt;p&gt;Go to a certain line in the document.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="tikzeditorview.cpp" line="203"/>
         <source>&amp;Edit</source>
         <translation>&amp;Bearbeiten</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="343"/>
+        <location filename="tikzeditorview.cpp" line="219"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="455"/>
+        <location filename="tikzeditorview.cpp" line="329"/>
         <source>Indent</source>
         <translation>Einrücken</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="590"/>
+        <location filename="tikzeditorview.cpp" line="464"/>
         <source>End of document reached.
 
 Continue from the beginning?</source>
@@ -1573,7 +1878,7 @@ Continue from the beginning?</source>
 Am Anfang des Dokuments weitermachen?</translation>
     </message>
     <message>
-        <location filename="tikzeditorview.cpp" line="591"/>
+        <location filename="tikzeditorview.cpp" line="465"/>
         <source>Beginning of document reached.
 
 Continue from the end?</source>
@@ -1602,135 +1907,317 @@ Am Ende des Dokuments weitermachen?</translation>
 <context>
     <name>TikzPreview</name>
     <message>
-        <location filename="tikzpreview.cpp" line="48"/>
+        <location filename="../common/tikzpreview.cpp" line="57"/>
         <source>&lt;p&gt;Here the preview image of your TikZ code is shown.  You can zoom in and out, and you can scroll the image by dragging it.&lt;/p&gt;</source>
         <oldsource>Here the preview image of your TikZ code is shown.  You can zoom in and out, and you can scroll the image by dragging it.</oldsource>
         <translation>&lt;p&gt;Hier wird die Vorschau des TikZ codes angezeigt.  Sie können vergrößern und verkleinern, sowie scrollen indem sie mit der Maus das Bild ziehen.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="222"/>
         <source>Zoom &amp;In</source>
-        <translation>Ver&amp;größern</translation>
+        <translation type="obsolete">Ver&amp;größern</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="224"/>
+        <location filename="../common/tikzpreview.cpp" line="112"/>
         <source>Zoom preview in</source>
         <translation>Vorschau vergrößern</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="225"/>
+        <location filename="../common/tikzpreview.cpp" line="114"/>
         <source>&lt;p&gt;Zoom preview in by a predetermined factor.&lt;/p&gt;</source>
         <oldsource>Zoom preview in by a predetermined factor.</oldsource>
         <translation>&lt;p&gt;Vorschau um einen bestimmten Faktor vergrößern.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="228"/>
         <source>Zoom &amp;Out</source>
-        <translation>Ver&amp;kleinern</translation>
+        <translation type="obsolete">Ver&amp;kleinern</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="230"/>
+        <location filename="../common/tikzpreview.cpp" line="113"/>
         <source>Zoom preview out</source>
         <translation>Vorschau verkleinern</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="231"/>
+        <location filename="../common/tikzpreview.cpp" line="115"/>
         <source>&lt;p&gt;Zoom preview out by a predetermined factor.&lt;/p&gt;</source>
         <oldsource>Zoom preview out by a predetermined factor.</oldsource>
         <translation>&lt;p&gt;Vorschau um einen bestimmten Faktor verkleinern.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="234"/>
+        <location filename="../common/tikzpreview.cpp" line="117"/>
+        <source>&amp;Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreview.cpp" line="126"/>
         <source>&amp;Previous image</source>
         <translation>V&amp;origens Bild</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="235"/>
+        <location filename="../common/tikzpreview.cpp" line="127"/>
         <source>Alt+Left</source>
         <comment>View|Go to previous page</comment>
         <translation>Alt+Links</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="241"/>
+        <location filename="../common/tikzpreview.cpp" line="133"/>
         <source>Alt+Right</source>
         <comment>View|Go to next page</comment>
         <translation>Alt+Rechts</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="236"/>
+        <location filename="../common/tikzpreview.cpp" line="508"/>
+        <source>Generating image</source>
+        <comment>tikz preview status</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreview.cpp" line="128"/>
         <source>Show previous image in preview</source>
         <translation>Vorheriges Bild in der Vorschau anzeigen</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="237"/>
+        <location filename="../common/tikzpreview.cpp" line="129"/>
         <source>&lt;p&gt;Show the preview of the previous tikzpicture in the TikZ code.&lt;/p&gt;</source>
         <oldsource>Show the preview of the previous tikzpicture in the TikZ code.</oldsource>
         <translation>&lt;p&gt;Vorschau vom vorangegangenen tikzpicture im TikZ code anzeigen.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="240"/>
+        <location filename="../common/tikzpreview.cpp" line="132"/>
         <source>&amp;Next image</source>
         <translation>&amp;Nächstes Bild</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="242"/>
+        <location filename="../common/tikzpreview.cpp" line="134"/>
         <source>Show next image in preview</source>
         <translation>Das nächte Bild in der Vorschau anzeigen</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="243"/>
+        <location filename="../common/tikzpreview.cpp" line="135"/>
         <source>&lt;p&gt;Show the preview of the next tikzpicture in the TikZ code.&lt;/p&gt;</source>
         <oldsource>Show the preview of the next tikzpicture in the TikZ code.</oldsource>
         <translation>&lt;p&gt;Vorschau vom nächsten tikzpicture im TikZ code anzeigen.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="270"/>
+        <location filename="../common/tikzpreview.cpp" line="119"/>
         <source>Select or insert zoom factor here</source>
         <translation>Zoom Faktor auswählen oder eingeben</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="271"/>
+        <location filename="../common/tikzpreview.cpp" line="120"/>
         <source>&lt;p&gt;Select the zoom factor here.  Alternatively, you can also introduce a zoom factor and press Enter.&lt;/p&gt;</source>
         <oldsource>Select the zoom factor here.  Alternatively, you can also introduce a zoom factor and press Enter.</oldsource>
         <translation>&lt;p&gt;Wählen Sie hier den Zoom Faktor aus.  Sie können auch einen Zoom Faktor eingeben und Enter drücken.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="tikzpreview.cpp" line="281"/>
+        <location filename="../common/tikzpreview.cpp" line="157"/>
         <source>View</source>
         <translation>Anzeigen</translation>
     </message>
 </context>
 <context>
+    <name>TikzPreviewController</name>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="145"/>
+        <source>E&amp;xport</source>
+        <translation type="unfinished">E&amp;xportieren</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="146"/>
+        <source>Export image to various formats</source>
+        <translation type="unfinished">Bild exportieren</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="147"/>
+        <source>&lt;p&gt;Export image to various formats.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="151"/>
+        <source>&amp;Encapsulated PostScript (EPS)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="153"/>
+        <source>Export to EPS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="154"/>
+        <source>&lt;p&gt;Export to EPS.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="158"/>
+        <source>&amp;Portable Document Format (PDF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="160"/>
+        <source>Export to PDF</source>
+        <translation type="unfinished">Nach PDF exportieren</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="161"/>
+        <source>&lt;p&gt;Export to PDF.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="165"/>
+        <source>Portable Network &amp;Graphics (PNG)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="167"/>
+        <source>Export to PNG</source>
+        <translation type="unfinished">Nach PNG exportieren</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="168"/>
+        <source>&lt;p&gt;Export to PNG.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="175"/>
+        <source>&amp;Stop Process</source>
+        <translation type="unfinished">Proze&amp;ss abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="176"/>
+        <source>Escape</source>
+        <comment>View|Stop Process</comment>
+        <translation type="unfinished">Escape</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="177"/>
+        <source>Abort current process</source>
+        <translation type="unfinished">Den aktuellen Prozess abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="178"/>
+        <source>&lt;p&gt;Abort the execution of the currently running process.&lt;/p&gt;</source>
+        <translation type="unfinished">&lt;p&gt;Die Ausführung des laufenden Prozesses abbrechen.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="182"/>
+        <source>S&amp;hell Escape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="183"/>
+        <source>Enable the \write18{shell-command} feature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="184"/>
+        <source>&lt;p&gt;Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Warning:&lt;/strong&gt; Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.&lt;/p&gt;</source>
+        <translation type="unfinished">&lt;p&gt;Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Warnung:&lt;/strong&gt; Diese option kann zur Auführung von Schadcode führen! Überprüfen sie den LaTeX code um zu sehen welche Kommandos ausgeführt werden.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="200"/>
+        <source>&amp;View</source>
+        <translation type="unfinished">&amp;Anzeigen</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="210"/>
+        <source>Run</source>
+        <translation type="unfinished">Ausführen</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="259"/>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="284"/>
+        <source>All files</source>
+        <translation type="unfinished">Alle Dateien</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="262"/>
+        <source>Export Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="285"/>
+        <source>Export image</source>
+        <translation type="unfinished">Bild exportieren</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="308"/>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="324"/>
+        <source>A file named &quot;%1&quot; already exists. Are you sure you want to overwrite it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="311"/>
+        <source>Overwrite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="327"/>
+        <source>&amp;Overwrite</source>
+        <comment>Do you want to overwrite an existing file - warning box</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="328"/>
+        <source>&amp;Cancel</source>
+        <comment>Do you want to overwrite an existing file - warning box</comment>
+        <translation type="unfinished">Abbre&amp;chen</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="336"/>
+        <source>The file &quot;%1&quot; could not be overwritten.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="364"/>
+        <source>The image could not be exported to the file &quot;%1&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewcontroller.cpp" line="382"/>
+        <source>Template file could not be copied to a temporary file &quot;%1&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TikzPreviewGenerator</name>
     <message>
-        <location filename="tikzpreviewgenerator.cpp" line="184"/>
+        <location filename="../common/tikzpreviewgenerator.cpp" line="103"/>
+        <source>Gnuplot cannot be executed. Either Gnuplot is not installed or it is not available in the system PATH or you may have insufficient permissions to invoke the program.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewgenerator.cpp" line="201"/>
         <source>Warning: could not load LaTeX logfile.</source>
         <translation>Warnung: Konnte die LaTeX Logdatei nicht öffnen.</translation>
     </message>
     <message>
-        <location filename="tikzpreviewgenerator.cpp" line="197"/>
-        <location filename="tikzpreviewgenerator.cpp" line="420"/>
+        <location filename="../common/tikzpreviewgenerator.cpp" line="215"/>
+        <location filename="../common/tikzpreviewgenerator.cpp" line="481"/>
         <source>Process aborted.</source>
         <translation>Prozess abgebrochen.</translation>
     </message>
     <message>
-        <location filename="tikzpreviewgenerator.cpp" line="226"/>
-        <location filename="tikzpreviewgenerator.cpp" line="425"/>
+        <location filename="../common/tikzpreviewgenerator.cpp" line="246"/>
+        <location filename="../common/tikzpreviewgenerator.cpp" line="487"/>
         <source>Process finished successfully.</source>
         <translation>Prozess erfolgreich beendet.</translation>
     </message>
     <message>
-        <location filename="tikzpreviewgenerator.cpp" line="232"/>
+        <location filename="../common/tikzpreviewgenerator.cpp" line="252"/>
         <source>Error: loading PDF failed, the file is probably corrupted.</source>
         <translation>Fehler: konnte PDF nicht laden, die Datei ist wahrscheinlich beschädigt.</translation>
     </message>
     <message>
-        <location filename="tikzpreviewgenerator.cpp" line="430"/>
+        <location filename="../common/tikzpreviewgenerator.cpp" line="492"/>
         <source>Error: run failed.</source>
-        <translation>Fehler: Durchlauf fehlgeschlagen.</translation>
+        <comment>info process</comment>
+        <translation type="unfinished">Fehler: Durchlauf fehlgeschlagen.</translation>
     </message>
     <message>
-        <location filename="tikzpreviewgenerator.cpp" line="482"/>
+        <source>Error: run failed.</source>
+        <translation type="obsolete">Fehler: Durchlauf fehlgeschlagen.</translation>
+    </message>
+    <message>
+        <location filename="../common/tikzpreviewgenerator.cpp" line="547"/>
         <source>Running...</source>
         <translation>Verarbeitung...</translation>
     </message>

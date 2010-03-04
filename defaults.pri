@@ -1,4 +1,6 @@
-APPVERSION = 0.9
+ORGNAME = "Florian\ Hackenberger"
+APPNAME = ktikz
+APPVERSION = 0.10
 
 isEmpty(QMAKECOMMAND) {
 	QMAKECOMMAND = qmake

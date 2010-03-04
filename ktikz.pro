@@ -12,6 +12,7 @@ include(conf.pri)
 include(defaults.pri)
 
 message(*** KTikZ v$${APPVERSION} ***)
+message(Qt version: $$[QT_VERSION])
 message(The program will be installed in)
 message("  $${BINDIR}")
 message(The translation files will be installed in)
@@ -28,10 +29,10 @@ message()
 message("If you would like to change these paths,")
 message("please adjust conf.pri to your needs and rerun qmake.")
 message()
-USEKDEMESSAGE1 = "In order to enable KDE file dialogs in this application,"
+USEKDEMESSAGE1 = "In order to enable KDE integration in this application,"
 USEKDEMESSAGE2 = "unhide the line \"CONFIG += usekde\" in conf.pri."
 usekde {
-	USEKDEMESSAGE1 = "In order to disable KDE file dialogs in this application,"
+	USEKDEMESSAGE1 = "In order to disable KDE integration in this application,"
 	USEKDEMESSAGE2 = "hide the line \"CONFIG += usekde\" in conf.pri."
 }
 message($${USEKDEMESSAGE1})
@@ -41,6 +42,7 @@ QMAKE_EXTRA_UNIX_TARGETS += PACKAGE
 PACKAGE.target = package
 PACKAGE.commands = "tar --exclude='debian-package' --exclude='*/.svn*' --exclude='moc_*' -cf - \
 Changelog \
+CMakeLists.txt \
 conf.pri \
 defaults.pri \
 macros.pri \
@@ -48,13 +50,17 @@ Doxyfile \
 INSTALL \
 ktikz.pro \
 TODO \
+app/CMakeLists.txt \
 app/*.h \
 app/*.cpp \
 app/*.ts \
 app/*.qrc \
 app/*.desktop.template \
 app/*.pro \
+app/*.rc \
 app/*.ui \
 app/*.xml \
 templates \
-app/images | tardy -Remove_Prefix ktikz -Prefix ktikz-$${APPVERSION} - - | gzip -c > ktikz-$${APPVERSION}.tar.gz"
+app/images \
+common \
+part | tardy -Remove_Prefix ktikz -Prefix ktikz-$${APPVERSION} - - | gzip -c > ktikz-$${APPVERSION}.tar.gz"
