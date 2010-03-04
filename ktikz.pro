@@ -1,4 +1,4 @@
-SUBDIRS += src
+SUBDIRS += app
 TEMPLATE = subdirs 
 CONFIG += warn_on \
           qt \
@@ -48,13 +48,13 @@ Doxyfile \
 INSTALL \
 ktikz.pro \
 TODO \
-src/*.h \
-src/*.cpp \
-src/*.ts \
-src/*.qrc \
-src/*.desktop.template \
-src/*.pro \
-src/*.ui \
-src/*.xml \
+app/*.h \
+app/*.cpp \
+app/*.ts \
+app/*.qrc \
+app/*.desktop.template \
+app/*.pro \
+app/*.ui \
+app/*.xml \
 templates \
-src/images | tardy -Remove_Prefix ktikz -Prefix ktikz-$${APPVERSION} - - | gzip -c > ktikz-$${APPVERSION}.tar.gz"
+app/images | tardy -Remove_Prefix ktikz -Prefix ktikz-$${APPVERSION} - - | gzip -c > ktikz-$${APPVERSION}.tar.gz"
