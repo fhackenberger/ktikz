@@ -420,7 +420,8 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 	{
 		// still running or starting
 		if (m_process->bytesAvailable())
-			log << m_process->readLine(m_process->bytesAvailable());
+//			log << m_process->readLine(m_process->bytesAvailable()); // XXX I don't know why this doesn't work anymore since Qt 4.6
+			log << m_process->readLine();
 		else
 			m_process->waitForFinished(100 /*msec*/);
 	}
@@ -467,7 +468,7 @@ void TikzPreviewGenerator::abortProcess()
 bool TikzPreviewGenerator::generateEpsFile()
 {
 	QStringList pdftopsArguments;
-	pdftopsArguments << m_tikzTempFileBaseName + ".pdf" << m_tikzTempFileBaseName + ".eps";
+	pdftopsArguments << "-eps" << m_tikzTempFileBaseName + ".pdf" << m_tikzTempFileBaseName + ".eps";
 	return runProcess("pdftops", m_pdftopsCommand, pdftopsArguments);
 }
 
@@ -490,7 +491,7 @@ bool TikzPreviewGenerator::generatePdfFile()
 	if (m_useShellEscaping)
 		latexArguments << "-shell-escape";
 	latexArguments << "-halt-on-error" << "-file-line-error"
-	    << "-interaction" << "batchmode" << "-output-directory"
+	    << "-interaction" << "nonstopmode" << "-output-directory"
 	    << QFileInfo(m_tikzTempFileBaseName + ".tex").absolutePath()
 	    << m_tikzTempFileBaseName + ".tex";
 

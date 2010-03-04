@@ -264,7 +264,9 @@ void MainWindow::showTikzDocumentation()
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
 	QSettings settings;
+	settings.beginGroup("General");
 	QString tikzDocFile = settings.value("TikzDocumentation").toString();
+	settings.endGroup();
 	if (tikzDocFile.isEmpty())
 		QMessageBox::warning(this, KtikzApplication::applicationName(),
 		                     tr("Cannot find TikZ documentation."));
