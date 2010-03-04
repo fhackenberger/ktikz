@@ -22,10 +22,10 @@ TRANSLATIONSDIR = $${PREFIX}/share/ktikz
 DESKTOPDIR = $${PREFIX}/share/applications
 
 # compile in debug mode:
-CONFIG += debug
+#CONFIG += debug
 # compile in release mode:
-#CONFIG -= debug
-#CONFIG += release
+CONFIG -= debug
+CONFIG += release
 
 # qmake command:
 QMAKECOMMAND = qmake-qt4
