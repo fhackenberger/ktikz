@@ -8,9 +8,10 @@ version 0.10 (2010-03-04):
 - zooming is done in a separate thread now, so the interface is not blocked
   when zooming at large sizes
 - a kpart is available that can be used to view TikZ source files in
-  konqueror (the kpart opens files having the text/x-pgf mimetype; if this
-  mimetype does not exist yet, then the user has to create it in the
-  systemsettings > Advanced > File Associations)
+  konqueror (the kpart opens files having the text/x-pgf mimetype; after
+  installing ktikz, sudo update-mime-database /usr/share/mime must be run,
+  as user it may be necessary to run kbuildsycoca4 or restart KDE before
+  using konqueror)
 - Remove bug which causes ktikz to hang (since Qt 4.6) when typesetting
   a picture
 - Remove bug: cannot find TikZ documentation when selecting "TikZ Manual"

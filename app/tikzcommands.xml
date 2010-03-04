@@ -1,3 +1,10 @@
+<!--
+type:
+0: plain text (no highlighting)
+1: command
+2: draw to next point
+3: option
+-->
 <tikzcommands title="&amp;Insert">
 	<item description="\\begin{tikzpicture}[&lt;options&gt;]" insert="\\begin{tikzpicture}\n\n\\end{tikzpicture}" dx="0" dy="1" type="0"/>
 	<item description="\\end{tikzpicture}" insert="\\end{tikzpicture}" dx="17" dy="0" type="1"/>
@@ -23,9 +30,9 @@
 		<item description="\\useas&amp;boundingbox" insert="\\useasboundingbox ;" dx="18" dy="0" type="1"/>
 		<item name="&amp;Clip and draw the clipping contours" insert="\\clip[draw] ;" dx="12" dy="0" type="1"/>
 		<separator/>
-		<item name="Draw &amp;line between two points" insert="\\draw (,) -- (,);" dx="7" dy="0" type="0"/>
-		<item name="Draw p&amp;olygon" insert="\\draw (,) -- (,) -- (,) -- cycle;" dx="7" dy="0" type="0"/>
-		<item name="&amp;Clip rectangle" insert="\\clip (,) rectangle (,);" dx="7" dy="0" type="0"/>
+		<item name="Draw &amp;line between two points" description="\\draw (&lt;x1&gt;,&lt;y1&gt;) -- (&lt;x2&gt;,&lt;y2&gt;);" insert="\\draw (,) -- (,);" dx="7" dy="0" type="0"/>
+		<item name="Draw p&amp;olygon" description="\\draw (&lt;x1&gt;,&lt;y1&gt;) -- (&lt;x2&gt;,&lt;y2&gt;) -- (&lt;x3&gt;,&lt;y3&gt;) -- cycle;" insert="\\draw (,) -- (,) -- (,) -- cycle;" dx="7" dy="0" type="0"/>
+		<item name="&amp;Clip rectangle" description="\\clip (&lt;x&gt;,&lt;y&gt;) rectangle (&lt;width&gt;,&lt;height&gt;);" insert="\\clip (,) rectangle (,);" dx="7" dy="0" type="0"/>
 	</section>
 	<section title="Draw &amp;to Next Point">
 		<item name="&amp;Move to point" description="&lt;end point&gt;" insert=" (,)" dx="2" dy="0" type="0"/>
@@ -36,11 +43,13 @@
 		<item name="&amp;Line to relative point" description="-- ++&lt;end point&gt;" insert=" -- ++(,)" dx="7" dy="0" type="2"/>
 		<item name="&amp;Line to node" description="-- (&lt;label&gt;)" insert=" -- ()" dx="5" dy="0" type="0"/>
 		<item name="&amp;Line to node with anchor" description="-- (&lt;label&gt;.&lt;north/south/...&gt;) " insert=" -- (.)" dx="5" dy="0" type="0"/>
+		<item name="&amp;Edge to" description="edge &lt;nodes&gt; &lt;end point&gt;" insert=" edge (,)" dx="7" dy="0" type="2"/>
+		<item name="&amp;Edge to (with options)" description="edge[&lt;options&gt;] &lt;nodes&gt; &lt;end point&gt;" insert=" edge[] (,)" dx="6" dy="0" type="2"/>
 		<item name="C&amp;urve to" description=".. controls &lt;ctrl1&gt; and &lt;ctrl2&gt; .. &lt;end point&gt;" insert=" .. controls (,) and (,) .. (,)" dx="14" dy="0" type="2"/>
 		<item name="C&amp;ycle" description="-- cycle" insert=" -- cycle" dx="9" dy="0" type="2"/>
 		<item name="&amp;To" description="to &lt;end point&gt;" insert=" to (,)" dx="5" dy="0" type="2"/>
 		<item name="&amp;Node" description="node {&lt;text&gt;}" insert="node {} " dx="6" dy="0" type="2"/>
-		<item name="&amp;Node" description="node [&lt;options&gt;] (&lt;label&gt;) {&lt;text&gt;}" insert="node[] () {} " dx="5" dy="0" type="2"/>
+		<item name="&amp;Node (with options and name)" description="node [&lt;options&gt;] (&lt;label&gt;) {&lt;text&gt;}" insert="node[] () {} " dx="5" dy="0" type="2"/>
 		<item name="&amp;Plot" description="plot [&lt;options&gt;]" insert="plot []" dx="5" dy="0" type="2"/>
 		<item name="&amp;Function" description="function {&lt;function&gt;}" insert="function {}" dx="9" dy="0" type="2"/>
 		<item name="&amp;Plot function" description="plot [&lt;options&gt;] function {&lt;function&gt;}" insert="plot [] function {}" dx="18" dy="0" type="2"/>
@@ -61,6 +70,18 @@
 			<item name="&amp;Cosine curve in [0, pi/2]" description="cos &lt;end point&gt;" insert=" cos (,)" dx="6" dy="0" type="2"/>
 			<item name="&amp;Grid" description="grid &lt;end point&gt;" insert=" grid (,)" dx="7" dy="0" type="2"/>
 		</section>
+	</section>
+	<section title="&amp;Nodes">
+		<item name="&amp;Node" description="\\node (&lt;name&gt;) {&lt;text&gt;}" insert="\\node () {};" dx="7" dy="0" type="1"/>
+		<item name="&amp;Child" insert="child " dx="6" dy="0" type="2"/>
+		<item name="C&amp;hild node" description="child {node {&lt;text&gt;}}" insert="child {node {}} " dx="13" dy="0" type="2"/>
+		<item name="Node &amp;part" description="\\nodepart{&lt;part name&gt;}" insert="\\nodepart{};" dx="10" dy="0" type="1"/>
+		<item name="Set &amp;distance between nodes" description="node distance=&lt;dimension&gt;" insert="node distance=" dx="14" dy="0" type="3"/>
+		<item name="Set parent &amp;anchor" description="parent anchor=&lt;north/south/...&gt;" insert="parent anchor=" dx="14" dy="0" type="3"/>
+		<item name="Set child &amp;anchor" description="child anchor=&lt;north/south/...&gt;" insert="child anchor=" dx="13" dy="0" type="3"/>
+		<item name="Set node tree &amp;grow direction" description="grow=&lt;north/south/...&gt;" insert="grow=" dx="5" dy="0" type="3"/>
+		<item name="Set &amp;label" description="label={[&lt;options&gt;]&lt;angle&gt;:&lt;text&gt;}" insert="label={[]:}" dx="8" dy="0" type="3"/>
+		<item name="Set &amp;pin (label with connecting edge)" description="pin={[&lt;options&gt;]&lt;angle&gt;:&lt;text&gt;}" insert="pin={[]:}" dx="6" dy="0" type="3"/>
 	</section>
 	<section title="&amp;Arrows">
 		<item insert="-&gt;" dx="2" dy="0" type="3"/>
@@ -98,17 +119,48 @@
 		<item description="&amp;draw opacity=&lt;value&gt;" insert="draw opacity=" dx="13" dy="0" type="3"/>
 		<item description="&amp;fill opacity=&lt;value&gt;" insert="fill opacity=" dx="13" dy="0" type="3"/>
 		<item description="&amp;text opacity=&lt;value&gt;" insert="text opacity=" dx="13" dy="0" type="3"/>
-		<item description="st&amp;yle" insert="style=" dx="6" dy="0" type="3"/>
 		<item description="an&amp;gle=&lt;degree&gt;" insert="angle=" dx="6" dy="0" type="3"/>
 		<item description="&amp;rotate=&lt;degree&gt;" insert="rotate=" dx="7" dy="0" type="3"/>
 		<item description="rounded &amp;corners" insert="rounded corners" dx="15" dy="0" type="3"/>
 		<item description="rounded &amp;corners=&lt;inset&gt;" insert="rounded corners=" dx="16" dy="0" type="3"/>
 		<item description="sharp &amp;corners" insert="sharp corners" dx="13" dy="0" type="3"/>
 		<item description="Define c&amp;olor" description="\\colorlet{&lt;name&gt;}{&lt;value&gt;}" insert="\colorlet{}{}" dx="10" dy="0" type="1"/>
-		<item description="Define st&amp;yle" description="\\tikzstyle{&lt;name&gt;}=[&lt;options&gt;]" insert="\\tikzstyle{}=[]" dx="11" dy="0" type="1"/>
-		<item description="Add to st&amp;yle" description="\\tikzstyle{&lt;name&gt;}+=[&lt;options&gt;]" insert="\\tikzstyle{}+=[]" dx="11" dy="0" type="1"/>
 		<item description="Set &amp;definition" description="\\tikzset{&lt;variable&gt;=&lt;value&gt;}" insert="\\tikzset{=}" dx="9" dy="0" type="1"/>
-		<item name="Define style for &amp;every path" description="\\tikzstyle{every path}=[&lt;options&gt;]" insert="\\tikzstyle{every path}=[]" dx="24" dy="0" type="0"/>
+		<section title="&amp;Styles">
+			<item description="st&amp;yle" insert="style=" dx="6" dy="0" type="3"/>
+			<item description="Define st&amp;yle" description="\\tikzstyle{&lt;name&gt;}=[&lt;options&gt;]" insert="\\tikzstyle{}=[]" dx="11" dy="0" type="1"/>
+			<item description="Add to st&amp;yle" description="\\tikzstyle{&lt;name&gt;}+=[&lt;options&gt;]" insert="\\tikzstyle{}+=[]" dx="11" dy="0" type="1"/>
+			<separator/>
+			<item name="Define style for every &amp;path (standalone)" description="\\tikzstyle{every path}=[&lt;options&gt;]" insert="\\tikzstyle{every path}=[]" dx="24" dy="0" type="0"/>
+			<item name="Define style for every &amp;node (standalone)" description="\\tikzstyle{every node}=[&lt;options&gt;]" insert="\\tikzstyle{every node}=[]" dx="24" dy="0" type="0"/>
+			<item name="Define style for every &lt;&amp;shape&gt; node (standalone)" description="\\tikzstyle{every &lt;rectangle/circle/...&gt; node}=[&lt;options&gt;]" insert="\\tikzstyle{every  node}=[]" dx="17" dy="0" type="0"/>
+			<separator/>
+			<item name="Define style for every &amp;path (as option)" description="every path/.style={&lt;style&gt;}" insert="every path/.style={}" dx="19" dy="0" type="3"/>
+			<item name="Define style for every &amp;node (as option)" description="every node/.style={&lt;style&gt;}" insert="every node/.style={}" dx="19" dy="0" type="3"/>
+			<item name="Define style for every &amp;edge (as option)" description="every edge/.style={&lt;style&gt;}" insert="every edge/.style={}" dx="19" dy="0" type="3"/>
+			<item name="Define style for every n&amp;ode part (as option)" description="every &lt;part name&gt; node part/.style={&lt;style&gt;}" insert="every  node part/.style={}" dx="6" dy="0" type="3"/>
+			<item name="Define style for every node &amp;label (as option)" description="every label/.style={&lt;style&gt;}" insert="every label/.style={}" dx="20" dy="0" type="3"/>
+			<item name="Define style for every node &amp;pin label (as option)" description="every pin/.style={&lt;style&gt;}" insert="every pin/.style={}" dx="18" dy="0" type="3"/>
+			<item name="Define style for every node &amp;pin edge (as option)" description="every pin edge/.style={&lt;style&gt;}" insert="every pin edge/.style={}" dx="23" dy="0" type="3"/>
+			<item name="Define style for every &lt;&amp;shape&gt; node (as option)" description="every &lt;rectangle/circle/...&gt; node/.style={&lt;style&gt;}" insert="every  node/.style={}" dx="6" dy="0" type="3"/>
+			<item name="Define style for every &amp;join (as option)" description="every join/.style={&lt;style&gt;}" insert="every join/.style={}" dx="19" dy="0" type="3"/>
+			<item name="Define style for every &amp;picture (as option)" description="every picture/.style={&lt;style&gt;}" insert="every picture/.style={}" dx="22" dy="0" type="3"/>
+			<item name="Define style for every &amp;to path (as option)" description="every to/.style={&lt;style&gt;}" insert="every to/.style={}" dx="17" dy="0" type="3"/>
+			<separator/>
+			<item name="Append style for every &amp;path (as option)" description="every path/append .style={&lt;style&gt;}" insert="every path/append .style={}" dx="26" dy="0" type="3"/>
+			<item name="Append style for every &amp;node (as option)" description="every node/append .style={&lt;style&gt;}" insert="every node/append .style={}" dx="26" dy="0" type="3"/>
+			<item name="Append style for every &amp;edge (as option)" description="every edge/append .style={&lt;style&gt;}" insert="every edge/append .style={}" dx="26" dy="0" type="3"/>
+			<item name="Append style for every n&amp;ode part (as option)" description="every &lt;part name&gt; node part/append .style={&lt;style&gt;}" insert="every  node part/append .style={}" dx="6" dy="0" type="3"/>
+			<item name="Append style for every node &amp;label (as option)" description="every label/append .style={&lt;style&gt;}" insert="every label/append .style={}" dx="27" dy="0" type="3"/>
+			<item name="Append style for every node &amp;pin label (as option)" description="every pin/append .style={&lt;style&gt;}" insert="every pin/append .style={}" dx="25" dy="0" type="3"/>
+			<item name="Append style for every node &amp;pin edge (as option)" description="every pin edge/append .style={&lt;style&gt;}" insert="every pin edge/append .style={}" dx="30" dy="0" type="3"/>
+			<item name="Append style for every &lt;&amp;shape&gt; node (as option)" description="every &lt;rectangle/circle/...&gt; node/append .style={&lt;style&gt;}" insert="every  node/append .style={}" dx="6" dy="0" type="3"/>
+			<item name="Append style for every &amp;join (as option)" description="every join/append .style={&lt;style&gt;}" insert="every join/append .style={}" dx="26" dy="0" type="3"/>
+			<item name="Append style for every &amp;picture (as option)" description="every picture/append .style={&lt;style&gt;}" insert="every picture/append .style={}" dx="29" dy="0" type="3"/>
+			<item name="Append style for every &amp;to path (as option)" description="every to/append .style={&lt;style&gt;}" insert="every to/append .style={}" dx="24" dy="0" type="3"/>
+			<separator/>
+			<item description="edge from parent/.style={&lt;style&gt;}" insert="edge from parent/.style={}" dx="25" dy="0" type="3"/>
+		</section>
 		<section title="&amp;Node Options">
 			<item description="&amp;anchor=&lt;north/south/...&gt;" insert="anchor=" dx="7" dy="0" type="3"/>
 			<separator/>
@@ -152,6 +204,10 @@
 			<item name="Set minimum &amp;height of node" description="minimum height=&lt;dimension&gt;" insert="minimum height=" dx="15" dy="0" type="3"/>
 			<item name="Set minimum &amp;width of node" description="minimum width=&lt;dimension&gt;" insert="minimum width=" dx="14" dy="0" type="3"/>
 			<separator/>
+			<item name="Set &amp;distance between node and its label" description="label distance=&lt;dimension&gt;" insert="label distance=" dx="15" dy="0" type="3"/>
+			<item name="Set &amp;distance between node and its pin label" description="pin distance=&lt;dimension&gt;" insert="pin distance=" dx="13" dy="0" type="3"/>
+			<item name="Set &amp;pin edge options" description="pin edge=&lt;options&gt;" insert="pin edge=" dx="9" dy="0" type="3"/>
+			<separator/>
 			<item name="Set node &amp;sloped in the direction of path" description="sloped" insert="sloped" dx="6" dy="0" type="3"/>
 			<item name="Set &amp;shape of node" description="shape=&lt;rectangle/circle/coordinate&gt;" insert="shape=" dx="6" dy="0" type="3"/>
 			<item name="&amp;Define style for every node" description="\\tikzstyle{every node}=[&lt;options&gt;]" insert="\\tikzstyle{every node}=[]" dx="24" dy="0" type="0"/>
@@ -189,7 +245,7 @@
 			<item description="densely d&amp;ashed" insert="densely dashed" dx="14" dy="0" type="3"/>
 			<item description="loosely d&amp;ashed" insert="loosely dashed" dx="14" dy="0" type="3"/>
 		</section>
-		<section title="&amp;Shade Options">
+		<section title="S&amp;hade Options">
 			<item description="&amp;draw=&lt;color name&gt;" insert="draw=" dx="5" dy="0" type="3"/>
 			<item description="&amp;top color=&lt;color name&gt;" insert="top color=" dx="10" dy="0" type="3"/>
 			<item description="&amp;bottom color=&lt;color name&gt;" insert="bottom color=" dx="13" dy="0" type="3"/>
@@ -251,7 +307,7 @@
 			<item description="&amp;ystep=&lt;number or dimension&gt;" insert="ystep=" dx="6" dy="0" type="3"/>
 			<item description="style=&amp;help lines" insert="style=help lines" dx="16" dy="0" type="3"/>
 			<separator/>
-			<item name="Draw &quot;subdued&quot; &amp;grid with specified step" insert="\\draw[style=help lines] (,) grid[step=(:)] (,);" dx="25" dy="0" type="0"/>
+			<item name="Draw &quot;subdued&quot; &amp;grid with specified step" description="\\draw[style=help lines] (&lt;x1&gt;,&lt;y1&gt;) grid[step=(&lt;dx&gt;:&lt;dy&gt;)] (&lt;x2&gt;,&lt;y2&gt;);" insert="\\draw[style=help lines] (,) grid[step=(:)] (,);" dx="25" dy="0" type="0"/>
 		</section>
 		<section title="&amp;To Options">
 			<item description="&amp;out=&lt;degree&gt;" insert="out=" dx="4" dy="0" type="3"/>
