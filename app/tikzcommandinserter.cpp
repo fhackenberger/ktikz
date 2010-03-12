@@ -18,6 +18,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "tikzcommandinserter.h"
+
 #include <QApplication>
 #include <QComboBox>
 #include <QDockWidget>
@@ -33,7 +35,6 @@
 #include <QPlainTextEdit>
 
 #include "tikzeditorhighlighter.h"
-#include "tikzcommandinserter.h"
 #include "tikzcommandwidget.h"
 
 TikzCommandInserter::TikzCommandInserter(QWidget *parent)
@@ -494,6 +495,7 @@ void TikzCommandInserter::insertTag()
 	{
 		const int num = action->data().toInt();
 		const TikzCommand cmd = m_tikzCommandsList.at(num);
+		emit showStatusMessage(cmd.description, 0);
 		insertTag(cmd.command, cmd.dx, cmd.dy);
 	}
 }
@@ -504,6 +506,7 @@ void TikzCommandInserter::insertTag(QListWidgetItem *item)
 	{
 		const int num = item->data(Qt::UserRole).toInt();
 		const TikzCommand cmd = m_tikzCommandsList.at(num);
+		emit showStatusMessage(cmd.description, 0);
 		insertTag(cmd.command, cmd.dx, cmd.dy);
 	}
 }

@@ -50,6 +50,7 @@ public slots:
 
 signals:
 	void cursorPositionChanged(int row, int col);
+	void showStatusMessage(const QString &message, int timeout = 3000);
 
 protected:
 	void paintEvent(QPaintEvent *event);

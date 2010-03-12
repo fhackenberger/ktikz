@@ -161,10 +161,14 @@ MainWindow::MainWindow()
 	guiFactory()->addClient(this);
 #endif
 
+	connect(m_commandInserter, SIGNAL(showStatusMessage(QString,int)),
+	        statusBar(), SLOT(showMessage(QString,int)));
 	connect(m_tikzEditorView, SIGNAL(modificationChanged(bool)),
 	        this, SLOT(setDocumentModified(bool)));
 	connect(m_tikzEditorView, SIGNAL(cursorPositionChanged(int,int)),
 	        this, SLOT(showCursorPosition(int,int)));
+	connect(m_tikzEditorView, SIGNAL(showStatusMessage(QString,int)),
+	        statusBar(), SLOT(showMessage(QString,int)));
 	connect(m_tikzPreviewController, SIGNAL(logUpdated(QString,bool)),
 	        m_logTextEdit, SLOT(logUpdated(QString,bool)));
 
@@ -518,7 +522,6 @@ void MainWindow::createCommandInsertWidget()
 	{
 		m_commandsDock = m_commandInserter->getDockWidget(this);
 		addDockWidget(Qt::LeftDockWidgetArea, m_commandsDock);
-		connect(m_commandInserter, SIGNAL(showStatusMessage(QString,int)), statusBar(), SLOT(showMessage(QString,int)));
 
 #ifdef KTIKZ_USE_KDE
 		actionCollection()->addAction("toggle_commands_list", m_commandsDock->toggleViewAction());

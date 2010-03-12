@@ -81,6 +81,8 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	        this, SIGNAL(contentsChanged()));
 	connect(m_tikzEditor, SIGNAL(cursorPositionChanged(int,int)),
 	        this, SIGNAL(cursorPositionChanged(int,int)));
+	connect(m_tikzEditor, SIGNAL(showStatusMessage(QString,int)),
+	        this, SIGNAL(showStatusMessage(QString,int)));
 	connect(m_replaceWidget, SIGNAL(search(QString,bool,bool,bool)),
 	        this, SLOT(search(QString,bool,bool,bool)));
 	connect(m_replaceWidget, SIGNAL(replace(QString,QString,bool,bool,bool)),

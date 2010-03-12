@@ -579,6 +579,8 @@ void TikzEditor::insertCompletion(const QString &completion)
 	if (!m_completer || m_completer->widget() != this)
 		return;
 
+	emit showStatusMessage(completion, 0);
+
 	QTextCursor cursor = textCursor();
 	const int extra = completion.length() - m_completer->completionPrefix().length();
 	const int pos = cursor.position();

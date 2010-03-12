@@ -58,6 +58,7 @@ signals:
 	void modificationChanged(bool changed);
 	void contentsChanged();
 	void cursorPositionChanged(int row, int col);
+	void showStatusMessage(const QString &message, int timeout = 3000);
 	void setSearchFromBegin(bool searchFromBegin);
 
 private slots:
