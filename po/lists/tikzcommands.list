@@ -1,0 +1,101 @@
+&Insert
+<icode>foreach</icode> with iteration
+<icode>foreach</icode> with custom text
+&Draw
+Specify &coordinate
+&Node
+&Clip and draw the clipping contours
+Draw &line between two points
+Draw p&olygon
+&Clip rectangle
+Draw &to Next Point
+&Move to point
+&Move to relative point
+&Line to
+&Line to relative point
+&Line to node
+&Line to node with anchor
+C&urve to
+C&ycle
+&To
+&Plot
+&Function
+&Plot function
+&Specifying Coordinates
+&Absolute point
+Point &relative to initial position
+Point &relative to previous position
+&Polar coordinates
+&Intersection of two lines
+&Curves
+&Rectangle
+&Circle
+&Ellipse
+&Arc
+&Parabola
+&Sine curve in [0, pi/2]
+&Cosine curve in [0, pi/2]
+&Grid
+&Arrows
+&Shorten start of line
+&Shorten end of line
+&Options
+Define style for &every path
+&Node Options
+Set node at &start of path
+Set node very near &start of path
+Set node near &start of path
+Set node &midway path
+Set node near &end of path
+Set node very near &end of path
+Set node at &end of path
+Set relative &position of node on path
+Set &text width in node
+Set &text in node justified
+Align &text in node to the left
+Align &text to the left without hyphenation
+Center &text in node
+Center &text without hyphenation
+Set &text height in node
+Set &text depth in node
+Set &separation between text and node shape
+Set &separation outside node shape
+Set minimum &height of node
+Set minimum &width of node
+Set node &sloped in the direction of path
+Set &shape of node
+&Define style for every node
+&Define style for every <shape> node
+&Line Options
+Maximal length of &miter join
+&Plot Options
+&Dash Patterns
+&Equal lines
+&Alternating lines
+S&hift dash start
+&Shade Options
+&Snaked Lines Options
+&Path Options
+&Transformations on Subsequent Objects in Path
+S&hift horizontally
+S&hift vertically
+S&hift to a point
+&Cancel all transformations except shift
+&Rotate by angle
+&Rotate around a point
+S&cale horizontally
+S&cale vertically
+S&cale in both directions
+&Flip horizontally
+&Flip vertically
+&Slant horizontally
+&Slant vertically
+C&oordinate transformation
+Para&bola Options
+Parabola with specified &width and height
+&Grid Options
+Draw \\"subdued\\" &grid with specified step
+&To Options
+<icode>to</icode> curved with &label
+<icode>to</icode> curved with <icode>to &path</icode>
+&Define style for every to

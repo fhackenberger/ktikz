@@ -1,5 +1,9 @@
+set(KTIKZ_TRANSLATIONS_INSTALL_DIR ${DATA_INSTALL_DIR}/ktikz/locale)
+add_definitions(-DKTIKZ_TRANSLATIONS_INSTALL_DIR=\\\"${KTIKZ_TRANSLATIONS_INSTALL_DIR}\\\")
+
 include_directories(
-	${CMAKE_CURRENT_SOURCE_DIR}/../common ${CMAKE_CURRENT_SOURCE_DIR}/../common/utils
+	${CMAKE_CURRENT_SOURCE_DIR}/../common
+	${CMAKE_CURRENT_SOURCE_DIR}/../common/utils
 )
 
 set(ktikz_SRCS
@@ -48,10 +52,14 @@ kde4_add_ui_files(ktikz_SRCS
 kde4_add_kcfg_files(ktikz_SRCS ../common/settings.kcfgc)
 qt4_add_resources(ktikz_SRCS application.qrc)
 
-kde4_add_executable(ktikz ${ktikz_SRCS})
+file(GLOB TRANSLATION_FILES ktikz_*.ts)
+qt4_add_translation(QM_FILES ${TRANSLATION_FILES})
+
+kde4_add_executable(ktikz ${ktikz_SRCS} ${QM_FILES})
 target_link_libraries(ktikz ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KTEXTEDITOR_LIBS} -lpoppler-qt4)
 
 install(TARGETS ktikz DESTINATION ${BIN_INSTALL_DIR})
 install(FILES ktikzui.rc DESTINATION ${DATA_INSTALL_DIR}/ktikz)
 install(FILES ../common/ktikz.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 install(FILES ktikz.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(FILES ${QM_FILES} DESTINATION ${KTIKZ_TRANSLATIONS_INSTALL_DIR})

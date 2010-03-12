@@ -1,0 +1,164 @@
+#! /usr/bin/env perl
+
+#
+# Copyright (c) 2004 Richard Evans <rich@ridas.com>
+#
+# License: LGPL 2.0
+#
+
+sub usage
+{
+  warn <<"EOF";
+
+extractattr [flags] filenames
+
+This script extracts element attributes from designer (.ui) and XMLGIU (.rc) files
+and writes on standard output (usually redirected to rc.cpp) the equivalent
+i18n() calls so that xgettext can parse them.
+
+--attr=spec    : Specify the attribute to be extracted. The specification
+                 consists of the following comma separated arguments:
+
+                 Element,attribute[,context]
+
+                 The context is optional and overrides the name set by
+                 --context below. Repeat the flag to specify multiple
+                 attributes:
+
+                 --attr=Title,data --attr=Description,data,Stencils
+
+--context=name : Give i18n calls a context name: i18nc("name", ...)
+--lines        : Include source line numbers in comments (deprecated, it is switched on by default now)
+--help|?       : Display this summary
+
+EOF
+
+  exit;
+}
+
+###########################################################################################
+
+use strict;
+use warnings;
+use Getopt::Long;
+
+###########################################################################################
+# Add options here as necessary - perldoc Getopt::Long for details on GetOptions
+
+GetOptions ( "attr=s"    => \my @opt_attr,
+             "context=s" => \my $opt_context,
+             "lines"     => \my $opt_lines,
+             "help|?"    => \&usage );
+
+unless ( @ARGV )
+{
+  warn "No filename specified";
+  exit;
+}
+
+unless ( @opt_attr )
+{
+  warn "No attributes specified";
+  exit;
+}
+
+###########################################################################################
+# Program start proper - NB $. is the current line number
+
+my $code =<<'EOF';
+our $file_name;
+
+for $file_name ( @ARGV )
+{
+  my $fh;
+
+  unless ( open $fh, "<", $file_name )
+  {
+    warn "Failed to open: '$file_name': $!";
+    next;
+  }
+
+  while ( <$fh> )
+  {
+    last if $. == 1 and $_ !~ /^(?:<!DOCTYPE|<\?xml)/;
+EOF
+
+$code .= build_code(@opt_attr) . <<'EOF';
+  }
+
+  close $fh or warn "Failed to close: '$file_name': $!";
+}
+
+1;
+EOF
+
+# warn "CODE TO EVAL:\n$code\n";
+  
+eval $code or die;
+
+
+sub build_code
+{
+  my $code = "\n";
+
+  my %seen;
+
+  for ( @_ )
+  {
+    my ($element, $attribute, $context) = ((split /,/), "", "", "");
+
+    length $element   or die "Missing element in --attr=$_";
+    length $attribute or die "Missing attribute in --attr=$_";
+
+    if ( $seen{$element . '<' . $attribute}++ )
+    {
+      warn "Skipping duplicate flag --attr=$_ (element/attribute pair has already been specified)";
+      next;
+    }
+
+    $code .= "    /<" . quotemeta($element)   . qq| [^>]*?| .
+                        quotemeta($attribute) . qq|="([^"]+)"/ and write_i18n('| . $context . qq|', \$1, "| . $element . "\",\"" . $attribute . qq|");\n|;
+  }
+
+  return "$code\n";
+}
+
+sub write_i18n
+{
+  my ($context, $text, $tag, $attr) = @_;
+
+  our $file_name;
+
+  unless ( $text )
+  {
+    print "// Skipped empty message at $file_name line $.\n";
+    return;
+  }
+
+  $text =~ s/&lt;/</g;
+  $text =~ s/&gt;/>/g;
+  $text =~ s/&apos;/\'/g;
+  $text =~ s/&quot;/\"/g;
+  $text =~ s/&amp;/&/g;
+
+  # Escape characters exactly like uic does it
+  # (As extractrc needs it, we follow the same rule to avoid to be different.)
+  $text =~ s/\\/\\\\/g; # escape \
+  $text =~ s/\"/\\\"/g; # escape "
+  $text =~ s/\r//g; # remove CR (Carriage Return)
+  $text =~ s/\n/\\n\"\n\"/g; # escape LF (Line Feed). uic also change the code line at a LF, we do not do that.
+  
+  $context ||= $opt_context;
+
+  print "//i18n: tag $tag attribute $attr\n";
+  print "//i18n: file: $file_name:$.\n";
+  if ( $context )
+  {
+    print qq|i18nc("$context","$text");\n|;
+  }
+  else
+  {
+    print  qq|i18n("$text");\n|;
+  }
+}
+

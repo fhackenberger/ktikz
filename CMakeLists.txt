@@ -1,8 +1,10 @@
 project(ktikz)
 cmake_minimum_required(VERSION 2.6)
 
+set(KTIKZ_VERSION "0.10")
+
 add_definitions(-DORGNAME=\"Florian\ Hackenberger\" -DAPPNAME=\"ktikz\")
-add_definitions(-DAPPVERSION=\"0.10\")
+add_definitions(-DAPPVERSION=\"${KTIKZ_VERSION}\")
 add_definitions(-DKTIKZ_USE_KDE)
 
 find_package(KDE4 REQUIRED)
@@ -14,7 +16,7 @@ add_subdirectory(app)
 add_subdirectory(part)
 
 #add_subdirectory(doc)
-#add_subdirectory(po)
+add_subdirectory(po)
 
 install(FILES common/text-x-pgf.xml DESTINATION /usr/share/mime/packages)
 install(FILES common/x-pgf.xml DESTINATION /usr/share/mime/text)

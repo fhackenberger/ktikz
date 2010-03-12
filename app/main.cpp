@@ -20,8 +20,6 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <QDebug>
-
 #ifdef KTIKZ_USE_KDE
 #include <KAboutData>
 #include <KCmdLineArgs>
@@ -67,7 +65,11 @@ bool findTranslator(QTranslator *translator, const QString &transName, const QSt
 
 QTranslator *createTranslator(const QString &transName, const QString &transDir)
 {
+#ifdef KTIKZ_USE_KDE
+	const QString locale = KGlobal::locale()->language();
+#else
 	const QString locale = QString(QLocale::system().name());
+#endif
 	const QString localeShort = locale.left(2).toLower();
 
 	bool foundTranslator = false;
@@ -79,13 +81,13 @@ QTranslator *createTranslator(const QString &transName, const QString &transDir)
 	if (!foundTranslator)
 		foundTranslator = findTranslator(translator, transName + "_" + localeShort, transDir);
 	// find in dir which was set during compilation
-#ifdef KTIKZ_INSTALL_TRANSLATIONS
-	const QDir qmPath(KTIKZ_INSTALL_TRANSLATIONS);
+#ifdef KTIKZ_TRANSLATIONS_INSTALL_DIR
+	const QDir qmPath(KTIKZ_TRANSLATIONS_INSTALL_DIR);
 	if (!foundTranslator)
 		foundTranslator = findTranslator(translator, transName + "_" + locale, qmPath.absolutePath());
 	if (!foundTranslator)
 		foundTranslator = findTranslator(translator, transName + "_" + localeShort, qmPath.absolutePath());
-#endif // KTIKZ_INSTALL_TRANSLATIONS
+#endif // KTIKZ_TRANSLATIONS_INSTALL_DIR
 	// find in working dir
 	if (!foundTranslator)
 		foundTranslator = findTranslator(translator, transName + "_" + locale, "");
@@ -125,7 +127,6 @@ int main(int argc, char **argv)
 	QCoreApplication::setApplicationVersion(APPVERSION);
 #endif
 
-//qCritical() << QLocale::system().name() << KGlobal::locale()->language();
 	const QString translationsDirPath = qgetenv("KTIKZ_TRANSLATIONS_DIR");
 	app.installTranslator(createTranslator("qt", QLibraryInfo::location(QLibraryInfo::TranslationsPath)));
 	app.installTranslator(createTranslator("ktikz", translationsDirPath));
