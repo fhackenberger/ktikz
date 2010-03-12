@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007-2009 by Glad Deschrijver                           *
+ *   Copyright (C) 2007-2010 by Glad Deschrijver                           *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *

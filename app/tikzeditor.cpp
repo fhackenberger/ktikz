@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008-2009 by Glad Deschrijver                           *
+ *   Copyright (C) 2008-2010 by Glad Deschrijver                           *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   Bracket matching and white space showing code originally from         *

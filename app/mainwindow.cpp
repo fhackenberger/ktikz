@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
- *   Copyright (C) 2007-2009 by Glad Deschrijver                           *
+ *   Copyright (C) 2007-2010 by Glad Deschrijver                           *
  *   florian@hackenberger.at                                               *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *

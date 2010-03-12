@@ -1,15 +1,14 @@
 project(ktikz)
 cmake_minimum_required(VERSION 2.6)
 
-add_definitions(-DORGNAME=\"Florian\ Hackenberger\" -DAPPNAME=\"ktikz\" -DAPPVERSION=\"0.9\")
+add_definitions(-DORGNAME=\"Florian\ Hackenberger\" -DAPPNAME=\"ktikz\")
+add_definitions(-DAPPVERSION=\"0.10\")
 add_definitions(-DKTIKZ_USE_KDE)
 
 find_package(KDE4 REQUIRED)
 include(KDE4Defaults)
 add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include_directories(${KDE4_INCLUDES} /usr/include/poppler/qt4)
-
-#add_definitions(-DAPPVERSION=\\\"0.8\\\")
 
 add_subdirectory(app)
 add_subdirectory(part)
