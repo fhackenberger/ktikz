@@ -4,7 +4,7 @@ The following are required for compilation:
 - cmake (if you want to install the KPart)
 - a standard LaTeX environment
 - a Qt 4 development environment (libraries, headers, qmake, ...): only
-  QtCore and QtGui are required
+  QtCore and QtGui are required, at least in version 4 4.6
 - the poppler-qt4 libraries and headers
 - the kdelibs development environment (only if you want KDE integration
   and the KPart)
