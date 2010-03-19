@@ -114,8 +114,7 @@ void TikzPreview::createActions()
 	m_zoomInAction->setWhatsThis(tr("<p>Zoom preview in by a predetermined factor.</p>"));
 	m_zoomOutAction->setWhatsThis(tr("<p>Zoom preview out by a predetermined factor.</p>"));
 
-//	m_zoomToAction = new SelectAction(Icon("zoom-original"), tr("&Zoom"), this, "zoom_to");
-	m_zoomToAction = new SelectAction(QIcon::fromTheme("zoom-original", Icon("zoom-original")), tr("&Zoom"), this, "zoom_to");
+	m_zoomToAction = new SelectAction(Icon("zoom-original"), tr("&Zoom"), this, "zoom_to");
 	m_zoomToAction->setEditable(true);
 	m_zoomToAction->setToolTip(tr("Select or insert zoom factor here"));
 	m_zoomToAction->setWhatsThis(tr("<p>Select the zoom factor here.  "
@@ -124,15 +123,13 @@ void TikzPreview::createActions()
 	connect(m_zoomToAction, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
 //	createZoomFactorList();
 
-//	m_previousPageAction = new Action(Icon("go-previous"), tr("&Previous image"), this, "view_previous_image");
-	m_previousPageAction = new Action(QIcon::fromTheme("go-previous", Icon("go-previous")), tr("&Previous image"), this, "view_previous_image");
+	m_previousPageAction = new Action(Icon("go-previous"), tr("&Previous image"), this, "view_previous_image");
 	m_previousPageAction->setShortcut(tr("Alt+Left", "View|Go to previous page"));
 	m_previousPageAction->setStatusTip(tr("Show previous image in preview"));
 	m_previousPageAction->setWhatsThis(tr("<p>Show the preview of the previous tikzpicture in the TikZ code.</p>"));
 	connect(m_previousPageAction, SIGNAL(triggered()), this, SLOT(showPreviousPage()));
 
-//	m_nextPageAction = new Action(Icon("go-next"), tr("&Next image"), this, "view_next_image");
-	m_nextPageAction = new Action(QIcon::fromTheme("go-next", Icon("go-next")), tr("&Next image"), this, "view_next_image");
+	m_nextPageAction = new Action(Icon("go-next"), tr("&Next image"), this, "view_next_image");
 	m_nextPageAction->setShortcut(tr("Alt+Right", "View|Go to next page"));
 	m_nextPageAction->setStatusTip(tr("Show next image in preview"));
 	m_nextPageAction->setWhatsThis(tr("<p>Show the preview of the next tikzpicture in the TikZ code.</p>"));
@@ -177,7 +174,7 @@ void TikzPreview::createInformationLabel()
 	const QPixmap infoPixmap = KIconLoader::global()->loadIcon("dialog-error",
 	    KIconLoader::Dialog, KIconLoader::SizeMedium);
 #else
-	const QPixmap infoPixmap = QIcon::fromTheme("dialog-error", QIcon(":/images/dialog-error")).pixmap(QSize(32, 32));
+	const QPixmap infoPixmap = Icon("dialog-error").pixmap(QSize(32, 32));
 #endif
 	m_infoPixmapLabel = new QLabel;
 	m_infoPixmapLabel->setPixmap(infoPixmap);

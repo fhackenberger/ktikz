@@ -7,6 +7,7 @@ add_definitions(-DORGNAME=\"Florian\ Hackenberger\" -DAPPNAME=\"ktikz\")
 add_definitions(-DAPPVERSION=\"${KTIKZ_VERSION}\")
 add_definitions(-DKTIKZ_USE_KDE)
 
+find_package(Qt4 4.4.0 COMPONENTS QtCore QtGui QtXml REQUIRED)
 find_package(KDE4 REQUIRED)
 include(KDE4Defaults)
 add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})

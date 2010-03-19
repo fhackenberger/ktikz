@@ -50,14 +50,10 @@ ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent)
 	ui.pdftopsEdit->setCompleter(completer);
 	ui.editorEdit->setCompleter(completer);
 
-//	ui.tikzDocButton->setIcon(Icon("document-open"));
-//	ui.latexButton->setIcon(Icon("document-open"));
-//	ui.pdftopsButton->setIcon(Icon("document-open"));
-//	ui.editorButton->setIcon(Icon("document-open"));
-	ui.tikzDocButton->setIcon(QIcon::fromTheme("document-open", Icon("document-open")));
-	ui.latexButton->setIcon(QIcon::fromTheme("document-open", Icon("document-open")));
-	ui.pdftopsButton->setIcon(QIcon::fromTheme("document-open", Icon("document-open")));
-	ui.editorButton->setIcon(QIcon::fromTheme("document-open", Icon("document-open")));
+	ui.tikzDocButton->setIcon(Icon("document-open"));
+	ui.latexButton->setIcon(Icon("document-open"));
+	ui.pdftopsButton->setIcon(Icon("document-open"));
+	ui.editorButton->setIcon(Icon("document-open"));
 
 	connect(ui.commandsInDockCheck, SIGNAL(toggled(bool)), this, SLOT(setCommandsInDock(bool)));
 	connect(ui.tikzDocButton, SIGNAL(clicked()), this, SLOT(browseCommand()));

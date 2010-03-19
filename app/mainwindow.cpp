@@ -89,10 +89,13 @@ MainWindow::MainWindow()
 	m_completer = 0;
 
 	s_mainWindowList.append(this);
+
+#if !defined KTIKZ_USE_KDE && QT_VERSION >= 0x040600
 	QStringList themeSearchPaths;
 	themeSearchPaths << QDir::homePath() + "/.local/share/icons/";
 	themeSearchPaths << QIcon::themeSearchPaths();
 	QIcon::setThemeSearchPaths(themeSearchPaths);
+#endif
 
 	setWindowIcon(QIcon(":/images/ktikz-22.png"));
 	setAttribute(Qt::WA_DeleteOnClose);
@@ -362,8 +365,7 @@ void MainWindow::createActions()
 	m_exitAction->setWhatsThis(tr("<p>Exit the application.</p>"));
 
 	/* View */
-//	m_viewLogAction = new Action(Icon("run-build"), tr("View &Log"), this, "view_log");
-	m_viewLogAction = new Action(QIcon::fromTheme("run-build", Icon("run-build")), tr("View &Log"), this, "view_log");
+	m_viewLogAction = new Action(Icon("run-build"), tr("View &Log"), this, "view_log");
 	m_viewLogAction->setStatusTip(tr("View log messages produced by the last executed process"));
 	m_viewLogAction->setWhatsThis(tr("<p>Show the log messages produced by the last executed process in the Messages box.</p>"));
 	connect(m_viewLogAction, SIGNAL(triggered()), this, SLOT(logUpdated()));
@@ -380,8 +382,7 @@ void MainWindow::createActions()
 #endif
 
 	/* Help */
-//	m_showTikzDocAction = new Action(Icon("help-contents"), tr("TikZ &Manual"), this, "show_tikz_doc");
-	m_showTikzDocAction = new Action(QIcon::fromTheme("help-contents", Icon("help-contents")), tr("TikZ &Manual"), this, "show_tikz_doc");
+	m_showTikzDocAction = new Action(Icon("help-contents"), tr("TikZ &Manual"), this, "show_tikz_doc");
 	m_showTikzDocAction->setStatusTip(tr("Show the manual of TikZ and PGF"));
 	m_showTikzDocAction->setWhatsThis(tr("<p>Show the manual of TikZ and PGF.</p>"));
 	connect(m_showTikzDocAction, SIGNAL(triggered()), this, SLOT(showTikzDocumentation()));
@@ -390,8 +391,7 @@ void MainWindow::createActions()
 	m_whatsThisAction = KStandardAction::whatsThis(this, SLOT(toggleWhatsThisMode()), this);
 #else
 	m_whatsThisAction = QWhatsThis::createAction(this);
-//	m_whatsThisAction->setIcon(QIcon(":/images/help-contextual.png"));
-	m_whatsThisAction->setIcon(QIcon::fromTheme("help-contextual", QIcon(":/images/help-contextual.png")));
+	m_whatsThisAction->setIcon(QIcon(":/images/help-contextual.png"));
 	m_whatsThisAction->setStatusTip(tr("Show simple description of any widget"));
 
 	m_aboutAction = new QAction(QIcon(":/images/ktikz-22.png"), tr("&About %1").arg(KtikzApplication::applicationName()), this);
@@ -428,8 +428,7 @@ void MainWindow::createMenus()
 
 	m_settingsMenu = menuBar()->addMenu(tr("&Settings"));
 	QMenu *toolBarMenu = new QMenu(tr("&Toolbars"), this);
-//	toolBarMenu->setIcon(Icon("configure-toolbars"));
-	toolBarMenu->setIcon(QIcon::fromTheme("configure-toolbars", Icon("configure-toolbars")));
+	toolBarMenu->setIcon(Icon("configure-toolbars"));
 	toolBarMenu->menuAction()->setStatusTip(tr("Show or hide toolbars"));
 	toolBarMenu->addAction(m_fileToolBar->toggleViewAction());
 	toolBarMenu->addAction(m_editToolBar->toggleViewAction());
@@ -441,8 +440,7 @@ void MainWindow::createMenus()
 	m_runToolBar->toggleViewAction()->setStatusTip(tr("Show toolbar \"%1\"").arg(m_runToolBar->windowTitle()));
 	m_settingsMenu->addMenu(toolBarMenu);
 	m_sideBarMenu = new QMenu(tr("&Sidebars"), this);
-//	m_sideBarMenu->setIcon(Icon("configure-toolbars"));
-	m_sideBarMenu->setIcon(QIcon::fromTheme("configure-toolbars", Icon("configure-toolbars")));
+	m_sideBarMenu->setIcon(Icon("configure-toolbars"));
 	m_sideBarMenu->menuAction()->setStatusTip(tr("Show or hide sidebars"));
 	m_sideBarMenu->addAction(m_previewDock->toggleViewAction());
 	m_sideBarMenu->addAction(m_logDock->toggleViewAction());

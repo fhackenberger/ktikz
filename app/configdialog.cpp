@@ -62,8 +62,7 @@ ConfigDialog::ConfigDialog(QWidget *parent) : QDialog(parent)
 
 	QDialogButtonBox *buttonBox = new QDialogButtonBox;
 	QAction *whatsThisAction = QWhatsThis::createAction(this);
-//	whatsThisAction->setIcon(Icon("help-contextual"));
-	whatsThisAction->setIcon(QIcon::fromTheme("help-contextual", Icon("help-contextual")));
+	whatsThisAction->setIcon(Icon("help-contextual"));
 	QToolButton *whatsThisButton = new QToolButton(this);
 	whatsThisButton->setDefaultAction(whatsThisAction);
 	whatsThisButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored);
@@ -158,8 +157,7 @@ void ConfigDialog::addPage(QWidget *widget, const QString &title, const QString 
 	page->setIcon(KIcon(iconName));
 	KPageDialog::addPage(page);
 #else
-//	QListWidgetItem *item = new QListWidgetItem(Icon(iconName), title2);
-	QListWidgetItem *item = new QListWidgetItem(QIcon::fromTheme(iconName, Icon(iconName)), title2);
+	QListWidgetItem *item = new QListWidgetItem(Icon(iconName), title2);
 	item->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 	item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	m_pagesListWidgetItems << item;

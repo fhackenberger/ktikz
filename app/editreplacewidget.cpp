@@ -31,12 +31,9 @@ ReplaceWidget::ReplaceWidget(QWidget *parent) : QWidget(parent)
 	ui.setupUi(this);
 	ui.comboBoxFind->setLineEdit(new LineEdit(this));
 	ui.comboBoxReplace->setLineEdit(new LineEdit(this));
-//	ui.pushButtonClose->setIcon(Icon("window-close"));
-//	ui.pushButtonBackward->setIcon(Icon("go-up"));
-//	ui.pushButtonForward->setIcon(Icon("go-down"));
-	ui.pushButtonClose->setIcon(QIcon::fromTheme("window-close", Icon("window-close")));
-	ui.pushButtonBackward->setIcon(QIcon::fromTheme("go-up", Icon("go-up")));
-	ui.pushButtonForward->setIcon(QIcon::fromTheme("go-down", Icon("go-down")));
+	ui.pushButtonClose->setIcon(Icon("window-close"));
+	ui.pushButtonBackward->setIcon(Icon("go-up"));
+	ui.pushButtonForward->setIcon(Icon("go-down"));
 
 	setFocusProxy(ui.comboBoxFind);
 

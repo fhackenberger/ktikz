@@ -27,8 +27,7 @@ GoToLineWidget::GoToLineWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
 	ui.spinBoxGo->setMinimum(1);
-//	ui.pushButtonClose->setIcon(Icon("window-close"));
-	ui.pushButtonClose->setIcon(QIcon::fromTheme("window-close", Icon("window-close")));
+	ui.pushButtonClose->setIcon(Icon("window-close"));
 
 	setFocusProxy(ui.spinBoxGo);
 

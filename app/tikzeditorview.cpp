@@ -141,8 +141,7 @@ void TikzEditorView::createActions()
 	m_selectAllAction->setWhatsThis(tr("<p>Select all the content.</p>"));
 
 	Action *action;
-//	action = new Action(Icon("format-indent-more"), tr("&Indent..."), this, "edit_indent");
-	action = new Action(QIcon::fromTheme("format-indent-more", Icon("format-indent-more")), tr("&Indent..."), this, "edit_indent");
+	action = new Action(Icon("format-indent-more"), tr("&Indent..."), this, "edit_indent");
 	action->setShortcut(tr("Ctrl+I", "Edit|Indent"));
 	action->setStatusTip(tr("Indent the current line or selection"));
 	action->setWhatsThis(tr("<p>Indent the current line or selection.</p>"));

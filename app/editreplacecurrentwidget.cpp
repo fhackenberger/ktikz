@@ -35,8 +35,7 @@ ReplaceCurrentWidget::ReplaceCurrentWidget(QWidget *parent) : QWidget(parent)
 	QPushButton *replaceAllButton = new QPushButton(tr("Replace &All"));
 	QPushButton *dontReplaceButton = new QPushButton(tr("&Don't Replace"));
 	QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
-//	cancelButton->setIcon(Icon("dialog-cancel"));
-	cancelButton->setIcon(QIcon::fromTheme("dialog-cancel", Icon("dialog-cancel")));
+	cancelButton->setIcon(Icon("dialog-cancel"));
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 	QWidget *buttonsWidget = new QWidget;

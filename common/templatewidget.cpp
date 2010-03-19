@@ -38,11 +38,8 @@ TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 	ui.setupUi(this);
 	ui.templateCombo->setLineEdit(new LineEdit(this));
 	ui.templateCombo->setMinimumContentsLength(20);
-//	ui.templateChooseButton->setIcon(Icon("document-open"));
-	ui.templateChooseButton->setIcon(QIcon::fromTheme("document-open", Icon("document-open")));
-
-//	ui.templateReloadButton->setIcon(Icon("view-refresh"));
-	ui.templateReloadButton->setIcon(QIcon::fromTheme("view-refresh", Icon("view-refresh")));
+	ui.templateChooseButton->setIcon(Icon("document-open"));
+	ui.templateReloadButton->setIcon(Icon("view-refresh"));
 
 	QCompleter *completer = new QCompleter(this);
 	completer->setModel(new QDirModel(completer));

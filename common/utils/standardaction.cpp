@@ -188,8 +188,7 @@ Action *createAction(int which, const QObject *recvr, const char *slot, QObject 
 
 	Action *action;
 	if (!iconName.isEmpty())
-//		action = new Action(Icon(iconName), text, parent);
-		action = new Action(QIcon::fromTheme(iconName, Icon(iconName)), text, parent);
+		action = new Action(Icon(iconName), text, parent);
 	else
 		action = new Action(text, parent);
 

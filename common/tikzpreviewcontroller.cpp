@@ -142,31 +142,27 @@ TikzPreview *TikzPreviewController::tikzPreview() const
 void TikzPreviewController::createActions()
 {
 	// File
-//	m_exportAction = new Action(Icon("document-export"), tr("E&xport"), m_parentWidget, "file_export_as");
-	m_exportAction = new Action(QIcon::fromTheme("document-export", Icon("document-export")), tr("E&xport"), m_parentWidget, "file_export_as");
+	m_exportAction = new Action(Icon("document-export"), tr("E&xport"), m_parentWidget, "file_export_as");
 	m_exportAction->setStatusTip(tr("Export image to various formats"));
 	m_exportAction->setWhatsThis(tr("<p>Export image to various formats.</p>"));
 	QMenu *exportMenu = new QMenu(m_parentWidget);
 	m_exportAction->setMenu(exportMenu);
 
-//	Action *exportEpsAction = new Action(Icon("image-x-eps"), tr("&Encapsulated PostScript (EPS)"), m_parentWidget, "file_export_eps");
-	Action *exportEpsAction = new Action(QIcon::fromTheme("image-x-eps", Icon("image-x-eps")), tr("&Encapsulated PostScript (EPS)"), m_parentWidget, "file_export_eps");
+	Action *exportEpsAction = new Action(Icon("image-x-eps"), tr("&Encapsulated PostScript (EPS)"), m_parentWidget, "file_export_eps");
 	exportEpsAction->setData("image/x-eps");
 	exportEpsAction->setStatusTip(tr("Export to EPS"));
 	exportEpsAction->setWhatsThis(tr("<p>Export to EPS.</p>"));
 	connect(exportEpsAction, SIGNAL(triggered()), this, SLOT(exportImage()));
 	exportMenu->addAction(exportEpsAction);
 
-//	Action *exportPdfAction = new Action(Icon("application-pdf"), tr("&Portable Document Format (PDF)"), m_parentWidget, "file_export_pdf");
-	Action *exportPdfAction = new Action(QIcon::fromTheme("application-pdf", Icon("application-pdf")), tr("&Portable Document Format (PDF)"), m_parentWidget, "file_export_pdf");
+	Action *exportPdfAction = new Action(Icon("application-pdf"), tr("&Portable Document Format (PDF)"), m_parentWidget, "file_export_pdf");
 	exportPdfAction->setData("application/pdf");
 	exportPdfAction->setStatusTip(tr("Export to PDF"));
 	exportPdfAction->setWhatsThis(tr("<p>Export to PDF.</p>"));
 	connect(exportPdfAction, SIGNAL(triggered()), this, SLOT(exportImage()));
 	exportMenu->addAction(exportPdfAction);
 
-//	Action *exportPngAction = new Action(Icon("image-png"), tr("Portable Network &Graphics (PNG)"), m_parentWidget, "file_export_png");
-	Action *exportPngAction = new Action(QIcon::fromTheme("image-png", Icon("image-png")), tr("Portable Network &Graphics (PNG)"), m_parentWidget, "file_export_png");
+	Action *exportPngAction = new Action(Icon("image-png"), tr("Portable Network &Graphics (PNG)"), m_parentWidget, "file_export_png");
 	exportPngAction->setData("image/png");
 	exportPngAction->setStatusTip(tr("Export to PNG"));
 	exportPngAction->setWhatsThis(tr("<p>Export to PNG.</p>"));
@@ -176,16 +172,14 @@ void TikzPreviewController::createActions()
 	setExportActionsEnabled(false);
 
 	// View
-//	m_procStopAction = new Action(Icon("process-stop"), tr("&Stop Process"), m_parentWidget, "stop_process");
-	m_procStopAction = new Action(QIcon::fromTheme("process-stop", Icon("process-stop")), tr("&Stop Process"), m_parentWidget, "stop_process");
+	m_procStopAction = new Action(Icon("process-stop"), tr("&Stop Process"), m_parentWidget, "stop_process");
 	m_procStopAction->setShortcut(tr("Escape", "View|Stop Process"));
 	m_procStopAction->setStatusTip(tr("Abort current process"));
 	m_procStopAction->setWhatsThis(tr("<p>Abort the execution of the currently running process.</p>"));
 	m_procStopAction->setEnabled(false);
 	connect(m_procStopAction, SIGNAL(triggered()), m_tikzPreviewGenerator, SLOT(abortProcess()));
 
-//	m_shellEscapeAction = new ToggleAction(Icon("application-x-executable"), tr("S&hell Escape"), m_parentWidget, "shell_escape");
-	m_shellEscapeAction = new ToggleAction(QIcon::fromTheme("application-x-executable", Icon("application-x-executable")), tr("S&hell Escape"), m_parentWidget, "shell_escape");
+	m_shellEscapeAction = new ToggleAction(Icon("application-x-executable"), tr("S&hell Escape"), m_parentWidget, "shell_escape");
 	m_shellEscapeAction->setStatusTip(tr("Enable the \\write18{shell-command} feature"));
 	m_shellEscapeAction->setWhatsThis(tr("<p>Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ."
 	    "</p><p><strong>Warning:</strong> Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.</p>"));
