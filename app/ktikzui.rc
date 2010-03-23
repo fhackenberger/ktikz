@@ -50,6 +50,7 @@
   </Menu>
   <Menu noMerge="1" name="process" >
    <text context="@item:inmenu" >&amp;Process</text>
+   <Action name="build" />
    <Action name="stop_process" />
    <Action name="view_log" />
    <Action name="shell_escape" />
@@ -99,6 +100,7 @@
  </ToolBar>
  <ToolBar noMerge="1" name="processToolBar" >
   <text>Process Toolbar</text>
+  <Action name="build" />
   <Action name="stop_process" />
   <Action name="view_log" />
   <Action name="shell_escape" />

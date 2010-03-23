@@ -61,11 +61,11 @@ public:
 #endif
 	QString tikzCode() const;
 	QString getLogText();
-	void generatePreview();
 	void emptyPreview();
 	void applySettings();
 
 public slots:
+	void generatePreview();
 	void regeneratePreview();
 
 private slots:

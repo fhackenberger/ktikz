@@ -1,4 +1,4 @@
-version 0.10 (2010-03-12):
+version 0.10 (2010-03-23):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO
 - TikZ source files on remote machines can be loaded, saved and exported
@@ -17,6 +17,7 @@ version 0.10 (2010-03-12):
 - display description of a newly inserted tikz command (using command
   completion or menu) in the statusbar, so that the user still sees the
   usage of a command after it is inserted
+- add option to compile the TikZ code only when pushing a "Build" button
 version 0.9 (2009-09-10):
 - remove bug that on startup the item selected in the template combobox
   did not correspond to the text in the lineedit of the combobox

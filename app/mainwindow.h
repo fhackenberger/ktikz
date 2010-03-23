@@ -133,6 +133,7 @@ private:
 	bool m_useCompletion;
 
 	TikzPreviewController *m_tikzPreviewController;
+	bool m_buildAutomatically;
 
 	QDockWidget *m_previewDock;
 
@@ -163,6 +164,7 @@ private:
 	QAction *m_closeAction;
 	QAction *m_exitAction;
 	QAction *m_procStopAction;
+	QAction *m_buildAction;
 	QAction *m_viewLogAction;
 	QAction *m_shellEscapeAction;
 	QAction *m_configureAction;

@@ -178,8 +178,9 @@ MainWindow::MainWindow()
 	readSettings(); // must be run after defining tikzController and tikzHighlighter, and after creating the toolbars, and after the connects
 
 	// the following connects must happen after readSettings() because otherwise in that function the following signals would be unnecessarily triggered
-	connect(m_tikzEditorView, SIGNAL(contentsChanged()),
-	        m_tikzPreviewController, SLOT(regeneratePreview()));
+	if (m_buildAutomatically)
+		connect(m_tikzEditorView, SIGNAL(contentsChanged()),
+		        m_tikzPreviewController, SLOT(regeneratePreview()));
 
 	setCurrentUrl(Url());
 	setDocumentModified(false);
@@ -365,7 +366,13 @@ void MainWindow::createActions()
 	m_exitAction->setWhatsThis(tr("<p>Exit the application.</p>"));
 
 	/* View */
-	m_viewLogAction = new Action(Icon("run-build"), tr("View &Log"), this, "view_log");
+	m_buildAction = new Action(Icon("run-build"), tr("&Build"), this, "build");
+	m_buildAction->setShortcut(tr("Ctrl+B", "View|Build"));
+	m_buildAction->setStatusTip(tr("Build preview"));
+	m_buildAction->setWhatsThis(tr("<p>Generate preview by building the current TikZ code in the editor.</p>"));
+	connect(m_buildAction, SIGNAL(triggered()), m_tikzPreviewController, SLOT(generatePreview()));
+
+	m_viewLogAction = new Action(Icon("run-build-file"), tr("View &Log"), this, "view_log");
 	m_viewLogAction->setStatusTip(tr("View log messages produced by the last executed process"));
 	m_viewLogAction->setWhatsThis(tr("<p>Show the log messages produced by the last executed process in the Messages box.</p>"));
 	connect(m_viewLogAction, SIGNAL(triggered()), this, SLOT(logUpdated()));
@@ -423,6 +430,7 @@ void MainWindow::createMenus()
 	menuBar()->addMenu(m_tikzEditorView->menu());
 
 	QMenu *viewMenu = m_tikzPreviewController->menu();
+	viewMenu->insertAction(viewMenu->actions().at(viewMenu->actions().size()-2), m_buildAction);
 	viewMenu->addAction(m_viewLogAction);
 	menuBar()->addMenu(viewMenu);
 
@@ -480,6 +488,7 @@ void MainWindow::createToolBars()
 
 	QList<QToolBar*> viewAndRunToolBars = m_tikzPreviewController->toolBars();
 	addToolBar(viewAndRunToolBars.at(0));
+	viewAndRunToolBars.at(1)->insertAction(viewAndRunToolBars.at(1)->actions().at(0), m_buildAction);
 	viewAndRunToolBars.at(1)->addAction(m_viewLogAction);
 	addToolBar(viewAndRunToolBars.at(1));
 	m_viewToolBar = viewAndRunToolBars.at(0);
@@ -586,8 +595,9 @@ void MainWindow::configure()
 	           m_tikzPreviewController, SLOT(regeneratePreview()));
 	m_configDialog->readSettings();
 	m_configDialog->exec();
-	connect(m_tikzEditorView, SIGNAL(contentsChanged()),
-	        m_tikzPreviewController, SLOT(regeneratePreview()));
+	if (m_buildAutomatically)
+		connect(m_tikzEditorView, SIGNAL(contentsChanged()),
+		        m_tikzPreviewController, SLOT(regeneratePreview()));
 }
 
 void MainWindow::applySettings()
@@ -596,6 +606,9 @@ void MainWindow::applySettings()
 
 	m_tikzEditorView->applySettings();
 	m_tikzPreviewController->applySettings();
+
+	m_buildAutomatically = settings.value("BuildAutomatically", true).toBool();
+	m_buildAction->setVisible(!m_buildAutomatically);
 
 	settings.beginGroup("Editor");
 	m_useCompletion = settings.value("UseCompletion", true).toBool();
@@ -765,8 +778,9 @@ void MainWindow::loadUrl(const Url &url)
 	m_tikzEditorView->editor()->setPlainText(in.readAll());
 	QApplication::restoreOverrideCursor();
 	m_tikzPreviewController->generatePreview();
-	connect(m_tikzEditorView, SIGNAL(contentsChanged()),
-	        m_tikzPreviewController, SLOT(regeneratePreview()));
+	if (m_buildAutomatically)
+		connect(m_tikzEditorView, SIGNAL(contentsChanged()),
+		        m_tikzPreviewController, SLOT(regeneratePreview()));
 
 	m_lastUrl = url;
 	setCurrentUrl(url);

@@ -70,6 +70,16 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="buildAutomaticallyCheck">
+        <property name="whatsThis">
+         <string>&lt;p&gt;If this option is checked, the TikZ code in the editor is compiled while editing.  If this option is not checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</string>
+        </property>
+        <property name="text">
+         <string>&amp;Automatically generate preview</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QLabel" name="toolBarStyleLabel">
