@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2010-03-12 16:14+0100\n"
+"POT-Creation-Date: 2010-03-23 10:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -378,312 +378,327 @@ msgstr ""
 msgid "(you have to restart this program for this change to take effect)"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:77
+#. i18n: file: ../app/configgeneralwidget.ui:75
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, buildAutomaticallyCheck)
+#: rc.cpp:132
+msgid ""
+"<p>If this option is checked, the TikZ code in the editor is compiled while "
+"editing.  If this option is not checked, a \"Build\" button is available and "
+"the TikZ code is only compiled when you press that button.</p>"
+msgstr ""
+
+#. i18n: file: ../app/configgeneralwidget.ui:78
+#. i18n: ectx: property (text), widget (QCheckBox, buildAutomaticallyCheck)
+#: rc.cpp:135
+msgid "&Automatically generate preview"
+msgstr ""
+
+#. i18n: file: ../app/configgeneralwidget.ui:87
 #. i18n: ectx: property (whatsThis), widget (QLabel, toolBarStyleLabel)
-#. i18n: file: ../app/configgeneralwidget.ui:90
+#. i18n: file: ../app/configgeneralwidget.ui:100
 #. i18n: ectx: property (whatsThis), widget (QComboBox, toolBarStyleComboBox)
-#: rc.cpp:132 rc.cpp:138
+#: rc.cpp:138 rc.cpp:144
 msgid "<p>Select the style in which the toolbar will be displayed.</p>"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:80
+#. i18n: file: ../app/configgeneralwidget.ui:90
 #. i18n: ectx: property (text), widget (QLabel, toolBarStyleLabel)
-#: rc.cpp:135
-msgid "Toolbar st&yle:"
-msgstr ""
-
-#. i18n: file: ../app/configgeneralwidget.ui:94
-#. i18n: ectx: property (text), item, widget (QComboBox, toolBarStyleComboBox)
 #: rc.cpp:141
-msgid "Icons only"
-msgstr ""
-
-#. i18n: file: ../app/configgeneralwidget.ui:99
-#. i18n: ectx: property (text), item, widget (QComboBox, toolBarStyleComboBox)
-#: rc.cpp:144
-msgid "Text only"
+msgid "Toolbar st&yle:"
 msgstr ""
 
 #. i18n: file: ../app/configgeneralwidget.ui:104
 #. i18n: ectx: property (text), item, widget (QComboBox, toolBarStyleComboBox)
 #: rc.cpp:147
-msgid "Text alongside icons"
+msgid "Icons only"
 msgstr ""
 
 #. i18n: file: ../app/configgeneralwidget.ui:109
 #. i18n: ectx: property (text), item, widget (QComboBox, toolBarStyleComboBox)
 #: rc.cpp:150
+msgid "Text only"
+msgstr ""
+
+#. i18n: file: ../app/configgeneralwidget.ui:114
+#. i18n: ectx: property (text), item, widget (QComboBox, toolBarStyleComboBox)
+#: rc.cpp:153
+msgid "Text alongside icons"
+msgstr ""
+
+#. i18n: file: ../app/configgeneralwidget.ui:119
+#. i18n: ectx: property (text), item, widget (QComboBox, toolBarStyleComboBox)
+#: rc.cpp:156
 msgid "Text under icons"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:135
+#. i18n: file: ../app/configgeneralwidget.ui:145
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #. i18n: file: ../part/configgeneralwidget.ui:12
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: rc.cpp:153 rc.cpp:420
+#: rc.cpp:159 rc.cpp:426
 msgid "Commands"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:141
+#. i18n: file: ../app/configgeneralwidget.ui:151
 #. i18n: ectx: property (whatsThis), widget (QLabel, latexLabel)
-#. i18n: file: ../app/configgeneralwidget.ui:162
+#. i18n: file: ../app/configgeneralwidget.ui:172
 #. i18n: ectx: property (whatsThis), widget (LineEdit, latexEdit)
-#: rc.cpp:156 rc.cpp:162
+#: rc.cpp:162 rc.cpp:168
 msgid "<p>Enter the path to the LaTeX executable here.</p>"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:144
+#. i18n: file: ../app/configgeneralwidget.ui:154
 #. i18n: ectx: property (text), widget (QLabel, latexLabel)
 #. i18n: file: ../part/configgeneralwidget.ui:18
 #. i18n: ectx: property (text), widget (QLabel, latexLabel)
-#: rc.cpp:159 rc.cpp:423
+#: rc.cpp:165 rc.cpp:429
 msgid "PDF&LaTeX command:"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:169
+#. i18n: file: ../app/configgeneralwidget.ui:179
 #. i18n: ectx: property (toolTip), widget (QToolButton, latexButton)
-#. i18n: file: ../app/configgeneralwidget.ui:213
+#. i18n: file: ../app/configgeneralwidget.ui:223
 #. i18n: ectx: property (toolTip), widget (QToolButton, pdftopsButton)
-#. i18n: file: ../app/configgeneralwidget.ui:292
+#. i18n: file: ../app/configgeneralwidget.ui:302
 #. i18n: ectx: property (toolTip), widget (QToolButton, editorButton)
-#: rc.cpp:165 rc.cpp:180 rc.cpp:207
+#: rc.cpp:171 rc.cpp:186 rc.cpp:213
 msgid "Browse command"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:172
+#. i18n: file: ../app/configgeneralwidget.ui:182
 #. i18n: ectx: property (whatsThis), widget (QToolButton, latexButton)
-#: rc.cpp:168
+#: rc.cpp:174
 msgid "<p>Browse to the LaTeX executable.</p>"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:185
+#. i18n: file: ../app/configgeneralwidget.ui:195
 #. i18n: ectx: property (whatsThis), widget (QLabel, pdftopsLabel)
-#. i18n: file: ../app/configgeneralwidget.ui:206
+#. i18n: file: ../app/configgeneralwidget.ui:216
 #. i18n: ectx: property (whatsThis), widget (LineEdit, pdftopsEdit)
-#: rc.cpp:171 rc.cpp:177
+#: rc.cpp:177 rc.cpp:183
 msgid "<p>Enter the path to the pdftops executable here.</p>"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:188
+#. i18n: file: ../app/configgeneralwidget.ui:198
 #. i18n: ectx: property (text), widget (QLabel, pdftopsLabel)
 #. i18n: file: ../part/configgeneralwidget.ui:34
 #. i18n: ectx: property (text), widget (QLabel, pdftopsLabel)
-#: rc.cpp:174 rc.cpp:426
+#: rc.cpp:180 rc.cpp:432
 msgid "&Pdftops command:"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:216
+#. i18n: file: ../app/configgeneralwidget.ui:226
 #. i18n: ectx: property (whatsThis), widget (QToolButton, pdftopsButton)
-#: rc.cpp:183
+#: rc.cpp:189
 msgid "<p>Browse to the pdftops executable.</p>"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:232
+#. i18n: file: ../app/configgeneralwidget.ui:242
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #. i18n: file: ../part/configgeneralwidget.ui:53
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: rc.cpp:186 rc.cpp:429
+#: rc.cpp:192 rc.cpp:435
 msgid "Templates"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:238
+#. i18n: file: ../app/configgeneralwidget.ui:248
 #. i18n: ectx: property (whatsThis), widget (QLabel, replaceLabel)
-#. i18n: file: ../app/configgeneralwidget.ui:257
+#. i18n: file: ../app/configgeneralwidget.ui:267
 #. i18n: ectx: property (whatsThis), widget (LineEdit, replaceEdit)
-#: rc.cpp:189 rc.cpp:195
+#: rc.cpp:195 rc.cpp:201
 msgid ""
 "<p>Enter the text which will be replaced by the TikZ code in the template "
 "here.</p>"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:241
+#. i18n: file: ../app/configgeneralwidget.ui:251
 #. i18n: ectx: property (text), widget (QLabel, replaceLabel)
 #. i18n: file: ../part/configgeneralwidget.ui:59
 #. i18n: ectx: property (text), widget (QLabel, replaceLabel)
-#: rc.cpp:192 rc.cpp:432
+#: rc.cpp:198 rc.cpp:438
 msgid "&Replace text:"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:264
+#. i18n: file: ../app/configgeneralwidget.ui:274
 #. i18n: ectx: property (whatsThis), widget (QLabel, editorLabel)
-#. i18n: file: ../app/configgeneralwidget.ui:285
+#. i18n: file: ../app/configgeneralwidget.ui:295
 #. i18n: ectx: property (whatsThis), widget (LineEdit, editorEdit)
-#: rc.cpp:198 rc.cpp:204
+#: rc.cpp:204 rc.cpp:210
 msgid ""
 "<p>Enter the path to the executable of the text editor for the template here."
 "</p>"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:267
+#. i18n: file: ../app/configgeneralwidget.ui:277
 #. i18n: ectx: property (text), widget (QLabel, editorLabel)
-#: rc.cpp:201
+#: rc.cpp:207
 msgid "Editor &command:"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:295
+#. i18n: file: ../app/configgeneralwidget.ui:305
 #. i18n: ectx: property (whatsThis), widget (QToolButton, editorButton)
-#: rc.cpp:210
+#: rc.cpp:216
 msgid "<p>Browse to the editor executable.</p>"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:311
+#. i18n: file: ../app/configgeneralwidget.ui:321
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
-#: rc.cpp:213
+#: rc.cpp:219
 msgid "Help"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:323
+#. i18n: file: ../app/configgeneralwidget.ui:333
 #. i18n: ectx: property (whatsThis), widget (QLabel, tikzDocLabel)
-#. i18n: file: ../app/configgeneralwidget.ui:344
+#. i18n: file: ../app/configgeneralwidget.ui:354
 #. i18n: ectx: property (whatsThis), widget (LineEdit, tikzDocEdit)
-#: rc.cpp:216 rc.cpp:222
+#: rc.cpp:222 rc.cpp:228
 msgid ""
 "<p>Enter the path to the file containing the TikZ documentation here.</p>"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:326
+#. i18n: file: ../app/configgeneralwidget.ui:336
 #. i18n: ectx: property (text), widget (QLabel, tikzDocLabel)
-#: rc.cpp:219
+#: rc.cpp:225
 msgid "&TikZ documentation:"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:351
+#. i18n: file: ../app/configgeneralwidget.ui:361
 #. i18n: ectx: property (toolTip), widget (QToolButton, tikzDocButton)
-#: rc.cpp:225
+#: rc.cpp:231
 msgid "Browse file"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:354
+#. i18n: file: ../app/configgeneralwidget.ui:364
 #. i18n: ectx: property (whatsThis), widget (QToolButton, tikzDocButton)
-#: rc.cpp:228
+#: rc.cpp:234
 msgid "<p>Browse to the file containing the TikZ documentation.</p>"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:375
+#. i18n: file: ../app/configgeneralwidget.ui:385
 #. i18n: ectx: property (whatsThis), widget (QPushButton, tikzDocSearchButton)
-#: rc.cpp:231
+#: rc.cpp:237
 msgid ""
 "<p>Press this button to search the file containing the TikZ documentation in "
 "the TeX directory structure using kpsewhich.</p>"
 msgstr ""
 
-#. i18n: file: ../app/configgeneralwidget.ui:378
+#. i18n: file: ../app/configgeneralwidget.ui:388
 #. i18n: ectx: property (text), widget (QPushButton, tikzDocSearchButton)
-#: rc.cpp:234
+#: rc.cpp:240
 msgid "&Search"
 msgstr ""
 
 #. i18n: file: ../app/editgotolinewidget.ui:6
 #. i18n: ectx: property (windowTitle), widget (QWidget, GoToLineWidget)
-#: rc.cpp:237
+#: rc.cpp:243
 msgid "Go To Line"
 msgstr ""
 
 #. i18n: file: ../app/editgotolinewidget.ui:12
 #. i18n: ectx: property (toolTip), widget (QToolButton, pushButtonClose)
-#: rc.cpp:240
+#: rc.cpp:246
 msgid "Close go to line box"
 msgstr ""
 
 #. i18n: file: ../app/editgotolinewidget.ui:26
 #. i18n: ectx: property (text), widget (QLabel, labelGo)
-#: rc.cpp:243
+#: rc.cpp:249
 msgid "Go to line:"
 msgstr ""
 
 #. i18n: file: ../app/editgotolinewidget.ui:39
 #. i18n: ectx: property (text), widget (QPushButton, pushButtonGo)
-#: rc.cpp:246
+#: rc.cpp:252
 msgid "&Go"
 msgstr ""
 
 #. i18n: file: ../app/editindentdialog.ui:6
 #. i18n: ectx: property (windowTitle), widget (QDialog, IndentDialog)
-#: rc.cpp:249
+#: rc.cpp:255
 msgid "Indent Selection"
 msgstr ""
 
 #. i18n: file: ../app/editindentdialog.ui:14
 #. i18n: ectx: property (text), widget (QRadioButton, radioButtonSpaces)
-#: rc.cpp:252
+#: rc.cpp:258
 msgid "Using &spaces"
 msgstr ""
 
 #. i18n: file: ../app/editindentdialog.ui:21
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: rc.cpp:255
+#: rc.cpp:261
 msgid "&Number of spaces:"
 msgstr ""
 
 #. i18n: file: ../app/editindentdialog.ui:56
 #. i18n: ectx: property (text), widget (QRadioButton, radioButtonTabs)
-#: rc.cpp:258
+#: rc.cpp:264
 msgid "Using &tabs"
 msgstr ""
 
 #. i18n: file: ../app/editindentdialog.ui:66
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: rc.cpp:261
+#: rc.cpp:267
 msgid "Num&ber of tabs:"
 msgstr ""
 
 #. i18n: file: ../app/editreplacewidget.ui:6
 #. i18n: ectx: property (windowTitle), widget (QWidget, ReplaceWidget)
-#: rc.cpp:264
+#: rc.cpp:270
 msgid "Find and Replace"
 msgstr ""
 
 #. i18n: file: ../app/editreplacewidget.ui:12
 #. i18n: ectx: property (toolTip), widget (QToolButton, pushButtonClose)
-#: rc.cpp:267
+#: rc.cpp:273
 msgid "Close find and replace box"
 msgstr ""
 
 #. i18n: file: ../app/editreplacewidget.ui:26
 #. i18n: ectx: property (text), widget (QLabel, labelFind)
-#: rc.cpp:270
+#: rc.cpp:276
 msgid "Find:"
 msgstr ""
 
 #. i18n: file: ../app/editreplacewidget.ui:48
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxWholeWords)
-#: rc.cpp:273
+#: rc.cpp:279
 msgid "&Whole words"
 msgstr ""
 
 #. i18n: file: ../app/editreplacewidget.ui:55
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxCaseSensitive)
-#: rc.cpp:276
+#: rc.cpp:282
 msgid "&Case sensitive"
 msgstr ""
 
 #. i18n: file: ../app/editreplacewidget.ui:64
 #. i18n: ectx: property (text), widget (QLabel, labelReplace)
-#: rc.cpp:279
+#: rc.cpp:285
 msgid "Replace with:"
 msgstr ""
 
 #. i18n: file: ../app/editreplacewidget.ui:86
 #. i18n: ectx: property (toolTip), widget (QToolButton, pushButtonBackward)
-#: rc.cpp:282
+#: rc.cpp:288
 msgid "Search backward"
 msgstr ""
 
 #. i18n: file: ../app/editreplacewidget.ui:103
 #. i18n: ectx: property (toolTip), widget (QToolButton, pushButtonForward)
-#: rc.cpp:285
+#: rc.cpp:291
 msgid "Search forward"
 msgstr ""
 
 #. i18n: file: ../app/editreplacewidget.ui:123
 #. i18n: ectx: property (text), widget (QPushButton, pushButtonFind)
-#: rc.cpp:288
+#: rc.cpp:294
 msgid "&Find"
 msgstr ""
 
 #. i18n: file: ../app/editreplacewidget.ui:130
 #. i18n: ectx: property (text), widget (QPushButton, pushButtonReplace)
-#: rc.cpp:291
+#: rc.cpp:297
 msgid "&Replace"
 msgstr ""
 
@@ -691,14 +706,14 @@ msgstr ""
 #. i18n: ectx: Menu (file)
 #. i18n: file: ../part/ktikzpart.rc:4
 #. i18n: ectx: Menu (file)
-#: rc.cpp:294 rc.cpp:438
+#: rc.cpp:300 rc.cpp:444
 msgctxt "@item:inmenu"
 msgid "&File"
 msgstr ""
 
 #. i18n: file: ../app/ktikzui.rc:20
 #. i18n: ectx: Menu (edit)
-#: rc.cpp:297
+#: rc.cpp:303
 msgctxt "@item:inmenu"
 msgid "&Edit"
 msgstr ""
@@ -707,14 +722,14 @@ msgstr ""
 #. i18n: ectx: Menu (view)
 #. i18n: file: ../part/ktikzpart.rc:8
 #. i18n: ectx: Menu (view)
-#: rc.cpp:300 rc.cpp:441
+#: rc.cpp:306 rc.cpp:447
 msgctxt "@item:inmenu"
 msgid "&View"
 msgstr ""
 
 #. i18n: file: ../app/ktikzui.rc:48
 #. i18n: ectx: Menu (go)
-#: rc.cpp:303
+#: rc.cpp:309
 msgctxt "@item:inmenu"
 msgid "&Go"
 msgstr ""
@@ -723,61 +738,61 @@ msgstr ""
 #. i18n: ectx: Menu (process)
 #. i18n: file: ../part/ktikzpart.rc:15
 #. i18n: ectx: Menu (process)
-#: rc.cpp:306 rc.cpp:444
+#: rc.cpp:312 rc.cpp:450
 msgctxt "@item:inmenu"
 msgid "&Process"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:60
+#. i18n: file: ../app/ktikzui.rc:61
 #. i18n: ectx: Menu (settings)
 #. i18n: file: ../part/ktikzpart.rc:20
 #. i18n: ectx: Menu (settings)
-#: rc.cpp:309 rc.cpp:447
+#: rc.cpp:315 rc.cpp:453
 msgctxt "@item:inmenu"
 msgid "&Settings"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:63
+#. i18n: file: ../app/ktikzui.rc:64
 #. i18n: ectx: Menu (sidebars)
-#: rc.cpp:312
+#: rc.cpp:318
 msgctxt "@item:inmenu"
 msgid "&Sidebars"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:75
+#. i18n: file: ../app/ktikzui.rc:76
 #. i18n: ectx: Menu (help)
-#: rc.cpp:315
+#: rc.cpp:321
 msgctxt "@item:inmenu"
 msgid "&Help"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:89
+#. i18n: file: ../app/ktikzui.rc:90
 #. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:318
+#: rc.cpp:324
 msgid "File Toolbar"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:96
+#. i18n: file: ../app/ktikzui.rc:97
 #. i18n: ectx: ToolBar (editToolBar)
-#: rc.cpp:321
+#: rc.cpp:327
 msgid "Edit Toolbar"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:101
+#. i18n: file: ../app/ktikzui.rc:102
 #. i18n: ectx: ToolBar (processToolBar)
-#: rc.cpp:324
+#: rc.cpp:330
 msgid "Process Toolbar"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:107
+#. i18n: file: ../app/ktikzui.rc:109
 #. i18n: ectx: ToolBar (viewToolBar)
-#: rc.cpp:327
+#: rc.cpp:333
 msgid "View Toolbar"
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:11
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:330
+#: rc.cpp:336
 msgid ""
 "Whether the TikZ commands should be listed in a dock widget instead of in a "
 "menu."
@@ -785,43 +800,43 @@ msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:15
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:333
+#: rc.cpp:339
 msgid "The path to the pdflatex command."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:19
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:336
+#: rc.cpp:342
 msgid "The path to the pdftops command."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:23
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:339
+#: rc.cpp:345
 msgid "The path to the TikZ documentation file."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:27
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:342
+#: rc.cpp:348
 msgid "Whether to run pdflatex with the --shell-escape option."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:30
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:345
+#: rc.cpp:351
 msgid "The file name of the currently used template."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:33
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:348
+#: rc.cpp:354
 msgid "The list of file names of the previously used templates."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:37
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:351
+#: rc.cpp:357
 msgid ""
 "The text in the template file which is replaced by the TikZ code before "
 "typesetting."
@@ -829,67 +844,67 @@ msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:43
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:354
+#: rc.cpp:360
 msgid "The font of the main text in the editor."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:47
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:357
+#: rc.cpp:363
 msgid "Whether to show white spaces."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:51
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:360
+#: rc.cpp:366
 msgid "Whether to show tabulators."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:55
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:363
+#: rc.cpp:369
 msgid "Whether to highlight matching brackets."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:59
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:366
+#: rc.cpp:372
 msgid "The color used to highlight white spaces."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:63
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:369
+#: rc.cpp:375
 msgid "The color used to highlight tabulators."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:67
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:372
+#: rc.cpp:378
 msgid "The color used to highlight matching brackets."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:71
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:375
+#: rc.cpp:381
 msgid "Whether to use TikZ code completion."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:81
 #. i18n: ectx: label, entry, group (Highlighting)
-#: rc.cpp:378
+#: rc.cpp:384
 msgid "The type of syntax highlighting."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:90
 #. i18n: ectx: label, entry, group (Preview)
-#: rc.cpp:381
+#: rc.cpp:387
 msgid "The factor by which the preview is zoomed."
 msgstr ""
 
 #. i18n: file: ../common/templatewidget.ui:6
 #. i18n: ectx: property (windowTitle), widget (QWidget, TemplateWidget)
-#: rc.cpp:384
+#: rc.cpp:390
 msgid "Choose Template"
 msgstr ""
 
@@ -897,7 +912,7 @@ msgstr ""
 #. i18n: ectx: property (whatsThis), widget (QLabel, templateLabel)
 #. i18n: file: ../common/templatewidget.ui:31
 #. i18n: ectx: property (whatsThis), widget (QComboBox, templateCombo)
-#: rc.cpp:387 rc.cpp:393
+#: rc.cpp:393 rc.cpp:399
 msgid ""
 "<p>Give the file name of the LaTeX template.  If this input field is empty "
 "or contains an invalid file name, an internal default template will be used."
@@ -906,43 +921,43 @@ msgstr ""
 
 #. i18n: file: ../common/templatewidget.ui:15
 #. i18n: ectx: property (text), widget (QLabel, templateLabel)
-#: rc.cpp:390
+#: rc.cpp:396
 msgid "&Template:"
 msgstr ""
 
 #. i18n: file: ../common/templatewidget.ui:41
 #. i18n: ectx: property (toolTip), widget (QToolButton, templateChooseButton)
-#: rc.cpp:396
+#: rc.cpp:402
 msgid "<p>Select template file</p>"
 msgstr ""
 
 #. i18n: file: ../common/templatewidget.ui:44
 #. i18n: ectx: property (whatsThis), widget (QToolButton, templateChooseButton)
-#: rc.cpp:399
+#: rc.cpp:405
 msgid "<p>Browse to an existing template file.</p>"
 msgstr ""
 
 #. i18n: file: ../common/templatewidget.ui:58
 #. i18n: ectx: property (toolTip), widget (QToolButton, templateReloadButton)
-#: rc.cpp:402
+#: rc.cpp:408
 msgid "<p>Reload template file</p>"
 msgstr ""
 
 #. i18n: file: ../common/templatewidget.ui:61
 #. i18n: ectx: property (whatsThis), widget (QToolButton, templateReloadButton)
-#: rc.cpp:405
+#: rc.cpp:411
 msgid "<p>Reload current template file.</p>"
 msgstr ""
 
 #. i18n: file: ../common/templatewidget.ui:75
 #. i18n: ectx: property (toolTip), widget (QPushButton, templateEditButton)
-#: rc.cpp:408
+#: rc.cpp:414
 msgid "<p>Edit template file</p>"
 msgstr ""
 
 #. i18n: file: ../common/templatewidget.ui:78
 #. i18n: ectx: property (whatsThis), widget (QPushButton, templateEditButton)
-#: rc.cpp:411
+#: rc.cpp:417
 msgid ""
 "<p>Edit this template with an external editor specified in the \"Configure\" "
 "dialog.</p>"
@@ -950,439 +965,439 @@ msgstr ""
 
 #. i18n: file: ../common/templatewidget.ui:81
 #. i18n: ectx: property (text), widget (QPushButton, templateEditButton)
-#: rc.cpp:414
+#: rc.cpp:420
 msgid "Edit"
 msgstr ""
 
 #. i18n: file: ../part/configgeneralwidget.ui:6
 #. i18n: ectx: property (windowTitle), widget (QWidget, PartConfigGeneralWidget)
-#: rc.cpp:417
+#: rc.cpp:423
 msgid "Configure TikZ Viewer"
 msgstr ""
 
 #. i18n: file: ../part/configgeneralwidget.ui:79
 #. i18n: ectx: property (text), widget (QLabel, editorLabel)
-#: rc.cpp:435
+#: rc.cpp:441
 msgid "&Editor command:"
 msgstr ""
 
 #. i18n: file: ../part/ktikzpart.rc:24
 #. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:450
+#: rc.cpp:456
 msgctxt "@title"
 msgid "Main Toolbar"
 msgstr ""
 
-#: rc.cpp:451
+#: rc.cpp:457
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: rc.cpp:452
+#: rc.cpp:458
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: rc.cpp:453
+#: rc.cpp:459
 msgid "&Insert"
 msgstr ""
 
-#: rc.cpp:454
+#: rc.cpp:460
 msgid "<icode>foreach</icode> with iteration"
 msgstr ""
 
-#: rc.cpp:455
+#: rc.cpp:461
 msgid "<icode>foreach</icode> with custom text"
 msgstr ""
 
-#: rc.cpp:456
+#: rc.cpp:462
 msgid "&Draw"
 msgstr ""
 
-#: rc.cpp:457
+#: rc.cpp:463
 msgid "Specify &coordinate"
 msgstr ""
 
-#: rc.cpp:458
+#: rc.cpp:464
 msgid "&Node"
 msgstr ""
 
-#: rc.cpp:459
+#: rc.cpp:465
 msgid "&Clip and draw the clipping contours"
 msgstr ""
 
-#: rc.cpp:460
+#: rc.cpp:466
 msgid "Draw &line between two points"
 msgstr ""
 
-#: rc.cpp:461
+#: rc.cpp:467
 msgid "Draw p&olygon"
 msgstr ""
 
-#: rc.cpp:462
+#: rc.cpp:468
 msgid "&Clip rectangle"
 msgstr ""
 
-#: rc.cpp:463
+#: rc.cpp:469
 msgid "Draw &to Next Point"
 msgstr ""
 
-#: rc.cpp:464
+#: rc.cpp:470
 msgid "&Move to point"
 msgstr ""
 
-#: rc.cpp:465
+#: rc.cpp:471
 msgid "&Move to relative point"
 msgstr ""
 
-#: rc.cpp:466
+#: rc.cpp:472
 msgid "&Line to"
 msgstr ""
 
-#: rc.cpp:467
+#: rc.cpp:473
 msgid "&Line to relative point"
 msgstr ""
 
-#: rc.cpp:468
+#: rc.cpp:474
 msgid "&Line to node"
 msgstr ""
 
-#: rc.cpp:469
+#: rc.cpp:475
 msgid "&Line to node with anchor"
 msgstr ""
 
-#: rc.cpp:470
+#: rc.cpp:476
 msgid "C&urve to"
 msgstr ""
 
-#: rc.cpp:471
+#: rc.cpp:477
 msgid "C&ycle"
 msgstr ""
 
-#: rc.cpp:472
+#: rc.cpp:478
 msgid "&To"
 msgstr ""
 
-#: rc.cpp:473
+#: rc.cpp:479
 msgid "&Plot"
 msgstr ""
 
-#: rc.cpp:474
+#: rc.cpp:480
 msgid "&Function"
 msgstr ""
 
-#: rc.cpp:475
+#: rc.cpp:481
 msgid "&Plot function"
 msgstr ""
 
-#: rc.cpp:476
+#: rc.cpp:482
 msgid "&Specifying Coordinates"
 msgstr ""
 
-#: rc.cpp:477
+#: rc.cpp:483
 msgid "&Absolute point"
 msgstr ""
 
-#: rc.cpp:478
+#: rc.cpp:484
 msgid "Point &relative to initial position"
 msgstr ""
 
-#: rc.cpp:479
+#: rc.cpp:485
 msgid "Point &relative to previous position"
 msgstr ""
 
-#: rc.cpp:480
+#: rc.cpp:486
 msgid "&Polar coordinates"
 msgstr ""
 
-#: rc.cpp:481
+#: rc.cpp:487
 msgid "&Intersection of two lines"
 msgstr ""
 
-#: rc.cpp:482
+#: rc.cpp:488
 msgid "&Curves"
 msgstr ""
 
-#: rc.cpp:483
+#: rc.cpp:489
 msgid "&Rectangle"
 msgstr ""
 
-#: rc.cpp:484
+#: rc.cpp:490
 msgid "&Circle"
 msgstr ""
 
-#: rc.cpp:485
+#: rc.cpp:491
 msgid "&Ellipse"
 msgstr ""
 
-#: rc.cpp:486
+#: rc.cpp:492
 msgid "&Arc"
 msgstr ""
 
-#: rc.cpp:487
+#: rc.cpp:493
 msgid "&Parabola"
 msgstr ""
 
-#: rc.cpp:488
+#: rc.cpp:494
 msgid "&Sine curve in [0, pi/2]"
 msgstr ""
 
-#: rc.cpp:489
+#: rc.cpp:495
 msgid "&Cosine curve in [0, pi/2]"
 msgstr ""
 
-#: rc.cpp:490
+#: rc.cpp:496
 msgid "&Grid"
 msgstr ""
 
-#: rc.cpp:491
+#: rc.cpp:497
 msgid "&Arrows"
 msgstr ""
 
-#: rc.cpp:492
+#: rc.cpp:498
 msgid "&Shorten start of line"
 msgstr ""
 
-#: rc.cpp:493
+#: rc.cpp:499
 msgid "&Shorten end of line"
 msgstr ""
 
-#: rc.cpp:494
+#: rc.cpp:500
 msgid "&Options"
 msgstr ""
 
-#: rc.cpp:495
+#: rc.cpp:501
 msgid "Define style for &every path"
 msgstr ""
 
-#: rc.cpp:496
+#: rc.cpp:502
 msgid "&Node Options"
 msgstr ""
 
-#: rc.cpp:497
+#: rc.cpp:503
 msgid "Set node at &start of path"
 msgstr ""
 
-#: rc.cpp:498
+#: rc.cpp:504
 msgid "Set node very near &start of path"
 msgstr ""
 
-#: rc.cpp:499
+#: rc.cpp:505
 msgid "Set node near &start of path"
 msgstr ""
 
-#: rc.cpp:500
+#: rc.cpp:506
 msgid "Set node &midway path"
 msgstr ""
 
-#: rc.cpp:501
+#: rc.cpp:507
 msgid "Set node near &end of path"
 msgstr ""
 
-#: rc.cpp:502
+#: rc.cpp:508
 msgid "Set node very near &end of path"
 msgstr ""
 
-#: rc.cpp:503
+#: rc.cpp:509
 msgid "Set node at &end of path"
 msgstr ""
 
-#: rc.cpp:504
+#: rc.cpp:510
 msgid "Set relative &position of node on path"
 msgstr ""
 
-#: rc.cpp:505
+#: rc.cpp:511
 msgid "Set &text width in node"
 msgstr ""
 
-#: rc.cpp:506
+#: rc.cpp:512
 msgid "Set &text in node justified"
 msgstr ""
 
-#: rc.cpp:507
+#: rc.cpp:513
 msgid "Align &text in node to the left"
 msgstr ""
 
-#: rc.cpp:508
+#: rc.cpp:514
 msgid "Align &text to the left without hyphenation"
 msgstr ""
 
-#: rc.cpp:509
+#: rc.cpp:515
 msgid "Center &text in node"
 msgstr ""
 
-#: rc.cpp:510
+#: rc.cpp:516
 msgid "Center &text without hyphenation"
 msgstr ""
 
-#: rc.cpp:511
+#: rc.cpp:517
 msgid "Set &text height in node"
 msgstr ""
 
-#: rc.cpp:512
+#: rc.cpp:518
 msgid "Set &text depth in node"
 msgstr ""
 
-#: rc.cpp:513
+#: rc.cpp:519
 msgid "Set &separation between text and node shape"
 msgstr ""
 
-#: rc.cpp:514
+#: rc.cpp:520
 msgid "Set &separation outside node shape"
 msgstr ""
 
-#: rc.cpp:515
+#: rc.cpp:521
 msgid "Set minimum &height of node"
 msgstr ""
 
-#: rc.cpp:516
+#: rc.cpp:522
 msgid "Set minimum &width of node"
 msgstr ""
 
-#: rc.cpp:517
+#: rc.cpp:523
 msgid "Set node &sloped in the direction of path"
 msgstr ""
 
-#: rc.cpp:518
+#: rc.cpp:524
 msgid "Set &shape of node"
 msgstr ""
 
-#: rc.cpp:519
+#: rc.cpp:525
 msgid "&Define style for every node"
 msgstr ""
 
-#: rc.cpp:520
+#: rc.cpp:526
 msgid "&Define style for every <shape> node"
 msgstr ""
 
-#: rc.cpp:521
+#: rc.cpp:527
 msgid "&Line Options"
 msgstr ""
 
-#: rc.cpp:522
+#: rc.cpp:528
 msgid "Maximal length of &miter join"
 msgstr ""
 
-#: rc.cpp:523
+#: rc.cpp:529
 msgid "&Plot Options"
 msgstr ""
 
-#: rc.cpp:524
+#: rc.cpp:530
 msgid "&Dash Patterns"
 msgstr ""
 
-#: rc.cpp:525
+#: rc.cpp:531
 msgid "&Equal lines"
 msgstr ""
 
-#: rc.cpp:526
+#: rc.cpp:532
 msgid "&Alternating lines"
 msgstr ""
 
-#: rc.cpp:527
+#: rc.cpp:533
 msgid "S&hift dash start"
 msgstr ""
 
-#: rc.cpp:528
+#: rc.cpp:534
 msgid "&Shade Options"
 msgstr ""
 
-#: rc.cpp:529
+#: rc.cpp:535
 msgid "&Snaked Lines Options"
 msgstr ""
 
-#: rc.cpp:530
+#: rc.cpp:536
 msgid "&Path Options"
 msgstr ""
 
-#: rc.cpp:531
+#: rc.cpp:537
 msgid "&Transformations on Subsequent Objects in Path"
 msgstr ""
 
-#: rc.cpp:532
+#: rc.cpp:538
 msgid "S&hift horizontally"
 msgstr ""
 
-#: rc.cpp:533
+#: rc.cpp:539
 msgid "S&hift vertically"
 msgstr ""
 
-#: rc.cpp:534
+#: rc.cpp:540
 msgid "S&hift to a point"
 msgstr ""
 
-#: rc.cpp:535
+#: rc.cpp:541
 msgid "&Cancel all transformations except shift"
 msgstr ""
 
-#: rc.cpp:536
+#: rc.cpp:542
 msgid "&Rotate by angle"
 msgstr ""
 
-#: rc.cpp:537
+#: rc.cpp:543
 msgid "&Rotate around a point"
 msgstr ""
 
-#: rc.cpp:538
+#: rc.cpp:544
 msgid "S&cale horizontally"
 msgstr ""
 
-#: rc.cpp:539
+#: rc.cpp:545
 msgid "S&cale vertically"
 msgstr ""
 
-#: rc.cpp:540
+#: rc.cpp:546
 msgid "S&cale in both directions"
 msgstr ""
 
-#: rc.cpp:541
+#: rc.cpp:547
 msgid "&Flip horizontally"
 msgstr ""
 
-#: rc.cpp:542
+#: rc.cpp:548
 msgid "&Flip vertically"
 msgstr ""
 
-#: rc.cpp:543
+#: rc.cpp:549
 msgid "&Slant horizontally"
 msgstr ""
 
-#: rc.cpp:544
+#: rc.cpp:550
 msgid "&Slant vertically"
 msgstr ""
 
-#: rc.cpp:545
+#: rc.cpp:551
 msgid "C&oordinate transformation"
 msgstr ""
 
-#: rc.cpp:546
+#: rc.cpp:552
 msgid "Para&bola Options"
 msgstr ""
 
-#: rc.cpp:547
+#: rc.cpp:553
 msgid "Parabola with specified &width and height"
 msgstr ""
 
-#: rc.cpp:548
+#: rc.cpp:554
 msgid "&Grid Options"
 msgstr ""
 
-#: rc.cpp:549
+#: rc.cpp:555
 msgid "Draw \"subdued\" &grid with specified step"
 msgstr ""
 
-#: rc.cpp:550
+#: rc.cpp:556
 msgid "&To Options"
 msgstr ""
 
-#: rc.cpp:551
+#: rc.cpp:557
 msgid "<icode>to</icode> curved with &label"
 msgstr ""
 
-#: rc.cpp:552
+#: rc.cpp:558
 msgid "<icode>to</icode> curved with <icode>to &path</icode>"
 msgstr ""
 
-#: rc.cpp:553
+#: rc.cpp:559
 msgid "&Define style for every to"
 msgstr ""
