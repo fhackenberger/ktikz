@@ -375,28 +375,28 @@
 <context>
     <name>ConfigGeneralWidget</name>
     <message>
-        <location filename="configgeneralwidget.cpp" line="128"/>
+        <location filename="configgeneralwidget.cpp" line="131"/>
         <source>Cannot find TikZ documentation.</source>
         <translation>Imposible de encontrar la documentación de TikZ.</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.cpp" line="139"/>
+        <location filename="configgeneralwidget.cpp" line="142"/>
         <source>Browse program</source>
         <translation>Seleccionar programa</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.cpp" line="140"/>
+        <location filename="configgeneralwidget.cpp" line="143"/>
         <source>Program</source>
         <translation>Programa</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="361"/>
-        <location filename="configgeneralwidget.cpp" line="147"/>
+        <location filename="configgeneralwidget.ui" line="404"/>
+        <location filename="configgeneralwidget.cpp" line="150"/>
         <source>Browse file</source>
         <translation>Seleccionar fichero</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.cpp" line="149"/>
+        <location filename="configgeneralwidget.cpp" line="152"/>
         <source>All files</source>
         <translation>Todos los archivos</translation>
     </message>
@@ -411,176 +411,206 @@
         <translation>Interfaz</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="20"/>
-        <location filename="configgeneralwidget.ui" line="33"/>
+        <location filename="configgeneralwidget.ui" line="23"/>
+        <location filename="configgeneralwidget.ui" line="36"/>
         <source>&lt;p&gt;Select the maximum number of entries that appear in the &quot;Open Recent&quot; menu.  When the number of recently opened files exceeds this limit, the oldest entries will be lost.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Seleccionar el número máximo de entradas en el menu &quot;Abrir reciente&quot;.  Quando el número de ficheros recientemente abiertos excede este limite, las entradas más viejos se eliminan.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="23"/>
+        <location filename="configgeneralwidget.ui" line="26"/>
         <source>&amp;Number of entries in the &quot;Open Recent&quot; menu:</source>
         <translation>&amp;Número de entradas en el menú &quot;Abrir reciente&quot;:</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="58"/>
+        <location filename="configgeneralwidget.ui" line="66"/>
         <source>&lt;p&gt;If this option is checked, a dock widget is available with a list of TikZ commands which you can insert in your code by clicking on them.  If this option is not checked, the TikZ commands will be available in a menu instead.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Si esta opción está marcada, un dock widget está disponible con una lista de comandos TikZ que puede insertar en el código haciendo clic sobre ellos.  Si esta opción no está marcada, los comandos TikZ están disponibles en un menú.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="61"/>
+        <location filename="configgeneralwidget.ui" line="69"/>
         <source>Show TikZ commands in &amp;dock instead of menu</source>
         <translation>Mostrar comandos TikZ en &amp;barra lateral en lugar de menu</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="68"/>
+        <location filename="configgeneralwidget.ui" line="76"/>
         <source>(you have to restart this program for this change to take effect)</source>
         <translation>(tiene que reiniciar este programa para que este cambio tiene efecto)</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="75"/>
         <source>&lt;p&gt;If this option is checked, the TikZ code in the editor is compiled while editing.  If this option is not checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Si esta opción está marcada, el código TikZ está compilado durante la edición.  Si esta opción no está marcada, un botón &quot;Compilar&quot; está disponible y el código TikZ solo está compilado quando pulsa este botón.&lt;/p&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;Si esta opción está marcada, el código TikZ está compilado durante la edición.  Si esta opción no está marcada, un botón &quot;Compilar&quot; está disponible y el código TikZ solo está compilado quando pulsa este botón.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="78"/>
-        <source>&amp;Automatically generate preview</source>
+        <location filename="configgeneralwidget.ui" line="90"/>
+        <source>&lt;p&gt;Specify whether the preview should be generated automatically or manually.  If the option &quot;Automatically&quot; is checked, the TikZ code in the editor is compiled while editing.  If the option &quot;Manually&quot; is checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="87"/>
+        <location filename="configgeneralwidget.ui" line="93"/>
+        <source>Preview generation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="configgeneralwidget.ui" line="100"/>
+        <source>&lt;p&gt;If this option is checked, the TikZ code in the editor is compiled while editing.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="103"/>
+        <source>&amp;Automatically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="106"/>
+        <location filename="configgeneralwidget.ui" line="119"/>
+        <source>buildButtonGroup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="113"/>
+        <source>&lt;p&gt;If this option is checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="116"/>
+        <source>&amp;Manually</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="configgeneralwidget.ui" line="130"/>
+        <location filename="configgeneralwidget.ui" line="143"/>
         <source>&lt;p&gt;Select the style in which the toolbar will be displayed.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Seleccione el estilo para la barra de herramientas.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="90"/>
+        <location filename="configgeneralwidget.ui" line="133"/>
         <source>Toolbar st&amp;yle:</source>
         <translation>Est&amp;ilo de la barra de herramientas:</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="104"/>
+        <location filename="configgeneralwidget.ui" line="147"/>
         <source>Icons only</source>
         <translation>Sólo iconos</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="109"/>
+        <location filename="configgeneralwidget.ui" line="152"/>
         <source>Text only</source>
         <translation>Sólo texto</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="114"/>
+        <location filename="configgeneralwidget.ui" line="157"/>
         <source>Text alongside icons</source>
         <translation>Texto junto a los iconos</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="119"/>
+        <location filename="configgeneralwidget.ui" line="162"/>
         <source>Text under icons</source>
         <translation>Texto bajo los iconos</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="145"/>
+        <location filename="configgeneralwidget.ui" line="188"/>
         <source>Commands</source>
         <translation>Comandos</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="151"/>
-        <location filename="configgeneralwidget.ui" line="172"/>
+        <location filename="configgeneralwidget.ui" line="194"/>
+        <location filename="configgeneralwidget.ui" line="215"/>
         <source>&lt;p&gt;Enter the path to the LaTeX executable here.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Introduzca la ruta para el ejecutable LaTeX aquí.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="154"/>
+        <location filename="configgeneralwidget.ui" line="197"/>
         <source>PDF&amp;LaTeX command:</source>
         <translation>Comando PDF&amp;LaTeX:</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="179"/>
-        <location filename="configgeneralwidget.ui" line="223"/>
-        <location filename="configgeneralwidget.ui" line="302"/>
+        <location filename="configgeneralwidget.ui" line="222"/>
+        <location filename="configgeneralwidget.ui" line="266"/>
+        <location filename="configgeneralwidget.ui" line="345"/>
         <source>Browse command</source>
         <translation>Seleccionar comando</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="182"/>
+        <location filename="configgeneralwidget.ui" line="225"/>
         <source>&lt;p&gt;Browse to the LaTeX executable.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Seleccione el ejecutable LaTeX.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="195"/>
-        <location filename="configgeneralwidget.ui" line="216"/>
+        <location filename="configgeneralwidget.ui" line="238"/>
+        <location filename="configgeneralwidget.ui" line="259"/>
         <source>&lt;p&gt;Enter the path to the pdftops executable here.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Introduzca la ruta para el ejecutable pdftops aquí.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="198"/>
+        <location filename="configgeneralwidget.ui" line="241"/>
         <source>&amp;Pdftops command:</source>
         <translation>Comando &amp;pdftops:</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="226"/>
+        <location filename="configgeneralwidget.ui" line="269"/>
         <source>&lt;p&gt;Browse to the pdftops executable.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Seleccione el ejecutable pdftops.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="242"/>
+        <location filename="configgeneralwidget.ui" line="285"/>
         <source>Templates</source>
         <translation>Ficheros de base</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="248"/>
-        <location filename="configgeneralwidget.ui" line="267"/>
+        <location filename="configgeneralwidget.ui" line="291"/>
+        <location filename="configgeneralwidget.ui" line="310"/>
         <source>&lt;p&gt;Enter the text which will be replaced by the TikZ code in the template here.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Introduzca el texto que será reemplazado con el código TikZ en el fichero de base.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="251"/>
+        <location filename="configgeneralwidget.ui" line="294"/>
         <source>&amp;Replace text:</source>
         <translation>Texto de &amp;reemplazo:</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="274"/>
-        <location filename="configgeneralwidget.ui" line="295"/>
+        <location filename="configgeneralwidget.ui" line="317"/>
+        <location filename="configgeneralwidget.ui" line="338"/>
         <source>&lt;p&gt;Enter the path to the executable of the text editor for the template here.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Introduzca la ruta para el ejecutable del editor de textos aquí.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="277"/>
+        <location filename="configgeneralwidget.ui" line="320"/>
         <source>Editor &amp;command:</source>
         <translation>Comando del &amp;editor:</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="305"/>
+        <location filename="configgeneralwidget.ui" line="348"/>
         <source>&lt;p&gt;Browse to the editor executable.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Seleccione el ejecutable del editor.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="321"/>
+        <location filename="configgeneralwidget.ui" line="364"/>
         <source>Help</source>
         <translation>Ayuda</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="333"/>
-        <location filename="configgeneralwidget.ui" line="354"/>
+        <location filename="configgeneralwidget.ui" line="376"/>
+        <location filename="configgeneralwidget.ui" line="397"/>
         <source>&lt;p&gt;Enter the path to the file containing the TikZ documentation here.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Introduzca la ruta para el fichero conteniendo la documentación de TikZ aquí.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="336"/>
+        <location filename="configgeneralwidget.ui" line="379"/>
         <source>&amp;TikZ documentation:</source>
         <translation>Documentación de &amp;TikZ:</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="364"/>
+        <location filename="configgeneralwidget.ui" line="407"/>
         <source>&lt;p&gt;Browse to the file containing the TikZ documentation.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Seleccione el fichero conteniendo la documentación de TikZ.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="385"/>
+        <location filename="configgeneralwidget.ui" line="428"/>
         <source>&lt;p&gt;Press this button to search the file containing the TikZ documentation in the TeX directory structure using kpsewhich.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Pulse este botón para buscar el fichero conteniendo la documentación de TikZ en la estructura de ficheros de TeX con kpsewhich.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="configgeneralwidget.ui" line="388"/>
+        <location filename="configgeneralwidget.ui" line="431"/>
         <source>&amp;Search</source>
         <translation>&amp;Buscar</translation>
     </message>
