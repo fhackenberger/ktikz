@@ -42,6 +42,7 @@ class QSyntaxHighlighter;
 class QToolButton;
 
 class AboutDialog;
+class Action;
 class ConfigDialog;
 class LogTextEdit;
 class RecentFilesAction;
@@ -164,7 +165,7 @@ private:
 	QAction *m_closeAction;
 	QAction *m_exitAction;
 	QAction *m_procStopAction;
-	QAction *m_buildAction;
+	Action *m_buildAction;
 	QAction *m_viewLogAction;
 	QAction *m_shellEscapeAction;
 	QAction *m_configureAction;
