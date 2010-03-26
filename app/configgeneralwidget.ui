@@ -12,8 +12,11 @@
       <string>Interface</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>10</number>
+      </property>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QHBoxLayout" name="historyLengthHorizontalLayout">
         <item>
          <widget class="QLabel" name="historyLengthLabel">
           <property name="whatsThis">
@@ -38,7 +41,7 @@
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_4">
+         <spacer name="historyLengthHorizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -53,34 +56,74 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="commandsInDockCheck">
-        <property name="whatsThis">
-         <string>&lt;p&gt;If this option is checked, a dock widget is available with a list of TikZ commands which you can insert in your code by clicking on them.  If this option is not checked, the TikZ commands will be available in a menu instead.&lt;/p&gt;</string>
+       <layout class="QVBoxLayout" name="commandsInDockVerticalLayout">
+        <property name="spacing">
+         <number>2</number>
         </property>
-        <property name="text">
-         <string>Show TikZ commands in &amp;dock instead of menu</string>
-        </property>
-       </widget>
+        <item>
+         <widget class="QCheckBox" name="commandsInDockCheck">
+          <property name="whatsThis">
+           <string>&lt;p&gt;If this option is checked, a dock widget is available with a list of TikZ commands which you can insert in your code by clicking on them.  If this option is not checked, the TikZ commands will be available in a menu instead.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>Show TikZ commands in &amp;dock instead of menu</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="commandsInDockLabel">
+          <property name="text">
+           <string>(you have to restart this program for this change to take effect)</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>(you have to restart this program for this change to take effect)</string>
+       <layout class="QFormLayout" name="buildFormLayout">
+        <property name="verticalSpacing">
+         <number>2</number>
         </property>
-       </widget>
+        <item row="0" column="0">
+         <widget class="QLabel" name="buildLabel">
+          <property name="whatsThis">
+           <string>&lt;p&gt;Specify whether the preview should be generated automatically or manually.  If the option &quot;Automatically&quot; is checked, the TikZ code in the editor is compiled while editing.  If the option &quot;Manually&quot; is checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>Preview generation:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QRadioButton" name="buildAutomaticallyRadio">
+          <property name="whatsThis">
+           <string>&lt;p&gt;If this option is checked, the TikZ code in the editor is compiled while editing.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>&amp;Automatically</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string>buildButtonGroup</string>
+          </attribute>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QRadioButton" name="buildManuallyRadio">
+          <property name="whatsThis">
+           <string>&lt;p&gt;If this option is checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>&amp;Manually</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string>buildButtonGroup</string>
+          </attribute>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="buildAutomaticallyCheck">
-        <property name="whatsThis">
-         <string>&lt;p&gt;If this option is checked, the TikZ code in the editor is compiled while editing.  If this option is not checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</string>
-        </property>
-        <property name="text">
-         <string>&amp;Automatically generate preview</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="toolBarStyleHorizontalLayout">
         <item>
          <widget class="QLabel" name="toolBarStyleLabel">
           <property name="whatsThis">
@@ -122,7 +165,7 @@
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_3">
+         <spacer name="toolBarStyleHorizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -159,7 +202,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <layout class="QHBoxLayout" name="latexHorizontalLayout">
         <item>
          <widget class="LineEdit" name="latexEdit">
           <property name="sizePolicy">
@@ -203,7 +246,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QHBoxLayout" name="pdftopsHorizontalLayout">
         <item>
          <widget class="LineEdit" name="pdftopsEdit">
           <property name="sizePolicy">
@@ -282,7 +325,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <layout class="QHBoxLayout" name="editorHorizontalLayout">
         <item>
          <widget class="LineEdit" name="editorEdit">
           <property name="sizePolicy">
@@ -341,7 +384,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <layout class="QHBoxLayout" name="tikzDocHorizontalLayout">
         <item>
          <widget class="LineEdit" name="tikzDocEdit">
           <property name="sizePolicy">
@@ -372,7 +415,7 @@
        </layout>
       </item>
       <item row="1" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <layout class="QHBoxLayout" name="tikzDocSearchHorizontalLayout">
         <item>
          <widget class="QPushButton" name="tikzDocSearchButton">
           <property name="sizePolicy">
@@ -390,7 +433,7 @@
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_2">
+         <spacer name="tikzDocSearchHorizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -433,4 +476,7 @@
   <include location="application.qrc"/>
  </resources>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buildButtonGroup"/>
+ </buttongroups>
 </ui>

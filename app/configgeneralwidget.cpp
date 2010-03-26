@@ -71,7 +71,10 @@ void ConfigGeneralWidget::readSettings(const QString &settingsGroup)
 	ui.historyLengthSpinBox->setValue(settings.value("RecentFilesNumber", 10).toInt());
 #endif
 	ui.commandsInDockCheck->setChecked(settings.value("CommandsInDock", false).toBool());
-	ui.buildAutomaticallyCheck->setChecked(settings.value("BuildAutomatically", true).toBool());
+	if (settings.value("BuildAutomatically", true).toBool())
+		ui.buildAutomaticallyRadio->setChecked(true);
+	else
+		ui.buildManuallyRadio->setChecked(true);
 	ui.tikzDocEdit->setText(settings.value("TikzDocumentation").toString());
 	ui.latexEdit->setText(settings.value("LatexCommand", "pdflatex").toString());
 	ui.pdftopsEdit->setText(settings.value("PdftopsCommand", "pdftops").toString());
@@ -94,7 +97,7 @@ void ConfigGeneralWidget::writeSettings(const QString &settingsGroup)
 	settings.setValue("RecentFilesNumber", ui.historyLengthSpinBox->value());
 #endif
 	settings.setValue("CommandsInDock", ui.commandsInDockCheck->isChecked());
-	settings.setValue("BuildAutomatically", ui.buildAutomaticallyCheck->isChecked());
+	settings.setValue("BuildAutomatically", ui.buildAutomaticallyRadio->isChecked());
 	settings.setValue("TikzDocumentation", ui.tikzDocEdit->text());
 	settings.setValue("LatexCommand", ui.latexEdit->text());
 	settings.setValue("PdftopsCommand", ui.pdftopsEdit->text());
