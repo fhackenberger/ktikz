@@ -9,6 +9,9 @@
 - Make a graphical tool for editing the XML file containing the TikZ
   commands similar to keditbookmarks
 - Create a new process for each window opened by the "New" action.
+- Remove bug in KDE version in which the template is not loaded if the
+  contents do not start with \documentclass (the mimetype is then not
+  recognized as text/plain).
 - Complete tikzcommands.xml:
 
   The following sections of the TikZ manual are implemented:

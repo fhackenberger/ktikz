@@ -110,7 +110,11 @@ KtikzApplication::~KtikzApplication()
 
 QString KtikzApplication::applicationName()
 {
+#ifdef KTIKZ_USE_KDE
 	return "KTikZ";
+#else
+	return "QTikZ";
+#endif
 }
 
 #ifndef KTIKZ_USE_KDE

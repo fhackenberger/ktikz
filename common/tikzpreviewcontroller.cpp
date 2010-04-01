@@ -71,8 +71,8 @@ TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
 	        this, SIGNAL(logUpdated(QString,bool)));
 	connect(m_templateWidget, SIGNAL(fileNameChanged(QString)),
 	        this, SLOT(setTemplateFileAndRegenerate(QString)));
-	connect(m_templateWidget, SIGNAL(replaceTextChanged(QString)),
-	        this, SLOT(setReplaceTextAndRegenerate(QString)));
+//	connect(m_templateWidget, SIGNAL(replaceTextChanged(QString)),
+//	        this, SLOT(setReplaceTextAndRegenerate(QString)));
 
 #ifdef KTIKZ_USE_KDE
 	m_tempDir = new KTempDir();
@@ -459,7 +459,9 @@ void TikzPreviewController::applySettings()
 	connect(m_shellEscapeAction, SIGNAL(toggled(bool)), this, SLOT(toggleShellEscaping(bool)));
 
 	setTemplateFile(settings.value("TemplateFile").toString());
-	m_tikzPreviewGenerator->setReplaceText(settings.value("TemplateReplaceText", "<>").toString());
+	const QString replaceText = settings.value("TemplateReplaceText", "<>").toString();
+	m_tikzPreviewGenerator->setReplaceText(replaceText);
+	m_templateWidget->setReplaceText(replaceText);
 	m_templateWidget->setEditor(settings.value("TemplateEditor", "kwrite").toString());
 	m_templateChanged = true;
 }
