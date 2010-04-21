@@ -1,0 +1,13 @@
+\documentclass{article}
+\usepackage{mathptmx}
+\usepackage{tikz}
+\usepackage{color}
+\usepackage{color}
+\DeclareSymbolFont{symbolsb}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{symbolsb}{bold}{OMS}{cmsy}{b}{n}
+\DeclareSymbolFontAlphabet{\mathcal}{symbolsb}
+\usepackage[active,dvips,tightpage]{preview}
+\PreviewEnvironment[]{tikzpicture}
+\begin{document}
+<>
+\end{document}
