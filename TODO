@@ -12,6 +12,8 @@
 - Remove bug in KDE version in which the template is not loaded if the
   contents do not start with \documentclass (the mimetype is then not
   recognized as text/plain).
+- Check whether the file has changed when ktikz gets the focus, and also
+  when saving or closing (similar to kwrite).
 - Complete tikzcommands.xml:
 
   The following sections of the TikZ manual are implemented:

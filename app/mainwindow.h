@@ -95,6 +95,7 @@ private slots:
 	void closeFile();
 	void open();
 	bool saveAs();
+	void reload();
 	void showTikzDocumentation();
 #ifndef KTIKZ_USE_KDE
 	void about();
@@ -162,6 +163,7 @@ private:
 	QAction *m_exportEpsAction;
 	QAction *m_exportPdfAction;
 	QAction *m_exportPngAction;
+	Action *m_reloadAction;
 	QAction *m_closeAction;
 	QAction *m_exitAction;
 	QAction *m_procStopAction;

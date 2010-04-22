@@ -18,6 +18,10 @@ version 0.10 (2010-03-23):
   completion or menu) in the statusbar, so that the user still sees the
   usage of a command after it is inserted
 - add option to compile the TikZ code only when pushing a "Build" button
+- add reload button
+- add shell script and ktikz template to the examples directory which can
+  be used to generate the preview with the latex; dvips; ps2pdf sequence
+  instead of pdflatex (the usage is described in the shell script code)
 version 0.9 (2009-09-10):
 - remove bug that on startup the item selected in the template combobox
   did not correspond to the text in the lineedit of the combobox

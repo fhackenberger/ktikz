@@ -2,7 +2,6 @@
 \usepackage{mathptmx}
 \usepackage{tikz}
 \usepackage{color}
-\usepackage{color}
 \DeclareSymbolFont{symbolsb}{OMS}{cmsy}{m}{n}
 \SetSymbolFont{symbolsb}{bold}{OMS}{cmsy}{b}{n}
 \DeclareSymbolFontAlphabet{\mathcal}{symbolsb}

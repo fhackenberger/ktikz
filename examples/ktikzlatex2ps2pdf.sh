@@ -44,5 +44,7 @@ then
 	exit 1
 fi
 
+export DVIPSHEADERS=$DVIPSHEADERS:$TEXINPUTS # if a dvips header file is located in the same directory as the template file, then this will make dvips find it
 dvips -Ppdf -G0 -o $texfilebasename.ps $texfilebasename.dvi
+
 ps2pdf14 $texfilebasename.ps $texfilebasename.pdf

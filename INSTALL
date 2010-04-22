@@ -24,6 +24,9 @@ In Ubuntu you would obtain those by installing the following packages:
 Install using qmake (only the Qt-only (qtikz) and the KDE (ktikz) application):
 ----------------------------------------------------------
 
+Note: if you want to compile the KPart, then you should use the procedure
+with cmake given below instead of this procedure.
+
 1. Edit the paths in conf.pri
 If you want to install the Qt-only version of ktikz, then hide the line
   CONFIG += usekde

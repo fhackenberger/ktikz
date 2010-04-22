@@ -246,7 +246,11 @@ void MainWindow::closeFile()
 {
 	if (maybeSave())
 	{
+		disconnect(m_tikzEditorView, SIGNAL(contentsChanged()),
+		           m_tikzPreviewController, SLOT(regeneratePreview()));
 		m_tikzEditorView->editor()->clear();
+		connect(m_tikzEditorView, SIGNAL(contentsChanged()),
+		           m_tikzPreviewController, SLOT(regeneratePreview()));
 		setCurrentUrl(Url());
 		m_tikzPreviewController->emptyPreview(); // abort still running processes
 		m_logTextEdit->logUpdated("", false); // clear log window
@@ -274,6 +278,13 @@ bool MainWindow::saveAs()
 	if (!saveAsUrl.isValid() || saveAsUrl.isEmpty())
 		return false;
 	return saveUrl(saveAsUrl);
+}
+
+void MainWindow::reload()
+{
+	const Url currentUrl = m_currentUrl;
+	closeFile();
+	loadUrl(currentUrl);
 }
 
 /***************************************************************************/
@@ -346,6 +357,11 @@ void MainWindow::createActions()
 	m_openRecentAction = StandardAction::openRecent(this, SLOT(loadUrl(Url)), this);
 	m_saveAction = StandardAction::save(this, SLOT(save()), this);
 	m_saveAsAction = StandardAction::saveAs(this, SLOT(saveAs()), this);
+	m_reloadAction = new Action(Icon("view-refresh"), tr("Reloa&d"), this, "file_reload");
+	m_reloadAction->setShortcut(QKeySequence::Refresh);
+	m_reloadAction->setStatusTip(tr("Reload the current document"));
+	m_reloadAction->setWhatsThis(tr("<p>Reload the current document from disk.</p>"));
+	connect(m_reloadAction, SIGNAL(triggered()), this, SLOT(reload()));
 	m_closeAction = StandardAction::close(this, SLOT(closeFile()), this);
 	m_exitAction = StandardAction::quit(this, SLOT(close()), this);
 
@@ -422,6 +438,8 @@ void MainWindow::createMenus()
 	fileMenu->addAction(m_saveAction);
 	fileMenu->addAction(m_saveAsAction);
 	fileMenu->addAction(m_tikzPreviewController->exportAction());
+	fileMenu->addSeparator();
+	fileMenu->addAction(m_reloadAction);
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_closeAction);
 	fileMenu->addSeparator();
