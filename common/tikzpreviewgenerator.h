@@ -24,6 +24,7 @@
 #define KTIKZ_TIKZPREVIEWGENERATOR_H
 
 #include <QMutex>
+#include <QProcessEnvironment>
 #include <QThread>
 #include <QTime>
 #include <QWaitCondition>
@@ -58,6 +59,7 @@ public:
 	QString getLogText() const;
 	bool hasRunFailed();
 	void generatePreview(bool templateChanged = false);
+	void addToLatexSearchPath(const QString &path);
 	bool generateEpsFile();
 
 public slots:
@@ -101,6 +103,11 @@ protected:
 	bool m_processAborted;
 	bool m_runFailed;
 	bool m_keepRunning;
+#if QT_VERSION >= 0x040600
+	QProcessEnvironment m_processEnvironment;
+#else
+	QStringList m_processEnvironment;
+#endif
 
 	QString m_tikzFileBaseName;
 	QString m_templateFileName;

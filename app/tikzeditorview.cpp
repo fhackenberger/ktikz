@@ -83,12 +83,19 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	        this, SIGNAL(cursorPositionChanged(int,int)));
 	connect(m_tikzEditor, SIGNAL(showStatusMessage(QString,int)),
 	        this, SIGNAL(showStatusMessage(QString,int)));
+
+	connect(m_tikzEditor, SIGNAL(focusIn()),
+	        this, SIGNAL(focusIn()));
+	connect(m_tikzEditor, SIGNAL(focusOut()),
+	        this, SIGNAL(focusOut()));
+
 	connect(m_replaceWidget, SIGNAL(search(QString,bool,bool,bool)),
 	        this, SLOT(search(QString,bool,bool,bool)));
 	connect(m_replaceWidget, SIGNAL(replace(QString,QString,bool,bool,bool)),
 	        this, SLOT(replace(QString,QString,bool,bool,bool)));
 	connect(m_replaceWidget, SIGNAL(focusEditor()),
 	        m_tikzEditor, SLOT(setFocus()));
+
 	connect(m_replaceCurrentWidget, SIGNAL(showReplaceWidget()),
 	        m_replaceWidget, SLOT(show()));
 	connect(m_replaceCurrentWidget, SIGNAL(search(QString,bool,bool,bool,bool)),
@@ -99,6 +106,7 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	        this, SLOT(replaceAll(QString,QString,bool,bool,bool,bool)));
 	connect(m_replaceCurrentWidget, SIGNAL(setSearchFromBegin(bool)),
 	        this, SIGNAL(setSearchFromBegin(bool)));
+
 	connect(m_goToLineWidget, SIGNAL(goToLine(int)),
 	        this, SLOT(goToLine(int)));
 }

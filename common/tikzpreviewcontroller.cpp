@@ -74,6 +74,21 @@ TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
 //	connect(m_templateWidget, SIGNAL(replaceTextChanged(QString)),
 //	        this, SLOT(setReplaceTextAndRegenerate(QString)));
 
+	createTempDir();
+
+//	applySettings(); // must be done after creation of m_tempDir
+}
+
+TikzPreviewController::~TikzPreviewController()
+{
+	delete m_tikzPreviewGenerator;
+	removeTempDir();
+}
+
+/***************************************************************************/
+
+void TikzPreviewController::createTempDir()
+{
 #ifdef KTIKZ_USE_KDE
 	m_tempDir = new KTempDir();
 	m_tempDir->setAutoRemove(true);
@@ -94,13 +109,10 @@ TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
 //	m_tempTikzFileBaseName = QDir::tempPath() + "/ktikz/temptikzcode";
 #endif
 	m_tikzPreviewGenerator->setTikzFileBaseName(m_tempTikzFileBaseName);
-
-//	applySettings(); // must be done after creation of m_tempDir
 }
 
-TikzPreviewController::~TikzPreviewController()
+void TikzPreviewController::removeTempDir()
 {
-	delete m_tikzPreviewGenerator;
 #ifdef KTIKZ_USE_KDE
 	delete m_tempDir;
 #else
@@ -116,8 +128,6 @@ TikzPreviewController::~TikzPreviewController()
 #endif
 }
 
-/***************************************************************************/
-
 const QString TikzPreviewController::tempDir() const
 {
 #ifdef KTIKZ_USE_KDE
@@ -126,6 +136,8 @@ const QString TikzPreviewController::tempDir() const
 	return QDir::tempPath() + "/ktikz";
 #endif
 }
+
+/***************************************************************************/
 
 TemplateWidget *TikzPreviewController::templateWidget() const
 {
@@ -428,12 +440,15 @@ void TikzPreviewController::generatePreview()
 	if (m_templateChanged)
 		cleanUp();
 #endif
+	// TODO: m_tikzPreviewGenerator->addToTexinputs(QFileInfo(m_mainWidget->url().path()).absolutePath());
+//	m_tikzPreviewGenerator->setTikzFilePath(m_mainWidget->url().path()); // the directory in which the pgf file is located is added to TEXINPUTS before running latex
 	m_tikzPreviewGenerator->generatePreview(m_templateChanged);
 	m_templateChanged = false;
 }
 
 void TikzPreviewController::regeneratePreview()
 {
+//	m_tikzPreviewGenerator->setTikzFilePath(m_mainWidget->url().path()); // the directory in which the pgf file is located is added to TEXINPUTS before running latex
 	m_tikzPreviewGenerator->regeneratePreview();
 }
 

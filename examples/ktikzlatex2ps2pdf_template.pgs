@@ -7,6 +7,7 @@
 \DeclareSymbolFontAlphabet{\mathcal}{symbolsb}
 \usepackage[active,dvips,tightpage]{preview}
 \PreviewEnvironment[]{tikzpicture}
+\PreviewEnvironment[]{pgfpicture}
 \begin{document}
 <>
 \end{document}

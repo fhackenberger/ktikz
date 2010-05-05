@@ -556,7 +556,16 @@ void TikzEditor::focusInEvent(QFocusEvent *event)
 {
 	if (m_completer)
 		m_completer->setWidget(this);
+
+	emit focusIn();
+
 	QPlainTextEdit::focusInEvent(event);
+}
+
+void TikzEditor::focusOutEvent(QFocusEvent *event)
+{
+	emit focusOut();
+	QPlainTextEdit::focusOutEvent(event);
 }
 
 void TikzEditor::setCompleter(QCompleter *completer)

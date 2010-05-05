@@ -30,6 +30,7 @@ class KUrl;
 #include <QMainWindow>
 class QUrl;
 #endif
+#include <QDateTime>
 #include "../common/mainwidget.h"
 
 class QAction;
@@ -89,6 +90,8 @@ protected:
 	void closeEvent(QCloseEvent *event);
 
 private slots:
+	void checkForFileChanges();
+	void saveLastInternalModifiedDateTime();
 	void setDockWidgetStatusTip(bool enabled);
 	void setToolBarStatusTip(bool enabled);
 	void newFile();
@@ -185,6 +188,7 @@ private:
 
 	Url m_currentUrl;
 	Url m_lastUrl;
+	QDateTime m_lastInternalModifiedDateTime;
 };
 
 #endif

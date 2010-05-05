@@ -51,11 +51,14 @@ public slots:
 signals:
 	void cursorPositionChanged(int row, int col);
 	void showStatusMessage(const QString &message, int timeout = 3000);
+	void focusIn();
+	void focusOut();
 
 protected:
 	void paintEvent(QPaintEvent *event);
 	void keyPressEvent(QKeyEvent *event);
 	void focusInEvent(QFocusEvent *event);
+	void focusOutEvent(QFocusEvent *event);
 
 private:
 	void showMatchingBrackets();

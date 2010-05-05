@@ -60,6 +60,8 @@ signals:
 	void cursorPositionChanged(int row, int col);
 	void showStatusMessage(const QString &message, int timeout = 3000);
 	void setSearchFromBegin(bool searchFromBegin);
+	void focusIn();
+	void focusOut();
 
 private slots:
 	void setPasteEnabled();

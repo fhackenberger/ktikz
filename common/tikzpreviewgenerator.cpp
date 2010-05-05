@@ -424,6 +424,28 @@ void TikzPreviewGenerator::createTempTikzFile()
 
 /***************************************************************************/
 
+void TikzPreviewGenerator::addToLatexSearchPath(const QString &path)
+{
+#ifdef Q_OS_WIN
+	const QString pathSeparator = ";";
+#else
+	const QString pathSeparator = ":";
+#endif
+
+#if QT_VERSION >= 0x040600
+	m_processEnvironment = QProcessEnvironment::systemEnvironment();
+	m_processEnvironment.insert("TEXINPUTS", path + pathSeparator + m_processEnvironment.value("TEXINPUTS"));
+#else
+	m_processEnvironment = QProcess::systemEnvironment();
+	QRegExp rx("^TEXINPUTS=(.*)", Qt::CaseInsensitive);
+	const int num = m_processEnvironment.indexOf(rx);
+	if (num >= 0)
+		m_processEnvironment[num].replace(rx, "TEXINPUTS=" + path + pathSeparator + "\\1");
+	else
+		m_processEnvironment << "TEXINPUTS=" + path + pathSeparator;
+#endif
+}
+
 bool TikzPreviewGenerator::runProcess(const QString &name, const QString &command,
     const QStringList &arguments, const QString &workingDir)
 {
@@ -436,22 +458,12 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 	if (!m_templateFileName.isEmpty())
 	{
 		const QFileInfo templateFileInfo(m_templateFileName);
-		QStringList env = QProcess::systemEnvironment();
-		QRegExp rx("^TEXINPUTS=(.*)", Qt::CaseInsensitive);
-		const int num = env.indexOf(rx);
-		if (num >= 0)
-#ifdef Q_OS_WIN
-			env[num].replace(rx, "TEXINPUTS=\\1;" + templateFileInfo.absolutePath() + ";");
+		addToLatexSearchPath(templateFileInfo.absolutePath());
+#if QT_VERSION >= 0x040600
+		m_process->setProcessEnvironment(m_processEnvironment);
 #else
-			env[num].replace(rx, "TEXINPUTS=\\1:" + templateFileInfo.absolutePath() + ":");
+		m_process->setEnvironment(m_processEnvironment);
 #endif
-		else
-#ifdef Q_OS_WIN
-			env << "TEXINPUTS=;" + templateFileInfo.absolutePath() + ";";
-#else
-			env << "TEXINPUTS=:" + templateFileInfo.absolutePath() + ":";
-#endif
-		m_process->setEnvironment(env);
 	}
 
 	m_process->start(command, arguments);

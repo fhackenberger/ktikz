@@ -463,7 +463,11 @@ void TikzPreview::pixmapUpdated(Poppler::Document *tikzPdfDoc)
 	m_nextPageAction->setVisible(visible);
 
 	if (m_currentPage >= numOfPages)
+	{
 		m_currentPage = 0;
+		m_previousPageAction->setEnabled(false);
+		m_nextPageAction->setEnabled(true);
+	}
 
 	showPdfPage();
 }

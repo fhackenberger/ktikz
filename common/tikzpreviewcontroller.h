@@ -83,6 +83,9 @@ signals:
     void logUpdated(const QString &logText, bool runFailed);
 
 private:
+	void createTempDir();
+	void removeTempDir();
+
 	void createActions();
 	bool setTemplateFile(const QString &path);
 #ifdef KTIKZ_USE_KDE

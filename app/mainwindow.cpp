@@ -166,12 +166,19 @@ MainWindow::MainWindow()
 
 	connect(m_commandInserter, SIGNAL(showStatusMessage(QString,int)),
 	        statusBar(), SLOT(showMessage(QString,int)));
+
 	connect(m_tikzEditorView, SIGNAL(modificationChanged(bool)),
 	        this, SLOT(setDocumentModified(bool)));
 	connect(m_tikzEditorView, SIGNAL(cursorPositionChanged(int,int)),
 	        this, SLOT(showCursorPosition(int,int)));
 	connect(m_tikzEditorView, SIGNAL(showStatusMessage(QString,int)),
 	        statusBar(), SLOT(showMessage(QString,int)));
+
+	connect(m_tikzEditorView, SIGNAL(focusIn()),
+	        this, SLOT(checkForFileChanges()));
+	connect(m_tikzEditorView, SIGNAL(focusOut()),
+	        this, SLOT(saveLastInternalModifiedDateTime()));
+
 	connect(m_tikzPreviewController, SIGNAL(logUpdated(QString,bool)),
 	        m_logTextEdit, SLOT(logUpdated(QString,bool)));
 
@@ -285,6 +292,34 @@ void MainWindow::reload()
 	const Url currentUrl = m_currentUrl;
 	closeFile();
 	loadUrl(currentUrl);
+}
+
+void MainWindow::checkForFileChanges()
+{
+	QDateTime lastExternalModifiedDateTime(QFileInfo(m_currentUrl.path()).lastModified());
+	if (lastExternalModifiedDateTime <= m_lastInternalModifiedDateTime)
+		return;
+
+	QMessageBox fileChangedWarningMessageBox(this);
+	fileChangedWarningMessageBox.setText(tr("The document was modified by another program.\nWhat do you want to do?"));
+	fileChangedWarningMessageBox.setWindowTitle(KtikzApplication::applicationName());
+	fileChangedWarningMessageBox.setIcon(QMessageBox::Warning);
+	QAbstractButton *overwriteButton = fileChangedWarningMessageBox.addButton(tr("&Overwrite"), QMessageBox::AcceptRole);
+	QAbstractButton *reloadButton = fileChangedWarningMessageBox.addButton(tr("&Reload file"), QMessageBox::AcceptRole);
+	fileChangedWarningMessageBox.addButton(QMessageBox::Cancel);
+	fileChangedWarningMessageBox.exec();
+	if (fileChangedWarningMessageBox.clickedButton() == overwriteButton)
+	{
+		saveUrl(m_currentUrl);
+		saveLastInternalModifiedDateTime(); // make sure that the saveUrl on the previous line is not seen as an "external" save
+	}
+	else if (fileChangedWarningMessageBox.clickedButton() == reloadButton)
+		reload();
+}
+
+void MainWindow::saveLastInternalModifiedDateTime()
+{
+	m_lastInternalModifiedDateTime = QDateTime::currentDateTime();
 }
 
 /***************************************************************************/
