@@ -284,7 +284,7 @@ QString TikzPreview::formatZoomFactor(qreal zoomFactor) const
 	zoomFactorText += "%";
 	return zoomFactorText;
 #else
-	return QString::number(zoomFactor) + "%";
+	return QLocale::system().toString(zoomFactor) + "%";
 #endif
 }
 
@@ -360,7 +360,7 @@ void TikzPreview::setZoomFactor(const QString &zoomFactorText)
 #ifdef KTIKZ_USE_KDE
 	setZoomFactor(KGlobal::locale()->readNumber(QString(zoomFactorText).remove('&').remove('%')) / 100.0);
 #else
-	setZoomFactor(QString(zoomFactorText).remove(QRegExp("[^\\d\\.]*")).toDouble() / 100);
+	setZoomFactor(QString(zoomFactorText).remove(QRegExp(QString("[^\\d\\%1]*").arg(QLocale::system().decimalPoint()))).toDouble() / 100);
 #endif
 }
 
