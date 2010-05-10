@@ -20,6 +20,9 @@
 
 #include "configdialog.h"
 
+#include <QCheckBox>
+#include <QSettings>
+
 #include "configgeneralwidget.h"
 
 PartConfigDialog::PartConfigDialog(QWidget* parent)
@@ -29,8 +32,12 @@ PartConfigDialog::PartConfigDialog(QWidget* parent)
 	setButtons(KDialog::Ok | KDialog::Cancel | KDialog::Apply | KDialog::Default);
 	showButtonSeparator(true);
 
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout(mainWidget);
 	m_configGeneralWidget = new PartConfigGeneralWidget(this);
-	setMainWidget(m_configGeneralWidget);
+	mainLayout->addWidget(viewerWidget());
+	mainLayout->addWidget(m_configGeneralWidget);
+	setMainWidget(mainWidget);
 
 	connect(this, SIGNAL(applyClicked()), this, SLOT(writeSettings()));
 	connect(this, SIGNAL(okClicked()), this, SLOT(writeSettings()));
@@ -43,6 +50,19 @@ PartConfigDialog::~PartConfigDialog()
 {
 }
 
+QWidget *PartConfigDialog::viewerWidget()
+{
+	QGroupBox *viewerGroupBox = new QGroupBox(i18n("Viewer"));
+	QVBoxLayout *viewerLayout = new QVBoxLayout(viewerGroupBox);
+	m_watchFileCheckBox = new QCheckBox(i18n("&Reload document on file change"));
+	m_watchFileCheckBox->setObjectName("watchFileCheckBox");
+	viewerLayout->addWidget(m_watchFileCheckBox);
+
+	connect(m_watchFileCheckBox, SIGNAL(toggled(bool)), this, SLOT(setModified()));
+
+	return viewerGroupBox;
+}
+
 void PartConfigDialog::setDefaults()
 {
 	m_configGeneralWidget->setDefaults();
@@ -51,11 +71,26 @@ void PartConfigDialog::setDefaults()
 void PartConfigDialog::readSettings()
 {
 	m_configGeneralWidget->readSettings();
+
+	QSettings settings(ORGNAME, APPNAME);
+	m_watchFileCheckBox->setChecked(settings.value("WatchFile", true).toBool());
+}
+
+void PartConfigDialog::setModified()
+{
+	QWidget *sendingWidget = qobject_cast<QWidget*>(sender());
+	QSettings settings(ORGNAME, APPNAME);
+	if (sendingWidget->objectName() == "watchFileCheckBox")
+		enableButtonApply(m_watchFileCheckBox->isChecked() != settings.value("WatchFile", true).toBool());
 }
 
 void PartConfigDialog::writeSettings()
 {
 	m_configGeneralWidget->writeSettings();
+
+	QSettings settings(ORGNAME, APPNAME);
+	settings.setValue("WatchFile", m_watchFileCheckBox->isChecked());
+
 	enableButtonApply(false);
 	emit settingsChanged("preferences");
 }

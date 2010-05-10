@@ -2,6 +2,24 @@
  *   Copyright (C) 2008-2010 by Glad Deschrijver                           *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
+ *   Document watcher and reloader code copied from Okular KPart code      *
+ *   which is copyrighted as follows:                                      *
+ *   Copyright (C) 2002 by Wilco Greven <greven@kde.org>                   *
+ *   Copyright (C) 2002 by Chris Cheney <ccheney@cheney.cx>                *
+ *   Copyright (C) 2002 by Malcolm Hunter <malcolm.hunter@gmx.co.uk>       *
+ *   Copyright (C) 2003-2004 by Christophe Devriese                        *
+ *                         <Christophe.Devriese@student.kuleuven.ac.be>    *
+ *   Copyright (C) 2003 by Daniel Molkentin <molkentin@kde.org>            *
+ *   Copyright (C) 2003 by Andy Goossens <andygoossens@telenet.be>         *
+ *   Copyright (C) 2003 by Dirk Mueller <mueller@kde.org>                  *
+ *   Copyright (C) 2003 by Laurent Montel <montel@kde.org>                 *
+ *   Copyright (C) 2004 by Dominique Devriese <devriese@kde.org>           *
+ *   Copyright (C) 2004 by Christoph Cullmann <crossfire@babylon2k.de>     *
+ *   Copyright (C) 2004 by Henrique Pinto <stampede@coltec.ufmg.br>        *
+ *   Copyright (C) 2004 by Waldo Bastian <bastian@kde.org>                 *
+ *   Copyright (C) 2004-2008 by Albert Astals Cid <aacid@kde.org>          *
+ *   Copyright (C) 2004 by Antti Markus <antti.markus@starman.ee>          *
+ *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
@@ -23,12 +41,15 @@
 #include <KAboutData>
 #include <KAction>
 #include <KActionCollection>
+#include <KDirWatch>
 #include <KFileDialog>
 #include <KMessageBox>
 #include <KIO/Job>
 //#include <KIO/JobUiDelegate>
 #include <KIO/NetAccess>
 #include <KParts/GenericFactory>
+#include <QSettings>
+#include <QTimer>
 
 #include "configdialog.h"
 #include "settings.h"
@@ -62,6 +83,13 @@ Part::Part(QWidget *parentWidget, QObject *parent, const QStringList &args)
 	setWidget(mainWidget);
 
 	createActions();
+
+	// document watcher and reloader
+	m_watcher = new KDirWatch(this);
+	connect(m_watcher, SIGNAL(dirty(const QString&)), this, SLOT(slotFileDirty(const QString&)));
+	m_dirtyHandler = new QTimer(this);
+	m_dirtyHandler->setSingleShot(true);
+	connect(m_dirtyHandler, SIGNAL(timeout()),this, SLOT(slotDoFileDirty()));
 
 	setXMLFile("ktikzpart/ktikzpart.rc");
 
@@ -98,6 +126,16 @@ void Part::createActions()
 	m_saveAsAction = actionCollection()->addAction(KStandardAction::SaveAs, this, SLOT(saveAs()));
 	m_saveAsAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Save the document under a new name.</para>"));
 
+/*
+	KAction *reloadAction = actionCollection()->add<KAction>("file_reload");
+	reloadAction->setText(i18n("Reloa&d"));
+	reloadAction->setIcon(KIcon("view-refresh"));
+	reloadAction->setWhatsThis(i18n("Reload the current document from disk."));
+	connect(reloadAction, SIGNAL(triggered()), this, SLOT(slotReload()));
+	reloadAction->setShortcut(KStandardShortcut::reload());
+	m_reloadAction = reloadAction;
+*/
+
 	// Configure
 	KAction *action = KStandardAction::preferences(this, SLOT(configure()), actionCollection());
 	action->setText(i18nc("@action", "Configure KTikZ Viewer..."));
@@ -119,6 +157,17 @@ bool Part::openFile()
 	QTextStream in(&file);
 	m_tikzCode = in.readAll();
 	m_tikzPreviewController->generatePreview();
+
+	// set the file to the fileWatcher
+	if (url().isLocalFile())
+	{
+		if (!m_watcher->contains(localFilePath()))
+			m_watcher->addFile(localFilePath());
+		QFileInfo fi(localFilePath());
+		if (!m_watcher->contains(fi.absolutePath()))
+			m_watcher->addDir(fi.absolutePath());
+	}
+	m_fileWasRemoved = false;
 
 //	setStatusBarText(i18nc("@info:status", "File loaded"));
 	return true;
@@ -155,6 +204,19 @@ void Part::saveAs()
 	connect(job, SIGNAL(result(KJob*)), m_tikzPreviewController, SLOT(showJobError(KJob*)));
 }
 
+bool Part::closeUrl()
+{
+	if (url().isLocalFile())
+	{
+		m_watcher->removeFile(localFilePath());
+		QFileInfo fi(localFilePath());
+		m_watcher->removeDir(fi.absolutePath());
+	}
+	m_fileWasRemoved = false;
+
+	return KParts::ReadOnlyPart::closeUrl();
+}
+
 /*
 void Part::showJobError(KJob *job)
 {
@@ -172,6 +234,17 @@ void Part::showJobError(KJob *job)
 }
 */
 
+/*
+void Part::slotReload()
+{
+	// stop the dirty handler timer, otherwise we may conflict with the
+	// auto-refresh system
+	m_dirtyHandler->stop();
+
+	slotDoFileDirty();
+}
+*/
+
 QString Part::tikzCode() const
 {
 	return m_tikzCode;
@@ -184,9 +257,67 @@ Url Part::url() const
 
 /***************************************************************************/
 
+void Part::slotFileDirty(const QString& path)
+{
+	// The beauty of this is that each start cancels the previous one.
+	// This means that timeout() is only fired when there have
+	// no changes to the file for the last 750 milisecs.
+	// This ensures that we don't update on every other byte that gets
+	// written to the file.
+	if (path == localFilePath())
+	{
+		m_dirtyHandler->start(750);
+	}
+	else
+	{
+		QFileInfo fi(localFilePath());
+		if (fi.absolutePath() == path)
+		{
+			// Our parent has been dirtified
+			if (!QFile::exists(localFilePath()))
+			{
+				m_fileWasRemoved = true;
+			}
+			else if (m_fileWasRemoved && QFile::exists(localFilePath()))
+			{
+				// we need to watch the new file
+				m_watcher->removeFile(localFilePath());
+				m_watcher->addFile(localFilePath());
+				m_dirtyHandler->start(750);
+			}
+		}
+	}
+}
+
+void Part::slotDoFileDirty()
+{
+	m_tikzPreviewController->tikzPreview()->showErrorMessage(i18n("Reloading the document..."));
+
+	// close and (try to) reopen the document
+	if (!KParts::ReadOnlyPart::openUrl(url()))
+	{
+		// start watching the file again (since we dropped it on close)
+		m_watcher->addFile(localFilePath());
+		m_dirtyHandler->start(750);
+	}
+}
+
+/***************************************************************************/
+
 void Part::applySettings()
 {
 	m_tikzPreviewController->applySettings();
+
+	// Watch File
+	QSettings settings(ORGNAME, APPNAME);
+	bool watchFile = settings.value("WatchFile", true).toBool();
+	if (watchFile && m_watcher->isStopped())
+		m_watcher->startScan();
+	if (!watchFile && !m_watcher->isStopped())
+	{
+		m_dirtyHandler->stop();
+		m_watcher->stopScan();
+	}
 }
 
 void Part::configure()

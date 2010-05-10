@@ -26,6 +26,7 @@
 
 class KAboutData;
 class KAction;
+class KDirWatch;
 
 class PartConfigDialog;
 class TikzPreviewController;
@@ -48,10 +49,16 @@ public:
 
 protected:
 	virtual bool openFile();
+	bool closeUrl();
 
 private slots:
 	void saveAs();
 //	void showJobError(KJob *job);
+//	void slotReload();
+
+	void slotFileDirty(const QString &path);
+	void slotDoFileDirty();
+
 	void applySettings();
 	void configure();
 
@@ -62,8 +69,14 @@ private:
 	PartConfigDialog *m_configDialog;
 
 	KAction *m_saveAsAction;
+//	KAction *m_reloadAction;
 
 	QString m_tikzCode;
+
+	// document watcher (and reloader) variables
+	KDirWatch *m_watcher;
+	QTimer *m_dirtyHandler;
+	bool m_fileWasRemoved;
 };
 
 #endif

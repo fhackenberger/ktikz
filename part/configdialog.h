@@ -24,6 +24,7 @@
 #include <KDialog>
 
 class PartConfigGeneralWidget;
+class QCheckBox;
 
 class PartConfigDialog : public KDialog
 {
@@ -42,8 +43,15 @@ public slots:
 signals:
 	void settingsChanged(const QString &dialogName);
 
+private slots:
+	void setModified();
+
 private:
+	QWidget *viewerWidget();
+
 	PartConfigGeneralWidget *m_configGeneralWidget;
+
+	QCheckBox *m_watchFileCheckBox;
 };
 
 #endif

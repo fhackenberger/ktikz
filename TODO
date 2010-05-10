@@ -14,10 +14,9 @@
   recognized as text/plain).
 - Check whether the file has changed when ktikz gets the focus, and also
   when saving or closing (similar to kwrite).
-- In the kpart check for file changes and reload if there are any (similar
-  as in okular).
 - Download files which are \included or \inputted in remote template files
-  or remote pgf files to the temporary directory.
+  or remote pgf files to the temporary directory (could be dangerous when
+  the user is still editing the \input command).
 - Add the directory in which the pgf file is located to TEXINPUTS
 - Complete tikzcommands.xml:
 
