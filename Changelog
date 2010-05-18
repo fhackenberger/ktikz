@@ -1,4 +1,4 @@
-version 0.10 (2010-05-05):
+version 0.10 (2010-05-18):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO
 - TikZ source files on remote machines can be loaded, saved and exported

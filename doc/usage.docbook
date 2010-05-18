@@ -1,0 +1,432 @@
+<chapter id="using-ktikz">
+<title>Using &ktikz;</title>
+
+<sect1 id="ktikz-editing">
+	<title>Editing</title>
+
+	<para>
+		The source code of a TikZ picture (this is the code between <quote>\begin{tikzpicture}</quote> and <quote>\end{tikzpicture}</quote> that would normally be included in a LaTeX file) is edited in the editor.
+		<example>
+			<title>Example content of the editor</title>
+			<programlisting>\begin{tikzpicture}[x=4cm,y=4cm]
+  %\tikzstyle{every node}=[font=\small]
+  \def\xx{0.3} \def\xy{0.7}
+
+  \draw[color=black,fill=black!30]
+    (0,0) node[below left] {$[0,0]$} --
+    (1,1) node[right] {$[1,1]$} --
+    (0,1) node[left] {$[0,1]$};
+  \draw[-latex] (0,0) -- (1.125,0) node[right=3,below] {$x_1$};
+  \draw[-latex] (0,0) -- (0,1.125) node[right=-1] {$x_2$};
+
+  \fill[fill=black] (\xx,\xy) circle (.2em)
+    node[right=20,above] {$x = [x_1,x_2]$};
+  \draw[dashed] (\xx,0) node[below] {$x_1$}
+    -- (\xx,\xy)
+    -- (0,\xy) node[left] {$x_2$};
+\end{tikzpicture}</programlisting>
+		</example>
+		While editing, a preview of the TikZ picture is generated on the fly in the <guilabel>Preview</guilabel> panel.  If an error occurs, the error messages are displayed in the <guilabel>Messages</guilabel> panel.  If the error messages are not clear, the complete LaTeX log file can be displayed in the <guilabel>Messages</guilabel> panel by clicking the <guilabel>View Log</guilabel> button.
+	</para>
+	<para>
+		When the TikZ picture contains function plots which are created externally using <command>gnuplot</command>, the <guilabel>Shell Escape</guilabel> option should be enabled in the toolbar or in the <guilabel>Process</guilabel> menu.
+		<warning>
+			<para>
+				Note that enabling the <guilabel>Shell Escape</guilabel> option is dangerous, since this can cause malicious software to be run on your computer!  So you should check the TikZ code <emphasis>and</emphasis> the LaTeX code in the template file to see which commands are executed.
+			</para>
+		</warning>
+	</para>
+</sect1>
+
+<sect1 id="ktikz-templates">
+	<title>Templates</title>
+
+	<para>
+		&ktikz; features a template mechanism.  A template file is a skeleton LaTeX file in which all necessary packages and definitions are loaded and in which the style (fonts, ...) is determined.  A template file does (usually) not contain any real contents, instead it contains a <quote>replacement string</quote> (which is &lt;&gt; by default) which is replaced by the TikZ code in the editor when the preview is generated.
+	</para>
+	<para>
+		When the preview is generated, &ktikz; internally replaces the <quote>replacement string</quote> in the template file by the TikZ code in the editor and compiles the resulting LaTeX file.  The resulting PDF file is then displayed in the <guilabel>Preview</guilabel> panel.  If any errors occur during compilation (both errors in the TikZ code and in the template file), they are displayed in the <guilabel>Messages</guilabel> panel.
+	</para>
+	<para>
+		The user can create template files and specify the full path in the <guilabel>Template</guilabel> text field.  If the <guilabel>Template</guilabel> text field is empty while generating the preview, an internal template file is used, so the user is not forced to create a template file.
+	</para>
+	<para>
+		For example, a template file named <filename>ktikz_template.pgs</filename> could contain the following:
+		<example>
+			<title>An example template file</title>
+			<programlisting>\documentclass{article}
+\usepackage{mathptmx}
+\usepackage{tikz}
+\usepackage{color}
+\DeclareSymbolFont{symbolsb}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{symbolsb}{bold}{OMS}{cmsy}{b}{n}
+\DeclareSymbolFontAlphabet{\mathcal}{symbolsb}
+\usepackage[active,pdftex,tightpage]{preview}
+\PreviewEnvironment[]{tikzpicture}
+\PreviewEnvironment[]{pgfpicture}
+\begin{document}
+&lt;&gt;
+\end{document}</programlisting>
+		</example>
+		<example>
+			<title>Another example template file</title>
+			<programlisting>\documentclass[compress]{beamer}
+\usetheme{Frankfurt}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tikz}
+%\usepackage{color}
+\usepackage[active,pdftex,tightpage]{preview}
+\PreviewEnvironment[]{tikzpicture}
+\input{hulpjes.tex}
+\begin{document}
+&lt;&gt;
+\end{document}</programlisting>
+		</example>
+	</para>
+</sect1>
+
+<sect1 id="ktikz-tips">
+	<title>Tips</title>
+
+	<para>
+		The following are a number of tips to enhance the experience of using &ktikz;.
+	</para>
+
+	<sect2 id="ktikz-tips-using-other-packages">
+		<title>Using &ktikz; for picture packages other than PGF</title>
+
+		<para>
+			&ktikz; is designed to be used for TikZ or PGF pictures (pictures created using the LaTeX PGF package).  But by using the template mechanism in a smart way it is possible to use &ktikz; also for other picture packages available in LaTeX.  For example, the following template file could be used to be able to draw pspictures (with the pstricks package).  Note however that pstricks only supports LaTeX -> PS -> PDF compilation, so you will also have to apply the next tip.
+			<example>
+				<title>Example template file for pstricks</title>
+				<programlisting>\documentclass{article}
+\usepackage{mathptmx}
+\usepackage{pstricks}
+\DeclareSymbolFont{symbolsb}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{symbolsb}{bold}{OMS}{cmsy}{b}{n}
+\DeclareSymbolFontAlphabet{\mathcal}{symbolsb}
+\usepackage[active,dvips,tightpage]{preview}
+\PreviewEnvironment[]{pspicture}
+\begin{document}
+&lt;&gt;
+\end{document}</programlisting>
+			</example>
+			<example>
+				<title>Example content of the editor</title>
+				<programlisting>\psset{unit=.45pt}
+\begin{pspicture}*(420, 420)
+  \psset{linewidth=.4pt}
+  % Frame
+  \pspolygon(0, 0)(420, 0)(420, 420)(0, 420)
+  % Circumscribed circle and inscribed circle
+  \pscircle(206, 222){166.18}
+  \pscircle(250, 197){75.42}
+  % Adjacent circles
+  \pscircle[linestyle=dashed](476, 135){157.68}
+  \pscircle[linestyle=dashed](-32, -22){266.53}
+  \pscircle[linestyle=dashed](132, 579){315.92}
+  % triangle
+  \psset{linewidth=1pt}
+  \pspolygon(43, 253)(361, 283)(287, 77)
+  % nine-points circle (Feuerbach)
+  \pscircle[linestyle=dotted](242, 195){83.09}
+\end{pspicture}</programlisting>
+			</example>
+		</para>
+
+	</sect2>
+	<sect2 id="ktikz-tips-using-ps2pdf">
+		<title>Using LaTeX -> PS -> PDF compilation</title>
+
+		<para>
+			Since &ktikz; is designed to be used for TikZ and PGF pictures, the compilation done behind the scenes is done with <command>pdflatex</command>.  Using the following shell script (only for Unices) and an appropriate template file, it is however possible to generate the preview by using the <command>latex</command>, <command>dvips</command>, <command>ps2pdf</command> sequence (i.e. first compile to PS and then convert the PS to PDF).
+			<example>
+				<title>LaTeX -> PS -> PDF compilation shell script</title>
+				<programlisting>#!/bin/sh
+
+# This shell script compiles a LaTeX file to PDF using the latex, dvips,
+# ps2pdf sequence and is supposed to be used in KTikZ only, as a replacement
+# for pdflatex.
+# Therefore the following assumptions are made in the code of this script:
+# - the only options with a value are -output-directory and -interaction
+# - the name of the tex file passed to this script always ends on .tex
+# - the name of the tex file is the only thing which is not an option or
+#   the value of one of the above mentioned options
+
+# Usage:
+# - open KTikZ, go to Settings -> Configure KTikZ..., in the "General" tab
+#   change the value of PDFLaTeX command to /path/to/ktikzlatex2ps2pdf.sh
+# - in the "Template" box change the value to /path/to/ktikzlatex2ps2pdf_template.pgs
+
+options=""
+texfile=""
+
+while test x"$1" != x
+do
+	case $1 in
+		-output-directory|-interaction) # add their values to the list of options
+			options="$options $1"
+			shift
+			options="$options $1"
+			shift;;
+		-*)
+			options="$options $1"
+			shift;;
+		*)
+			texfile=$1
+			shift;;
+	esac
+done
+
+texfilebasename=`echo $texfile | sed -e "s/\.tex$//"`
+
+latex $options $texfilebasename.tex
+# return when latex fails (otherwise ps2pdf below runs without errors)
+latexreturn=$?
+if test $latexreturn -ne 0
+then
+	exit 1
+fi
+
+export DVIPSHEADERS=$DVIPSHEADERS:$TEXINPUTS # if a dvips header file is located in the same directory as the template file, then this will make dvips find it
+dvips -Ppdf -G0 -o $texfilebasename.ps $texfilebasename.dvi
+
+ps2pdf14 $texfilebasename.ps $texfilebasename.pdf</programlisting>
+			</example>
+			<example>
+				<title>Example template file for LaTeX -> PS -> PDF compilation</title>
+				<programlisting>\documentclass{article}
+\usepackage{mathptmx}
+\usepackage{tikz}
+\usepackage{color}
+\DeclareSymbolFont{symbolsb}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{symbolsb}{bold}{OMS}{cmsy}{b}{n}
+\DeclareSymbolFontAlphabet{\mathcal}{symbolsb}
+\usepackage[active,dvips,tightpage]{preview}
+\PreviewEnvironment[]{tikzpicture}
+\PreviewEnvironment[]{pgfpicture}
+\begin{document}
+&lt;&gt;
+\end{document}</programlisting>
+			</example>
+			In the configuration dialog (<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &ktikz;...</guimenuitem></menuchoice>), the <guilabel>PDFLaTeX command</guilabel> should be replaced by the full path to the above shell script (or simply the shell script name if the script is in the PATH).  In the main window, the <guilabel>Template</guilabel> should be replaced by the above template (or another template file that is compatible with LaTeX -> PS -> PDF compilation).
+		</para>
+	</sect2>
+</sect1>
+
+<sect1 id="keybindings">
+	<title>Shortcuts</title>
+	<para>Many of the shortcuts are configurable by way of the <link linkend="settings">Settings</link> menu.  By default &kappname; honors the following shortcuts:</para>
+
+	<informaltable>
+	<tgroup cols="2">
+	<tbody>
+
+<!--
+		<row>
+			<entry><para><keycombo action="simul"><keycap>Insert</keycap></keycombo></para></entry>
+			<entry><para>Toggle between Insert and Overwrite mode.  When in insert mode the editor will add any typed characters to the text while pushing along any data to the right of the text cursor.  Overwrite mode causes the entry of each character to eliminate the character immediately to the right of the text cursor.</para></entry>
+		</row>
+-->
+
+		<row>
+			<entry><para><keycombo action="simul"><keycap>Left Arrow</keycap></keycombo></para></entry>
+			<entry><para>Move the cursor one character to the left.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul"><keycap>Right Arrow</keycap></keycombo></para></entry>
+			<entry><para>Move the cursor one character to the right.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul"><keycap>Up Arrow</keycap></keycombo></para></entry>
+			<entry><para>Move the cursor up one line.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul"><keycap>Down Arrow</keycap></keycombo></para></entry>
+			<entry><para>Move the cursor down one line.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul"><keycap>Page Up</keycap></keycombo></para></entry>
+			<entry><para>Move the cursor up one page.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul"><keycap>Page Down</keycap></keycombo></para></entry>
+			<entry><para>Move the cursor down one page.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul"><keycap>Backspace</keycap></keycombo></para></entry>
+			<entry><para>Delete the character to the left of the cursor.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul"><keycap>Home</keycap></keycombo></para></entry>
+			<entry><para>Move the cursor to the beginning of the line.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul"><keycap>End</keycap></keycombo></para></entry>
+			<entry><para>Move the cursor to the end of the line.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul"><keycap>Delete</keycap></keycombo></para></entry>
+			<entry><para>Delete the character to the right of the cursor (or any selected text).</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Shift;<keycap>Left Arrow</keycap></keycombo></para></entry>
+			<entry><para>Mark text one character to the left.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Shift;<keycap>Right Arrow</keycap></keycombo></para></entry>
+			<entry><para>Mark text one character to the right.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul"><keycap>F1</keycap></keycombo></para></entry>
+			<entry><para><link linkend="help"><guilabel>Help</guilabel></link></para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Shift;<keycap>F1</keycap></keycombo></para></entry>
+			<entry><para><link linkend="help"><guilabel>What's this?</guilabel></link></para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul"><keycap>F3</keycap></keycombo></para></entry>
+			<entry><para><link linkend="edit-find-again"><guilabel>Find Next</guilabel></link></para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Shift;<keycap>F3</keycap></keycombo></para></entry>
+			<entry><para><link linkend="edit-find-previous"><guilabel>Find Previous</guilabel></link></para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></para></entry>
+			<entry><para><link linkend="edit-select-all"><guilabel>Select All</guilabel></link></para></entry>
+		</row>
+
+<!--
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>A</keycap></keycombo></para></entry>
+			<entry><para>Deselect</para></entry>
+		</row>
+-->
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>C</keycap></keycombo></para></entry>
+			<entry><para>Copy the marked text to the clipboard.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>D</keycap></keycombo></para></entry>
+			<entry><para><link linkend="edit-comment"><guilabel>Comment</guilabel></link></para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>D</keycap></keycombo></para></entry>
+			<entry><para><link linkend="edit-uncomment"><guilabel>Uncomment</guilabel></link></para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo></para></entry>
+			<entry><para><link linkend="edit-find"><guilabel>Find</guilabel></link></para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo></para></entry>
+			<entry><para><link linkend="go-to-line"><guilabel>Go to line...</guilabel></link></para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>I</keycap></keycombo></para></entry>
+			<entry><para><link linkend="edit-indent"><guilabel>Indent</guilabel></link> selection.</para></entry>
+		</row>
+
+<!--
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>I</keycap></keycombo></para></entry>
+			<entry><para><link linkend="edit-unindent"><guilabel>Unindent</guilabel></link> selection.</para></entry>
+		</row>
+-->
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo></para></entry>
+			<entry><para><link linkend="file-new"><guilabel>New</guilabel></link> document.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo></para></entry>
+			<entry><para><link linkend="file-open"><guilabel>Open</guilabel></link> a document.</para></entry>
+		</row>
+
+<!--
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo></para></entry>
+			<entry><para>Invokes the <link linkend="file-print"><guilabel>Print</guilabel></link> command.</para></entry>
+		</row>
+-->
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></para></entry>
+			<entry><para>Quit - close active copy of editor.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo></para></entry>
+			<entry><para>Invokes the <link linkend="edit-replace"><guilabel>Replace</guilabel></link> command.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo></para></entry>
+			<entry><para>Invokes the <link linkend="file-save"><guilabel>Save</guilabel></link> command.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>V</keycap></keycombo></para></entry>
+			<entry><para>Paste the clipboard text into line edit.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo></para></entry>
+			<entry><para>Invokes the <link linkend="file-close"><guilabel>Close</guilabel></link> command.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>X</keycap></keycombo></para></entry>
+			<entry><para>Delete the marked text and copy it to the clipboard.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>Z</keycap></keycombo></para></entry>
+			<entry><para>Invokes the <link linkend="edit-undo"><guilabel>Undo</guilabel></link> command.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo></para></entry>
+			<entry><para>Invokes the <link linkend="edit-redo"><guilabel>Redo</guilabel></link> command.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>+</keycap></keycombo></para></entry>
+			<entry><para><link linkend="view-zoom-in"><guilabel>Zoom In</guilabel></link></para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>-</keycap></keycombo></para></entry>
+			<entry><para><link linkend="view-zoom-out"><guilabel>Zoom Out</guilabel></link></para></entry>
+		</row>
+	</tbody>
+	</tgroup>
+	</informaltable>
+</sect1>
+</chapter>

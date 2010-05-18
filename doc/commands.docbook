@@ -1,0 +1,592 @@
+<chapter id="ktikz-commands">
+<title>Command Reference</title>
+
+<!-- (OPTIONAL, BUT RECOMMENDED) This chapter should list all of the
+     application windows and their menubar and toolbar commands for easy reference.
+     Also include any keys that have a special function but have no equivalent in the
+     menus or toolbars. This may not be necessary for small apps or apps with no tool
+     or menu bars. -->
+
+<sect1 id="file-menu">
+	<title>The <guimenu>File</guimenu> Menu</title>
+
+	<variablelist>
+	<varlistentry>
+		<term id="file-new">
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo></shortcut>
+				<guimenu>File</guimenu>
+				<guimenuitem>New</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This starts a new document in a new and independent editor window.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term id="file-open">
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo></shortcut>
+				<guimenu>File</guimenu>
+				<guimenuitem>Open...</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Displays a standard &kde; <guilabel>Open File</guilabel> dialog.  Use the file view to select the file you want to open, and click on <guibutton>Open</guibutton> to open it.  You can find more information about the &kde; <guilabel>Open File</guilabel> dialog in the &kde; User Guide.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term id="file-open-recent">
+			<menuchoice>
+				<guimenu>File</guimenu>
+				<guisubmenu>Open Recent</guisubmenu>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This is a shortcut to open recently saved documents.  Clicking on this item opens a list to the side of the menu with several of the most recently saved files.  Clicking on a specific file will open it in &kappname; - if the file still resides at the same location.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term id="file-save">
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo></shortcut>
+				<guimenu>File</guimenu>
+				<guimenuitem>Save</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This saves the current document.  If there has already been a save of the document then this will overwrite the previously saved file without asking for the user's consent.  If it is the first save of a new document the save as dialog (described below) will be invoked.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term id="file-save-as">
+			<menuchoice>
+				<guimenu>File</guimenu>
+				<guimenuitem>Save As...</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This allows a document to be saved with a new file name.  This is done by means of the file dialog box described above in the <link linkend="file-open">Open</link> section of this help file.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term id="file-export">
+			<menuchoice>
+				<guimenu>File</guimenu>
+				<guimenuitem>Export</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Exports the current document to different formats, so that the document can be viewed as an image.  Currently the document can be exported as Encapsulated PostScript (EPS), Portable Document Format (PDF) and Portable Network Graphics (PNG).</para>
+		</listitem>
+	</varlistentry>
+
+<!--
+	<varlistentry>
+		<term id="file-print">
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo></shortcut>
+				<guimenu>File</guimenu>
+				<guimenuitem>Print...</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Opens a simple print dialog allowing the user to specify what, where, and how to print.</para>
+		</listitem>
+	</varlistentry>
+-->
+
+	<varlistentry>
+		<term id="file-reload">
+			<menuchoice>
+				<shortcut><keycombo action="simul"><keycap>F5</keycap></keycombo></shortcut>
+				<guimenu>File</guimenu>
+				<guimenuitem>Reload</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Reload the current document from disk.  If you have made unsaved changes, you will be prompted to save the file before &kappname; reloads it.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term id="file-close">
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo></shortcut>
+				<guimenu>File</guimenu>
+				<guimenuitem>Close</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Close the active file with this command.  If you have made unsaved changes, you will be prompted to save the file before &kappname; closes it.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term id="file-quit">
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></shortcut>
+				<guimenu>File</guimenu>
+				<guimenuitem>Quit</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This will close the editor window, if you have more than one instance of &kappname; running, through the <guimenuitem>New</guimenuitem> or <guimenuitem>Open</guimenuitem> menu items, those instances will not be closed.</para>
+		</listitem>
+	</varlistentry>
+	</variablelist>
+</sect1>
+
+<sect1 id="edit-menu">
+	<title>The <guimenu>Edit</guimenu> Menu</title>
+
+	<variablelist>
+	<varlistentry>
+		<term id="edit-undo">
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>Z</keycap></keycombo></shortcut>
+				<guimenu>Edit</guimenu>
+				<guimenuitem>Undo</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This is used to eliminate or reverse the most recent user action or operation.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="edit-redo"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo></shortcut>
+				<guimenu>Edit</guimenu>
+				<guimenuitem>Redo</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This will reverse the most recent change (if any) made using <guilabel>Undo</guilabel>.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="edit-cut"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>X</keycap></keycombo></shortcut>
+				<guimenu>Edit</guimenu>
+				<guimenuitem>Cut</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This command deletes the current selection and places it on the clipboard.  The clipboard is a feature of &kde; that works invisibly to provide a way to transfer data between applications.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="edit-copy"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>C</keycap></keycombo></shortcut>
+				<guimenu>Edit</guimenu>
+				<guimenuitem>Copy</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This copies the currently selected text to the clipboard so that it may be pasted elsewhere.  The clipboard is a feature of &kde; that works invisibly to provide a way to transfer data between applications.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="edit-paste"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>V</keycap></keycombo></shortcut>
+				<guimenu>Edit</guimenu>
+				<guimenuitem>Paste</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This will insert the contents of the clipboard at the cursor position.  The clipboard is feature of &kde; that works invisibly to provide a way to transfer data between applications.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="edit-select-all"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></shortcut>
+				<guimenu>Edit</guimenu>
+				<guimenuitem>Select All</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This will select the entire document.  This could be very useful for copying the entire file to another application.</para>
+		</listitem>
+	</varlistentry>
+
+<!--
+	<varlistentry>
+		<term>
+			<anchor id="edit-deselect"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>A</keycap></keycombo></shortcut>
+				<guimenu>Edit</guimenu>
+				<guimenuitem>Deselect</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Deselects the selected text in the editor if any.</para>
+		</listitem>
+	</varlistentry>
+-->
+
+	<varlistentry>
+		<term>
+			<anchor id="edit-indent"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>I</keycap></keycombo></shortcut>
+				<guimenu>Tools</guimenu>
+				<guimenuitem>Indent</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This increases the paragraph's indentation by one step.  The size of the step can be selected in the dialog that appears when triggering this action.</para>
+		</listitem>
+	</varlistentry>
+
+<!--
+	<varlistentry>
+		<term>
+			<anchor id="edit-unindent"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>I</keycap></keycombo></shortcut>
+				<guimenu>Tools</guimenu>
+				<guimenuitem>Unindent</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This reduces the paragraph's indentation by one step.  The size of the step depends on the <link linkend="pref-edit-indent">indentation settings</link>.</para>
+		</listitem>
+	</varlistentry>
+-->
+
+	<varlistentry>
+		<term>
+			<anchor id="edit-comment"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>D</keycap></keycombo></shortcut>
+				<guimenu>Tools</guimenu>
+				<guimenuitem>Comment</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This adds the LaTeX comment character <quote>%</quote> and one space to the beginning of the line where the text cursor is located or to the beginning of any selected lines.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="edit-uncomment"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>D</keycap></keycombo></shortcut>
+				<guimenu>Tools</guimenu>
+				<guimenuitem>Uncomment</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This removes the LaTeX comment character <quote>%</quote> and one space (if any exist) from the beginning of the line where the text cursor is located or from the beginning of any selected lines.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="edit-find"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo></shortcut>
+				<guimenu>Edit</guimenu>
+				<guimenuitem>Find...</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This opens the search bar at the bottom of the editor window.  On the left side of the bar is an icon to close the bar, followed by a small text box for entering the search pattern.</para>
+			<para>You have to enter the characters of your search pattern and press the <guibutton>Find</guibutton> button.  If there is a match in the text, this is highlighted.  Continue to press the <guibutton>Find</guibutton> button to find the next matches.  If the search pattern does not match any string in the subsequent text anymore, a dialog asking to start searching from the beginning is shown.</para>
+			<para>Use the <guibutton>Search Backwards</guibutton> or <guibutton>Search Forward</guibutton> button to direct the search to proceed in an upwardly or downwardly direction.</para>
+			<para>You can modify the search behaviour by selecting different <guilabel>Options</guilabel>: Checking <guilabel>Whole Words Only</guilabel> prevents the search from stopping on words that contain the searched for pattern.  Selecting <guilabel>Case Sensitive</guilabel> will limit finds to entries that match the case (upper or lower) of each of the characters in the search pattern.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="edit-find-again"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul"><keycap>F3</keycap></keycombo></shortcut>
+				<guimenu>Edit</guimenu>
+				<guimenuitem>Find Next</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This repeats the last find operation, if any, otherwise starts a new find operation.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term id="edit-find-previous">
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Shift;<keycap>F3</keycap></keycombo></shortcut>
+				<guimenu>Edit</guimenu>
+				<guimenuitem>Find Previous</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This repeats the last find operation, if any, searching backwards instead of forwards through the document.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="edit-replace"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo></shortcut>
+				<guimenu>Edit</guimenu>
+				<guimenuitem>Replace...</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This opens the search and replace bar at the bottom of the editor window.  On the left side of the bar is an icon to close the bar, followed by a small text box for entering the search pattern.</para>
+			<para>Use the <guibutton>Search Backwards</guibutton> or <guibutton>Search Forward</guibutton> button to direct the search to proceed in an upwardly or downwardly direction.</para>
+			<para>You can modify the search behaviour by selecting different <guilabel>Options</guilabel>: Checking <guilabel>Whole Words Only</guilabel> prevents the search from stopping on words that contain the searched for pattern.  Selecting <guilabel>Case Sensitive</guilabel> will limit finds to entries that match the case (upper or lower) of each of the characters in the search pattern.</para>
+			<para>Enter the text to be replaced in the text box labeled <guilabel>Find</guilabel> and the text to replace with in the text box labeled <guilabel>Replace</guilabel>, then click the <guibutton>Replace</guibutton> button.  The replace bar is replaced by a set of buttons.  If there is a match in the text, this is highlighted.  Press <guibutton>Replace</guibutton> to replace the currently highlighted text.  Continue to press the <guibutton>Replace</guibutton> button to find and replace the next matches.  If the search pattern does not match any string in the subsequent text anymore, a dialog asking to start searching from the beginning is shown.  Press the <guibutton>Replace All</guibutton> button to replace the search text in the whole document.  Press the <guibutton>Don't Replace</guibutton> button to skip the currently highlighted text and find the next match.  Press the <guibutton>Cancel</guibutton> button to cancel the replacing.</para>
+		</listitem>
+	</varlistentry>
+	</variablelist>
+</sect1>
+
+<sect1 id="view-menu">
+	<title>The <guimenu>View</guimenu> menu</title>
+
+	<para>The <guimenu>View</guimenu> menu allows you to manage settings specific to the preview.</para>
+
+	<variablelist>
+	<varlistentry>
+		<term>
+			<anchor id="view-zoom-in"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>+</keycap></keycombo></shortcut>
+				<guimenu>View</guimenu>
+				<guimenuitem>Zoom In</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Increase the magnification of the document view.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="view-zoom-out"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>-</keycap></keycombo></shortcut>
+				<guimenu>View</guimenu>
+				<guimenuitem>Zoom Out</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Decrease the magnification of the document view.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="view-previous-image"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Alt;<keycap>Left</keycap></keycombo></shortcut>
+				<guimenu>View</guimenu>
+				<guimenuitem>Previous Image</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Show the preview of the previous TikZ picture in the code.  This item is only shown when there are multiple TikZ pictures in the code (delimited by <quote>\begin{tikzpicture}</quote> and <quote>\end{tikzpicture}</quote>).</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="view-next-image"/>
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Alt;<keycap>Right</keycap></keycombo></shortcut>
+				<guimenu>View</guimenu>
+				<guimenuitem>Next Image</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Show the preview of the next TikZ picture in the code.  This item is only shown when there are multiple TikZ pictures in the code (delimited by <quote>\begin{tikzpicture}</quote> and <quote>\end{tikzpicture}</quote>).</para>
+		</listitem>
+	</varlistentry>
+	</variablelist>
+</sect1>
+
+<sect1 id="go-menu">
+	<title>The <guimenu>Go</guimenu> Menu</title>
+
+	<variablelist>
+	<varlistentry>
+		<term id="go-to-line">
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo></shortcut>
+				<guimenu>Go</guimenu>
+				<guimenuitem>Go to Line...</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This opens the goto line bar at the bottom of the window which is used to have the cursor jump to a particular line (specified by number) in the document.  The line number may be entered directly into the text box or graphically by clicking on the up or down arrow spin controls at the side of the text box.  The little up arrow will increase the line number and the down arrow decrease it.  Close the bar with a click on the icon on the left side of the bar.</para>
+		</listitem>
+	</varlistentry>
+	</variablelist>
+</sect1>
+
+<sect1 id="process-menu">
+	<title>The <guimenu>Process</guimenu> Menu</title>
+
+	<variablelist>
+	<varlistentry>
+		<term id="stop-process">
+			<menuchoice>
+				<shortcut><keycombo action="simul"><keycap>Esc</keycap></keycombo></shortcut>
+				<guimenu>Process</guimenu>
+				<guimenuitem>Stop Process</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Abort the execution of the currently running process.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term id="view-log">
+			<menuchoice>
+				<guimenu>Process</guimenu>
+				<guimenuitem>View Log</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Show the LaTeX log file in the <guilabel>Messages</guilabel> panel.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term id="shell-escape">
+			<menuchoice>
+				<guimenu>Process</guimenu>
+				<guimenuitem>Shell Escape</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Enable LaTeX to run shell commands, this is needed when you want to plot functions using <command>gnuplot</command> within TikZ.  <warning><para>Enabling this may cause malicious software to be run on your computer!  Check the LaTeX code to see which commands are executed.</para></warning></para>
+		</listitem>
+	</varlistentry>
+	</variablelist>
+</sect1>
+
+<sect1 id="insert-menu">
+	<title>The <guimenu>Insert</guimenu> Menu</title>
+	<para>This menu contains a (currently non-exhaustive) list of TikZ commands.  By selecting them, you can insert them in the text at the cursor's current position.</para>
+</sect1>
+
+<sect1 id="settings">
+	<title>The <guimenu>Settings</guimenu> Menu</title>
+
+	<variablelist>
+	<varlistentry>
+		<term>
+			<anchor id="show-toolbars"/>
+			<menuchoice>
+				<guimenu>Settings</guimenu>
+				<guimenuitem>Toolbars</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This submenu lists the available toolbars, each item toggles the display of the associated toolbar.  When checked, each item displays a movable toolbar containing buttons used to initiate frequently used commands.  When unchecked the toolbar is hidden.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="show-sidebars"/>
+			<menuchoice>
+				<guimenu>Settings</guimenu>
+				<guimenuitem>Sidebars</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This submenu lists the available sidebars, each item toggles the display of the associated sidebar.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="show-statusbar"/>
+			<menuchoice>
+				<guimenu>Settings</guimenu>
+				<guimenuitem>Show Statusbar</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>When checked, this displays a small bar at the bottom of the editor containing information about the status of the current document.  When unchecked the status bar is hidden.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="configure-keybindings"/>
+			<menuchoice>
+				<guimenu>Settings</guimenu>
+				<guimenuitem>Configure Shortcuts...</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This command opens a dialog box whereby the <link linkend="keybindings">shortcuts</link> may be changed.  A display window shows the list of commands (actions) and their assigned shortcuts, alternates and global shortcuts. The <guilabel>Search</guilabel> line above the list window is used to filter the shortcut list.  Selecting an action with a &LMB; click (either on the action name or shortcut cell for the default shortcut or on the alternate cell for an alternative) displays the <guilabel>Default</guilabel> and <guilabel>Custom</guilabel> radio buttons below the selected action.</para>
+			<para>To assign or change a shortcut click on the <guilabel>None</guilabel> button. Its label changes then to <guilabel>Input</guilabel>, now press the new key combination for the action.</para>
+			<para>For example, with the <guilabel>About &kde;</guilabel> action selected in the display window, press the &Ctrl;, &Alt; and the <keycap>K</keycap> key on the keyboard.  This would mean that anytime you hold down the &Ctrl; and &Alt; buttons and pressed <keycap>K</keycap> (while using &kappname;) the <guilabel>About &kde;</guilabel> display box would be called.</para>
+			<para>Use the buttons at the bottom of the dialog to set all shortcuts back to their defaults, print the shortcut list or cancel all changes. Click the <guilabel>OK</guilabel> button to close the dialog and accept all changes.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="configure-toolbars"/>
+			<menuchoice>
+				<guimenu>Settings</guimenu>
+				<guimenuitem>Configure Toolbars...</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This will open the dialog whereby the toolbar configuration may be changed.  The user can choose which shortcut buttons should appear on the toolbar.  A display window on the left lists the commands available to placed on the toolbar.  A display on the right lists those commands already on the toolbar.  A set of four arrow buttons between the two displays manipulates the selections.  The right pointing arrow places any command selected in the left pane onto the right pane, <abbrev>i.e.</abbrev>, it is added to the toolbar.  The left arrow does just the opposite, removing any action selected in the right window from the toolbar.  The up and down pointing arrows change the position of an action selected in the right window which changes the position of its button in the toolbar.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term>
+			<anchor id="preferences"/>
+			<menuchoice>
+				<guimenu>Settings</guimenu>
+				<guimenuitem>Configure &kappname;...</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>This menu item opens a dialog whereby several different <link linkend="pref-dialog">settings</link> may be adjusted.</para>
+		</listitem>
+	</varlistentry>
+	</variablelist>
+</sect1>
+
+<sect1 id="help">
+	<title>The <guimenu>Help</guimenu> Menu</title>
+	<!-- additional "About Editor Component" + "Tip of the Day", but no "Switch Language"-->
+	&help.menu.documentation;
+</sect1>
+</chapter>

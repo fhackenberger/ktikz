@@ -95,7 +95,7 @@ private slots:
 	void setDockWidgetStatusTip(bool enabled);
 	void setToolBarStatusTip(bool enabled);
 	void newFile();
-	void closeFile();
+	bool closeFile();
 	void open();
 	bool saveAs();
 	void reload();

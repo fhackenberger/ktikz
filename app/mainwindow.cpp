@@ -250,7 +250,7 @@ void MainWindow::newFile()
 	newMainWindow->show();
 }
 
-void MainWindow::closeFile()
+bool MainWindow::closeFile()
 {
 	if (maybeSave())
 	{
@@ -262,7 +262,9 @@ void MainWindow::closeFile()
 		setCurrentUrl(Url());
 		m_tikzPreviewController->emptyPreview(); // abort still running processes
 		m_logTextEdit->logUpdated("", false); // clear log window
+		return true;
 	}
+	return false;
 }
 
 void MainWindow::open()
@@ -291,8 +293,11 @@ bool MainWindow::saveAs()
 void MainWindow::reload()
 {
 	const Url currentUrl = m_currentUrl;
-	closeFile();
-	loadUrl(currentUrl);
+	if (closeFile())
+	{
+		saveLastInternalModifiedDateTime();
+		loadUrl(currentUrl);
+	}
 }
 
 void MainWindow::checkForFileChanges()

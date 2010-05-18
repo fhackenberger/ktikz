@@ -1,0 +1,108 @@
+<chapter id="ktikz-interface">
+<title>&ktikz; Interface</title>
+
+<sect1 id="ktikz-mainwindow">
+	<title>&ktikz; Main Window</title>
+
+	<para>
+		<screenshot>
+			<screeninfo>Screenshot of &ktikz; main window</screeninfo>
+			<mediaobject>
+				<imageobject><imagedata fileref="interface-mainwindow.png" format="PNG"/></imageobject>
+				<textobject><phrase>&ktikz; main window</phrase></textobject>
+			</mediaobject>
+		</screenshot>
+	</para>
+
+	<para>
+		The &ktikz; main window consists of a (1) menu bar, (2) toolbar, (3) template selector, (4) text editor, (5) preview panel, (6) messages panel and (7) status bar.
+	</para>
+
+	<para>
+		The <guilabel>Preview</guilabel> and <guilabel>Messages</guilabel> panels can be shown or hidden in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Sidebars</guimenuitem></menuchoice>.  The visible panels can then be dragged around the &ktikz; window by clicking and dragging the panel title.
+	</para>
+
+	<sect2 id="ktikz-editor">
+		<title>&ktikz; Editor</title>
+
+		<para>
+			In the editor the source code of a TikZ picture (everything between <quote>\begin{tikzpicture}</quote> and <quote>\end{tikzpicture}</quote>) can be edited.  While editing, a preview of the TikZ picture is generated on the fly in the <guilabel>Preview</guilabel> panel.  The TikZ code is highlighted in different colors according to the syntax.  Text-completion is provided for TikZ commands: when the user types the first letters of a TikZ command, the commands starting with those letters are listed and can be selected by the user using the arrow keys and pressing Enter.  If a TikZ command is selected in this way or if it is selected from the <guilabel>Insert</guilabel> menu, the syntax of the command is shown in the status bar.
+		</para>
+
+		<para>
+			<screenshot>
+				<screeninfo>Screenshot of &ktikz; find and replace panel</screeninfo>
+				<mediaobject>
+					<imageobject><imagedata fileref="interface-replacewidget.png" format="PNG"/></imageobject>
+					<textobject><phrase>&ktikz; find and replace panel</phrase></textobject>
+				</mediaobject>
+			</screenshot>
+		</para>
+
+		<para>
+			<screenshot>
+				<screeninfo>Screenshot of &ktikz; replace current occurrence panel</screeninfo>
+				<mediaobject>
+					<imageobject><imagedata fileref="interface-replacecurrentwidget.png" format="PNG"/></imageobject>
+					<textobject><phrase>&ktikz; replace current occurrence panel</phrase></textobject>
+				</mediaobject>
+			</screenshot>
+		</para>
+
+		<para>
+			If the user triggers the <guilabel>Find</guilabel> or <guilabel>Replace</guilabel> action, a <quote>Find &amp; Replace</quote> panel appears at the bottom of the editor.  In the <guilabel>Find</guilabel> text field, the text to be searched is entered.  In the <guilabel>Replace with</guilabel> text field the text to replace with can be entered.  Pressing the <guilabel>Find</guilabel> button will only search for the text, while pressing the <guilabel>Replace</guilabel> button will show a <quote>Replace</quote> bar with the following options: <guilabel>Replace</guilabel> the first occurrence, <guilabel>Replace All</guilabel> occurrences, <guilabel>Don't Replace</guilabel> the current occurrence, or <guilabel>Cancel</guilabel> the replace operation.  Checking the <guilabel>Whole words</guilabel> option will cause the find to match only complete words, checking the <guilabel>Case sensitive</guilabel> option will cause the find to match only those occurrences which have exactly the same case (otherwise the find works case insensitive).  Two arrow buttons are available which allow the user to specify the direction in which the search should be done (move backwards or forward in the text).  Finally there is a <guilabel>Close</guilabel> button which causes the panel to be closed.
+		</para>
+
+		<para>
+			<screenshot>
+				<screeninfo>Screenshot of &ktikz; go to line panel</screeninfo>
+				<mediaobject>
+					<imageobject><imagedata fileref="interface-gotolinewidget.png" format="PNG"/></imageobject>
+					<textobject><phrase>&ktikz; go to line panel</phrase></textobject>
+				</mediaobject>
+			</screenshot>
+		</para>
+
+		<para>
+			If the user triggers the <guilabel>Go to Line</guilabel> action, a <quote>Go to Line</quote> panel appears at the bottom of the editor.  In the <guilabel>Go to line</guilabel> spin box, the line number to which the cursor should be moved is enterred.  Pressing <keycombo action="simul"><keycap>Enter</keycap></keycombo> or the <guilabel>Go</guilabel> button closes the panel and moves the cursor in the editor to the specified line.  Finally there is a <guilabel>Close</guilabel> button which causes the panel to be closed.
+		</para>
+	</sect2>
+
+	<sect2 id="ktikz-preview-panel">
+		<title>&ktikz; Preview Panel</title>
+
+		<para>
+			In the <guilabel>Preview</guilabel> panel an image which is the result of compiling the current TikZ code in the editor is shown.  If there are errors in the TikZ code, an error message is shown instead.  The preview can be enlarged or made smaller by pressing the <guilabel>Zoom In</guilabel> and <guilabel>Zoom out</guilabel> buttons or by changing the zoom percentage.  The zoom percentage can also be changed by rolling the mouse wheel while pressing the <keycombo action="simul">&Ctrl;</keycombo> button.
+		</para>
+		<para>
+			If the TikZ code contains several pictures (enclosed by <quote>\begin{tikzpicture}</quote> and <quote>\end{tikzpicture}</quote>), then the preview will only show one picture.  The other images can be shown by pressing the <guilabel>Previous Image</guilabel> and <guilabel>Next Image</guilabel> buttons which become available in this case.
+		</para>
+	</sect2>
+
+	<sect2 id="ktikz-messages-panel">
+		<title>&ktikz; Messages Panel</title>
+
+		<para>
+			If there are errors in the TikZ code, an error message is shown in the <guilabel>Messages</guilabel> panel.  If the error message is not clear enough, then the user can press the <guilabel>View Log</guilabel> button and the complete LaTeX log file will be shown in the <guilabel>Messages</guilabel> panel.
+		</para>
+	</sect2>
+
+	<sect2 id="ktikz-template-selector">
+		<title>&ktikz; Template Selector</title>
+
+		<para>
+			<screenshot>
+				<screeninfo>Screenshot of &ktikz; template selector</screeninfo>
+				<mediaobject>
+					<imageobject><imagedata fileref="interface-templatewidget.png" format="PNG"/></imageobject>
+					<textobject><phrase>&ktikz; template selector</phrase></textobject>
+				</mediaobject>
+			</screenshot>
+		</para>
+
+		<para>
+			The template selector consists of a text field in which the path to a template file is given, a button which opens a file selector dialog in which the template file can be selected, a reload button which can be pressed to regenerate the preview when the template file is edited in an external editor, and an <guilabel>Edit</guilabel> button which opens the template file in an external editor.
+		</para>
+	</sect2>
+</sect1>
+</chapter>

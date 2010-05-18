@@ -1,0 +1,239 @@
+<chapter id="pref-dialog">
+<title>Configure &kappname;</title>
+
+<sect1 id="pref-index">
+	<title>General Configuration</title>
+	<para>
+		In order to configure &ktikz; the user needs to access the &ktikz; Configuration dialog.  This can be accessed via the menu bar, by selecting <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &ktikz;...</guimenuitem></menuchoice>.
+	</para>
+	<para>
+		The &ktikz; Configuration dialog consists of three sections; <guilabel>General</guilabel>, <guilabel>Editor</guilabel> and <guilabel>Highlighting</guilabel>.  Clicking one of these sections in the vertical list on the left side of the dialog will make those options available accordingly.  The options available are displayed to the right of the dialog.
+	</para>
+	<para>
+		By means of buttons along the bottom of the box the user can control the configuration process.  You may invoke the <guilabel>Help</guilabel> system, accept the current settings and close the dialog by means of the <guibutton>OK</guibutton> button, or <guibutton>Cancel</guibutton> the process.
+	</para>
+	<para>
+		The categories <guilabel>General</guilabel>, <guilabel>Editor</guilabel> and <guilabel>Highlighting</guilabel> are detailed in the following sections.
+	</para>
+	<itemizedlist>
+		<listitem>
+			<para><link linkend="pref-general">General</link></para>
+		</listitem>
+		<listitem>
+			<para><link linkend="pref-editor">Editor</link></para>
+		</listitem>
+		<listitem>
+			<para><link linkend="pref-highlighting">Highlighting</link></para>
+		</listitem>
+	</itemizedlist>
+</sect1>
+
+<sect1 id="pref-general">
+	<title>General</title>
+
+	<para>This section of the dialog lets you configure the interface and set the paths to the necessary executables and the documentation.</para>
+
+	<para>
+		<screenshot>
+			<screeninfo>&ktikz; configuration dialog - General</screeninfo>
+			<mediaobject>
+				<imageobject><imagedata fileref="configuration-general.png" format="PNG"/></imageobject>
+				<textobject><phrase>&ktikz; Configuration Window Showing The General Options</phrase></textobject>
+			</mediaobject>
+		</screenshot>
+	</para>
+
+	<variablelist>
+	<varlistentry>
+		<term><guilabel>Interface</guilabel></term>
+		<listitem>
+			<variablelist>
+			<varlistentry>
+				<term><guilabel>Show TikZ commands in dock instead of menu</guilabel></term>
+				<listitem><para>If this option is checked, a dock widget is available with a list of TikZ commands which you can insert in your code by clicking on them.  If this option is not checked, the TikZ commands will be available in a menu instead.  You have to restart &ktikz; for this change to take effect.</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Preview generation</guilabel></term>
+				<listitem><para>Specify whether the preview should be generated automatically or manually.</para>
+					<variablelist>
+					<varlistentry>
+						<term><guilabel>Automatically</guilabel></term>
+						<listitem><para>If this option is checked, the TikZ code in the editor is compiled while editing.</para></listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><guilabel>Manually</guilabel></term>
+						<listitem><para>If this option is checked, a <guilabel>Build</guilabel> button is available and the TikZ code is only compiled when you press that button.</para></listitem>
+					</varlistentry>
+					</variablelist>
+				</listitem>
+			</varlistentry>
+			</variablelist>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term><guilabel>Commands</guilabel></term>
+		<listitem>
+			<variablelist>
+			<varlistentry>
+				<term><guilabel>PDFLaTeX command</guilabel></term>
+				<listitem><para>Enter the path of the PDFLaTeX executable here.  This executable is used to typeset a LaTeX file containing the TikZ code in order to generate the preview.</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Pdftops command</guilabel></term>
+				<listitem><para>Enter the path to the pdftops executable (part of poppler) here.  This executable is used to export the image to EPS (Encapsulated PostScript).</para></listitem>
+			</varlistentry>
+			</variablelist>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term><guilabel>Templates</guilabel></term>
+		<listitem>
+			<variablelist>
+			<varlistentry>
+				<term><guilabel>Replace text</guilabel></term>
+				<listitem><para>Enter the text which will be replaced by the TikZ code in the template here.</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Editor command</guilabel></term>
+				<listitem><para>Enter the path to the executable of the text editor for the template here.</para></listitem>
+			</varlistentry>
+			</variablelist>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term><guilabel>Help</guilabel></term>
+		<listitem>
+			<variablelist>
+			<varlistentry>
+				<term><guilabel>TikZ documentation</guilabel></term>
+				<listitem><para>Enter the path to the file containing the TikZ documentation here.</para>
+					<variablelist>
+					<varlistentry>
+						<term><guilabel>Search</guilabel></term>
+						<listitem><para>Press this button to search the file containing the TikZ documentation in the TeX directory structure using kpsewhich.</para></listitem>
+					</varlistentry>
+					</variablelist>
+				</listitem>
+			</varlistentry>
+			</variablelist>
+		</listitem>
+	</varlistentry>
+	</variablelist>
+</sect1>
+
+<sect1 id="pref-editor">
+	<title>Editor</title>
+
+	<para>This section of the dialog lets you configure the look and feel of the text editor.</para>
+
+	<para>
+		<screenshot>
+			<screeninfo>&ktikz; configuration dialog - Editor</screeninfo>
+			<mediaobject>
+				<imageobject><imagedata fileref="configuration-editor.png" format="PNG"/></imageobject>
+				<textobject><phrase>&ktikz; Configuration Window Showing The Editor Options</phrase></textobject>
+			</mediaobject>
+		</screenshot>
+	</para>
+
+	<variablelist>
+	<varlistentry>
+		<term><guilabel>Editor</guilabel></term>
+		<listitem>
+			<variablelist>
+			<varlistentry>
+				<term><guilabel>Text font</guilabel></term>
+				<listitem><para>Select the font of the unhighlighted main text.</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Show white spaces</guilabel></term>
+				<listitem><para>Show white spaces in the text by replacing them with special symbols.  These symbols will not be saved on disk.</para>
+					<variablelist>
+					<varlistentry>
+						<term><guilabel>Use color</guilabel></term>
+						<listitem><para>Select the color in which the spaces will be shown.</para></listitem>
+					</varlistentry>
+					</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Show tabulators</guilabel></term>
+				<listitem><para>Show tabulators in the text by replacing them with special symbols.  These symbols will not be saved on disk.</para>
+					<variablelist>
+					<varlistentry>
+						<term><guilabel>Use color</guilabel></term>
+						<listitem><para>Select the color in which the tabulators will be shown.</para></listitem>
+					</varlistentry>
+					</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Show matching brackets</guilabel></term>
+				<listitem><para>If the cursor is on a bracket ({[]}), then the corresponding opening/closing bracket will be highlighted.</para>
+					<variablelist>
+					<varlistentry>
+						<term><guilabel>Use color</guilabel></term>
+						<listitem><para>Select the color in which the highlighted brackets will be shown.</para></listitem>
+					</varlistentry>
+					</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Use command completion</guilabel></term>
+				<listitem><para>When the first letters of a TikZ command are typed in the text, a list of possible completions will be shown.</para></listitem>
+			</varlistentry>
+			</variablelist>
+		</listitem>
+	</varlistentry>
+	</variablelist>
+</sect1>
+
+<sect1 id="pref-highlighting">
+	<title>Highlighting</title>
+
+	<para>This section of the dialog lets you configure the fonts and colors for the highlighted code in the text editor.</para>
+
+	<para>
+		<screenshot>
+			<screeninfo>&ktikz; configuration dialog - Highlighting</screeninfo>
+			<mediaobject>
+				<imageobject><imagedata fileref="configuration-highlighting.png" format="PNG"/></imageobject>
+				<textobject><phrase>&ktikz; Configuration Window Showing The Highlighting Options</phrase></textobject>
+			</mediaobject>
+		</screenshot>
+	</para>
+
+	<variablelist>
+	<varlistentry>
+		<term><guilabel>Highlighting</guilabel></term>
+		<listitem>
+			<variablelist>
+			<varlistentry>
+				<term><guilabel>Standard</guilabel></term>
+				<listitem><para>When this option is checked, the default fonts and colors are used in the output.</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Custom</guilabel></term>
+				<listitem><para>When this option is checked, the fonts and colors defined below will be used in the output instead of the default ones.</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Change style for</guilabel></term>
+				<listitem><para>Select in the table the structure appearing in the TikZ code for which you want to change the fonts and colors.</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Change font</guilabel></term>
+				<listitem><para>Select the font in which the structure that you selected in the table above should be displayed.</para></listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Change color</guilabel></term>
+				<listitem><para>Select the text color in which the structure that you selected in the table above should be displayed.</para></listitem>
+			</varlistentry>
+			</variablelist>
+		</listitem>
+	</varlistentry>
+	</variablelist>
+</sect1>
+</chapter>

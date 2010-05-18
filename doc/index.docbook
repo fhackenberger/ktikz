@@ -1,0 +1,167 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY ktikz "<application>KTikZ</application>">
+  <!ENTITY kappname "&ktikz;">
+  <!ENTITY poppler "<application>poppler</application>">
+  <!ENTITY qt "<application>Qt</application>">
+  <!ENTITY ktikz-interface SYSTEM "interface.docbook">
+  <!ENTITY ktikz-usage SYSTEM "usage.docbook">
+  <!ENTITY ktikz-commands SYSTEM "commands.docbook">
+  <!ENTITY ktikz-configuration SYSTEM "configuration.docbook">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"><!-- change language only here -->
+
+
+  <!-- Do not define any other entities; instead, use the entities
+       from kde-genent.entities and $LANG/user.entities. -->
+]>
+
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title>The &ktikz; Handbook</title>
+
+<authorgroup>
+<author>
+	<firstname>Glad</firstname>
+	<surname>Deschrijver</surname>
+	<affiliation>
+		<address><email>glad.deschrijver@gmail.com</email></address>
+	</affiliation>
+</author>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
+
+<copyright>
+	<year>2010</year>
+	<holder>Glad Deschrijver</holder>
+</copyright>
+
+<!-- Translators: put here the copyright notice of the translation -->
+
+<legalnotice>&FDLNotice;</legalnotice>
+
+<!-- Date and version information of the documentation
+     Don't forget to include this last date and this last revision number, we
+     need them for translation coordination !
+     Please respect the format of the date (YYYY-MM-DD) and of the version
+     (V.MM.LL), it could be used by automation scripts.
+     Do NOT change these in the translation. -->
+
+<date>2010-05-18</date>
+<releaseinfo>0.1</releaseinfo>
+
+
+<abstract>
+	<para>&ktikz; is program for &kde; for creating TikZ (from the LaTeX pgf package) diagrams.</para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+     Please at least include KDE, the KDE package it is in, the name
+     of your application, and a few relevant keywords. -->
+
+<keywordset>
+	<keyword>KDE</keyword>
+	<keyword>KTikZ</keyword>
+	<keyword>Editor</keyword>
+	<keyword>PGF</keyword>
+	<keyword>LaTeX</keyword>
+</keywordset>
+
+</bookinfo>
+
+<!-- The contents of the documentation begin here. Label
+     each chapter so with the id attribute. This is necessary for two reasons: it
+     allows you to easily reference the chapter from other chapters of your
+     document, and if there is no ID, the name of the generated HTML files will vary
+     from time to time making it hard to manage for maintainers and for the CVS
+     system. Any chapter labelled (OPTIONAL) may be left out at the author's
+     discretion. Other chapters should not be left out in order to maintain a
+     consistent documentation style across all KDE apps. -->
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<!-- The introduction chapter contains a brief introduction for the
+     application that explains what it does and where to report
+     problems. Basically a long version of the abstract. Don't include a
+     revision history. (see installation appendix comment) -->
+
+<para>
+&ktikz; is a TikZ/PGF code editor for &kde; which allows to preview the code real-time while editing.  The editor features syntax highlighting of the TikZ/PGF code, the TikZ/PGF commands can be inserted from a menu or a dock widget, the style of the preview can be changed by setting a template.
+</para>
+
+<para>
+Please report any problems or feature requests to the &ktikz; author via the bug report dialog.  This is accessible from the <menuchoice><guimenu>Help</guimenu><guimenuitem>Report Bug...</guimenuitem></menuchoice> menu of the application.
+</para>
+</chapter>
+
+&ktikz-interface;
+&ktikz-usage;
+&ktikz-commands;
+&ktikz-configuration;
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+     contributors here. The license for your software should then be included below
+     the credits with a reference to the appropriate license file included in the &kde;
+     distribution. -->
+
+<title>Credits and License</title>
+
+<para>&ktikz;</para>
+<para>Program copyright 2007 Florian Hackenberger <email>florian@hackenberger.at</email></para>
+<para>Program copyright 2007-2010 Glad Deschrijver <email>glad.deschrijver@gmail.com</email></para>
+<para>Documentation copyright 2010 Glad Deschrijver <email>glad.deschrijver@gmail.com</email></para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;		<!-- FDL: do not remove (NOTE: All documentation are licensed under the FDL, regardless of what license the application uses) -->
+&underGPL;		<!-- GPL License -->
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+
+<sect1 id="getting-ktikz">
+	<title>How to obtain &ktikz;</title>
+	<!--&install.intro.documentation;-->
+	<para>&ktikz; can be found at <ulink url="http://www.hackenberger.at/blog/ktikz-editor-for-the-tikz-language">the official homepage</ulink>.  &ktikz; is also available at <ulink url="http://www.kde-apps.org/content/show.php/ktikz+-+Editor+for+the+TikZ+language?content=63188">http://www.kde-apps.org</ulink>.</para>
+</sect1>
+
+<sect1 id="requirements">
+	<title>Requirements</title>
+	<para>In order to successfully use &ktikz; you need to at least to have kdebase and kdelibs from &kde; 4.0, and &poppler; version 0.6 installed.</para>
+</sect1>
+
+<sect1 id="compilation">
+	<title>Compilation and Installation</title>
+	<para>In order to compile &ktikz; it is necessary to install the development packages for &qt; 4.4, kdebase and kdelibs from &kde; 4.0, &poppler; 0.6 and &gcc;.</para>
+	<!-- This entity contains the boilerplate text for standard -->
+	<!-- compilation instructions.  If your application requires any -->
+	<!-- special handling, remove it, and replace with your own text. -->
+	<!--&install.compile.documentation;-->
+	<para>For detailed information on how to compile and install &ktikz;, see the INSTALL file that is provided with the source.</para>
+	<para>Since &kde; uses <command>cmake</command> you should have no trouble compiling &ktikz;. Should you run into problems please report them via email to the developers.</para>
+</sect1>
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+-->

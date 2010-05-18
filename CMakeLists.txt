@@ -16,7 +16,7 @@ include_directories(${KDE4_INCLUDES} /usr/include/poppler/qt4)
 add_subdirectory(app)
 add_subdirectory(part)
 
-#add_subdirectory(doc)
+add_subdirectory(doc)
 add_subdirectory(po)
 
 install(FILES common/text-x-pgf.xml DESTINATION /usr/share/mime/packages)
