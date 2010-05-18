@@ -1,0 +1,11 @@
+\documentclass{article}
+\usepackage{mathptmx}
+\usepackage{pstricks}
+\DeclareSymbolFont{symbolsb}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{symbolsb}{bold}{OMS}{cmsy}{b}{n}
+\DeclareSymbolFontAlphabet{\mathcal}{symbolsb}
+\usepackage[active,dvips,tightpage]{preview}
+\PreviewEnvironment[]{pspicture}
+\begin{document}
+<>
+\end{document}

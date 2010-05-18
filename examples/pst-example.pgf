@@ -1,0 +1,18 @@
+\psset{unit=.45pt}
+\begin{pspicture}*(420, 420)
+  \psset{linewidth=.4pt}
+  % Frame
+  \pspolygon(0, 0)(420, 0)(420, 420)(0, 420)
+  % Circumscribed circle and inscribed circle
+  \pscircle(206, 222){166.18}
+  \pscircle(250, 197){75.42}
+  % Adjacent circles
+  \pscircle[linestyle=dashed](476, 135){157.68}
+  \pscircle[linestyle=dashed](-32, -22){266.53}
+  \pscircle[linestyle=dashed](132, 579){315.92}
+  % triangle
+  \psset{linewidth=1pt}
+  \pspolygon(43, 253)(361, 283)(287, 77)
+  % nine-points circle (Feuerbach)
+  \pscircle[linestyle=dotted](242, 195){83.09}
+\end{pspicture}

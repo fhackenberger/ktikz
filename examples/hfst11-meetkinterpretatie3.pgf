@@ -43,7 +43,7 @@
   \node at (\ex-.22,-.35) {\small $S_4$};
 
   % functie
-  \draw[functionstyle,darkblue] (\ax,\ay)
+  \draw[thick,darkblue] (\ax,\ay)
     .. controls (\ax+.3,\ay+.6) and (\bx-.3,\by) .. (\bx,\by)
     .. controls (\bx+.6,\by) and (\cx-.35,\cy) .. (\cx,\cy)
     .. controls (\cx+.5,\cy) and (\dx-.5,\dy) .. (\dx,\dy)
