@@ -191,6 +191,7 @@ MainWindow::MainWindow()
 
 	setCurrentUrl(Url());
 	setDocumentModified(false);
+	saveLastInternalModifiedDateTime();
 	m_tikzEditorView->editor()->setFocus();
 
 	QDir dir(QDir::tempPath() + "/ktikz");
