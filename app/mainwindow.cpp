@@ -315,10 +315,7 @@ void MainWindow::checkForFileChanges()
 	fileChangedWarningMessageBox.addButton(QMessageBox::Cancel);
 	fileChangedWarningMessageBox.exec();
 	if (fileChangedWarningMessageBox.clickedButton() == overwriteButton)
-	{
 		saveUrl(m_currentUrl);
-		saveLastInternalModifiedDateTime(); // make sure that the saveUrl on the previous line is not seen as an "external" save
-	}
 	else if (fileChangedWarningMessageBox.clickedButton() == reloadButton)
 		reload();
 }
@@ -907,6 +904,7 @@ bool MainWindow::saveUrl(const Url &url)
 	m_lastUrl = url;
 	setCurrentUrl(url);
 	m_openRecentAction->addUrl(url);
+	saveLastInternalModifiedDateTime(); // make sure that the save in this function is not seen as an "external" save
 	statusBar()->showMessage(tr("File saved", "@info:status"), 2000);
 	return true;
 }
