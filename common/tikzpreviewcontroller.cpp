@@ -409,17 +409,13 @@ bool TikzPreviewController::setTemplateFile(const QString &path)
 void TikzPreviewController::setTemplateFileAndRegenerate(const QString &path)
 {
 	if (setTemplateFile(path))
-	{
-		m_templateChanged = true;
-		generatePreview();
-	}
+		generatePreview(true);
 }
 
 void TikzPreviewController::setReplaceTextAndRegenerate(const QString &replace)
 {
 	m_tikzPreviewGenerator->setReplaceText(replace);
-	m_templateChanged = true;
-	generatePreview();
+	generatePreview(true);
 }
 
 /***************************************************************************/
@@ -436,14 +432,18 @@ QString TikzPreviewController::getLogText()
 
 void TikzPreviewController::generatePreview()
 {
-#ifndef KTIKZ_USE_KDE
-	if (m_templateChanged)
+	QAction *action = qobject_cast<QAction*>(sender());
+	bool templateChanged = (action == 0) ? true : false; // the template hasn't changed when the Build button in the app has been pressed (if available), the other cases in which this function is called is when a file is opened, in which case everything should be cleaned up and regenerated
+	generatePreview(templateChanged);
+}
+
+void TikzPreviewController::generatePreview(bool templateChanged)
+{
+	if (templateChanged)
 		cleanUp();
-#endif
 	// TODO: m_tikzPreviewGenerator->addToTexinputs(QFileInfo(m_mainWidget->url().path()).absolutePath());
 //	m_tikzPreviewGenerator->setTikzFilePath(m_mainWidget->url().path()); // the directory in which the pgf file is located is added to TEXINPUTS before running latex
-	m_tikzPreviewGenerator->generatePreview(m_templateChanged);
-	m_templateChanged = false;
+	m_tikzPreviewGenerator->generatePreview(templateChanged);
 }
 
 void TikzPreviewController::regeneratePreview()
@@ -478,7 +478,6 @@ void TikzPreviewController::applySettings()
 	m_tikzPreviewGenerator->setReplaceText(replaceText);
 	m_templateWidget->setReplaceText(replaceText);
 	m_templateWidget->setEditor(settings.value("TemplateEditor", "kwrite").toString());
-	m_templateChanged = true;
 }
 
 void TikzPreviewController::setExportActionsEnabled(bool enabled)
@@ -506,12 +505,11 @@ void TikzPreviewController::toggleShellEscaping(bool useShellEscaping)
 	settings.setValue("UseShellEscaping", useShellEscaping);
 
 	m_tikzPreviewGenerator->setShellEscaping(useShellEscaping);
-	generatePreview();
+	generatePreview(false);
 }
 
 /***************************************************************************/
 
-#ifndef KTIKZ_USE_KDE
 bool TikzPreviewController::cleanUp()
 {
 	bool success = true;
@@ -526,4 +524,3 @@ bool TikzPreviewController::cleanUp()
 		success = success && tempTikzDir.remove(fileName);
 	return success;
 }
-#endif

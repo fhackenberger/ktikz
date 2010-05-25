@@ -92,8 +92,9 @@ private:
 	KUrl getExportUrl(const KUrl &url, const QString &mimeType) const;
 #else
 	QString getExportFileName(const QString &fileName, const QString &mimeType) const;
-	bool cleanUp();
 #endif
+	void generatePreview(bool templateChanged);
+	bool cleanUp();
 
 	MainWidget *m_mainWidget;
 	QWidget *m_parentWidget;
@@ -101,7 +102,6 @@ private:
 	TemplateWidget *m_templateWidget;
 	TikzPreview *m_tikzPreview;
 	TikzPreviewGenerator *m_tikzPreviewGenerator;
-	bool m_templateChanged;
 
 #ifdef KTIKZ_USE_KDE
 	KActionCollection *m_actionCollection;
