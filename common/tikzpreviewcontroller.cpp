@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008-2009 by Glad Deschrijver                           *
+ *   Copyright (C) 2008-2010 by Glad Deschrijver                           *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -433,13 +433,13 @@ QString TikzPreviewController::getLogText()
 void TikzPreviewController::generatePreview()
 {
 	QAction *action = qobject_cast<QAction*>(sender());
-	bool templateChanged = (action == 0) ? true : false; // the template hasn't changed when the Build button in the app has been pressed (if available), the other cases in which this function is called is when a file is opened, in which case everything should be cleaned up and regenerated
+	bool templateChanged = (action == 0) ? true : false; // XXX dirty hack: the template hasn't changed when the Build button in the app has been pressed (if available), the other cases in which this function is called is when a file is opened, in which case everything should be cleaned up and regenerated
 	generatePreview(templateChanged);
 }
 
 void TikzPreviewController::generatePreview(bool templateChanged)
 {
-	if (templateChanged)
+	if (templateChanged) // old aux files may contain commands available in the old template, but not anymore in the new template
 		cleanUp();
 	// TODO: m_tikzPreviewGenerator->addToTexinputs(QFileInfo(m_mainWidget->url().path()).absolutePath());
 //	m_tikzPreviewGenerator->setTikzFilePath(m_mainWidget->url().path()); // the directory in which the pgf file is located is added to TEXINPUTS before running latex

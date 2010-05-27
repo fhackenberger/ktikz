@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007-2009 by Glad Deschrijver                           *
+ *   Copyright (C) 2007-2010 by Glad Deschrijver                           *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -197,7 +197,6 @@ void TikzPreview::createInformationLabel()
 
 	QPalette palette = qApp->palette();
 	QColor backgroundColor = palette.window().color();
-//	QColor foregroundColor = palette.windowText().color();
 	QColor foregroundColor = palette.color(QPalette::Dark);
 	backgroundColor.setAlpha(150);
 	foregroundColor.setAlpha(150);
@@ -206,7 +205,7 @@ void TikzPreview::createInformationLabel()
 	m_infoWidget->setPalette(palette);
 
 	palette = m_infoLabel->palette();
-	foregroundColor = QColor(0, 0, 0);
+	foregroundColor = palette.windowText().color();
 	palette.setBrush(QPalette::WindowText, foregroundColor);
 	m_infoLabel->setPalette(palette);
 
@@ -462,7 +461,7 @@ void TikzPreview::pixmapUpdated(Poppler::Document *tikzPdfDoc)
 	m_previousPageAction->setVisible(visible);
 	m_nextPageAction->setVisible(visible);
 
-	if (m_currentPage >= numOfPages)
+	if (m_currentPage >= numOfPages) // if the new tikz code has fewer tikzpictures than the previous one (this may happen if a new PGF file is opened in the same window), then we must reset m_currentPage
 	{
 		m_currentPage = 0;
 		m_previousPageAction->setEnabled(false);
@@ -494,26 +493,26 @@ void TikzPreview::centerInfoLabel()
 	m_infoWidget->move(posX, posY);
 }
 
-void TikzPreview::showErrorMessage(const QString &message)
+void TikzPreview::setInfoLabelText(const QString &message, bool isPixmapVisible)
 {
-	m_infoPixmapLabel->setVisible(true);
+	m_infoPixmapLabel->setVisible(isPixmapVisible);
 	m_infoLabel->setText(message);
+	m_tikzScene->removeItem(m_infoProxyWidget); // make sure that any previous messages are not visible anymore
 //	m_infoWidget->setVisible(true);
 	m_tikzScene->addItem(m_infoProxyWidget);
 	m_infoWidgetAdded = true;
+}
+
+void TikzPreview::showErrorMessage(const QString &message)
+{
+	setInfoLabelText(message, true);
 }
 
 void TikzPreview::setProcessRunning(bool isRunning)
 {
 	m_processRunning = isRunning;
 	if (isRunning)
-	{
-		m_infoPixmapLabel->setVisible(false);
-		m_infoLabel->setText(tr("Generating image", "tikz preview status"));
-//		m_infoWidget->setVisible(true);
-		m_tikzScene->addItem(m_infoProxyWidget);
-		m_infoWidgetAdded = true;
-	}
+		setInfoLabelText(tr("Generating image", "tikz preview status"), false);
 //	else
 //		m_infoWidget->setVisible(false);
 	else if (m_infoProxyWidget->scene() != 0) // only remove if the widget is still attached to m_tikzScene

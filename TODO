@@ -18,9 +18,6 @@
   or remote pgf files to the temporary directory (could be dangerous when
   the user is still editing the \input command).
 - Add the directory in which the pgf file is located to TEXINPUTS
-- Remove bug: when the error box is larger than the preview and the next
-  compilation does not give errors, the error box is still visible outside
-  the area covered by the preview.
 - Complete tikzcommands.xml:
 
   The following sections of the TikZ manual are implemented:
