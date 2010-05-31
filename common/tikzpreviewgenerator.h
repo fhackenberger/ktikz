@@ -24,7 +24,9 @@
 #define KTIKZ_TIKZPREVIEWGENERATOR_H
 
 #include <QMutex>
+#if QT_VERSION >= 0x040600
 #include <QProcessEnvironment>
+#endif
 #include <QThread>
 #include <QTime>
 #include <QWaitCondition>

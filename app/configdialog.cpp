@@ -43,6 +43,7 @@ ConfigDialog::ConfigDialog(QWidget *parent) : KPageDialog(parent)
 	setFaceType(List);
 	setCaption(tr("Configure %1").arg(KtikzApplication::applicationName()));
 	setButtons(KDialog::Ok | KDialog::Cancel | KDialog::Apply | KDialog::Help);
+	setHelp("pref-dialog");
 
 	addPage(generalPage(), tr("&General"), "preferences-desktop-theme");
 	addPage(editorPage(), tr("&Editor"), "accessories-text-editor");
