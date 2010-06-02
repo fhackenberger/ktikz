@@ -14,7 +14,7 @@ PREFIX = /usr
 # install binary here:
 BINDIR = $${PREFIX}/bin
 
-# install translation files here:
+# install data files (translation files, icons, example files) here:
 TRANSLATIONSDIR = $${PREFIX}/share/ktikz
 
 # install desktop file here (*nix only):

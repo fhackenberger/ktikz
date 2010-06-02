@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<QtHelpProject version="1.0">
+	<namespace>hackenberger.qtikz</namespace>
+	<virtualFolder>doc</virtualFolder>
+	<filterSection>
+		<toc>
+			<section title="QTikZ" ref="index.html"></section>
+		</toc>
+		<files>
+			<file>index.html</file>
+			<file>index.css</file>
+			<file>configuration-editor.png</file>
+			<file>configuration-general.png</file>
+			<file>configuration-highlighting.png</file>
+			<file>interface-gotolinewidget.png</file>
+			<file>interface-mainwindow.png</file>
+			<file>interface-replacecurrentwidget.png</file>
+			<file>interface-replacewidget.png</file>
+			<file>interface-templatewidget.png</file>
+		</files>
+	</filterSection>
+</QtHelpProject>

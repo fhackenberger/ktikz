@@ -1,13 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Type=Application
-Name=KTikZ
-Exec=ktikz
+Name=QTikZ
+Exec=qtikz
 Icon=
 DocPath=
 Terminal=false
 MimeType=text/x-pgf;text/x-tex;
-Categories=Qt;KDE;Office;
+Categories=Qt;Office;
 GenericName=TikZ editor
 GenericName[fr]=Éditeur TikZ
 Comment=Program for creating TikZ (from the LaTeX pgf package) diagrams

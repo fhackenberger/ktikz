@@ -98,10 +98,16 @@ INSTALLS += target
 
 unix:!macx {
 	ICONDIR = $$replace(TRANSLATIONSDIR, "/", "\/")
-	DESKTOPCREATE = "sed -e \"s/Icon=/Icon=$${ICONDIR}\/ktikz-128.png/\" ktikz.desktop.template > ktikz.desktop"
-	system($$DESKTOPCREATE)
+	usekde {
+		DESKTOPCREATE = "sed -e \"s/Icon=/Icon=$${ICONDIR}\/ktikz-128.png/\" -e \"s/QTikZ/KTikZ/g\" -e \"s/qtikz/ktikz/g\" qtikz.desktop.template > ktikz.desktop"
+		system($$DESKTOPCREATE)
+		desktop.files = ktikz.desktop
+	} else {
+		DESKTOPCREATE = "sed -e \"s/Icon=/Icon=$${ICONDIR}\/ktikz-128.png/\" qtikz.desktop.template > qtikz.desktop"
+		system($$DESKTOPCREATE)
+		desktop.files = qtikz.desktop
+	}
 	desktop.path = $${DESKTOPDIR}
-	desktop.files = ktikz.desktop
 	INSTALLS += desktop
 }
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<QHelpCollectionProject version="1.0">
+	<assistant>
+		<title>QTikZ Help</title>
+		<cacheDirectory>Florian Hackenberger/QTikZ</cacheDirectory>
+		<startPage>qthelp://hackenberger.qtikz/doc/index.html</startPage>
+		<enableDocumentationManager>false</enableDocumentationManager>
+		<enableAddressBar>false</enableAddressBar>
+		<enableFilterFunctionality>false</enableFilterFunctionality>
+	</assistant>
+	<docFiles>
+		<generate>
+			<file>
+				<input>qtikz.qhp</input>
+				<output>qtikz.qch</output>
+			</file>
+		</generate>
+		<register>
+			<file>qtikz.qch</file>
+		</register>
+	</docFiles>
+</QHelpCollectionProject>

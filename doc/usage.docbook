@@ -93,6 +93,26 @@
 		The following are a number of tips to enhance the experience of using &ktikz;.
 	</para>
 
+	<sect2 id="ktikz-tips-using-beamer-uncover">
+		<title>Using the beamer commands \uncover and \only in PGF pictures</title>
+
+		<para>
+			When creating tikzpictures which will be included in slides created with the LaTeX beamer package, one may need the commands \uncover or \only or similar in the tikzpicture itself.  Support for these commands is not included in &ktikz; by default.  However, using an appropriate template it is possible to use these commands and &ktikz; will generate several images in the preview which can be browsed using the <guilabel>Previous Image</guilabel> and <guilabel>Next Image</guilabel> buttons.  The following example shows a template file which can be used for this purpose.
+			<example>
+				<title>Example template file which allows to use the beamer commands \uncover and \only</title>
+				<programlisting>\documentclass[compress]{beamer}
+\usetheme{Berlin}
+\setbeamercovered{transparent}
+\usepackage{tikz}
+\begin{document}
+\begin{frame}{}
+&lt;&gt;
+\end{frame}
+\end{document}</programlisting>
+			</example>
+		</para>
+	</sect2>
+
 	<sect2 id="ktikz-tips-using-other-packages">
 		<title>Using &ktikz; for picture packages other than PGF</title>
 

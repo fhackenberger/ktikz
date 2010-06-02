@@ -1,28 +1,29 @@
 /***************************************************************************
- *   Copyright (C) 2008-2010 by Glad Deschrijver                           *
+ *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   Document watcher and reloader code copied from Okular KPart code      *
- *   which is copyrighted as follows:                                      *
- *   Copyright (C) 2002 by Wilco Greven <greven@kde.org>                   *
- *   Copyright (C) 2002 by Chris Cheney <ccheney@cheney.cx>                *
- *   Copyright (C) 2002 by Malcolm Hunter <malcolm.hunter@gmx.co.uk>       *
- *   Copyright (C) 2003-2004 by Christophe Devriese                        *
- *                         <Christophe.Devriese@student.kuleuven.ac.be>    *
- *   Copyright (C) 2003 by Daniel Molkentin <molkentin@kde.org>            *
- *   Copyright (C) 2003 by Andy Goossens <andygoossens@telenet.be>         *
- *   Copyright (C) 2003 by Dirk Mueller <mueller@kde.org>                  *
- *   Copyright (C) 2003 by Laurent Montel <montel@kde.org>                 *
- *   Copyright (C) 2004 by Dominique Devriese <devriese@kde.org>           *
- *   Copyright (C) 2004 by Christoph Cullmann <crossfire@babylon2k.de>     *
- *   Copyright (C) 2004 by Henrique Pinto <stampede@coltec.ufmg.br>        *
- *   Copyright (C) 2004 by Waldo Bastian <bastian@kde.org>                 *
- *   Copyright (C) 2004-2008 by Albert Astals Cid <aacid@kde.org>          *
- *   Copyright (C) 2004 by Antti Markus <antti.markus@starman.ee>          *
+ *     which is copyrighted as follows:                                    *
+ *     Copyright (C) 2002 by Wilco Greven <greven@kde.org>                 *
+ *     Copyright (C) 2002 by Chris Cheney <ccheney@cheney.cx>              *
+ *     Copyright (C) 2002 by Malcolm Hunter <malcolm.hunter@gmx.co.uk>     *
+ *     Copyright (C) 2003-2004 by Christophe Devriese                      *
+ *                           <Christophe.Devriese@student.kuleuven.ac.be>  *
+ *     Copyright (C) 2003 by Daniel Molkentin <molkentin@kde.org>          *
+ *     Copyright (C) 2003 by Andy Goossens <andygoossens@telenet.be>       *
+ *     Copyright (C) 2003 by Dirk Mueller <mueller@kde.org>                *
+ *     Copyright (C) 2003 by Laurent Montel <montel@kde.org>               *
+ *     Copyright (C) 2004 by Dominique Devriese <devriese@kde.org>         *
+ *     Copyright (C) 2004 by Christoph Cullmann <crossfire@babylon2k.de>   *
+ *     Copyright (C) 2004 by Henrique Pinto <stampede@coltec.ufmg.br>      *
+ *     Copyright (C) 2004 by Waldo Bastian <bastian@kde.org>               *
+ *     Copyright (C) 2004-2008 by Albert Astals Cid <aacid@kde.org>        *
+ *     Copyright (C) 2004 by Antti Markus <antti.markus@starman.ee>        *
+ *     licensed under GPL v2 or later                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
+ *   the Free Software Foundation; either version 3 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
@@ -31,9 +32,7 @@
  *   GNU General Public License for more details.                          *
  *                                                                         *
  *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
 #include "part.h"

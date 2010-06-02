@@ -18,6 +18,8 @@
   or remote pgf files to the temporary directory (could be dangerous when
   the user is still editing the \input command).
 - Add the directory in which the pgf file is located to TEXINPUTS
+- Add default location for the TikZ documentation (to be used when ktikz
+  is started for the first time).
 - Complete tikzcommands.xml:
 
   The following sections of the TikZ manual are implemented:

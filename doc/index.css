@@ -1,0 +1,124 @@
+body
+{
+	padding: 1em;
+}
+h2.title
+{
+	margin-top: 1.5em;
+	margin-left: 0em;
+	margin-right: 0em;
+	margin-bottom: 1em;
+	border-bottom: thin solid #444444;
+	font-size: 1.4em;
+}
+h3.title
+{
+	display: inline-block;
+	margin-top: .6em;
+	margin-left: 0em;
+	margin-right: 0em;
+	margin-bottom: .2em;
+	border-bottom: thin dotted #444444;
+	font-size: 1.2em;
+}
+table
+{
+	display: table;
+	margin-top: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 1em;
+	border: thin solid #888888;
+	border-collapse: collapse;
+}
+table td
+{
+	display: table-cell;
+	border: thin solid #888888;
+	padding-top: .2em;
+	padding-left: .3em;
+	padding-right: .3em;
+	padding-bottom: .2em;
+}
+.chapter .toc
+{
+	margin-top: 1em;
+	margin-left: 2em;
+	margin-right: 2em;
+	margin-bottom: 1em;
+	padding-left: 1em;
+	border-left: thin solid #888888;
+}
+.chapter .toc dt
+{
+	margin: 0em .1em .1em 0em;
+	font-size : .9em;
+}
+.screenshot
+{
+	margin-top: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 1em;
+	width: 90%;
+}
+.screenshot img
+{
+	width: 100%;
+}
+.screenshot img:active
+{
+	width: auto;
+}
+.example
+{
+	margin-top: 1em;
+	margin-left: 2em;
+	margin-right: 2em;
+	margin-bottom: 1em;
+	padding: 1em;
+	border: thin solid #888888;
+}
+.example .title
+{
+	margin-top: 0em;
+	padding-bottom: .2em;
+	border-bottom: thin solid #888888;
+}
+.programlisting
+{
+	font-family: monospace;
+	margin-bottom: 0em;
+	overflow: auto;
+}
+.warning
+{
+	margin-top: 1em;
+	margin-left: 2em;
+	margin-right: 2em;
+	margin-bottom: 1em;
+	padding: .7em 1em 0em 1em;
+	border: thin solid #880000;
+	background: #FFCCCC;
+}
+.warning .title
+{
+	display: block;
+	margin-top: 0em;
+	padding-bottom: .2em;
+	border-bottom: thin solid #880000;
+	color: #660000;
+}
+.variablelist .term
+{
+	border-bottom: thin solid #888888;
+}
+.variablelist .variablelist .term
+{
+	border-bottom: thin dotted #888888;
+}
+.variablelist .variablelist .variablelist .term
+{
+	border-bottom: thin dotted #888888;
+	font-style: italic;
+}

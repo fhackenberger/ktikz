@@ -1,0 +1,32 @@
+KTikZ is a program for making pictures using tikz.
+
+Usage
+-----
+
+You write the tikz code in the editor and KTikZ automatically generates the
+image in a preview panel.
+
+The complete description of the usage is available in the application itself,
+under Help -> KTikZ Manual.
+
+Installation
+------------
+
+See the INSTALL file.
+
+License
+-------
+
+Copyright (C) 2007 Florian Hackenberger <florian@hackenberger.at>
+              2007-2010 Glad Deschrijver <glad.deschrijver@gmail.com>
+Portions are copyrighted also by other people (see app/tikzeditor.cpp,
+common/utils/lineedit.cpp and part/part.cpp).
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation; either version 3 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
