@@ -18,6 +18,7 @@ DEFINES += ORGNAME=\\\"$${ORGNAME}\\\"
 DEFINES += APPNAME=\\\"$${APPNAME}\\\"
 DEFINES += APPVERSION=\\\"$${APPVERSION}\\\"
 DEFINES += KTIKZ_TRANSLATIONS_INSTALL_DIR=\\\"$${TRANSLATIONSDIR}\\\"
+DEFINES += KTIKZ_TIKZ_DOCUMENTATION_DEFAULT=\\\"$${TIKZ_DOCUMENTATION_DEFAULT}\\\"
 
 ### Build files
 
@@ -68,12 +69,13 @@ SOURCES += ../common/utils/action.cpp \
 	logtextedit.cpp \
 	main.cpp \
 	mainwindow.cpp \
-	../common/templatewidget.cpp \
 	tikzcommandinserter.cpp \
 	tikzcommandwidget.cpp \
+	tikzdocumentationcontroller.cpp \
 	tikzeditor.cpp \
 	tikzeditorhighlighter.cpp \
 	tikzeditorview.cpp \
+	../common/templatewidget.cpp \
 	../common/tikzpreview.cpp \
 	../common/tikzpreviewcontroller.cpp \
 	../common/tikzpreviewgenerator.cpp \
@@ -97,15 +99,14 @@ target.path = $${BINDIR}
 INSTALLS += target
 
 unix:!macx {
-	ICONDIR = $$replace(TRANSLATIONSDIR, "/", "\/")
 	usekde {
-		DESKTOPCREATE = "sed -e \"s/Icon=/Icon=$${ICONDIR}\/ktikz-128.png/\" -e \"s/QTikZ/KTikZ/g\" -e \"s/qtikz/ktikz/g\" qtikz.desktop.template > ktikz.desktop"
-		system($$DESKTOPCREATE)
 		desktop.files = ktikz.desktop
 	} else {
-		DESKTOPCREATE = "sed -e \"s/Icon=/Icon=$${ICONDIR}\/ktikz-128.png/\" qtikz.desktop.template > qtikz.desktop"
+		ICONDIR = $$replace(TRANSLATIONSDIR, "/", "\/")
+		DESKTOPCREATE = "sed -e \"s/Icon=/Icon=$${ICONDIR}\/qtikz-128.png/\" qtikz.desktop.template > qtikz.desktop"
 		system($$DESKTOPCREATE)
 		desktop.files = qtikz.desktop
+		translations.files += images/qtikz-128.png
 	}
 	desktop.path = $${DESKTOPDIR}
 	INSTALLS += desktop
@@ -120,5 +121,5 @@ QMAKE_EXTRA_TARGETS = translationscreate
 QMAKE_CLEAN += $$qmFiles($$TRANSLATIONS)
 
 translations.path = $${TRANSLATIONSDIR}
-translations.files = $$qmFiles($$TRANSLATIONS) images/ktikz-128.png template_example.pgs
+translations.files += $$qmFiles($$TRANSLATIONS) template_example.pgs
 INSTALLS += translations

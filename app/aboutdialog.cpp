@@ -29,7 +29,7 @@ AboutDialog::AboutDialog(QWidget *parent)
     : QDialog(parent)
 {
 	QLabel *pixmapLabel = new QLabel;
-	pixmapLabel->setPixmap(QPixmap(":/images/ktikz-128.png"));
+	pixmapLabel->setPixmap(QPixmap(":/images/qtikz-128.png"));
 	QLabel *label = new QLabel(QString("<h1>%1 %2</h1><p>%3</p><p>%4</p>")
 	    .arg(KtikzApplication::applicationName())
 	    .arg(QCoreApplication::applicationVersion())

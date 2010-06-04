@@ -1,8 +1,8 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
 	<file>tikzcommands.xml</file>
-	<file>images/ktikz-22.png</file>
-	<file>images/ktikz-128.png</file>
+	<file>images/qtikz-22.png</file>
+	<file>images/qtikz-128.png</file>
 	<file>images/dialog-cancel.png</file>
 	<file>images/edit-clear-locationbar-rtl.png</file>
 	<file>images/view-refresh.png</file>

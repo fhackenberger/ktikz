@@ -26,6 +26,7 @@
 #include <QSettings>
 
 #include "ktikzapplication.h"
+#include "tikzdocumentationcontroller.h"
 #include "../common/utils/icon.h"
 
 ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent)
@@ -73,7 +74,7 @@ void ConfigGeneralWidget::readSettings(const QString &settingsGroup)
 		ui.buildAutomaticallyRadio->setChecked(true);
 	else
 		ui.buildManuallyRadio->setChecked(true);
-	ui.tikzDocEdit->setText(settings.value("TikzDocumentation").toString());
+	ui.tikzDocEdit->setText(TikzDocumentationController::tikzDocumentationPath());
 	ui.latexEdit->setText(settings.value("LatexCommand", "pdflatex").toString());
 	ui.pdftopsEdit->setText(settings.value("PdftopsCommand", "pdftops").toString());
 	ui.editorEdit->setText(settings.value("TemplateEditor", "kwrite").toString());
@@ -96,7 +97,7 @@ void ConfigGeneralWidget::writeSettings(const QString &settingsGroup)
 #endif
 	settings.setValue("CommandsInDock", ui.commandsInDockCheck->isChecked());
 	settings.setValue("BuildAutomatically", ui.buildAutomaticallyRadio->isChecked());
-	settings.setValue("TikzDocumentation", ui.tikzDocEdit->text());
+	TikzDocumentationController::storeTikzDocumentationPath(ui.tikzDocEdit->text());
 	settings.setValue("LatexCommand", ui.latexEdit->text());
 	settings.setValue("PdftopsCommand", ui.pdftopsEdit->text());
 	settings.setValue("TemplateEditor", ui.editorEdit->text());
@@ -112,18 +113,7 @@ void ConfigGeneralWidget::writeSettings(const QString &settingsGroup)
 
 void ConfigGeneralWidget::searchTikzDocumentation()
 {
-	const QString kpsewhichCommand = "kpsewhich";
-	QStringList kpsewhichArguments;
-	kpsewhichArguments << "--format" << "TeX system documentation" << "pgfmanual.pdf";
-
-	QProcess process;
-	process.start(kpsewhichCommand, kpsewhichArguments);
-	process.waitForStarted(1000);
-	while (process.state() != QProcess::NotRunning)
-		process.waitForFinished(100 /*msec*/);
-
-	QString tikzDocFile = process.readAllStandardOutput();
-	tikzDocFile = tikzDocFile.trimmed();
+	const QString tikzDocFile = TikzDocumentationController::searchTikzDocumentationInTexTree();
 	if (tikzDocFile.isEmpty())
 		QMessageBox::warning(this, KtikzApplication::applicationName(),
 		                     tr("Cannot find TikZ documentation."));

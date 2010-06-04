@@ -22,6 +22,7 @@ set(ktikz_SRCS
 	mainwindow.cpp
 	tikzcommandinserter.cpp
 	tikzcommandwidget.cpp
+	tikzdocumentationcontroller.cpp
 	tikzeditor.cpp
 	tikzeditorhighlighter.cpp
 	tikzeditorview.cpp

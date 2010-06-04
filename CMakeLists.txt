@@ -6,6 +6,7 @@ set(KTIKZ_VERSION "0.10")
 add_definitions(-DORGNAME=\"Florian\ Hackenberger\" -DAPPNAME=\"ktikz\")
 add_definitions(-DAPPVERSION=\"${KTIKZ_VERSION}\")
 add_definitions(-DKTIKZ_USE_KDE)
+add_definitions(-DKTIKZ_TIKZ_DOCUMENTATION_DEFAULT=\"/usr/share/doc/texmf/pgf/pgfmanual.pdf.gz\")
 
 find_package(Qt4 4.4.0 COMPONENTS QtCore QtGui QtXml REQUIRED)
 find_package(KDE4 REQUIRED)

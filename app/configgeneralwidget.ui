@@ -427,6 +427,9 @@
           <property name="whatsThis">
            <string>&lt;p&gt;Press this button to search the file containing the TikZ documentation in the TeX directory structure using kpsewhich.&lt;/p&gt;</string>
           </property>
+          <property name="toolTip">
+           <string>Search in TeX directory structure</string>
+          </property>
           <property name="text">
            <string>&amp;Search</string>
           </property>

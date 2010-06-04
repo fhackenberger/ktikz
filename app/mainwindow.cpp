@@ -61,10 +61,11 @@
 #include "ktikzapplication.h"
 #include "loghighlighter.h"
 #include "logtextedit.h"
-#include "../common/templatewidget.h"
 #include "tikzcommandinserter.h"
+#include "tikzdocumentationcontroller.h"
 #include "tikzeditorhighlighter.h"
 #include "tikzeditorview.h"
+#include "../common/templatewidget.h"
 #include "../common/tikzpreviewcontroller.h"
 #include "../common/tikzpreview.h"
 #include "../common/utils/action.h"
@@ -101,7 +102,7 @@ MainWindow::MainWindow()
 	setWindowIcon(KIcon("ktikz"));
 	Action::setActionCollection(actionCollection());
 #else
-	setWindowIcon(QIcon(":/images/ktikz-22.png"));
+	setWindowIcon(QIcon(":/images/qtikz-22.png"));
 #endif
 
 	setCorner(Qt::TopLeftCorner, Qt::LeftDockWidgetArea);
@@ -331,8 +332,7 @@ void MainWindow::showTikzDocumentation()
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
-	QSettings settings(ORGNAME, APPNAME);
-	QString tikzDocFile = settings.value("TikzDocumentation").toString();
+	const QString tikzDocFile = TikzDocumentationController::tikzDocumentationPath();
 
 	if (tikzDocFile.isEmpty() || !QFileInfo(tikzDocFile).exists())
 		QMessageBox::warning(this, KtikzApplication::applicationName(),
