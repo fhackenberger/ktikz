@@ -40,7 +40,9 @@ set(ktikz_SRCS
 	../common/utils/toggleaction.cpp
 	../common/utils/url.cpp
 )
-kde4_add_ui_files(ktikz_SRCS
+# dirty hack: use qt4_wrap_ui to let Qt translate the .ui files instead of KDE (to have less duplication in the translation effort)
+#kde4_add_ui_files(ktikz_SRCS
+qt4_wrap_ui(ktikz_UI
 	configappearancewidget.ui
 	configeditorwidget.ui
 	configgeneralwidget.ui
@@ -55,7 +57,9 @@ qt4_add_resources(ktikz_SRCS application.qrc)
 file(GLOB TRANSLATION_FILES ktikz_*.ts)
 qt4_add_translation(QM_FILES ${TRANSLATION_FILES})
 
-kde4_add_executable(ktikz ${ktikz_SRCS} ${QM_FILES})
+# dirty hack: use qt4_wrap_ui to let Qt translate the .ui files instead of KDE
+#kde4_add_executable(ktikz ${ktikz_SRCS} ${QM_FILES})
+kde4_add_executable(ktikz ${ktikz_SRCS} ${ktikz_UI} ${QM_FILES})
 target_link_libraries(ktikz ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KTEXTEDITOR_LIBS} -lpoppler-qt4)
 
 install(TARGETS ktikz DESTINATION ${BIN_INSTALL_DIR})
@@ -71,4 +75,5 @@ if(NOT APPLE AND NOT WIN32)
 	install(FILES images/ktikz-32.png DESTINATION ${ICON_INSTALL_DIR}/hicolor/32x32/apps/ RENAME ktikz.png)
 	install(FILES images/ktikz-22.png DESTINATION ${ICON_INSTALL_DIR}/hicolor/22x22/apps/ RENAME ktikz.png)
 	install(FILES images/ktikz-16.png DESTINATION ${ICON_INSTALL_DIR}/hicolor/16x16/apps/ RENAME ktikz.png)
+	install(FILES images/ktikz.svg DESTINATION ${ICON_INSTALL_DIR}/hicolor/scalable/apps/)
 endif(NOT APPLE AND NOT WIN32)

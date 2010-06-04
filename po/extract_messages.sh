@@ -1,6 +1,7 @@
 #!/bin/sh
 #BASEDIR="../" # root of translatable sources
 BASEDIRS="../app ../common ../part" # roots of translatable sources
+PARTDIR="../part"
 PROJECT="ktikz" # project name
 BUGADDR="http://www.hackenberger.at/" # MSGID-Bugs
 WDIR=`pwd` # working dir
@@ -32,7 +33,9 @@ echo "Preparing rc files"
 #cd ${BASEDIR}
 # we use simple sorting to make sure the lines do not jump around too much from system to system
 #find . -name '*.rc' -o -name '*.ui' -o -name '*.kcfg' | sort > ${WDIR}/rcfiles.list
-find ${BASEDIRS} -name '*.rc' -o -name '*.ui' -o -name '*.kcfg' | sort > ${WDIR}/rcfiles.list
+# dirty hack: let Qt translate the .ui files instead of KDE
+#find ${BASEDIRS} -name '*.rc' -o -name '*.ui' -o -name '*.kcfg' | sort > ${WDIR}/rcfiles.list
+(find ${BASEDIRS} -name '*.rc' -o -name '*.kcfg'; find ${PARTDIR} -name '*.ui') | sort > ${WDIR}/rcfiles.list
 xargs --arg-file=${WDIR}/rcfiles.list extractrc > ${WDIR}/rc.cpp
 # additional string for KAboutData
 echo 'i18nc("NAME OF TRANSLATORS","Your names");' >> ${WDIR}/rc.cpp

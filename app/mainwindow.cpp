@@ -95,11 +95,13 @@ MainWindow::MainWindow()
 	QIcon::setThemeSearchPaths(themeSearchPaths);
 #endif
 
-	setWindowIcon(QIcon(":/images/ktikz-22.png"));
 	setAttribute(Qt::WA_DeleteOnClose);
 #ifdef KTIKZ_USE_KDE
 	setObjectName("ktikz#");
+	setWindowIcon(KIcon("ktikz"));
 	Action::setActionCollection(actionCollection());
+#else
+	setWindowIcon(QIcon(":/images/ktikz-22.png"));
 #endif
 
 	setCorner(Qt::TopLeftCorner, Qt::LeftDockWidgetArea);
