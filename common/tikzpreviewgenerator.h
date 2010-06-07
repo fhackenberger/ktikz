@@ -24,6 +24,8 @@
 #include <QMutex>
 #if QT_VERSION >= 0x040600
 #include <QProcessEnvironment>
+#else
+#include <QStringList>
 #endif
 #include <QThread>
 #include <QTime>

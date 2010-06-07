@@ -85,7 +85,11 @@ HEADERS += $$headerFiles($$SOURCES) \
 	../common/utils/colordialog.h \
 	../common/utils/fontdialog.h \
 	../common/utils/icon.h
-RESOURCES = application.qrc
+usekde {
+	RESOURCES = ktikz.qrc
+} else {
+	RESOURCES = qtikz.qrc
+}
 TRANSLATIONS = ktikz_de.ts ktikz_es.ts ktikz_fr.ts
 
 ### Output

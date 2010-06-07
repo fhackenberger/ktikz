@@ -31,6 +31,10 @@ version 0.10 (2010-05-27):
 - remove bug: when the error box is larger than the preview and the next
   compilation does not give errors, the error box is still visible outside
   the area covered by the preview
+- try to find or use the default hard-coded (configurable in conf.pri and
+  CMakeLists.txt) path to the TikZ documentation when an empty path is
+  stored in the local settings (this is the case e.g. when ktikz is run
+  for the first time)
 version 0.9 (2009-09-10):
 - remove bug that on startup the item selected in the template combobox
   did not correspond to the text in the lineedit of the combobox

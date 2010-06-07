@@ -53,7 +53,7 @@ qt4_wrap_ui(ktikz_UI
 	../common/templatewidget.ui
 )
 kde4_add_kcfg_files(ktikz_SRCS ../common/settings.kcfgc)
-qt4_add_resources(ktikz_SRCS application.qrc)
+qt4_add_resources(ktikz_SRCS ktikz.qrc)
 
 file(GLOB TRANSLATION_FILES ktikz_*.ts)
 qt4_add_translation(QM_FILES ${TRANSLATION_FILES})

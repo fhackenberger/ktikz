@@ -9,7 +9,7 @@ add_definitions(-DKTIKZ_USE_KDE)
 add_definitions(-DKTIKZ_TIKZ_DOCUMENTATION_DEFAULT=\"/usr/share/doc/texmf/pgf/pgfmanual.pdf.gz\")
 
 find_package(Qt4 4.4.0 COMPONENTS QtCore QtGui QtXml REQUIRED)
-find_package(KDE4 REQUIRED)
+find_package(KDE4 4.3.0 REQUIRED)
 include(KDE4Defaults)
 add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include_directories(${KDE4_INCLUDES} /usr/include/poppler/qt4)

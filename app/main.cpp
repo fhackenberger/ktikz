@@ -97,10 +97,11 @@ QTranslator *createTranslator(const QString &transName, const QString &transDir)
 
 int main(int argc, char **argv)
 {
-	Q_INIT_RESOURCE(application);
 	qInstallMsgHandler(debugOutput);
 
 #ifdef KTIKZ_USE_KDE
+	Q_INIT_RESOURCE(ktikz);
+
 	KAboutData aboutData("ktikz", "ktikz", ki18n("KTikZ"), APPVERSION);
 	aboutData.setShortDescription(ki18n("A TikZ Editor"));
 	aboutData.setLicense(KAboutData::License_GPL_V3);
@@ -115,6 +116,8 @@ int main(int argc, char **argv)
 	KCmdLineOptions options;
 	options.add("+[URL]", ki18n("TikZ document to open"));
 	KCmdLineArgs::addCmdLineOptions(options);
+#else
+	Q_INIT_RESOURCE(qtikz);
 #endif
 
 	KtikzApplication app(argc, argv);

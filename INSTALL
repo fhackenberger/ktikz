@@ -7,7 +7,7 @@ The following are required for compilation:
   QtCore, QtGui and QtXml are required, at least in version 4.4
 - the poppler-qt4 libraries and headers
 - the kdelibs development environment (only if you want KDE integration
-  and the KPart)
+  and the KPart), at least in version 4.3
 - the LaTeX pgf package (which includes TikZ)
 - the LaTeX preview package
 
