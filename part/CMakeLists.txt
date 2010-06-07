@@ -1,3 +1,4 @@
+set(KTIKZPART_DATA_INSTALL_DIR ${DATA_INSTALL_DIR}/ktikzpart)
 add_definitions(-DORGNAME=\\\"Florian\\\ Hackenberger\\\" -DAPPNAME=\\\"ktikz\\\")
 add_definitions(-DKTIKZ_USE_KDE)
 
@@ -28,14 +29,12 @@ kde4_add_ui_files(ktikzpart_SRCS
 	../common/templatewidget.ui
 )
 
-add_definitions(-DKTIKZ_KPART)
-
 kde4_add_kcfg_files(ktikzpart_SRCS ../common/settings.kcfgc)
 
 kde4_add_plugin(ktikzpart ${ktikzpart_SRCS})
 
-target_link_libraries(ktikzpart ${KDE4_KPARTS_LIBS} -lpoppler-qt4)
+target_link_libraries(ktikzpart ${KDE4_KPARTS_LIBS} ${POPPLER_QT4_LIBRARIES})
 
 install(TARGETS ktikzpart DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES ktikzpart.rc DESTINATION ${DATA_INSTALL_DIR}/ktikzpart)
+install(FILES ktikzpart.rc DESTINATION ${KTIKZPART_DATA_INSTALL_DIR})
 install(FILES ktikzpart.desktop DESTINATION ${SERVICES_INSTALL_DIR})

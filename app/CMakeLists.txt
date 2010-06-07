@@ -1,4 +1,5 @@
-set(KTIKZ_TRANSLATIONS_INSTALL_DIR ${DATA_INSTALL_DIR}/ktikz/locale)
+set(KTIKZ_DATA_INSTALL_DIR ${DATA_INSTALL_DIR}/ktikz)
+set(KTIKZ_TRANSLATIONS_INSTALL_DIR ${KTIKZ_DATA_INSTALL_DIR}/locale)
 add_definitions(-DKTIKZ_TRANSLATIONS_INSTALL_DIR=\\\"${KTIKZ_TRANSLATIONS_INSTALL_DIR}\\\")
 
 include_directories(
@@ -43,7 +44,7 @@ set(ktikz_SRCS
 )
 # dirty hack: use qt4_wrap_ui to let Qt translate the .ui files instead of KDE (to have less duplication in the translation effort)
 #kde4_add_ui_files(ktikz_SRCS
-qt4_wrap_ui(ktikz_UI
+qt4_wrap_ui(ktikz_UI_FILES
 	configappearancewidget.ui
 	configeditorwidget.ui
 	configgeneralwidget.ui
@@ -55,19 +56,19 @@ qt4_wrap_ui(ktikz_UI
 kde4_add_kcfg_files(ktikz_SRCS ../common/settings.kcfgc)
 qt4_add_resources(ktikz_SRCS ktikz.qrc)
 
-file(GLOB TRANSLATION_FILES ktikz_*.ts)
-qt4_add_translation(QM_FILES ${TRANSLATION_FILES})
+file(GLOB ktikz_TRANSLATION_FILES ktikz_*.ts)
+qt4_add_translation(ktikz_QM_FILES ${ktikz_TRANSLATION_FILES})
 
 # dirty hack: use qt4_wrap_ui to let Qt translate the .ui files instead of KDE
-#kde4_add_executable(ktikz ${ktikz_SRCS} ${QM_FILES})
-kde4_add_executable(ktikz ${ktikz_SRCS} ${ktikz_UI} ${QM_FILES})
-target_link_libraries(ktikz ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KTEXTEDITOR_LIBS} -lpoppler-qt4)
+#kde4_add_executable(ktikz ${ktikz_SRCS} ${ktikz_QM_FILES})
+kde4_add_executable(ktikz ${ktikz_SRCS} ${ktikz_UI_FILES} ${ktikz_QM_FILES})
+target_link_libraries(ktikz ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${POPPLER_QT4_LIBRARIES})
 
 install(TARGETS ktikz DESTINATION ${BIN_INSTALL_DIR})
-install(FILES ktikzui.rc DESTINATION ${DATA_INSTALL_DIR}/ktikz)
+install(FILES ktikzui.rc DESTINATION ${KTIKZ_DATA_INSTALL_DIR})
 install(FILES ../common/ktikz.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 install(FILES ktikz.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES ${QM_FILES} DESTINATION ${KTIKZ_TRANSLATIONS_INSTALL_DIR})
+install(FILES ${ktikz_QM_FILES} DESTINATION ${KTIKZ_TRANSLATIONS_INSTALL_DIR})
 
 if(NOT APPLE AND NOT WIN32)
 	install(FILES images/ktikz-128.png DESTINATION ${ICON_INSTALL_DIR}/hicolor/128x128/apps/ RENAME ktikz.png)
