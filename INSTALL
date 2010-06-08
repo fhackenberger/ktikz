@@ -22,7 +22,7 @@ In Ubuntu you would obtain those by installing the following packages:
 - preview-latex-style
 
 Install using qmake (only the Qt-only (qtikz) and the KDE (ktikz) application):
-----------------------------------------------------------
+-------------------------------------------------------------------------------
 
 Note: if you want to compile the KPart, then you should use the procedure
 with cmake given below instead of this procedure.
@@ -52,7 +52,7 @@ alternatively run "make translations" in the main directory, otherwise
 the translation files will not be installed correctly.
 
 Install using cmake (only the KDE (ktikz) application and the KPart):
------------------------------------------------------
+---------------------------------------------------------------------
 
 Run the following commands (this will create an executable named ktikz
 and a KPart which will be loaded when clicking a *.pgf or *.tikz file
@@ -62,13 +62,16 @@ in Konqueror):
   cmake -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` ..
   make
   sudo make install
-  sudo update-mime-database /usr/share/mime
 
-The last command is necessary because a new mimetype (text/x-pgf) is added
-to the system.  As a user one may additionally have to run
+Because a new mimetype (text/x-pgf) is added to the system, as a user one
+may additionally have to run
   kbuildsycoca4
 or restart KDE so that konqueror uses the KPart for this mimetype.
 
-In order to uninstall ktikz run the following commands in the build directory:
+In order to uninstall ktikz run the following commands in the build directory
+(the paths in the last two commands depend of course on where the files were
+installed, see the output of the make uninstall command for the correct paths):
   sudo make uninstall
   sudo update-mime-database /usr/share/mime
+  sudo rm /usr/share/doc/kde/HTML/en/ktikz/common
+  sudo rmdir /usr/share/doc/kde/HTML/en/ktikz/ /usr/share/kde4/apps/ktikz*/* /usr/share/kde4/apps/ktikz*

@@ -1,3 +1,31 @@
+Create source package (only using cmake):
+-----------------------------------------
+
+After having run cmake and make as described in the section "Install using
+cmake" in the INSTALL file, running either of the following commands in the
+build directory will build a .tar.bz2 file containing the complete source
+in the build directory:
+
+make package_source
+make dist
+
+Create debian package for own use (only using cmake):
+-----------------------------------------------------
+
+After having run cmake and make as described in the section "Install using
+cmake" in the INSTALL file, running the following command in the build
+directory will build a .deb package in the build directory:
+
+cpack -G DEB
+
+Note that the debian package created by this command probably does NOT
+satisfy the requirements for inclusion in the debian repositories.  But
+you can still use the debian package for easily installing and removing
+ktikz on your own computer (if you run a debian based distribution).
+
+Create debian package (only using qmake) (old version):
+-------------------------------------------------------
+
 The Ubuntu/debian package infrastructure can be found in ./debian
 In order to compile a releasable package, you need a pbuilder
 environment. Please follow the Ubuntu packaging guide:
