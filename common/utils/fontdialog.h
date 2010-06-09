@@ -4,7 +4,7 @@
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 3 of the License, or     *
+ *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
@@ -42,7 +42,9 @@ public:
 class FontDialog : public QFontDialog
 {
 public:
-	FontDialog(QWidget *parent) : QFontDialog(parent) {}
+	// Commented out for Qt 4.5 compatibility (should not be required,
+	// as we don't instantiate FontDialog directly anyway).
+	//FontDialog(QWidget *parent) : QFontDialog(parent) {}
 
 	static QFont getFont(bool *ok, const QFont &font, QWidget *parent)
 	{
