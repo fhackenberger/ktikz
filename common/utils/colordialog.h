@@ -42,7 +42,7 @@ public:
 class ColorDialog : public QColorDialog
 {
 public:
-        // Commented out for Qt 4.5 compatibility (should not be required,
+	// Commented out for Qt 4.5 compatibility (should not be required,
 	// as we don't instantiate ColorDialog directly anyway
 	//ColorDialog(QWidget *parent) : QColorDialog(parent) {}
 

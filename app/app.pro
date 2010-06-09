@@ -24,17 +24,13 @@ DEFINES += KTIKZ_TIKZ_DOCUMENTATION_DEFAULT=\\\"$${TIKZ_DOCUMENTATION_DEFAULT}\\
 
 usekde {
 	DESTDIR = ../buildkde
-	MOC_DIR = ../buildkde/moc
-	OBJECTS_DIR = ../buildkde/obj
-	RCC_DIR = ../buildkde/rcc
-	UI_DIR = ../buildkde/ui
 } else {
 	DESTDIR = ../buildqt
-	MOC_DIR = ../buildqt/moc
-	OBJECTS_DIR = ../buildqt/obj
-	RCC_DIR = ../buildqt/rcc
-	UI_DIR = ../buildqt/ui
 }
+MOC_DIR = $${DESTDIR}/moc
+OBJECTS_DIR = $${DESTDIR}/obj
+RCC_DIR = $${DESTDIR}/rcc
+UI_DIR = $${DESTDIR}/ui
 
 ### Input
 
