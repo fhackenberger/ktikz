@@ -34,13 +34,12 @@ in conf.pri (i.e. add a # at the beginning of the line). This will create
 an executable named qtikz. If you want to install the KDE version, then
 unhide that line (i.e. remove all # at the beginning of the line). This
 will create an executable named ktikz.
-2. Create the translation files:
-  lrelease app/app.pro
-3. Run the following commands in the main directory:
-  qmake
+2. Run the following commands:
+  mkdir buildqt
+  cd buildqt
+  qmake ../ktikz.pro
   make
-  make translations (if you want to install the translations)
-  make install
+  sudo make install
 
 Note that qmake will tell you where the files will be installed. If
 you don't like the installation directories, you can change them in

@@ -40,10 +40,10 @@ defineReplace(qmFiles) {
 
 	for(name, names) {
 		baseName = $$replace(name, "\.ts", "")
-		qmName = $${baseName}.qm
-		exists($$qmName) {
+		qmName = $${LOCALEDIR}$${baseName}.qm
+#		exists($$qmName) {
 			qmfiles += $$qmName
-		}
+#		}
 	}
 	return($$qmfiles)
 }

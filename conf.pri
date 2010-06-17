@@ -15,7 +15,7 @@ PREFIX = /usr
 BINDIR = $${PREFIX}/bin
 
 # install data files (translation files, icons, example files) here:
-TRANSLATIONSDIR = $${PREFIX}/share/ktikz
+RESOURCESDIR = $${PREFIX}/share/ktikz
 
 # install desktop file here (*nix only):
 #DESKTOPDIR = $$(HOME)/.local/share/applications

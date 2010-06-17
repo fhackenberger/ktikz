@@ -14,23 +14,20 @@ usekde {
 	LIBS += -lpoppler-qt4 -L$${KDE_LIBDIRS} -lkfile
 }
 
+LOCALESUBDIR = locale
+
 DEFINES += ORGNAME=\\\"$${ORGNAME}\\\"
 DEFINES += APPNAME=\\\"$${APPNAME}\\\"
 DEFINES += APPVERSION=\\\"$${APPVERSION}\\\"
-DEFINES += KTIKZ_TRANSLATIONS_INSTALL_DIR=\\\"$${TRANSLATIONSDIR}\\\"
+DEFINES += KTIKZ_TRANSLATIONS_INSTALL_DIR=\\\"$${RESOURCESDIR}/$${LOCALESUBDIR}\\\"
 DEFINES += KTIKZ_TIKZ_DOCUMENTATION_DEFAULT=\\\"$${TIKZ_DOCUMENTATION_DEFAULT}\\\"
 
 ### Build files
 
-usekde {
-	DESTDIR = ../buildkde
-} else {
-	DESTDIR = ../buildqt
-}
-MOC_DIR = $${DESTDIR}/moc
-OBJECTS_DIR = $${DESTDIR}/obj
-RCC_DIR = $${DESTDIR}/rcc
-UI_DIR = $${DESTDIR}/ui
+MOC_DIR = moc
+OBJECTS_DIR = obj
+RCC_DIR = rcc
+UI_DIR = ui
 
 ### Input
 
@@ -102,11 +99,11 @@ unix:!macx {
 	usekde {
 		desktop.files = ktikz.desktop
 	} else {
-		ICONDIR = $$replace(TRANSLATIONSDIR, "/", "\/")
+		ICONDIR = $$replace(RESOURCESDIR, "/", "\/")
 		DESKTOPCREATE = "sed -e \"s/Icon=/Icon=$${ICONDIR}\/qtikz-128.png/\" qtikz.desktop.template > qtikz.desktop"
 		system($$DESKTOPCREATE)
 		desktop.files = qtikz.desktop
-		translations.files += images/qtikz-128.png
+		resources.files += images/qtikz-128.png
 	}
 	desktop.path = $${DESKTOPDIR}
 	INSTALLS += desktop
@@ -114,12 +111,21 @@ unix:!macx {
 
 ### Translations
 
-translationscreate.commands = $$LRELEASECOMMAND $$TRANSLATIONS; $$QMAKECOMMAND
-translationscreate.target = translations
-QMAKE_EXTRA_TARGETS = translationscreate
+LOCALEDIR=$${LOCALESUBDIR}/ # the function qmFiles assumes that this variable ends with / or is empty
 
-QMAKE_CLEAN += $$qmFiles($$TRANSLATIONS)
+!isEmpty(TRANSLATIONS) {
+	updateqm.name = lrelease ${QMAKE_FILE_IN}
+	updateqm.input = TRANSLATIONS
+	updateqm.output = $${LOCALEDIR}${QMAKE_FILE_BASE}.qm
+	updateqm.commands = $$LRELEASECOMMAND -silent ${QMAKE_FILE_IN} -qm $${LOCALEDIR}${QMAKE_FILE_BASE}.qm
+	updateqm.CONFIG = no_link target_predeps
+	QMAKE_EXTRA_COMPILERS += updateqm
 
-translations.path = $${TRANSLATIONSDIR}
-translations.files += $$qmFiles($$TRANSLATIONS) template_example.pgs
-INSTALLS += translations
+	translations.path = $${RESOURCESDIR}/$${LOCALESUBDIR}
+	translations.files += $$qmFiles($${TRANSLATIONS})
+	INSTALLS += translations
+}
+
+resources.path = $${RESOURCESDIR}
+resources.files += ../examples/template_example.pgs
+INSTALLS += resources

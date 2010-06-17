@@ -4,10 +4,6 @@ CONFIG += warn_on \
           qt \
           thread
 
-translationscreate.target = translations
-translationscreate.CONFIG += recursive
-QMAKE_EXTRA_TARGETS = translationscreate
-
 include(conf.pri)
 include(defaults.pri)
 
@@ -15,8 +11,8 @@ message(*** KTikZ v$${APPVERSION} ***)
 message(Qt version: $$[QT_VERSION])
 message(The program will be installed in)
 message("  $${BINDIR}")
-message(The translation files will be installed in)
-message("  $${TRANSLATIONSDIR}")
+message(The resource files will be installed in)
+message("  $${RESOURCESDIR}")
 unix:!macx {
 	message(The desktop file will be installed in)
 	message("  $${DESKTOPDIR}")

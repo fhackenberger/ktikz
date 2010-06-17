@@ -35,14 +35,14 @@ unix:!macx {
 	isEmpty(BINDIR) {
 		BINDIR = $${PREFIX}/bin
 	}
-	isEmpty(TRANSLATIONSDIR) {
-		TRANSLATIONSDIR = $${PREFIX}/share/ktikz
+	isEmpty(RESOURCESDIR) {
+		RESOURCESDIR = $${PREFIX}/share/ktikz
 	}
 }
 macx { # untested
 	CONFIG += link_prl
 	BINDIR = /Applications
-	TRANSLATIONSDIR = Contents/Resources
+	RESOURCESDIR = Contents/Resources
 }
 win32 {
 	isEmpty(PREFIX) {
@@ -52,7 +52,7 @@ win32 {
 	isEmpty(BINDIR) {
 		BINDIR = $${PREFIX}
 	}
-	isEmpty(TRANSLATIONSDIR) {
-		TRANSLATIONSDIR = $${PREFIX}/translations
+	isEmpty(RESOURCESDIR) {
+		RESOURCESDIR = $${PREFIX}/translations
 	}
 }
