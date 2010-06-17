@@ -18,6 +18,10 @@ directory will build a .deb package in the build directory:
 
 cpack -G DEB
 
+You may specify the architecture for which the .deb is created as follows:
+
+cpack -G DEB -D CPACK_DEBIAN_PACKAGE_ARCHITECTURE="amd64"
+
 Note that the debian package created by this command probably does NOT
 satisfy the requirements for inclusion in the debian repositories.  But
 you can still use the debian package for easily installing and removing
