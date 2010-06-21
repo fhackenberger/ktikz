@@ -111,13 +111,13 @@ unix:!macx {
 
 ### Translations
 
-LOCALEDIR=$${LOCALESUBDIR}/ # the function qmFiles assumes that this variable ends with / or is empty
+LOCALEDIR = $${LOCALESUBDIR}/ # the function qmFiles assumes that this variable ends with / or is empty
 
 !isEmpty(TRANSLATIONS) {
 	updateqm.name = lrelease ${QMAKE_FILE_IN}
 	updateqm.input = TRANSLATIONS
 	updateqm.output = $${LOCALEDIR}${QMAKE_FILE_BASE}.qm
-	updateqm.commands = $$LRELEASECOMMAND -silent ${QMAKE_FILE_IN} -qm $${LOCALEDIR}${QMAKE_FILE_BASE}.qm
+	updateqm.commands = $${LRELEASECOMMAND} -silent ${QMAKE_FILE_IN} -qm $${LOCALEDIR}${QMAKE_FILE_BASE}.qm; $${QMAKECOMMAND} $${_PRO_FILE_}
 	updateqm.CONFIG = no_link target_predeps
 	QMAKE_EXTRA_COMPILERS += updateqm
 
