@@ -117,12 +117,15 @@ LOCALEDIR = $${LOCALESUBDIR}/ # the function qmFiles assumes that this variable 
 	updateqm.name = lrelease ${QMAKE_FILE_IN}
 	updateqm.input = TRANSLATIONS
 	updateqm.output = $${LOCALEDIR}${QMAKE_FILE_BASE}.qm
-	updateqm.commands = $${LRELEASECOMMAND} -silent ${QMAKE_FILE_IN} -qm $${LOCALEDIR}${QMAKE_FILE_BASE}.qm; $${QMAKECOMMAND} $${_PRO_FILE_}
+	updateqm.commands = $${LRELEASECOMMAND} -silent ${QMAKE_FILE_IN} -qm ${QMAKE_FILE_OUT}
 	updateqm.CONFIG = no_link target_predeps
 	QMAKE_EXTRA_COMPILERS += updateqm
 
+	#translations.path = $${RESOURCESDIR}
+	#translations.files += $${LOCALESUBDIR}
 	translations.path = $${RESOURCESDIR}/$${LOCALESUBDIR}
 	translations.files += $$qmFiles($${TRANSLATIONS})
+	translations.CONFIG += no_check_exist
 	INSTALLS += translations
 }
 
