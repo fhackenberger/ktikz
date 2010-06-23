@@ -32,6 +32,9 @@ unix:!macx {
 			DESKTOPDIR = /usr/share/applications
 		}
 	}
+	isEmpty(MIMEDIR) {
+		MIMEDIR = /usr/share/mime/packages
+	}
 	isEmpty(BINDIR) {
 		BINDIR = $${PREFIX}/bin
 	}
@@ -53,6 +56,6 @@ win32 {
 		BINDIR = $${PREFIX}
 	}
 	isEmpty(RESOURCESDIR) {
-		RESOURCESDIR = $${PREFIX}/translations
+		RESOURCESDIR = $${PREFIX}/data
 	}
 }

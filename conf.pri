@@ -21,6 +21,9 @@ RESOURCESDIR = $${PREFIX}/share/ktikz
 #DESKTOPDIR = $$(HOME)/.local/share/applications
 DESKTOPDIR = $${PREFIX}/share/applications
 
+# install mimetype here:
+#MIMEDIR = /usr/share/mime/packages
+
 # compile in debug mode:
 #CONFIG += debug
 # compile in release mode:

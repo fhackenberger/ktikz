@@ -16,6 +16,8 @@ message("  $${RESOURCESDIR}")
 unix:!macx {
 	message(The desktop file will be installed in)
 	message("  $${DESKTOPDIR}")
+	message(The mimetype will be installed in)
+	message("  $${MIMEDIR}")
 }
 usekde {
 	message(KDE includes: $${KDE_INCLUDEDIRS})

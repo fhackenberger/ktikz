@@ -129,6 +129,16 @@ LOCALEDIR = $${LOCALESUBDIR}/ # the function qmFiles assumes that this variable 
 	INSTALLS += translations
 }
 
+### Other resources
+
 resources.path = $${RESOURCESDIR}
 resources.files += ../examples/template_example.pgs
 INSTALLS += resources
+
+### Mimetype
+
+unix:!macx {
+	mimetype.path = $${MIMEDIR}
+	mimetype.files += ../common/text-x-pgf.xml
+	INSTALLS += mimetype
+}

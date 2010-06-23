@@ -65,10 +65,11 @@ kde4_add_executable(ktikz ${ktikz_SRCS} ${ktikz_UI_FILES} ${ktikz_QM_FILES})
 target_link_libraries(ktikz ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${POPPLER_QT4_LIBRARIES})
 
 install(TARGETS ktikz DESTINATION ${BIN_INSTALL_DIR})
-install(FILES ktikzui.rc DESTINATION ${KTIKZ_DATA_INSTALL_DIR})
+install(FILES ktikzui.rc DESTINATION ${DATA_INSTALL_DIR}/ktikz)
 install(FILES ../common/ktikz.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 install(FILES ktikz.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES ${ktikz_QM_FILES} DESTINATION ${KTIKZ_TRANSLATIONS_INSTALL_DIR})
+install(FILES ../examples/template_example.pgs DESTINATION ${KTIKZ_DATA_INSTALL_DIR})
 
 if(NOT APPLE AND NOT WIN32)
 	install(FILES images/ktikz-128.png DESTINATION ${ICON_INSTALL_DIR}/hicolor/128x128/apps/ RENAME ktikz.png)
