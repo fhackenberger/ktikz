@@ -1,6 +1,6 @@
 set(KTIKZPART_DATA_INSTALL_DIR ${DATA_INSTALL_DIR}/ktikzpart)
-add_definitions(-DORGNAME=\\\"Florian\\\ Hackenberger\\\" -DAPPNAME=\\\"ktikz\\\")
-add_definitions(-DKTIKZ_USE_KDE)
+#add_definitions(-DORGNAME=\\\"Florian\\\ Hackenberger\\\" -DAPPNAME=\\\"ktikz\\\")
+#add_definitions(-DKTIKZ_USE_KDE)
 
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/../common
@@ -38,3 +38,10 @@ target_link_libraries(ktikzpart ${KDE4_KPARTS_LIBS} ${POPPLER_QT4_LIBRARIES})
 install(TARGETS ktikzpart DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES ktikzpart.rc DESTINATION ${KTIKZPART_DATA_INSTALL_DIR})
 install(FILES ktikzpart.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+
+add_custom_target(uninstalldirs_part)
+add_custom_command(TARGET uninstalldirs_part
+	POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E remove_directory ${KTIKZPART_DATA_INSTALL_DIR}
+	COMMENT "Removing directory ${KTIKZPART_DATA_INSTALL_DIR}"
+	VERBATIM)

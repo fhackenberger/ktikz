@@ -1,52 +1,52 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
 	<file>tikzcommands.xml</file>
-	<file>images/qtikz-22.png</file>
-	<file>images/qtikz-128.png</file>
-	<file>images/dialog-cancel.png</file>
-	<file>images/edit-clear-locationbar-rtl.png</file>
-	<file>images/view-refresh.png</file>
+	<file>icons/qtikz-22.png</file>
+	<file>icons/qtikz-128.png</file>
+	<file>icons/dialog-cancel.png</file>
+	<file>icons/edit-clear-locationbar-rtl.png</file>
+	<file>icons/view-refresh.png</file>
 	<!-- File menu -->
-	<file>images/document-new.png</file>
-	<file>images/document-open.png</file>
-	<file>images/document-open-recent.png</file>
-	<file>images/document-save.png</file>
-	<file>images/document-save-as.png</file>
-	<file>images/document-export.png</file>
-	<file>images/application-exit.png</file>
+	<file>icons/document-new.png</file>
+	<file>icons/document-open.png</file>
+	<file>icons/document-open-recent.png</file>
+	<file>icons/document-save.png</file>
+	<file>icons/document-save-as.png</file>
+	<file>icons/document-export.png</file>
+	<file>icons/application-exit.png</file>
 	<!-- Edit menu -->
-	<file>images/edit-undo.png</file>
-	<file>images/edit-redo.png</file>
-	<file>images/edit-copy.png</file>
-	<file>images/edit-cut.png</file>
-	<file>images/edit-paste.png</file>
-	<file>images/format-indent-more.png</file>
-	<file>images/edit-find.png</file>
-	<file>images/go-up.png</file>
-	<file>images/go-down.png</file>
-	<file>images/window-close.png</file>
-	<file>images/go-jump.png</file>
+	<file>icons/edit-undo.png</file>
+	<file>icons/edit-redo.png</file>
+	<file>icons/edit-copy.png</file>
+	<file>icons/edit-cut.png</file>
+	<file>icons/edit-paste.png</file>
+	<file>icons/format-indent-more.png</file>
+	<file>icons/edit-find.png</file>
+	<file>icons/go-up.png</file>
+	<file>icons/go-down.png</file>
+	<file>icons/window-close.png</file>
+	<file>icons/go-jump.png</file>
 	<!-- Export -->
-	<file>images/image-x-eps.png</file>
-	<file>images/application-pdf.png</file>
-	<file>images/image-png.png</file>
+	<file>icons/image-x-eps.png</file>
+	<file>icons/application-pdf.png</file>
+	<file>icons/image-png.png</file>
 	<!-- View -->
-	<file>images/zoom-in.png</file>
-	<file>images/zoom-out.png</file>
-	<file>images/go-previous.png</file>
-	<file>images/go-next.png</file>
-	<file>images/process-stop.png</file>
-	<file>images/run-build.png</file>
-	<file>images/application-x-executable.png</file>
+	<file>icons/zoom-in.png</file>
+	<file>icons/zoom-out.png</file>
+	<file>icons/go-previous.png</file>
+	<file>icons/go-next.png</file>
+	<file>icons/process-stop.png</file>
+	<file>icons/run-build.png</file>
+	<file>icons/application-x-executable.png</file>
 	<!-- Configure -->
-	<file>images/configure-toolbars.png</file>
-	<file>images/configure.png</file>
-	<file>images/accessories-text-editor.png</file>
-	<file>images/preferences-desktop-color.png</file>
-	<file>images/preferences-desktop-theme.png</file>
+	<file>icons/configure-toolbars.png</file>
+	<file>icons/configure.png</file>
+	<file>icons/accessories-text-editor.png</file>
+	<file>icons/preferences-desktop-color.png</file>
+	<file>icons/preferences-desktop-theme.png</file>
 	<!-- Help -->
-	<file>images/help-contents.png</file>
-	<file>images/help-contextual.png</file>
-	<file>images/qt-logo-22.png</file>
+	<file>icons/help-contents.png</file>
+	<file>icons/help-contextual.png</file>
+	<file>icons/qt-logo-22.png</file>
 </qresource>
 </RCC>

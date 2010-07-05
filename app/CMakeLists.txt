@@ -1,6 +1,8 @@
 set(KTIKZ_DATA_INSTALL_DIR ${DATA_INSTALL_DIR}/ktikz)
 set(KTIKZ_TRANSLATIONS_INSTALL_DIR ${KTIKZ_DATA_INSTALL_DIR}/locale)
+set(KTIKZ_TEMPLATES_INSTALL_DIR ${KTIKZ_DATA_INSTALL_DIR}/templates)
 add_definitions(-DKTIKZ_TRANSLATIONS_INSTALL_DIR=\\\"${KTIKZ_TRANSLATIONS_INSTALL_DIR}\\\")
+add_definitions(-DKTIKZ_TEMPLATES_INSTALL_DIR=\\\"${KTIKZ_TEMPLATES_INSTALL_DIR}\\\")
 
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/../common
@@ -56,8 +58,10 @@ qt4_wrap_ui(ktikz_UI_FILES
 kde4_add_kcfg_files(ktikz_SRCS ../common/settings.kcfgc)
 qt4_add_resources(ktikz_SRCS ktikz.qrc)
 
-file(GLOB ktikz_TRANSLATION_FILES ktikz_*.ts)
-qt4_add_translation(ktikz_QM_FILES ${ktikz_TRANSLATION_FILES})
+file(GLOB ktikz_TS_FILES qtikz_*.ts)
+qt4_add_translation(ktikz_QM_FILES ${ktikz_TS_FILES})
+
+kde4_add_app_icon(ktikz_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/icons/hi*-apps-ktikz.png") # add icons for win32 and mac; this command assumes that the first arg is of the form <appname>_SRCS
 
 # dirty hack: use qt4_wrap_ui to let Qt translate the .ui files instead of KDE
 #kde4_add_executable(ktikz ${ktikz_SRCS} ${ktikz_QM_FILES})
@@ -69,14 +73,16 @@ install(FILES ktikzui.rc DESTINATION ${DATA_INSTALL_DIR}/ktikz)
 install(FILES ../common/ktikz.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 install(FILES ktikz.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES ${ktikz_QM_FILES} DESTINATION ${KTIKZ_TRANSLATIONS_INSTALL_DIR})
-install(FILES ../examples/template_example.pgs DESTINATION ${KTIKZ_DATA_INSTALL_DIR})
+install(FILES ../examples/template_example.pgs ../examples/template_example2.pgs ../examples/beamer-example-template.pgs DESTINATION ${KTIKZ_TEMPLATES_INSTALL_DIR})
 
-if(NOT APPLE AND NOT WIN32)
-	install(FILES images/ktikz-128.png DESTINATION ${ICON_INSTALL_DIR}/hicolor/128x128/apps/ RENAME ktikz.png)
-	install(FILES images/ktikz-64.png DESTINATION ${ICON_INSTALL_DIR}/hicolor/64x64/apps/ RENAME ktikz.png)
-	install(FILES images/ktikz-48.png DESTINATION ${ICON_INSTALL_DIR}/hicolor/48x48/apps/ RENAME ktikz.png)
-	install(FILES images/ktikz-32.png DESTINATION ${ICON_INSTALL_DIR}/hicolor/32x32/apps/ RENAME ktikz.png)
-	install(FILES images/ktikz-22.png DESTINATION ${ICON_INSTALL_DIR}/hicolor/22x22/apps/ RENAME ktikz.png)
-	install(FILES images/ktikz-16.png DESTINATION ${ICON_INSTALL_DIR}/hicolor/16x16/apps/ RENAME ktikz.png)
-	install(FILES images/ktikz.svg DESTINATION ${ICON_INSTALL_DIR}/hicolor/scalable/apps/)
-endif(NOT APPLE AND NOT WIN32)
+add_subdirectory(icons)
+
+add_custom_target(uninstalldirs_app)
+add_custom_command(TARGET uninstalldirs_app
+	POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E remove_directory ${KTIKZ_TRANSLATIONS_INSTALL_DIR}
+	COMMAND ${CMAKE_COMMAND} -E remove_directory ${KTIKZ_TEMPLATES_INSTALL_DIR}
+	COMMAND ${CMAKE_COMMAND} -E remove_directory ${KTIKZ_DATA_INSTALL_DIR}
+	COMMAND ${CMAKE_COMMAND} -E remove_directory ${DATA_INSTALL_DIR}/ktikz
+	COMMENT "Removing directories ${KTIKZ_TRANSLATIONS_INSTALL_DIR} ${KTIKZ_TEMPLATES_INSTALL_DIR} ${KTIKZ_DATA_INSTALL_DIR} ${DATA_INSTALL_DIR}/ktikz"
+	VERBATIM)

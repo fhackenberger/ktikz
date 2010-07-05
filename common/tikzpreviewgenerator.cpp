@@ -360,6 +360,7 @@ void TikzPreviewGenerator::createTempLatexFile()
 		    "\\usepackage{pgf}\n"
 		    "\\usepackage[active,pdftex,tightpage]{preview}\n"
 		    "\\PreviewEnvironment[]{tikzpicture}\n"
+		    "\\PreviewEnvironment[]{pgfpicture}\n"
 			"\\begin{document}\n"
 			+ inputTikzCode + "\n"
 			"\\end{document}\n";

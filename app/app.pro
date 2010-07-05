@@ -8,18 +8,15 @@ CONFIG += warn_on \
 	qt
 QT += xml
 LIBS += -lpoppler-qt4
-usekde {
-	DEFINES += KTIKZ_USE_KDE
-	INCLUDEPATH += $${KDE_INCLUDEDIRS} ../common
-	LIBS += -lpoppler-qt4 -L$${KDE_LIBDIRS} -lkfile
-}
 
 LOCALESUBDIR = locale
+TEMPLATESUBDIR = templates
 
 DEFINES += ORGNAME=\\\"$${ORGNAME}\\\"
 DEFINES += APPNAME=\\\"$${APPNAME}\\\"
 DEFINES += APPVERSION=\\\"$${APPVERSION}\\\"
 DEFINES += KTIKZ_TRANSLATIONS_INSTALL_DIR=\\\"$${RESOURCESDIR}/$${LOCALESUBDIR}\\\"
+DEFINES += KTIKZ_TEMPLATES_INSTALL_DIR=\\\"$${RESOURCESDIR}/$${TEMPLATESUBDIR}\\\"
 DEFINES += KTIKZ_TIKZ_DOCUMENTATION_DEFAULT=\\\"$${TIKZ_DOCUMENTATION_DEFAULT}\\\"
 
 ### Build files
@@ -78,35 +75,25 @@ HEADERS += $$headerFiles($$SOURCES) \
 	../common/utils/colordialog.h \
 	../common/utils/fontdialog.h \
 	../common/utils/icon.h
-usekde {
-	RESOURCES = ktikz.qrc
-} else {
-	RESOURCES = qtikz.qrc
-}
-TRANSLATIONS = ktikz_de.ts ktikz_es.ts ktikz_fr.ts
+RESOURCES = qtikz.qrc
+TRANSLATIONS = qtikz_de.ts qtikz_es.ts qtikz_fr.ts
 
 ### Output
 
-usekde {
-	TARGET = ktikz
-} else {
-	TARGET = qtikz
-}
+TARGET = qtikz
 target.path = $${BINDIR}
 INSTALLS += target
 
 unix:!macx {
-	usekde {
-		desktop.files = ktikz.desktop
-	} else {
-		ICONDIR = $$replace(RESOURCESDIR, "/", "\/")
-		DESKTOPCREATE = "sed -e \"s/Icon=/Icon=$${ICONDIR}\/qtikz-128.png/\" qtikz.desktop.template > qtikz.desktop"
-		system($$DESKTOPCREATE)
-		desktop.files = qtikz.desktop
-		resources.files += images/qtikz-128.png
-	}
+	ICONDIR = $$replace(RESOURCESDIR, "/", "\/")
+	DESKTOPCREATE = "sed -e \"s/Icon=/Icon=$${ICONDIR}\/qtikz-128.png/\" qtikz.desktop.template > qtikz.desktop"
+	system($$DESKTOPCREATE)
+
 	desktop.path = $${DESKTOPDIR}
+	desktop.files = qtikz.desktop
 	INSTALLS += desktop
+
+	resources.files += icons/qtikz-128.png
 }
 
 ### Translations
@@ -131,14 +118,19 @@ LOCALEDIR = $${LOCALESUBDIR}/ # the function qmFiles assumes that this variable 
 
 ### Other resources
 
+templates.path = $${RESOURCESDIR}/$${TEMPLATESUBDIR}
+templates.files += ../examples/template_example.pgs \
+	../examples/template_example2.pgs \
+	../examples/beamer-example-template.pgs
+INSTALLS += templates
+
 resources.path = $${RESOURCESDIR}
-resources.files += ../examples/template_example.pgs
 INSTALLS += resources
 
 ### Mimetype
 
 unix:!macx {
 	mimetype.path = $${MIMEDIR}
-	mimetype.files += ../common/text-x-pgf.xml
+	mimetype.files += ../common/qtikz.xml
 	INSTALLS += mimetype
 }

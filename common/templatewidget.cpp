@@ -128,8 +128,13 @@ QString TemplateWidget::fileName() const
 
 void TemplateWidget::setTemplateFile()
 {
+	QString currentFileName = ui.templateCombo->currentText();
+#ifdef KTIKZ_TEMPLATES_INSTALL_DIR
+	if (currentFileName.isEmpty() && QFileInfo(KTIKZ_TEMPLATES_INSTALL_DIR).isDir())
+		currentFileName = KTIKZ_TEMPLATES_INSTALL_DIR;
+#endif
 	const QString fileName = QFileDialog::getOpenFileName(this,
-	    tr("Select a template file"), ui.templateCombo->currentText(),
+	    tr("Select a template file"), currentFileName,
 	    QString("%1 (*.pgs *.tex);;%2 (*.*)")
 	    .arg(tr("%1 template files").arg(QCoreApplication::applicationName()))
 	    .arg(tr("All files")));

@@ -36,9 +36,9 @@ class Icon : public QIcon
 {
 public:
 #if QT_VERSION >= 0x040600
-	Icon(const QString &iconName) : QIcon(QIcon::fromTheme(iconName, QIcon(":/images/" + iconName + ".png"))) {}
+	Icon(const QString &iconName) : QIcon(QIcon::fromTheme(iconName, QIcon(":/icons/" + iconName + ".png"))) {}
 #else
-	Icon(const QString &iconName) : QIcon(":/images/" + iconName + ".png") {}
+	Icon(const QString &iconName) : QIcon(":/icons/" + iconName + ".png") {}
 #endif
 	Icon(const QIcon &copy) : QIcon(copy) {}
 	Icon() : QIcon() {}

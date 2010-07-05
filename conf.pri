@@ -35,10 +35,5 @@ QMAKECOMMAND = qmake-qt4
 # lrelease command:
 LRELEASECOMMAND = lrelease-qt4
 
-# enable KDE4 integration:
-#CONFIG += usekde # unhide this to have KDE integration, hide this for the Qt-only version
-#KDE_INCLUDEDIRS = /usr/lib/kde4/include/KDE /usr/lib/kde4/include
-#KDE_LIBDIRS = /usr/lib/kde4/lib
-
 # TikZ documentation default file path:
 TIKZ_DOCUMENTATION_DEFAULT = "/usr/share/doc/texmf/pgf/pgfmanual.pdf.gz"

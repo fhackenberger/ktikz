@@ -11,6 +11,7 @@
 %\usepackage{color}
 \usepackage[active,pdftex,tightpage]{preview}
 \PreviewEnvironment[]{tikzpicture}
+\PreviewEnvironment[]{pgfpicture}
 \begin{document}
 <>
 \end{document}

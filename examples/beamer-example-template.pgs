@@ -1,0 +1,14 @@
+\documentclass[compress]{beamer}
+
+\usetheme{Berlin}
+\setbeamercovered{transparent}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{frame}{}
+<>
+\end{frame}
+
+\end{document}

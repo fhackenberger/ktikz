@@ -16,7 +16,7 @@
      </property>
      <property name="icon">
       <iconset resource="application.qrc">
-       <normaloff>:/images/window-close.png</normaloff>:/images/window-close.png</iconset>
+       <normaloff>:/icons/window-close.png</normaloff>:/icons/window-close.png</iconset>
      </property>
     </widget>
    </item>

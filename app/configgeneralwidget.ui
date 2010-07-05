@@ -226,7 +226,7 @@
           </property>
           <property name="icon">
            <iconset resource="application.qrc">
-            <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
+            <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
           </property>
          </widget>
         </item>
@@ -270,7 +270,7 @@
           </property>
           <property name="icon">
            <iconset resource="application.qrc">
-            <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
+            <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
           </property>
          </widget>
         </item>
@@ -349,7 +349,7 @@
           </property>
           <property name="icon">
            <iconset resource="application.qrc">
-            <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
+            <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
           </property>
          </widget>
         </item>
@@ -408,7 +408,7 @@
           </property>
           <property name="icon">
            <iconset resource="application.qrc">
-            <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
+            <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
           </property>
          </widget>
         </item>

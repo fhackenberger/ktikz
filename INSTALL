@@ -13,7 +13,7 @@ The following are required for compilation:
 
 In Ubuntu you would obtain those by installing the following packages:
 - build-essential
-- cmake (if you want to install the KPart)
+- cmake (if you want to install the KDE version)
 - libqt4-dev
 - qt4-dev-tools
 - libpoppler-qt4-dev
@@ -21,37 +21,29 @@ In Ubuntu you would obtain those by installing the following packages:
 - pgf
 - preview-latex-style
 
-Install using qmake (only the Qt-only (qtikz) and the KDE (ktikz) application):
--------------------------------------------------------------------------------
-
-Note: if you want to compile the KPart, then you should use the procedure
-with cmake given below instead of this procedure.
+Install the Qt-only (qtikz) application (using qmake):
+------------------------------------------------------
 
 1. Edit the paths in conf.pri
-If you want to install the Qt-only version of ktikz, then hide the line
-  CONFIG += usekde
-in conf.pri (i.e. add a # at the beginning of the line). This will create
-an executable named qtikz. If you want to install the KDE version, then
-unhide that line (i.e. remove all # at the beginning of the line). This
-will create an executable named ktikz.
-2. Run the following commands:
+2. Run the following commands (this will create an executable named qtikz):
   mkdir buildqt
   cd buildqt
   qmake ../ktikz.pro
   make
   sudo make install
+  sudo update-mime-database /usr/share/mime
 
 Note that qmake will tell you where the files will be installed. If
 you don't like the installation directories, you can change them in
-the file conf.pri before running make.
+the file conf.pri before running make.  Make sure to make the changes
+in conf.pri before running make.
 
-Make sure to make the changes in conf.pri before running make and
-make also sure to run "lrelease src.pro" in the src directory or
-alternatively run "make translations" in the main directory, otherwise
-the translation files will not be installed correctly.
+In order to uninstall qtikz run the following commands in the build directory:
+  sudo make uninstall
+  sudo update-mime-database /usr/share/mime
 
-Install using cmake (only the KDE (ktikz) application and the KPart):
----------------------------------------------------------------------
+Install the KDE (ktikz) application and the KPart (using cmake):
+----------------------------------------------------------------
 
 Run the following commands (this will create an executable named ktikz
 and a KPart which will be loaded when clicking a *.pgf or *.tikz file
@@ -72,5 +64,8 @@ In order to uninstall ktikz run the following commands in the build directory
 installed, see the output of the make uninstall command for the correct paths):
   sudo make uninstall
   sudo update-mime-database /usr/share/mime
-  sudo rm /usr/share/doc/kde/HTML/en/ktikz/common
-  sudo rmdir /usr/share/doc/kde/HTML/en/ktikz/ /usr/share/kde4/apps/ktikz*/* /usr/share/kde4/apps/ktikz*
+
+You may additionally run the following command to remove the installation
+directories created during "make install" (WARNING: this will also remove
+the directories if they are not empty, use at your own risk):
+  sudo make uninstalldirs

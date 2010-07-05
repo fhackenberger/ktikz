@@ -1,10 +1,10 @@
 \begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzstyle{every node}+=[font=\small]
   \definecolor{darkergreen}{rgb}{.1,.4,0}
-  \definecolor{darkergreen2}{rgb}{.1,.3,0}
   \definecolor{darkeryellow}{rgb}{.4,.4,0}
   \definecolor{lightgreen}{rgb}{.4,.7,.2}
-  \definecolor{lightergreen}{rgb}{.5,.8,.3}
   \definecolor{lightyellow}{rgb}{.8,.8,.3}
+  \definecolor{darkblue}{rgb}{0,0,.6}
   \def\ax{-.2} \def\ay{.5}
   \def\bx{.6} \def\by{1.5}
   \def\cx{2.4} \def\cy{-1.1}
@@ -17,41 +17,41 @@
     \clip (0,0) rectangle (5.6,1.7);
     \fill[lightgreen]
       (\bx,0) -- (\bx,\by)
-      .. controls (\bx+.6,\by) and (\cx-.35,\cy) .. (\cx,\cy)
-      .. controls (\cx+.5,\cy) and (\dx-.5,\dy) .. (\dx,\dy)
-      .. controls (\dx+.5,\dy) and (\ex-.5,\ey) .. (\ex,\ey)
+      .. controls +(.6,0) and +(-.35,0) .. (\cx,\cy)
+      .. controls +(.5,0) and +(-.5,0) .. (\dx,\dy)
+      .. controls +(.5,0) and +(-.5,0) .. (\ex,\ey)
       -- (\ex,0) -- cycle;
   \end{scope}
   \begin{scope}
     \clip (0,0) rectangle (5.6,-1.2);
     \fill[lightyellow]
       (\bx,0) -- (\bx,\by)
-      .. controls (\bx+.6,\by) and (\cx-.35,\cy) .. (\cx,\cy)
-      .. controls (\cx+.5,\cy) and (\dx-.5,\dy) .. (\dx,\dy)
-      .. controls (\dx+.5,\dy) and (\ex-.5,\ey) .. (\ex,\ey)
+      .. controls +(.6,0) and +(-.35,0) .. (\cx,\cy)
+      .. controls +(.5,0) and +(-.5,0) .. (\dx,\dy)
+      .. controls +(.5,0) and +(-.5,0) .. (\ex,\ey)
       -- (\ex,0) -- cycle;
   \end{scope}
 
   % hulplijnen
   \draw[darkergreen] (\bx,0) -- (\bx,\by);
   \draw[darkeryellow] (\ex,0) -- (\ex,\ey);
-  \node[below=-1] at (\bx,0) {\small $a$\strut};
-  \node[above=-1] at (\ex,0) {\small $b$\strut};
-  \node at (\bx+.45,.35) {\small $S_1$};
-  \node at (\cx,-.35) {\small $S_2$};
-  \node at (\dx+.1,.35) {\small $S_3$};
-  \node at (\ex-.22,-.35) {\small $S_4$};
+  \node[below=-1] at (\bx,0) {$a$\strut};
+  \node[above=-1] at (\ex,0) {$b$\strut};
+  \node at (\bx+.45,.35) {$S_1$};
+  \node at (\cx,-.35) {$S_2$};
+  \node at (\dx+.1,.35) {$S_3$};
+  \node at (\ex-.22,-.35) {$S_4$};
 
   % functie
   \draw[thick,darkblue] (\ax,\ay)
-    .. controls (\ax+.3,\ay+.6) and (\bx-.3,\by) .. (\bx,\by)
-    .. controls (\bx+.6,\by) and (\cx-.35,\cy) .. (\cx,\cy)
-    .. controls (\cx+.5,\cy) and (\dx-.5,\dy) .. (\dx,\dy)
-    .. controls (\dx+.5,\dy) and (\ex-.5,\ey) .. (\ex,\ey)
-    .. controls (\ex+.2,\ey) and (\fx-.2,\fy-1) .. (\fx,\fy);
-  \node[darkblue] at (\fx,\fy) [above] {\small $f(x)$};
+    .. controls +(.3,.6) and +(-.3,0) .. (\bx,\by)
+    .. controls +(.6,0) and +(-.35,0) .. (\cx,\cy)
+    .. controls +(.5,0) and +(-.5,0) .. (\dx,\dy)
+    .. controls +(.5,0) and +(-.5,0) .. (\ex,\ey)
+    .. controls +(.2,0) and +(-.2,-1) .. (\fx,\fy);
+  \node[darkblue] at (\fx,\fy) [above] {$f(x)$};
 
   % assen
-  \draw[-stealth] (-.5,0) -- (6,0) node[below] {\small $x$};
-  \draw[-stealth] (0,-1.5) -- (0,2) node[left=-2] {\small $y$};
+  \draw[-stealth] (-.5,0) -- (6,0) node[below] {$x$};
+  \draw[-stealth] (0,-1.5) -- (0,2) node[left=-2] {$y$};
 \end{tikzpicture}

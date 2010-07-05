@@ -42,7 +42,7 @@ LineEdit::LineEdit(QWidget *parent)
 void LineEdit::init()
 {
 	m_clearButton = new QToolButton(this);
-	const QPixmap pixmap(":/images/edit-clear-locationbar-rtl.png");
+	const QPixmap pixmap(":/icons/edit-clear-locationbar-rtl.png");
 	m_clearButton->setIcon(QIcon(pixmap));
 	m_clearButton->setIconSize(pixmap.size());
 	m_clearButton->setCursor(Qt::ArrowCursor);

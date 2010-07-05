@@ -102,7 +102,7 @@ MainWindow::MainWindow()
 	setWindowIcon(KIcon("ktikz"));
 	Action::setActionCollection(actionCollection());
 #else
-	setWindowIcon(QIcon(":/images/qtikz-22.png"));
+	setWindowIcon(QIcon(":/icons/qtikz-22.png"));
 #endif
 
 	setCorner(Qt::TopLeftCorner, Qt::LeftDockWidgetArea);
@@ -452,14 +452,14 @@ void MainWindow::createActions()
 	m_whatsThisAction = KStandardAction::whatsThis(this, SLOT(toggleWhatsThisMode()), this);
 #else
 	m_whatsThisAction = QWhatsThis::createAction(this);
-	m_whatsThisAction->setIcon(QIcon(":/images/help-contextual.png"));
+	m_whatsThisAction->setIcon(QIcon(":/icons/help-contextual.png"));
 	m_whatsThisAction->setStatusTip(tr("Show simple description of any widget"));
 
-	m_aboutAction = new QAction(QIcon(":/images/ktikz-22.png"), tr("&About %1").arg(KtikzApplication::applicationName()), this);
+	m_aboutAction = new QAction(QIcon(":/icons/ktikz-22.png"), tr("&About %1").arg(KtikzApplication::applicationName()), this);
 	m_aboutAction->setStatusTip(tr("Show the application's About box"));
 	connect(m_aboutAction, SIGNAL(triggered()), this, SLOT(about()));
 
-	m_aboutQtAction = new QAction(QIcon(":/images/qt-logo-22.png"), tr("About &Qt"), this);
+	m_aboutQtAction = new QAction(QIcon(":/icons/qt-logo-22.png"), tr("About &Qt"), this);
 	m_aboutQtAction->setStatusTip(tr("Show the Qt library's About box"));
 	connect(m_aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 #endif

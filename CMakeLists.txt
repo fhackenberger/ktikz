@@ -24,8 +24,13 @@ add_subdirectory(po)
 # Install text/x-pgf mimetype
 
 find_package(SharedMimeInfo)
-install(FILES common/text-x-pgf.xml DESTINATION ${XDG_MIME_INSTALL_DIR})
+install(FILES common/qtikz.xml DESTINATION ${XDG_MIME_INSTALL_DIR} RENAME ktikz.xml)
 update_xdg_mimetypes(${XDG_MIME_INSTALL_DIR})
+
+# Remove directories
+
+add_custom_target(uninstalldirs)
+add_dependencies(uninstalldirs uninstalldirs_app uninstalldirs_part uninstalldirs_doc)
 
 # Make packages
 

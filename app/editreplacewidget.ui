@@ -16,7 +16,7 @@
      </property>
      <property name="icon">
       <iconset resource="application.qrc">
-       <normaloff>:/images/window-close.png</normaloff>:/images/window-close.png</iconset>
+       <normaloff>:/icons/window-close.png</normaloff>:/icons/window-close.png</iconset>
      </property>
     </widget>
    </item>
@@ -90,7 +90,7 @@
        </property>
        <property name="icon">
         <iconset resource="application.qrc">
-         <normaloff>:/images/go-up.png</normaloff>:/images/go-up.png</iconset>
+         <normaloff>:/icons/go-up.png</normaloff>:/icons/go-up.png</iconset>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -107,7 +107,7 @@
        </property>
        <property name="icon">
         <iconset resource="application.qrc">
-         <normaloff>:/images/go-down.png</normaloff>:/images/go-down.png</iconset>
+         <normaloff>:/icons/go-down.png</normaloff>:/icons/go-down.png</iconset>
        </property>
        <property name="checkable">
         <bool>true</bool>

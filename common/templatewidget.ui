@@ -48,7 +48,7 @@
      </property>
      <property name="icon">
       <iconset resource="../app/application.qrc">
-       <normaloff>:/images/document-open.png</normaloff>:/images/document-open.png</iconset>
+       <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
      </property>
     </widget>
    </item>
@@ -65,7 +65,7 @@
      </property>
      <property name="icon">
       <iconset resource="../app/application.qrc">
-       <normaloff>:/images/view-refresh.png</normaloff>:/images/view-refresh.png</iconset>
+       <normaloff>:/icons/view-refresh.png</normaloff>:/icons/view-refresh.png</iconset>
      </property>
     </widget>
    </item>
