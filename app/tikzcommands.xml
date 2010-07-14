@@ -318,14 +318,14 @@ type:
 		<section title="&amp;Transformations on Subsequent Objects in Path">
 			<item name="S&amp;hift horizontally" description="xshift=&lt;dimension&gt;" insert="xshift=" dx="7" dy="0" type="3"/>
 			<item name="S&amp;hift vertically" description="yshift=&lt;dimension&gt;" insert="yshift=" dx="7" dy="0" type="3"/>
-			<item name="S&amp;hift to a point" description="shift={(&lt;xcoord&gt;,&lt;ycoord&gt;)}" insert="shift=" dx="6" dy="0" type="3"/>
+			<item name="S&amp;hift to a point" description="shift={(&lt;xcoord&gt;,&lt;ycoord&gt;)}" insert="shift={(,)}" dx="8" dy="0" type="3"/>
 			<item name="&amp;Cancel all transformations except shift" description="shift only" insert="shift only" dx="10" dy="0" type="3"/>
 			<separator/>
-			<item name="&amp;Rotate by angle" description="rotate=&lt;degree&gt;" insert="rotate={(,)}" dx="9" dy="0" type="3"/>
+			<item name="&amp;Rotate by angle" description="rotate=&lt;degree&gt;" insert="rotate=" dx="7" dy="0" type="3"/>
 			<item name="&amp;Rotate around a point" description="rotate around={&lt;angle&gt;:(&lt;xcoord&gt;,&lt;ycoord&gt;)}" insert="rotate around={:(,)}" dx="15" dy="0" type="3"/>
 			<separator/>
 			<item name="S&amp;cale horizontally" description="xscale=&lt;factor&gt;" insert="xscale=" dx="7" dy="0" type="3"/>
-			<item name="S&amp;cale vertically" description="yscale=&lt;factor&gt;" insert="yshift=" dx="7" dy="0" type="3"/>
+			<item name="S&amp;cale vertically" description="yscale=&lt;factor&gt;" insert="yscale=" dx="7" dy="0" type="3"/>
 			<item name="S&amp;cale in both directions" description="scale=&lt;factor&gt;" insert="scale=" dx="6" dy="0" type="3"/>
 			<separator/>
 			<item name="&amp;Flip horizontally" description="xscale=-1" insert="xscale=-1" dx="9" dy="0" type="3"/>
@@ -343,7 +343,7 @@ type:
 			<item description="style=bend at &amp;start" insert="style=bend at start" dx="19" dy="0" type="3"/>
 			<item description="style=bend at &amp;end" insert="style=bend at end" dx="17" dy="0" type="3"/>
 			<separator/>
-			<item name="Parabola with specified &amp;width and height" insert=" parabola[bend=0.5] bend +(0,) + (,0)" dx="29" dy="0" type="0"/>
+			<item name="Parabola with specified &amp;width and height" description=" parabola bend +(0,&lt;height&gt;) + (&lt;width&gt;,0)" insert=" parabola bend +(0,) + (,0)" dx="29" dy="0" type="0"/>
 		</section>
 		<section title="&amp;Grid Options">
 			<item description="&amp;step=&lt;number or dimension or coordinate&gt;" insert="step=" dx="5" dy="0" type="3"/>

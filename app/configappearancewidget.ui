@@ -34,7 +34,7 @@
      <property name="title">
       <string>Change st&amp;yle for:</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
+     <layout class="QGridLayout" name="appearanceGridLayout">
       <item row="0" column="0" colspan="3">
        <widget class="QTableWidget" name="itemTable">
         <property name="whatsThis">

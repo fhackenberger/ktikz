@@ -476,7 +476,7 @@ TikzCommand TikzCommandInserter::newCommand(const QString &name,
 	TikzCommand tikzCommand;
 	tikzCommand.name = name;
 	tikzCommand.description = description;
-	tikzCommand.command =  command;
+	tikzCommand.command = command;
 	tikzCommand.dx = dx;
 	tikzCommand.dy = dy;
 	tikzCommand.type = type;
