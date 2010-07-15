@@ -26,7 +26,7 @@
 		<title>&ktikz; Editor</title>
 
 		<para>
-			In the editor the source code of a TikZ picture (everything between <quote>\begin{tikzpicture}</quote> and <quote>\end{tikzpicture}</quote>) can be edited.  While editing, a preview of the TikZ picture is generated on the fly in the <guilabel>Preview</guilabel> panel.  The TikZ code is highlighted in different colors according to the syntax.  Text-completion is provided for TikZ commands: when the user types the first letters of a TikZ command, the commands starting with those letters are listed and can be selected by the user using the arrow keys and pressing Enter.  If a TikZ command is selected in this way or if it is selected from the <guilabel>Insert</guilabel> menu, the syntax of the command is shown in the status bar.
+			In the editor the source code of a TikZ picture (everything between <quote>\begin{tikzpicture}</quote> and <quote>\end{tikzpicture}</quote>) can be edited.  While editing, a preview of the TikZ picture is generated on the fly in the <guilabel>Preview</guilabel> panel.  The TikZ code is highlighted in different colors according to the syntax.  Text-completion is provided for TikZ commands: when the user types the first letters of a TikZ command, the commands starting with those letters are listed and can be selected by the user using the arrow keys and pressing <keycombo action="simul"><keycap>Enter</keycap></keycombo>.  If a TikZ command is selected in this way or if it is selected from the <guilabel>Insert</guilabel> menu, the syntax of the command is shown in the status bar.  In the inserted text the options or arguments that must be filled in are marked with &#8226;.  The first of these symbols is automatically selected and can be overwritten by just typing.  You can select the next or previous &#8226; by pressing <keycombo action="simul"><keycap>Tab</keycap></keycombo> or <keycombo action="simul">&Shift;<keycap>Tab</keycap></keycombo>.
 		</para>
 
 		<para>
@@ -102,6 +102,9 @@
 
 		<para>
 			The template selector consists of a text field in which the path to a template file is given, a button which opens a file selector dialog in which the template file can be selected, a reload button which can be pressed to regenerate the preview when the template file is edited in an external editor, and an <guilabel>Edit</guilabel> button which opens the template file in an external editor.
+		</para>
+		<para>
+			See the <link linkend="ktikz-templates">section on templates</link> for more details on how to use templates in &ktikz;.
 		</para>
 	</sect2>
 </sect1>

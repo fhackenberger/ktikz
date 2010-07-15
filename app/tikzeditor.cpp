@@ -45,6 +45,8 @@
 #include <QTextBlock>
 #include <QTextLayout>
 
+static const QString s_completionPlaceHolder(0x2022);
+
 TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
 	m_showWhiteSpaces = true;
@@ -515,6 +517,25 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 		highlightCurrentLine();
 		matchBrackets(); // calculate new bracket highlighting
 	}
+	/* go to next argument in text inserted with code completion */
+	else if (event->key() == Qt::Key_Tab || event->key() == Qt::Key_Backtab)
+	{
+		QTextCursor cursor = textCursor();
+		QTextBlock block = cursor.block();
+		QTextDocument::FindFlags flags = 0;
+		if (event->key() == Qt::Key_Backtab)
+			flags = QTextDocument::FindBackward;
+		if (block.isValid() && block.text().contains(s_completionPlaceHolder))
+		{
+			cursor = document()->find(s_completionPlaceHolder, cursor, flags);
+			if (!cursor.isNull())
+				setTextCursor(cursor);
+			else
+				QPlainTextEdit::keyPressEvent(event);
+		}
+		else
+			QPlainTextEdit::keyPressEvent(event);
+	}
 	else
 		QPlainTextEdit::keyPressEvent(event);
 
@@ -601,10 +622,15 @@ void TikzEditor::insertCompletion(const QString &completion)
 	QString insertWord = completion.right(extra);
 	const QRegExp rx("<[^<>]*>");
 	const int offset = rx.indexIn(insertWord) - 1; // put cursor at the first option
-	insertWord.remove(rx);
+	insertWord.replace(rx, s_completionPlaceHolder);
 
 	cursor.insertText(insertWord);
-	if (offset > 0)
+	if (insertWord.contains(s_completionPlaceHolder))
+	{
+		cursor.setPosition(pos, QTextCursor::MoveAnchor);
+		cursor = document()->find(s_completionPlaceHolder, cursor);
+	}
+	else if (offset > 0)
 		cursor.setPosition(pos + offset + 1, QTextCursor::MoveAnchor);
 	setTextCursor(cursor);
 }

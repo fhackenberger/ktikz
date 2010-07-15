@@ -35,6 +35,8 @@
 #include "tikzeditorhighlighter.h"
 #include "tikzcommandwidget.h"
 
+static const QString s_completionPlaceHolder(0x2022);
+
 TikzCommandInserter::TikzCommandInserter(QWidget *parent)
     : QObject(parent)
 {
@@ -524,13 +526,20 @@ void TikzCommandInserter::insertTag(const QString &tag, int dx, int dy)
 	const int pos = cur.position();
 	m_mainEdit->insertPlainText(tag);
 	cur.setPosition(pos, QTextCursor::MoveAnchor);
-	if (dy > 0)
+	if (tag.contains(s_completionPlaceHolder))
 	{
-		cur.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, dy);
-		cur.movePosition(QTextCursor::StartOfLine, QTextCursor::MoveAnchor, 1);
+		cur = m_mainEdit->document()->find(s_completionPlaceHolder, cur);
 	}
-	if (dx > 0)
-		cur.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, dx);
+	else
+	{
+		if (dy > 0)
+		{
+			cur.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, dy);
+			cur.movePosition(QTextCursor::StartOfLine, QTextCursor::MoveAnchor, 1);
+		}
+		if (dx > 0)
+			cur.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, dx);
+	}
 	m_mainEdit->setTextCursor(cur);
 	m_mainEdit->setFocus();
 }

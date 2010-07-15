@@ -1,8 +1,9 @@
-version 0.10 (2010-05-27):
+version 0.10 (2010-07-15):
 - KDE integration (the possibility to compile Qt-only still exists)
-- template files on remote machines can be used using KIO
+- template files on remote machines can be used using KIO (only in the KDE
+  version)
 - TikZ source files on remote machines can be loaded, saved and exported
-  using KIO
+  using KIO (only in the KDE version)
 - error messages while generating the preview are shown in the preview
   window itself
 - zooming is done in a separate thread now, so the interface is not blocked
@@ -35,6 +36,9 @@ version 0.10 (2010-05-27):
   CMakeLists.txt) path to the TikZ documentation when an empty path is
   stored in the local settings (this is the case e.g. when ktikz is run
   for the first time)
+- when inserting code using code-completion, the arguments and options that
+  must be filled in are marked by a bullet, the bullets can be browsed with
+  the Tab-key
 version 0.9 (2009-09-10):
 - remove bug that on startup the item selected in the template combobox
   did not correspond to the text in the lineedit of the combobox
