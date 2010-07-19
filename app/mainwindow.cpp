@@ -37,6 +37,7 @@
 #include <QMenuBar>
 #include <QStatusBar>
 #include "aboutdialog.h"
+#include "assistantcontroller.h"
 #endif
 
 #include <QCloseEvent>
@@ -83,7 +84,10 @@ static const QString s_tempFileName = "tikzcode.pgf";
 
 MainWindow::MainWindow()
 {
+#ifndef KTIKZ_USE_KDE
 	m_aboutDialog = 0;
+	m_assistantController = new AssistantController;
+#endif
 	m_configDialog = 0;
 	m_completer = 0;
 
@@ -205,6 +209,10 @@ MainWindow::~MainWindow()
 	s_mainWindowList.removeAll(this);
 
 	writeSettings();
+
+#ifndef KTIKZ_USE_KDE
+	delete m_assistantController;
+#endif
 
 	delete m_tikzPreviewController;
 	m_logHighlighter->deleteLater();
@@ -353,6 +361,11 @@ void MainWindow::about()
 		m_aboutDialog = new AboutDialog(this);
 	m_aboutDialog->exec();
 }
+
+void MainWindow::showDocumentation()
+{
+	m_assistantController->showDocumentation();
+}
 #endif
 
 /***************************************************************************/
@@ -451,6 +464,10 @@ void MainWindow::createActions()
 #ifdef KTIKZ_USE_KDE
 	m_whatsThisAction = KStandardAction::whatsThis(this, SLOT(toggleWhatsThisMode()), this);
 #else
+	m_helpAction = new QAction(Icon("help-contents"), tr("%1 Handbook").arg(KtikzApplication::applicationName()), this);
+	m_helpAction->setStatusTip(tr("Show the application's documentation"));
+	connect(m_helpAction, SIGNAL(triggered()), this, SLOT(showDocumentation()));
+
 	m_whatsThisAction = QWhatsThis::createAction(this);
 	m_whatsThisAction->setIcon(QIcon(":/icons/help-contextual.png"));
 	m_whatsThisAction->setStatusTip(tr("Show simple description of any widget"));
@@ -523,6 +540,7 @@ void MainWindow::createMenus()
 	menuBar()->addSeparator();
 
 	QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
+	helpMenu->addAction(m_helpAction);
 	helpMenu->addAction(m_showTikzDocAction);
 	helpMenu->addAction(m_whatsThisAction);
 	helpMenu->addSeparator();

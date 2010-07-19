@@ -11,12 +11,14 @@ LIBS += -lpoppler-qt4
 
 LOCALESUBDIR = locale
 TEMPLATESUBDIR = templates
+DOCUMENTATIONSUBDIR = documentation
 
 DEFINES += ORGNAME=\\\"$${ORGNAME}\\\"
 DEFINES += APPNAME=\\\"$${APPNAME}\\\"
 DEFINES += APPVERSION=\\\"$${APPVERSION}\\\"
 DEFINES += KTIKZ_TRANSLATIONS_INSTALL_DIR=\\\"$${RESOURCESDIR}/$${LOCALESUBDIR}\\\"
 DEFINES += KTIKZ_TEMPLATES_INSTALL_DIR=\\\"$${RESOURCESDIR}/$${TEMPLATESUBDIR}\\\"
+DEFINES += KTIKZ_DOCUMENTATION_INSTALL_DIR=\\\"$${RESOURCESDIR}/$${DOCUMENTATIONSUBDIR}\\\"
 DEFINES += KTIKZ_TIKZ_DOCUMENTATION_DEFAULT=\\\"$${TIKZ_DOCUMENTATION_DEFAULT}\\\"
 
 ### Build files
@@ -46,6 +48,7 @@ SOURCES += ../common/utils/action.cpp \
 	../common/utils/toggleaction.cpp \
 	../common/utils/url.cpp \
 	aboutdialog.cpp \
+	assistantcontroller.cpp \
 	configappearancewidget.cpp \
 	configdialog.cpp \
 	configeditorwidget.cpp \
@@ -84,13 +87,22 @@ TARGET = qtikz
 target.path = $${BINDIR}
 INSTALLS += target
 
+### Desktop file
+
 unix:!macx {
 	ICONDIR = $$replace(RESOURCESDIR, "/", "\/")
-	DESKTOPCREATE = "sed -e \"s/Icon=/Icon=$${ICONDIR}\/qtikz-128.png/\" qtikz.desktop.template > qtikz.desktop"
-	system($$DESKTOPCREATE)
+	DESKTOPTEMPLATES = qtikz.desktop.template
+
+	createdesktop.name = create desktop file
+	createdesktop.input = DESKTOPTEMPLATES
+	createdesktop.output = ${QMAKE_FILE_BASE}
+	createdesktop.commands = sed -e \"s/Icon=/Icon=$${ICONDIR}\/qtikz-128.png/\" ${QMAKE_FILE_IN} > ${QMAKE_FILE_OUT}
+	createdesktop.CONFIG = no_link target_predeps
+	QMAKE_EXTRA_COMPILERS += createdesktop
 
 	desktop.path = $${DESKTOPDIR}
-	desktop.files = qtikz.desktop
+	desktop.files += $${OUT_PWD}/qtikz.desktop
+	desktop.CONFIG += no_check_exist
 	INSTALLS += desktop
 
 	resources.files += icons/qtikz-128.png
@@ -114,6 +126,29 @@ LOCALEDIR = $${LOCALESUBDIR}/ # the function qmFiles assumes that this variable 
 	translations.files += $$qmFiles($${TRANSLATIONS})
 	translations.CONFIG += no_check_exist
 	INSTALLS += translations
+}
+
+### Documentation
+
+documentation.path = $${RESOURCESDIR}/$${DOCUMENTATIONSUBDIR}
+documentation.files += ../doc/qtikz.qch ../doc/qtikz.qhc
+INSTALLS += documentation
+
+unix:!macx {
+	DOCUMENTATIONDIR = "$$replace(RESOURCESDIR, "/", "\/")\/$${DOCUMENTATIONSUBDIR}"
+	MANFILETEMPLATES = ../doc/qtikz.1.template
+
+	createman.name = create man page
+	createman.input = MANFILETEMPLATES
+	createman.output = ${QMAKE_FILE_BASE}
+	createman.commands = sed -e \"s/assistant\ -collectionFile/assistant\ -collectionFile\ $${DOCUMENTATIONDIR}\/qtikz.qhc/\" ${QMAKE_FILE_IN} > ${QMAKE_FILE_OUT}
+	createman.CONFIG = no_link target_predeps
+	QMAKE_EXTRA_COMPILERS += createman
+
+	man.path = $${MANDIR}/man1
+	man.files += $${OUT_PWD}/qtikz.1
+	man.CONFIG += no_check_exist
+	INSTALLS += man
 }
 
 ### Other resources

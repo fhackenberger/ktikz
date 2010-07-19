@@ -27,6 +27,8 @@ class KUrl;
 #else
 #include <QMainWindow>
 class QUrl;
+class AboutDialog;
+class AssistantController;
 #endif
 #include <QDateTime>
 #include "../common/mainwidget.h"
@@ -40,7 +42,6 @@ class QMenu;
 class QSyntaxHighlighter;
 class QToolButton;
 
-class AboutDialog;
 class Action;
 class ConfigDialog;
 class LogTextEdit;
@@ -100,6 +101,7 @@ private slots:
 	void showTikzDocumentation();
 #ifndef KTIKZ_USE_KDE
 	void about();
+	void showDocumentation();
 #endif
 	void configure();
 	void applySettings();
@@ -175,13 +177,17 @@ private:
 	QAction *m_showTikzDocAction;
 	QAction *m_whatsThisAction;
 #ifndef KTIKZ_USE_KDE
+	QAction *m_helpAction;
 	QAction *m_aboutAction;
 	QAction *m_aboutQtAction;
 #endif
 	QToolButton *m_shellEscapeButton;
 	bool m_useShellEscaping;
 
+#ifndef KTIKZ_USE_KDE
 	AboutDialog *m_aboutDialog;
+	AssistantController *m_assistantController;
+#endif
 	ConfigDialog *m_configDialog;
 
 	Url m_currentUrl;

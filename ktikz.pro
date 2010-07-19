@@ -18,6 +18,8 @@ unix:!macx {
 	message("  $${DESKTOPDIR}")
 	message(The mimetype will be installed in)
 	message("  $${MIMEDIR}")
+	message(The man page will be installed in)
+	message("  $${MANDIR}")
 }
 message()
 message("If you would like to change these paths,")

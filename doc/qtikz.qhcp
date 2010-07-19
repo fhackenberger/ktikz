@@ -3,6 +3,7 @@
 	<assistant>
 		<title>QTikZ Help</title>
 		<cacheDirectory>Florian Hackenberger/QTikZ</cacheDirectory>
+		<homePage>qthelp://hackenberger.qtikz/doc/index.html</homePage>
 		<startPage>qthelp://hackenberger.qtikz/doc/index.html</startPage>
 		<enableDocumentationManager>false</enableDocumentationManager>
 		<enableAddressBar>false</enableAddressBar>

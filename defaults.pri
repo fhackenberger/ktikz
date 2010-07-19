@@ -27,6 +27,9 @@ unix:!macx {
 	isEmpty(MIMEDIR) {
 		MIMEDIR = /usr/share/mime/packages
 	}
+	isEmpty(MANDIR) {
+		MANDIR = /usr/share/man
+	}
 	isEmpty(BINDIR) {
 		BINDIR = $${PREFIX}/bin
 	}

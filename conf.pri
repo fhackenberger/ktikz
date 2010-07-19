@@ -24,6 +24,9 @@ DESKTOPDIR = $${PREFIX}/share/applications
 # install mimetype here:
 #MIMEDIR = /usr/share/mime/packages
 
+# install man page in the man tree located here:
+#MANDIR = /usr/share/man
+
 # compile in debug mode:
 #CONFIG += debug
 # compile in release mode:

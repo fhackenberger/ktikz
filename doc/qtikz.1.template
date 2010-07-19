@@ -1,0 +1,38 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.TH QTIKZ 1 "June 07, 2010"
+.\" Please adjust this date whenever revising the manpage.
+.SH NAME
+qtikz \- editor for the TikZ language
+.SH SYNOPSIS
+.BR qtikz
+[url | file]
+
+.SH DESCRIPTION
+QTikZ is a small application to assist in the creation of diagrams and
+drawings  using the TikZ macros from the LaTeX package "pgf".
+It consists of a text editor pane in
+which the TikZ code for the drawing is edited and a preview pane showing the
+drawing as rendered by latex. The preview pane can be updated in real-time.
+Common drawing tools, options and styles are available from the menus to
+assist the coding process.
+
+.BR qtikz
+accepts no command line options other than the name of the file
+to open.
+
+.SH SEE ALSO
+Full user documentation is available through Help -> QTikZ Handbook.
+You can also run
+.BR "`assistant -collectionFile'"
+from the command-line.
+.BR
+
+.SH AUTHOR
+\fBqtikz\fP was written by Florian Hackenberger <florian@hackenberger.at>
+and Glad Deschrijver <glad.deschrijver@gmail.com>.
+.PP
+This manual page was written by 
+Agustin Martin Domingo <agustin.martin@hispalinux.es>
+and 
+Stuart Prescott <stuart+debian@nanonanonano.net>
+for the Debian project (but may be used by others).
