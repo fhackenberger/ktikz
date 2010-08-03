@@ -28,9 +28,9 @@
 #include <QLibraryInfo>
 #include <QLocale>
 #include <QTranslator>
+#include <QWidget> // needed for abort() below
 
 #include "ktikzapplication.h"
-#include "mainwindow.h"
 
 void debugOutput(QtMsgType type, const char *msg)
 {

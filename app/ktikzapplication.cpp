@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Glad Deschrijver                                *
+ *   Copyright (C) 2009, 2010 by Glad Deschrijver                          *
  *   glad.deschrijver@gmail.com                                            *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -24,14 +24,12 @@
 #else
 #include <QFileInfo>
 #include <QUrl>
-#endif
 #include <QMessageBox>
 #include <QSessionManager>
 #include <QSettings>
+#endif
 
 #include "mainwindow.h"
-
-#include <poppler-qt4.h>
 
 KtikzApplication::KtikzApplication(int &argc, char **argv)
 #ifdef KTIKZ_USE_KDE
@@ -180,7 +178,7 @@ void KtikzApplication::saveState(QSessionManager &manager)
 	for (int i = 0; i < mainWindowList.size(); ++i)
 	{
 		settings.setArrayIndex(i);
-		settings.setValue("CurrentFile", mainWindowList.at(i)->url().fileName());
+		settings.setValue("CurrentFile", mainWindowList.at(i)->url().path());
 	}
 	settings.endArray();
 	settings.endGroup();
