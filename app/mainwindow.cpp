@@ -341,15 +341,23 @@ void MainWindow::showTikzDocumentation()
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
 	const QString tikzDocFile = TikzDocumentationController::tikzDocumentationPath();
+	const bool tikzDocFileExists = QFileInfo(tikzDocFile).exists(); // true if tikzDocFile is local and exists
+	const QUrl tikzDocUrl = tikzDocFileExists ? QUrl("file://" + tikzDocFile) : QUrl(tikzDocFile);
 
-	if (tikzDocFile.isEmpty() || !QFileInfo(tikzDocFile).exists())
-		QMessageBox::warning(this, KtikzApplication::applicationName(),
-		    tr("Cannot find TikZ documentation.\n"
-		    "Go to Settings -> Configure %1 and change in the \"General\" tab "
-            "the path to the TikZ documentation.")
-		    .arg(KtikzApplication::applicationName()));
-	else
-		QDesktopServices::openUrl(QUrl("file://" + tikzDocFile));
+	if (!QDesktopServices::openUrl(tikzDocUrl))
+	{
+		if (!tikzDocFileExists)
+			QMessageBox::warning(this, KtikzApplication::applicationName(),
+			    tr("Cannot find TikZ documentation.\n"
+			    "Go to Settings -> Configure %1 and change in the \"General\" tab "
+			    "the path to the TikZ documentation.")
+			    .arg(KtikzApplication::applicationName()));
+		else // if tikzDocFile is local and exists then failure to open it is caused by not finding the correct application
+			QMessageBox::warning(this, KtikzApplication::applicationName(),
+			    tr("Cannot open TikZ documentation.\n"
+			    "No application is found which can open the file \"%1\".")
+			    .arg(tikzDocFile));
+	}
 
 	QApplication::restoreOverrideCursor();
 }

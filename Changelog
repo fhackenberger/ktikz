@@ -1,4 +1,4 @@
-version 0.10 (2010-07-15):
+version 0.10 (2010-08-04):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE
   version)
@@ -28,7 +28,7 @@ version 0.10 (2010-07-15):
 - in the kpart check for file changes and reload if there are any (similar
   as in okular)
 - the zoom percentage field is now displayed and edited in the user's locale
-- added documentation in the KDE version
+- added documentation
 - remove bug: when the error box is larger than the preview and the next
   compilation does not give errors, the error box is still visible outside
   the area covered by the preview
@@ -39,6 +39,8 @@ version 0.10 (2010-07-15):
 - when inserting code using code-completion, the arguments and options that
   must be filled in are marked by a bullet, the bullets can be browsed with
   the Tab-key
+- now also an URL to an online version of the TikZ documentation can be
+  specified in the configuration dialog
 version 0.9 (2009-09-10):
 - remove bug that on startup the item selected in the template combobox
   did not correspond to the text in the lineedit of the combobox

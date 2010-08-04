@@ -5,7 +5,7 @@ dtddir="${ksgmltoolsdir}/customization/dtd"
 xslfile="${ksgmltoolsdir}/docbook/xsl/html/docbook.xsl"
 inputfile="index.docbook"
 outputfile="index.html"
-qhpfile="qtikz.qhp"
+#qhpfile="qtikz.qhp"
 qchfile="qtikz.qch"
 qhcpfile="qtikz.qhcp"
 qhcfile="qtikz.qhc"
@@ -26,7 +26,7 @@ generate()
 	    ${outputfile} > ${outputfile}_temp
 	mv ${outputfile}_temp ${outputfile}
 
-	#qhelpgenerator ${qhpfile} -o ${qchfile} # this is already done in ${qhcpfile}
+	#qhelpgenerator ${qhpfile} -o ${qchfile} # this is already done in the following step (see <docFiles> in ${qhcpfile})
 	qcollectiongenerator ${qhcpfile} -o ${qhcfile}
 }
 

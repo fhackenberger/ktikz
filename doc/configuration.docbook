@@ -109,7 +109,7 @@
 			<variablelist>
 			<varlistentry>
 				<term><guilabel>TikZ documentation</guilabel></term>
-				<listitem><para>Enter the path to the file containing the TikZ documentation here.</para>
+				<listitem><para>Enter the path to the file containing the TikZ documentation here.  An URL to online documentation may also be given.</para>
 					<variablelist>
 					<varlistentry>
 						<term><guilabel>Search</guilabel></term>
