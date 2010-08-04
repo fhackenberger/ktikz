@@ -11,7 +11,7 @@
     <message>
         <location filename="aboutdialog.cpp" line="37"/>
         <source>This is a program for creating TikZ (from the LaTeX pgf package) diagrams.</source>
-        <translation>Este es un programa para creer diagramas TikZ (del paquete pgf en LaTeX).</translation>
+        <translation>Este es un programa para crear diagramas TikZ (del paquete pgf en LaTeX).</translation>
     </message>
     <message>
         <location filename="aboutdialog.cpp" line="46"/>
@@ -77,28 +77,16 @@
         <translation>&lt;p&gt;Seleccionar la estructura apareciendo en el código TikZ para la cuál quiere cambiar el tipo de letras y el color.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>Change fo&amp;nt</source>
-        <translation type="obsolete">Cambiar &amp;tipo de letras</translation>
-    </message>
-    <message>
         <location filename="configappearancewidget.ui" line="92"/>
         <source>&lt;p&gt;Select the font in which the structure that you selected in the box above should be displayed.&lt;/p&gt;</source>
         <oldsource>Select the font in which the structure that you selected in the box above should be displayed.</oldsource>
         <translation>&lt;p&gt;Seleccionar el tipo de letras para la estructura seleccionada por encima.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>Change co&amp;lor</source>
-        <translation type="obsolete">Cambiar co&amp;lor</translation>
-    </message>
-    <message>
         <location filename="configappearancewidget.ui" line="105"/>
         <source>&lt;p&gt;Select the text color in which the structure that you selected in the box above should be displayed.&lt;/p&gt;</source>
         <oldsource>Select the text color in which the structure that you selected in the box above should be displayed.</oldsource>
         <translation>&lt;p&gt;Seleccionar el color para la estructura seleccionada por encima.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Change st&amp;yle for</source>
-        <translation type="obsolete">Cam&amp;biar estilo para</translation>
     </message>
 </context>
 <context>
@@ -128,142 +116,6 @@
         <source>&amp;Highlighting</source>
         <translation>&amp;Resaltado</translation>
     </message>
-    <message>
-        <source>Text &amp;font:</source>
-        <translation type="obsolete">&amp;Tipo de letras del texto:</translation>
-    </message>
-    <message>
-        <source>Select</source>
-        <translation type="obsolete">Seleccionar</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Select the font of the main text.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Seleccionar el tipo de letras del texto principal.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Select font</source>
-        <translation type="obsolete">Seleccionar tipo de letras</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Select the color in which the highlighted brackets will be shown.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Seleccione el color para el resaltado de corchetes.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>&amp;Number of entries in the &quot;Open Recent&quot; menu:</source>
-        <translation type="obsolete">&amp;Número de entradas en el menú &quot;Abrir reciente&quot;:</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Enter the text which will be replaced by the TikZ code in the template here.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Introduzca el texto que será reemplazado con el código TikZ en el fichero de base.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Enter the path to the executable of the text editor for the template here.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Introduzca la ruta para el ejecutable del editor de textos aquí.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Browse to the editor executable.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Seleccione el ejecutable del editor.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Browse file</source>
-        <translation type="obsolete">Seleccionar fichero</translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="obsolete">&amp;Buscar</translation>
-    </message>
-    <message>
-        <source>Help</source>
-        <translation type="obsolete">Ayuda</translation>
-    </message>
-    <message>
-        <source>&amp;LaTeX command:</source>
-        <translation type="obsolete">Comando &amp;LaTeX:</translation>
-    </message>
-    <message>
-        <source>Browse command</source>
-        <translation type="obsolete">Seleccionar comando</translation>
-    </message>
-    <message>
-        <source>&amp;Pdftops command:</source>
-        <translation type="obsolete">Comando &amp;pdftops:</translation>
-    </message>
-    <message>
-        <source>Cannot find TikZ documentation.</source>
-        <translation type="obsolete">Imposible de encontrar la documentación de TikZ.</translation>
-    </message>
-    <message>
-        <source>Browse program</source>
-        <translation type="obsolete">Seleccionar programa</translation>
-    </message>
-    <message>
-        <source>Program</source>
-        <translation type="obsolete">Programa</translation>
-    </message>
-    <message>
-        <source>All files</source>
-        <translation type="obsolete">Todos los archivos</translation>
-    </message>
-    <message>
-        <source>Show TikZ commands in &amp;dock instead of menu</source>
-        <translation type="obsolete">Mostrar comandos TikZ en barra &amp;lateral en lugar de menu</translation>
-    </message>
-    <message>
-        <source>Toolbar st&amp;yle:</source>
-        <translation type="obsolete">Est&amp;ilo de la barra de herramientas:</translation>
-    </message>
-    <message>
-        <source>Interface</source>
-        <translation type="obsolete">Interfaz</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Enter the path to the LaTeX executable here.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Introduzca la ruta para el ejecutable LaTeX aquí.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Browse to the LaTeX executable.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Seleccione el ejecutable LaTeX.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Enter the path to the pdftops executable here.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Introduzca la ruta para el ejecutable pdftops aquí.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Browse to the pdftops executable.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Seleccione el ejecutable pdftops.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Commands</source>
-        <translation type="obsolete">Comandos</translation>
-    </message>
-    <message>
-        <source>Show matching &amp;brackets</source>
-        <translation type="obsolete">Resaltar &amp;corchetes</translation>
-    </message>
-    <message>
-        <source>Show &amp;white spaces</source>
-        <translation type="obsolete">Mostrar &amp;espacios</translation>
-    </message>
-    <message>
-        <source>Editor</source>
-        <translation type="obsolete">Editor</translation>
-    </message>
-    <message>
-        <source>&amp;Replace text:</source>
-        <translation type="obsolete">&amp;Texto de reemplazo:</translation>
-    </message>
-    <message>
-        <source>&amp;Editor command:</source>
-        <translation type="obsolete">Comando del &amp;editor:</translation>
-    </message>
-    <message>
-        <source>Templates</source>
-        <translation type="obsolete">Ficheros de base</translation>
-    </message>
-    <message>
-        <source>&amp;Typesetting</source>
-        <translation type="obsolete">Co&amp;mpilación</translation>
-    </message>
 </context>
 <context>
     <name>ConfigEditorWidget</name>
@@ -288,10 +140,6 @@
         <location filename="configeditorwidget.ui" line="23"/>
         <source>Text &amp;font:</source>
         <translation>&amp;Tipo de letras del texto:</translation>
-    </message>
-    <message>
-        <source>Select</source>
-        <translation type="obsolete">Seleccionar</translation>
     </message>
     <message>
         <location filename="configeditorwidget.ui" line="52"/>
@@ -414,12 +262,12 @@
         <location filename="configgeneralwidget.ui" line="23"/>
         <location filename="configgeneralwidget.ui" line="36"/>
         <source>&lt;p&gt;Select the maximum number of entries that appear in the &quot;Open Recent&quot; menu.  When the number of recently opened files exceeds this limit, the oldest entries will be lost.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Seleccionar el número máximo de entradas en el menu &quot;Abrir reciente&quot;.  Quando el número de ficheros recientemente abiertos excede este limite, las entradas más viejos se eliminan.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Seleccionar el número máximo de entradas en el menu «Abrir reciente».  Quando el número de ficheros recientemente abiertos excede este limite, las entradas más viejos se eliminan.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="configgeneralwidget.ui" line="26"/>
         <source>&amp;Number of entries in the &quot;Open Recent&quot; menu:</source>
-        <translation>&amp;Número de entradas en el menú &quot;Abrir reciente&quot;:</translation>
+        <translation>&amp;Número de entradas en el menú «Abrir reciente»:</translation>
     </message>
     <message>
         <location filename="configgeneralwidget.ui" line="66"/>
@@ -437,44 +285,40 @@
         <translation>(tiene que reiniciar este programa para que este cambio tiene efecto)</translation>
     </message>
     <message>
-        <source>&lt;p&gt;If this option is checked, the TikZ code in the editor is compiled while editing.  If this option is not checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Si esta opción está marcada, el código TikZ está compilado durante la edición.  Si esta opción no está marcada, un botón &quot;Compilar&quot; está disponible y el código TikZ solo está compilado quando pulsa este botón.&lt;/p&gt;</translation>
-    </message>
-    <message>
         <location filename="configgeneralwidget.ui" line="90"/>
         <source>&lt;p&gt;Specify whether the preview should be generated automatically or manually.  If the option &quot;Automatically&quot; is checked, the TikZ code in the editor is compiled while editing.  If the option &quot;Manually&quot; is checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Indique si la vista previa debe ser generada automáticamente o manualmente.  Si la opción «Automáticamente» está marcada, el código TikZ está compilado durante la edición.  Si la opción «Manualmente» está marcada, un botón «Compilar» está disponible y el código TikZ sólo está compilado quando pulse este botón.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="configgeneralwidget.ui" line="93"/>
         <source>Preview generation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Generar vista previa:</translation>
     </message>
     <message>
         <location filename="configgeneralwidget.ui" line="100"/>
         <source>&lt;p&gt;If this option is checked, the TikZ code in the editor is compiled while editing.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Si esta opción está marcada, el código TikZ en el editor esta compilado durante la edición.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="configgeneralwidget.ui" line="103"/>
         <source>&amp;Automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Automáticamente</translation>
     </message>
     <message>
         <location filename="configgeneralwidget.ui" line="106"/>
         <location filename="configgeneralwidget.ui" line="119"/>
         <source>buildButtonGroup</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="configgeneralwidget.ui" line="113"/>
         <source>&lt;p&gt;If this option is checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Si esta opción está marcada, un botón «Compilar» está disponible y el código TikZ sólo está compilada cuando pulse este botón.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="configgeneralwidget.ui" line="116"/>
         <source>&amp;Manually</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Manualmente</translation>
     </message>
     <message>
         <location filename="configgeneralwidget.ui" line="130"/>
@@ -627,7 +471,7 @@
         <location filename="../common/utils/filedialog.cpp" line="103"/>
         <source>File &quot;%1&quot; already exists.
 Do you want to overwrite it?</source>
-        <translation>Fichero &quot;%1&quot; ya existe.
+        <translation>Fichero «%1» ya existe.
 ¿Está usted seguro de que desea sobrescribirlo?</translation>
     </message>
     <message>
@@ -647,7 +491,7 @@ Do you want to overwrite it?</source>
     <message>
         <location filename="editgotolinewidget.ui" line="12"/>
         <source>Close go to line box</source>
-        <translation>Cerrar herramienta &quot;Ir a línea&quot;</translation>
+        <translation>Cerrar herramienta «Ir a línea»</translation>
     </message>
     <message>
         <location filename="editgotolinewidget.ui" line="26"/>
@@ -692,14 +536,10 @@ Do you want to overwrite it?</source>
 <context>
     <name>KtikzApplication</name>
     <message>
-        <source>TikZ Editor</source>
-        <translation type="obsolete">Editor TikZ</translation>
-    </message>
-    <message>
         <location filename="ktikzapplication.cpp" line="130"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
-        <translation>El documento &quot;%1&quot; ha sido modificado.
+        <translation>El documento «%1» ha sido modificado.
 ¿Quiere guardar las modificaciones?</translation>
     </message>
 </context>
@@ -730,14 +570,6 @@ Do you want to save your changes?</source>
         <translation>Previsualización</translation>
     </message>
     <message>
-        <source>PGF files</source>
-        <translation type="obsolete">Archivos PGF</translation>
-    </message>
-    <message>
-        <source>All files</source>
-        <translation type="obsolete">Todos los archivos</translation>
-    </message>
-    <message>
         <location filename="mainwindow.cpp" line="281"/>
         <source>Open PGF source file</source>
         <translation>Abrir archivo de fuente PGF</translation>
@@ -762,21 +594,9 @@ Do you want to save your changes?</source>
         <translation>Guardar archivo de fuente PGF</translation>
     </message>
     <message>
-        <source>Export image</source>
-        <translation type="obsolete">Exportar imagen</translation>
-    </message>
-    <message>
-        <source>Cannot find TikZ documentation.</source>
-        <translation type="obsolete">Imposible de encontrar la documentación de TikZ.</translation>
-    </message>
-    <message>
         <location filename="mainwindow.cpp" line="427"/>
         <source>Create a new document</source>
         <translation>Crear un nuevo documento</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="obsolete">&amp;Nuevo</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="428"/>
@@ -784,17 +604,9 @@ Do you want to save your changes?</source>
         <translation>Abrir un fichero existente</translation>
     </message>
     <message>
-        <source>&amp;Open...</source>
-        <translation type="obsolete">&amp;Abrir...</translation>
-    </message>
-    <message>
         <location filename="mainwindow.cpp" line="430"/>
         <source>Save the current document to disk</source>
         <translation>Guardar el documento actual en el disco</translation>
-    </message>
-    <message>
-        <source>&amp;Save</source>
-        <translation type="obsolete">&amp;Guardar</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="431"/>
@@ -802,77 +614,14 @@ Do you want to save your changes?</source>
         <translation>Guardar el documento sobre un nuevo nombre</translation>
     </message>
     <message>
-        <source>Save &amp;As...</source>
-        <translation type="obsolete">Guardar &amp;como...</translation>
-    </message>
-    <message>
         <location filename="mainwindow.cpp" line="432"/>
         <source>Close the current document</source>
         <translation>Cerrar el documento actual</translation>
     </message>
     <message>
-        <source>&amp;Close</source>
-        <translation type="obsolete">&amp;Cerrar</translation>
-    </message>
-    <message>
-        <source>Close File</source>
-        <translation type="obsolete">Cerrar fichero</translation>
-    </message>
-    <message>
         <location filename="mainwindow.cpp" line="433"/>
         <source>Exit the application</source>
         <translation>Salir desde el programa</translation>
-    </message>
-    <message>
-        <source>&amp;Quit</source>
-        <translation type="obsolete">&amp;Salir</translation>
-    </message>
-    <message>
-        <source>Ctrl+Q</source>
-        <comment>File|Quit</comment>
-        <translation type="obsolete">Ctrl+Q</translation>
-    </message>
-    <message>
-        <source>Encapsulated PostScript (EPS)</source>
-        <translation type="obsolete">Encapsulated PostScript (EPS)</translation>
-    </message>
-    <message>
-        <source>Export to PostScript</source>
-        <translation type="obsolete">Exportar en PostScript</translation>
-    </message>
-    <message>
-        <source>Portable Document Format (PDF)</source>
-        <translation type="obsolete">Portable Document Format (PDF)</translation>
-    </message>
-    <message>
-        <source>Export to PDF</source>
-        <translation type="obsolete">Exportar como PDF</translation>
-    </message>
-    <message>
-        <source>Portable Network Graphics (PNG)</source>
-        <translation type="obsolete">Portable Network Graphics (PNG)</translation>
-    </message>
-    <message>
-        <source>Export to PNG</source>
-        <translation type="obsolete">Exportar como PNG</translation>
-    </message>
-    <message>
-        <source>&amp;Stop Process</source>
-        <translation type="obsolete">&amp;Abortar proceso</translation>
-    </message>
-    <message>
-        <source>Escape</source>
-        <comment>View|Stop process</comment>
-        <translation type="obsolete">Escape</translation>
-    </message>
-    <message>
-        <source>Abort current process</source>
-        <translation type="obsolete">Abortar proceso actual</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Abort the execution of the currently running process.&lt;/p&gt;</source>
-        <oldsource>Abort the execution of the currently running process.</oldsource>
-        <translation type="obsolete">&lt;p&gt;Abortar la ejecución del proceso actual.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="450"/>
@@ -932,30 +681,14 @@ Do you want to save your changes?</source>
         <translation>Mostrar descripción sencillo de cada uno elemento del interfaz de usuario</translation>
     </message>
     <message>
-        <source>Open &amp;Recent</source>
-        <translation type="obsolete">Abrir &amp;reciente</translation>
-    </message>
-    <message>
         <location filename="mainwindow.cpp" line="429"/>
         <source>Open a recently opened file</source>
         <translation>Abrir un archivo reciente</translation>
     </message>
     <message>
-        <source>E&amp;xport</source>
-        <translation type="obsolete">E&amp;xportar</translation>
-    </message>
-    <message>
-        <source>Export image to various formats</source>
-        <translation type="obsolete">Exportar imagen en varios formates</translation>
-    </message>
-    <message>
         <location filename="mainwindow.cpp" line="496"/>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
-    </message>
-    <message>
-        <source>&amp;View</source>
-        <translation type="obsolete">&amp;Ver</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="518"/>
@@ -993,10 +726,6 @@ Do you want to save your changes?</source>
         <translation>Archivo</translation>
     </message>
     <message>
-        <source>Run</source>
-        <translation type="obsolete">Executar</translation>
-    </message>
-    <message>
         <location filename="mainwindow.cpp" line="641"/>
         <source>Ready</source>
         <translation>Listo</translation>
@@ -1004,14 +733,14 @@ Do you want to save your changes?</source>
     <message>
         <location filename="mainwindow.cpp" line="650"/>
         <source>Hide sidebar &quot;%1&quot;</source>
-        <translation>Ocultar barra lateral &quot;%1&quot;</translation>
+        <translation>Ocultar barra lateral «%1»</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="536"/>
         <location filename="mainwindow.cpp" line="537"/>
         <location filename="mainwindow.cpp" line="652"/>
         <source>Show sidebar &quot;%1&quot;</source>
-        <translation>Mostrar barra lateral &quot;%1&quot;</translation>
+        <translation>Mostrar barra lateral «%1»</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="319"/>
@@ -1034,14 +763,15 @@ What do you want to do?</source>
         <location filename="mainwindow.cpp" line="351"/>
         <source>Cannot find TikZ documentation.
 Go to Settings -&gt; Configure %1 and change in the &quot;General&quot; tab the path to the TikZ documentation.</source>
-        <translation type="unfinished"></translation>
+        <translation>No puede encontrar la documentación de TikZ.
+Vaya a Preferencias -&gt; Configurar %1 y cambíe en el menú «General» la ruta de la documentación TikZ.</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="357"/>
         <source>Cannot open TikZ documentation.
 No application is found which can open the file &quot;%1&quot;.</source>
         <translation>Imposible de abrir la documentación TikZ.
-No programa capable de abrir el fichero &quot;%1&quot; ha sido encontrado.</translation>
+No programa capable de abrir el fichero «%1» ha sido encontrado.</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="419"/>
@@ -1126,13 +856,14 @@ No programa capable de abrir el fichero &quot;%1&quot; ha sido encontrado.</tran
     </message>
     <message>
         <location filename="mainwindow.cpp" line="475"/>
-        <source>%1 Handbook</source>
-        <translation type="unfinished"></translation>
+        <source>%1 &amp;Handbook</source>
+        <oldsource>%1 Handbook</oldsource>
+        <translation>&amp;Manual de %1</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="476"/>
         <source>Show the application&apos;s documentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar la documentación de la aplicación</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="625"/>
@@ -1142,18 +873,18 @@ No programa capable de abrir el fichero &quot;%1&quot; ha sido encontrado.</tran
     <message>
         <location filename="mainwindow.cpp" line="659"/>
         <source>Hide toolbar &quot;%1&quot;</source>
-        <translation>Ocultar barra de herramientas &quot;%1&quot;</translation>
+        <translation>Ocultar barra de herramientas «%1»</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="819"/>
         <source>Could not copy &quot;%1&quot; to temporary file &quot;%2&quot;.</source>
-        <translation>No se pudo copiar &quot;%1&quot; al archivo temporal &quot;%2&quot;.</translation>
+        <translation>No se pudo copiar «%1» al archivo temporal «%2».</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="828"/>
         <source>Cannot read file &quot;%1&quot;:
 %2</source>
-        <translation>Imposible de cargar el fichero &quot;%1&quot;:
+        <translation>Imposible de cargar el fichero «%1»:
 %2</translation>
     </message>
     <message>
@@ -1166,7 +897,7 @@ No programa capable de abrir el fichero &quot;%1&quot; ha sido encontrado.</tran
         <location filename="mainwindow.cpp" line="838"/>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
-        <translation>Imposible de cargar el fichero &quot;%1&quot;:
+        <translation>Imposible de cargar el fichero «%1»:
 %2.</translation>
     </message>
     <message>
@@ -1174,7 +905,7 @@ No programa capable de abrir el fichero &quot;%1&quot; ha sido encontrado.</tran
         <location filename="mainwindow.cpp" line="911"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
-        <translation>Imposible de guardar el fichero &quot;%1&quot;:
+        <translation>Imposible de guardar el fichero «%1»:
 %2</translation>
     </message>
     <message>
@@ -1188,13 +919,13 @@ No programa capable de abrir el fichero &quot;%1&quot; ha sido encontrado.</tran
         <location filename="mainwindow.cpp" line="894"/>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
-        <translation>Imposible de guardar el fichero &quot;%1&quot;:
+        <translation>Imposible de guardar el fichero «%1»:
 %2.</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="924"/>
         <source>Could not copy temporary file &quot;%1&quot; to &quot;%2&quot;.</source>
-        <translation>No se pudo copiar archivo temporal &quot;%1&quot; al &quot;%2&quot;.</translation>
+        <translation>No se pudo copiar archivo temporal «%1» al «%2».</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="934"/>
@@ -1215,7 +946,7 @@ No programa capable de abrir el fichero &quot;%1&quot; ha sido encontrado.</tran
         <location filename="mainwindow.cpp" line="529"/>
         <location filename="mainwindow.cpp" line="661"/>
         <source>Show toolbar &quot;%1&quot;</source>
-        <translation>Mostrar barra de herramientas &quot;%1&quot;</translation>
+        <translation>Mostrar barra de herramientas «%1»</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="457"/>
@@ -1230,38 +961,14 @@ Do you want to save your changes?</source>
 ¿Quiere guardar las modificaciones?</translation>
     </message>
     <message>
-        <source>Cannot read file %1:
-%2.</source>
-        <translation type="obsolete">Imposible de cargar el fichero %1:
-%2.</translation>
-    </message>
-    <message>
         <location filename="mainwindow.cpp" line="870"/>
         <source>File loaded</source>
         <translation>Fichero cargado</translation>
     </message>
     <message>
-        <source>Cannot write file %1:
-%2.</source>
-        <translation type="obsolete">Imposible de guardar el fichero %1:
-%2.</translation>
-    </message>
-    <message>
-        <source>File saved</source>
-        <translation type="obsolete">Archivo guardado</translation>
-    </message>
-    <message>
         <location filename="mainwindow.cpp" line="948"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
-    </message>
-    <message>
-        <source>Line:</source>
-        <translation type="obsolete">Linea:</translation>
-    </message>
-    <message>
-        <source>Col:</source>
-        <translation type="obsolete">Col:</translation>
     </message>
 </context>
 <context>
@@ -1435,7 +1142,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="editreplacewidget.ui" line="12"/>
         <source>Close find and replace box</source>
-        <translation>Cerrar herramienta &quot;Buscar y reemplazar&quot;</translation>
+        <translation>Cerrar herramienta «Buscar y reemplazar»</translation>
     </message>
     <message>
         <location filename="editreplacewidget.ui" line="26"/>
@@ -1506,7 +1213,7 @@ Do you want to save your changes?</source>
         <location filename="../common/templatewidget.ui" line="78"/>
         <location filename="../common/templatewidget.cpp" line="114"/>
         <source>&lt;p&gt;Edit this template with an external editor specified in the &quot;Configure&quot; dialog.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Editar este fichero de base con un editor externo definido en el diálogo &quot;Configurar&quot;.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Editar este fichero de base con un editor externo definido en el diálogo «Configurar».&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../common/templatewidget.ui" line="81"/>
@@ -1578,17 +1285,17 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>&amp;Define style for every to</source>
-        <translation type="obsolete">&amp;Definir estilo para cada &quot;to&quot;</translation>
+        <translation type="obsolete">&amp;Definir estilo para cada «to»</translation>
     </message>
     <message>
         <source>&amp;To options</source>
-        <translation type="obsolete">Opciones &quot;&amp;to&quot;</translation>
+        <translation type="obsolete">Opciones «&amp;to»</translation>
     </message>
     <message>
         <location filename="tikzcommandinserter.cpp" line="264"/>
         <source>&lt;p&gt;This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.&lt;/p&gt;</source>
         <oldsource>This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Este es una lista de comandos TikZ.  Puede insertar estos comandos en su código pulsandolos.  Puede obtener más comandos cambiando la categoría.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="tikzcommandinserter.cpp" line="270"/>
@@ -1613,7 +1320,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="tikzcommandinserter.cpp" line="382"/>
         <source>Draw to</source>
-        <translation type="unfinished"></translation>
+        <translation>Tirar a</translation>
     </message>
     <message>
         <location filename="tikzcommandinserter.cpp" line="382"/>
@@ -1634,12 +1341,13 @@ Do you want to save your changes?</source>
         <location filename="tikzcommandinserter.cpp" line="63"/>
         <source>Parse error at line %1, column %2:
 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de análisis en línea %1, columna %2:
+%3</translation>
     </message>
     <message>
         <location filename="tikzcommandinserter.cpp" line="71"/>
         <source>Cannot parse the TikZ commands file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposible de analisar el fichero de comandos TikZ.</translation>
     </message>
 </context>
 <context>
@@ -1656,17 +1364,9 @@ Do you want to save your changes?</source>
         <translation>Deshacer la acción precediente</translation>
     </message>
     <message>
-        <source>&amp;Undo</source>
-        <translation type="obsolete">&amp;Deshacer</translation>
-    </message>
-    <message>
         <location filename="tikzeditorview.cpp" line="137"/>
         <source>Redo the previous undone action</source>
         <translation>Rehacer la acción precedientamente deshacido</translation>
-    </message>
-    <message>
-        <source>Re&amp;do</source>
-        <translation type="obsolete">R&amp;ehacer</translation>
     </message>
     <message>
         <location filename="tikzeditorview.cpp" line="138"/>
@@ -1674,30 +1374,14 @@ Do you want to save your changes?</source>
         <translation>Cortar la selección actual en el portapapeles</translation>
     </message>
     <message>
-        <source>Cu&amp;t</source>
-        <translation type="obsolete">C&amp;ortar</translation>
-    </message>
-    <message>
         <location filename="tikzeditorview.cpp" line="139"/>
         <source>Copy the current selection&apos;s contents to the clipboard</source>
         <translation>Copiar la selección actual en el portapapeles</translation>
     </message>
     <message>
-        <source>&amp;Copy</source>
-        <translation type="obsolete">&amp;Copiar</translation>
-    </message>
-    <message>
         <location filename="tikzeditorview.cpp" line="140"/>
         <source>Paste the clipboard&apos;s contents into the current selection</source>
         <translation>Pegar el contenido del portapapeles en la selección actual</translation>
-    </message>
-    <message>
-        <source>&amp;Paste</source>
-        <translation type="obsolete">&amp;Pegar</translation>
-    </message>
-    <message>
-        <source>Select &amp;All</source>
-        <translation type="obsolete">Seleccionar &amp;todo</translation>
     </message>
     <message>
         <location filename="tikzeditorview.cpp" line="141"/>
@@ -1733,31 +1417,6 @@ Do you want to save your changes?</source>
         <location filename="tikzeditorview.cpp" line="166"/>
         <source>Uncomment the current line or selection</source>
         <translation>Descomentar la línea actual o la selección</translation>
-    </message>
-    <message>
-        <source>&amp;Find...</source>
-        <translation type="obsolete">&amp;Buscar...</translation>
-    </message>
-    <message>
-        <source>Find &amp;Next</source>
-        <translation type="obsolete">Buscar &amp;siguiente</translation>
-    </message>
-    <message>
-        <source>Find Pre&amp;vious</source>
-        <translation type="obsolete">Buscar &amp;anterior</translation>
-    </message>
-    <message>
-        <source>&amp;Replace...</source>
-        <translation type="obsolete">&amp;Reemplazar...</translation>
-    </message>
-    <message>
-        <source>&amp;Go to Line...</source>
-        <translation type="obsolete">Ir a &amp;línea...</translation>
-    </message>
-    <message>
-        <source>Ctrl+G</source>
-        <comment>Edit|Go to Line</comment>
-        <translation type="obsolete">Ctrl+G</translation>
     </message>
     <message>
         <location filename="tikzeditorview.cpp" line="211"/>
@@ -1928,10 +1587,6 @@ Continuar al fin?</translation>
         <translation>&lt;p&gt;Aquí se puede ver una previsualización del código TikZ.  Ud. puede ampliar o reducirla.&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>Zoom &amp;In</source>
-        <translation type="obsolete">&amp;Ampliar</translation>
-    </message>
-    <message>
         <location filename="../common/tikzpreview.cpp" line="112"/>
         <source>Zoom preview in</source>
         <translation>Ampliar previsualización</translation>
@@ -1941,10 +1596,6 @@ Continuar al fin?</translation>
         <source>&lt;p&gt;Zoom preview in by a predetermined factor.&lt;/p&gt;</source>
         <oldsource>Zoom preview in by a predetermined factor.</oldsource>
         <translation>&lt;p&gt;Ampliar previsualización con un factor predeterminado.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Zoom &amp;Out</source>
-        <translation type="obsolete">&amp;Reducir</translation>
     </message>
     <message>
         <location filename="../common/tikzpreview.cpp" line="113"/>
@@ -1960,7 +1611,7 @@ Continuar al fin?</translation>
     <message>
         <location filename="../common/tikzpreview.cpp" line="117"/>
         <source>&amp;Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ampliar</translation>
     </message>
     <message>
         <location filename="../common/tikzpreview.cpp" line="126"/>
@@ -2115,17 +1766,17 @@ Continuar al fin?</translation>
     <message>
         <location filename="../common/tikzpreviewcontroller.cpp" line="192"/>
         <source>S&amp;hell Escape</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;hell Escape</translation>
     </message>
     <message>
         <location filename="../common/tikzpreviewcontroller.cpp" line="193"/>
         <source>Enable the \write18{shell-command} feature</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar la función \write18{comando de consola}</translation>
     </message>
     <message>
         <location filename="../common/tikzpreviewcontroller.cpp" line="194"/>
         <source>&lt;p&gt;Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Warning:&lt;/strong&gt; Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Habilitar LaTeX para ejecutar comandos de consola, es necesario si desea trazar funciones con gnuplot en TikZ.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Atención:&lt;/strong&gt; activar esto puede causar que programas maliciosas se ejecuten en su computadora! Compruebe el código LaTeX para ver los comandos que se ejecutan.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../common/tikzpreviewcontroller.cpp" line="210"/>
@@ -2171,8 +1822,8 @@ Continuar al fin?</translation>
     <message>
         <location filename="../common/tikzpreviewcontroller.cpp" line="322"/>
         <location filename="../common/tikzpreviewcontroller.cpp" line="338"/>
-        <source>A file named &quot;%1&quot; already exists. Are you sure you want to overwrite it?</source>
-        <translation>Un fichero llamado &quot;%1&quot; ya existe. ¿Está usted seguro de que desea sobrescribirlo?</translation>
+        <source>A file named &quot;%1&quot; already exists.  Are you sure you want to overwrite it?</source>
+        <translation>Un fichero llamado «%1» ya existe.  ¿Está usted seguro de que desea sobrescribirlo?</translation>
     </message>
     <message>
         <location filename="../common/tikzpreviewcontroller.cpp" line="325"/>
@@ -2194,25 +1845,25 @@ Continuar al fin?</translation>
     <message>
         <location filename="../common/tikzpreviewcontroller.cpp" line="350"/>
         <source>The file &quot;%1&quot; could not be overwritten.</source>
-        <translation>El fichero &quot;%1&quot; no puede ser sobreescrito.</translation>
+        <translation>El fichero «%1» no puede ser sobreescrito.</translation>
     </message>
     <message>
         <location filename="../common/tikzpreviewcontroller.cpp" line="378"/>
         <source>The image could not be exported to the file &quot;%1&quot;.</source>
-        <translation>La imagen no podía ser exportado al fichero &quot;%1&quot;.</translation>
+        <translation>La imagen no podía ser exportado al fichero «%1».</translation>
     </message>
     <message>
         <location filename="../common/tikzpreviewcontroller.cpp" line="396"/>
         <source>Template file could not be copied to a temporary file &quot;%1&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>El fichero de plantilla no puede ser copiado en un fichero temporal «%1».</translation>
     </message>
 </context>
 <context>
     <name>TikzPreviewGenerator</name>
     <message>
         <location filename="../common/tikzpreviewgenerator.cpp" line="101"/>
-        <source>Gnuplot cannot be executed. Either Gnuplot is not installed or it is not available in the system PATH or you may have insufficient permissions to invoke the program.</source>
-        <translation type="unfinished"></translation>
+        <source>Gnuplot cannot be executed.  Either Gnuplot is not installed or it is not available in the system PATH or you may have insufficient permissions to invoke the program.</source>
+        <translation>Gnuplot no se puede ejecutar.  O Gnuplot no está instalado o no es disponible en el PATH del sistema o Ud. no tiene permisión de ejecutar este programa.</translation>
     </message>
     <message>
         <location filename="../common/tikzpreviewgenerator.cpp" line="199"/>

@@ -1243,7 +1243,8 @@ No application is found which can open the file &quot;%1&quot;.</source>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="475"/>
-        <source>%1 Handbook</source>
+        <source>%1 &amp;Handbook</source>
+        <oldsource>%1 Handbook</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2269,7 +2270,7 @@ Am Ende des Dokuments weitermachen?</translation>
     <message>
         <location filename="../common/tikzpreviewcontroller.cpp" line="322"/>
         <location filename="../common/tikzpreviewcontroller.cpp" line="338"/>
-        <source>A file named &quot;%1&quot; already exists. Are you sure you want to overwrite it?</source>
+        <source>A file named &quot;%1&quot; already exists.  Are you sure you want to overwrite it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2309,7 +2310,7 @@ Am Ende des Dokuments weitermachen?</translation>
     <name>TikzPreviewGenerator</name>
     <message>
         <location filename="../common/tikzpreviewgenerator.cpp" line="101"/>
-        <source>Gnuplot cannot be executed. Either Gnuplot is not installed or it is not available in the system PATH or you may have insufficient permissions to invoke the program.</source>
+        <source>Gnuplot cannot be executed.  Either Gnuplot is not installed or it is not available in the system PATH or you may have insufficient permissions to invoke the program.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

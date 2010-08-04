@@ -193,7 +193,7 @@ void Part::saveAs()
 	if (KIO::NetAccess::exists(dstUrl, KIO::NetAccess::DestinationSide, widget()))
 	{
 		if (KMessageBox::warningContinueCancel(widget(),
-		    i18nc("@info", "A file named <filename>%1</filename> already exists. "
+		    i18nc("@info", "A file named <filename>%1</filename> already exists.  "
 		    "Are you sure you want to overwrite it?", dstUrl.fileName()), QString(),
 		    KGuiItem(i18nc("@action:button", "Overwrite"))) != KMessageBox::Continue)
 			return;

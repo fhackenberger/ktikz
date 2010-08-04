@@ -472,7 +472,7 @@ void MainWindow::createActions()
 #ifdef KTIKZ_USE_KDE
 	m_whatsThisAction = KStandardAction::whatsThis(this, SLOT(toggleWhatsThisMode()), this);
 #else
-	m_helpAction = new QAction(Icon("help-contents"), tr("%1 Handbook").arg(KtikzApplication::applicationName()), this);
+	m_helpAction = new QAction(Icon("help-contents"), tr("%1 &Handbook").arg(KtikzApplication::applicationName()), this);
 	m_helpAction->setStatusTip(tr("Show the application's documentation"));
 	connect(m_helpAction, SIGNAL(triggered()), this, SLOT(showDocumentation()));
 

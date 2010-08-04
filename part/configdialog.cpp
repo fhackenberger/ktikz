@@ -26,7 +26,7 @@
 PartConfigDialog::PartConfigDialog(QWidget* parent)
     : KDialog(parent)
 {
-	setCaption(i18nc("@title:window", "Configure TikZ Viewer"));
+	setCaption(i18nc("@title:window", "Configure KTikZ Viewer"));
 	setButtons(KDialog::Ok | KDialog::Cancel | KDialog::Apply | KDialog::Default);
 	showButtonSeparator(true);
 

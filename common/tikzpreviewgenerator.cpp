@@ -98,7 +98,7 @@ void TikzPreviewGenerator::setShellEscaping(bool useShellEscaping)
 
 void TikzPreviewGenerator::displayGnuplotNotExecutable()
 {
-	emit showErrorMessage(tr("Gnuplot cannot be executed. Either Gnuplot is not installed "
+	emit showErrorMessage(tr("Gnuplot cannot be executed.  Either Gnuplot is not installed "
 	    "or it is not available in the system PATH or you may have insufficient "
 	    "permissions to invoke the program."));
 //	m_checkGnuplotExecutable->deleteLater();

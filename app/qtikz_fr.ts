@@ -34,7 +34,6 @@
     <message>
         <location filename="configappearancewidget.ui" line="12"/>
         <source>&lt;p&gt;When this option is checked, the default fonts and colors are used in the output.&lt;/p&gt;</source>
-        <oldsource>When this option is checked, the default fonts and colors are used in the output.</oldsource>
         <translation>&lt;p&gt;Lorsque cette option est cochée, les polices et les couleurs définies par défaut seront utilisées.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -60,7 +59,6 @@
     <message>
         <location filename="configappearancewidget.ui" line="22"/>
         <source>&lt;p&gt;When this option is checked, the fonts and colors defined below will be used in the output instead of the default ones.&lt;/p&gt;</source>
-        <oldsource>When this option is checked, the fonts and colors defined below will be used in the output instead of the default ones.</oldsource>
         <translation>&lt;p&gt;Lorsque cette option est cochée, les polices et les couleurs indiquées ci-dessous seront utilisées au lieu de celles définies par défaut.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -71,7 +69,6 @@
     <message>
         <location filename="configappearancewidget.ui" line="41"/>
         <source>&lt;p&gt;Select the structure appearing in the TikZ code for which you want to change the fonts and colors.&lt;/p&gt;</source>
-        <oldsource>Select the structure appearing in the TikZ code for which you want to change the fonts and colors.</oldsource>
         <translation>&lt;p&gt;Sélectionnez la structure apparaissant dans le code TikZ pour laquelle vous voulez changer les polices et les couleurs indiquées.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -82,7 +79,6 @@
     <message>
         <location filename="configappearancewidget.ui" line="105"/>
         <source>&lt;p&gt;Select the text color in which the structure that you selected in the box above should be displayed.&lt;/p&gt;</source>
-        <oldsource>Select the text color in which the structure that you selected in the box above should be displayed.</oldsource>
         <translation>&lt;p&gt;Sélectionnez la couleur pour la structure indiquée ci-dessus.&lt;/p&gt;</translation>
     </message>
 </context>
@@ -92,7 +88,6 @@
         <location filename="configdialog.cpp" line="42"/>
         <location filename="configdialog.cpp" line="56"/>
         <source>Configure %1</source>
-        <oldsource>Configure TikZ editor</oldsource>
         <translation>Configuration de %1</translation>
     </message>
     <message>
@@ -280,14 +275,6 @@
         <location filename="configgeneralwidget.ui" line="76"/>
         <source>(you have to restart this program for this change to take effect)</source>
         <translation>(vous devez redémarrer ce programme pour appliquer ce changement)</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;If this option is checked, the TikZ code in the editor is compiled while editing.  If this option is not checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</source>
-        <translation type="obsolete">&lt;p&gt;Si cette option est cochée, le code TikZ dans l&apos;éditeur est compilé durant l&apos;édition.  Par contre, si cette option n&apos;est pas cochée, un bouton &quot;Compiler&quot; est disponible et le code TikZ est compilé seulement lorsque vous appuyez sur ce bouton.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>&amp;Automatically generate preview</source>
-        <translation type="obsolete">Générer &amp;automatiquement l&apos;aperçu</translation>
     </message>
     <message>
         <location filename="configgeneralwidget.ui" line="90"/>
@@ -506,7 +493,6 @@ Voulez-vous l&apos;écraser ?</translation>
     <message>
         <location filename="editgotolinewidget.ui" line="39"/>
         <source>&amp;Go</source>
-        <oldsource>Go</oldsource>
         <translation>&amp;Aller</translation>
     </message>
 </context>
@@ -541,10 +527,6 @@ Voulez-vous l&apos;écraser ?</translation>
 <context>
     <name>KtikzApplication</name>
     <message>
-        <source>TikZ Editor</source>
-        <translation type="obsolete">Éditeur TikZ</translation>
-    </message>
-    <message>
         <location filename="ktikzapplication.cpp" line="130"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
@@ -570,7 +552,6 @@ Voulez-vous enregistrer les modifications ?</translation>
     <message>
         <location filename="mainwindow.cpp" line="139"/>
         <source>&lt;p&gt;The messages produced by LaTeX are shown here.  If your TikZ code contains errors, then a red border will appear and the errors will be highlighted.&lt;/p&gt;</source>
-        <oldsource>The messages produced by LaTeX are shown here.  If your TikZ code contains errors, then a red border will appear and the errors will be highlighted.</oldsource>
         <translation>&lt;p&gt;Les messages produits par LaTeX sont montrés ici.  Si le code TikZ contient des erreurs, un cadre rouge apparaîtra et les erreurs seront colorées.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -705,7 +686,6 @@ Aucun programme capable d&apos;ouvrir le fichier &quot;%1&quot; n&apos;est trouv
     <message>
         <location filename="mainwindow.cpp" line="452"/>
         <source>&lt;p&gt;Show the log messages produced by the last executed process in the Messages box.&lt;/p&gt;</source>
-        <oldsource>Show the log messages produced by the last executed process in the Messages box.</oldsource>
         <translation>&lt;p&gt;Voir messages log produit par le processus dernièrement exécuté dans l&apos;éditeur &quot;Messages&quot;.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -725,8 +705,8 @@ Aucun programme capable d&apos;ouvrir le fichier &quot;%1&quot; n&apos;est trouv
     </message>
     <message>
         <location filename="mainwindow.cpp" line="475"/>
-        <source>%1 Handbook</source>
-        <translation>Manuel utilisateur de %1</translation>
+        <source>%1 &amp;Handbook</source>
+        <translation>&amp;Manuel utilisateur de %1</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="476"/>
@@ -736,7 +716,6 @@ Aucun programme capable d&apos;ouvrir le fichier &quot;%1&quot; n&apos;est trouv
     <message>
         <location filename="mainwindow.cpp" line="483"/>
         <source>&amp;About %1</source>
-        <oldsource>&amp;About</oldsource>
         <translation>À &amp;propos de %1</translation>
     </message>
     <message>
@@ -1485,7 +1464,6 @@ Voulez-vous enregistrer les modifications ?</translation>
     <message>
         <location filename="tikzcommandinserter.cpp" line="264"/>
         <source>&lt;p&gt;This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.&lt;/p&gt;</source>
-        <oldsource>This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.</oldsource>
         <translation>&lt;p&gt;Ceci est une liste des commandes TikZ.  Vous pouvez insérer ces commandes dans votre code TikZ en les cliquant.  Vous pouvez obtenir plus de commandes en changeant la catégorie en haut.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -1719,7 +1697,6 @@ Voulez-vous enregistrer les modifications ?</translation>
     <message>
         <location filename="tikzeditorview.cpp" line="44"/>
         <source>&lt;p&gt;Enter your TikZ code here.  The code should begin with \begin{tikzpicture} and end with \end{tikzpicture}.&lt;/p&gt;</source>
-        <oldsource>Enter your TikZ code here.  The code should begin with \begin{tikzpicture} and end with \end{tikzpicture}.</oldsource>
         <translation>&lt;p&gt;Introduisez le code TikZ ici.  Le code doit commencer par \begin{tikzpicture} et être terminé par \end{tikzpicture}.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -1947,7 +1924,6 @@ Continuer à partir de la fin ?</translation>
     <message>
         <location filename="../common/tikzpreview.cpp" line="57"/>
         <source>&lt;p&gt;Here the preview image of your TikZ code is shown.  You can zoom in and out, and you can scroll the image by dragging it.&lt;/p&gt;</source>
-        <oldsource>Here the preview image of your TikZ code is shown.  You can zoom in and out, and you can scroll the image by dragging it.</oldsource>
         <translation>&lt;p&gt;Ici un aperçu du code TikZ est montré.  Vous pouvez agrandir et rétrécir l&apos;image, et vous pouvez la défiler en « glissant/déposant ».&lt;/p&gt;</translation>
     </message>
     <message>
@@ -1958,7 +1934,6 @@ Continuer à partir de la fin ?</translation>
     <message>
         <location filename="../common/tikzpreview.cpp" line="114"/>
         <source>&lt;p&gt;Zoom preview in by a predetermined factor.&lt;/p&gt;</source>
-        <oldsource>Zoom preview in by a predetermined factor.</oldsource>
         <translation>&lt;p&gt;Agrandir l&apos;aperçu avec un facteur prédéterminé.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -1969,7 +1944,6 @@ Continuer à partir de la fin ?</translation>
     <message>
         <location filename="../common/tikzpreview.cpp" line="115"/>
         <source>&lt;p&gt;Zoom preview out by a predetermined factor.&lt;/p&gt;</source>
-        <oldsource>Zoom preview out by a predetermined factor.</oldsource>
         <translation>&lt;p&gt;Rétrécir l&apos;aperçu avec un facteur prédéterminé.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -1996,7 +1970,6 @@ Continuer à partir de la fin ?</translation>
     <message>
         <location filename="../common/tikzpreview.cpp" line="129"/>
         <source>&lt;p&gt;Show the preview of the previous tikzpicture in the TikZ code.&lt;/p&gt;</source>
-        <oldsource>Show the preview of the previous tikzpicture in the TikZ code.</oldsource>
         <translation>&lt;p&gt;Montrer l&apos;aperçu du tikzpicture précédent dans le code TikZ.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -2018,7 +1991,6 @@ Continuer à partir de la fin ?</translation>
     <message>
         <location filename="../common/tikzpreview.cpp" line="135"/>
         <source>&lt;p&gt;Show the preview of the next tikzpicture in the TikZ code.&lt;/p&gt;</source>
-        <oldsource>Show the preview of the next tikzpicture in the TikZ code.</oldsource>
         <translation>&lt;p&gt;Montrer l&apos;aperçu du tikzpicture suivant dans le code TikZ.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -2035,7 +2007,6 @@ Continuer à partir de la fin ?</translation>
     <message>
         <location filename="../common/tikzpreview.cpp" line="120"/>
         <source>&lt;p&gt;Select the zoom factor here.  Alternatively, you can also introduce a zoom factor and press Enter.&lt;/p&gt;</source>
-        <oldsource>Select the zoom factor here.  Alternatively, you can also introduce a zoom factor and press Enter.</oldsource>
         <translation>&lt;p&gt;Sélectionnez la proportion du zoom.  Vous pouvez aussi introduire la proportion du zoom et appuyer sur Retour.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -2186,8 +2157,8 @@ Continuer à partir de la fin ?</translation>
     <message>
         <location filename="../common/tikzpreviewcontroller.cpp" line="322"/>
         <location filename="../common/tikzpreviewcontroller.cpp" line="338"/>
-        <source>A file named &quot;%1&quot; already exists. Are you sure you want to overwrite it?</source>
-        <translation>Le fichier &quot;%1&quot; existe déjà. Voulez-vous l&apos;écraser ?</translation>
+        <source>A file named &quot;%1&quot; already exists.  Are you sure you want to overwrite it?</source>
+        <translation>Le fichier &quot;%1&quot; existe déjà.  Voulez-vous l&apos;écraser ?</translation>
     </message>
     <message>
         <location filename="../common/tikzpreviewcontroller.cpp" line="325"/>
@@ -2226,8 +2197,8 @@ Continuer à partir de la fin ?</translation>
     <name>TikzPreviewGenerator</name>
     <message>
         <location filename="../common/tikzpreviewgenerator.cpp" line="101"/>
-        <source>Gnuplot cannot be executed. Either Gnuplot is not installed or it is not available in the system PATH or you may have insufficient permissions to invoke the program.</source>
-        <translation>Gnuplot ne peut être exécuté. Gnuplot n&apos;est pas installé ou n&apos;est pas disponible dans le PATH du système ou vous n&apos;avez pas la permission d&apos;exécuter ce programme.</translation>
+        <source>Gnuplot cannot be executed.  Either Gnuplot is not installed or it is not available in the system PATH or you may have insufficient permissions to invoke the program.</source>
+        <translation>Gnuplot ne peut être exécuté.  Gnuplot n&apos;est pas installé ou n&apos;est pas disponible dans le PATH du système ou vous n&apos;avez pas la permission d&apos;exécuter ce programme.</translation>
     </message>
     <message>
         <location filename="../common/tikzpreviewgenerator.cpp" line="199"/>

@@ -317,9 +317,9 @@ void TikzPreviewController::exportImage()
 	if (KIO::NetAccess::exists(exportUrl, KIO::NetAccess::DestinationSide, m_parentWidget))
 	{
 		if (KMessageBox::warningContinueCancel(m_parentWidget,
-//		    i18nc("@info", "A file named <filename>%1</filename> already exists. "
+//		    i18nc("@info", "A file named <filename>%1</filename> already exists.  "
 //		    "Are you sure you want to overwrite it?", exportUrl.fileName()), QString(),
-		    tr("A file named \"%1\" already exists. "
+		    tr("A file named \"%1\" already exists.  "
 		    "Are you sure you want to overwrite it?").arg(exportUrl.fileName()), QString(),
 //		    KGuiItem(i18nc("@action:button", "Overwrite"))) != KMessageBox::Continue)
 		    KGuiItem(tr("Overwrite"), "@action:button")) != KMessageBox::Continue)
@@ -335,7 +335,7 @@ void TikzPreviewController::exportImage()
 	{
 		QMessageBox warningBox(m_parentWidget);
 		warningBox.setWindowTitle(QCoreApplication::applicationName());
-		warningBox.setText(tr("A file named \"%1\" already exists. "
+		warningBox.setText(tr("A file named \"%1\" already exists.  "
 		    "Are you sure you want to overwrite it?").arg(exportFileInfo.fileName()));
 		warningBox.setIcon(QMessageBox::Warning);
 		QPushButton *overwriteButton = warningBox.addButton(tr("&Overwrite", "Do you want to overwrite an existing file - warning box"), QMessageBox::AcceptRole);
