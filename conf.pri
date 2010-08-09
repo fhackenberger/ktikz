@@ -37,6 +37,8 @@ CONFIG += release
 QMAKECOMMAND = qmake-qt4
 # lrelease command:
 LRELEASECOMMAND = lrelease-qt4
+# qcollectiongenerator command:
+QCOLLECTIONGENERATORCOMMAND = qcollectiongenerator
 
 # TikZ documentation default file path:
 TIKZ_DOCUMENTATION_DEFAULT = "/usr/share/doc/texmf/pgf/pgfmanual.pdf.gz"

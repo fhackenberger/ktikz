@@ -8,6 +8,9 @@ isEmpty(QMAKECOMMAND) {
 isEmpty(LRELEASECOMMAND) {
 	LRELEASECOMMAND = lrelease
 }
+isEmpty(QCOLLECTIONGENERATORCOMMAND) {
+	QCOLLECTIONGENERATORCOMMAND = qcollectiongenerator
+}
 
 unix:!macx {
 	isEmpty(PREFIX) {

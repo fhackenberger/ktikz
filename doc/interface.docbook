@@ -1,7 +1,7 @@
-<chapter id="ktikz-interface">
+<chapter id="chap-interface">
 <title>&ktikz; Interface</title>
 
-<sect1 id="ktikz-mainwindow">
+<sect1 id="sect1-interface-mainwindow">
 	<title>&ktikz; Main Window</title>
 
 	<para>
@@ -22,7 +22,7 @@
 		The <guilabel>Preview</guilabel> and <guilabel>Messages</guilabel> panels can be shown or hidden in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Sidebars</guimenuitem></menuchoice>.  The visible panels can then be dragged around the &ktikz; window by clicking and dragging the panel title.
 	</para>
 
-	<sect2 id="ktikz-editor">
+	<sect2 id="sect2-interface-mainwindow-editor">
 		<title>&ktikz; Editor</title>
 
 		<para>
@@ -68,7 +68,7 @@
 		</para>
 	</sect2>
 
-	<sect2 id="ktikz-preview-panel">
+	<sect2 id="sect2-interface-mainwindow-preview-panel">
 		<title>&ktikz; Preview Panel</title>
 
 		<para>
@@ -79,7 +79,7 @@
 		</para>
 	</sect2>
 
-	<sect2 id="ktikz-messages-panel">
+	<sect2 id="sect2-interface-mainwindow-messages-panel">
 		<title>&ktikz; Messages Panel</title>
 
 		<para>
@@ -87,7 +87,7 @@
 		</para>
 	</sect2>
 
-	<sect2 id="ktikz-template-selector">
+	<sect2 id="sect2-interface-mainwindow-template-selector">
 		<title>&ktikz; Template Selector</title>
 
 		<para>
@@ -104,7 +104,7 @@
 			The template selector consists of a text field in which the path to a template file is given, a button which opens a file selector dialog in which the template file can be selected, a reload button which can be pressed to regenerate the preview when the template file is edited in an external editor, and an <guilabel>Edit</guilabel> button which opens the template file in an external editor.
 		</para>
 		<para>
-			See the <link linkend="ktikz-templates">section on templates</link> for more details on how to use templates in &ktikz;.
+			See the <link linkend="sect1-using-ktikz-templates">section on templates</link> for more details on how to use templates in &ktikz;.
 		</para>
 	</sect2>
 </sect1>

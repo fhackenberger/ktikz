@@ -1,12 +1,12 @@
-<chapter id="using-ktikz">
+<chapter id="chap-using-ktikz">
 <title>Using &ktikz;</title>
 
-<sect1 id="ktikz-editing">
+<sect1 id="sect1-using-ktikz-editing">
 	<title>Editing</title>
 
 	<para>
 		The source code of a TikZ picture (this is the code between <quote>\begin{tikzpicture}</quote> and <quote>\end{tikzpicture}</quote> that would normally be included in a LaTeX file) is edited in the editor.
-		<example>
+		<example id="ex-using-ktikz-content-of-editor">
 			<title>Example content of the editor</title>
 			<programlisting>\begin{tikzpicture}[x=4cm,y=4cm]
   %\tikzstyle{every node}=[font=\small]
@@ -38,7 +38,7 @@
 	</para>
 </sect1>
 
-<sect1 id="ktikz-templates">
+<sect1 id="sect1-using-ktikz-templates">
 	<title>Templates</title>
 
 	<para>
@@ -52,7 +52,7 @@
 	</para>
 	<para>
 		For example, a template file named <filename>ktikz_template.pgs</filename> could contain the following:
-		<example>
+		<example id="ex-using-ktikz-templatefile1">
 			<title>An example template file</title>
 			<programlisting>\documentclass{article}
 \usepackage{mathptmx}
@@ -68,7 +68,7 @@
 &lt;&gt;
 \end{document}</programlisting>
 		</example>
-		<example>
+		<example id="ex-using-ktikz-templatefile2">
 			<title>Another example template file</title>
 			<programlisting>\documentclass[compress]{beamer}
 \usetheme{Frankfurt}
@@ -86,19 +86,19 @@
 	</para>
 </sect1>
 
-<sect1 id="ktikz-tips">
+<sect1 id="sect1-using-ktikz-tips">
 	<title>Tips</title>
 
 	<para>
 		The following are a number of tips to enhance the experience of using &ktikz;.
 	</para>
 
-	<sect2 id="ktikz-tips-using-beamer-uncover">
+	<sect2 id="sect2-using-ktikz-tips-using-beamer-uncover">
 		<title>Using the beamer commands \uncover and \only in PGF pictures</title>
 
 		<para>
 			When creating tikzpictures which will be included in slides created with the LaTeX beamer package, one may need the commands \uncover or \only or similar in the tikzpicture itself.  Support for these commands is not included in &ktikz; by default.  However, using an appropriate template it is possible to use these commands and &ktikz; will generate several images in the preview which can be browsed using the <guilabel>Previous Image</guilabel> and <guilabel>Next Image</guilabel> buttons.  The following example shows a template file which can be used for this purpose.
-			<example>
+			<example id="ex-using-ktikz-templatefile-beamer-uncover">
 				<title>Example template file which allows to use the beamer commands \uncover and \only</title>
 				<programlisting>\documentclass[compress]{beamer}
 \usetheme{Berlin}
@@ -113,12 +113,12 @@
 		</para>
 	</sect2>
 
-	<sect2 id="ktikz-tips-using-other-packages">
+	<sect2 id="sect2-using-ktikz-tips-using-other-packages">
 		<title>Using &ktikz; for picture packages other than PGF</title>
 
 		<para>
 			&ktikz; is designed to be used for TikZ or PGF pictures (pictures created using the LaTeX PGF package).  But by using the template mechanism in a smart way it is possible to use &ktikz; also for other picture packages available in LaTeX.  For example, the following template file could be used to be able to draw pspictures (with the pstricks package).  Note however that pstricks only supports LaTeX -> PS -> PDF compilation, so you will also have to apply the next tip.
-			<example>
+			<example id="ex-using-ktikz-templatefile-pstricks">
 				<title>Example template file for pstricks</title>
 				<programlisting>\documentclass{article}
 \usepackage{mathptmx}
@@ -132,7 +132,7 @@
 &lt;&gt;
 \end{document}</programlisting>
 			</example>
-			<example>
+			<example id="ex-using-ktikz-content-of-editor-pstricks">
 				<title>Example content of the editor</title>
 				<programlisting>\psset{unit=.45pt}
 \begin{pspicture}*(420, 420)
@@ -156,12 +156,12 @@
 		</para>
 
 	</sect2>
-	<sect2 id="ktikz-tips-using-ps2pdf">
+	<sect2 id="sect2-using-ktikz-tips-using-ps2pdf">
 		<title>Using LaTeX -> PS -> PDF compilation</title>
 
 		<para>
 			Since &ktikz; is designed to be used for TikZ and PGF pictures, the compilation done behind the scenes is done with <command>pdflatex</command>.  Using the following shell script (only for Unices) and an appropriate template file, it is however possible to generate the preview by using the <command>latex</command>, <command>dvips</command>, <command>ps2pdf</command> sequence (i.e. first compile to PS and then convert the PS to PDF).
-			<example>
+			<example id="ex-using-ktikz-latex-ps-pdf-shell-script">
 				<title>LaTeX -> PS -> PDF compilation shell script</title>
 				<programlisting>#!/bin/sh
 
@@ -214,7 +214,7 @@ dvips -Ppdf -G0 -o $texfilebasename.ps $texfilebasename.dvi
 
 ps2pdf14 $texfilebasename.ps $texfilebasename.pdf</programlisting>
 			</example>
-			<example>
+			<example id="ex-using-ktikz-templatefile-latex-ps-pdf">
 				<title>Example template file for LaTeX -> PS -> PDF compilation</title>
 				<programlisting>\documentclass{article}
 \usepackage{mathptmx}
@@ -235,9 +235,9 @@ ps2pdf14 $texfilebasename.ps $texfilebasename.pdf</programlisting>
 	</sect2>
 </sect1>
 
-<sect1 id="keybindings">
+<sect1 id="sect1-using-ktikz-keybindings">
 	<title>Shortcuts</title>
-	<para>Many of the shortcuts are configurable by way of the <link linkend="settings">Settings</link> menu.  By default &kappname; honors the following shortcuts:</para>
+	<para>Many of the shortcuts are configurable by way of the <link linkend="sect1-commands-settings-menu">Settings</link> menu.  By default &kappname; honors the following shortcuts:</para>
 
 	<informaltable>
 	<tgroup cols="2">
@@ -312,27 +312,27 @@ ps2pdf14 $texfilebasename.ps $texfilebasename.pdf</programlisting>
 
 		<row>
 			<entry><para><keycombo action="simul"><keycap>F1</keycap></keycombo></para></entry>
-			<entry><para><link linkend="help"><guilabel>Help</guilabel></link></para></entry>
+			<entry><para><link linkend="sect1-commands-help-menu"><guilabel>Help</guilabel></link></para></entry>
 		</row>
 
 		<row>
 			<entry><para><keycombo action="simul">&Shift;<keycap>F1</keycap></keycombo></para></entry>
-			<entry><para><link linkend="help"><guilabel>What's this?</guilabel></link></para></entry>
+			<entry><para><link linkend="sect1-commands-help-menu"><guilabel>What's this?</guilabel></link></para></entry>
 		</row>
 
 		<row>
 			<entry><para><keycombo action="simul"><keycap>F3</keycap></keycombo></para></entry>
-			<entry><para><link linkend="edit-find-again"><guilabel>Find Next</guilabel></link></para></entry>
+			<entry><para><link linkend="term-commands-edit-find-again"><guilabel>Find Next</guilabel></link></para></entry>
 		</row>
 
 		<row>
 			<entry><para><keycombo action="simul">&Shift;<keycap>F3</keycap></keycombo></para></entry>
-			<entry><para><link linkend="edit-find-previous"><guilabel>Find Previous</guilabel></link></para></entry>
+			<entry><para><link linkend="term-commands-edit-find-previous"><guilabel>Find Previous</guilabel></link></para></entry>
 		</row>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></para></entry>
-			<entry><para><link linkend="edit-select-all"><guilabel>Select All</guilabel></link></para></entry>
+			<entry><para><link linkend="term-commands-edit-select-all"><guilabel>Select All</guilabel></link></para></entry>
 		</row>
 
 <!--
@@ -349,50 +349,50 @@ ps2pdf14 $texfilebasename.ps $texfilebasename.pdf</programlisting>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>D</keycap></keycombo></para></entry>
-			<entry><para><link linkend="edit-comment"><guilabel>Comment</guilabel></link></para></entry>
+			<entry><para><link linkend="term-commands-edit-comment"><guilabel>Comment</guilabel></link></para></entry>
 		</row>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>D</keycap></keycombo></para></entry>
-			<entry><para><link linkend="edit-uncomment"><guilabel>Uncomment</guilabel></link></para></entry>
+			<entry><para><link linkend="term-commands-edit-uncomment"><guilabel>Uncomment</guilabel></link></para></entry>
 		</row>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo></para></entry>
-			<entry><para><link linkend="edit-find"><guilabel>Find</guilabel></link></para></entry>
+			<entry><para><link linkend="term-commands-edit-find"><guilabel>Find</guilabel></link></para></entry>
 		</row>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo></para></entry>
-			<entry><para><link linkend="go-to-line"><guilabel>Go to line...</guilabel></link></para></entry>
+			<entry><para><link linkend="term-commands-go-to-line"><guilabel>Go to line...</guilabel></link></para></entry>
 		</row>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>I</keycap></keycombo></para></entry>
-			<entry><para><link linkend="edit-indent"><guilabel>Indent</guilabel></link> selection.</para></entry>
+			<entry><para><link linkend="term-commands-edit-indent"><guilabel>Indent</guilabel></link> selection.</para></entry>
 		</row>
 
 <!--
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>I</keycap></keycombo></para></entry>
-			<entry><para><link linkend="edit-unindent"><guilabel>Unindent</guilabel></link> selection.</para></entry>
+			<entry><para><link linkend="term-commands-edit-unindent"><guilabel>Unindent</guilabel></link> selection.</para></entry>
 		</row>
 -->
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo></para></entry>
-			<entry><para><link linkend="file-new"><guilabel>New</guilabel></link> document.</para></entry>
+			<entry><para><link linkend="term-commands-file-new"><guilabel>New</guilabel></link> document.</para></entry>
 		</row>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo></para></entry>
-			<entry><para><link linkend="file-open"><guilabel>Open</guilabel></link> a document.</para></entry>
+			<entry><para><link linkend="term-commands-file-open"><guilabel>Open</guilabel></link> a document.</para></entry>
 		</row>
 
 <!--
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo></para></entry>
-			<entry><para>Invokes the <link linkend="file-print"><guilabel>Print</guilabel></link> command.</para></entry>
+			<entry><para>Invokes the <link linkend="term-commands-file-print"><guilabel>Print</guilabel></link> command.</para></entry>
 		</row>
 -->
 
@@ -403,12 +403,12 @@ ps2pdf14 $texfilebasename.ps $texfilebasename.pdf</programlisting>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo></para></entry>
-			<entry><para>Invokes the <link linkend="edit-replace"><guilabel>Replace</guilabel></link> command.</para></entry>
+			<entry><para>Invokes the <link linkend="term-commands-edit-replace"><guilabel>Replace</guilabel></link> command.</para></entry>
 		</row>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo></para></entry>
-			<entry><para>Invokes the <link linkend="file-save"><guilabel>Save</guilabel></link> command.</para></entry>
+			<entry><para>Invokes the <link linkend="term-commands-file-save"><guilabel>Save</guilabel></link> command.</para></entry>
 		</row>
 
 		<row>
@@ -418,7 +418,7 @@ ps2pdf14 $texfilebasename.ps $texfilebasename.pdf</programlisting>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo></para></entry>
-			<entry><para>Invokes the <link linkend="file-close"><guilabel>Close</guilabel></link> command.</para></entry>
+			<entry><para>Invokes the <link linkend="term-commands-file-close"><guilabel>Close</guilabel></link> command.</para></entry>
 		</row>
 
 		<row>
@@ -428,22 +428,22 @@ ps2pdf14 $texfilebasename.ps $texfilebasename.pdf</programlisting>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>Z</keycap></keycombo></para></entry>
-			<entry><para>Invokes the <link linkend="edit-undo"><guilabel>Undo</guilabel></link> command.</para></entry>
+			<entry><para>Invokes the <link linkend="term-commands-edit-undo"><guilabel>Undo</guilabel></link> command.</para></entry>
 		</row>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo></para></entry>
-			<entry><para>Invokes the <link linkend="edit-redo"><guilabel>Redo</guilabel></link> command.</para></entry>
+			<entry><para>Invokes the <link linkend="term-commands-edit-redo"><guilabel>Redo</guilabel></link> command.</para></entry>
 		</row>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>+</keycap></keycombo></para></entry>
-			<entry><para><link linkend="view-zoom-in"><guilabel>Zoom In</guilabel></link></para></entry>
+			<entry><para><link linkend="term-commands-view-zoom-in"><guilabel>Zoom In</guilabel></link></para></entry>
 		</row>
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>-</keycap></keycombo></para></entry>
-			<entry><para><link linkend="view-zoom-out"><guilabel>Zoom Out</guilabel></link></para></entry>
+			<entry><para><link linkend="term-commands-view-zoom-out"><guilabel>Zoom Out</guilabel></link></para></entry>
 		</row>
 	</tbody>
 	</tgroup>

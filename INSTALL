@@ -38,13 +38,6 @@ you don't like the installation directories, you can change them in
 the file conf.pri before running make.  Make sure to make the changes
 in conf.pri before running make.
 
-If the documentation files doc/qtikz.qch and doc/qtikz.qhc (in the source
-directory) do not exist, you have to run the following commands before
-running sudo make install:
-  cd doc
-  qcollectiongenerator qtikz.qhcp -o qtikz.qhc
-  cd ..
-
 In order to uninstall qtikz run the following commands in the build directory:
   sudo make uninstall
   sudo update-mime-database /usr/share/mime

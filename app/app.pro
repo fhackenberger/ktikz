@@ -130,8 +130,17 @@ LOCALEDIR = $${LOCALESUBDIR}/ # the function qmFiles assumes that this variable 
 
 ### Documentation
 
+QHCPFILES = ../doc/qtikz.qhcp
+updateqhc.name = qcollectiongenerator ${QMAKE_FILE_IN}
+updateqhc.input = QHCPFILES
+updateqhc.output = $${_PRO_FILE_PWD_}/../doc/${QMAKE_FILE_BASE}.qhc
+updateqhc.commands = $${QCOLLECTIONGENERATORCOMMAND} ${QMAKE_FILE_IN} -o ${QMAKE_FILE_OUT}
+updateqhc.CONFIG = no_link target_predeps
+QMAKE_EXTRA_COMPILERS += updateqhc
+
 documentation.path = $${RESOURCESDIR}/$${DOCUMENTATIONSUBDIR}
 documentation.files += ../doc/qtikz.qch ../doc/qtikz.qhc
+documentation.CONFIG += no_check_exist
 INSTALLS += documentation
 
 unix:!macx {

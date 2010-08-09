@@ -1,4 +1,4 @@
-<chapter id="ktikz-commands">
+<chapter id="chap-commands">
 <title>Command Reference</title>
 
 <!-- (OPTIONAL, BUT RECOMMENDED) This chapter should list all of the
@@ -7,12 +7,12 @@
      menus or toolbars. This may not be necessary for small apps or apps with no tool
      or menu bars. -->
 
-<sect1 id="file-menu">
+<sect1 id="sect1-commands-file-menu">
 	<title>The <guimenu>File</guimenu> Menu</title>
 
 	<variablelist>
 	<varlistentry>
-		<term id="file-new">
+		<term id="term-commands-file-new">
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo></shortcut>
 				<guimenu>File</guimenu>
@@ -25,7 +25,7 @@
 	</varlistentry>
 
 	<varlistentry>
-		<term id="file-open">
+		<term id="term-commands-file-open">
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo></shortcut>
 				<guimenu>File</guimenu>
@@ -38,7 +38,7 @@
 	</varlistentry>
 
 	<varlistentry>
-		<term id="file-open-recent">
+		<term id="term-commands-file-open-recent">
 			<menuchoice>
 				<guimenu>File</guimenu>
 				<guisubmenu>Open Recent</guisubmenu>
@@ -50,7 +50,7 @@
 	</varlistentry>
 
 	<varlistentry>
-		<term id="file-save">
+		<term id="term-commands-file-save">
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo></shortcut>
 				<guimenu>File</guimenu>
@@ -63,19 +63,19 @@
 	</varlistentry>
 
 	<varlistentry>
-		<term id="file-save-as">
+		<term id="term-commands-file-save-as">
 			<menuchoice>
 				<guimenu>File</guimenu>
 				<guimenuitem>Save As...</guimenuitem>
 			</menuchoice>
 		</term>
 		<listitem>
-			<para>This allows a document to be saved with a new file name.  This is done by means of the file dialog box described above in the <link linkend="file-open">Open</link> section of this help file.</para>
+			<para>This allows a document to be saved with a new file name.  This is done by means of the file dialog box described above in the <link linkend="term-commands-file-open">Open</link> section of this help file.</para>
 		</listitem>
 	</varlistentry>
 
 	<varlistentry>
-		<term id="file-export">
+		<term id="term-commands-file-export">
 			<menuchoice>
 				<guimenu>File</guimenu>
 				<guimenuitem>Export</guimenuitem>
@@ -88,7 +88,7 @@
 
 <!--
 	<varlistentry>
-		<term id="file-print">
+		<term id="term-commands-file-print">
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo></shortcut>
 				<guimenu>File</guimenu>
@@ -102,7 +102,7 @@
 -->
 
 	<varlistentry>
-		<term id="file-reload">
+		<term id="term-commands-file-reload">
 			<menuchoice>
 				<shortcut><keycombo action="simul"><keycap>F5</keycap></keycombo></shortcut>
 				<guimenu>File</guimenu>
@@ -115,7 +115,7 @@
 	</varlistentry>
 
 	<varlistentry>
-		<term id="file-close">
+		<term id="term-commands-file-close">
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo></shortcut>
 				<guimenu>File</guimenu>
@@ -128,7 +128,7 @@
 	</varlistentry>
 
 	<varlistentry>
-		<term id="file-quit">
+		<term id="term-commands-file-quit">
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></shortcut>
 				<guimenu>File</guimenu>
@@ -142,12 +142,12 @@
 	</variablelist>
 </sect1>
 
-<sect1 id="edit-menu">
+<sect1 id="sect1-commands-edit-menu">
 	<title>The <guimenu>Edit</guimenu> Menu</title>
 
 	<variablelist>
 	<varlistentry>
-		<term id="edit-undo">
+		<term id="term-commands-edit-undo">
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>Z</keycap></keycombo></shortcut>
 				<guimenu>Edit</guimenu>
@@ -161,7 +161,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="edit-redo"/>
+			<anchor id="term-commands-edit-redo"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>Z</keycap></keycombo></shortcut>
 				<guimenu>Edit</guimenu>
@@ -175,7 +175,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="edit-cut"/>
+			<anchor id="term-commands-edit-cut"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>X</keycap></keycombo></shortcut>
 				<guimenu>Edit</guimenu>
@@ -189,7 +189,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="edit-copy"/>
+			<anchor id="term-commands-edit-copy"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>C</keycap></keycombo></shortcut>
 				<guimenu>Edit</guimenu>
@@ -203,7 +203,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="edit-paste"/>
+			<anchor id="term-commands-edit-paste"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>V</keycap></keycombo></shortcut>
 				<guimenu>Edit</guimenu>
@@ -217,7 +217,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="edit-select-all"/>
+			<anchor id="term-commands-edit-select-all"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></shortcut>
 				<guimenu>Edit</guimenu>
@@ -232,7 +232,7 @@
 <!--
 	<varlistentry>
 		<term>
-			<anchor id="edit-deselect"/>
+			<anchor id="term-commands-edit-deselect"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>A</keycap></keycombo></shortcut>
 				<guimenu>Edit</guimenu>
@@ -247,7 +247,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="edit-indent"/>
+			<anchor id="term-commands-edit-indent"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>I</keycap></keycombo></shortcut>
 				<guimenu>Tools</guimenu>
@@ -262,7 +262,7 @@
 <!--
 	<varlistentry>
 		<term>
-			<anchor id="edit-unindent"/>
+			<anchor id="term-commands-edit-unindent"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>I</keycap></keycombo></shortcut>
 				<guimenu>Tools</guimenu>
@@ -277,7 +277,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="edit-comment"/>
+			<anchor id="term-commands-edit-comment"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>D</keycap></keycombo></shortcut>
 				<guimenu>Tools</guimenu>
@@ -291,7 +291,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="edit-uncomment"/>
+			<anchor id="term-commands-edit-uncomment"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>D</keycap></keycombo></shortcut>
 				<guimenu>Tools</guimenu>
@@ -305,7 +305,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="edit-find"/>
+			<anchor id="term-commands-edit-find"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo></shortcut>
 				<guimenu>Edit</guimenu>
@@ -322,7 +322,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="edit-find-again"/>
+			<anchor id="term-commands-edit-find-again"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul"><keycap>F3</keycap></keycombo></shortcut>
 				<guimenu>Edit</guimenu>
@@ -335,7 +335,7 @@
 	</varlistentry>
 
 	<varlistentry>
-		<term id="edit-find-previous">
+		<term id="term-commands-edit-find-previous">
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Shift;<keycap>F3</keycap></keycombo></shortcut>
 				<guimenu>Edit</guimenu>
@@ -349,7 +349,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="edit-replace"/>
+			<anchor id="term-commands-edit-replace"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo></shortcut>
 				<guimenu>Edit</guimenu>
@@ -366,7 +366,7 @@
 	</variablelist>
 </sect1>
 
-<sect1 id="view-menu">
+<sect1 id="sect1-commands-view-menu">
 	<title>The <guimenu>View</guimenu> menu</title>
 
 	<para>The <guimenu>View</guimenu> menu allows you to manage settings specific to the preview.</para>
@@ -374,7 +374,7 @@
 	<variablelist>
 	<varlistentry>
 		<term>
-			<anchor id="view-zoom-in"/>
+			<anchor id="term-commands-view-zoom-in"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>+</keycap></keycombo></shortcut>
 				<guimenu>View</guimenu>
@@ -388,7 +388,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="view-zoom-out"/>
+			<anchor id="term-commands-view-zoom-out"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>-</keycap></keycombo></shortcut>
 				<guimenu>View</guimenu>
@@ -402,7 +402,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="view-previous-image"/>
+			<anchor id="term-commands-view-previous-image"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Alt;<keycap>Left</keycap></keycombo></shortcut>
 				<guimenu>View</guimenu>
@@ -416,7 +416,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="view-next-image"/>
+			<anchor id="term-commands-view-next-image"/>
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Alt;<keycap>Right</keycap></keycombo></shortcut>
 				<guimenu>View</guimenu>
@@ -430,12 +430,12 @@
 	</variablelist>
 </sect1>
 
-<sect1 id="go-menu">
+<sect1 id="sect1-commands-go-menu">
 	<title>The <guimenu>Go</guimenu> Menu</title>
 
 	<variablelist>
 	<varlistentry>
-		<term id="go-to-line">
+		<term id="term-commands-go-to-line">
 			<menuchoice>
 				<shortcut><keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo></shortcut>
 				<guimenu>Go</guimenu>
@@ -449,12 +449,12 @@
 	</variablelist>
 </sect1>
 
-<sect1 id="process-menu">
+<sect1 id="sect1-commands-process-menu">
 	<title>The <guimenu>Process</guimenu> Menu</title>
 
 	<variablelist>
 	<varlistentry>
-		<term id="stop-process">
+		<term id="term-commands-stop-process">
 			<menuchoice>
 				<shortcut><keycombo action="simul"><keycap>Esc</keycap></keycombo></shortcut>
 				<guimenu>Process</guimenu>
@@ -467,7 +467,7 @@
 	</varlistentry>
 
 	<varlistentry>
-		<term id="view-log">
+		<term id="term-commands-view-log">
 			<menuchoice>
 				<guimenu>Process</guimenu>
 				<guimenuitem>View Log</guimenuitem>
@@ -479,7 +479,7 @@
 	</varlistentry>
 
 	<varlistentry>
-		<term id="shell-escape">
+		<term id="term-commands-shell-escape">
 			<menuchoice>
 				<guimenu>Process</guimenu>
 				<guimenuitem>Shell Escape</guimenuitem>
@@ -492,18 +492,18 @@
 	</variablelist>
 </sect1>
 
-<sect1 id="insert-menu">
+<sect1 id="sect1-commands-insert-menu">
 	<title>The <guimenu>Insert</guimenu> Menu</title>
 	<para>This menu contains a (currently non-exhaustive) list of TikZ commands.  By selecting them, you can insert them in the text at the cursor's current position.</para>
 </sect1>
 
-<sect1 id="settings">
+<sect1 id="sect1-commands-settings-menu">
 	<title>The <guimenu>Settings</guimenu> Menu</title>
 
 	<variablelist>
 	<varlistentry>
 		<term>
-			<anchor id="show-toolbars"/>
+			<anchor id="term-commands-show-toolbars"/>
 			<menuchoice>
 				<guimenu>Settings</guimenu>
 				<guimenuitem>Toolbars</guimenuitem>
@@ -516,7 +516,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="show-sidebars"/>
+			<anchor id="term-commands-show-sidebars"/>
 			<menuchoice>
 				<guimenu>Settings</guimenu>
 				<guimenuitem>Sidebars</guimenuitem>
@@ -529,7 +529,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="show-statusbar"/>
+			<anchor id="term-commands-show-statusbar"/>
 			<menuchoice>
 				<guimenu>Settings</guimenu>
 				<guimenuitem>Show Statusbar</guimenuitem>
@@ -542,14 +542,14 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="configure-keybindings"/>
+			<anchor id="term-commands-configure-keybindings"/>
 			<menuchoice>
 				<guimenu>Settings</guimenu>
 				<guimenuitem>Configure Shortcuts...</guimenuitem>
 			</menuchoice>
 		</term>
 		<listitem>
-			<para>This command opens a dialog box whereby the <link linkend="keybindings">shortcuts</link> may be changed.  A display window shows the list of commands (actions) and their assigned shortcuts, alternates and global shortcuts. The <guilabel>Search</guilabel> line above the list window is used to filter the shortcut list.  Selecting an action with a &LMB; click (either on the action name or shortcut cell for the default shortcut or on the alternate cell for an alternative) displays the <guilabel>Default</guilabel> and <guilabel>Custom</guilabel> radio buttons below the selected action.</para>
+			<para>This command opens a dialog box whereby the <link linkend="sect1-using-ktikz-keybindings">shortcuts</link> may be changed.  A display window shows the list of commands (actions) and their assigned shortcuts, alternates and global shortcuts. The <guilabel>Search</guilabel> line above the list window is used to filter the shortcut list.  Selecting an action with a &LMB; click (either on the action name or shortcut cell for the default shortcut or on the alternate cell for an alternative) displays the <guilabel>Default</guilabel> and <guilabel>Custom</guilabel> radio buttons below the selected action.</para>
 			<para>To assign or change a shortcut click on the <guilabel>None</guilabel> button. Its label changes then to <guilabel>Input</guilabel>, now press the new key combination for the action.</para>
 			<para>For example, with the <guilabel>About &kde;</guilabel> action selected in the display window, press the &Ctrl;, &Alt; and the <keycap>K</keycap> key on the keyboard.  This would mean that anytime you hold down the &Ctrl; and &Alt; buttons and pressed <keycap>K</keycap> (while using &kappname;) the <guilabel>About &kde;</guilabel> display box would be called.</para>
 			<para>Use the buttons at the bottom of the dialog to set all shortcuts back to their defaults, print the shortcut list or cancel all changes. Click the <guilabel>OK</guilabel> button to close the dialog and accept all changes.</para>
@@ -558,7 +558,7 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="configure-toolbars"/>
+			<anchor id="term-commands-configure-toolbars"/>
 			<menuchoice>
 				<guimenu>Settings</guimenu>
 				<guimenuitem>Configure Toolbars...</guimenuitem>
@@ -571,20 +571,20 @@
 
 	<varlistentry>
 		<term>
-			<anchor id="preferences"/>
+			<anchor id="term-commands-preferences"/>
 			<menuchoice>
 				<guimenu>Settings</guimenu>
 				<guimenuitem>Configure &kappname;...</guimenuitem>
 			</menuchoice>
 		</term>
 		<listitem>
-			<para>This menu item opens a dialog whereby several different <link linkend="pref-dialog">settings</link> may be adjusted.</para>
+			<para>This menu item opens a dialog whereby several different <link linkend="chap-configuration">settings</link> may be adjusted.</para>
 		</listitem>
 	</varlistentry>
 	</variablelist>
 </sect1>
 
-<sect1 id="help">
+<sect1 id="sect1-commands-help-menu">
 	<title>The <guimenu>Help</guimenu> Menu</title>
 	<!-- additional "About Editor Component" + "Tip of the Day", but no "Switch Language"-->
 	&help.menu.documentation;

@@ -1,7 +1,7 @@
-<chapter id="pref-dialog">
+<chapter id="chap-configuration">
 <title>Configure &kappname;</title>
 
-<sect1 id="pref-index">
+<sect1 id="sect1-configuration-index">
 	<title>General Configuration</title>
 	<para>
 		In order to configure &ktikz; the user needs to access the &ktikz; Configuration dialog.  This can be accessed via the menu bar, by selecting <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &ktikz;...</guimenuitem></menuchoice>.
@@ -17,18 +17,18 @@
 	</para>
 	<itemizedlist>
 		<listitem>
-			<para><link linkend="pref-general">General</link></para>
+			<para><link linkend="sect1-configuration-general">General</link></para>
 		</listitem>
 		<listitem>
-			<para><link linkend="pref-editor">Editor</link></para>
+			<para><link linkend="sect1-configuration-editor">Editor</link></para>
 		</listitem>
 		<listitem>
-			<para><link linkend="pref-highlighting">Highlighting</link></para>
+			<para><link linkend="sect1-configuration-highlighting">Highlighting</link></para>
 		</listitem>
 	</itemizedlist>
 </sect1>
 
-<sect1 id="pref-general">
+<sect1 id="sect1-configuration-general">
 	<title>General</title>
 
 	<para>This section of the dialog lets you configure the interface and set the paths to the necessary executables and the documentation.</para>
@@ -124,7 +124,7 @@
 	</variablelist>
 </sect1>
 
-<sect1 id="pref-editor">
+<sect1 id="sect1-configuration-editor">
 	<title>Editor</title>
 
 	<para>This section of the dialog lets you configure the look and feel of the text editor.</para>
@@ -191,7 +191,7 @@
 	</variablelist>
 </sect1>
 
-<sect1 id="pref-highlighting">
+<sect1 id="sect1-configuration-highlighting">
 	<title>Highlighting</title>
 
 	<para>This section of the dialog lets you configure the fonts and colors for the highlighted code in the text editor.</para>
