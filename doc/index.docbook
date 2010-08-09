@@ -134,12 +134,12 @@ Please report any problems or feature requests to the &ktikz; author via the bug
 
 <sect1 id="sect1-installation-requirements">
 	<title>Requirements</title>
-	<para>In order to successfully use &ktikz; you need to at least to have kdebase and kdelibs from &kde; 4.0, and &poppler; 0.6 installed.</para>
+	<para>In order to successfully use &ktikz; you need to at least to have kdebase and kdelibs from &kde; 4.3, and &poppler; 0.6 installed.</para>
 </sect1>
 
 <sect1 id="sect1-installation-compilation">
 	<title>Compilation and Installation</title>
-	<para>In order to compile &ktikz; it is necessary to install the development packages for &qt; 4.4, kdebase and kdelibs from &kde; 4.0, &poppler; 0.6 and &gcc;.</para>
+	<para>In order to compile &ktikz; it is necessary to install the development packages for &qt; 4.4, kdebase and kdelibs from &kde; 4.3, &poppler; 0.6 and &gcc;.</para>
 	<!-- This entity contains the boilerplate text for standard -->
 	<!-- compilation instructions.  If your application requires any -->
 	<!-- special handling, remove it, and replace with your own text. -->

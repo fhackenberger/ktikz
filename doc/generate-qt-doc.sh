@@ -22,7 +22,7 @@ generate()
 	    -e "s/KTikZ/QTikZ/g" \
 	    -e "s/cmake/qmake/g" \
 	    -e "s/KDE/Qt/g" \
-	    -e "s/kdebase and kdelibs from [^,]*,/Qt 4.4/g" \
+	    -e "s/kdebase and kdelibs from [^,]*,/<span class=\"application\">Qt<\/span> 4.4/g" \
 	    ${outputfile} > ${outputfile}_temp
 	mv ${outputfile}_temp ${outputfile}
 
