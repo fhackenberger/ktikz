@@ -41,19 +41,19 @@ tarball. Create a release tarball using:
 make package
 
 Untar this release tarball to /tmp and copy the debian directory
-cp ktikz-VERSION.tar.gz /tmp
-tar --directory /tmp -xf ktikz-VERSION.tar.gz
-rsync -r --exclude=.svn debian /tmp/ktikz-VERSION
-cd /tmp/ktikz-VERSION
+cp qtikz-VERSION.tar.gz /tmp
+tar --directory /tmp -xf qtikz-VERSION.tar.gz
+rsync -r --exclude=.svn debian /tmp/qtikz-VERSION
+cd /tmp/qtikz-VERSION
 
 The next step is to create the source package
-cd /tmp/ktikz-VERSION
+cd /tmp/qtikz-VERSION
 debuild -S
 
 Now you should have a .dsc file in /tmp. The next step is to compile
 the binary package using pbuilder:
 cd /tmp
-pbuilder --build ktikz_VERSION.dsc
+pbuilder --build qtikz_VERSION.dsc
 
 If the build finished successfully you should have the result in
-/var/cache/pbuilder/result/ktikz_VERSION_ARCH.deb
+/var/cache/pbuilder/result/qtikz_VERSION_ARCH.deb

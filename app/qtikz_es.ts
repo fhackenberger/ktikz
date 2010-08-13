@@ -1091,7 +1091,12 @@ Do you want to save your changes?</source>
         <translation>Abrir &amp;reciente</translation>
     </message>
     <message>
-        <location filename="assistantcontroller.cpp" line="68"/>
+        <location filename="assistantcontroller.cpp" line="62"/>
+        <source>Unable to open the help file (%1)</source>
+        <translation>No capable de abrir el fichero de ayuda (%1)</translation>
+    </message>
+    <message>
+        <location filename="assistantcontroller.cpp" line="76"/>
         <source>Unable to launch Qt Assistant (%1)</source>
         <translation>No capable de lanzar Qt Assistant (%1)</translation>
     </message>

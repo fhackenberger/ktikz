@@ -28,7 +28,7 @@ Install the Qt-only (qtikz) application (using qmake):
 2. Run the following commands (this will create an executable named qtikz):
   mkdir buildqt
   cd buildqt
-  qmake ../ktikz.pro
+  qmake ../qtikz.pro
   make
   sudo make install
   sudo update-mime-database /usr/share/mime

@@ -1502,7 +1502,12 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation>&amp;Zuletzt geöffnet</translation>
     </message>
     <message>
-        <location filename="assistantcontroller.cpp" line="68"/>
+        <location filename="assistantcontroller.cpp" line="62"/>
+        <source>Unable to open the help file (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="assistantcontroller.cpp" line="76"/>
         <source>Unable to launch Qt Assistant (%1)</source>
         <translation type="unfinished"></translation>
     </message>

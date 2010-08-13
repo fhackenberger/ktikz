@@ -41,6 +41,7 @@ version 0.10 (2010-08-04):
   the Tab-key
 - now also an URL to an online version of the TikZ documentation can be
   specified in the configuration dialog
+- an icon for Windows and an NSIS Windows Installer script are now available
 version 0.9 (2009-09-10):
 - remove bug that on startup the item selected in the template combobox
   did not correspond to the text in the lineedit of the combobox

@@ -47,8 +47,8 @@ macx { # untested
 }
 win32 {
 	isEmpty(PREFIX) {
-#		PREFIX = $$quote(C:/Program Files/KTikZ)
-		PREFIX = "C:/KTikZ"
+#		PREFIX = $$quote(C:/Program Files/QTikZ)
+		PREFIX = "C:/QTikZ"
 	}
 	isEmpty(BINDIR) {
 		BINDIR = $${PREFIX}
