@@ -1,4 +1,4 @@
-ORGNAME = "Florian\ Hackenberger"
+ORGNAME = "Florian_Hackenberger"
 APPNAME = ktikz
 APPVERSION = 0.10
 
@@ -31,13 +31,13 @@ unix:!macx {
 		MIMEDIR = /usr/share/mime/packages
 	}
 	isEmpty(MANDIR) {
-		MANDIR = /usr/share/man
+		MANDIR = $${PREFIX}/share/man
 	}
 	isEmpty(BINDIR) {
 		BINDIR = $${PREFIX}/bin
 	}
 	isEmpty(RESOURCESDIR) {
-		RESOURCESDIR = $${PREFIX}/share/ktikz
+		RESOURCESDIR = $${PREFIX}/share/qtikz
 	}
 }
 macx { # untested

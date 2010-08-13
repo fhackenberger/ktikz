@@ -342,7 +342,7 @@ void MainWindow::showTikzDocumentation()
 
 	const QString tikzDocFile = TikzDocumentationController::tikzDocumentationPath();
 	const bool tikzDocFileExists = QFileInfo(tikzDocFile).exists(); // true if tikzDocFile is local and exists
-	const QUrl tikzDocUrl = tikzDocFileExists ? QUrl("file://" + tikzDocFile) : QUrl(tikzDocFile);
+	const QUrl tikzDocUrl = tikzDocFileExists ? QUrl("file:///" + tikzDocFile) : QUrl(tikzDocFile);
 
 	if (!QDesktopServices::openUrl(tikzDocUrl))
 	{

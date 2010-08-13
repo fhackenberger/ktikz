@@ -1,5 +1,5 @@
 set(KTIKZPART_DATA_INSTALL_DIR ${DATA_INSTALL_DIR}/ktikzpart)
-#add_definitions(-DORGNAME=\\\"Florian\\\ Hackenberger\\\" -DAPPNAME=\\\"ktikz\\\")
+#add_definitions(-DORGNAME=\\\"Florian_Hackenberger\\\" -DAPPNAME=\\\"ktikz\\\")
 #add_definitions(-DKTIKZ_USE_KDE)
 
 include_directories(

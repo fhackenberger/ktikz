@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.6)
 
 set(KTIKZ_VERSION "0.10")
 
-add_definitions(-DORGNAME=\"Florian\ Hackenberger\" -DAPPNAME=\"ktikz\")
+add_definitions(-DORGNAME=\"Florian_Hackenberger\" -DAPPNAME=\"ktikz\")
 add_definitions(-DAPPVERSION=\"${KTIKZ_VERSION}\")
 add_definitions(-DKTIKZ_USE_KDE)
 add_definitions(-DKTIKZ_TIKZ_DOCUMENTATION_DEFAULT=\"/usr/share/doc/texmf/pgf/pgfmanual.pdf.gz\")

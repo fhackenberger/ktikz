@@ -12,10 +12,10 @@
 PREFIX = /usr
 
 # install binary here:
-BINDIR = $${PREFIX}/bin
+#BINDIR = $${PREFIX}/bin
 
 # install data files (translation files, icons, example files) here:
-RESOURCESDIR = $${PREFIX}/share/ktikz
+#RESOURCESDIR = $${PREFIX}/share/qtikz
 
 # install desktop file here (*nix only):
 #DESKTOPDIR = $$(HOME)/.local/share/applications
@@ -25,7 +25,7 @@ DESKTOPDIR = $${PREFIX}/share/applications
 #MIMEDIR = /usr/share/mime/packages
 
 # install man page in the man tree located here:
-#MANDIR = /usr/share/man
+#MANDIR = $${PREFIX}/share/man
 
 # compile in debug mode:
 #CONFIG += debug
@@ -38,7 +38,7 @@ QMAKECOMMAND = qmake-qt4
 # lrelease command:
 LRELEASECOMMAND = lrelease-qt4
 # qcollectiongenerator command:
-QCOLLECTIONGENERATORCOMMAND = qcollectiongenerator
+#QCOLLECTIONGENERATORCOMMAND = qcollectiongenerator
 
 # TikZ documentation default file path:
 TIKZ_DOCUMENTATION_DEFAULT = "/usr/share/doc/texmf/pgf/pgfmanual.pdf.gz"

@@ -7,18 +7,19 @@ CONFIG += warn_on \
 	thread \
 	qt
 QT += xml
+
+win32:INCLUDEPATH += $${_PRO_FILE_PWD_} $${_PRO_FILE_PWD_}/../poppler-win32
+win32:LIBS += -L$${_PRO_FILE_PWD_}/../poppler-win32/
 LIBS += -lpoppler-qt4
 
 LOCALESUBDIR = locale
 TEMPLATESUBDIR = templates
-DOCUMENTATIONSUBDIR = documentation
 
 DEFINES += ORGNAME=\\\"$${ORGNAME}\\\"
 DEFINES += APPNAME=\\\"$${APPNAME}\\\"
 DEFINES += APPVERSION=\\\"$${APPVERSION}\\\"
 DEFINES += KTIKZ_TRANSLATIONS_INSTALL_DIR=\\\"$${RESOURCESDIR}/$${LOCALESUBDIR}\\\"
 DEFINES += KTIKZ_TEMPLATES_INSTALL_DIR=\\\"$${RESOURCESDIR}/$${TEMPLATESUBDIR}\\\"
-DEFINES += KTIKZ_DOCUMENTATION_INSTALL_DIR=\\\"$${RESOURCESDIR}/$${DOCUMENTATIONSUBDIR}\\\"
 DEFINES += KTIKZ_TIKZ_DOCUMENTATION_DEFAULT=\\\"$${TIKZ_DOCUMENTATION_DEFAULT}\\\"
 
 ### Build files
@@ -90,13 +91,13 @@ INSTALLS += target
 ### Desktop file
 
 unix:!macx {
-	ICONDIR = $$replace(RESOURCESDIR, "/", "\/")
+	ICONDIR = $$replace(RESOURCESDIR, "/", "\\/")
 	DESKTOPTEMPLATES = qtikz.desktop.template
 
 	createdesktop.name = create desktop file
 	createdesktop.input = DESKTOPTEMPLATES
 	createdesktop.output = ${QMAKE_FILE_BASE}
-	createdesktop.commands = sed -e \"s/Icon=/Icon=$${ICONDIR}\/qtikz-128.png/\" ${QMAKE_FILE_IN} > ${QMAKE_FILE_OUT}
+	createdesktop.commands = sed -e \"s/Icon=/Icon=$${ICONDIR}\\/qtikz-128.png/\" ${QMAKE_FILE_IN} > ${QMAKE_FILE_OUT}
 	createdesktop.CONFIG = no_link target_predeps
 	QMAKE_EXTRA_COMPILERS += createdesktop
 
@@ -130,43 +131,17 @@ LOCALEDIR = $${LOCALESUBDIR}/ # the function qmFiles assumes that this variable 
 
 ### Documentation
 
-QHCPFILES = ../doc/qtikz.qhcp
-updateqhc.name = qcollectiongenerator ${QMAKE_FILE_IN}
-updateqhc.input = QHCPFILES
-updateqhc.output = $${_PRO_FILE_PWD_}/../doc/${QMAKE_FILE_BASE}.qhc
-updateqhc.commands = $${QCOLLECTIONGENERATORCOMMAND} ${QMAKE_FILE_IN} -o ${QMAKE_FILE_OUT}
-updateqhc.CONFIG = no_link target_predeps
-QMAKE_EXTRA_COMPILERS += updateqhc
+include(../doc/doc.pri)
 
-documentation.path = $${RESOURCESDIR}/$${DOCUMENTATIONSUBDIR}
-documentation.files += ../doc/qtikz.qch ../doc/qtikz.qhc
-documentation.CONFIG += no_check_exist
-INSTALLS += documentation
-
-unix:!macx {
-	DOCUMENTATIONDIR = "$$replace(RESOURCESDIR, "/", "\/")\/$${DOCUMENTATIONSUBDIR}"
-	MANFILETEMPLATES = ../doc/qtikz.1.template
-
-	createman.name = create man page
-	createman.input = MANFILETEMPLATES
-	createman.output = ${QMAKE_FILE_BASE}
-	createman.commands = sed -e \"s/assistant\ -collectionFile/assistant\ -collectionFile\ $${DOCUMENTATIONDIR}\/qtikz.qhc/\" ${QMAKE_FILE_IN} > ${QMAKE_FILE_OUT}
-	createman.CONFIG = no_link target_predeps
-	QMAKE_EXTRA_COMPILERS += createman
-
-	man.path = $${MANDIR}/man1
-	man.files += $${OUT_PWD}/qtikz.1
-	man.CONFIG += no_check_exist
-	INSTALLS += man
-}
-
-### Other resources
+### Templates
 
 templates.path = $${RESOURCESDIR}/$${TEMPLATESUBDIR}
 templates.files += ../examples/template_example.pgs \
 	../examples/template_example2.pgs \
 	../examples/beamer-example-template.pgs
 INSTALLS += templates
+
+### Resources (install resources here so that "make uninstall" tries and succeeds to remove $${RESOURCESDIR} after everything inside it has been uninstalled)
 
 resources.path = $${RESOURCESDIR}
 INSTALLS += resources
@@ -177,4 +152,33 @@ unix:!macx {
 	mimetype.path = $${MIMEDIR}
 	mimetype.files += ../common/qtikz.xml
 	INSTALLS += mimetype
+}
+
+### Install icon and dll files
+
+win32 {
+	RC_FILE = qtikz.rc
+	icon.files = icon/qtikz.ico
+	icon.path = $${PREFIX}
+	INSTALLS += icon
+
+	dlls.path = $${PREFIX}
+	dlls.files += $${_PRO_FILE_PWD_}/../poppler-win32/*.dll
+	debug {
+		dlls.files += $$[QT_INSTALL_BINS]/QtCored4.dll \
+			$$[QT_INSTALL_BINS]/QtGuid4.dll \
+			$$[QT_INSTALL_BINS]/QtXmld4.dll
+	}
+	dlls.files += $$[QT_INSTALL_BINS]/assistant.exe \
+		$$[QT_INSTALL_BINS]/QtCore4.dll \
+		$$[QT_INSTALL_BINS]/QtGui4.dll \
+		$$[QT_INSTALL_BINS]/QtXml4.dll \
+		$$[QT_INSTALL_BINS]/mingwm10.dll \
+		$$[QT_INSTALL_BINS]/libgcc_s_dw2-1.dll
+	INSTALLS += dlls
+
+	installer.path = $${PREFIX}
+	installer.files = ../qtikz.nsi
+	installer.extra = "echo !define VERSION \"$${APPVERSION}\" > $${PREFIX}/qtikz.nsh"
+	INSTALLS += installer
 }

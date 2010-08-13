@@ -1,0 +1,70 @@
+The following instructions describe how I (Glad Deschrijver) managed to
+compile QTikZ under Windows.
+
+Install dependencies:
+---------------------
+
+1. First download the LGPL version of the "Qt SDK for Windows" at
+http://qt.nokia.com/downloads
+Install the Qt SDK by running the downloaded file.  Select MinGW gcc as
+the compiler.
+
+2. Download "KDE for Windows" at http://windows.kde.org/download.php and follow
+the installation instructions at
+http://techbase.kde.org/Projects/KDE_on_Windows/Installation
+Select the "End User" install mode and the "MinGW" compiler mode.  In the
+"Package Selection" select to install "okular" (its dependencies including
+the poppler libs will be included automatically).
+
+3. Copy the DLL files of poppler and its dependencies from the bin directory
+inside the "KDE for Windows" installation directory to the poppler-win32
+directory in the qtikz source directory.  The following DLL files must be
+copied:
+  iconv.dll
+  jpeg62.dll
+  libfontconfig.dll
+  libfreetype.dll
+  liblcms-1.dll
+  libopenjpeg.dll
+  libpng12.dll
+  libpoppler.dll
+  libpoppler-qt4.dll
+  libxml2.dll
+  zlib1.dll
+After this stage, "KDE for Windows" can be uninstalled as it is not needed
+for compiling or running qtikz.
+
+4. Download the poppler source code from http://poppler.freedesktop.org/ and
+extract the following header files from the downloaded .tar.gz file and put
+them also in the poppler-win32 directory:
+  poppler-annotation.h
+  poppler-export.h
+  poppler-link.h
+  poppler-optcontent.h
+  poppler-page-transition.h
+  poppler-qt4.h
+
+Compile qtikz:
+--------------
+
+Open Qt Creator, select in the "File" menu "Open File or Project" and click
+on qtikz.pro in the qtikz source directory.  In the Qt Creator main window
+select "Projects", in the "Build Steps" click on "Add build step" -> "Make"
+and change the "Make arguments" to "install" (without the quotes).  Then push
+the "Build All" button to install qtikz.  You will find the qtikz.exe
+executable in the directory specified in the PREFIX variable in defaults.pri
+(in the win32 section of that file) or conf.pri.
+
+Alternatively, launch the "Qt command prompt" in the Qt submenu of the Windows
+Start menu and in the qtikz source directory run the following commands:
+  qmake qtikz.pro
+  mingw32-make
+  mingw32-make install
+
+Create installer:
+-----------------
+
+Download NSIS (Nullsoft Scriptable Install System) from
+http://nsis.sourceforge.net/Download
+Run the qtikz.nsi script in the installation directory to create the Windows
+installer.

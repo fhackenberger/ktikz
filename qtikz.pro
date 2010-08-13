@@ -1,3 +1,7 @@
+lessThan(QT_VERSION, 4.4) {
+	error("QTikZ requires Qt version 4.4 or higher.")
+}
+
 SUBDIRS += app
 TEMPLATE = subdirs 
 CONFIG += warn_on \
@@ -7,7 +11,7 @@ CONFIG += warn_on \
 include(conf.pri)
 include(defaults.pri)
 
-message(*** KTikZ v$${APPVERSION} ***)
+message(*** QTikZ v$${APPVERSION} ***)
 message(Qt version: $$[QT_VERSION])
 message(The program will be installed in)
 message("  $${BINDIR}")
@@ -25,7 +29,11 @@ message()
 message("If you would like to change these paths,")
 message("please adjust conf.pri to your needs and rerun qmake.")
 
-QMAKE_EXTRA_UNIX_TARGETS += PACKAGE
+license.path = $${RESOURCESDIR}
+license.files += LICENSE.GPL2
+INSTALLS += license
+
+unix:QMAKE_EXTRA_TARGETS += PACKAGE
 PACKAGE.target = package
 PACKAGE.commands = "tar --exclude='debian-package' --exclude='*/.svn*' --exclude='moc_*' -cf - \
 Changelog \
@@ -35,7 +43,7 @@ defaults.pri \
 macros.pri \
 Doxyfile \
 INSTALL \
-ktikz.pro \
+qtikz.pro \
 TODO \
 app/CMakeLists.txt \
 app/*.h \
@@ -50,4 +58,4 @@ app/*.xml \
 templates \
 app/icons \
 common \
-part | tardy -Remove_Prefix ktikz -Prefix ktikz-$${APPVERSION} - - | gzip -c > ktikz-$${APPVERSION}.tar.gz"
+part | tardy -Remove_Prefix ktikz -Prefix qtikz-$${APPVERSION} - - | gzip -c > qtikz-$${APPVERSION}.tar.gz"

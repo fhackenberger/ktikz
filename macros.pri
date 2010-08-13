@@ -11,7 +11,7 @@ defineReplace(formSources) {
 	names = $$ARGS
 	sourceNames =
 	for(name, names) {
-		baseName = $$replace(name, "\.ui", "")
+		baseName = $$replace(name, "\\.ui", "")
 		sourceName = $${baseName}.cpp
 		exists($$sourceName) {
 			sourceNames += $$sourceName
@@ -25,7 +25,7 @@ defineReplace(headerFiles) {
 	headerNames =
 
 	for(name, names) {
-		baseName = $$replace(name, "\.cpp", "")
+		baseName = $$replace(name, "\\.cpp", "")
 		headerName = $${baseName}.h
 		exists($$headerName) {
 			headerNames += $$headerName
@@ -39,7 +39,7 @@ defineReplace(qmFiles) {
 	qmfiles =
 
 	for(name, names) {
-		baseName = $$replace(name, "\.ts", "")
+		baseName = $$replace(name, "\\.ts", "")
 		qmName = $${OUT_PWD}/$${LOCALEDIR}$${baseName}.qm
 #		exists($$qmName) {
 			qmfiles += $$qmName

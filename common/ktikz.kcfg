@@ -10,6 +10,10 @@
    <default>false</default>
    <label>Whether the TikZ commands should be listed in a dock widget instead of in a menu.</label>
   </entry>
+  <entry key="BuildAutomatically" type="Bool">
+   <default>true</default>
+   <label>Whether the preview is generated automatically while editing instead of only when pressing a button.</label>
+  </entry>
   <entry key="LatexCommand" type="Path">
    <default>pdflatex</default>
    <label>The path to the pdflatex command.</label>
@@ -35,6 +39,10 @@
   <entry key="TemplateReplaceText" type="String">
    <default>&lt;&gt;</default>
    <label>The text in the template file which is replaced by the TikZ code before typesetting.</label>
+  </entry>
+  <entry key="TemplateEditor" type="Path">
+   <default>kwrite</default>
+   <label>The path to the editor command used for editing templates.</label>
   </entry>
  </group>
  <group name="Editor">
