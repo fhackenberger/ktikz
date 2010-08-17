@@ -475,7 +475,7 @@ void TikzPreviewController::applySettings()
 	const QString replaceText = settings.value("TemplateReplaceText", "<>").toString();
 	m_tikzPreviewGenerator->setReplaceText(replaceText);
 	m_templateWidget->setReplaceText(replaceText);
-	m_templateWidget->setEditor(settings.value("TemplateEditor", "kwrite").toString());
+		m_templateWidget->setEditor(settings.value("TemplateEditor", KTIKZ_TEMPLATE_EDITOR_DEFAULT).toString());
 }
 
 void TikzPreviewController::setExportActionsEnabled(bool enabled)

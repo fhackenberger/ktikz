@@ -39,11 +39,17 @@ unix:!macx {
 	isEmpty(RESOURCESDIR) {
 		RESOURCESDIR = $${PREFIX}/share/qtikz
 	}
+	isEmpty(TEMPLATE_EDITOR) {
+		TEMPLATE_EDITOR_DEFAULT = kwrite
+	}
 }
 macx { # untested
 	CONFIG += link_prl
 	BINDIR = /Applications
 	RESOURCESDIR = Contents/Resources
+	isEmpty(TEMPLATE_EDITOR) {
+		TEMPLATE_EDITOR_DEFAULT = kwrite
+	}
 }
 win32 {
 	isEmpty(PREFIX) {
@@ -55,5 +61,8 @@ win32 {
 	}
 	isEmpty(RESOURCESDIR) {
 		RESOURCESDIR = $${PREFIX}/data
+	}
+	isEmpty(TEMPLATE_EDITOR) {
+		TEMPLATE_EDITOR_DEFAULT = notepad
 	}
 }

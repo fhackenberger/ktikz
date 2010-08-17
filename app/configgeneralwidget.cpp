@@ -77,7 +77,7 @@ void ConfigGeneralWidget::readSettings(const QString &settingsGroup)
 	ui.tikzDocEdit->setText(TikzDocumentationController::tikzDocumentationPath());
 	ui.latexEdit->setText(settings.value("LatexCommand", "pdflatex").toString());
 	ui.pdftopsEdit->setText(settings.value("PdftopsCommand", "pdftops").toString());
-	ui.editorEdit->setText(settings.value("TemplateEditor", "kwrite").toString());
+		ui.editorEdit->setText(settings.value("TemplateEditor", KTIKZ_TEMPLATE_EDITOR_DEFAULT).toString());
 	ui.replaceEdit->setText(settings.value("TemplateReplaceText", "<>").toString());
 	settings.endGroup();
 
