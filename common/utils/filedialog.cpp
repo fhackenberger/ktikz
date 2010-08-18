@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2009 by Glad Deschrijver                                *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -24,40 +24,12 @@
 
 Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
 {
-	KFileDialog openDialog(dir, filter, parent, 0);
-	openDialog.setOperationMode(KFileDialog::Opening);
-	openDialog.setCaption(caption);
-	if (!openDialog.exec())
-		return Url();
-
-	const KUrl openUrl = openDialog.selectedUrl();
-	if (!openUrl.isValid() || openUrl.isEmpty())
-		return Url();
-	return openUrl;
+	return KFileDialog::getOpenUrl(dir, filter, parent, caption);
 }
 
 Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
 {
-	KFileDialog saveAsDialog(dir, filter, parent, 0);
-	saveAsDialog.setOperationMode(KFileDialog::Saving);
-	saveAsDialog.setCaption(caption);
-	if (!saveAsDialog.exec())
-		return Url();
-
-	const KUrl saveAsUrl = saveAsDialog.selectedUrl();
-	if (!saveAsUrl.isValid() || saveAsUrl.isEmpty())
-		return Url();
-	if (KIO::NetAccess::exists(saveAsUrl, KIO::NetAccess::DestinationSide, parent))
-	{
-		if (KMessageBox::warningContinueCancel(parent,
-//		    i18nc("@info", "A file named <filename>%1</filename> already exists. "
-//		    "Are you sure you want to overwrite it?", saveAsUrl.fileName()), QString(),
-//		    KGuiItem(i18nc("@action:button", "Overwrite"))) != KMessageBox::Continue)
-		    tr("File \"%1\" already exists.\nDo you want to overwrite it?").arg(saveAsUrl.fileName()), QString(),
-		    KGuiItem(tr("Overwrite", "@action:button"))) != KMessageBox::Continue)
-			return Url();
-	}
-	return saveAsUrl;
+	return KFileDialog::getSaveUrl(dir, filter, parent, caption, KFileDialog::ConfirmOverwrite);
 }
 #else
 #include <QCoreApplication>
@@ -72,7 +44,7 @@ Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &d
 		const QStringList filterItems = filterList.at(i).split('|');
 		if (i > 0)
 			parsedFilter += ";;";
-		parsedFilter += filterItems.at(1) + " (" + filterItems.at(0) + ")";
+		parsedFilter += filterItems.at(1) + " (" + filterItems.at(0) + ')';
 	}
 
 	const QString openFileName = QFileDialog::getOpenFileName(parent, caption, dir.path(), parsedFilter);
@@ -90,7 +62,7 @@ Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &d
 		const QStringList filterItems = filterList.at(i).split('|');
 		if (i > 0)
 			parsedFilter += ";;";
-		parsedFilter += filterItems.at(1) + " (" + filterItems.at(0) + ")";
+		parsedFilter += filterItems.at(1) + " (" + filterItems.at(0) + ')';
 	}
 
 	const QString saveAsFileName = QFileDialog::getSaveFileName(parent, caption, dir.path(), parsedFilter);

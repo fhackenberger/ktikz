@@ -1,8 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
+ *     <florian@hackenberger.at>                                           *
  *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
- *   florian@hackenberger.at                                               *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -75,22 +75,22 @@ QTranslator *createTranslator(const QString &transName, const QString &transDir)
 
 	// find in transDir
 	if (!foundTranslator)
-		foundTranslator = findTranslator(translator, transName + "_" + locale, transDir);
+		foundTranslator = findTranslator(translator, transName + '_' + locale, transDir);
 	if (!foundTranslator)
-		foundTranslator = findTranslator(translator, transName + "_" + localeShort, transDir);
+		foundTranslator = findTranslator(translator, transName + '_' + localeShort, transDir);
 	// find in dir which was set during compilation
 #ifdef KTIKZ_TRANSLATIONS_INSTALL_DIR
 	const QDir qmPath(KTIKZ_TRANSLATIONS_INSTALL_DIR);
 	if (!foundTranslator)
-		foundTranslator = findTranslator(translator, transName + "_" + locale, qmPath.absolutePath());
+		foundTranslator = findTranslator(translator, transName + '_' + locale, qmPath.absolutePath());
 	if (!foundTranslator)
-		foundTranslator = findTranslator(translator, transName + "_" + localeShort, qmPath.absolutePath());
+		foundTranslator = findTranslator(translator, transName + '_' + localeShort, qmPath.absolutePath());
 #endif // KTIKZ_TRANSLATIONS_INSTALL_DIR
 	// find in working dir
 	if (!foundTranslator)
-		foundTranslator = findTranslator(translator, transName + "_" + locale, "");
+		foundTranslator = findTranslator(translator, transName + '_' + locale, "");
 	if (!foundTranslator)
-		foundTranslator = findTranslator(translator, transName + "_" + localeShort, "");
+		foundTranslator = findTranslator(translator, transName + '_' + localeShort, "");
 
 	return translator;
 }

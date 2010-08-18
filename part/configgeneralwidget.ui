@@ -71,6 +71,9 @@
         <property name="showClearButton" stdset="0">
          <bool>true</bool>
         </property>
+        <property name="whatsThis">
+         <string>&lt;para&gt;Enter the text which will be replaced by the TikZ code in the template here.&lt;/para&gt;</string>
+        </property>
        </widget>
       </item>
       <item row="1" column="0">

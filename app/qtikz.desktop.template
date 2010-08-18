@@ -1,10 +1,8 @@
 [Desktop Entry]
-Encoding=UTF-8
 Type=Application
 Name=QTikZ
 Exec=qtikz
 Icon=
-DocPath=
 Terminal=false
 MimeType=text/x-pgf;text/x-tex;
 Categories=Qt;Office;

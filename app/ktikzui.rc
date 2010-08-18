@@ -3,7 +3,7 @@
 <gui version="1" name="ktikz">
  <MenuBar>
   <Menu noMerge="1" name="file">
-   <text context="@item:inmenu">&amp;File</text>
+   <text context="@title:menu">&amp;File</text>
    <Action name="file_new"/>
    <Action name="file_open"/>
    <Action name="file_open_recent"/>
@@ -19,7 +19,7 @@
    <Action name="file_quit"/>
   </Menu>
   <Menu noMerge="1" name="edit">
-   <text context="@item:inmenu">&amp;Edit</text>
+   <text context="@title:menu">&amp;Edit</text>
    <Action name="edit_undo"/>
    <Action name="edit_redo"/>
    <Separator/>
@@ -39,7 +39,7 @@
    <Action name="edit_replace"/>
   </Menu>
   <Menu noMerge="1" name="view">
-   <text context="@item:inmenu">&amp;View</text>
+   <text context="@title:menu">&amp;View</text>
    <Action name="view_zoom_in"/>
    <Action name="view_zoom_out"/>
    <Separator/>
@@ -47,11 +47,11 @@
    <Action name="view_next_image"/>
   </Menu>
   <Menu noMerge="1" name="go">
-   <text context="@item:inmenu">&amp;Go</text>
+   <text context="@title:menu">&amp;Go</text>
    <Action name="go_goto_line"/>
   </Menu>
   <Menu noMerge="1" name="process">
-   <text context="@item:inmenu">&amp;Process</text>
+   <text context="@title:menu">&amp;Process</text>
    <Action name="build"/>
    <Action name="stop_process"/>
    <Action name="view_log"/>
@@ -60,10 +60,10 @@
   <Action name="insert"/>
   <Merge/>
   <Menu noMerge="1" name="settings">
-   <text context="@item:inmenu">&amp;Settings</text>
+   <text context="@title:menu">&amp;Settings</text>
    <Merge name="StandardToolBarMenuHandler"/>
    <Menu name="sidebars">
-    <text context="@item:inmenu">&amp;Sidebars</text>
+    <text context="@title:menu">&amp;Sidebars</text>
     <Action name="toggle_preview"/>
     <Action name="toggle_log"/>
     <Action name="toggle_commands_list"/>
@@ -75,7 +75,7 @@
    <Action name="options_configure"/>
   </Menu>
   <Menu noMerge="1" name="help">
-   <text context="@item:inmenu">&amp;Help</text>
+   <text context="@title:menu">&amp;Help</text>
    <Action name="help_contents"/>
    <Action name="show_tikz_doc"/>
    <Action name="help_whats_this"/>
@@ -89,26 +89,26 @@
   </Menu>
  </MenuBar>
  <ToolBar noMerge="1" name="mainToolBar">
-  <text>File Toolbar</text>
+  <text context="@title:menu toolbar title">File Toolbar</text>
   <Action name="file_new"/>
   <Action name="file_open"/>
   <Action name="file_save"/>
   <Action name="file_close"/>
  </ToolBar>
  <ToolBar noMerge="1" name="editToolBar">
-  <text>Edit Toolbar</text>
+  <text context="@title:menu toolbar title">Edit Toolbar</text>
   <Action name="edit_undo"/>
   <Action name="edit_redo"/>
  </ToolBar>
  <ToolBar noMerge="1" name="processToolBar">
-  <text>Process Toolbar</text>
+  <text context="@title:menu toolbar title">Process Toolbar</text>
   <Action name="build"/>
   <Action name="stop_process"/>
   <Action name="view_log"/>
   <Action name="shell_escape"/>
  </ToolBar>
  <ToolBar noMerge="1" name="viewToolBar">
-  <text>View Toolbar</text>
+  <text context="@title:menu toolbar title">View Toolbar</text>
   <Action name="view_zoom_in"/>
   <Action name="zoom_to"/>
   <Action name="view_zoom_out"/>

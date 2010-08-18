@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009 by Glad Deschrijver                          *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -55,13 +55,13 @@ void PartConfigGeneralWidget::setModified()
 {
 	QWidget *sendingWidget = qobject_cast<QWidget*>(sender());
 	QSettings settings(ORGNAME, APPNAME);
-	if (sendingWidget->objectName() == "latexUrlRequester")
+	if (sendingWidget->objectName() == QLatin1String("latexUrlRequester"))
 		emit changed(ui.latexUrlRequester->text() != settings.value("LatexCommand", "pdflatex").toString());
-	else if (sendingWidget->objectName() == "pdftopsUrlRequester")
+	else if (sendingWidget->objectName() == QLatin1String("pdftopsUrlRequester"))
 		emit changed(ui.pdftopsUrlRequester->text() != settings.value("PdftopsCommand", "pdftops").toString());
-	else if (sendingWidget->objectName() == "editorUrlRequester")
+	else if (sendingWidget->objectName() == QLatin1String("editorUrlRequester"))
 		emit changed(ui.editorUrlRequester->text() != settings.value("TemplateEditor", "kwrite").toString());
-	else if (sendingWidget->objectName() == "replaceEdit")
+	else if (sendingWidget->objectName() == QLatin1String("replaceEdit"))
 		emit changed(ui.replaceEdit->text() != settings.value("TemplateReplaceText", "<>").toString());
 }
 

@@ -1,8 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
+ *     <florian@hackenberger.at>                                           *
  *   Copyright (C) 2007 by Glad Deschrijver                                *
- *   florian@hackenberger.at                                               *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *

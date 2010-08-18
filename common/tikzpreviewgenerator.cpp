@@ -1,8 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
+ *     <florian@hackenberger.at>                                           *
  *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
- *   florian@hackenberger.at                                               *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -157,18 +157,18 @@ QString TikzPreviewGenerator::getParsedLogText(QTextStream *logStream) const
 			{
 				if (logLine.isEmpty())
 					logText += "\n[LaTeX] Line " + lineNum + ": ";
-				if (!logLine.startsWith("Type")) // don't add lines that invite the user to type a command, since we are not in the console
+				if (!logLine.startsWith(QLatin1String("Type"))) // don't add lines that invite the user to type a command, since we are not in the console
 					logText += logLine;
 				logLine = logStream->readLine();
 			}
-			logText += "\n";
+			logText += '\n';
 			if (logStream->atEnd()) break;
 
 			// add the line starting with "l.<number> ..." and the next line
 			lineNum = QString::number(rx.cap(1).toInt() - 7);
 			logLine = "l." + lineNum + rx.cap(2);
-			logText += logLine + "\n";
-			logText += logStream->readLine() + "\n";
+			logText += logLine + '\n';
+			logText += logStream->readLine() + '\n';
 		}
 		else
 		{
@@ -176,9 +176,9 @@ QString TikzPreviewGenerator::getParsedLogText(QTextStream *logStream) const
 			{
 				if (logLine.contains(keywordPatterns.at(i)))
 				{
-					logText += logLine + "\n";
-					logText += logStream->readLine() + "\n";
-					logText += logStream->readLine() + "\n";
+					logText += logLine + '\n';
+					logText += logStream->readLine() + '\n';
+					logText += logStream->readLine() + '\n';
 					break;
 				}
 			}
@@ -426,9 +426,9 @@ void TikzPreviewGenerator::createTempTikzFile()
 void TikzPreviewGenerator::addToLatexSearchPath(const QString &path)
 {
 #ifdef Q_OS_WIN
-	const QString pathSeparator = ";";
+	const QChar pathSeparator = ';';
 #else
-	const QString pathSeparator = ":";
+	const QChar pathSeparator = ':';
 #endif
 
 #if QT_VERSION >= 0x040600
@@ -469,7 +469,7 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 	m_memberLock.unlock();  // we must unlock here so that the signal emitted above can reach the main thread
 	emit processRunning(true);
 	if (!m_process->waitForStarted(1000)) m_runFailed = true;
-	qDebug() << "starting" << command + " " + arguments.join(" ");
+	qDebug() << "starting" << command + ' ' + arguments.join(" ");
 
 	QByteArray buffer;
 	QTextStream log(&buffer);
@@ -490,18 +490,18 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 
 	if (m_processAborted)
 	{
-		m_shortLogText = "[" + name + "] " + tr("Process aborted.");
+		m_shortLogText = '[' + name + "] " + tr("Process aborted.");
 		emit showErrorMessage(m_shortLogText);
 		m_runFailed = true;
 	}
 	else if (m_process->exitCode() == 0)
 	{
-		m_shortLogText = "[" + name + "] " + tr("Process finished successfully.");
+		m_shortLogText = '[' + name + "] " + tr("Process finished successfully.");
 		m_runFailed = false;
 	}
 	else
 	{
-		m_shortLogText = "[" + name + "] " + tr("Error: run failed.", "info process");
+		m_shortLogText = '[' + name + "] " + tr("Error: run failed.", "info process");
 		emit showErrorMessage(m_shortLogText);
 		qWarning() << "Error:" << qPrintable(command) << "run failed with exit code:" << m_process->exitCode();
 		m_memberLock.lock();

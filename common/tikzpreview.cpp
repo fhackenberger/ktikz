@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -16,7 +16,6 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#include <QDebug>
 #include "tikzpreview.h"
 
 #ifdef KTIKZ_USE_KDE
@@ -277,13 +276,13 @@ QString TikzPreview::formatZoomFactor(qreal zoomFactor) const
 	QString zoomFactorText = KGlobal::locale()->formatNumber(zoomFactor, 2);
 	zoomFactorText.remove(KGlobal::locale()->decimalSymbol() + "00");
 	// remove trailing zero in numbers like 12.30
-	if (zoomFactorText.right(1) == QLatin1String("0")
+	if (zoomFactorText.endsWith('0')
 	    && zoomFactorText.indexOf(KGlobal::locale()->decimalSymbol()) >= 0)
 		zoomFactorText.chop(1);
-	zoomFactorText += "%";
+	zoomFactorText += '%';
 	return zoomFactorText;
 #else
-	return QLocale::system().toString(zoomFactor) + "%";
+	return QLocale::system().toString(zoomFactor) + '%';
 #endif
 }
 

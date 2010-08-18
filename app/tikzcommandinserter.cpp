@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -99,7 +99,7 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 		description.replace("\\\\", "\\");
 		insertion.replace(QRegExp("([^\\\\])\\\\n"), "\\1\n"); // replace newlines, these are the "\n" not preceded by a backslash as in "\\node"
 		insertion.replace(QRegExp("([^\\\\])\\\\n"), "\\1\n"); // do this twice to replace all newlines
-		insertion.replace("\\\\", "\\");
+		insertion.replace(QLatin1String("\\\\"), QLatin1String("\\"));
 		if (name.isEmpty())
 			name = description;
 		description.remove('&');
@@ -108,9 +108,9 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 		if (description.isEmpty())
 			description = insertion;
 		if (type.isEmpty())
-			type = "0";
+			type = '0';
 		commands << newCommand(name, description, insertion, child.attribute("dx").toInt(), child.attribute("dy").toInt(), type.toInt());
-		if (child.nextSiblingElement().tagName() == "separator")
+		if (child.nextSiblingElement().tagName() == QLatin1String("separator"))
 			commands << newCommand("", "", "", 0, 0, 0);
 		child = child.nextSiblingElement("item");
 	}
@@ -135,16 +135,16 @@ QStringList TikzCommandInserter::getCommandWords()
 	{
 		word = m_tikzCommandsList.at(i).description;
 		// remove all special characters and <options> at the beginning of the word
-		word.replace(QRegExp("^([^a-z\\\\<>]*<[^>]*>)*"), "");
-		word.replace(QRegExp("^[^a-z\\\\]*"), "");
+		word.remove(QRegExp("^([^a-z\\\\<>]*<[^>]*>)*"));
+		word.remove(QRegExp("^[^a-z\\\\]*"));
 		if (!word.isEmpty())
 			words.append(word);
 		else
 		{
 			word = m_tikzCommandsList.at(i).command;
 			// remove all special characters and <options> at the beginning of the word
-			word.replace(QRegExp("^([^a-z\\\\<>]*<[^>]*>)*"), "");
-			word.replace(QRegExp("^[^a-z\\\\]*"), "");
+			word.remove(QRegExp("^([^a-z\\\\<>]*<[^>]*>)*"));
+			word.remove(QRegExp("^[^a-z\\\\]*"));
 			if (!word.isEmpty())
 				words.append(word);
 		}
@@ -427,7 +427,7 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
 						end = end3;
 				}
 				command = command.left(end);
-				command = command.replace("\\", "\\\\");
+				command = command.replace('\\', QLatin1String("\\\\"));
 				rule.type = highlightTypeNames.at(0);
 				rule.pattern = QRegExp(command);
 				highlightingRules.append(rule);
@@ -436,17 +436,17 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
 //				command = command.replace("()", "\\([^\\)]*\\)");
 //				command = command.replace("(,)", "\\([^\\)]*\\)");
 //				command = command.replace("(:::)", "\\([^\\)]*\\)");
-				command = command.replace("+", "");
-				command = command.replace(" ()", "");
-				command = command.replace(" (,)", "");
-				command = command.replace(" (:::)", "");
-				command = command.replace(" {} ", "");
+				command = command.remove('+');
+				command = command.remove(" ()");
+				command = command.remove(" (,)");
+				command = command.remove(" (:::)");
+				command = command.remove(" {} ");
 				rule.type = highlightTypeNames.at(1);
 				rule.pattern = QRegExp(command);
 				highlightingRules.append(rule);
 				break;
 			case 3:
-				command = command.replace("|", "\\|");
+				command = command.replace('|', QLatin1String("\\|"));
 				end = command.indexOf('=', 0) + 1;
 				if (end > 0)
 					command = command.left(end);

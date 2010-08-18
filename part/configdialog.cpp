@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -23,7 +23,7 @@
 
 #include "configgeneralwidget.h"
 
-PartConfigDialog::PartConfigDialog(QWidget* parent)
+PartConfigDialog::PartConfigDialog(QWidget *parent)
     : KDialog(parent)
 {
 	setCaption(i18nc("@title:window", "Configure KTikZ Viewer"));
@@ -50,10 +50,13 @@ PartConfigDialog::~PartConfigDialog()
 
 QWidget *PartConfigDialog::viewerWidget()
 {
-	QGroupBox *viewerGroupBox = new QGroupBox(i18n("Viewer"));
+	QGroupBox *viewerGroupBox = new QGroupBox(i18nc("@title:group", "Viewer"));
 	QVBoxLayout *viewerLayout = new QVBoxLayout(viewerGroupBox);
-	m_watchFileCheckBox = new QCheckBox(i18n("&Reload document on file change"));
+	m_watchFileCheckBox = new QCheckBox(i18nc("@option:check", "&Reload document on file change"));
 	m_watchFileCheckBox->setObjectName("watchFileCheckBox");
+	m_watchFileCheckBox->setWhatsThis(i18nc("@info:whatsthis", "<para>When this option is checked, "
+	    "the TikZ image will be reloaded each time that the file is modified "
+	    "by another program.</para>"));
 	viewerLayout->addWidget(m_watchFileCheckBox);
 
 	connect(m_watchFileCheckBox, SIGNAL(toggled(bool)), this, SLOT(setModified()));
@@ -78,7 +81,7 @@ void PartConfigDialog::setModified()
 {
 	QWidget *sendingWidget = qobject_cast<QWidget*>(sender());
 	QSettings settings(ORGNAME, APPNAME);
-	if (sendingWidget->objectName() == "watchFileCheckBox")
+	if (sendingWidget->objectName() == QLatin1String("watchFileCheckBox"))
 		enableButtonApply(m_watchFileCheckBox->isChecked() != settings.value("WatchFile", true).toBool());
 }
 

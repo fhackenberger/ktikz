@@ -1,8 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
+ *     <florian@hackenberger.at>                                           *
  *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
- *   florian@hackenberger.at                                               *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -31,6 +31,7 @@ class AboutDialog;
 class AssistantController;
 #endif
 #include <QDateTime>
+#include <QPointer>
 #include "../common/mainwidget.h"
 
 class QAction;
@@ -185,10 +186,10 @@ private:
 	bool m_useShellEscaping;
 
 #ifndef KTIKZ_USE_KDE
-	AboutDialog *m_aboutDialog;
+	QPointer<AboutDialog> m_aboutDialog;
 	AssistantController *m_assistantController;
 #endif
-	ConfigDialog *m_configDialog;
+	QPointer<ConfigDialog> m_configDialog;
 
 	Url m_currentUrl;
 	Url m_lastUrl;

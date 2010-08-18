@@ -1,8 +1,11 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Glad Deschrijver                                *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
- *   Original code from SpeedCrunch licensed under GPL v2 or later         *
+ *   Original code from SpeedCrunch:                                       *
+ *     Copyright (C) 2004 Ariya Hidayat <ariya@kde.org>                    *
+ *     (http://code.google.com/p/speedcrunch/)                             *
+ *     licensed under GPL v2 or later                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *

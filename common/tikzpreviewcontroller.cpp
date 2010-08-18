@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -37,6 +37,7 @@
 #endif
 
 #include <QMenu>
+#include <QPointer>
 #include <QSettings>
 
 #include "templatewidget.h"
@@ -99,7 +100,7 @@ void TikzPreviewController::createTempDir()
 	if (tempFile->open())
 	{
 		const QFileInfo tempFileInfo = QFileInfo(*tempFile);
-		m_tempTikzFileBaseName = tempFileInfo.absolutePath() + "/" + tempFileInfo.completeBaseName();
+		m_tempTikzFileBaseName = tempFileInfo.absolutePath() + '/' + tempFileInfo.completeBaseName();
 	}
 	else
 		qCritical() << "Error: could not create temporary file in" << QDir::toNativeSeparators(QDir::tempPath() + "/ktikz/");
@@ -266,31 +267,27 @@ KUrl TikzPreviewController::getExportUrl(const KUrl &url, const QString &mimeTyp
 	    - (exportUrlExtension.isEmpty() ? 0 : exportUrlExtension.length() + 1)) // the extension is empty when the text/x-pgf mimetype is not correctly installed or when the file does not have a correct extension
 	    + mimeTypePtr->patterns().at(0).mid(1)); // first extension in the list of possible extensions (without *)
 
-	KFileDialog exportDialog(exportUrl.upUrl(), mimeTypePtr->patterns().join(" ") + "|"
-//	    + mimeTypePtr->comment() + "\n*|" + i18nc("@item:inlistbox filter", "All files"), m_parentWidget);
-	    + mimeTypePtr->comment() + "\n*|" + tr("All files"), m_parentWidget);
-	exportDialog.setOperationMode(KFileDialog::Saving);
-//	exportDialog.setCaption(i18nc("@title:window", "Export Image"));
-	exportDialog.setCaption(tr("Export Image"));
-	exportDialog.setSelection(exportUrl.fileName());
-
-	if (!exportDialog.exec())
-		return KUrl();
-
-	return exportDialog.selectedUrl();
+	return KFileDialog::getSaveUrl(exportUrl,
+	    mimeTypePtr->patterns().join(" ") + '|'
+//	    + mimeTypePtr->comment() + "\n*|" + i18nc("@item:inlistbox filter", "All files"),
+	    + mimeTypePtr->comment() + "\n*|" + tr("All files"),
+	    m_parentWidget,
+//	    i18nc("@title:window", "Export Image"),
+	    tr("Export Image"),
+	    KFileDialog::ConfirmOverwrite);
 }
 #else
 QString TikzPreviewController::getExportFileName(const QString &fileName, const QString &mimeType) const
 {
 	QString currentFile;
-	const QString extension = (mimeType == "image/x-eps") ? "eps"
-	    : ((mimeType == "application/pdf") ? "pdf" : "png");
-	const QString mimeTypeName = (mimeType == "image/x-eps") ? tr("EPS image")
-	    : ((mimeType == "application/pdf") ? tr("PDF document") : tr("PNG image"));
+	const QString extension = (mimeType == QLatin1String("image/x-eps")) ? "eps"
+	    : ((mimeType == QLatin1String("application/pdf")) ? "pdf" : "png");
+	const QString mimeTypeName = (mimeType == QLatin1String("image/x-eps")) ? tr("EPS image")
+	    : ((mimeType == QLatin1String("application/pdf")) ? tr("PDF document") : tr("PNG image"));
 	if (!fileName.isEmpty())
 	{
 		QFileInfo currentFileInfo(fileName);
-		currentFile = currentFileInfo.absolutePath() + "/" + currentFileInfo.completeBaseName() + "." + extension;
+		currentFile = currentFileInfo.absolutePath() + '/' + currentFileInfo.completeBaseName() + '.' + extension;
 	}
 	const QString filter = QString("%1 (*.%2);;%3 (*.*)")
 	    .arg(mimeTypeName)
@@ -313,18 +310,6 @@ void TikzPreviewController::exportImage()
 	const KUrl exportUrl = getExportUrl(m_mainWidget->url(), mimeType);
 	if (!exportUrl.isValid())
 		return;
-
-	if (KIO::NetAccess::exists(exportUrl, KIO::NetAccess::DestinationSide, m_parentWidget))
-	{
-		if (KMessageBox::warningContinueCancel(m_parentWidget,
-//		    i18nc("@info", "A file named <filename>%1</filename> already exists.  "
-//		    "Are you sure you want to overwrite it?", exportUrl.fileName()), QString(),
-		    tr("A file named \"%1\" already exists.  "
-		    "Are you sure you want to overwrite it?").arg(exportUrl.fileName()), QString(),
-//		    KGuiItem(i18nc("@action:button", "Overwrite"))) != KMessageBox::Continue)
-		    KGuiItem(tr("Overwrite"), "@action:button")) != KMessageBox::Continue)
-			return;
-	}
 #else
 	const QString exportFileName = getExportFileName(m_mainWidget->url().path(), mimeType);
 	if (exportFileName.isEmpty())
@@ -333,38 +318,43 @@ void TikzPreviewController::exportImage()
 	QFileInfo exportFileInfo(exportFileName);
 	if (exportFileInfo.exists())
 	{
-		QMessageBox warningBox(m_parentWidget);
-		warningBox.setWindowTitle(QCoreApplication::applicationName());
-		warningBox.setText(tr("A file named \"%1\" already exists.  "
+		QPointer<QMessageBox> warningBox = new QMessageBox(m_parentWidget);
+		warningBox->setWindowTitle(QCoreApplication::applicationName());
+		warningBox->setText(tr("A file named \"%1\" already exists.  "
 		    "Are you sure you want to overwrite it?").arg(exportFileInfo.fileName()));
-		warningBox.setIcon(QMessageBox::Warning);
-		QPushButton *overwriteButton = warningBox.addButton(tr("&Overwrite", "Do you want to overwrite an existing file - warning box"), QMessageBox::AcceptRole);
-		QPushButton *cancelButton = warningBox.addButton(tr("&Cancel", "Do you want to overwrite an existing file - warning box"), QMessageBox::RejectRole);
+		warningBox->setIcon(QMessageBox::Warning);
+		QPushButton *overwriteButton = warningBox->addButton(tr("&Overwrite", "Do you want to overwrite an existing file - warning box"), QMessageBox::AcceptRole);
+		QPushButton *cancelButton = warningBox->addButton(tr("&Cancel", "Do you want to overwrite an existing file - warning box"), QMessageBox::RejectRole);
 		Q_UNUSED(overwriteButton)
-		warningBox.exec();
-		if (warningBox.clickedButton() == cancelButton)
+		warningBox->exec();
+		if (!warningBox || warningBox->clickedButton() == cancelButton)
+		{
+			delete warningBox;
 			return;
+		}
 		else if (!QFile::remove(exportFileName))
 		{
 			QMessageBox::critical(m_parentWidget, QCoreApplication::applicationName(),
 			    tr("The file \"%1\" could not be overwritten.").arg(exportFileName));
+			delete warningBox;
 			return;
 		}
+		delete warningBox;
 	}
 #endif
 
 	QString extension;
-	if (mimeType == "application/pdf")
+	if (mimeType == QLatin1String("application/pdf"))
 	{
 		extension = ".pdf";
 	}
-	else if (mimeType == "image/x-eps")
+	else if (mimeType == QLatin1String("image/x-eps"))
 	{
 		if (!m_tikzPreviewGenerator->generateEpsFile())
 			return;
 		extension = ".eps";
 	}
-	else if (mimeType == "image/png")
+	else if (mimeType == QLatin1String("image/png"))
 	{
 		extension = ".png";
 		tikzImage.save(m_tempTikzFileBaseName + extension);
@@ -517,8 +507,7 @@ bool TikzPreviewController::cleanUp()
 	QStringList filters;
 	filters << tempTikzFileInfo.completeBaseName() + ".*";
 
-	QString fileName;
-	foreach (fileName, tempTikzDir.entryList(filters))
+	foreach (const QString &fileName, tempTikzDir.entryList(filters))
 		success = success && tempTikzDir.remove(fileName);
 	return success;
 }

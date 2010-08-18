@@ -1,8 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
+ *     <florian@hackenberger.at>                                           *
  *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
- *   florian@hackenberger.at                                               *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -315,18 +315,19 @@ void MainWindow::checkForFileChanges()
 	if (lastExternalModifiedDateTime <= m_lastInternalModifiedDateTime)
 		return;
 
-	QMessageBox fileChangedWarningMessageBox(this);
-	fileChangedWarningMessageBox.setText(tr("The document was modified by another program.\nWhat do you want to do?"));
-	fileChangedWarningMessageBox.setWindowTitle(KtikzApplication::applicationName());
-	fileChangedWarningMessageBox.setIcon(QMessageBox::Warning);
-	QAbstractButton *overwriteButton = fileChangedWarningMessageBox.addButton(tr("&Overwrite"), QMessageBox::AcceptRole);
-	QAbstractButton *reloadButton = fileChangedWarningMessageBox.addButton(tr("&Reload file"), QMessageBox::AcceptRole);
-	fileChangedWarningMessageBox.addButton(QMessageBox::Cancel);
-	fileChangedWarningMessageBox.exec();
-	if (fileChangedWarningMessageBox.clickedButton() == overwriteButton)
+	QPointer<QMessageBox> fileChangedWarningMessageBox = new QMessageBox(this);
+	fileChangedWarningMessageBox->setText(tr("The document was modified by another program.\nWhat do you want to do?"));
+	fileChangedWarningMessageBox->setWindowTitle(KtikzApplication::applicationName());
+	fileChangedWarningMessageBox->setIcon(QMessageBox::Warning);
+	QAbstractButton *overwriteButton = fileChangedWarningMessageBox->addButton(tr("&Overwrite"), QMessageBox::AcceptRole);
+	QAbstractButton *reloadButton = fileChangedWarningMessageBox->addButton(tr("&Reload file"), QMessageBox::AcceptRole);
+	fileChangedWarningMessageBox->addButton(QMessageBox::Cancel);
+	fileChangedWarningMessageBox->exec();
+	if (fileChangedWarningMessageBox->clickedButton() == overwriteButton)
 		saveUrl(m_currentUrl);
-	else if (fileChangedWarningMessageBox.clickedButton() == reloadButton)
+	else if (fileChangedWarningMessageBox->clickedButton() == reloadButton)
 		reload();
+	delete fileChangedWarningMessageBox;
 }
 
 void MainWindow::saveLastInternalModifiedDateTime()

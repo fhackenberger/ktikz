@@ -1,8 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
+ *     <florian@hackenberger.at>                                           *
  *   Copyright (C) 2007 by Glad Deschrijver                                *
- *   florian@hackenberger.at                                               *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -33,7 +33,7 @@ LogHighlighter::LogHighlighter(QTextDocument *parent)
 	    << "LaTeX Warning:" << "LaTeX Error:" << "Runaway argument?"
 	    << "Missing character: .*!" << "Error:"
 	    << "^\\[.*\\] Line \\d+: .*"; // error msg created by TikzPngPreviewer::getParsedLogText()
-	foreach (QString pattern, keywordPatterns)
+	foreach (const QString &pattern, keywordPatterns)
 	{
 		rule.pattern = QRegExp(pattern);
 		rule.format = keywordFormat;
@@ -59,7 +59,7 @@ LogHighlighter::~LogHighlighter()
 void LogHighlighter::highlightBlock(const QString &text)
 {
 	// Try each highlighting pattern and apply formatting if it matches
-	foreach (HighlightingRule rule, m_highlightingRules)
+	foreach (const HighlightingRule &rule, m_highlightingRules)
 	{
 //		const QRegExp expression(rule.pattern);
 //		int index = text.indexOf(expression);
@@ -84,7 +84,7 @@ void LogHighlighter::highlightBlock(const QString &text)
 		const int endIndex = text.size() - 1;
 		const int statisticsLength = endIndex - startIndex + 1;
 		setFormat(startIndex, statisticsLength, m_statisticsFormat);
-		// Make the next invokation of this routine aware that it should continue highlighting in statistics format
+		// Make the next invocation of this routine aware that it should continue highlighting in statistics format
 		setCurrentBlockState(1);
 	}
 }

@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009 by Glad Deschrijver                          *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -34,7 +34,7 @@ void ConfigEditorWidget::readSettings(const QString &settingsGroup)
 	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup(settingsGroup);
 	m_generalFont.fromString(settings.value("Font", qApp->font().toString()).toString());
-	ui.generalFontEdit->setText(m_generalFont.family() + " " + QString::number(m_generalFont.pointSize()));
+	ui.generalFontEdit->setText(m_generalFont.family() + ' ' + QString::number(m_generalFont.pointSize()));
 	ui.generalFontEdit->setFont(m_generalFont);
 	ui.showWhiteSpacesCheck->setChecked(settings.value("ShowWhiteSpaces", false).toBool());
 	ui.showTabulatorsCheck->setChecked(settings.value("ShowTabulators", false).toBool());
@@ -68,7 +68,7 @@ void ConfigEditorWidget::selectFont()
 	if (ok)
 	{
 		m_generalFont = newFont;
-		ui.generalFontEdit->setText(m_generalFont.family() + " " + QString::number(m_generalFont.pointSize()));
+		ui.generalFontEdit->setText(m_generalFont.family() + ' ' + QString::number(m_generalFont.pointSize()));
 		ui.generalFontEdit->setFont(m_generalFont);
 	}
 }

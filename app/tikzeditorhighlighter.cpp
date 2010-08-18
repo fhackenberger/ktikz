@@ -1,8 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
+ *     <florian@hackenberger.at>                                           *
  *   Copyright (C) 2007 by Glad Deschrijver                                *
- *   florian@hackenberger.at                                               *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -40,7 +40,7 @@ TikzHighlighter::TikzHighlighter(TikzCommandInserter *commandInserter, QTextDocu
 
 	QStringList keywordPatterns;
 	keywordPatterns << "\\\\begin\\{[^\\}]*\\}" << "\\\\end\\{[^\\}]*\\}";
-	foreach (QString pattern, keywordPatterns)
+	foreach (const QString &pattern, keywordPatterns)
 	{
 		rule.type = m_highlightTypeNames.at(currentIndex);
 		rule.pattern = QRegExp(pattern);
@@ -107,7 +107,7 @@ void TikzHighlighter::setTextCharFormats(const QMap<QString, QTextCharFormat> &f
 void TikzHighlighter::highlightBlock(const QString &text)
 {
 	// Try each highlighting pattern and apply formatting if it matches
-	foreach (HighlightingRule rule, m_highlightingRules)
+	foreach (const HighlightingRule &rule, m_highlightingRules)
 	{
 //		const QRegExp expression(rule.pattern);
 //		int index = text.indexOf(expression);

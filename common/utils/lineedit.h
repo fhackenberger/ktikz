@@ -19,7 +19,7 @@ class LineEdit : public KLineEdit
 	Q_OBJECT
 
 public:
-	LineEdit(const QString &text, QWidget *parent = 0);
+	explicit LineEdit(const QString &text, QWidget *parent = 0);
 	LineEdit(QWidget *parent = 0);
 };
 #else
@@ -32,7 +32,7 @@ class LineEdit : public QLineEdit
 	Q_OBJECT
 
 public:
-	LineEdit(const QString &text, QWidget *parent = 0);
+	explicit LineEdit(const QString &text, QWidget *parent = 0);
 	LineEdit(QWidget *parent = 0);
 	virtual QSize sizeHint() const;
 

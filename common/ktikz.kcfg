@@ -94,7 +94,7 @@
    <default>1.0</default>
    <min>0.1</min>
    <max>6.0</max>
+   <label>The factor by which the preview is zoomed.</label>
   </entry>
-  <label>The factor by which the preview is zoomed.</label>
  </group>
 </kcfg>

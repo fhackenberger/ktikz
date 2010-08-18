@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2008 by Glad Deschrijver                                *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -28,8 +28,10 @@
 #include <QProcess>
 #include <QSettings>
 
+#include "utils/filedialog.h"
 #include "utils/icon.h"
 #include "utils/lineedit.h"
+#include "utils/url.h"
 
 TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 {
@@ -98,9 +100,9 @@ void TemplateWidget::setFileName(const QString &fileName)
 void TemplateWidget::setReplaceText(const QString &replace)
 {
 	QString replaceText = replace;
-	replaceText.replace("&", "&amp;");
-	replaceText.replace("<", "&lt;");
-	replaceText.replace(">", "&gt;");
+	replaceText.replace('&', QLatin1String("&amp;"));
+	replaceText.replace('<', QLatin1String("&lt;"));
+	replaceText.replace('>', QLatin1String("&gt;"));
 	const QString templateDescription(tr("<p>The template contains the code "
 	    "of a complete LaTeX document in which the TikZ picture will be "
 	    "included and which will be typesetted to produce the preview "
@@ -133,13 +135,13 @@ void TemplateWidget::setTemplateFile()
 	if (currentFileName.isEmpty() && QFileInfo(KTIKZ_TEMPLATES_INSTALL_DIR).isDir())
 		currentFileName = KTIKZ_TEMPLATES_INSTALL_DIR;
 #endif
-	const QString fileName = QFileDialog::getOpenFileName(this,
-	    tr("Select a template file"), currentFileName,
-	    QString("%1 (*.pgs *.tex);;%2 (*.*)")
-	    .arg(tr("%1 template files").arg(QCoreApplication::applicationName()))
+	const Url url = FileDialog::getOpenUrl(this,
+	    tr("Select a template file"), Url(currentFileName),
+	    QString("*.pgs *.tex|%1\n*|%2")
+	    .arg(tr("%1 template files").arg(APPNAME))
 	    .arg(tr("All files")));
-	if (!fileName.isEmpty())
-		setFileName(fileName);
+	if (url.isValid())
+		setFileName(url.path());
 }
 
 void TemplateWidget::editTemplateFile()

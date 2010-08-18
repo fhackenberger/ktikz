@@ -1,10 +1,10 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   Bracket matching and white space showing code originally from         *
- *     qdevelop: Copyright (C) 2006 Jean-Luc Biord (http://qdevelop.org)   *
- *     licensed under GPL v2 or later                                      *
+ *     qdevelop: Copyright (C) 2006 Jean-Luc Biord <jlbiord@gmail.com>     *
+ *     (http://qdevelop.org) licensed under GPL v2 or later                *
  *   Enhanced version of bracket matching inspired by codeedit example in  *
  *     the Qt documentation: Copyright (C) 2009 Nokia Corporation and/or   *
  *     its subsidiary(-ies) (qt-info@nokia.com) licensed under LGPL v2.1   *
@@ -17,7 +17,7 @@
  *     Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>       *
  *     licensed under LGPL v2                                              *
  *   Completion code originally from texmaker:                             *
- *     Copyright (C) 2003-2008 Pascal Brachet                              *
+ *     Copyright (C) 2003-2008 Pascal Brachet <pbrachet@xm1math.net>       *
  *     (http://www.xm1math.net/texmaker) licensed under GPL v2 or later    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *

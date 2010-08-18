@@ -1,8 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
+ *     <florian@hackenberger.at>                                           *
  *   Copyright (C) 2007 by Glad Deschrijver                                *
- *   florian@hackenberger.at                                               *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,8 +18,8 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef TIKZHIGHLIGHTER_H
-#define TIKZHIGHLIGHTER_H
+#ifndef TIKZEDITORHIGHLIGHTER_H
+#define TIKZEDITORHIGHLIGHTER_H
 
 #include <QSyntaxHighlighter>
 
@@ -39,7 +39,7 @@ class TikzHighlighter : public QSyntaxHighlighter
 	Q_OBJECT
 
 public:
-	TikzHighlighter(TikzCommandInserter *commandInserter = 0, QTextDocument *parent = 0);
+	explicit TikzHighlighter(TikzCommandInserter *commandInserter = 0, QTextDocument *parent = 0);
 	virtual ~TikzHighlighter();
 
 	QMap<QString, QTextCharFormat> getDefaultHighlightFormats();

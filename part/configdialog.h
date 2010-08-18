@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -29,7 +29,7 @@ class PartConfigDialog : public KDialog
 	Q_OBJECT
 
 public:
-	PartConfigDialog(QWidget* parent);
+	PartConfigDialog(QWidget *parent);
 	~PartConfigDialog();
 
 	void readSettings();

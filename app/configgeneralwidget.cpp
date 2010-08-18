@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -141,7 +141,7 @@ void ConfigGeneralWidget::browseCommand(QLineEdit *lineEdit, bool isProgram)
 	}
 	if (!location.isEmpty())
 	{
-		location.replace("\\", "/");
+		location.replace('\\', '/');
 		lineEdit->setText(location);
 	}
 }
@@ -149,12 +149,12 @@ void ConfigGeneralWidget::browseCommand(QLineEdit *lineEdit, bool isProgram)
 void ConfigGeneralWidget::browseCommand()
 {
 	QToolButton *button = qobject_cast<QToolButton*>(sender());
-	if (button->objectName() == "latexButton")
+	if (button->objectName() == QLatin1String("latexButton"))
 		browseCommand(ui.latexEdit);
-	else if (button->objectName() == "pdftopsButton")
+	else if (button->objectName() == QLatin1String("pdftopsButton"))
 		browseCommand(ui.pdftopsEdit);
-	else if (button->objectName() == "editorButton")
+	else if (button->objectName() == QLatin1String("editorButton"))
 		browseCommand(ui.editorEdit);
-	else if (button->objectName() == "tikzDocButton")
+	else if (button->objectName() == QLatin1String("tikzDocButton"))
 		browseCommand(ui.tikzDocEdit, false);
 }

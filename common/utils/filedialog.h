@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2009 by Glad Deschrijver                                *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -27,7 +27,7 @@
 class FileDialog : public KFileDialog
 {
 public:
-	FileDialog(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString()) : KFileDialog(directory, filter, parent, 0)
+	explicit FileDialog(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString()) : KFileDialog(directory, filter, parent, 0)
 	{
 		Q_UNUSED(caption)
 	}
@@ -41,7 +41,7 @@ public:
 class FileDialog : public QFileDialog
 {
 public:
-	FileDialog(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString()) : QFileDialog(parent, caption, directory, filter) {}
+	explicit FileDialog(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString()) : QFileDialog(parent, caption, directory, filter) {}
 
 	static Url getOpenUrl(QWidget *parent = 0, const QString &caption = QString(), const Url &dir = Url(), const QString &filter = QString());
 	static Url getSaveUrl(QWidget *parent = 0, const QString &caption = QString(), const Url &dir = Url(), const QString &filter = QString());

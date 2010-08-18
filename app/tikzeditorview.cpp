@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -22,6 +22,7 @@
 #include <QClipboard>
 #include <QMenu>
 #include <QMessageBox>
+#include <QPointer>
 #include <QSettings>
 #include <QTextCursor>
 #include <QToolBar>
@@ -334,7 +335,7 @@ void TikzEditorView::editGoToLine()
 
 void TikzEditorView::editIndent()
 {
-	IndentDialog *indentDialog = new IndentDialog(this, tr("Indent"));
+	QPointer<IndentDialog> indentDialog = new IndentDialog(this, tr("Indent"));
 	if (!indentDialog->exec())
 	{
 		delete indentDialog;
@@ -414,7 +415,7 @@ void TikzEditorView::editUncomment()
 		while (textCursor.position() < end && go)
 		{
 			textCursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, 2);
-			if (textCursor.selectedText() == "% ")
+			if (textCursor.selectedText() == QLatin1String("% "))
 			{
 				textCursor.removeSelectedText();
 				--end;
@@ -427,7 +428,7 @@ void TikzEditorView::editUncomment()
 	{
 		textCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
 		textCursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, 2);
-		if (textCursor.selectedText() == "% ")
+		if (textCursor.selectedText() == QLatin1String("% "))
 			textCursor.removeSelectedText();
 	}
 }
@@ -547,7 +548,7 @@ void TikzEditorView::replace(const QString &text, const QString &replacement,
 	bool go = true;
 	while (go && search(text, isCaseSensitive, findWholeWords, forward, startAtCursor))
 	{
-		switch(QMessageBox::warning(this, "Replace", tr("Replace this occurence?"), QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No | QMessageBox::Cancel, QMessageBox::Yes))
+		switch(QMessageBox::warning(this, "Replace", tr("Replace this occurrence?"), QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No | QMessageBox::Cancel, QMessageBox::Yes))
 		{
 			case QMessageBox::Yes:
 				replace(replacement);

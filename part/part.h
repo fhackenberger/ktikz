@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -40,7 +40,7 @@ public:
 	Part(QWidget *parentWidget, QObject *parent, const QStringList &args);
 	virtual ~Part();
 
-	static KAboutData* createAboutData();
+	static KAboutData *createAboutData();
 	QWidget *widget();
 	QString tikzCode() const;
 	Url url() const;

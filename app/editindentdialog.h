@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Glad Deschrijver                                *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -26,7 +26,7 @@ class IndentDialog : public QDialog
 	Q_OBJECT
 
 public:
-	IndentDialog(QWidget *parent = 0, const QString &name = 0);
+	explicit IndentDialog(QWidget *parent = 0, const QString &name = 0);
 	~IndentDialog();
 	int numOfInserts() const;
 	QChar insertChar() const;

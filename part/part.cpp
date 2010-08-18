@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   Document watcher and reloader code copied from Okular KPart code      *
  *     which is copyrighted as follows:                                    *
@@ -105,7 +105,7 @@ QWidget *Part::widget()
 	return KParts::ReadOnlyPart::widget();
 }
 
-KAboutData* Part::createAboutData()
+KAboutData *Part::createAboutData()
 {
 	KAboutData *aboutData = new KAboutData("ktikzpart", "ktikz",
 	    ki18n("KTikZ KPart"), APPVERSION);
@@ -127,9 +127,9 @@ void Part::createActions()
 
 /*
 	KAction *reloadAction = actionCollection()->add<KAction>("file_reload");
-	reloadAction->setText(i18n("Reloa&d"));
+	reloadAction->setText(i18nc("@action", "Reloa&d"));
 	reloadAction->setIcon(KIcon("view-refresh"));
-	reloadAction->setWhatsThis(i18n("Reload the current document from disk."));
+	reloadAction->setWhatsThis(i18nc("@info:whatsthis", "Reload the current document from disk."));
 	connect(reloadAction, SIGNAL(triggered()), this, SLOT(slotReload()));
 	reloadAction->setShortcut(KStandardShortcut::reload());
 	m_reloadAction = reloadAction;
@@ -178,26 +178,14 @@ void Part::saveAs()
 
 	const KMimeType::Ptr mimeType = KMimeType::mimeType("text/x-pgf");
 	const QString tikzFilter = (mimeType) ?
-	    mimeType->patterns().join(" ") + "|" + mimeType->comment()
+	    mimeType->patterns().join(" ") + '|' + mimeType->comment()
 	    : "*.pgf *.tikz *.tex|" + i18nc("@item:inlistbox filter", "TikZ files");
-	KFileDialog saveAsDialog(srcUrl, tikzFilter + "\n*|" + i18nc("@item:inlistbox filter", "All files"), widget());
-	saveAsDialog.setOperationMode(KFileDialog::Saving);
-	saveAsDialog.setCaption(i18nc("@title:window", "Save TikZ Source File As"));
-	saveAsDialog.setSelection(srcUrl.fileName());
-	if (!saveAsDialog.exec())
-		return;
-	const KUrl dstUrl = saveAsDialog.selectedUrl();
+	const KUrl dstUrl = KFileDialog::getSaveUrl(srcUrl,
+	    tikzFilter + "\n*|" + i18nc("@item:inlistbox filter", "All files"),
+	    widget(), i18nc("@title:window", "Save TikZ Source File As"),
+	    KFileDialog::ConfirmOverwrite);
 	if (!dstUrl.isValid())
 		return;
-
-	if (KIO::NetAccess::exists(dstUrl, KIO::NetAccess::DestinationSide, widget()))
-	{
-		if (KMessageBox::warningContinueCancel(widget(),
-		    i18nc("@info", "A file named <filename>%1</filename> already exists.  "
-		    "Are you sure you want to overwrite it?", dstUrl.fileName()), QString(),
-		    KGuiItem(i18nc("@action:button", "Overwrite"))) != KMessageBox::Continue)
-			return;
-	}
 
 	KIO::Job *job = KIO::file_copy(srcUrl, dstUrl, -1, KIO::Overwrite | KIO::HideProgressInfo);
 	connect(job, SIGNAL(result(KJob*)), m_tikzPreviewController, SLOT(showJobError(KJob*)));
@@ -256,7 +244,7 @@ Url Part::url() const
 
 /***************************************************************************/
 
-void Part::slotFileDirty(const QString& path)
+void Part::slotFileDirty(const QString &path)
 {
 	// The beauty of this is that each start cancels the previous one.
 	// This means that timeout() is only fired when there have
@@ -290,7 +278,7 @@ void Part::slotFileDirty(const QString& path)
 
 void Part::slotDoFileDirty()
 {
-	m_tikzPreviewController->tikzPreview()->showErrorMessage(i18n("Reloading the document..."));
+	m_tikzPreviewController->tikzPreview()->showErrorMessage(i18nc("@info:status", "Reloading the document..."));
 
 	// close and (try to) reopen the document
 	if (!KParts::ReadOnlyPart::openUrl(url()))

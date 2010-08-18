@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Glad Deschrijver                                *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -27,8 +27,8 @@ class ColorButton : public KColorButton
 	Q_OBJECT
 
 public:
-	ColorButton(QWidget *parent = 0) : KColorButton(parent) {}
-	ColorButton(const QColor &color, QWidget *parent = 0) : KColorButton(color, parent) {}
+	explicit ColorButton(QWidget *parent = 0) : KColorButton(parent) {}
+	explicit ColorButton(const QColor &color, QWidget *parent = 0) : KColorButton(color, parent) {}
 };
 #else
 #include <QToolButton>
@@ -39,8 +39,8 @@ class ColorButton : public QToolButton
 	Q_PROPERTY(QColor color READ color WRITE setColor)
 
 public:
-	ColorButton(QWidget *parent = 0);
-	ColorButton(const QColor &color, QWidget *parent = 0);
+	explicit ColorButton(QWidget *parent = 0);
+	explicit ColorButton(const QColor &color, QWidget *parent = 0);
 
 	QColor color() const;
 	void setColor(const QColor &color);

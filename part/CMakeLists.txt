@@ -16,6 +16,7 @@ set(ktikzpart_SRCS
 	../common/tikzpreviewcontroller.cpp
 	../common/tikzpreviewgenerator.cpp
 	../common/utils/action.cpp
+	../common/utils/filedialog.cpp
 	../common/utils/lineedit.cpp
 	../common/utils/recentfilesaction.cpp
 	../common/utils/selectaction.cpp

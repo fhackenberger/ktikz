@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2009 by Glad Deschrijver                                *
- *   glad.deschrijver@gmail.com                                            *
+ *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -29,7 +29,7 @@ class SelectAction : public KSelectAction
 	Q_OBJECT
 
 public:
-	SelectAction(QObject *parent, const QString &name = 0);
+	explicit SelectAction(QObject *parent, const QString &name = 0);
 	SelectAction(const QString &text, QObject *parent, const QString &name = 0);
 	SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = 0);
 };
@@ -43,7 +43,7 @@ class SelectAction : public QWidgetAction
 	Q_OBJECT
 
 public:
-	SelectAction(QObject *parent, const QString &name = 0);
+	explicit SelectAction(QObject *parent, const QString &name = 0);
 	SelectAction(const QString &text, QObject *parent, const QString &name = 0);
 	SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = 0);
 	~SelectAction();
