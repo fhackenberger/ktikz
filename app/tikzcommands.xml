@@ -137,8 +137,8 @@ type:
 		<item description="nonzero &amp;rule" insert="nonzero rule" dx="12" dy="0" type="3"/>
 		<item description="even odd &amp;rule" insert="even odd rule" dx="13" dy="0" type="3"/>
 		<separator/>
-		<item description="Define c&amp;olor" description="\\colorlet{&lt;name&gt;}{&lt;value&gt;}" insert="\colorlet{&#8226;}{&#8226;}" dx="10" dy="0" type="1"/>
-		<item description="Set &amp;definition" description="\\tikzset{&lt;variable&gt;=&lt;value&gt;}" insert="\\tikzset{&#8226;=&#8226;}" dx="9" dy="0" type="1"/>
+		<item name="Define c&amp;olor" description="\\colorlet{&lt;name&gt;}{&lt;value&gt;}" insert="\colorlet{&#8226;}{&#8226;}" dx="10" dy="0" type="1"/>
+		<item name="Set &amp;definition" description="\\tikzset{&lt;variable&gt;=&lt;value&gt;}" insert="\\tikzset{&#8226;=&#8226;}" dx="9" dy="0" type="1"/>
 		<section title="&amp;Styles">
 			<item description="st&amp;yle" insert="style=&#8226;" dx="6" dy="0" type="3"/>
 			<item name="Define st&amp;yle" description="\\tikzstyle{&lt;name&gt;}=[&lt;options&gt;]" insert="\\tikzstyle{&#8226;}=[&#8226;]" dx="11" dy="0" type="1"/>

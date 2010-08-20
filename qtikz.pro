@@ -29,6 +29,10 @@ message()
 message("If you would like to change these paths,")
 message("please adjust conf.pri to your needs and rerun qmake.")
 
+ts.target = ts
+ts.CONFIG = recursive
+QMAKE_EXTRA_TARGETS += ts
+
 license.path = $${RESOURCESDIR}
 license.files += LICENSE.GPL2
 INSTALLS += license

@@ -81,7 +81,7 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 	TikzCommandList commandList;
 	QList<TikzCommand> commands;
 
-	commandList.title = element.attribute("title");
+	commandList.title = tr(element.attribute("title").toLatin1().data());
 
 	QDomElement child = element.firstChildElement("item");
 	QString name;
@@ -90,7 +90,7 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 	QString type;
 	while (!child.isNull())
 	{
-		name = child.attribute("name");
+		name = tr(child.attribute("name").toLatin1().data());
 		description = child.attribute("description");
 		insertion = child.attribute("insert");
 		type = child.attribute("type");
@@ -173,7 +173,7 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList)
 		}
 		else
 		{
-			action = new QAction(commandList.commands.at(i).name, this);
+			action = new QAction(name, this);
 			action->setData(commandList.commands.at(i).number); // link to the corresponding item in m_tikzCommandsList
 			action->setStatusTip(commandList.commands.at(i).description);
 			connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));

@@ -1,0 +1,60 @@
+This file contains notes for developers of ktikz.
+
+Generating the translation source files:
+----------------------------------------
+
+When you add/change/remove translatable strings in the C++ code, you must
+recreate the translation source files (app/*.ts and po/*.po).  You must build
+the Qt-only version as described in INSTALL (but don't do 'make install' yet).
+Then run
+  make ts
+to generate an updated version of the .ts files.  Note that running
+  lupdate app.pro
+in the app directory is only sufficient if you have not changed the file
+app/tikzcommands.xml (if you have changed this file, 'make ts' must be run
+so that the translatable strings in this file are also added to the .ts files).
+
+If you build the KDE version, the above steps must also be accomplished, but
+additionally you must run
+  ./extract_messages.sh
+in the po directory to get the strings that only appear in the KDE version.
+
+The app/*.ts files can be edited using Qt Linguist, the po/*.po files can be
+edited using KDE's Lokalize.
+
+After editing the translation source files, they will be compiled and installed
+when you run (both for the Qt-only and the KDE version):
+  make
+  sudo make install
+
+Generating the documentation:
+-----------------------------
+
+For the KDE version, all you need to do is edit the doc/*.docbook files.
+
+For the Qt-only version, the procedure is more complicated.  If you have
+edited the *.docbook files, then you must run
+  ./generate-qt-doc.sh
+in the doc directory in order to regenerate the file doc/index.html (this
+script also creates doc/qtikz.qch and doc/qtikz.qhc, but these files are not
+important since they are automatically generated when running 'make' and
+removed when running 'make clean').
+
+After generating the documentation, they will be compiled and installed when
+you run (both for the Qt-only and the KDE version):
+  make
+  sudo make install
+
+Generating the icons:
+---------------------
+
+The app/icons/qtikz.svg and app/icons/ktikz.svg icons are derived from the
+accessories-text-editor icon in KDE's Oxygen icon set, in Inkscape the "Lorem
+ipsum..." text is removed and the QTikZ/KTikZ text is added using the Prociono
+font (http://www.fontsquirrel.com/fonts/Prociono).  The PNG versions of these
+icons in different sizes are all obtained by opening the SVG versions in the
+GIMP, selecting the appropriate size when the SVG file is opened and saving
+the file as PNG.  The Windows qtikz.ico version is obtained by converting
+qtikz.svg online at http://www.convertico.com (the free png2ico does not give
+a result of similar quality).  The other icons (except qt-logo-22.png which is
+obtained from Qt) are obtained from KDE's Oxygen icon set.

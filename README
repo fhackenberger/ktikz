@@ -35,3 +35,19 @@ version 3.  Currently there are no other restrictions for this move.
 This program is distributed in the hope that it will be useful, but WITHOUT
 ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+The icons are copied or derived from KDE's Oxygen icon set which is released
+under the LGPL (see http://www.oxygen-icons.org/?page_id=4).  The font used
+in the qtikz and ktikz icons is Prociono and is released under the following
+license:
+
+  This font has been released into the public domain by its author,
+  Barry Schwartz. This applies worldwide.
+
+  In some countries this may not be legally possible; if so:
+
+  Barry Schwartz grants anyone the right to use this work for any
+  purpose, without any conditions, unless such conditions are required
+  by law.
+
+The Qt logo icon comes from Qt which is released under the LGPL.

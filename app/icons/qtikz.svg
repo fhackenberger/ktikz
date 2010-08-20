@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -13,14 +14,20 @@
    height="128"
    id="svg1960"
    sodipodi:version="0.32"
-   inkscape:version="0.45"
+   inkscape:version="0.47 r22583"
    version="1.0"
-   sodipodi:docbase="/home/gdschrij/ktikz-0.4/src/images"
-   sodipodi:docname="ktikz.svg"
+   sodipodi:docname="qtikz.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    sodipodi:modified="true">
   <defs
      id="defs1962">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 64 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="128 : 64 : 1"
+       inkscape:persp3d-origin="64 : 42.666667 : 1"
+       id="perspective660" />
     <linearGradient
        id="linearGradient4035">
       <stop
@@ -3756,7 +3763,8 @@
      inkscape:window-width="872"
      inkscape:window-height="584"
      inkscape:window-x="139"
-     inkscape:window-y="115" />
+     inkscape:window-y="115"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata1965">
     <rdf:RDF>
@@ -4410,15 +4418,16 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-size:58.2765007px;font-style:normal;font-weight:normal;fill:#003264;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       style="font-size:56px;font-style:normal;font-weight:normal;fill:#003264;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Prociono;-inkscape-font-specification:Prociono;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%"
        x="21.196484"
        y="68.806389"
        id="text2808"
-       transform="scale(0.7147028,1.399183)"><tspan
+       transform="scale(0.7147028,1.399183)"
+       sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan2810"
          x="21.196484"
          y="68.806389"
-         style="fill:#003264;fill-opacity:1;font-family:Fertigo">QTikz</tspan></text>
+         style="fill:#003264;fill-opacity:1;font-family:Prociono;-inkscape-font-specification:Prociono;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:56px;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%">QTikz</tspan></text>
   </g>
 </svg>

@@ -112,6 +112,8 @@ unix:!macx {
 
 ### Translations
 
+include(translations.pri)
+
 LOCALEDIR = $${LOCALESUBDIR}/ # the function qmFiles assumes that this variable ends with / or is empty
 
 !isEmpty(TRANSLATIONS) {
