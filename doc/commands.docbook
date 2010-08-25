@@ -586,7 +586,25 @@
 
 <sect1 id="sect1-commands-help-menu">
 	<title>The <guimenu>Help</guimenu> Menu</title>
-	<!-- additional "About Editor Component" + "Tip of the Day", but no "Switch Language"-->
+
+	<para>&ktikz; has a standard &kde; <guimenu>Help</guimenu> as described below, with one addition:</para>
+
+	<variablelist>
+	<varlistentry>
+		<term>
+			<menuchoice>
+				<guimenu>Help</guimenu>
+				<guimenuitem>TikZ Manual</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Opens the TikZ Manual.  This is the full TikZ Manual bundled with the LaTeX PGF package, it contains a tutorial on how to use TikZ and a reference guide of all PGF and TikZ commands.</para>
+		</listitem>
+	</varlistentry>
+	</variablelist>
+
+	<para>The standard &kde; <guimenu>Help</guimenu> entries are:</para>
+
 	&help.menu.documentation;
 </sect1>
 </chapter>

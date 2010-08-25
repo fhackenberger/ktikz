@@ -32,13 +32,13 @@ Generating the documentation:
 
 For the KDE version, all you need to do is edit the doc/*.docbook files.
 
-For the Qt-only version, the procedure is more complicated.  If you have
-edited the *.docbook files, then you must run
+For the Qt-only version, the procedure is more complicated.  After you have
+edited the *.docbook files, you must run
   ./generate-qt-doc.sh
-in the doc directory in order to regenerate the file doc/index.html (this
-script also creates doc/qtikz.qch and doc/qtikz.qhc, but these files are not
-important since they are automatically generated when running 'make' and
-removed when running 'make clean').
+in the doc directory in order to regenerate the file doc/index.html.  However,
+if the documentation is edited or if some features are added, then it might be
+necessary to change the "sed" lines in generate-qt-doc.sh before running this
+script.
 
 After generating the documentation, they will be compiled and installed when
 you run (both for the Qt-only and the KDE version):
