@@ -146,7 +146,7 @@ type:
 			<separator/>
 			<item name="Define style for every &amp;path (standalone)" description="\\tikzstyle{every path}=[&lt;options&gt;]" insert="\\tikzstyle{every path}=[&#8226;]" dx="24" dy="0" type="0"/>
 			<item name="Define style for every &amp;node (standalone)" description="\\tikzstyle{every node}=[&lt;options&gt;]" insert="\\tikzstyle{every node}=[&#8226;]" dx="24" dy="0" type="0"/>
-			<item name="Define style for every &lt;&amp;shape&gt; node (standalone)" description="\\tikzstyle{every &lt;rectangle/circle/...&gt; node}=[&lt;options&gt;]" insert="\\tikzstyle{every &#8226; node}=[&#8226;]" dx="17" dy="0" type="0"/>
+			<item name="Define style for every node with a certain &amp;shape (standalone)" description="\\tikzstyle{every &lt;rectangle/circle/...&gt; node}=[&lt;options&gt;]" insert="\\tikzstyle{every &#8226; node}=[&#8226;]" dx="17" dy="0" type="0"/>
 			<separator/>
 			<item name="Define style for every &amp;path (as option)" description="every path/.style={&lt;style&gt;}" insert="every path/.style={&#8226;}" dx="19" dy="0" type="3"/>
 			<item name="Define style for every &amp;node (as option)" description="every node/.style={&lt;style&gt;}" insert="every node/.style={&#8226;}" dx="19" dy="0" type="3"/>
@@ -155,7 +155,7 @@ type:
 			<item name="Define style for every node &amp;label (as option)" description="every label/.style={&lt;style&gt;}" insert="every label/.style={&#8226;}" dx="20" dy="0" type="3"/>
 			<item name="Define style for every node &amp;pin label (as option)" description="every pin/.style={&lt;style&gt;}" insert="every pin/.style={&#8226;}" dx="18" dy="0" type="3"/>
 			<item name="Define style for every node &amp;pin edge (as option)" description="every pin edge/.style={&lt;style&gt;}" insert="every pin edge/.style={&#8226;}" dx="23" dy="0" type="3"/>
-			<item name="Define style for every &lt;&amp;shape&gt; node (as option)" description="every &lt;rectangle/circle/...&gt; node/.style={&lt;style&gt;}" insert="every &#8226; node/.style={&#8226;}" dx="6" dy="0" type="3"/>
+			<item name="Define style for every node with a certain &amp;shape (as option)" description="every &lt;rectangle/circle/...&gt; node/.style={&lt;style&gt;}" insert="every &#8226; node/.style={&#8226;}" dx="6" dy="0" type="3"/>
 			<item name="Define style for every &amp;join (as option)" description="every join/.style={&lt;style&gt;}" insert="every join/.style={&#8226;}" dx="19" dy="0" type="3"/>
 			<item name="Define style for every &amp;picture (as option)" description="every picture/.style={&lt;style&gt;}" insert="every picture/.style={&#8226;}" dx="22" dy="0" type="3"/>
 			<item name="Define style for every &amp;to path (as option)" description="every to/.style={&lt;style&gt;}" insert="every to/.style={&#8226;}" dx="17" dy="0" type="3"/>
@@ -167,7 +167,7 @@ type:
 			<item name="Append style for every node &amp;label (as option)" description="every label/append .style={&lt;style&gt;}" insert="every label/append .style={&#8226;}" dx="27" dy="0" type="3"/>
 			<item name="Append style for every node &amp;pin label (as option)" description="every pin/append .style={&lt;style&gt;}" insert="every pin/append .style={&#8226;}" dx="25" dy="0" type="3"/>
 			<item name="Append style for every node &amp;pin edge (as option)" description="every pin edge/append .style={&lt;style&gt;}" insert="every pin edge/append .style={&#8226;}" dx="30" dy="0" type="3"/>
-			<item name="Append style for every &lt;&amp;shape&gt; node (as option)" description="every &lt;rectangle/circle/...&gt; node/append .style={&lt;style&gt;}" insert="every &#8226; node/append .style={&#8226;}" dx="6" dy="0" type="3"/>
+			<item name="Append style for every node with a certain &amp;shape (as option)" description="every &lt;rectangle/circle/...&gt; node/append .style={&lt;style&gt;}" insert="every &#8226; node/append .style={&#8226;}" dx="6" dy="0" type="3"/>
 			<item name="Append style for every &amp;join (as option)" description="every join/append .style={&lt;style&gt;}" insert="every join/append .style={&#8226;}" dx="26" dy="0" type="3"/>
 			<item name="Append style for every &amp;picture (as option)" description="every picture/append .style={&lt;style&gt;}" insert="every picture/append .style={&#8226;}" dx="29" dy="0" type="3"/>
 			<item name="Append style for every &amp;to path (as option)" description="every to/append .style={&lt;style&gt;}" insert="every to/append .style={&#8226;}" dx="24" dy="0" type="3"/>
@@ -227,8 +227,8 @@ type:
 			<separator/>
 			<item name="Set node &amp;sloped in the direction of path" description="sloped" insert="sloped" dx="6" dy="0" type="3"/>
 			<item name="Set &amp;shape of node" description="shape=&lt;rectangle/circle/coordinate&gt;" insert="shape=&#8226;" dx="6" dy="0" type="3"/>
-			<item name="&amp;Define style for every node" description="\\tikzstyle{every node}=[&lt;options&gt;]" insert="\\tikzstyle{every node}=[&#8226;]" dx="24" dy="0" type="0"/>
-			<item name="&amp;Define style for every &lt;shape&gt; node" description="\\tikzstyle{every &lt;rectangle/circle/...&gt; node}=[&lt;options&gt;]" insert="\\tikzstyle{every &#8226; node}=[&#8226;]" dx="17" dy="0" type="0"/>
+			<item name="Define style for every &amp;node (standalone)" description="\\tikzstyle{every node}=[&lt;options&gt;]" insert="\\tikzstyle{every node}=[&#8226;]" dx="24" dy="0" type="0"/>
+			<item name="Define style for every node with a certain &amp;shape (standalone)" description="\\tikzstyle{every &lt;rectangle/circle/...&gt; node}=[&lt;options&gt;]" insert="\\tikzstyle{every &#8226; node}=[&#8226;]" dx="17" dy="0" type="0"/>
 		</section>
 		<section title="&amp;Line Options">
 			<item description="&amp;line width=&lt;dimension&gt;" insert="line width=&#8226;" dx="11" dy="0" type="3"/>

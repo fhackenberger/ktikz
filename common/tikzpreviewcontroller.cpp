@@ -261,7 +261,7 @@ void TikzPreviewController::showJobError(KJob *job)
 KUrl TikzPreviewController::getExportUrl(const KUrl &url, const QString &mimeType) const
 {
 	KMimeType::Ptr mimeTypePtr = KMimeType::mimeType(mimeType);
-	QString exportUrlExtension = KMimeType::extractKnownExtension(url.path());
+	const QString exportUrlExtension = KMimeType::extractKnownExtension(url.path());
 
 	const KUrl exportUrl = KUrl(url.url().left(url.url().length()
 	    - (exportUrlExtension.isEmpty() ? 0 : exportUrlExtension.length() + 1)) // the extension is empty when the text/x-pgf mimetype is not correctly installed or when the file does not have a correct extension

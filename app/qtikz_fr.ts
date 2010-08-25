@@ -1259,14 +1259,6 @@ Voulez-vous enregistrer les modifications ?</translation>
         <translation>&amp;Tirer une ligne</translation>
     </message>
     <message>
-        <source>Draw &amp;to next point</source>
-        <translation type="obsolete">Tirer &amp;vers prochain point</translation>
-    </message>
-    <message>
-        <source>&amp;Specifying coordinates</source>
-        <translation type="obsolete">&amp;Spécifier coordonnées</translation>
-    </message>
-    <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="86"/>
         <source>&amp;Curves</source>
         <translation>&amp;Courbes</translation>
@@ -1277,49 +1269,17 @@ Voulez-vous enregistrer les modifications ?</translation>
         <translation>&amp;Options</translation>
     </message>
     <message>
-        <source>&amp;Positions</source>
-        <translation type="obsolete">&amp;Positions</translation>
-    </message>
-    <message>
-        <source>&amp;Line options</source>
-        <translation type="obsolete">&amp;Options ligne</translation>
-    </message>
-    <message>
-        <source>&amp;Dash patterns</source>
-        <translation type="obsolete">Patrons &amp;tirets</translation>
-    </message>
-    <message>
-        <source>&amp;Shade options</source>
-        <translation type="obsolete">Patrons &amp;ombrage</translation>
-    </message>
-    <message>
-        <source>Para&amp;bola options</source>
-        <translation type="obsolete">Options para&amp;bole</translation>
-    </message>
-    <message>
-        <source>&amp;Grid options</source>
-        <translation type="obsolete">Options &amp;quadrillage</translation>
-    </message>
-    <message>
-        <source>&amp;To options</source>
-        <translation type="obsolete">Options « &amp;to »</translation>
-    </message>
-    <message>
-        <source>&amp;Snaked lines options</source>
-        <translation type="obsolete">Options &amp;serpentines</translation>
-    </message>
-    <message>
-        <location filename="tikzcommandinserter.cpp" line="382"/>
+        <location filename="tikzcommandinserter.cpp" line="404"/>
         <source>Commands</source>
         <translation>Commandes</translation>
     </message>
     <message>
-        <location filename="tikzcommandinserter.cpp" line="382"/>
+        <location filename="tikzcommandinserter.cpp" line="404"/>
         <source>Draw to</source>
         <translation>Tirer vers</translation>
     </message>
     <message>
-        <location filename="tikzcommandinserter.cpp" line="382"/>
+        <location filename="tikzcommandinserter.cpp" line="404"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
@@ -1441,8 +1401,20 @@ Voulez-vous enregistrer les modifications ?</translation>
         <translation>Définir st&amp;yle</translation>
     </message>
     <message>
-        <source>Define style for &amp;every path</source>
-        <translation type="obsolete">Définir style pour &amp;chaque courbe</translation>
+        <location filename="../buildqt/app/tikzcommands_tr.h" line="166"/>
+        <location filename="../buildqt/app/tikzcommands_tr.h" line="215"/>
+        <source>Define style for every node with a certain &amp;shape (standalone)</source>
+        <translation>Définir style pour chaque nœud ayant une certaine &amp;forme (autonome)</translation>
+    </message>
+    <message>
+        <location filename="../buildqt/app/tikzcommands_tr.h" line="174"/>
+        <source>Define style for every node with a certain &amp;shape (as option)</source>
+        <translation>Définir style pour chaque nœud ayant une certaine &amp;forme (comme option)</translation>
+    </message>
+    <message>
+        <location filename="../buildqt/app/tikzcommands_tr.h" line="185"/>
+        <source>Append style for every node with a certain &amp;shape (as option)</source>
+        <translation>Ajouter style pour chaque nœud ayant une certaine &amp;forme (comme option)</translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="221"/>
@@ -1495,10 +1467,6 @@ Voulez-vous enregistrer les modifications ?</translation>
         <translation>Tirer &amp;polygone</translation>
     </message>
     <message>
-        <source>Maximal length of &amp;miter join</source>
-        <translation type="obsolete">Longueur maximale des enjoignements « &amp;miter »</translation>
-    </message>
-    <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="223"/>
         <source>S&amp;hift dash start</source>
         <translation>&amp;Repositionner le début du tiret</translation>
@@ -1514,22 +1482,22 @@ Voulez-vous enregistrer les modifications ?</translation>
         <translation>&amp;Définir style pour chaque « to »</translation>
     </message>
     <message>
-        <location filename="tikzcommandinserter.cpp" line="264"/>
+        <location filename="tikzcommandinserter.cpp" line="286"/>
         <source>&lt;p&gt;This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ceci est une liste des commandes TikZ.  Vous pouvez insérer ces commandes dans votre code TikZ en les cliquant.  Vous pouvez obtenir plus de commandes en changeant la catégorie en haut.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="tikzcommandinserter.cpp" line="270"/>
+        <location filename="tikzcommandinserter.cpp" line="292"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="tikzcommandinserter.cpp" line="287"/>
+        <location filename="tikzcommandinserter.cpp" line="309"/>
         <source>General</source>
         <translation>Général</translation>
     </message>
     <message>
-        <location filename="tikzcommandinserter.cpp" line="274"/>
+        <location filename="tikzcommandinserter.cpp" line="296"/>
         <source>Category:</source>
         <translation>Catégorie :</translation>
     </message>
@@ -1547,14 +1515,6 @@ Voulez-vous enregistrer les modifications ?</translation>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="163"/>
         <source>Add to st&amp;yle</source>
         <translation>Ajouter au st&amp;yle</translation>
-    </message>
-    <message>
-        <source>&amp;Node options</source>
-        <translation type="obsolete">Options &amp;nœuds</translation>
-    </message>
-    <message>
-        <source>&amp;Transformations on subsequent objects in path</source>
-        <translation type="obsolete">&amp;Transformations sur les objets suivantes d&apos;une courbe</translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="158"/>
@@ -1579,12 +1539,7 @@ Voulez-vous enregistrer les modifications ?</translation>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="211"/>
         <source>Set &amp;pin edge options</source>
-        <translation>Définir options de l&apos;arête d&apos;une épingle</translation>
-    </message>
-    <message>
-        <location filename="../buildqt/app/tikzcommands_tr.h" line="215"/>
-        <source>&amp;Define style for every &amp;lt;shape&amp;gt; node</source>
-        <translation>&amp;Définir style pour chaque nœud ayant une certaine forme</translation>
+        <translation>Définir options de l&apos;arête d&apos;une é&amp;pingle</translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="216"/>
@@ -1931,7 +1886,7 @@ Voulez-vous enregistrer les modifications ?</translation>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="155"/>
         <source>Set node tree &amp;grow direction</source>
-        <translation>Définir direction de croissance de l&apos;arbre de nœuds</translation>
+        <translation>Définir direction de &amp;croissance de l&apos;arbre de nœuds</translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="156"/>
@@ -1941,12 +1896,12 @@ Voulez-vous enregistrer les modifications ?</translation>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="157"/>
         <source>Set &amp;pin (label with connecting edge)</source>
-        <translation>Définir épingle (étiquette avec arête de liaison)</translation>
+        <translation>Définir é&amp;pingle (étiquette avec arête de liaison)</translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="161"/>
         <source>Set &amp;definition</source>
-        <translation>Définir &amp;définition</translation>
+        <translation>Établir &amp;définition</translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="164"/>
@@ -1955,13 +1910,9 @@ Voulez-vous enregistrer les modifications ?</translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="165"/>
+        <location filename="../buildqt/app/tikzcommands_tr.h" line="214"/>
         <source>Define style for every &amp;node (standalone)</source>
         <translation>Définir style pour chaque &amp;nœud (autonome)</translation>
-    </message>
-    <message>
-        <location filename="../buildqt/app/tikzcommands_tr.h" line="166"/>
-        <source>Define style for every &amp;lt;&amp;shape&amp;gt; node (standalone)</source>
-        <translation>Définir style pour chaque nœud ayant une certaine &amp;forme (autonome)</translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="167"/>
@@ -1997,11 +1948,6 @@ Voulez-vous enregistrer les modifications ?</translation>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="173"/>
         <source>Define style for every node &amp;pin edge (as option)</source>
         <translation>Définir style pour chaque arête d&apos;épingle d&apos;un nœ&amp;ud (comme option)</translation>
-    </message>
-    <message>
-        <location filename="../buildqt/app/tikzcommands_tr.h" line="174"/>
-        <source>Define style for every &amp;lt;&amp;shape&amp;gt; node (as option)</source>
-        <translation>Définir style pour chaque nœud ayant une certaine &amp;forme (comme option)</translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="175"/>
@@ -2052,11 +1998,6 @@ Voulez-vous enregistrer les modifications ?</translation>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="184"/>
         <source>Append style for every node &amp;pin edge (as option)</source>
         <translation>Ajouter style pour chaque arête d&apos;épingle d&apos;un nœ&amp;ud (comme option)</translation>
-    </message>
-    <message>
-        <location filename="../buildqt/app/tikzcommands_tr.h" line="185"/>
-        <source>Append style for every &amp;lt;&amp;shape&amp;gt; node (as option)</source>
-        <translation>Ajouter style pour chaque nœud ayant une certaine &amp;forme (comme option)</translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="186"/>
@@ -2172,15 +2113,6 @@ Voulez-vous enregistrer les modifications ?</translation>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="213"/>
         <source>Set &amp;shape of node</source>
         <translation>Définir la &amp;forme du nœud</translation>
-    </message>
-    <message>
-        <location filename="../buildqt/app/tikzcommands_tr.h" line="214"/>
-        <source>&amp;Define style for every node</source>
-        <translation>&amp;Définir style pour chaque nœud</translation>
-    </message>
-    <message>
-        <source>&amp;Define style for every &lt;shape&gt; node</source>
-        <translation type="obsolete">&amp;Définir style pour chaque nœud ayant une certaine forme</translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="120"/>
@@ -2336,10 +2268,6 @@ Voulez-vous enregistrer les modifications ?</translation>
         <translation>fin</translation>
     </message>
     <message>
-        <source>point</source>
-        <translation type="obsolete">point</translation>
-    </message>
-    <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="25"/>
         <source>label</source>
         <translation>étiquette</translation>
@@ -2413,10 +2341,6 @@ Voulez-vous enregistrer les modifications ?</translation>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="46"/>
         <source>angle</source>
         <translation>angle</translation>
-    </message>
-    <message>
-        <source>expression</source>
-        <translation type="obsolete">expression</translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="45"/>
@@ -2549,122 +2473,6 @@ Voulez-vous enregistrer les modifications ?</translation>
         <translation>code</translation>
     </message>
     <message>
-        <source>Set node &amp;amp;midway path</source>
-        <translation type="obsolete">Mettre nœud à &amp;amp;mi-chemin de la courbe</translation>
-    </message>
-    <message>
-        <source>Set node near &amp;amp;end of path</source>
-        <translation type="obsolete">Mettre nœud près de la &amp;amp;fin de la courbe</translation>
-    </message>
-    <message>
-        <source>Set node very near &amp;amp;end of path</source>
-        <translation type="obsolete">Mettre nœud très près de la &amp;amp;fin de la courbe</translation>
-    </message>
-    <message>
-        <source>Set node at &amp;amp;end of path</source>
-        <translation type="obsolete">Mettre nœud à la &amp;amp;fin de la courbe</translation>
-    </message>
-    <message>
-        <source>Set relative &amp;amp;position of node on path</source>
-        <translation type="obsolete">Définir &amp;amp;position relative du nœud sur la courbe</translation>
-    </message>
-    <message>
-        <source>Set &amp;amp;text in node justified</source>
-        <translation type="obsolete">Justifier &amp;amp;texte dans le nœud</translation>
-    </message>
-    <message>
-        <source>Align &amp;amp;text in node to the left</source>
-        <translation type="obsolete">Aligner &amp;amp;texte dans le nœud vers la gauche</translation>
-    </message>
-    <message>
-        <source>Align &amp;amp;text to the left without hyphenation</source>
-        <translation type="obsolete">Aligner &amp;amp;texte à gauche sans césures</translation>
-    </message>
-    <message>
-        <source>Center &amp;amp;text in node</source>
-        <translation type="obsolete">Centrer &amp;amp;texte dans le nœud</translation>
-    </message>
-    <message>
-        <source>Center &amp;amp;text without hyphenation</source>
-        <translation type="obsolete">Centrer &amp;amp;texte sans césures</translation>
-    </message>
-    <message>
-        <source>Set &amp;amp;text width in node</source>
-        <translation type="obsolete">Définir largeur du &amp;amp;texte dans le nœud</translation>
-    </message>
-    <message>
-        <source>Set &amp;amp;text height in node</source>
-        <translation type="obsolete">Définir hauteur du &amp;amp;texte dans le nœud</translation>
-    </message>
-    <message>
-        <source>Set &amp;amp;text depth in node</source>
-        <translation type="obsolete">Définir profondeur du &amp;amp;texte dans le nœud</translation>
-    </message>
-    <message>
-        <source>Set minimum &amp;amp;height of node</source>
-        <translation type="obsolete">Définir &amp;amp;hauteur minimale du nœud</translation>
-    </message>
-    <message>
-        <source>Set minimum &amp;amp;width of node</source>
-        <translation type="obsolete">Définir &amp;amp;largeur minimale du nœud</translation>
-    </message>
-    <message>
-        <source>Set &amp;amp;separation between text and node shape</source>
-        <translation type="obsolete">Définir &amp;amp;séparation entre le texte et le contour du nœud</translation>
-    </message>
-    <message>
-        <source>Set &amp;amp;separation outside node shape</source>
-        <translation type="obsolete">Définir &amp;amp;séparation à l&apos;exterieur du nœud</translation>
-    </message>
-    <message>
-        <source>&amp;amp;Define style for every node</source>
-        <translation type="obsolete">&amp;amp;Définir style pour chaque nœud</translation>
-    </message>
-    <message>
-        <source>&amp;amp;Define style for every &amp;lt;shape&amp;gt; node</source>
-        <translation type="obsolete">&amp;amp;Définir style pour chaque nœud ayant une certaine forme</translation>
-    </message>
-    <message>
-        <source>Maximal length of m&amp;amp;iter join</source>
-        <translation type="obsolete">Longueur maximale des enjoignements « &amp;amp;miter »</translation>
-    </message>
-    <message>
-        <source>&amp;amp;Equal lines</source>
-        <translation type="obsolete">Lignes &amp;amp;égaux</translation>
-    </message>
-    <message>
-        <source>&amp;amp;Alternating lines</source>
-        <translation type="obsolete">Lignes &amp;amp;alternantes</translation>
-    </message>
-    <message>
-        <source>S&amp;amp;hift dash start</source>
-        <translation type="obsolete">&amp;amp;Repositionner le début du tiret</translation>
-    </message>
-    <message>
-        <source>S&amp;amp;hift horizontally</source>
-        <translation type="obsolete">&amp;amp;Translation horizontale</translation>
-    </message>
-    <message>
-        <source>S&amp;amp;hift vertically</source>
-        <translation type="obsolete">&amp;amp;Translation verticale</translation>
-    </message>
-    <message>
-        <source>S&amp;amp;hift to a point</source>
-        <translation type="obsolete">&amp;amp;Translation vers un point</translation>
-    </message>
-    <message>
-        <source>&amp;amp;Cancel all transformations except shift</source>
-        <translation type="obsolete">&amp;amp;Annuler toutes les transformations sauf les translations</translation>
-    </message>
-    <message>
-        <source>&amp;amp;Rotate by angle</source>
-        <translation type="obsolete">&amp;amp;Rotation avec angle</translation>
-    </message>
-    <message>
-        <source>&amp;amp;Rotate around a point</source>
-        <translation type="obsolete">&amp;amp;Rotation autour d&apos;un point</translation>
-    </message>
-    <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="230"/>
         <source>S&amp;cale horizontally</source>
         <translation>A&amp;grandir/rétrécir horizontalement</translation>
@@ -2678,30 +2486,6 @@ Voulez-vous enregistrer les modifications ?</translation>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="232"/>
         <source>S&amp;cale in both directions</source>
         <translation>A&amp;grandir/rétrécir dans les deux directions</translation>
-    </message>
-    <message>
-        <source>&amp;amp;Flip horizontally</source>
-        <translation type="obsolete">&amp;amp;Symétrie horizontale</translation>
-    </message>
-    <message>
-        <source>&amp;amp;Flip vertically</source>
-        <translation type="obsolete">&amp;amp;Symétrie verticale</translation>
-    </message>
-    <message>
-        <source>&amp;amp;Slant horizontally</source>
-        <translation type="obsolete">&amp;amp;Obliquer horizontalement</translation>
-    </message>
-    <message>
-        <source>&amp;amp;Slant vertically</source>
-        <translation type="obsolete">&amp;amp;Obliquer verticalement</translation>
-    </message>
-    <message>
-        <source>Parabola with specified &amp;amp;width and height</source>
-        <translation type="obsolete">Parabole avec &amp;amp;largeur et hauteur définies</translation>
-    </message>
-    <message>
-        <source>&amp;amp;Define style for every to</source>
-        <translation type="obsolete">&amp;amp;Définir style pour chaque « to »</translation>
     </message>
 </context>
 <context>

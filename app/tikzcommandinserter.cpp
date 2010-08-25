@@ -94,12 +94,31 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 		description = child.attribute("description");
 		insertion = child.attribute("insert");
 		type = child.attribute("type");
+
 		description.replace(QRegExp("([^\\\\])\\\\n"), "\\1\n"); // replace newlines, these are the "\n" not preceded by a backslash as in "\\node"
 		description.replace(QRegExp("([^\\\\])\\\\n"), "\\1\n"); // do this twice to replace all newlines
-		description.replace("\\\\", "\\");
+		description.replace(QLatin1String("\\\\"), QLatin1String("\\"));
+		// translate options in the description:
+		QRegExp rx("<([^<>]*)>");
+		QString tempDescription;
+		for (int pos = 0, oldPos = 0; pos >= 0;)
+		{
+			oldPos = pos;
+			pos = rx.indexIn(description, pos);
+			tempDescription += description.midRef(oldPos, pos - oldPos + 1);
+			if (pos >= 0)
+			{
+				tempDescription += tr(rx.cap(1).toLatin1().data());
+				pos += rx.matchedLength() - 1;
+			}
+		}
+		if (!tempDescription.isEmpty())
+			description = tempDescription;
+
 		insertion.replace(QRegExp("([^\\\\])\\\\n"), "\\1\n"); // replace newlines, these are the "\n" not preceded by a backslash as in "\\node"
 		insertion.replace(QRegExp("([^\\\\])\\\\n"), "\\1\n"); // do this twice to replace all newlines
 		insertion.replace(QLatin1String("\\\\"), QLatin1String("\\"));
+
 		if (name.isEmpty())
 			name = description;
 		description.remove('&');
@@ -109,9 +128,12 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 			description = insertion;
 		if (type.isEmpty())
 			type = '0';
+
 		commands << newCommand(name, description, insertion, child.attribute("dx").toInt(), child.attribute("dy").toInt(), type.toInt());
+
 		if (child.nextSiblingElement().tagName() == QLatin1String("separator"))
 			commands << newCommand("", "", "", 0, 0, 0);
+
 		child = child.nextSiblingElement("item");
 	}
 	commandList.commands = commands;

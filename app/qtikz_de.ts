@@ -1683,38 +1683,38 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation type="unfinished">E&amp;infügen</translation>
     </message>
     <message>
-        <location filename="tikzcommandinserter.cpp" line="382"/>
+        <location filename="tikzcommandinserter.cpp" line="404"/>
         <source>Commands</source>
         <translation>Befehle</translation>
     </message>
     <message>
-        <location filename="tikzcommandinserter.cpp" line="382"/>
+        <location filename="tikzcommandinserter.cpp" line="404"/>
         <source>Draw to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="tikzcommandinserter.cpp" line="382"/>
+        <location filename="tikzcommandinserter.cpp" line="404"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="tikzcommandinserter.cpp" line="264"/>
+        <location filename="tikzcommandinserter.cpp" line="286"/>
         <source>&lt;p&gt;This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.&lt;/p&gt;</source>
         <oldsource>This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="tikzcommandinserter.cpp" line="270"/>
+        <location filename="tikzcommandinserter.cpp" line="292"/>
         <source>Alt+I</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="tikzcommandinserter.cpp" line="274"/>
+        <location filename="tikzcommandinserter.cpp" line="296"/>
         <source>Category:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="tikzcommandinserter.cpp" line="287"/>
+        <location filename="tikzcommandinserter.cpp" line="309"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
@@ -2536,12 +2536,24 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="165"/>
+        <location filename="../buildqt/app/tikzcommands_tr.h" line="214"/>
         <source>Define style for every &amp;node (standalone)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="166"/>
-        <source>Define style for every &amp;lt;&amp;shape&amp;gt; node (standalone)</source>
+        <location filename="../buildqt/app/tikzcommands_tr.h" line="215"/>
+        <source>Define style for every node with a certain &amp;shape (standalone)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../buildqt/app/tikzcommands_tr.h" line="174"/>
+        <source>Define style for every node with a certain &amp;shape (as option)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../buildqt/app/tikzcommands_tr.h" line="185"/>
+        <source>Append style for every node with a certain &amp;shape (as option)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2577,11 +2589,6 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="173"/>
         <source>Define style for every node &amp;pin edge (as option)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../buildqt/app/tikzcommands_tr.h" line="174"/>
-        <source>Define style for every &amp;lt;&amp;shape&amp;gt; node (as option)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2632,11 +2639,6 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="184"/>
         <source>Append style for every node &amp;pin edge (as option)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../buildqt/app/tikzcommands_tr.h" line="185"/>
-        <source>Append style for every &amp;lt;&amp;shape&amp;gt; node (as option)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2777,16 +2779,6 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../buildqt/app/tikzcommands_tr.h" line="213"/>
         <source>Set &amp;shape of node</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../buildqt/app/tikzcommands_tr.h" line="214"/>
-        <source>&amp;Define style for every node</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../buildqt/app/tikzcommands_tr.h" line="215"/>
-        <source>&amp;Define style for every &amp;lt;shape&amp;gt; node</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
