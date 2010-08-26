@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2010-08-18 23:02+0200\n"
-"PO-Revision-Date: 2010-08-18 10:06+0200\n"
+"POT-Creation-Date: 2010-08-26 11:09+0200\n"
+"PO-Revision-Date: 2010-08-26 11:12+0200\n"
 "Last-Translator: Glad Deschrijver <Glad.Deschrijver@UGent.be>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -106,8 +106,8 @@ msgstr "Configurar el visor KTikZ..."
 msgctxt "@info"
 msgid "Cannot read file <filename>%1</filename>:<nl/><message>%2</message>"
 msgstr ""
-"Imposible de cargar el fichero <filename>%1</filename> :<nl/><message>%2</"
-"message>"
+"Imposible de cargar el fichero <filename>%1</filename> :<nl/><message>%2<"
+"/message>"
 
 #: ../part/part.cpp:152
 msgctxt "@title:window"
@@ -138,7 +138,7 @@ msgstr "Recargando el documento..."
 #. i18n: ectx: Menu (file)
 #. i18n: file: ../part/ktikzpart.rc:4
 #. i18n: ectx: Menu (file)
-#: rc.cpp:3 rc.cpp:123
+#: rc.cpp:3 rc.cpp:126
 msgctxt "@title:menu"
 msgid "&File"
 msgstr "&Fichero"
@@ -154,7 +154,7 @@ msgstr "&Editar"
 #. i18n: ectx: Menu (view)
 #. i18n: file: ../part/ktikzpart.rc:8
 #. i18n: ectx: Menu (view)
-#: rc.cpp:9 rc.cpp:126
+#: rc.cpp:9 rc.cpp:129
 msgctxt "@title:menu"
 msgid "&View"
 msgstr "&Ver"
@@ -170,7 +170,7 @@ msgstr "&Ir"
 #. i18n: ectx: Menu (process)
 #. i18n: file: ../part/ktikzpart.rc:15
 #. i18n: ectx: Menu (process)
-#: rc.cpp:15 rc.cpp:129
+#: rc.cpp:15 rc.cpp:132
 msgctxt "@title:menu"
 msgid "&Process"
 msgstr "&Proceso"
@@ -179,7 +179,7 @@ msgstr "&Proceso"
 #. i18n: ectx: Menu (settings)
 #. i18n: file: ../part/ktikzpart.rc:20
 #. i18n: ectx: Menu (settings)
-#: rc.cpp:18 rc.cpp:132
+#: rc.cpp:18 rc.cpp:135
 msgctxt "@title:menu"
 msgid "&Settings"
 msgstr "&Preferencias"
@@ -247,42 +247,52 @@ msgstr ""
 #. i18n: file: ../common/ktikz.kcfg:19
 #. i18n: ectx: label, entry, group (General Options)
 #: rc.cpp:45
-msgid "The path to the pdflatex command."
-msgstr "La ruta para el ejecutable de pdflatex."
+msgid ""
+"Whether to reload the TikZ image each time that the file is modified by "
+"another program."
+msgstr ""
+"<para>Si esta opción está seleccionada, el imagen TikZ se recarga cada vez "
+"que el fichero está modificado por un otro programa.</para>"
 
 #. i18n: file: ../common/ktikz.kcfg:23
 #. i18n: ectx: label, entry, group (General Options)
 #: rc.cpp:48
-msgid "The path to the pdftops command."
-msgstr "La ruta para el ejecutable de pdftops."
+msgid "The path to the pdflatex command."
+msgstr "La ruta para el ejecutable de pdflatex."
 
 #. i18n: file: ../common/ktikz.kcfg:27
 #. i18n: ectx: label, entry, group (General Options)
 #: rc.cpp:51
-msgid "The path to the TikZ documentation file."
-msgstr "La ruta para la documentación de TikZ."
+msgid "The path to the pdftops command."
+msgstr "La ruta para el ejecutable de pdftops."
 
 #. i18n: file: ../common/ktikz.kcfg:31
 #. i18n: ectx: label, entry, group (General Options)
 #: rc.cpp:54
+msgid "The path to the TikZ documentation file."
+msgstr "La ruta para la documentación de TikZ."
+
+#. i18n: file: ../common/ktikz.kcfg:35
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:57
 msgid "Whether to run pdflatex with the --shell-escape option."
 msgstr "Ejecutar pdflatex con la opción --shell-escape."
 
-#. i18n: file: ../common/ktikz.kcfg:34
-#. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:57
-msgid "The file name of the currently used template."
-msgstr "El nombre del fichero de base actualmente utilizado."
-
-#. i18n: file: ../common/ktikz.kcfg:37
+#. i18n: file: ../common/ktikz.kcfg:38
 #. i18n: ectx: label, entry, group (General Options)
 #: rc.cpp:60
-msgid "The list of file names of the previously used templates."
-msgstr "La lista de los nombres de los ficheros de base previamente utilizado."
+msgid "The file name of the currently used template."
+msgstr "El nombre del fichero de base actualmente utilizado."
 
 #. i18n: file: ../common/ktikz.kcfg:41
 #. i18n: ectx: label, entry, group (General Options)
 #: rc.cpp:63
+msgid "The list of file names of the previously used templates."
+msgstr "La lista de los nombres de los ficheros de base previamente utilizado."
+
+#. i18n: file: ../common/ktikz.kcfg:45
+#. i18n: ectx: label, entry, group (General Options)
+#: rc.cpp:66
 msgid ""
 "The text in the template file which is replaced by the TikZ code before "
 "typesetting."
@@ -290,111 +300,111 @@ msgstr ""
 "El texto en el fichero de base que está reemplazado con el código TikZ antes "
 "de compilar."
 
-#. i18n: file: ../common/ktikz.kcfg:45
+#. i18n: file: ../common/ktikz.kcfg:49
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:66
+#: rc.cpp:69
 msgid "The path to the editor command used for editing templates."
 msgstr "La ruta para el ejecutable de pdftops."
-
-#. i18n: file: ../common/ktikz.kcfg:51
-#. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:69
-msgid "The font of the main text in the editor."
-msgstr "El tipo de letras del texto principal en el editor."
 
 #. i18n: file: ../common/ktikz.kcfg:55
 #. i18n: ectx: label, entry, group (Editor)
 #: rc.cpp:72
-msgid "Whether to show white spaces."
-msgstr "Mostrar los carácteres blancos (espacios)."
+msgid "The font of the main text in the editor."
+msgstr "El tipo de letras del texto principal en el editor."
 
 #. i18n: file: ../common/ktikz.kcfg:59
 #. i18n: ectx: label, entry, group (Editor)
 #: rc.cpp:75
-msgid "Whether to show tabulators."
-msgstr "Mostrar los carácteres blancos (tabuladores)."
+msgid "Whether to show white spaces."
+msgstr "Mostrar los carácteres blancos (espacios)."
 
 #. i18n: file: ../common/ktikz.kcfg:63
 #. i18n: ectx: label, entry, group (Editor)
 #: rc.cpp:78
-msgid "Whether to highlight matching brackets."
-msgstr "Realzar corchetes emparejados."
+msgid "Whether to show tabulators."
+msgstr "Mostrar los carácteres blancos (tabuladores)."
 
 #. i18n: file: ../common/ktikz.kcfg:67
 #. i18n: ectx: label, entry, group (Editor)
 #: rc.cpp:81
-msgid "The color used to highlight white spaces."
-msgstr "El color utilizado para realzar los espacios."
+msgid "Whether to highlight matching brackets."
+msgstr "Realzar corchetes emparejados."
 
 #. i18n: file: ../common/ktikz.kcfg:71
 #. i18n: ectx: label, entry, group (Editor)
 #: rc.cpp:84
-msgid "The color used to highlight tabulators."
-msgstr "El color utilizado para realzar los tabuladores."
+msgid "The color used to highlight white spaces."
+msgstr "El color utilizado para realzar los espacios."
 
 #. i18n: file: ../common/ktikz.kcfg:75
 #. i18n: ectx: label, entry, group (Editor)
 #: rc.cpp:87
-msgid "The color used to highlight matching brackets."
-msgstr "El color utilizado para realzar los corchetes emparejados."
+msgid "The color used to highlight tabulators."
+msgstr "El color utilizado para realzar los tabuladores."
 
 #. i18n: file: ../common/ktikz.kcfg:79
 #. i18n: ectx: label, entry, group (Editor)
 #: rc.cpp:90
+msgid "The color used to highlight matching brackets."
+msgstr "El color utilizado para realzar los corchetes emparejados."
+
+#. i18n: file: ../common/ktikz.kcfg:83
+#. i18n: ectx: label, entry, group (Editor)
+#: rc.cpp:93
 msgid "Whether to use TikZ code completion."
 msgstr "Utilizar terminación de código TikZ."
 
-#. i18n: file: ../common/ktikz.kcfg:89
+#. i18n: file: ../common/ktikz.kcfg:93
 #. i18n: ectx: label, entry, group (Highlighting)
-#: rc.cpp:93
+#: rc.cpp:96
 msgid "The type of syntax highlighting."
 msgstr "El tipo de realce de sintaxis."
 
-#. i18n: file: ../common/ktikz.kcfg:97
+#. i18n: file: ../common/ktikz.kcfg:101
 #. i18n: ectx: label, entry, group (Preview)
-#: rc.cpp:96
+#: rc.cpp:99
 msgid "The factor by which the preview is zoomed."
 msgstr "El factor con cuál la vista previa está ampliada o reducida."
 
 #. i18n: file: ../part/configgeneralwidget.ui:6
 #. i18n: ectx: property (windowTitle), widget (QWidget, PartConfigGeneralWidget)
-#: rc.cpp:99
+#: rc.cpp:102
 msgid "Configure KTikZ Viewer"
 msgstr "Configurar el visor KTikZ"
 
 #. i18n: file: ../part/configgeneralwidget.ui:12
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: rc.cpp:102
+#: rc.cpp:105
 msgid "Commands"
 msgstr "Comandos"
 
 #. i18n: file: ../part/configgeneralwidget.ui:18
 #. i18n: ectx: property (text), widget (QLabel, latexLabel)
-#: rc.cpp:105
+#: rc.cpp:108
 msgid "PDF&LaTeX command:"
 msgstr "Comando PDF&LaTeX:"
 
 #. i18n: file: ../part/configgeneralwidget.ui:34
 #. i18n: ectx: property (text), widget (QLabel, pdftopsLabel)
-#: rc.cpp:108
+#: rc.cpp:111
 msgid "&Pdftops command:"
 msgstr "Comando &pdftops:"
 
 #. i18n: file: ../part/configgeneralwidget.ui:53
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: rc.cpp:111
+#: rc.cpp:114
 msgid "Templates"
 msgstr "Ficheros de &base"
 
 #. i18n: file: ../part/configgeneralwidget.ui:59
 #. i18n: ectx: property (text), widget (QLabel, replaceLabel)
-#: rc.cpp:114
+#: rc.cpp:117
 msgid "&Replace text:"
 msgstr "Texto de &reemplazo:"
 
 #. i18n: file: ../part/configgeneralwidget.ui:75
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, replaceEdit)
-#: rc.cpp:117
+#: rc.cpp:120
 msgid ""
 "<para>Enter the text which will be replaced by the TikZ code in the template "
 "here.</para>"
@@ -404,427 +414,23 @@ msgstr ""
 
 #. i18n: file: ../part/configgeneralwidget.ui:82
 #. i18n: ectx: property (text), widget (QLabel, editorLabel)
-#: rc.cpp:120
+#: rc.cpp:123
 msgid "&Editor command:"
 msgstr "Comando del &editor:"
 
 #. i18n: file: ../part/ktikzpart.rc:24
 #. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:135
+#: rc.cpp:138
 msgctxt "@title:menu toolbar title"
 msgid "Main Toolbar"
 msgstr "Barra de herramientas principal"
 
-#: rc.cpp:136
+#: rc.cpp:139
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Glad Deschrijver"
 
-#: rc.cpp:137
+#: rc.cpp:140
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "glad.deschrijver@gmail.com"
-
-#: rc.cpp:138
-msgid "&Insert"
-msgstr "&Insérer"
-
-#: rc.cpp:139
-msgid "<icode>foreach</icode> with iteration"
-msgstr "<icode>foreach</icode> avec itération"
-
-#: rc.cpp:140
-msgid "<icode>foreach</icode> with custom text"
-msgstr "<icode>foreach</icode> avec texte personnalisé"
-
-#: rc.cpp:141
-msgid "&Draw"
-msgstr "&Tirer une ligne"
-
-#: rc.cpp:142
-msgid "Specify &coordinate"
-msgstr "&Spécifier coordonnées"
-
-#: rc.cpp:143
-msgid "&Node"
-msgstr "&Nœud"
-
-#: rc.cpp:144
-msgid "&Clip and draw the clipping contours"
-msgstr "&Clipper et tirer les lignes de contour"
-
-#: rc.cpp:145
-msgid "Draw &line between two points"
-msgstr "Tirer &ligne entre deux points"
-
-#: rc.cpp:146
-msgid "Draw p&olygon"
-msgstr "Tirer &polygone"
-
-#: rc.cpp:147
-msgid "&Clip rectangle"
-msgstr "&Clipper rectangle"
-
-#: rc.cpp:148
-msgid "Draw &to Next Point"
-msgstr "Tirer &vers prochain point"
-
-#: rc.cpp:149
-msgid "&Move to point"
-msgstr "&Repositioner vers point"
-
-#: rc.cpp:150
-msgid "&Move to relative point"
-msgstr "&Repositioner vers point relatif"
-
-#: rc.cpp:151
-msgid "&Line to"
-msgstr "&Ligne vers"
-
-#: rc.cpp:152
-msgid "&Line to relative point"
-msgstr "&Ligne vers point relatif"
-
-#: rc.cpp:153
-msgid "&Line to node"
-msgstr "&Ligne vers nœud"
-
-#: rc.cpp:154
-msgid "&Line to node with anchor"
-msgstr "&Ligne vers nœud avec ancrage"
-
-#: rc.cpp:155
-msgid "C&urve to"
-msgstr "Co&urbe vers"
-
-#: rc.cpp:156
-msgid "C&ycle"
-msgstr "C&ycler"
-
-#: rc.cpp:157
-msgid "&To"
-msgstr "&Aller"
-
-#: rc.cpp:158
-msgid "&Plot"
-msgstr "&Tracer"
-
-#: rc.cpp:159
-msgid "&Function"
-msgstr "&Fonction"
-
-#: rc.cpp:160
-msgid "&Plot function"
-msgstr "&Tracer fonction"
-
-#: rc.cpp:161
-msgid "&Specifying Coordinates"
-msgstr "&Spécifier coordonnées"
-
-#: rc.cpp:162
-msgid "&Absolute point"
-msgstr "Point &absolu"
-
-#: rc.cpp:163
-msgid "Point &relative to initial position"
-msgstr "Point &relatif à la position initiale"
-
-#: rc.cpp:164
-msgid "Point &relative to previous position"
-msgstr "Point &relatif à la position précédente"
-
-#: rc.cpp:165
-msgid "&Polar coordinates"
-msgstr "Coordonnées &polaires"
-
-#: rc.cpp:166
-msgid "&Intersection of two lines"
-msgstr "&Intersection de deux lignes"
-
-#: rc.cpp:167
-msgid "&Curves"
-msgstr "&Courbes"
-
-#: rc.cpp:168
-msgid "&Rectangle"
-msgstr "&Rectangle"
-
-#: rc.cpp:169
-msgid "&Circle"
-msgstr "&Cercle"
-
-#: rc.cpp:170
-msgid "&Ellipse"
-msgstr "&Ellipse"
-
-#: rc.cpp:171
-msgid "&Arc"
-msgstr "&Arc"
-
-#: rc.cpp:172
-msgid "&Parabola"
-msgstr "&Parabole"
-
-#: rc.cpp:173
-msgid "&Sine curve in [0, pi/2]"
-msgstr "&Sinus dans [0, pi/2]"
-
-#: rc.cpp:174
-msgid "&Cosine curve in [0, pi/2]"
-msgstr "&Cosinus dans [0, pi/2]"
-
-#: rc.cpp:175
-msgid "&Grid"
-msgstr "&Quadrillage"
-
-#: rc.cpp:176
-msgid "&Arrows"
-msgstr "&Flèches"
-
-#: rc.cpp:177
-msgid "&Shorten start of line"
-msgstr "&Rétrécir début du ligne"
-
-#: rc.cpp:178
-msgid "&Shorten end of line"
-msgstr "&Rétrécir fin du ligne"
-
-#: rc.cpp:179
-msgid "&Options"
-msgstr "&Options"
-
-#: rc.cpp:180
-msgid "Define style for &every path"
-msgstr "Définir style pour &chaque courbe"
-
-#: rc.cpp:181
-msgid "&Node Options"
-msgstr "Options &nœuds"
-
-#: rc.cpp:182
-msgid "Set node at &start of path"
-msgstr "Mettre nœud au &début de la courbe"
-
-#: rc.cpp:183
-msgid "Set node very near &start of path"
-msgstr "Mettre nœud très près du &début de la courbe"
-
-#: rc.cpp:184
-msgid "Set node near &start of path"
-msgstr "Mettre nœud près du &début de la courbe"
-
-#: rc.cpp:185
-msgid "Set node &midway path"
-msgstr "Mettre nœud à &mi-chemin de la courbe"
-
-#: rc.cpp:186
-msgid "Set node near &end of path"
-msgstr "Mettre nœud près de la &fin de la courbe"
-
-#: rc.cpp:187
-msgid "Set node very near &end of path"
-msgstr "Mettre nœud très près de la &fin de la courbe"
-
-#: rc.cpp:188
-msgid "Set node at &end of path"
-msgstr "Mettre nœud à la &fin de la courbe"
-
-#: rc.cpp:189
-msgid "Set relative &position of node on path"
-msgstr "Définir &position relative du nœud sur la courbe"
-
-#: rc.cpp:190
-msgid "Set &text width in node"
-msgstr "Définir largeur du &texte dans le nœud"
-
-#: rc.cpp:191
-msgid "Set &text in node justified"
-msgstr "Justifier &texte dans le nœud"
-
-#: rc.cpp:192
-msgid "Align &text in node to the left"
-msgstr "Aligner &texte dans le nœud vers la gauche"
-
-#: rc.cpp:193
-msgid "Align &text to the left without hyphenation"
-msgstr "Aligner &texte dans le nœud vers la gauche sans césures"
-
-#: rc.cpp:194
-msgid "Center &text in node"
-msgstr "Centrer &texte dans le nœud"
-
-#: rc.cpp:195
-msgid "Center &text without hyphenation"
-msgstr "Centrer &texte dans le nœud sans césures"
-
-#: rc.cpp:196
-msgid "Set &text height in node"
-msgstr "Définir hauteur du &texte dans le nœud"
-
-#: rc.cpp:197
-msgid "Set &text depth in node"
-msgstr "Définir profondeur du &texte dans le nœud"
-
-#: rc.cpp:198
-msgid "Set &separation between text and node shape"
-msgstr "Définir &séparation entre le texte et le contour du nœud"
-
-#: rc.cpp:199
-msgid "Set &separation outside node shape"
-msgstr "Définir &séparation à l'exterieur du nœud"
-
-#: rc.cpp:200
-msgid "Set minimum &height of node"
-msgstr "Définir &hauteur minimale du nœud"
-
-#: rc.cpp:201
-msgid "Set minimum &width of node"
-msgstr "Définir &largeur minimale du nœud"
-
-#: rc.cpp:202
-msgid "Set node &sloped in the direction of path"
-msgstr "&Incliner nœud dans la direction de la courbe"
-
-#: rc.cpp:203
-msgid "Set &shape of node"
-msgstr "Définir la &forme du nœud"
-
-#: rc.cpp:204
-msgid "&Define style for every node"
-msgstr "&Définir style pour chaque nœud"
-
-#: rc.cpp:205
-msgid "&Define style for every <shape> node"
-msgstr "&Définir style pour chaque nœud ayant une certaine forme"
-
-#: rc.cpp:206
-msgid "&Line Options"
-msgstr "&Options ligne"
-
-#: rc.cpp:207
-msgid "Maximal length of &miter join"
-msgstr "Longueur maximale des enjoignements <icode>&miter</icode>"
-
-#: rc.cpp:208
-msgid "&Plot Options"
-msgstr "&Options traçage"
-
-#: rc.cpp:209
-msgid "&Dash Patterns"
-msgstr "Patrons &tirets"
-
-#: rc.cpp:210
-msgid "&Equal lines"
-msgstr "Lignes &égaux"
-
-#: rc.cpp:211
-msgid "&Alternating lines"
-msgstr "Lignes &alternantes"
-
-#: rc.cpp:212
-msgid "S&hift dash start"
-msgstr "&Repositionner le début du tiret"
-
-#: rc.cpp:213
-msgid "&Shade Options"
-msgstr "Patrons &ombrage"
-
-#: rc.cpp:214
-msgid "&Snaked Lines Options"
-msgstr "Options &serpentines"
-
-#: rc.cpp:215
-msgid "&Path Options"
-msgstr "Options &courbe"
-
-#: rc.cpp:216
-msgid "&Transformations on Subsequent Objects in Path"
-msgstr "&Transformations sur les objets suivantes d'une courbe"
-
-#: rc.cpp:217
-msgid "S&hift horizontally"
-msgstr "&Translation horizontale"
-
-#: rc.cpp:218
-msgid "S&hift vertically"
-msgstr "&Translation verticale"
-
-#: rc.cpp:219
-msgid "S&hift to a point"
-msgstr "&Translation vers un point"
-
-#: rc.cpp:220
-msgid "&Cancel all transformations except shift"
-msgstr "&Annuler toutes les transformations sauf les translations"
-
-#: rc.cpp:221
-msgid "&Rotate by angle"
-msgstr "&Rotation avec angle"
-
-#: rc.cpp:222
-msgid "&Rotate around a point"
-msgstr "&Rotation autour d'un point"
-
-#: rc.cpp:223
-msgid "S&cale horizontally"
-msgstr "A&grandir/rétrécir horizontalement"
-
-#: rc.cpp:224
-msgid "S&cale vertically"
-msgstr "A&grandir/rétrécir verticalement"
-
-#: rc.cpp:225
-msgid "S&cale in both directions"
-msgstr "A&grandir/rétrécir dans les deux directions"
-
-#: rc.cpp:226
-msgid "&Flip horizontally"
-msgstr "&Symétrie horizontale"
-
-#: rc.cpp:227
-msgid "&Flip vertically"
-msgstr "&Symétrie verticale"
-
-#: rc.cpp:228
-msgid "&Slant horizontally"
-msgstr "&Obliquer horizontalement"
-
-#: rc.cpp:229
-msgid "&Slant vertically"
-msgstr "&Obliquer verticalement"
-
-#: rc.cpp:230
-msgid "C&oordinate transformation"
-msgstr "Transformation des c&oordonnées"
-
-#: rc.cpp:231
-msgid "Para&bola Options"
-msgstr "Options para&bole"
-
-#: rc.cpp:232
-msgid "Parabola with specified &width and height"
-msgstr "Parabole avec &largeur et hauteur définies"
-
-#: rc.cpp:233
-msgid "&Grid Options"
-msgstr "Options &quadrillage"
-
-#: rc.cpp:234
-msgid "Draw \"subdued\" &grid with specified step"
-msgstr "Tirer &quadrillage à distances définies"
-
-#: rc.cpp:235
-msgid "&To Options"
-msgstr "Options <icode>&to</icode>"
-
-#: rc.cpp:236
-msgid "<icode>to</icode> curved with &label"
-msgstr "<icode>to</icode> courbé avec &label"
-
-#: rc.cpp:237
-msgid "<icode>to</icode> curved with <icode>to &path</icode>"
-msgstr "<icode>to</icode> courbé avec <icode>to &path</icode>"
-
-#: rc.cpp:238
-msgid "&Define style for every to"
-msgstr "&Définir style pour chaque <icode>to</icode>"

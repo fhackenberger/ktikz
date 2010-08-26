@@ -44,7 +44,7 @@ echo 'i18nc("EMAIL OF TRANSLATORS","Your emails");' >> ${WDIR}/rc.cpp
 cd ${WDIR}
 
 # Add tikz commands descriptions
-add_list "$TIKZCOMMANDSLIST"
+#add_list "$TIKZCOMMANDSLIST"
 
 echo "Done preparing rc files"
 

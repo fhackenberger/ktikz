@@ -37,7 +37,7 @@ class Part : public KParts::ReadOnlyPart, public MainWidget
 	Q_OBJECT
 
 public:
-	Part(QWidget *parentWidget, QObject *parent, const QStringList &args);
+	Part(QWidget *parentWidget, QObject *parent, const QVariantList &args);
 	virtual ~Part();
 
 	static KAboutData *createAboutData();

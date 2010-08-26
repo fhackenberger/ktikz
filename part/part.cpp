@@ -57,10 +57,10 @@
 #include "../common/tikzpreviewcontroller.h"
 #include "../common/utils/action.h"
 
-typedef KParts::GenericFactory<Part> KTikZPartFactory;
-K_EXPORT_COMPONENT_FACTORY(ktikzpart, KTikZPartFactory)
+K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<Part>();)
+K_EXPORT_PLUGIN(ktikzPartFactory("ktikz","ktikz") )
 
-Part::Part(QWidget *parentWidget, QObject *parent, const QStringList &args)
+Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
     : KParts::ReadOnlyPart(parent)
 {
 	Q_UNUSED(args);
