@@ -14,6 +14,10 @@
    <default>true</default>
    <label>Whether the preview is generated automatically while editing instead of only when pressing a button.</label>
   </entry>
+  <entry key="WatchFile" type="Bool">
+   <default>true</default>
+   <label>Whether to reload the TikZ image each time that the file is modified by another program.</label>
+  </entry>
   <entry key="LatexCommand" type="Path">
    <default>pdflatex</default>
    <label>The path to the pdflatex command.</label>

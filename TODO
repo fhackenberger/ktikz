@@ -4,8 +4,6 @@
   it, but only select it.  Pressing an Insert button would then do the
   actual insertion.  There should also be a Help button which opens the
   TikZ manual at the page where the selected item is explained.
-- Make the XML file with the TikZ commands "localisable" (an XML file
-  for each translation?)
 - Make a graphical tool for editing the XML file containing the TikZ
   commands similar to keditbookmarks
 - Create a new process for each window opened by the "New" action.

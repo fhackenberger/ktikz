@@ -67,6 +67,7 @@ QWidget *PartConfigDialog::viewerWidget()
 void PartConfigDialog::setDefaults()
 {
 	m_configGeneralWidget->setDefaults();
+	m_watchFileCheckBox->setChecked(true);
 }
 
 void PartConfigDialog::readSettings()
