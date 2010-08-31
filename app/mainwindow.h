@@ -68,6 +68,7 @@ public:
 	MainWindow();
 	virtual ~MainWindow();
 
+	virtual QWidget *widget();
 	bool isDocumentModified() const;
 	QString tikzCode() const;
 	Url url() const;

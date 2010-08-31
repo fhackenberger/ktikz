@@ -496,8 +496,10 @@ void TikzPreview::setInfoLabelText(const QString &message, bool isPixmapVisible)
 {
 	m_infoPixmapLabel->setVisible(isPixmapVisible);
 	m_infoLabel->setText(message);
-	m_tikzScene->removeItem(m_infoProxyWidget); // make sure that any previous messages are not visible anymore
+//	m_infoWidget->setVisible(false);
 //	m_infoWidget->setVisible(true);
+	if (m_infoProxyWidget->scene() != 0) // only remove if the widget is still attached to m_tikzScene
+		m_tikzScene->removeItem(m_infoProxyWidget); // make sure that any previous messages are not visible anymore
 	m_tikzScene->addItem(m_infoProxyWidget);
 	m_infoWidgetAdded = true;
 }

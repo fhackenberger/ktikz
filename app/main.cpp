@@ -129,11 +129,15 @@ int main(int argc, char **argv)
 #endif
 
 	const QString translationsDirPath = qgetenv("KTIKZ_TRANSLATIONS_DIR");
-	app.installTranslator(createTranslator("qt", QLibraryInfo::location(QLibraryInfo::TranslationsPath)));
-	app.installTranslator(createTranslator("qtikz", translationsDirPath));
+	QTranslator *qtTranslator = createTranslator("qt", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+	QTranslator *qtikzTranslator = createTranslator("qtikz", translationsDirPath);
+	app.installTranslator(qtTranslator);
+	app.installTranslator(qtikzTranslator);
 
 	app.init();
-
 	int success = app.exec();
+
+	delete qtTranslator;
+	delete qtikzTranslator;
 	return success;
 }

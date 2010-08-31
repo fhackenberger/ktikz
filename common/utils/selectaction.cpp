@@ -78,7 +78,6 @@ void SelectAction::init(const QString &name)
 	m_selectCombo = new QComboBox;
 	setDefaultWidget(m_selectCombo);
 	connect(m_selectCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(setCurrentItem()));
-	connect(m_selectCombo->lineEdit(), SIGNAL(returnPressed()), this, SLOT(setCurrentItem()));
 }
 
 SelectAction::~SelectAction()
@@ -89,6 +88,8 @@ SelectAction::~SelectAction()
 void SelectAction::setEditable(bool editable)
 {
 	m_selectCombo->setEditable(editable);
+	if (editable)
+		connect(m_selectCombo->lineEdit(), SIGNAL(returnPressed()), this, SLOT(setCurrentItem()));
 }
 
 void SelectAction::setCurrentItem()

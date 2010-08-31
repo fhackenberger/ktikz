@@ -41,7 +41,7 @@ public:
 	virtual ~Part();
 
 	static KAboutData *createAboutData();
-	QWidget *widget();
+	virtual QWidget *widget();
 	QString tikzCode() const;
 	Url url() const;
 

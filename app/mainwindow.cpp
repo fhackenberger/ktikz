@@ -223,6 +223,11 @@ MainWindow::~MainWindow()
 		QDir::temp().rmdir("ktikz");
 }
 
+QWidget *MainWindow::widget()
+{
+	return this;
+}
+
 #ifdef KTIKZ_USE_KDE
 bool MainWindow::queryClose()
 {
