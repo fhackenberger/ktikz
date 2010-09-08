@@ -40,6 +40,7 @@ public:
 	Url(const QUrl &url);
 
 	QString fileName() const;
+	QString pathOrUrl() const;
 };
 #endif
 

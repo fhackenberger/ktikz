@@ -141,7 +141,7 @@ void TemplateWidget::setTemplateFile()
 	    .arg(tr("%1 template files").arg(APPNAME))
 	    .arg(tr("All files")));
 	if (url.isValid())
-		setFileName(url.path());
+		setFileName(url.pathOrUrl());
 }
 
 void TemplateWidget::editTemplateFile()

@@ -199,9 +199,11 @@ MainWindow::MainWindow()
 	saveLastInternalModifiedDateTime();
 	m_tikzEditorView->editor()->setFocus();
 
+/*
 	QDir dir(QDir::tempPath() + "/ktikz");
 	if (!dir.exists())
 		QDir::temp().mkdir("ktikz");
+*/
 }
 
 MainWindow::~MainWindow()
@@ -218,9 +220,11 @@ MainWindow::~MainWindow()
 	m_logHighlighter->deleteLater();
 	m_tikzHighlighter->deleteLater();
 
+/*
 	QDir dir(QDir::tempPath() + "/ktikz");
 	if (dir.exists())
 		QDir::temp().rmdir("ktikz");
+*/
 }
 
 QWidget *MainWindow::widget()
@@ -486,7 +490,7 @@ void MainWindow::createActions()
 	m_whatsThisAction->setIcon(QIcon(":/icons/help-contextual.png"));
 	m_whatsThisAction->setStatusTip(tr("Show simple description of any widget"));
 
-	m_aboutAction = new QAction(QIcon(":/icons/ktikz-22.png"), tr("&About %1").arg(KtikzApplication::applicationName()), this);
+	m_aboutAction = new QAction(QIcon(":/icons/qtikz-22.png"), tr("&About %1").arg(KtikzApplication::applicationName()), this);
 	m_aboutAction->setStatusTip(tr("Show the application's About box"));
 	connect(m_aboutAction, SIGNAL(triggered()), this, SLOT(about()));
 

@@ -49,4 +49,9 @@ QString Url::fileName() const
 {
 	return QFileInfo(QUrl::path()).fileName();
 }
+
+QString Url::pathOrUrl() const
+{
+	return QUrl::path();
+}
 #endif
