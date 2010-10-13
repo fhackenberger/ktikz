@@ -1,0 +1,1 @@
+text/x-pgf; ktikz %s; description="PGF document"; nametemplate=%s.pgf; test=test -n "$DISPLAY" ; edit=ktikz %s; compose=ktikz '%s'

@@ -1,0 +1,8 @@
+?package(qtikz):needs="X11" \
+section="Applications/Graphics" \
+title="QTikZ" \
+longtitle="QTikZ TikZ drawing editor" \
+command="/usr/bin/qtikz" \
+icon="/usr/share/pixmaps/qtikz32.xpm" \
+icon32x32="/usr/share/pixmaps/qtikz32.xpm" \
+icon16x16="/usr/share/pixmaps/qtikz16.xpm"

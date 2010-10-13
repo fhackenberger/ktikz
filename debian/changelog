@@ -1,3 +1,57 @@
+ktikz (0.10~svn140-1) UNRELEASED; urgency=low
+
+  * New upstream version (svn snapshot).
+  * Initial upload to unstable (Closes: #521837).
+  * Bump standards-version to 3.9.1 (no changes required).
+
+ -- Stuart Prescott <stuart+debian@nanonanonano.net>  Mon, 13 Sep 2010 13:39:11 +0100
+
+ktikz (0.10~svn127-1) unstable; urgency=low
+
+  * New upstream version (svn snapshot).
+  * No longer rename sharedmimeinfo files (now done by upstream build system).
+  * Drop man pages from debian directory now that they are included by upstream.
+  * Add Recommends: qt4-dev-tools for qtikz for help system.
+  * Add README.Debian to explain purpose of recommended packages.
+  * Refresh patches.
+  * Bump standards-version to 3.9.0 (no changes required).
+
+ -- Stuart Prescott <stuart+debian@nanonanonano.net>  Sat, 24 Jul 2010 14:15:46 +0100
+
+ktikz (0.10~svn118-1) unstable; urgency=low
+
+  * New upstream version (svn snapshot).
+  * Drop qmake-translation.patch now included upstream.
+  * Change dh7 build-system to "kde" and depend on pkg-kde-tools for this.
+  * Add support for "noopt" builds of the package.
+
+ -- Stuart Prescott <stuart+debian@nanonanonano.net>  Wed, 23 Jun 2010 12:12:40 +0100
+
+ktikz (0.10~svn112-1) unstable; urgency=low
+
+  * New upstream version (svn snapshot).
+  * Drop patch tikz-default-doc-path.patch since upstream build system now
+    includes this default.
+  * Also compile the Qt version (qtikz) and create the qtikz package for it.
+  * Add qmake-translation.patch to manage building translations for the Qt
+    version as part of the regular build process.
+  * Update copyright years, people and GPL version (now GPLv2+).
+
+ -- Stuart Prescott <stuart+debian@nanonanonano.net>  Tue, 17 Jun 2010 12:54:25 +0100
+
+ktikz (0.10~svn103-1) unstable; urgency=low
+
+  * New upstream version (svn snapshot).
+  * Convert to 3.0 (quilt) format with dh7.
+  * Expand long description to include information on tikz.
+  * Add watch file.
+  * Update copyright years, people and GPL version (now GPLv3).
+  * Patch location of PGF documentation for tikz.
+  * Add myself as an Uploader.
+  * Bump standards-version to 3.8.4 (no change required).
+
+ -- Stuart Prescott <stuart+debian@nanonanonano.net>  Sat, 05 Jun 2010 00:02:33 +0100
+
 ktikz (0.9-1) unstable; urgency=low
 
   * Upgraded to the 0.9 upstream release

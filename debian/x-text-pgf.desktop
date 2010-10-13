@@ -1,0 +1,6 @@
+[Desktop Entry]
+Comment=PGF/TikZ drawing
+Icon=/usr/share/pixmaps/ktikz32.xpm
+Type=MimeType
+MimeType=text/x-pgf;
+Patterns=*.pgf;*.tikz;

@@ -5,35 +5,75 @@ It was downloaded from http://www.hackenberger.at/ktikz
 
 Upstream Author: Florian Hackenberger <florian@hackenberger.at>
 
-Copyright (C) 2007-2008 Florian Hackenberger <florian@hackenberger.at>
-Copyright (C) 2007-2008 Glad Deschrijver
+Copyright © 2007-2010 Florian Hackenberger <florian@hackenberger.at>
+Copyright © 2007-2010 Glad Deschrijver <glad.deschrijver@gmail.com>
 
 License: GPL version 2 or later
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
+  This program is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free Software
+  Foundation; either version 2 of the License, or (at your option) any later
+  version.
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the
+Additional copyright holders and licenses:
+  app/tikzeditor.cpp:
+    GPL v2 or later contributions:
+      Copyright © 2006 Jean-Luc Biord (http://qdevelop.org)
+      Copyright © 2003-2008 Pascal Brachet (http://www.xm1math.net/texmaker)
+    LGPL v2.1 contributions:
+      Copyright © 2009 Nokia Corporation and/or its subsidiary(-ies)
+    LGPL v2 contributions:
+      Copyright © 2007 Mirko Stocker <me@misto.ch>
+      Copyright © 2003-2005 Hamish Rodda <rodda@kde.org>
+      Copyright © 2001 Christoph Cullmann <cullmann@kde.org>
+      Copyright © 2001 Joseph Wenninger <jowenn@kde.org>
+      Copyright © 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
-  Free Software Foundation, Inc.,
-  51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+  part/part.cpp:
+    GPL v2 or later contributions:
+      Copyright © 2002 Wilco Greven <greven@kde.org>
+      Copyright © 2002 Chris Cheney <ccheney@cheney.cx>
+      Copyright © 2002 Malcolm Hunter <malcolm.hunter@gmx.co.uk>
+      Copyright © 2003-2004 Christophe Devriese <Christophe.Devriese@student.kuleuven.ac.be>
+      Copyright © 2003 Daniel Molkentin <molkentin@kde.org>
+      Copyright © 2003 Andy Goossens <andygoossens@telenet.be>
+      Copyright © 2003 Dirk Mueller <mueller@kde.org>
+      Copyright © 2003 Laurent Montel <montel@kde.org>
+      Copyright © 2004 Dominique Devriese <devriese@kde.org>
+      Copyright © 2004 Christoph Cullmann <crossfire@babylon2k.de>
+      Copyright © 2004 Henrique Pinto <stampede@coltec.ufmg.br>
+      Copyright © 2004 Waldo Bastian <bastian@kde.org>
+      Copyright © 2004-2008 Albert Astals Cid <aacid@kde.org>
+      Copyright © 2004 Antti Markus <antti.markus@starman.ee>
+
+  common/utils/lineedit.{h,cpp}:
+    Use, modification and distribution is allowed without limitation,
+    warranty, liability or support of any kind.
+      Copyright © 2007 Trolltech ASA <info@trolltech.com>
+
+  doc/*:
+    GFDL v1.2 or later contributions:
+      Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.2 or
+      any later version published by the Free Software Foundation; with no
+      Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+      Texts.
+      Copyright © 2010 Glad Deschrijver <glad.deschrijver@gmail.com>
 
 Debian packaging is
 
-  Copyright (C) 2007-2008, Florian Hackenberger <florian@hackenberger.at>
+  Copyright © 2007-2009 Florian Hackenberger <florian@hackenberger.at>
+  Copyright © 2009 Agustin Martin Domingo <agustin.martin@hispalinux.es>
+  Copyright © 2009-2010 Stuart Prescott <stuart+debian@nanonanonano.net>
 
-and is also licensed under the GPL
+and is licenced under the same terms as ktikz itself.
 
 On Debian systems, the complete text of the GNU General Public License
-version 2 can be found in /usr/share/common-licenses/GPL-2 file. Text
-for higher versions is available in the same directory.
-
+version 2 can be found in /usr/share/common-licenses/GPL-2 and the
+complete text of the GNU Free Documentation License 1.2 can be found in
+/usr/share/common-licenses/GFDL-1.2.
 

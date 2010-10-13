@@ -1,16 +1,64 @@
 Source: ktikz
 Section: graphics
-Priority: extra
+Priority: optional
 Maintainer: Florian Hackenberger <florian@hackenberger.at>
-Build-Depends: debhelper (>= 5), qt4-dev-tools, libqt4-dev (>= 4.3.0), libpoppler-qt4-dev
+Uploaders: Stuart Prescott <stuart+debian@nanonanonano.net>
+Build-Depends: debhelper (>= 7.3.16~),
+                pkg-kde-tools (>= 0.5~),
+                cmake,
+                qt4-dev-tools,
+                libqt4-dev (>= 4.4.0~),
+                libpoppler-qt4-dev,
+                kdelibs5-dev,
+                xsltproc,
+                imagemagick,
+                libmagickcore-extra
 Homepage: http://www.hackenberger.at/ktikz-editor-for-the-tikz-language
 Vcs-Svn: svn://hackenberger.at/svnroot/ktikz/trunk
-Standards-Version: 3.8.0
+Standards-Version: 3.9.1
 
 Package: ktikz
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, pgf, preview-latex-style
-Suggests: poppler-utils
-Description: Editor for the TikZ language
- KtikZ is a small application helping you to create TikZ
- (from the LaTeX pgf package) diagrams for your publications.
+Depends: pgf,
+          preview-latex-style,
+          ${shlibs:Depends},
+          ${misc:Depends}
+Recommends: poppler-utils,
+              khelpcenter4
+Description: editor for the TikZ drawing language - KDE version
+ KTikZ is a small application to assist in the creation of diagrams and
+ drawings using the TikZ macros from the LaTeX package "pgf". It consists of
+ a text editor pane in which the TikZ code for the drawing is edited and a
+ preview pane showing the drawing as rendered by LaTeX. The preview pane can be
+ updated in real-time. Common drawing tools, options and styles are available
+ from the menus to assist the coding process.
+ .
+ This package contains the KDE version of the program.
+ .
+ TikZ is a user-friedly syntax layer for the PGF (portable graphics format)
+ TeX macro package. Pictures can be created within a LaTeX document and
+ included in the output using the most important TeX backend drivers including
+ pdftex and dvips.
+
+Package: qtikz
+Architecture: any
+Depends: pgf,
+          preview-latex-style,
+          ${shlibs:Depends},
+          ${misc:Depends}
+Recommends: poppler-utils,
+            qt4-dev-tools
+Description: editor for the TikZ drawing language - Qt version
+ QTikZ is a small application to assist in the creation of diagrams and
+ drawings using the TikZ macros from the LaTeX package "pgf". It consists of
+ a text editor pane in which the TikZ code for the drawing is edited and a
+ preview pane showing the drawing as rendered by LaTeX. The preview pane can be
+ updated in real-time. Common drawing tools, options and styles are available
+ from the menus to assist the coding process.
+ .
+ This package contains the Qt version of the program.
+ .
+ TikZ is a user-friedly syntax layer for the PGF (portable graphics format)
+ TeX macro package. Pictures can be created within a LaTeX document and
+ included in the output using the most important TeX backend drivers including
+ pdftex and dvips.

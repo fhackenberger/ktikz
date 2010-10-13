@@ -1,0 +1,4 @@
+usr/lib/kde4/ktikzpart.so
+usr/bin/ktikz
+usr/share/*
+debian/x-text-pgf.desktop usr/share/mimelnk/application

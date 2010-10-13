@@ -1,0 +1,14 @@
+KTikZ in Debian
+---------------
+
+The ktikz and qtikz packages both recommend other packages that provide
+"standard" functionality for ktikz but it is possible to run the program
+without these packages being installed.
+
+ktikz recommended packages:
+- poppler-utils: export as EPS functionality
+- khelpcenter4: documentation browser (/usr/bin/khelpcenter)
+
+qtikz recommended packages:
+- poppler-utils: export as EPS functionality
+- qt4-dev-tools: documentation browser (/usr/bin/assistant)

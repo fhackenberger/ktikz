@@ -1,90 +1,52 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
-# Sample debian/rules that uses debhelper.
-# This file was originally written by Joey Hess and Craig Small.
-# As a special exception, when this file is copied by dh-make into a
-# dh-make output file, you may use that output file without restriction.
-# This special exception was added by Craig Small in version 0.37 of dh-make.
 
-# Uncomment this to turn on verbose mode.
-export DH_VERBOSE=1
-
-
-
-
-CFLAGS = -Wall -g
-
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-	CFLAGS += -O0
+ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
+	QMAKECONFIG = -config noopt
+	CXXFLAGS += -O0
 else
-	CFLAGS += -O2
+	CXXFLAGS += -O2
 endif
 
-configure: configure-stamp
-configure-stamp:
-	dh_testdir
-	# Add here commands to configure the package.
-	qmake-qt4 PREFIX=/usr REPLACEICONDIR=0
-	lrelease src/src.pro
-	touch configure-stamp
+%:
+	# specify both --with and --buildsystem so that the options filter through overridden calls to the helper
+	dh $@ --with=kde --buildsystem=kde
 
+QTBUILD=buildqt
 
-build: build-stamp
+override_dh_auto_clean:
+	# Clean up the KDE build (cmake)
+	dh_auto_clean
+	# Clean up the Qt build (qmake)
+	[ ! -f Makefile ] || make distclean
+	rm -rf app/qtikz.desktop $(QTBUILD)
 
-build-stamp: configure-stamp
-	dh_testdir
+override_dh_auto_configure:
+	# configure the KDE version (cmake)
+	dh_auto_configure
+	# configure the Qt version (qmake)
+	mkdir $(QTBUILD)
+	cd $(QTBUILD) && qmake-qt4 $(QMAKECONFIG) ../qtikz.pro
 
-	# Add here commands to compile the package.
-	$(MAKE)
-	#docbook-to-man debian/ktikz.sgml > ktikz.1
+override_dh_auto_build:
+	# build the KDE version (cmake)
+	dh_auto_build
+	# build the Qt version (qmake)
+	make -C $(QTBUILD)
 
-	touch $@
+override_dh_auto_install:
+	# install the KDE version (cmake)
+	dh_auto_install
+	# install the Qt version (qmake)
+	INSTALL_ROOT=$(CURDIR)/debian/qtikz make -C $(QTBUILD) install
+	rm $(CURDIR)/debian/qtikz/usr/share/qtikz/LICENSE.GPL2
+	# Make icons for Debian menu
+	convert -background none -geometry 32x32 ./app/icons/ktikz.svg \
+	  $(CURDIR)/debian/ktikz/usr/share/pixmaps/ktikz32.xpm
+	convert -background none -geometry 16x16 ./app/icons/ktikz.svg \
+	  $(CURDIR)/debian/ktikz/usr/share/pixmaps/ktikz16.xpm
+	convert -background none -geometry 32x32 ./app/icons/qtikz.svg \
+	  $(CURDIR)/debian/qtikz/usr/share/pixmaps/qtikz32.xpm
+	convert -background none -geometry 16x16 ./app/icons/qtikz.svg \
+	  $(CURDIR)/debian/qtikz/usr/share/pixmaps/qtikz16.xpm
 
-clean:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp configure-stamp
-
-	# Add here commands to clean up after the build process.
-	[ ! -f Makefile ] || $(MAKE) distclean
-	rm -f src/ktikz.desktop
-
-	dh_clean
-
-install: build
-	dh_testdir
-	dh_testroot
-	dh_clean -k
-	dh_installdirs
-
-	# Add here commands to install the package into debian/ktikz.
-	$(MAKE) install INSTALL_ROOT=$(CURDIR)/debian/ktikz
-
-
-# Build architecture-independent files here.
-binary-indep: build install
-# We have nothing to do by default.
-
-# Build architecture-dependent files here.
-binary-arch: build install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs Changelog
-	dh_installdocs
-	dh_installexamples
-#	dh_install
-	dh_installmenu
-	dh_desktop
-	dh_installman debian/ktikz.1
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure
+.PHONY: override_dh_auto_clean override_dh_auto_configure override_dh_auto_build override_dh_auto_install
