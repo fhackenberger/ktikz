@@ -1,2 +1,0 @@
-?package(ktikz):needs="X11" section="Apps/Graphics"\
-  title="ktikz" command="/usr/bin/ktikz"
