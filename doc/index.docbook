@@ -77,7 +77,7 @@ as Authors, publish date, the abstract, and Keywords -->
      allows you to easily reference the chapter from other chapters of your
      document, and if there is no ID, the name of the generated HTML files will vary
      from time to time making it hard to manage for maintainers and for the CVS
-     system. Any chapter labelled (OPTIONAL) may be left out at the author's
+     system. Any chapter labeled (OPTIONAL) may be left out at the author's
      discretion. Other chapters should not be left out in order to maintain a
      consistent documentation style across all KDE apps. -->
 

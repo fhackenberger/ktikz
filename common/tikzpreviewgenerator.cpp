@@ -485,7 +485,7 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 	// Process finished
 	emit processRunning(false);
 	if (m_process->bytesAvailable())
-			log << m_process->readLine(m_process->bytesAvailable());
+		log << m_process->readLine(m_process->bytesAvailable());
 	log.seek(0);
 
 	if (m_processAborted)

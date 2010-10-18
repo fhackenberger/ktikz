@@ -64,7 +64,7 @@
 		</para>
 
 		<para>
-			If the user triggers the <guilabel>Go to Line</guilabel> action, a <quote>Go to Line</quote> panel appears at the bottom of the editor.  In the <guilabel>Go to line</guilabel> spin box, the line number to which the cursor should be moved is enterred.  Pressing <keycombo action="simul"><keycap>Enter</keycap></keycombo> or the <guilabel>Go</guilabel> button closes the panel and moves the cursor in the editor to the specified line.  Finally there is a <guilabel>Close</guilabel> button which causes the panel to be closed.
+			If the user triggers the <guilabel>Go to Line</guilabel> action, a <quote>Go to Line</quote> panel appears at the bottom of the editor.  In the <guilabel>Go to line</guilabel> spin box, the line number to which the cursor should be moved is entered.  Pressing <keycombo action="simul"><keycap>Enter</keycap></keycombo> or the <guilabel>Go</guilabel> button closes the panel and moves the cursor in the editor to the specified line.  Finally there is a <guilabel>Close</guilabel> button which causes the panel to be closed.
 		</para>
 	</sect2>
 

@@ -162,7 +162,7 @@ void KtikzApplication::saveState(QSessionManager &manager)
 
 #ifdef Q_WS_X11
 	// in X11 the session manager calls savedState also on startup,
-    // we don't want to save anything at startup, so we return
+	// we don't want to save anything at startup, so we return
 	// this is a dirty hack: it would be better to actually determine
 	// *when* this function is called
 	if (m_firstTime)

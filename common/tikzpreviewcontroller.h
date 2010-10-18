@@ -78,7 +78,7 @@ private slots:
 	void toggleShellEscaping(bool useShellEscaping);
 
 signals:
-    void logUpdated(const QString &logText, bool runFailed);
+	void logUpdated(const QString &logText, bool runFailed);
 
 private:
 	void createTempDir();

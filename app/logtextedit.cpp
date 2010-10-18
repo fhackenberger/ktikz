@@ -42,14 +42,14 @@ void LogTextEdit::logUpdated(const QString &logText, bool runFailed)
 
 void LogTextEdit::setLogPalette(bool runFailed)
 {
-    moveCursor(QTextCursor::End);
-    if (runFailed)
-    {
-        QPalette failedPalette(QApplication::palette());
-        failedPalette.setColor(QPalette::Background, QColor(255, 102, 102));
-        setAutoFillBackground(true);
-        setPalette(failedPalette);
-    }
-    else
-        setPalette(QApplication::palette());
+	moveCursor(QTextCursor::End);
+	if (runFailed)
+	{
+		QPalette failedPalette(QApplication::palette());
+		failedPalette.setColor(QPalette::Background, QColor(255, 102, 102));
+		setAutoFillBackground(true);
+		setPalette(failedPalette);
+	}
+	else
+		setPalette(QApplication::palette());
 }

@@ -88,7 +88,7 @@ Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
 	connect(m_watcher, SIGNAL(dirty(const QString&)), this, SLOT(slotFileDirty(const QString&)));
 	m_dirtyHandler = new QTimer(this);
 	m_dirtyHandler->setSingleShot(true);
-	connect(m_dirtyHandler, SIGNAL(timeout()),this, SLOT(slotDoFileDirty()));
+	connect(m_dirtyHandler, SIGNAL(timeout()), this, SLOT(slotDoFileDirty()));
 
 	setXMLFile("ktikzpart/ktikzpart.rc");
 

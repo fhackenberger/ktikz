@@ -442,7 +442,7 @@ void TikzPreview::pixmapUpdated(Poppler::Document *tikzPdfDoc)
 {
 	m_tikzPdfDoc = tikzPdfDoc;
 
-    if (!m_tikzPdfDoc)
+	if (!m_tikzPdfDoc)
 	{
 		emptyPreview();
 		return;
