@@ -2,14 +2,13 @@
 # This file is distributed under the same license as the KTikZ package.
 #
 # Glad Deschrijver <glad.deschrijver@gmail.com>, 2009, 2010.
-# Glad Deschrijver <Glad.Deschrijver@UGent.be>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
 "POT-Creation-Date: 2010-08-26 11:09+0200\n"
 "PO-Revision-Date: 2010-08-26 11:10+0200\n"
-"Last-Translator: Glad Deschrijver <Glad.Deschrijver@UGent.be>\n"
+"Last-Translator: Glad Deschrijver <glad.deschrijver@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

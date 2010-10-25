@@ -1,3 +1,5 @@
+version ...:
+- Added Czech translation
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE
