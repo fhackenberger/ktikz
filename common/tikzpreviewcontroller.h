@@ -19,26 +19,24 @@
 #ifndef KTIKZ_TIKZPREVIEWCONTROLLER_H
 #define KTIKZ_TIKZPREVIEWCONTROLLER_H
 
-#include <QObject>
+#include <QtCore/QObject>
+#include "utils/url.h"
 
-#ifdef KTIKZ_USE_KDE
-#include <KUrl>
-class KAction;
-class KActionCollection;
-class KJob;
-class KTempDir;
-class KToggleAction;
-#else
+#ifndef KTIKZ_USE_KDE
 class QAction;
 class QMenu;
 class QToolBar;
 class QToolButton;
 #endif
 
+class QTimer;
+class MainWidget;
 class TemplateWidget;
 class TikzPreview;
 class TikzPreviewGenerator;
-class MainWidget;
+class TikzTemporaryFileController;
+class Action;
+class ToggleAction;
 
 class TikzPreviewController : public QObject
 {
@@ -64,14 +62,13 @@ public:
 
 public slots:
 	void generatePreview();
-	void regeneratePreview();
+	void regeneratePreviewAfterDelay();
 
 private slots:
-#ifdef KTIKZ_USE_KDE
-	void showJobError(KJob *job);
-#endif
 	void setTemplateFileAndRegenerate(const QString &path);
 	void setReplaceTextAndRegenerate(const QString &replace);
+	void regeneratePreview();
+	void abortProcess();
 	void exportImage();
 	void setExportActionsEnabled(bool enabled);
 	void setProcessRunning(bool isRunning);
@@ -81,18 +78,10 @@ signals:
 	void logUpdated(const QString &logText, bool runFailed);
 
 private:
-	void createTempDir();
-	void removeTempDir();
-
 	void createActions();
-	bool setTemplateFile(const QString &path);
-#ifdef KTIKZ_USE_KDE
-	KUrl getExportUrl(const KUrl &url, const QString &mimeType) const;
-#else
-	QString getExportFileName(const QString &fileName, const QString &mimeType) const;
-#endif
 	void generatePreview(bool templateChanged);
-	bool cleanUp();
+	bool setTemplateFile(const QString &path);
+	Url getExportUrl(const Url &url, const QString &mimeType) const;
 
 	MainWidget *m_mainWidget;
 	QWidget *m_parentWidget;
@@ -101,21 +90,17 @@ private:
 	TikzPreview *m_tikzPreview;
 	TikzPreviewGenerator *m_tikzPreviewGenerator;
 
-#ifdef KTIKZ_USE_KDE
-	KActionCollection *m_actionCollection;
-	KAction *m_exportAction;
-	KAction *m_procStopAction;
-	KToggleAction *m_shellEscapeAction;
+	QTimer *m_regenerateTimer;
 
-	KTempDir *m_tempDir;
-#else
-	QAction *m_exportAction;
-	QAction *m_procStopAction;
-	QAction *m_shellEscapeAction;
+#ifndef KTIKZ_USE_KDE
 	QToolButton *m_shellEscapeButton;
 	QList<QToolBar*> m_toolBars;
 #endif
-	QString m_tempTikzFileBaseName;
+	Action *m_exportAction;
+	Action *m_procStopAction;
+	ToggleAction *m_shellEscapeAction;
+
+	TikzTemporaryFileController *m_temporaryFileController;
 };
 
 #endif

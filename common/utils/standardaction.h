@@ -25,31 +25,31 @@
 namespace StandardAction
 {
 #ifdef KTIKZ_USE_KDE
-	Action *copyAction(KAction *action, const QObject *recvr, const char *slot);
+Action *copyAction(KAction *action, const QObject *recvr, const char *slot);
 #else
-	Action *createAction(int which, const QObject *recvr, const char *slot, QObject *parent);
+Action *createAction(int which, const QObject *recvr, const char *slot, QObject *parent);
 #endif
-	Action *openNew(const QObject *recvr, const char *slot, QObject *parent);
-	Action *open(const QObject *recvr, const char *slot, QObject *parent);
-	RecentFilesAction *openRecent(const QObject *recvr, const char *slot, QObject *parent);
-	Action *save(const QObject *recvr, const char *slot, QObject *parent);
-	Action *saveAs(const QObject *recvr, const char *slot, QObject *parent);
-	Action *close(const QObject *recvr, const char *slot, QObject *parent);
-	Action *quit(const QObject *recvr, const char *slot, QObject *parent);
-	Action *undo(const QObject *recvr, const char *slot, QObject *parent);
-	Action *redo(const QObject *recvr, const char *slot, QObject *parent);
-	Action *cut(const QObject *recvr, const char *slot, QObject *parent);
-	Action *copy(const QObject *recvr, const char *slot, QObject *parent);
-	Action *paste(const QObject *recvr, const char *slot, QObject *parent);
-	Action *selectAll(const QObject *recvr, const char *slot, QObject *parent);
-	Action *find(const QObject *recvr, const char *slot, QObject *parent);
-	Action *findNext(const QObject *recvr, const char *slot, QObject *parent);
-	Action *findPrev(const QObject *recvr, const char *slot, QObject *parent);
-	Action *replace(const QObject *recvr, const char *slot, QObject *parent);
-	Action *gotoLine(const QObject *recvr, const char *slot, QObject *parent);
-	Action *zoomIn(const QObject *recvr, const char *slot, QObject *parent);
-	Action *zoomOut(const QObject *recvr, const char *slot, QObject *parent);
-	Action *preferences(const QObject *recvr, const char *slot, QObject *parent);
+Action *openNew(const QObject *recvr, const char *slot, QObject *parent);
+Action *open(const QObject *recvr, const char *slot, QObject *parent);
+RecentFilesAction *openRecent(const QObject *recvr, const char *slot, QObject *parent);
+Action *save(const QObject *recvr, const char *slot, QObject *parent);
+Action *saveAs(const QObject *recvr, const char *slot, QObject *parent);
+Action *close(const QObject *recvr, const char *slot, QObject *parent);
+Action *quit(const QObject *recvr, const char *slot, QObject *parent);
+Action *undo(const QObject *recvr, const char *slot, QObject *parent);
+Action *redo(const QObject *recvr, const char *slot, QObject *parent);
+Action *cut(const QObject *recvr, const char *slot, QObject *parent);
+Action *copy(const QObject *recvr, const char *slot, QObject *parent);
+Action *paste(const QObject *recvr, const char *slot, QObject *parent);
+Action *selectAll(const QObject *recvr, const char *slot, QObject *parent);
+Action *find(const QObject *recvr, const char *slot, QObject *parent);
+Action *findNext(const QObject *recvr, const char *slot, QObject *parent);
+Action *findPrev(const QObject *recvr, const char *slot, QObject *parent);
+Action *replace(const QObject *recvr, const char *slot, QObject *parent);
+Action *gotoLine(const QObject *recvr, const char *slot, QObject *parent);
+Action *zoomIn(const QObject *recvr, const char *slot, QObject *parent);
+Action *zoomOut(const QObject *recvr, const char *slot, QObject *parent);
+Action *preferences(const QObject *recvr, const char *slot, QObject *parent);
 }
 
 #endif

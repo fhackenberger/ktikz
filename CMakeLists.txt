@@ -13,7 +13,7 @@ else(WIN32 AND NOT UNIX)
 	add_definitions(-DKTIKZ_TEMPLATE_EDITOR_DEFAULT=\"kwrite\")
 endif(WIN32 AND NOT UNIX)
 
-find_package(Qt4 4.4.0 COMPONENTS QtCore QtGui QtXml REQUIRED)
+find_package(Qt4 4.6.0 COMPONENTS QtCore QtGui QtXml REQUIRED)
 find_package(KDE4 4.3.0 REQUIRED)
 find_package(PopplerQt4 0.6 REQUIRED) # Warning: this is part of the kdelibs development package
 include(KDE4Defaults)

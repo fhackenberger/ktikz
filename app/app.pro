@@ -8,8 +8,8 @@ CONFIG += warn_on \
 	qt
 QT += xml
 
-win32:INCLUDEPATH += $${_PRO_FILE_PWD_} $${_PRO_FILE_PWD_}/../poppler-win32
-win32:LIBS += -L$${_PRO_FILE_PWD_}/../poppler-win32/
+win32:INCLUDEPATH += $${_PRO_FILE_PWD_} $${_PRO_FILE_PWD_}/../win32/poppler
+win32:LIBS += -L$${_PRO_FILE_PWD_}/../win32/poppler/
 LIBS += -lpoppler-qt4
 
 LOCALESUBDIR = locale
@@ -43,6 +43,7 @@ FORMS += configappearancewidget.ui \
 #SOURCES += $$formSources($$FORMS) \ # linguist does not use translations in corresponding cpp files if we use this :-(
 SOURCES += ../common/utils/action.cpp \
 	../common/utils/colorbutton.cpp \
+	../common/utils/file.cpp \
 	../common/utils/filedialog.cpp \
 	../common/utils/lineedit.cpp \
 	../common/utils/recentfilesaction.cpp \
@@ -75,10 +76,12 @@ SOURCES += ../common/utils/action.cpp \
 	../common/tikzpreview.cpp \
 	../common/tikzpreviewcontroller.cpp \
 	../common/tikzpreviewgenerator.cpp \
-	../common/tikzpreviewthread.cpp
+	../common/tikzpreviewthread.cpp \
+	../common/tikztemporaryfilecontroller.cpp
 HEADERS += $$headerFiles($$SOURCES) \
 	../common/mainwidget.h \
 	../common/utils/colordialog.h \
+	../common/utils/combobox.h \
 	../common/utils/fontdialog.h \
 	../common/utils/icon.h
 RESOURCES = qtikz.qrc

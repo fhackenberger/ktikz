@@ -18,7 +18,9 @@
 
 #include "editreplacewidget.h"
 
-#include <QLineEdit>
+#ifdef KTIKZ_USE_KDE
+#include <KCompletion>
+#endif
 #include <QKeyEvent>
 
 #include "../common/utils/icon.h"
@@ -32,6 +34,13 @@ ReplaceWidget::ReplaceWidget(QWidget *parent) : QWidget(parent)
 	ui.pushButtonClose->setIcon(Icon("window-close"));
 	ui.pushButtonBackward->setIcon(Icon("go-up"));
 	ui.pushButtonForward->setIcon(Icon("go-down"));
+#ifdef KTIKZ_USE_KDE
+	// activate completion
+	KCompletion *completion = ui.comboBoxFind->completionObject();
+	connect(ui.comboBoxFind, SIGNAL(returnPressed(QString)), completion, SLOT(addItem(QString)));
+	completion = ui.comboBoxReplace->completionObject();
+	connect(ui.comboBoxReplace, SIGNAL(returnPressed(QString)), completion, SLOT(addItem(QString)));
+#endif
 
 	setFocusProxy(ui.comboBoxFind);
 
@@ -80,8 +89,8 @@ void ReplaceWidget::doFind(bool forward)
 		ui.comboBoxFind->addItem(currentText);
 
 	emit search(currentText,
-	    ui.checkBoxCaseSensitive->isChecked(),
-	    ui.checkBoxWholeWords->isChecked(), forward);
+	            ui.checkBoxCaseSensitive->isChecked(),
+	            ui.checkBoxWholeWords->isChecked(), forward);
 }
 
 void ReplaceWidget::doFind()
@@ -100,10 +109,10 @@ void ReplaceWidget::doReplace()
 		ui.comboBoxReplace->addItem(replacementText);
 
 	emit replace(currentText,
-	    replacementText,
-	    ui.checkBoxCaseSensitive->isChecked(),
-	    ui.checkBoxWholeWords->isChecked(),
-	    ui.pushButtonForward->isChecked());
+	             replacementText,
+	             ui.checkBoxCaseSensitive->isChecked(),
+	             ui.checkBoxWholeWords->isChecked(),
+	             ui.pushButtonForward->isChecked());
 }
 
 void ReplaceWidget::setText(const QString &text)

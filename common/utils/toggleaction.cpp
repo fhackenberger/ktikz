@@ -25,40 +25,40 @@
 #include <KActionCollection>
 
 ToggleAction::ToggleAction(QObject *parent, const QString &name)
-    : KToggleAction(parent)
+	: KToggleAction(parent)
 {
 	if (!name.isEmpty())
 		Action::actionCollection()->addAction(name, this);
 }
 
 ToggleAction::ToggleAction(const QString &text, QObject *parent, const QString &name)
-    : KToggleAction(text, parent)
+	: KToggleAction(text, parent)
 {
 	if (!name.isEmpty())
 		Action::actionCollection()->addAction(name, this);
 }
 
 ToggleAction::ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-    : KToggleAction(icon, text, parent)
+	: KToggleAction(icon, text, parent)
 {
 	if (!name.isEmpty())
 		Action::actionCollection()->addAction(name, this);
 }
 #else
 ToggleAction::ToggleAction(QObject *parent, const QString &name)
-    : QAction(parent)
+	: QAction(parent)
 {
 	init(name);
 }
 
 ToggleAction::ToggleAction(const QString &text, QObject *parent, const QString &name)
-    : QAction(text, parent)
+	: QAction(text, parent)
 {
 	init(name);
 }
 
 ToggleAction::ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-    : QAction(icon, text, parent)
+	: QAction(icon, text, parent)
 {
 	init(name);
 }

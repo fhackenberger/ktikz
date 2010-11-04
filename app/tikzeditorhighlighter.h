@@ -28,7 +28,8 @@ class TikzCommandInserter;
 struct HighlightingRule
 {
 	QString type; /// The name of the formatting type
-	QRegExp pattern; /// The pattern to match for formatting
+	QString matchString; /// The string to match for formatting; if this string is empty then the pattern is used instead
+	QRegExp pattern; /// The pattern to match for formatting; only used if matchString is empty
 };
 
 /** A simple highlighter for the TikZ graphics programming language

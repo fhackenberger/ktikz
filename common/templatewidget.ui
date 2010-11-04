@@ -20,7 +20,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QComboBox" name="templateCombo">
+    <widget class="ComboBox" name="templateCombo">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -29,9 +29,6 @@
      </property>
      <property name="whatsThis">
       <string>&lt;p&gt;Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p&gt;</string>
-     </property>
-     <property name="editable">
-      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -84,6 +81,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ComboBox</class>
+   <extends>QComboBox</extends>
+   <header>../common/utils/combobox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../app/qtikz.qrc"/>
  </resources>

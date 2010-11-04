@@ -43,8 +43,8 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 
 	m_tikzEditor = new TikzEditor;
 	m_tikzEditor->setWhatsThis(tr("<p>Enter your TikZ code here.  "
-	    "The code should begin with \\begin{tikzpicture} and end with "
-	    "\\end{tikzpicture}.</p>"));
+	                              "The code should begin with \\begin{tikzpicture} and end with "
+	                              "\\end{tikzpicture}.</p>"));
 /*
 	commandInserter = new TikzCommandInserter(tikzEditor, this);
 	tikzHighlighter = new TikzHighlighter(commandInserter, tikzEditor->document());
@@ -446,7 +446,7 @@ void TikzEditorView::editFind()
 }
 
 bool TikzEditorView::search(const QString &text, bool isCaseSensitive,
-    bool findWholeWords, bool forward, bool startAtCursor)
+                            bool findWholeWords, bool forward, bool startAtCursor)
 {
 	bool isFound = false;
 
@@ -470,10 +470,10 @@ bool TikzEditorView::search(const QString &text, bool isCaseSensitive,
 	if (found.isNull())
 	{
 		const QString msg = (forward) ?
-		    tr("End of document reached.\n\nContinue from the beginning?")
-		    : tr("Beginning of document reached.\n\nContinue from the end?");
+		                    tr("End of document reached.\n\nContinue from the beginning?")
+		                    : tr("Beginning of document reached.\n\nContinue from the end?");
 		const int ret = QMessageBox::warning(this, "Find", msg,
-		    QMessageBox::Yes | QMessageBox::Default, QMessageBox::No | QMessageBox::Escape);
+		                                     QMessageBox::Yes | QMessageBox::Default, QMessageBox::No | QMessageBox::Escape);
 		if (ret == QMessageBox::Yes)
 		{
 			return search(text, isCaseSensitive, findWholeWords, forward, false);
@@ -538,7 +538,7 @@ void TikzEditorView::replace(const QString &replacement)
 }
 
 void TikzEditorView::replace(const QString &text, const QString &replacement,
-    bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor)
+                             bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor)
 {
 	m_replaceWidget->setVisible(false);
 	m_replaceCurrentWidget->setReplacement(text, replacement);
@@ -575,7 +575,7 @@ void TikzEditorView::replace(const QString &text, const QString &replacement,
 }
 
 void TikzEditorView::replaceAll(const QString &text, const QString &replacement,
-    bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor)
+                                bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor)
 {
 	while (search(text, isCaseSensitive, findWholeWords, forward, startAtCursor))
 	{

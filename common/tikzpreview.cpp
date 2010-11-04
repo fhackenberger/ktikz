@@ -47,15 +47,15 @@ static const qreal s_minZoomFactor = 0.1;
 static const qreal s_maxZoomFactor = 6;
 
 TikzPreview::TikzPreview(QWidget *parent)
-    : QGraphicsView(parent)
+	: QGraphicsView(parent)
 {
 	m_tikzScene = new QGraphicsScene(this);
 	m_tikzPixmapItem = m_tikzScene->addPixmap(QPixmap());
 	setScene(m_tikzScene);
 	setDragMode(QGraphicsView::ScrollHandDrag);
 	setWhatsThis(tr("<p>Here the preview image of "
-	    "your TikZ code is shown.  You can zoom in and out, and you "
-	    "can scroll the image by dragging it.</p>"));
+	                "your TikZ code is shown.  You can zoom in and out, and you "
+	                "can scroll the image by dragging it.</p>"));
 
 	m_tikzPdfDoc = 0;
 	m_currentPage = 0;
@@ -80,6 +80,7 @@ TikzPreview::TikzPreview(QWidget *parent)
 
 TikzPreview::~TikzPreview()
 {
+	delete m_tikzPixmapItem;
 	delete m_infoProxyWidget;
 	delete m_tikzPreviewThread;
 
@@ -117,8 +118,8 @@ void TikzPreview::createActions()
 	m_zoomToAction->setEditable(true);
 	m_zoomToAction->setToolTip(tr("Select or insert zoom factor here"));
 	m_zoomToAction->setWhatsThis(tr("<p>Select the zoom factor here.  "
-	    "Alternatively, you can also introduce a zoom factor and "
-	    "press Enter.</p>"));
+	                                "Alternatively, you can also introduce a zoom factor and "
+	                                "press Enter.</p>"));
 	connect(m_zoomToAction, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
 //	createZoomFactorList();
 
@@ -171,7 +172,7 @@ void TikzPreview::createInformationLabel()
 {
 #ifdef KTIKZ_USE_KDE
 	const QPixmap infoPixmap = KIconLoader::global()->loadIcon("dialog-error",
-	    KIconLoader::Dialog, KIconLoader::SizeMedium);
+	                           KIconLoader::Dialog, KIconLoader::SizeMedium);
 #else
 	const QPixmap infoPixmap = Icon("dialog-error").pixmap(QSize(32, 32));
 #endif
@@ -261,7 +262,7 @@ void TikzPreview::paintEvent(QPaintEvent *event)
 		const qreal zoomFraction = (m_oldZoomFactor > 0) ? m_zoomFactor / m_oldZoomFactor : 1;
 		setSceneRect(m_tikzScene->itemsBoundingRect());
 		centerOn((horizontalScrollBar()->value() + viewport()->width() / 2) * zoomFraction,
-		    (verticalScrollBar()->value() + viewport()->height() / 2) * zoomFraction);
+		         (verticalScrollBar()->value() + viewport()->height() / 2) * zoomFraction);
 		m_oldZoomFactor = m_zoomFactor; // m_oldZoomFactor must be set here and not in the zoom functions below in order to avoid skipping some steps when the user zooms fast
 		m_hasZoomed = false;
 	}
@@ -277,7 +278,7 @@ QString TikzPreview::formatZoomFactor(qreal zoomFactor) const
 	zoomFactorText.remove(KGlobal::locale()->decimalSymbol() + "00");
 	// remove trailing zero in numbers like 12.30
 	if (zoomFactorText.endsWith('0')
-	    && zoomFactorText.indexOf(KGlobal::locale()->decimalSymbol()) >= 0)
+	        && zoomFactorText.indexOf(KGlobal::locale()->decimalSymbol()) >= 0)
 		zoomFactorText.chop(1);
 	zoomFactorText += '%';
 	return zoomFactorText;
@@ -365,13 +366,13 @@ void TikzPreview::setZoomFactor(const QString &zoomFactorText)
 void TikzPreview::zoomIn()
 {
 	setZoomFactor(m_zoomFactor + ((m_zoomFactor > 0.99) ?
-	    (m_zoomFactor > 1.99 ? 0.5 : 0.2) : 0.1));
+	                              (m_zoomFactor > 1.99 ? 0.5 : 0.2) : 0.1));
 }
 
 void TikzPreview::zoomOut()
 {
 	setZoomFactor(m_zoomFactor - ((m_zoomFactor > 1.01) ?
-	    (m_zoomFactor > 2.01 ? 0.5 : 0.2) : 0.1));
+	                              (m_zoomFactor > 2.01 ? 0.5 : 0.2) : 0.1));
 }
 
 /***************************************************************************/

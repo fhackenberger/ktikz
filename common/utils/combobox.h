@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009 by Glad Deschrijver                    *
+ *   Copyright (C) 2009 by Glad Deschrijver                                *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,45 +16,25 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef KTIKZ_TIKZPREVIEWTHREAD_H
-#define KTIKZ_TIKZPREVIEWTHREAD_H
+#ifndef KTIKZ_COMBOBOX_H
+#define KTIKZ_COMBOBOX_H
 
-#include <QtCore/QThread>
-#include <QtCore/QMutex>
-#include <QtCore/QWaitCondition>
+#ifdef KTIKZ_USE_KDE
+#include <KComboBox>
 
-class QImage;
-
-namespace Poppler
+class ComboBox : public KComboBox
 {
-class Document;
-}
-
-class TikzPreviewThread : public QThread
-{
-	Q_OBJECT
-
 public:
-	TikzPreviewThread(QObject *parent = 0);
-	~TikzPreviewThread();
-
-	void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor = 1.0, int currentPage = 0);
-
-signals:
-	void showPreview(const QImage &image);
-
-protected:
-	void run();
-
-private:
-	QMutex m_mutex;
-	QWaitCondition m_condition;
-	bool m_restart;
-	bool m_abort;
-
-	Poppler::Document *m_tikzPdfDoc;
-	qreal m_zoomFactor;
-	int m_currentPage;
+	ComboBox(QWidget *parent = 0) : KComboBox(parent) {}
 };
+#else
+#include <QtGui/QComboBox>
+
+class ComboBox : public QComboBox
+{
+public:
+	ComboBox(QWidget *parent = 0) : QComboBox(parent) {}
+};
+#endif
 
 #endif

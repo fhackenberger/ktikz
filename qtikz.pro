@@ -1,5 +1,5 @@
-lessThan(QT_VERSION, 4.4) {
-	error("QTikZ requires Qt version 4.4 or higher.")
+lessThan(QT_VERSION, 4.6) {
+	error("QTikZ requires Qt version 4.6 or higher.")
 }
 
 SUBDIRS += app

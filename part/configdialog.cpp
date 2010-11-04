@@ -24,7 +24,7 @@
 #include "configgeneralwidget.h"
 
 PartConfigDialog::PartConfigDialog(QWidget *parent)
-    : KDialog(parent)
+	: KDialog(parent)
 {
 	setCaption(i18nc("@title:window", "Configure KTikZ Viewer"));
 	setButtons(KDialog::Ok | KDialog::Cancel | KDialog::Apply | KDialog::Default);
@@ -55,8 +55,8 @@ QWidget *PartConfigDialog::viewerWidget()
 	m_watchFileCheckBox = new QCheckBox(i18nc("@option:check", "&Reload document on file change"));
 	m_watchFileCheckBox->setObjectName("watchFileCheckBox");
 	m_watchFileCheckBox->setWhatsThis(i18nc("@info:whatsthis", "<para>When this option is checked, "
-	    "the TikZ image will be reloaded each time that the file is modified "
-	    "by another program.</para>"));
+	                                        "the TikZ image will be reloaded each time that the file is modified "
+	                                        "by another program.</para>"));
 	viewerLayout->addWidget(m_watchFileCheckBox);
 
 	connect(m_watchFileCheckBox, SIGNAL(toggled(bool)), this, SLOT(setModified()));

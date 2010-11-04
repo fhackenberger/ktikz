@@ -418,7 +418,7 @@ QString TikzEditor::textUnderCursor() const
 			break;
 		}
 		else if (cursor.selectedText() == "["
-		    || cursor.selectedText() == ",") // these characters also delimit the beginning of the word (the beginning of a TikZ option)
+		         || cursor.selectedText() == ",") // these characters also delimit the beginning of the word (the beginning of a TikZ option)
 		{
 			cursor.clearSelection();
 			cursor.setPosition(++newPos, QTextCursor::MoveAnchor);
@@ -438,23 +438,23 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 {
 	const Qt::KeyboardModifiers modifier = QApplication::keyboardModifiers();
 
-	/* completer */
+	// completer
 	if (m_completer && m_completer->popup()->isVisible())
 	{
 		// the following keys are forwarded by the completer to the widget
 		switch (event->key())
 		{
-			case Qt::Key_Enter:
-			case Qt::Key_Return:
-			case Qt::Key_Escape:
-			case Qt::Key_Tab:
-			case Qt::Key_Backtab:
-				event->ignore();
-				return;
+		case Qt::Key_Enter:
+		case Qt::Key_Return:
+		case Qt::Key_Escape:
+		case Qt::Key_Tab:
+		case Qt::Key_Backtab:
+			event->ignore();
+			return;
 		}
 	}
 
-	/* scroll viewport when Ctrl+Up and Ctrl+Down are pressed */
+	// scroll viewport when Ctrl+Up and Ctrl+Down are pressed
 	if (event->modifiers() == Qt::ControlModifier && event->key() == Qt::Key_Up)
 	{
 		const int dy = -1 + verticalScrollBar()->value();
@@ -465,8 +465,8 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 		const int dy = 1 + verticalScrollBar()->value();
 		verticalScrollBar()->setValue(dy);
 	}
-	/* ensure that PageUp and PageDown keep the cursor at the same visible place */
 /*
+	// ensure that PageUp and PageDown keep the cursor at the same visible place
 	else if (event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown)
 	{
 		const QTextCursor::MoveOperation moveOperation
@@ -485,10 +485,10 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 		ensureCursorVisible();
 	}
 */
-	/* the first time End is pressed moves the cursor to the end of the line, the second time to the end of the block */
+	// the first time End is pressed moves the cursor to the end of the line, the second time to the end of the block
 	else if (event->key() == Qt::Key_Home
-	    && !(modifier & Qt::ControlModifier)
-	    && !(modifier & Qt::ShiftModifier))
+	         && !(modifier & Qt::ControlModifier)
+	         && !(modifier & Qt::ShiftModifier))
 	{
 		QTextCursor cursor = textCursor();
 		const int oldPosition = cursor.position();
@@ -499,8 +499,8 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 		ensureCursorVisible();
 	}
 	else if (event->key() == Qt::Key_End
-	    && !(modifier & Qt::ControlModifier)
-	    && !(modifier & Qt::ShiftModifier))
+	         && !(modifier & Qt::ControlModifier)
+	         && !(modifier & Qt::ShiftModifier))
 	{
 		QTextCursor cursor = textCursor();
 		const int oldPosition = cursor.position();
@@ -510,14 +510,14 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 		setTextCursor(cursor);
 		ensureCursorVisible();
 	}
-	/* keys that change the content without moving the cursor may alter the brackets too */
+	// keys that change the content without moving the cursor may alter the brackets too
 	else if (event->key() == Qt::Key_Delete || (event->key() == Qt::Key_Z && (modifier & Qt::ControlModifier)))
 	{
 		QPlainTextEdit::keyPressEvent(event);
 		highlightCurrentLine();
 		matchBrackets(); // calculate new bracket highlighting
 	}
-	/* go to next argument in text inserted with code completion */
+	// go to next argument in text inserted with code completion
 	else if (event->key() == Qt::Key_Tab || event->key() == Qt::Key_Backtab)
 	{
 		QTextCursor cursor = textCursor();
@@ -539,15 +539,15 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 	else
 		QPlainTextEdit::keyPressEvent(event);
 
-	/* completer */
+	// completer
 	if (m_completer)
 	{
 //		const QString endOfWord("~!@#$%^&*()_+{}|:\"<>?,./;'[]-= ");
 		const QString completionPrefix = textUnderCursor();
 		if ((event->modifiers() & (Qt::ControlModifier | Qt::AltModifier))
-		    || (event->text().isEmpty() && event->key() != Qt::Key_AltGr)
-		    || completionPrefix.length() < 3)
-//		    || endOfWord.contains(event->text().right(1)))
+		        || (event->text().isEmpty() && event->key() != Qt::Key_AltGr)
+		        || completionPrefix.length() < 3)
+//		        || endOfWord.contains(event->text().right(1)))
 		{
 			m_completer->popup()->hide();
 		}
@@ -567,7 +567,7 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 				QRect rect = cursorRect(cursor);
 				rect.translate(5, 5);
 				rect.setWidth(m_completer->popup()->sizeHintForColumn(0)
-				    + m_completer->popup()->verticalScrollBar()->sizeHint().width());
+				              + m_completer->popup()->verticalScrollBar()->sizeHint().width());
 				m_completer->complete(rect); // show popup
 			}
 			else

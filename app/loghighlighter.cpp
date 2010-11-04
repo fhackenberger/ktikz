@@ -21,18 +21,18 @@
 #include "loghighlighter.h"
 
 LogHighlighter::LogHighlighter(QTextDocument *parent)
-    : QSyntaxHighlighter(parent)
+	: QSyntaxHighlighter(parent)
 {
-	HighlightingRule rule;
+	LogHighlightingRule rule;
 
 	QTextCharFormat keywordFormat;
 	keywordFormat.setForeground(Qt::red);
 	keywordFormat.setFontWeight(QFont::Bold);
 	QStringList keywordPatterns;
 	keywordPatterns << "\\S*:\\d+:.*$" << "Undefined control sequence"
-	    << "LaTeX Warning:" << "LaTeX Error:" << "Runaway argument?"
-	    << "Missing character: .*!" << "Error:"
-	    << "^\\[.*\\] Line \\d+: .*"; // error msg created by TikzPngPreviewer::getParsedLogText()
+	                << "LaTeX Warning:" << "LaTeX Error:" << "Runaway argument?"
+	                << "Missing character: .*!" << "Error:"
+	                << "^\\[.*\\] Line \\d+: .*"; // error msg created by TikzPngPreviewer::getParsedLogText()
 	foreach (const QString &pattern, keywordPatterns)
 	{
 		rule.pattern = QRegExp(pattern);
@@ -59,7 +59,7 @@ LogHighlighter::~LogHighlighter()
 void LogHighlighter::highlightBlock(const QString &text)
 {
 	// Try each highlighting pattern and apply formatting if it matches
-	foreach (const HighlightingRule &rule, m_highlightingRules)
+	foreach (const LogHighlightingRule &rule, m_highlightingRules)
 	{
 //		const QRegExp expression(rule.pattern);
 //		int index = text.indexOf(expression);

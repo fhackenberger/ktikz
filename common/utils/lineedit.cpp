@@ -12,13 +12,13 @@
 
 #ifdef KTIKZ_USE_KDE
 LineEdit::LineEdit(const QString &text, QWidget *parent)
-    : KLineEdit(text, parent)
+	: KLineEdit(text, parent)
 {
 	setClearButtonShown(true);
 }
 
 LineEdit::LineEdit(QWidget *parent)
-    : KLineEdit(parent)
+	: KLineEdit(parent)
 {
 	setClearButtonShown(true);
 }
@@ -27,14 +27,14 @@ LineEdit::LineEdit(QWidget *parent)
 #include <QStyle>
 
 LineEdit::LineEdit(const QString &text, QWidget *parent)
-    : QLineEdit(parent)
+	: QLineEdit(parent)
 {
 	init();
 	setText(text);
 }
 
 LineEdit::LineEdit(QWidget *parent)
-    : QLineEdit(parent)
+	: QLineEdit(parent)
 {
 	init();
 }
@@ -53,11 +53,11 @@ void LineEdit::init()
 	connect(this, SIGNAL(textChanged(QString)), this, SLOT(updateClearButton(QString)));
 //	const int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
 //	setStyleSheet(QString("QLineEdit { padding-right: %1px; width: %2px; height: %3px; }")
-//	    .arg(m_clearButton->sizeHint().width() + frameWidth + 1)
-//	    .arg(sizeHint().width())
-//	    .arg(sizeHint().height()));
+//	              .arg(m_clearButton->sizeHint().width() + frameWidth + 1)
+//	              .arg(sizeHint().width())
+//	              .arg(sizeHint().height()));
 	setStyleSheet(QString("QLineEdit { padding-right: %1px; }")
-	    .arg(m_clearButton->sizeHint().width() + style()->pixelMetric(QStyle::PM_DefaultFrameWidth) + 1));
+	              .arg(m_clearButton->sizeHint().width() + style()->pixelMetric(QStyle::PM_DefaultFrameWidth) + 1));
 }
 
 QSize LineEdit::sizeHint() const

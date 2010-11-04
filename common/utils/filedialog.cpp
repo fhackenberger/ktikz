@@ -32,40 +32,93 @@ Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &d
 #include <QCoreApplication>
 #include <QMessageBox>
 
-Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
+/*!
+ * Parses a KDE-like filter and returns a Qt-like filter
+ * \param filter a filter in KDE style
+ * \return a filter in Qt style
+ */
+
+QString FileDialog::getParsedFilter(const QString &filter)
 {
-	const QStringList filterList = filter.split('\n');
+	const QStringList filterList = filter.split(QLatin1Char('\n'));
 	QString parsedFilter;
 	for (int i = 0; i < filterList.size(); ++i)
 	{
-		const QStringList filterItems = filterList.at(i).split('|');
+		const QStringList filterItems = filterList.at(i).split(QLatin1Char('|'));
 		if (i > 0)
 			parsedFilter += ";;";
 		parsedFilter += filterItems.at(1) + " (" + filterItems.at(0) + ')';
 	}
+	return parsedFilter;
+}
 
-	const QString openFileName = QFileDialog::getOpenFileName(parent, caption, dir.path(), parsedFilter);
+/*!
+ * Creates a modal file dialog and returns the selected URL or an empty
+ * string if none was chosen.  With this method the user must select an
+ * existing URL.
+ *
+ * \code
+ *     Url url = FileDialog::getOpenUrl(this,
+ *         tr("Open PGF Source File"),
+ *         Url("/home/user/filename.pgf"),
+ *         QString("*.pgf *.tikz"|%1\n*|%2").arg(tr("PGF files")).arg(tr("All files")));
+ * \endcode
+ *
+ * The function creates a modal dialog with the given \em parent widget.
+ * If \em parent is not 0, the dialog will be shown centered over the parent
+ * widget.
+ *
+ * The file dialog's working directory will be set to \em dir.  If \em dir
+ * includes a file name, the file will be selected.  Only files that match
+ * a given \em filter are shown.
+ * \param parent the parent widget for which the file dialog will be a modal dialog
+ * \param caption the title of the file dialog
+ * \param dir starting directory; if dir includes a file name, the file will be selected
+ * \param filter a list of filters separated by '\\n'; every filter entry is defined through \c namefilter|text \c to \c display.  If no '|' is found in the expression, just the namefilter is shown.
+ * \return an url specifying the file selected by the user in the file dialog
+ */
+
+Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
+{
+	const QString openFileName = QFileDialog::getOpenFileName(parent, caption, dir.path(), getParsedFilter(filter));
 	if (openFileName.isEmpty())
 		return Url();
 	return Url(openFileName);
 }
 
+/*!
+ * Creates a modal file dialog and returns the selected URL or an empty
+ * string if none was chosen.  With this method the user need not select
+ * an existing URL.
+ *
+ * \code
+ *     Url url = FileDialog::getSaveUrl(this,
+ *         tr("Open PGF Source File"),
+ *         Url("/home/user/filename.pgf"),
+ *         QString("*.pgf *.tikz"|%1\n*|%2").arg(tr("PGF files")).arg(tr("All files")));
+ * \endcode
+ *
+ * The function creates a modal dialog with the given \em parent widget.
+ * If \em parent is not 0, the dialog will be shown centered over the parent
+ * widget.
+ *
+ * The file dialog's working directory will be set to \em dir.  If \em dir
+ * includes a file name, the file will be selected.  Only files that match
+ * a given \em filter are shown.
+ * \param parent the parent widget for which the file dialog will be a modal dialog
+ * \param caption the title of the file dialog
+ * \param dir starting directory; if dir includes a file name, the file will be selected
+ * \param filter a list of filters separated by '\\n'; every filter entry is defined through \c namefilter|text \c to \c display.  If no '|' is found in the expression, just the namefilter is shown.
+ * \return an url specifying the file selected by the user in the file dialog
+ */
+
 Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
 {
-	const QStringList filterList = filter.split('\n');
-	QString parsedFilter;
-	for (int i = 0; i < filterList.size(); ++i)
-	{
-		const QStringList filterItems = filterList.at(i).split('|');
-		if (i > 0)
-			parsedFilter += ";;";
-		parsedFilter += filterItems.at(1) + " (" + filterItems.at(0) + ')';
-	}
-
-	const QString saveAsFileName = QFileDialog::getSaveFileName(parent, caption, dir.path(), parsedFilter);
+	const QString saveAsFileName = QFileDialog::getSaveFileName(parent, caption, dir.path(), getParsedFilter(filter));
 	if (saveAsFileName.isEmpty())
 		return Url();
 
+/*
 	if (QFile::exists(saveAsFileName))
 	{
 		if (QMessageBox::warning(parent, QCoreApplication::applicationName(),
@@ -74,6 +127,7 @@ Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &d
 		    QMessageBox::Discard | QMessageBox::Escape) == QMessageBox::Discard)
 			return Url();
 	}
+*/
 	return Url(saveAsFileName);
 }
 #endif

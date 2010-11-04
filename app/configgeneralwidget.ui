@@ -138,7 +138,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="toolBarStyleComboBox">
+         <widget class="ComboBox" name="toolBarStyleComboBox">
           <property name="whatsThis">
            <string>&lt;p&gt;Select the style in which the toolbar will be displayed.&lt;/p&gt;</string>
           </property>
@@ -473,6 +473,11 @@
    <class>LineEdit</class>
    <extends>QLineEdit</extends>
    <header>../common/utils/lineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ComboBox</class>
+   <extends>QComboBox</extends>
+   <header>../common/utils/combobox.h</header>
   </customwidget>
  </customwidgets>
  <resources>

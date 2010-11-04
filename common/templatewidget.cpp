@@ -18,16 +18,18 @@
 
 #include "templatewidget.h"
 
-#include <QApplication>
-#include <QComboBox>
+#ifdef KTIKZ_USE_KDE
+#include <KUrlCompletion>
+#else
 #include <QCompleter>
+#endif
+#include <QApplication>
 #include <QDirModel>
-#include <QLineEdit>
-#include <QFileDialog>
 #include <QKeyEvent>
 #include <QProcess>
 #include <QSettings>
 
+#include "utils/combobox.h"
 #include "utils/filedialog.h"
 #include "utils/icon.h"
 #include "utils/lineedit.h"
@@ -41,13 +43,18 @@ TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 	ui.templateChooseButton->setIcon(Icon("document-open"));
 	ui.templateReloadButton->setIcon(Icon("view-refresh"));
 
+#ifdef KTIKZ_USE_KDE
+	KUrlCompletion *completion = new KUrlCompletion();
+	ui.templateCombo->setCompletionObject(completion);
+#else
 	QCompleter *completer = new QCompleter(this);
 	completer->setModel(new QDirModel(completer));
 	completer->setCompletionMode(QCompleter::PopupCompletion);
 	ui.templateCombo->setCompleter(completer);
+#endif
 
 	connect(ui.templateChooseButton, SIGNAL(clicked()),
-	        this, SLOT(setTemplateFile()));
+	        this, SLOT(selectTemplateFile()));
 	connect(ui.templateEditButton, SIGNAL(clicked()),
 	        this, SLOT(editTemplateFile()));
 	connect(ui.templateReloadButton, SIGNAL(clicked()),
@@ -86,7 +93,7 @@ void TemplateWidget::saveRecentTemplates()
 void TemplateWidget::setFileName(const QString &fileName)
 {
 	disconnect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)),
-	        this, SIGNAL(fileNameChanged(QString)));
+	           this, SIGNAL(fileNameChanged(QString)));
 	const int index = ui.templateCombo->findText(fileName);
 	if (index >= 0) // then remove item in order to re-add it at the top
 		ui.templateCombo->removeItem(index);
@@ -104,18 +111,18 @@ void TemplateWidget::setReplaceText(const QString &replace)
 	replaceText.replace('<', QLatin1String("&lt;"));
 	replaceText.replace('>', QLatin1String("&gt;"));
 	const QString templateDescription(tr("<p>The template contains the code "
-	    "of a complete LaTeX document in which the TikZ picture will be "
-	    "included and which will be typesetted to produce the preview "
-	    "image.  The string %1 in the template will be replaced by the "
-	    "TikZ code.</p>").arg(replaceText));
+	                                     "of a complete LaTeX document in which the TikZ picture will be "
+	                                     "included and which will be typesetted to produce the preview "
+	                                     "image.  The string %1 in the template will be replaced by the "
+	                                     "TikZ code.</p>").arg(replaceText));
 	ui.templateCombo->setWhatsThis(tr("<p>Give the file name of the LaTeX "
-	    "template.  If this input field is empty or contains an invalid "
-	    "file name, an internal default template will be used.</p>")
-	    + templateDescription);
+	                                  "template.  If this input field is empty or contains an invalid "
+	                                  "file name, an internal default template will be used.</p>")
+	                               + templateDescription);
 	ui.templateLabel->setWhatsThis(ui.templateCombo->whatsThis());
 	ui.templateEditButton->setWhatsThis(tr("<p>Edit this template with "
-	    "an external editor specified in the \"Configure\" dialog.</p>")
-	    + templateDescription);
+	                                       "an external editor specified in the \"Configure\" dialog.</p>")
+	                                    + templateDescription);
 }
 
 void TemplateWidget::setEditor(const QString &editor)
@@ -128,7 +135,7 @@ QString TemplateWidget::fileName() const
 	return ui.templateCombo->currentText();
 }
 
-void TemplateWidget::setTemplateFile()
+void TemplateWidget::selectTemplateFile()
 {
 	QString currentFileName = ui.templateCombo->currentText();
 #ifdef KTIKZ_TEMPLATES_INSTALL_DIR
@@ -136,10 +143,10 @@ void TemplateWidget::setTemplateFile()
 		currentFileName = KTIKZ_TEMPLATES_INSTALL_DIR;
 #endif
 	const Url url = FileDialog::getOpenUrl(this,
-	    tr("Select a template file"), Url(currentFileName),
-	    QString("*.pgs *.tex|%1\n*|%2")
-	    .arg(tr("%1 template files").arg(APPNAME))
-	    .arg(tr("All files")));
+	                                       tr("Select a template file"), Url(currentFileName),
+	                                       QString("*.pgs *.tex|%1\n*|%2")
+	                                       .arg(tr("%1 template files").arg(APPNAME))
+	                                       .arg(tr("All files")));
 	if (url.isValid())
 		setFileName(url.pathOrUrl());
 }

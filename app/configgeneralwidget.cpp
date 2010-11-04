@@ -30,7 +30,7 @@
 #include "../common/utils/icon.h"
 
 ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent)
-    : QWidget(parent)
+	: QWidget(parent)
 {
 	ui.setupUi(this);
 
@@ -77,7 +77,7 @@ void ConfigGeneralWidget::readSettings(const QString &settingsGroup)
 	ui.tikzDocEdit->setText(TikzDocumentationController::tikzDocumentationPath());
 	ui.latexEdit->setText(settings.value("LatexCommand", "pdflatex").toString());
 	ui.pdftopsEdit->setText(settings.value("PdftopsCommand", "pdftops").toString());
-		ui.editorEdit->setText(settings.value("TemplateEditor", KTIKZ_TEMPLATE_EDITOR_DEFAULT).toString());
+	ui.editorEdit->setText(settings.value("TemplateEditor", KTIKZ_TEMPLATE_EDITOR_DEFAULT).toString());
 	ui.replaceEdit->setText(settings.value("TemplateReplaceText", "<>").toString());
 	settings.endGroup();
 
@@ -127,17 +127,17 @@ void ConfigGeneralWidget::browseCommand(QLineEdit *lineEdit, bool isProgram)
 	if (isProgram)
 	{
 		location = QFileDialog::getOpenFileName(this,
-		    tr("Browse program"), QDir::rootPath(),
-		    QString("%1 (*)").arg(tr("Program")), 0,
-		    QFileDialog::DontResolveSymlinks);
+		                                        tr("Browse program"), QDir::rootPath(),
+		                                        QString("%1 (*)").arg(tr("Program")), 0,
+		                                        QFileDialog::DontResolveSymlinks);
 	}
 	else
 	{
 		const QString oldLocation = lineEdit->text();
 		location = QFileDialog::getOpenFileName(this,
-		    tr("Browse file"),
-		    (!oldLocation.isEmpty()) ? oldLocation : QDir::homePath(),
-		    QString("%1 (*.*)").arg(tr("All files")));
+		                                        tr("Browse file"),
+		                                        (!oldLocation.isEmpty()) ? oldLocation : QDir::homePath(),
+		                                        QString("%1 (*.*)").arg(tr("All files")));
 	}
 	if (!location.isEmpty())
 	{

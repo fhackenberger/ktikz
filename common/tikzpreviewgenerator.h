@@ -21,15 +21,10 @@
 #ifndef KTIKZ_TIKZPREVIEWGENERATOR_H
 #define KTIKZ_TIKZPREVIEWGENERATOR_H
 
-#include <QMutex>
-#if QT_VERSION >= 0x040600
-#include <QProcessEnvironment>
-#else
-#include <QStringList>
-#endif
-#include <QThread>
-#include <QTime>
-#include <QWaitCondition>
+#include <QtCore/QObject>
+#include <QtCore/QMutex>
+#include <QtCore/QProcessEnvironment>
+#include <QtCore/QThread>
 
 class QPixmap;
 class QProcess;
@@ -38,15 +33,16 @@ class QTextStream;
 
 namespace Poppler
 {
-	class Document;
+class Document;
 }
 
 class TikzPreviewController;
 
 /**
  * @author Florian Hackenberger <florian@hackenberger.at>
+ * @author Glad Deschrijver <glad.deschrijver@gmail.com>
  */
-class TikzPreviewGenerator : public QThread
+class TikzPreviewGenerator : public QObject
 {
 	Q_OBJECT
 
@@ -60,15 +56,15 @@ public:
 	void setShellEscaping(bool useShellEscaping);
 	QString getLogText() const;
 	bool hasRunFailed();
-	void generatePreview(bool templateChanged = false);
 	void addToLatexSearchPath(const QString &path);
+	void removeFromLatexSearchPath(const QString &path);
 	bool generateEpsFile();
 
 public slots:
 	void setTemplateFile(const QString &fileName);
 	void setReplaceText(const QString &replace);
+	void generatePreview(bool templateChanged);
 	void abortProcess();
-	void regeneratePreview();
 
 signals:
 	void pixmapUpdated(Poppler::Document *tikzPdfDoc);
@@ -80,13 +76,13 @@ signals:
 
 private slots:
 	void displayGnuplotNotExecutable();
+	void checkGnuplotExecutableFinished(int exitCode, QProcess::ExitStatus exitStatus);
+	void generatePreviewImpl(bool templateChanged);
 
 protected:
-	void setMinUpdateInterval(const QTime &interval);
 	QString getParsedLogText(QTextStream *logStream) const;
 	void parseLogFile();
 	void createPreview();
-	void run();
 	void createTempLatexFile();
 	void createTempTikzFile();
 	bool runProcess(const QString &name, const QString &command, const QStringList &arguments, const QString &workingDir = 0);
@@ -96,20 +92,14 @@ protected:
 	Poppler::Document *m_tikzPdfDoc;
 	QString m_tikzCode;
 
+	QThread m_thread;
+
 	QProcess *m_process;
 	mutable QMutex m_memberLock;
-	bool m_updateScheduled;
-	QWaitCondition m_updateRequested;
-	QTime m_minUpdateInterval;
-	QTime m_updateTimer;
 	bool m_processAborted;
 	bool m_runFailed;
-	bool m_keepRunning;
-#if QT_VERSION >= 0x040600
 	QProcessEnvironment m_processEnvironment;
-#else
-	QStringList m_processEnvironment;
-#endif
+	bool m_firstRun;
 
 	QString m_tikzFileBaseName;
 	QString m_templateFileName;

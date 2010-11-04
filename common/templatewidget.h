@@ -41,7 +41,7 @@ protected:
 	void keyPressEvent(QKeyEvent *event);
 
 private slots:
-	void setTemplateFile();
+	void selectTemplateFile();
 	void editTemplateFile();
 	void reloadTemplateFile();
 

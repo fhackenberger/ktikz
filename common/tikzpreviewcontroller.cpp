@@ -18,35 +18,28 @@
 
 #include "tikzpreviewcontroller.h"
 
-#ifdef KTIKZ_USE_KDE
-#include <KDebug>
-#include <KFileDialog>
-#include <KMessageBox>
-#include <KTempDir>
-#include <KIO/Job>
-#include <KIO/JobUiDelegate>
-#include <KIO/NetAccess>
-#else
-#include <QDebug>
-#include <QDir>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QTemporaryFile>
+#ifndef KTIKZ_USE_KDE
 #include <QToolBar>
 #include <QToolButton>
 #endif
 
 #include <QMenu>
-#include <QPointer>
+#include <QMessageBox>
 #include <QSettings>
+#include <QTimer>
 
 #include "templatewidget.h"
 #include "tikzpreview.h"
 #include "tikzpreviewgenerator.h"
+#include "tikztemporaryfilecontroller.h"
 #include "mainwidget.h"
 #include "utils/action.h"
+#include "utils/file.h"
+#include "utils/filedialog.h"
 #include "utils/icon.h"
 #include "utils/toggleaction.h"
+
+static const int s_minUpdateInterval = 1000; // 1 sec
 
 TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
 {
@@ -70,70 +63,30 @@ TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
 	        this, SIGNAL(logUpdated(QString,bool)));
 	connect(m_templateWidget, SIGNAL(fileNameChanged(QString)),
 	        this, SLOT(setTemplateFileAndRegenerate(QString)));
-//	connect(m_templateWidget, SIGNAL(replaceTextChanged(QString)),
-//	        this, SLOT(setReplaceTextAndRegenerate(QString)));
 
-	createTempDir();
+	m_regenerateTimer = new QTimer(this);
+	m_regenerateTimer->setSingleShot(true);
+	connect(m_regenerateTimer, SIGNAL(timeout()),
+	        this, SLOT(regeneratePreview()));
 
-//	applySettings(); // must be done after creation of m_tempDir
+	m_temporaryFileController = new TikzTemporaryFileController(this);
+	m_tikzPreviewGenerator->setTikzFileBaseName(m_temporaryFileController->baseName());
+#ifdef KTIKZ_USE_KDE
+	File::setMainWidget(m_parentWidget);
+	File::setTempDir(m_temporaryFileController->dirName()); // this must happen before any object of type File is constructed
+#endif
 }
 
 TikzPreviewController::~TikzPreviewController()
 {
 	delete m_tikzPreviewGenerator;
-	removeTempDir();
 }
 
 /***************************************************************************/
 
-void TikzPreviewController::createTempDir()
-{
-#ifdef KTIKZ_USE_KDE
-	m_tempDir = new KTempDir();
-	m_tempDir->setAutoRemove(true);
-	m_tempTikzFileBaseName = m_tempDir->name() + "temptikzcode";
-#else
-	QDir tempDir(QDir::tempPath() + "/ktikz");
-	if (!tempDir.exists())
-		QDir::temp().mkdir("ktikz");
-	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/ktikz/temptikzcodeXXXXXX.tex");
-	if (tempFile->open())
-	{
-		const QFileInfo tempFileInfo = QFileInfo(*tempFile);
-		m_tempTikzFileBaseName = tempFileInfo.absolutePath() + '/' + tempFileInfo.completeBaseName();
-	}
-	else
-		qCritical() << "Error: could not create temporary file in" << QDir::toNativeSeparators(QDir::tempPath() + "/ktikz/");
-	delete tempFile;
-//	m_tempTikzFileBaseName = QDir::tempPath() + "/ktikz/temptikzcode";
-#endif
-	m_tikzPreviewGenerator->setTikzFileBaseName(m_tempTikzFileBaseName);
-}
-
-void TikzPreviewController::removeTempDir()
-{
-#ifdef KTIKZ_USE_KDE
-	delete m_tempDir;
-#else
-	// removing all temporary files
-	qDebug("removing tempfiles");
-	if (!m_tempTikzFileBaseName.isEmpty() && !cleanUp())
-		qCritical("Error: removing tempfiles failed");
-
-	// remove temp dir if empty
-	QDir tempDir(QDir::tempPath() + "/ktikz");
-	if (tempDir.exists())
-		QDir::temp().rmdir("ktikz");
-#endif
-}
-
 const QString TikzPreviewController::tempDir() const
 {
-#ifdef KTIKZ_USE_KDE
-	return m_tempDir->name();
-#else
-	return QDir::tempPath() + "/ktikz";
-#endif
+	return m_temporaryFileController->dirName();
 }
 
 /***************************************************************************/
@@ -188,12 +141,12 @@ void TikzPreviewController::createActions()
 	m_procStopAction->setStatusTip(tr("Abort current process"));
 	m_procStopAction->setWhatsThis(tr("<p>Abort the execution of the currently running process.</p>"));
 	m_procStopAction->setEnabled(false);
-	connect(m_procStopAction, SIGNAL(triggered()), m_tikzPreviewGenerator, SLOT(abortProcess()));
+	connect(m_procStopAction, SIGNAL(triggered()), this, SLOT(abortProcess()));
 
 	m_shellEscapeAction = new ToggleAction(Icon("application-x-executable"), tr("S&hell Escape"), m_parentWidget, "shell_escape");
 	m_shellEscapeAction->setStatusTip(tr("Enable the \\write18{shell-command} feature"));
 	m_shellEscapeAction->setWhatsThis(tr("<p>Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ."
-	    "</p><p><strong>Warning:</strong> Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.</p>"));
+	                                     "</p><p><strong>Warning:</strong> Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.</p>"));
 	connect(m_shellEscapeAction, SIGNAL(toggled(bool)), this, SLOT(toggleShellEscaping(bool)));
 
 	connect(m_tikzPreviewGenerator, SIGNAL(processRunning(bool)),
@@ -243,57 +196,42 @@ void TikzPreviewController::setToolBarStyle(const Qt::ToolButtonStyle &style)
 /***************************************************************************/
 
 #ifdef KTIKZ_USE_KDE
-void TikzPreviewController::showJobError(KJob *job)
-{
-	if (job->error() != 0)
-	{
-		KIO::JobUiDelegate *ui = static_cast<KIO::Job*>(job)->ui();
-		if (!ui)
-		{
-			kError() << "Saving failed; job->ui() is null.";
-			return;
-		}
-		ui->setWindow(m_parentWidget);
-		ui->showErrorMessage();
-	}
-}
-
-KUrl TikzPreviewController::getExportUrl(const KUrl &url, const QString &mimeType) const
+Url TikzPreviewController::getExportUrl(const Url &url, const QString &mimeType) const
 {
 	KMimeType::Ptr mimeTypePtr = KMimeType::mimeType(mimeType);
 	const QString exportUrlExtension = KMimeType::extractKnownExtension(url.path());
 
 	const KUrl exportUrl = KUrl(url.url().left(url.url().length()
-	    - (exportUrlExtension.isEmpty() ? 0 : exportUrlExtension.length() + 1)) // the extension is empty when the text/x-pgf mimetype is not correctly installed or when the file does not have a correct extension
-	    + mimeTypePtr->patterns().at(0).mid(1)); // first extension in the list of possible extensions (without *)
+	                            - (exportUrlExtension.isEmpty() ? 0 : exportUrlExtension.length() + 1)) // the extension is empty when the text/x-pgf mimetype is not correctly installed or when the file does not have a correct extension
+	                            + mimeTypePtr->patterns().at(0).mid(1)); // first extension in the list of possible extensions (without *)
 
 	return KFileDialog::getSaveUrl(exportUrl,
-	    mimeTypePtr->patterns().join(" ") + '|'
-//	    + mimeTypePtr->comment() + "\n*|" + i18nc("@item:inlistbox filter", "All files"),
-	    + mimeTypePtr->comment() + "\n*|" + tr("All files"),
-	    m_parentWidget,
-//	    i18nc("@title:window", "Export Image"),
-	    tr("Export Image"),
-	    KFileDialog::ConfirmOverwrite);
+	                               mimeTypePtr->patterns().join(" ") + '|'
+//	                               + mimeTypePtr->comment() + "\n*|" + i18nc("@item:inlistbox filter", "All files"),
+	                               + mimeTypePtr->comment() + "\n*|" + tr("All files"),
+	                               m_parentWidget,
+//	                               i18nc("@title:window", "Export Image"),
+	                               tr("Export Image"),
+	                               KFileDialog::ConfirmOverwrite);
 }
 #else
-QString TikzPreviewController::getExportFileName(const QString &fileName, const QString &mimeType) const
+Url TikzPreviewController::getExportUrl(const Url &url, const QString &mimeType) const
 {
 	QString currentFile;
-	const QString extension = (mimeType == QLatin1String("image/x-eps")) ? "eps"
-	    : ((mimeType == QLatin1String("application/pdf")) ? "pdf" : "png");
-	const QString mimeTypeName = (mimeType == QLatin1String("image/x-eps")) ? tr("EPS image")
-	    : ((mimeType == QLatin1String("application/pdf")) ? tr("PDF document") : tr("PNG image"));
-	if (!fileName.isEmpty())
+	const QString extension = (mimeType == "image/x-eps") ? "eps"
+	                          : ((mimeType == "application/pdf") ? "pdf" : "png");
+	const QString mimeTypeName = (mimeType == "image/x-eps") ? tr("EPS image")
+	                             : ((mimeType == "application/pdf") ? tr("PDF document") : tr("PNG image"));
+	if (!url.isEmpty())
 	{
-		QFileInfo currentFileInfo(fileName);
+		QFileInfo currentFileInfo(url.path());
 		currentFile = currentFileInfo.absolutePath() + '/' + currentFileInfo.completeBaseName() + '.' + extension;
 	}
-	const QString filter = QString("%1 (*.%2);;%3 (*.*)")
-	    .arg(mimeTypeName)
-	    .arg(extension)
-	    .arg(tr("All files"));
-	return QFileDialog::getSaveFileName(m_parentWidget, tr("Export image"), currentFile, filter);
+	const QString filter = QString("*.%1|%2\n*|%3")
+	                       .arg(extension)
+	                       .arg(mimeTypeName)
+	                       .arg(tr("All files"));
+	return FileDialog::getSaveUrl(m_parentWidget, tr("Export image"), Url(currentFile), filter);
 }
 #endif
 
@@ -306,91 +244,41 @@ void TikzPreviewController::exportImage()
 	if (tikzImage.isNull())
 		return;
 
-#ifdef KTIKZ_USE_KDE
-	const KUrl exportUrl = getExportUrl(m_mainWidget->url(), mimeType);
+	const Url exportUrl = getExportUrl(m_mainWidget->url(), mimeType);
 	if (!exportUrl.isValid())
 		return;
-#else
-	const QString exportFileName = getExportFileName(m_mainWidget->url().path(), mimeType);
-	if (exportFileName.isEmpty())
-		return;
-
-	QFileInfo exportFileInfo(exportFileName);
-	if (exportFileInfo.exists())
-	{
-		QPointer<QMessageBox> warningBox = new QMessageBox(m_parentWidget);
-		warningBox->setWindowTitle(QCoreApplication::applicationName());
-		warningBox->setText(tr("A file named \"%1\" already exists.  "
-		    "Are you sure you want to overwrite it?").arg(exportFileInfo.fileName()));
-		warningBox->setIcon(QMessageBox::Warning);
-		QPushButton *overwriteButton = warningBox->addButton(tr("&Overwrite", "Do you want to overwrite an existing file - warning box"), QMessageBox::AcceptRole);
-		QPushButton *cancelButton = warningBox->addButton(tr("&Cancel", "Do you want to overwrite an existing file - warning box"), QMessageBox::RejectRole);
-		Q_UNUSED(overwriteButton)
-		warningBox->exec();
-		if (!warningBox || warningBox->clickedButton() == cancelButton)
-		{
-			delete warningBox;
-			return;
-		}
-		else if (!QFile::remove(exportFileName))
-		{
-			QMessageBox::critical(m_parentWidget, QCoreApplication::applicationName(),
-			    tr("The file \"%1\" could not be overwritten.").arg(exportFileName));
-			delete warningBox;
-			return;
-		}
-		delete warningBox;
-	}
-#endif
 
 	QString extension;
-	if (mimeType == QLatin1String("application/pdf"))
+	if (mimeType == "application/pdf")
 	{
 		extension = ".pdf";
 	}
-	else if (mimeType == QLatin1String("image/x-eps"))
+	else if (mimeType == "image/x-eps")
 	{
 		if (!m_tikzPreviewGenerator->generateEpsFile())
 			return;
 		extension = ".eps";
 	}
-	else if (mimeType == QLatin1String("image/png"))
+	else if (mimeType == "image/png")
 	{
 		extension = ".png";
-		tikzImage.save(m_tempTikzFileBaseName + extension);
+		tikzImage.save(m_temporaryFileController->baseName() + extension);
 	}
-#ifdef KTIKZ_USE_KDE
-	KIO::Job *job = KIO::file_copy(KUrl::fromPath(m_tempTikzFileBaseName + extension), exportUrl, -1, KIO::Overwrite | KIO::HideProgressInfo);
-	connect(job, SIGNAL(result(KJob*)), this, SLOT(showJobError(KJob*)));
-#else
-	if (!QFile::copy(m_tempTikzFileBaseName + extension, exportFileName))
+
+	if (!File::copy(Url(m_temporaryFileController->baseName() + extension), exportUrl))
 		QMessageBox::critical(m_parentWidget, QCoreApplication::applicationName(),
-		    tr("The image could not be exported to the file \"%1\".").arg(exportFileName));
-#endif
+		                      tr("The image could not be exported to the file \"%1\".").arg(exportUrl.path()));
 }
 
 /***************************************************************************/
 
 bool TikzPreviewController::setTemplateFile(const QString &path)
 {
-#ifdef KTIKZ_USE_KDE
-	const KUrl url(path);
-	const KUrl localUrl = KUrl::fromPath(m_tempDir->name() + "tikztemplate.tex");
-
-	if (url.isValid() && !url.isLocalFile() && KIO::NetAccess::exists(url, KIO::NetAccess::SourceSide, m_parentWidget))
-	{
-		KIO::Job *job = KIO::file_copy(url, localUrl, -1, KIO::Overwrite | KIO::HideProgressInfo);
-		if (!KIO::NetAccess::synchronousRun(job, m_parentWidget))
-		{
-//			KMessageBox::information(m_parentWidget, i18nc("@info", "Template file could not be copied to a temporary file <filename>%1</filename>.", localUrl.prettyUrl()));
-			KMessageBox::information(m_parentWidget, tr("Template file could not be copied to a temporary file \"%1\".").arg(localUrl.prettyUrl()));
-			return false;
-		}
-		m_tikzPreviewGenerator->setTemplateFile(localUrl.path());
-	}
+	File templateFile(path, File::ReadOnly);
+	if (templateFile.file()->exists()) // use local copy of template file if template file is remote
+		m_tikzPreviewGenerator->setTemplateFile(templateFile.file()->fileName());
 	else
-#endif
-		m_tikzPreviewGenerator->setTemplateFile(path);
+		m_tikzPreviewGenerator->setTemplateFile(QString());
 	return true;
 }
 
@@ -420,24 +308,34 @@ QString TikzPreviewController::getLogText()
 
 void TikzPreviewController::generatePreview()
 {
-	QAction *action = qobject_cast<QAction*>(sender());
-	bool templateChanged = (action == 0) ? true : false; // XXX dirty hack: the template hasn't changed when the Build button in the app has been pressed (if available), the other cases in which this function is called is when a file is opened, in which case everything should be cleaned up and regenerated
-	generatePreview(templateChanged);
+	generatePreview(true);
 }
 
 void TikzPreviewController::generatePreview(bool templateChanged)
 {
 	if (templateChanged) // old aux files may contain commands available in the old template, but not anymore in the new template
-		cleanUp();
-	// TODO: m_tikzPreviewGenerator->addToTexinputs(QFileInfo(m_mainWidget->url().path()).absolutePath());
-//	m_tikzPreviewGenerator->setTikzFilePath(m_mainWidget->url().path()); // the directory in which the pgf file is located is added to TEXINPUTS before running latex
+		m_temporaryFileController->cleanUp();
+
+	// the directory in which the pgf file is located is added to TEXINPUTS before running latex
+	const QString currentFileName = m_mainWidget->url().path();
+	if (!currentFileName.isEmpty())
+		m_tikzPreviewGenerator->addToLatexSearchPath(QFileInfo(currentFileName).absolutePath());
+
 	m_tikzPreviewGenerator->generatePreview(templateChanged);
 }
 
 void TikzPreviewController::regeneratePreview()
 {
-//	m_tikzPreviewGenerator->setTikzFilePath(m_mainWidget->url().path()); // the directory in which the pgf file is located is added to TEXINPUTS before running latex
-	m_tikzPreviewGenerator->regeneratePreview();
+	generatePreview(false);
+}
+
+void TikzPreviewController::regeneratePreviewAfterDelay()
+{
+	// Each start cancels the previous one, this means that timeout() is only
+	// fired when there have been no changes in the text editor for the last
+	// s_minUpdateInterval msecs. This ensures that the preview is not
+	// regenerated on every character that is added/changed/removed.
+	m_regenerateTimer->start(s_minUpdateInterval);
 }
 
 void TikzPreviewController::emptyPreview()
@@ -445,6 +343,17 @@ void TikzPreviewController::emptyPreview()
 	setExportActionsEnabled(false);
 	m_tikzPreviewGenerator->abortProcess(); // abort still running processes
 	m_tikzPreview->emptyPreview();
+}
+
+void TikzPreviewController::abortProcess()
+{
+	// We cannot connect the triggered signal of m_procStopAction directly
+	// to m_tikzPreviewGenerator->abortProcess() because then the latter would
+	// be run in the same thread as the process which must be aborted, so the
+	// abortion would be executed after the process finishes.  So we must abort
+	// the process in the main thread by calling m_tikzPreviewGenerator->abortProcess()
+	// as a regular (non-slot) function.
+	m_tikzPreviewGenerator->abortProcess();
 }
 
 /***************************************************************************/
@@ -494,20 +403,4 @@ void TikzPreviewController::toggleShellEscaping(bool useShellEscaping)
 
 	m_tikzPreviewGenerator->setShellEscaping(useShellEscaping);
 	generatePreview(false);
-}
-
-/***************************************************************************/
-
-bool TikzPreviewController::cleanUp()
-{
-	bool success = true;
-
-	const QFileInfo tempTikzFileInfo(m_tempTikzFileBaseName + ".tex");
-	QDir tempTikzDir(tempTikzFileInfo.absolutePath());
-	QStringList filters;
-	filters << tempTikzFileInfo.completeBaseName() + ".*";
-
-	foreach (const QString &fileName, tempTikzDir.entryList(filters))
-		success = success && tempTikzDir.remove(fileName);
-	return success;
 }

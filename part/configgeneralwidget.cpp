@@ -21,7 +21,7 @@
 #include <QSettings>
 
 PartConfigGeneralWidget::PartConfigGeneralWidget(QWidget *parent)
-    : QWidget(parent)
+	: QWidget(parent)
 {
 	ui.setupUi(this);
 	ui.verticalLayout->setContentsMargins(0, 0, 0, 0);

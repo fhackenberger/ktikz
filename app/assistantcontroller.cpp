@@ -27,7 +27,7 @@
 #include "ktikzapplication.h"
 
 AssistantController::AssistantController()
-		: m_process(0)
+	: m_process(0)
 {
 }
 

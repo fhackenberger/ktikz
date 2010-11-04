@@ -27,7 +27,7 @@
 #include "../common/utils/fontdialog.h"
 
 ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent)
-    : QWidget(parent)
+	: QWidget(parent)
 {
 	m_itemMargin = 10;
 
@@ -126,7 +126,8 @@ void ConfigAppearanceWidget::showEvent(QShowEvent*)
 		setItemToolTip(ui.itemTable->item(i, 0), font);
 	}
 
-	if (m_itemHighlighted < 0) return;
+	if (m_itemHighlighted < 0)
+		return;
 	setHighlightedForeground(m_itemColors.at(m_itemHighlighted));
 }
 
@@ -155,7 +156,7 @@ void ConfigAppearanceWidget::addItemFont(const QString &fontName)
 
 void ConfigAppearanceWidget::addItemColor(const QString &colorName)
 {
-	const int rowNum = m_itemFonts.size();
+	const int rowNum = m_itemColors.size();
 	m_itemColors.append(colorName);
 	ui.itemTable->item(rowNum, 0)->setForeground(QColor(colorName));
 	toggleCustom();
@@ -254,7 +255,8 @@ void ConfigAppearanceWidget::setDefaultTextCharFormats(const QMap<QString, QText
 
 void ConfigAppearanceWidget::showFontDialog()
 {
-	if (m_itemHighlighted < 0) return;
+	if (m_itemHighlighted < 0)
+		return;
 
 	bool ok;
 	QFont currentFont;
@@ -271,7 +273,8 @@ void ConfigAppearanceWidget::showFontDialog()
 
 void ConfigAppearanceWidget::showColorDialog()
 {
-	if (m_itemHighlighted < 0) return;
+	if (m_itemHighlighted < 0)
+		return;
 
 	bool ok;
 	const QColor currentColor(m_itemColors.at(m_itemHighlighted));

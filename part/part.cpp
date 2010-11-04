@@ -44,7 +44,7 @@
 #include <KFileDialog>
 #include <KMessageBox>
 #include <KIO/Job>
-//#include <KIO/JobUiDelegate>
+#include <KIO/JobUiDelegate>
 #include <KIO/NetAccess>
 #include <KParts/GenericFactory>
 #include <QSettings>
@@ -61,7 +61,7 @@ K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<Part>();)
 K_EXPORT_PLUGIN(ktikzPartFactory("ktikz", "ktikz"))
 
 Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
-		: KParts::ReadOnlyPart(parent)
+	: KParts::ReadOnlyPart(parent)
 {
 	Q_UNUSED(args);
 
@@ -186,7 +186,7 @@ void Part::saveAs()
 		return;
 
 	KIO::Job *job = KIO::file_copy(srcUrl, dstUrl, -1, KIO::Overwrite | KIO::HideProgressInfo);
-	connect(job, SIGNAL(result(KJob*)), m_tikzPreviewController, SLOT(showJobError(KJob*)));
+	connect(job, SIGNAL(result(KJob*)), this, SLOT(showJobError(KJob*)));
 }
 
 bool Part::closeUrl()
@@ -202,7 +202,6 @@ bool Part::closeUrl()
 	return KParts::ReadOnlyPart::closeUrl();
 }
 
-/*
 void Part::showJobError(KJob *job)
 {
 	if (job->error() != 0)
@@ -217,7 +216,6 @@ void Part::showJobError(KJob *job)
 		ui->showErrorMessage();
 	}
 }
-*/
 
 /*
 void Part::slotReload()

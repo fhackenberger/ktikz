@@ -25,21 +25,21 @@
 #include <KActionCollection>
 
 SelectAction::SelectAction(QObject *parent, const QString &name)
-    : KSelectAction(parent)
+	: KSelectAction(parent)
 {
 	if (!name.isEmpty())
 		Action::actionCollection()->addAction(name, this);
 }
 
 SelectAction::SelectAction(const QString &text, QObject *parent, const QString &name)
-    : KSelectAction(text, parent)
+	: KSelectAction(text, parent)
 {
 	if (!name.isEmpty())
 		Action::actionCollection()->addAction(name, this);
 }
 
 SelectAction::SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-    : KSelectAction(icon, text, parent)
+	: KSelectAction(icon, text, parent)
 {
 	if (!name.isEmpty())
 		Action::actionCollection()->addAction(name, this);
@@ -50,20 +50,20 @@ SelectAction::SelectAction(const Icon &icon, const QString &text, QObject *paren
 #include <QWidgetAction>
 
 SelectAction::SelectAction(QObject *parent, const QString &name)
-    : QWidgetAction(parent)
+	: QWidgetAction(parent)
 {
 	init(name);
 }
 
 SelectAction::SelectAction(const QString &text, QObject *parent, const QString &name)
-    : QWidgetAction(parent)
+	: QWidgetAction(parent)
 {
 	init(name);
 	setText(text);
 }
 
 SelectAction::SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-    : QWidgetAction(parent)
+	: QWidgetAction(parent)
 {
 	init(name);
 	setIcon(icon);

@@ -27,21 +27,21 @@
 #include <KConfigGroup>
 
 RecentFilesAction::RecentFilesAction(QObject *parent)
-    : KRecentFilesAction(parent)
+	: KRecentFilesAction(parent)
 {
 	Action::actionCollection()->addAction("file_open_recent", this);
 	connect(this, SIGNAL(urlSelected(KUrl)), this, SLOT(selectUrl(KUrl)));
 }
 
 RecentFilesAction::RecentFilesAction(const QString &text, QObject *parent)
-    : KRecentFilesAction(text, parent)
+	: KRecentFilesAction(text, parent)
 {
 	Action::actionCollection()->addAction("file_open_recent", this);
 	connect(this, SIGNAL(urlSelected(KUrl)), this, SLOT(selectUrl(KUrl)));
 }
 
 RecentFilesAction::RecentFilesAction(const Icon &icon, const QString &text, QObject *parent)
-    : KRecentFilesAction(icon, text, parent)
+	: KRecentFilesAction(icon, text, parent)
 {
 	Action::actionCollection()->addAction("file_open_recent", this);
 	connect(this, SIGNAL(urlSelected(KUrl)), this, SLOT(selectUrl(KUrl)));
@@ -78,19 +78,19 @@ void RecentFilesAction::removeUrl(const Url &url)
 #include <QSettings>
 
 RecentFilesAction::RecentFilesAction(QObject *parent)
-    : Action(parent)
+	: Action(parent)
 {
 	createMenu();
 }
 
 RecentFilesAction::RecentFilesAction(const QString &text, QObject *parent)
-    : Action(text, parent)
+	: Action(text, parent)
 {
 	createMenu();
 }
 
 RecentFilesAction::RecentFilesAction(const Icon &icon, const QString &text, QObject *parent)
-    : Action(icon, text, parent)
+	: Action(icon, text, parent)
 {
 	createMenu();
 }

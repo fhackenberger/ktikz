@@ -19,7 +19,7 @@
 #include "editindentdialog.h"
 
 IndentDialog::IndentDialog(QWidget *parent, const QString &name)
-    : QDialog(parent)
+	: QDialog(parent)
 {
 	ui.setupUi(this);
 	setModal(true);

@@ -19,7 +19,6 @@
 #include "tikzcommandinserter.h"
 
 #include <QApplication>
-#include <QComboBox>
 #include <QDockWidget>
 #include <QDomDocument>
 #include <QFile>
@@ -34,11 +33,12 @@
 
 #include "tikzeditorhighlighter.h"
 #include "tikzcommandwidget.h"
+#include "../common/utils/combobox.h"
 
 static const QString s_completionPlaceHolder(0x2022);
 
 TikzCommandInserter::TikzCommandInserter(QWidget *parent)
-    : QObject(parent)
+	: QObject(parent)
 {
 	m_parentWidget = parent;
 
@@ -60,15 +60,15 @@ void TikzCommandInserter::getCommands()
 	if (!domDocument.setContent(&tagsFile, true, &errorStr, &errorLine, &errorColumn))
 	{
 		QMessageBox::information(m_parentWidget, tr("TikZ Commands"),
-		    tr("Parse error at line %1, column %2:\n%3")
-		    .arg(errorLine).arg(errorColumn).arg(errorStr));
+		                         tr("Parse error at line %1, column %2:\n%3")
+		                         .arg(errorLine).arg(errorColumn).arg(errorStr));
 		return;
 	}
 	QDomElement root = domDocument.documentElement();
 	if (root.tagName() != "tikzcommands")
 	{
 		QMessageBox::information(m_parentWidget, tr("TikZ Commands"),
-		    tr("Cannot parse the TikZ commands file."));
+		                         tr("Cannot parse the TikZ commands file."));
 		return;
 	}
 
@@ -88,6 +88,8 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 	QString description;
 	QString insertion;
 	QString type;
+	QRegExp newLineRegExp("([^\\\\])\\\\n"); // newlines are the "\n" not preceded by a backslash as in "\\node"
+	QRegExp descriptionRegExp("<([^<>]*)>"); // descriptions are between < and >
 	while (!child.isNull())
 	{
 		name = tr(child.attribute("name").toLatin1().data());
@@ -95,28 +97,33 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 		insertion = child.attribute("insert");
 		type = child.attribute("type");
 
-		description.replace(QRegExp("([^\\\\])\\\\n"), "\\1\n"); // replace newlines, these are the "\n" not preceded by a backslash as in "\\node"
-		description.replace(QRegExp("([^\\\\])\\\\n"), "\\1\n"); // do this twice to replace all newlines
+		if (description.contains(QLatin1String("\\n"))) // minimize the number of uses of QRegExp
+		{
+			description.replace(newLineRegExp, QLatin1String("\\1\n")); // replace newlines, these are the "\n" not preceded by a backslash as in "\\node"
+			description.replace(newLineRegExp, QLatin1String("\\1\n")); // do this twice to replace all newlines
+		}
 		description.replace(QLatin1String("\\\\"), QLatin1String("\\"));
 		// translate options in the description:
-		QRegExp rx("<([^<>]*)>");
 		QString tempDescription;
 		for (int pos = 0, oldPos = 0; pos >= 0;)
 		{
 			oldPos = pos;
-			pos = rx.indexIn(description, pos);
+			pos = descriptionRegExp.indexIn(description, pos);
 			tempDescription += description.midRef(oldPos, pos - oldPos + 1);
 			if (pos >= 0)
 			{
-				tempDescription += tr(rx.cap(1).toLatin1().data());
-				pos += rx.matchedLength() - 1;
+				tempDescription += tr(descriptionRegExp.cap(1).toLatin1().data());
+				pos += descriptionRegExp.matchedLength() - 1;
 			}
 		}
 		if (!tempDescription.isEmpty())
 			description = tempDescription;
 
-		insertion.replace(QRegExp("([^\\\\])\\\\n"), "\\1\n"); // replace newlines, these are the "\n" not preceded by a backslash as in "\\node"
-		insertion.replace(QRegExp("([^\\\\])\\\\n"), "\\1\n"); // do this twice to replace all newlines
+		if (insertion.contains(QLatin1String("\\n"))) // minimize the number of uses of QRegExp
+		{
+			insertion.replace(newLineRegExp, QLatin1String("\\1\n")); // replace newlines, these are the "\n" not preceded by a backslash as in "\\node"
+			insertion.replace(newLineRegExp, QLatin1String("\\1\n")); // do this twice to replace all newlines
+		}
 		insertion.replace(QLatin1String("\\\\"), QLatin1String("\\"));
 
 		if (name.isEmpty())
@@ -131,7 +138,7 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 
 		commands << newCommand(name, description, insertion, child.attribute("dx").toInt(), child.attribute("dy").toInt(), type.toInt());
 
-		if (child.nextSiblingElement().tagName() == QLatin1String("separator"))
+		if (child.nextSiblingElement().tagName() == "separator")
 			commands << newCommand("", "", "", 0, 0, 0);
 
 		child = child.nextSiblingElement("item");
@@ -153,20 +160,29 @@ QStringList TikzCommandInserter::getCommandWords()
 	QStringList words;
 	QString word;
 
+	QRegExp rx1("^([^a-z\\\\<>]*<[^>]*>)*");
+	QRegExp rx2("^[^a-z\\\\]*");
+	QString allowedLetters = "abcdefghijklmnopqrstuvwxyz\\";
 	for (int i = 0; i < m_tikzCommandsList.size(); ++i)
 	{
 		word = m_tikzCommandsList.at(i).description;
 		// remove all special characters and <options> at the beginning of the word
-		word.remove(QRegExp("^([^a-z\\\\<>]*<[^>]*>)*"));
-		word.remove(QRegExp("^[^a-z\\\\]*"));
+		if (!word.isEmpty() && !allowedLetters.contains(word.at(0))) // minimize the number of uses of QRegExp
+		{
+			word.remove(rx1);
+			word.remove(rx2);
+		}
 		if (!word.isEmpty())
 			words.append(word);
 		else
 		{
 			word = m_tikzCommandsList.at(i).command;
 			// remove all special characters and <options> at the beginning of the word
-			word.remove(QRegExp("^([^a-z\\\\<>]*<[^>]*>)*"));
-			word.remove(QRegExp("^[^a-z\\\\]*"));
+			if (!word.isEmpty() && !allowedLetters.contains(word.at(0))) // minimize the number of uses of QRegExp
+			{
+				word.remove(rx1);
+				word.remove(rx2);
+			}
 			if (!word.isEmpty())
 				words.append(word);
 		}
@@ -284,9 +300,9 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
 	tikzDock->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
 	tikzDock->setWindowTitle(m_tikzSections.title);
 	tikzDock->setWhatsThis(tr("<p>This is a list of TikZ "
-	    "commands.  You can insert these commands in your code by "
-	    "clicking on them.  You can obtain more commands by "
-	    "changing the category in the combo box.</p>"));
+	                          "commands.  You can insert these commands in your code by "
+	                          "clicking on them.  You can obtain more commands by "
+	                          "changing the category in the combo box.</p>"));
 
 	QAction *focusTikzDockAction = new QAction(parent);
 	focusTikzDockAction->setShortcut(QKeySequence(tr("Alt+I")));
@@ -294,7 +310,7 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
 	connect(focusTikzDockAction, SIGNAL(triggered()), tikzDock, SLOT(setFocus()));
 
 	QLabel *commandsComboLabel = new QLabel(tr("Category:"));
-	QComboBox *commandsCombo = new QComboBox;
+	ComboBox *commandsCombo = new ComboBox;
 	commandsCombo->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 	QStackedWidget *commandsStack = new QStackedWidget;
 	connect(commandsCombo, SIGNAL(currentIndexChanged(int)), commandsStack, SLOT(setCurrentIndex(int)));
@@ -437,45 +453,52 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
 		int end;
 		switch (type)
 		{
-			case 1:
-				{
-					const int end1 = command.indexOf(' ', 0);
-					const int end2 = command.indexOf('[', 0);
-					const int end3 = command.indexOf('{', 0);
-					end = end1;
-					if (end < 0 || (end2 >= 0 && end2 < end))
-						end = end2;
-					if (end < 0 || (end3 >= 0 && end3 < end))
-						end = end3;
-				}
+		case 1:
+		{
+			const int end1 = command.indexOf(' ', 0);
+			const int end2 = command.indexOf('[', 0);
+			const int end3 = command.indexOf('{', 0);
+			end = end1;
+			if (end < 0 || (end2 >= 0 && end2 < end))
+				end = end2;
+			if (end < 0 || (end3 >= 0 && end3 < end))
+				end = end3;
+
+			command = command.left(end);
+//			command = command.replace(QLatin1Char('\\'), QLatin1String("\\\\"));
+			rule.type = highlightTypeNames.at(0);
+//			rule.pattern = QRegExp(command);
+//			rule.pattern.setPattern(command);
+			rule.matchString = command;
+			highlightingRules.append(rule);
+			break;
+		}
+		case 2:
+//			command = command.replace("()", "\\([^\\)]*\\)");
+//			command = command.replace("(,)", "\\([^\\)]*\\)");
+//			command = command.replace("(:::)", "\\([^\\)]*\\)");
+			command = command.remove('+');
+			command = command.remove(" ()");
+			command = command.remove(" (,)");
+			command = command.remove(" (:::)");
+			command = command.remove(" {} ");
+			rule.type = highlightTypeNames.at(1);
+//			rule.pattern = QRegExp(command);
+//			rule.pattern.setPattern(command);
+			rule.matchString = command;
+			highlightingRules.append(rule);
+			break;
+		case 3:
+//			command = command.replace(QLatin1Char('|'), QLatin1String("\\|"));
+			end = command.indexOf('=', 0) + 1;
+			if (end > 0)
 				command = command.left(end);
-				command = command.replace('\\', QLatin1String("\\\\"));
-				rule.type = highlightTypeNames.at(0);
-				rule.pattern = QRegExp(command);
-				highlightingRules.append(rule);
-				break;
-			case 2:
-//				command = command.replace("()", "\\([^\\)]*\\)");
-//				command = command.replace("(,)", "\\([^\\)]*\\)");
-//				command = command.replace("(:::)", "\\([^\\)]*\\)");
-				command = command.remove('+');
-				command = command.remove(" ()");
-				command = command.remove(" (,)");
-				command = command.remove(" (:::)");
-				command = command.remove(" {} ");
-				rule.type = highlightTypeNames.at(1);
-				rule.pattern = QRegExp(command);
-				highlightingRules.append(rule);
-				break;
-			case 3:
-				command = command.replace('|', QLatin1String("\\|"));
-				end = command.indexOf('=', 0) + 1;
-				if (end > 0)
-					command = command.left(end);
-				rule.type = highlightTypeNames.at(2);
-				rule.pattern = QRegExp(command);
-				highlightingRules.append(rule);
-				break;
+			rule.type = highlightTypeNames.at(2);
+//			rule.pattern = QRegExp(command);
+//			rule.pattern.setPattern(command);
+			rule.matchString = command;
+			highlightingRules.append(rule);
+			break;
 		}
 	}
 
@@ -483,14 +506,14 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
 }
 
 TikzCommand TikzCommandInserter::newCommand(const QString &name,
-    const QString &command, int dx, int dy, int type)
+        const QString &command, int dx, int dy, int type)
 {
 	return newCommand(name, "", command, dx, dy, type);
 }
 
 TikzCommand TikzCommandInserter::newCommand(const QString &name,
-    const QString &description, const QString &command,
-    int dx, int dy, int type)
+        const QString &description, const QString &command,
+        int dx, int dy, int type)
 {
 	/* type:
 	 * 0: plain text

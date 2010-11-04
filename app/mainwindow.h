@@ -23,10 +23,8 @@
 
 #ifdef KTIKZ_USE_KDE
 #include <KXmlGuiWindow>
-class KUrl;
 #else
 #include <QMainWindow>
-class QUrl;
 class AboutDialog;
 class AssistantController;
 #endif
@@ -73,7 +71,10 @@ public:
 	QString tikzCode() const;
 	Url url() const;
 
-	static QList<MainWindow*> mainWindowList() { return s_mainWindowList; }
+	static QList<MainWindow*> mainWindowList()
+	{
+		return s_mainWindowList;
+	}
 
 public slots:
 	void loadUrl(const Url &url);

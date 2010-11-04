@@ -21,30 +21,14 @@
 #ifdef KTIKZ_USE_KDE
 #include <KCmdLineArgs>
 #include <KUrl>
-#else
-#include <QFileInfo>
-#include <QUrl>
-#include <QMessageBox>
-#include <QSessionManager>
-#include <QSettings>
-#endif
 
 #include "mainwindow.h"
 
 KtikzApplication::KtikzApplication(int &argc, char **argv)
-#ifdef KTIKZ_USE_KDE
-    : KApplication()
-#else
-    : QApplication(argc, argv)
-#endif
+	: KApplication()
 {
-#ifdef KTIKZ_USE_KDE
 	Q_UNUSED(argc);
 	Q_UNUSED(argv);
-#else
-	for (int i = 0; i < argc; ++i)
-		m_args << QString::fromLocal8Bit(argv[i]);
-#endif
 	m_firstTime = true;
 }
 
@@ -52,9 +36,49 @@ void KtikzApplication::init()
 {
 	if (isSessionRestored())
 	{
-#ifdef KTIKZ_USE_KDE
 		kRestoreMainWindows<MainWindow>();
+		return;
+	}
+
+	MainWindow *mainWindow = new MainWindow;
+	mainWindow->show();
+
+	KUrl url;
+	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+	if (args->count() > 0)
+	{
+		url = args->url(0);
+		if (url.isValid() && url.isLocalFile())
+			mainWindow->loadUrl(url);
+	}
+	args->clear();
+}
+
+QString KtikzApplication::applicationName()
+{
+	return "KTikZ";
+}
 #else
+#include <QFileInfo>
+#include <QUrl>
+#include <QMessageBox>
+#include <QSessionManager>
+#include <QSettings>
+
+#include "mainwindow.h"
+
+KtikzApplication::KtikzApplication(int &argc, char **argv)
+	: QApplication(argc, argv)
+{
+	for (int i = 0; i < argc; ++i)
+		m_args << QString::fromLocal8Bit(argv[i]);
+	m_firstTime = true;
+}
+
+void KtikzApplication::init()
+{
+	if (isSessionRestored())
+	{
 		QSettings settings(ORGNAME, APPNAME);
 		settings.beginGroup("Session" + qApp->sessionId());
 		const int size = settings.beginReadArray("MainWindowList");
@@ -72,48 +96,25 @@ void KtikzApplication::init()
 		settings.endGroup();
 
 		m_firstTime = false;
-#endif
 		return;
 	}
 
 	MainWindow *mainWindow = new MainWindow;
 	mainWindow->show();
 
-#ifdef KTIKZ_USE_KDE
-	KUrl url;
-	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-	if (args->count() > 0)
-	{
-		url = args->url(0);
-		if (url.isValid() && url.isLocalFile())
-			mainWindow->loadUrl(url);
-	}
-	args->clear();
-#else
 	if (m_args.size() > 1)
 	{
 		const QFileInfo fi(m_args.at(1));
 		mainWindow->loadUrl(QUrl(fi.absoluteFilePath()));
 	}
 	m_args.clear();
-#endif
-}
-
-KtikzApplication::~KtikzApplication()
-{
-	// don't delete the MainWindow's here because they are already deleted on close
 }
 
 QString KtikzApplication::applicationName()
 {
-#ifdef KTIKZ_USE_KDE
-	return "KTikZ";
-#else
 	return "QTikZ";
-#endif
 }
 
-#ifndef KTIKZ_USE_KDE
 void KtikzApplication::commitData(QSessionManager &manager)
 {
 	if (manager.allowsInteraction())
@@ -126,12 +127,12 @@ void KtikzApplication::commitData(QSessionManager &manager)
 			if (mainWindowList.at(i)->isDocumentModified())
 			{
 				const int ret = QMessageBox::warning(mainWindowList.at(i),
-				    applicationName(),
-				    tr("The document \"%1\" has been modified.\n"
-				       "Do you want to save your changes?").arg(mainWindowList.at(i)->url().fileName()),
-				    QMessageBox::Save | QMessageBox::Default,
-				    QMessageBox::Discard,
-			    	QMessageBox::Cancel | QMessageBox::Escape);
+				                                     applicationName(),
+				                                     tr("The document \"%1\" has been modified.\n"
+				                                        "Do you want to save your changes?").arg(mainWindowList.at(i)->url().fileName()),
+				                                     QMessageBox::Save | QMessageBox::Default,
+				                                     QMessageBox::Discard,
+				                                     QMessageBox::Cancel | QMessageBox::Escape);
 				if (ret == QMessageBox::Save)
 					saveDocuments << i; // store the number of the document that has to be saved
 				else if (ret == QMessageBox::Cancel)
@@ -184,3 +185,8 @@ void KtikzApplication::saveState(QSessionManager &manager)
 	settings.endGroup();
 }
 #endif
+
+KtikzApplication::~KtikzApplication()
+{
+	// don't delete the MainWindow's here because they are already deleted on close
+}

@@ -43,13 +43,13 @@ protected:
 	void highlightBlock(const QString &text);
 
 private:
-	struct HighlightingRule
+	struct LogHighlightingRule
 	{
 		QRegExp pattern; /// The pattern to match for formatting
 		QTextCharFormat format; /// The style of the formatting
 	};
 	/// All highlighting rules with their formatting for easy iteration
-	QVector<HighlightingRule> m_highlightingRules;
+	QVector<LogHighlightingRule> m_highlightingRules;
 	/// The start of the statistics output by LaTeX
 	QString m_statisticsStartExpression;
 	/// The highlighting format for LaTeX statistics

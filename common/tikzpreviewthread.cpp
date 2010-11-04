@@ -23,7 +23,7 @@
 #include <poppler-qt4.h>
 
 TikzPreviewThread::TikzPreviewThread(QObject *parent)
-    : QThread(parent)
+	: QThread(parent)
 {
 	m_restart = false;
 	m_abort = false;

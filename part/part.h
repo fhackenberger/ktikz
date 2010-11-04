@@ -51,7 +51,7 @@ protected:
 
 private slots:
 	void saveAs();
-//	void showJobError(KJob *job);
+	void showJobError(KJob *job);
 //	void slotReload();
 
 	void slotFileDirty(const QString &path);

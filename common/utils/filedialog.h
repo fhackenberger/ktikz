@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Glad Deschrijver                                *
+ *   Copyright (C) 2009, 2010 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -36,7 +36,21 @@ public:
 	static Url getSaveUrl(QWidget *parent = 0, const QString &caption = QString(), const Url &dir = Url(), const QString &filter = QString());
 };
 #else
-#include <QFileDialog>
+#include <QtGui/QFileDialog>
+
+/*!
+ * \brief Provides a dialog to select an URL for opening or saving.
+ *
+ * This class provides a dialog that allows users to select files or
+ * directories.
+ *
+ * The purpose of this class is to provide generic API which can be used in
+ * both the KDE and the Qt-only version.  Internally the KDE- or Qt-specific
+ * classes and functions are used.
+ *
+ * Currently this class only provides the static functions getOpenUrl() and
+ * getSaveUrl().
+ */
 
 class FileDialog : public QFileDialog
 {
@@ -45,6 +59,9 @@ public:
 
 	static Url getOpenUrl(QWidget *parent = 0, const QString &caption = QString(), const Url &dir = Url(), const QString &filter = QString());
 	static Url getSaveUrl(QWidget *parent = 0, const QString &caption = QString(), const Url &dir = Url(), const QString &filter = QString());
+
+private:
+	static QString getParsedFilter(const QString &filter);
 };
 #endif
 

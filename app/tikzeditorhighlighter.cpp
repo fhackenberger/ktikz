@@ -24,7 +24,7 @@
 #include "tikzcommandinserter.h"
 
 TikzHighlighter::TikzHighlighter(TikzCommandInserter *commandInserter, QTextDocument *parent)
-    : QSyntaxHighlighter(parent)
+	: QSyntaxHighlighter(parent)
 {
 	m_commandInserter = commandInserter;
 
@@ -109,17 +109,31 @@ void TikzHighlighter::highlightBlock(const QString &text)
 	// Try each highlighting pattern and apply formatting if it matches
 	foreach (const HighlightingRule &rule, m_highlightingRules)
 	{
-//		const QRegExp expression(rule.pattern);
-//		int index = text.indexOf(expression);
-		QRegExp expression(rule.pattern);
-		int index = expression.indexIn(text);
-		while (index >= 0)
+		if (!rule.matchString.isEmpty())
 		{
-			const int length = expression.matchedLength();
-			if (index == 0 || text.at(index-1) != '\\')
-				setFormat(index, length, m_formatList[rule.type]);
-//			index = text.indexOf(expression, index + length);
-			index = expression.indexIn(text, index + length);
+			int index = text.indexOf(rule.matchString);
+			while (index >= 0)
+			{
+				const int length = rule.matchString.length();
+				if (index == 0 || text.at(index - 1) != '\\')
+					setFormat(index, length, m_formatList[rule.type]);
+				index = text.indexOf(rule.matchString, index + length);
+			}
+		}
+		else
+		{
+//			const QRegExp expression(rule.pattern);
+//			int index = text.indexOf(expression);
+			QRegExp expression(rule.pattern);
+			int index = expression.indexIn(text);
+			while (index >= 0)
+			{
+				const int length = expression.matchedLength();
+				if (index == 0 || text.at(index-1) != '\\')
+					setFormat(index, length, m_formatList[rule.type]);
+//				index = text.indexOf(expression, index + length);
+				index = expression.indexIn(text, index + length);
+			}
 		}
 	}
 	setCurrentBlockState(0);

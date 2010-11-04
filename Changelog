@@ -1,4 +1,5 @@
-version ...:
+version 0.11:
+- Add the directory in which the pgf file is located to TEXINPUTS
 - Add Czech translation (by Pavel Fric)
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)

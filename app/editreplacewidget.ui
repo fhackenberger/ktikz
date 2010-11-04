@@ -28,15 +28,12 @@
     </widget>
    </item>
    <item row="0" column="2">
-    <widget class="QComboBox" name="comboBoxFind">
+    <widget class="ComboBox" name="comboBoxFind">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
-     </property>
-     <property name="editable">
-      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -66,15 +63,12 @@
     </widget>
    </item>
    <item row="1" column="2">
-    <widget class="QComboBox" name="comboBoxReplace">
+    <widget class="ComboBox" name="comboBoxReplace">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
-     </property>
-     <property name="editable">
-      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -135,6 +129,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ComboBox</class>
+   <extends>QComboBox</extends>
+   <header>../common/utils/combobox.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>pushButtonClose</tabstop>
   <tabstop>comboBoxFind</tabstop>

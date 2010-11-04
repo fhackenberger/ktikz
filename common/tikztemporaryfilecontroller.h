@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,45 +16,44 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef KTIKZ_TIKZPREVIEWTHREAD_H
-#define KTIKZ_TIKZPREVIEWTHREAD_H
+#ifndef KTIKZ_TIKZTEMPORARYFILECONTROLLER_H
+#define KTIKZ_TIKZTEMPORARYFILECONTROLLER_H
 
-#include <QtCore/QThread>
-#include <QtCore/QMutex>
-#include <QtCore/QWaitCondition>
+#include <QtCore/QObject>
 
-class QImage;
+#ifdef KTIKZ_USE_KDE
+class KTempDir;
+#endif
 
-namespace Poppler
-{
-class Document;
-}
+/*!
+ * \brief Creates a temporary directory and a base name for temporary files.
+ *
+ * This class creates a temporary directory (as a subdir of the system's
+ * temp directory) and a base name for the temporary files in it.  The
+ * complete base name, returned by baseName(), is guaranteed to be unique
+ * for each TikZ file opened in ktikz.
+ */
 
-class TikzPreviewThread : public QThread
+class TikzTemporaryFileController : public QObject
 {
 	Q_OBJECT
 
 public:
-	TikzPreviewThread(QObject *parent = 0);
-	~TikzPreviewThread();
+	TikzTemporaryFileController(QObject *parent = 0);
+	virtual ~TikzTemporaryFileController();
 
-	void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor = 1.0, int currentPage = 0);
-
-signals:
-	void showPreview(const QImage &image);
-
-protected:
-	void run();
+	const QString dirName() const;
+	const QString baseName() const;
+	bool cleanUp();
 
 private:
-	QMutex m_mutex;
-	QWaitCondition m_condition;
-	bool m_restart;
-	bool m_abort;
+	void createTempDir();
+	void removeTempDir();
 
-	Poppler::Document *m_tikzPdfDoc;
-	qreal m_zoomFactor;
-	int m_currentPage;
+#ifdef KTIKZ_USE_KDE
+	KTempDir *m_tempDir;
+#endif
+	QString m_tempTikzFileBaseName;
 };
 
 #endif

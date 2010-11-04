@@ -22,9 +22,6 @@
 
 #ifdef KTIKZ_USE_KDE
 #include <KFileItem>
-#include <KSaveFile>
-#else
-#include <QFile>
 #endif
 #include <QDebug>
 #include <QDir>
@@ -36,31 +33,30 @@
 #include <poppler-qt4.h>
 
 #include "tikzpreviewcontroller.h"
-
-const QTime s_standardMinUpdateInterval(0, 0, 1 /*sec*/, 0);
+#include "utils/file.h"
 
 TikzPreviewGenerator::TikzPreviewGenerator(TikzPreviewController *parent)
-    : m_minUpdateInterval(s_standardMinUpdateInterval)
 {
 	m_parent = parent;
 	m_tikzPdfDoc = 0;
-	m_updateScheduled = false;
 	m_runFailed = false;
-	m_keepRunning = true;
 	m_process = 0;
-	m_templateChanged = true;
-//	m_latexCommand = "pdflatex";
-//	m_pdftopsCommand = "pdftops";
-//	m_useShellEscaping = false;
-	start();
+	m_firstRun = true;
+
+	m_processEnvironment = QProcessEnvironment::systemEnvironment();
+
+	moveToThread(&m_thread);
+	m_thread.start();
 }
 
 TikzPreviewGenerator::~TikzPreviewGenerator()
 {
 	// stop the thread before destroying this object
-	m_keepRunning = false;
-	m_updateRequested.wakeAll();
-	wait();
+	if (m_thread.isRunning())
+	{
+		m_thread.quit();
+		m_thread.wait();
+	}
 	emit processRunning(false);
 
 	if (m_tikzPdfDoc)
@@ -90,33 +86,51 @@ void TikzPreviewGenerator::setShellEscaping(bool useShellEscaping)
 
 	if (m_useShellEscaping)
 	{
-		QProcess *m_checkGnuplotExecutable = new QProcess(this);
+		m_checkGnuplotExecutable = new QProcess;
 		m_checkGnuplotExecutable->start("gnuplot", QStringList() << "--version");
+		m_checkGnuplotExecutable->moveToThread(&m_thread);
 		connect(m_checkGnuplotExecutable, SIGNAL(error(QProcess::ProcessError)), this, SLOT(displayGnuplotNotExecutable()));
+		connect(m_checkGnuplotExecutable, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(checkGnuplotExecutableFinished(int,QProcess::ExitStatus)));
 	}
 }
 
 void TikzPreviewGenerator::displayGnuplotNotExecutable()
 {
 	emit showErrorMessage(tr("Gnuplot cannot be executed.  Either Gnuplot is not installed "
-	    "or it is not available in the system PATH or you may have insufficient "
-	    "permissions to invoke the program."));
-//	m_checkGnuplotExecutable->deleteLater();
+	                         "or it is not available in the system PATH or you may have insufficient "
+	                         "permissions to invoke the program."));
+	delete m_checkGnuplotExecutable;
+	m_checkGnuplotExecutable = 0;
+}
+
+void TikzPreviewGenerator::checkGnuplotExecutableFinished(int exitCode, QProcess::ExitStatus exitStatus)
+{
+	Q_UNUSED(exitCode)
+	Q_UNUSED(exitStatus)
+	delete m_checkGnuplotExecutable;
+	m_checkGnuplotExecutable = 0;
 }
 
 void TikzPreviewGenerator::setTemplateFile(const QString &fileName)
 {
+	if (!m_templateFileName.isEmpty())
+	{
+		const QFileInfo templateFileInfo(m_templateFileName);
+		removeFromLatexSearchPath(templateFileInfo.absolutePath());
+	}
+
 	m_templateFileName = fileName;
+
+	if (!m_templateFileName.isEmpty())
+	{
+		const QFileInfo templateFileInfo(m_templateFileName);
+		addToLatexSearchPath(templateFileInfo.absolutePath());
+	}
 }
 
 void TikzPreviewGenerator::setReplaceText(const QString &replace)
 {
 	m_tikzReplaceText = replace;
-}
-
-void TikzPreviewGenerator::setMinUpdateInterval(const QTime &interval)
-{
-	m_minUpdateInterval = interval;
 }
 
 /***************************************************************************/
@@ -131,23 +145,23 @@ QString TikzPreviewGenerator::getParsedLogText(QTextStream *logStream) const
 {
 	QString logText;
 
-	QList<QRegExp> keywordPatterns;
-	keywordPatterns << QRegExp("(\\S*):(\\d+): (.*$)")
-	    << QRegExp("Undefined control sequence")
-	    << QRegExp("LaTeX Warning:") << QRegExp("LaTeX Error:")
-	    << QRegExp("Runaway argument?")
-	    << QRegExp("Missing character: .*!") << QRegExp("Error:");
+	QRegExp errorPattern("(\\S*):(\\d+): (.*$)");
+	QList<QLatin1String> errorMessageList;
+	errorMessageList << QLatin1String("Undefined control sequence")
+	                 << QLatin1String("LaTeX Warning:") << QLatin1String("LaTeX Error:")
+	                 << QLatin1String("Runaway argument?")
+	                 << QLatin1String("Missing character:") << QLatin1String("Error:");
 
 	QString logLine;
 	while (!logStream->atEnd())
 	{
 		logLine = logStream->readLine();
-		if (keywordPatterns.at(0).indexIn(logLine) > -1)
+		if (errorPattern.indexIn(logLine) > -1)
 		{
 			// show error message and correct line number
-//			QString lineNum = QString::number(keywordPatterns[0].cap(2).toInt() - m_templateStartLineNumber);
-			QString lineNum = QString::number(keywordPatterns[0].cap(2).toInt());
-			const QString errorMsg = keywordPatterns[0].cap(3);
+//			QString lineNum = QString::number(errorPattern.cap(2).toInt() - m_templateStartLineNumber);
+			QString lineNum = QString::number(errorPattern.cap(2).toInt());
+			const QString errorMsg = errorPattern.cap(3);
 			logText += "[LaTeX] Line " + lineNum + ": " + errorMsg;
 
 			// while we don't get a line starting with "l.<number> ...", we have to add the line to the first error message
@@ -172,9 +186,9 @@ QString TikzPreviewGenerator::getParsedLogText(QTextStream *logStream) const
 		}
 		else
 		{
-			for (int i = 1; i < keywordPatterns.size(); ++i)
+			for (int i = 1; i < errorMessageList.size(); ++i)
 			{
-				if (logLine.contains(keywordPatterns.at(i)))
+				if (logLine.contains(errorMessageList.at(i)))
 				{
 					logText += logLine + '\n';
 					logText += logStream->readLine() + '\n';
@@ -264,49 +278,31 @@ bool TikzPreviewGenerator::hasRunFailed()
 	return m_runFailed;
 }
 
-void TikzPreviewGenerator::run()
-{
-	while (m_keepRunning)
-	{
-		m_memberLock.lock();
-		if (m_updateScheduled) // We shall update the picture
-		{
-			const long int msecUpdateInterval = m_minUpdateInterval.minute() * 60000 + m_minUpdateInterval.second() * 1000; // We ignore hours
-			if (m_updateTimer.isValid() && m_updateTimer.elapsed() < msecUpdateInterval)
-			{
-				// Our m_minUpdateInterval has not elapsed yet, sleep
-				const int msecsToSleep = msecUpdateInterval - m_updateTimer.elapsed();
-				m_memberLock.unlock();
-				msleep(msecsToSleep);
-				continue;
-			}
-			m_tikzCode = m_parent->tikzCode();
-			m_runFailed = false;
-			m_updateScheduled = false;
-			m_memberLock.unlock();
-			createPreview();
-			m_memberLock.lock();
-			setMinUpdateInterval(s_standardMinUpdateInterval);
-		}
-		else
-			m_updateRequested.wait(&m_memberLock);
-		m_memberLock.unlock();
-	}
-}
-
-void TikzPreviewGenerator::regeneratePreview()
-{
-	const QMutexLocker locker(&m_memberLock);
-	m_updateScheduled = true;
-	m_updateTimer.start();
-	m_updateRequested.wakeAll();
-}
-
 void TikzPreviewGenerator::generatePreview(bool templateChanged)
 {
-	m_templateChanged = templateChanged;
-	setMinUpdateInterval(QTime(0, 0, 0, 0));
-	regeneratePreview();
+	// dirty hack because calling generatePreviewImpl directly from the main thread runs it in the main thread (only when triggered by a signal, it is run in the new thread)
+	QMetaObject::invokeMethod(this, "generatePreviewImpl", Q_ARG(bool, templateChanged));
+}
+
+void TikzPreviewGenerator::generatePreviewImpl(bool templateChanged)
+{
+	m_memberLock.lock();
+	// Each time the tikz code is edited TikzPreviewController->regeneratePreview()
+	// is run, which runs generatePreview(false). This is OK in all cases, except
+	// at startup, because then the template is not yet copied to the temporary
+	// directory, so in order to make this happen, m_templateChanged should be
+	// set to true.
+	if (m_firstRun)
+	{
+		m_templateChanged = true;
+		m_firstRun = false;
+	}
+	else
+		m_templateChanged = templateChanged;
+	m_tikzCode = m_parent->tikzCode();
+	m_runFailed = false;
+	m_memberLock.unlock();
+	createPreview();
 }
 
 /***************************************************************************/
@@ -315,20 +311,15 @@ void TikzPreviewGenerator::createTempLatexFile()
 {
 	const QString inputTikzCode = "\\input{" + m_tikzFileBaseName + ".pgf}";
 
-#ifdef KTIKZ_USE_KDE
-	KSaveFile tikzTexFile(m_tikzFileBaseName + ".tex");
+	File tikzTexFile(m_tikzFileBaseName + ".tex", File::WriteOnly);
 	if (!tikzTexFile.open())
-#else
-	QFile tikzTexFile(m_tikzFileBaseName + ".tex");
-	if (!tikzTexFile.open(QIODevice::WriteOnly | QIODevice::Text))
-#endif
 	{
 //		KMessageBox::error(this, i18nc("@info", "Cannot write file <filename>%1</filename>:<nl/><message>%2</message>", fileName, file.errorString()), i18nc("@title:window", "File Save Error"));
-		qDebug() << "Cannot write file " + m_tikzFileBaseName + ".tex (" + qPrintable(QFileInfo(tikzTexFile).absoluteFilePath()) + "):\n" + tikzTexFile.errorString();
+		qDebug() << "Cannot write file " + m_tikzFileBaseName + ".tex (" + qPrintable(QFileInfo(*tikzTexFile.file()).absoluteFilePath()) + "):\n" + tikzTexFile.errorString();
 		return;
 	}
 
-	QTextStream tikzStream(&tikzTexFile);
+	QTextStream tikzStream(tikzTexFile.file());
 
 	QFile templateFile(m_templateFileName);
 #ifdef KTIKZ_USE_KDE
@@ -337,8 +328,8 @@ void TikzPreviewGenerator::createTempLatexFile()
 #else
 	if (QFileInfo(templateFile).isFile()
 #endif
-	    && templateFile.open(QIODevice::ReadOnly | QIODevice::Text) // if user-specified template file is readable
-	    && !m_tikzReplaceText.isEmpty())
+	        && templateFile.open(QIODevice::ReadOnly | QIODevice::Text) // if user-specified template file is readable
+	        && !m_tikzReplaceText.isEmpty())
 	{
 		QTextStream templateFileStream(&templateFile);
 		QString templateLine;
@@ -356,27 +347,24 @@ void TikzPreviewGenerator::createTempLatexFile()
 	else // use our own template
 	{
 		tikzStream << "\\documentclass[12pt]{article}\n"
-		    "\\usepackage{tikz}\n"
-		    "\\usepackage{pgf}\n"
-		    "\\usepackage[active,pdftex,tightpage]{preview}\n"
-		    "\\PreviewEnvironment[]{tikzpicture}\n"
-		    "\\PreviewEnvironment[]{pgfpicture}\n"
-			"\\begin{document}\n"
-			+ inputTikzCode + "\n"
-			"\\end{document}\n";
+		              "\\usepackage{tikz}\n"
+		              "\\usepackage{pgf}\n"
+		              "\\usepackage[active,pdftex,tightpage]{preview}\n"
+		              "\\PreviewEnvironment[]{tikzpicture}\n"
+		              "\\PreviewEnvironment[]{pgfpicture}\n"
+		              "\\begin{document}\n"
+		              + inputTikzCode + "\n"
+		              "\\end{document}\n";
 //		m_templateStartLineNumber = 7;
 	}
 
 	tikzStream.flush();
 
-#ifdef KTIKZ_USE_KDE
-	if (!tikzTexFile.finalize())
+	if (!tikzTexFile.close())
 	{
 //		KMessageBox::error(this, i18nc("@info", "Cannot write file <filename>%1</filename>:<nl/><message>%2</message>", fileName, file.errorString()), i18nc("@title:window", "File Save Error"));
-		qDebug() << "Cannot write file " + m_tikzFileBaseName + ".tex (" + qPrintable(QFileInfo(tikzTexFile).absoluteFilePath()) + "):\n" + tikzTexFile.errorString();
+		qDebug() << "Cannot write file " + m_tikzFileBaseName + ".tex (" + qPrintable(QFileInfo(*tikzTexFile.file()).absoluteFilePath()) + "):\n" + tikzTexFile.errorString();
 	}
-#endif
-	tikzTexFile.close();
 
 	qDebug() << "latex code written to:" << m_tikzFileBaseName + ".tex";
 }
@@ -392,31 +380,23 @@ void TikzPreviewGenerator::createTempTikzFile()
 		m_templateChanged = false;
 	}
 
-#ifdef KTIKZ_USE_KDE
-	KSaveFile tikzFile(m_tikzFileBaseName + ".pgf");
+	File tikzFile(m_tikzFileBaseName + ".pgf", File::WriteOnly);
 	if (!tikzFile.open())
-#else
-	QFile tikzFile(m_tikzFileBaseName + ".pgf");
-	if (!tikzFile.open(QIODevice::WriteOnly | QIODevice::Text))
-#endif
 	{
 //		KMessageBox::error(this, i18nc("@info", "Cannot write file <filename>%1</filename>:<nl/><message>%2</message>", fileName, file.errorString()), i18nc("@title:window", "File Save Error"));
-		qDebug() << "Cannot write file " + m_tikzFileBaseName + ".pgf (" + qPrintable(QFileInfo(tikzFile).absoluteFilePath()) + "):\n" + tikzFile.errorString();
+		qDebug() << "Cannot write file " + m_tikzFileBaseName + ".pgf (" + qPrintable(QFileInfo(*tikzFile.file()).absoluteFilePath()) + "):\n" + tikzFile.errorString();
 		return;
 	}
 
-	QTextStream tikzStream(&tikzFile);
+	QTextStream tikzStream(tikzFile.file());
 	tikzStream << m_tikzCode << endl;
 	tikzStream.flush();
 
-#ifdef KTIKZ_USE_KDE
-	if (!tikzFile.finalize())
+	if (!tikzFile.close())
 	{
 //		KMessageBox::error(this, i18nc("@info", "Cannot write file <filename>%1</filename>:<nl/><message>%2</message>", fileName, file.errorString()), i18nc("@title:window", "File Save Error"));
-		qDebug() << "Cannot write file " + m_tikzFileBaseName + ".pgf (" + qPrintable(QFileInfo(tikzFile).absoluteFilePath()) + "):\n" + tikzFile.errorString();
+		qDebug() << "Cannot write file " + m_tikzFileBaseName + ".pgf (" + qPrintable(QFileInfo(*tikzFile.file()).absoluteFilePath()) + "):\n" + tikzFile.errorString();
 	}
-#endif
-	tikzFile.close();
 
 	qDebug() << "tikz code written to:" << m_tikzFileBaseName + ".pgf";
 }
@@ -431,22 +411,30 @@ void TikzPreviewGenerator::addToLatexSearchPath(const QString &path)
 	const QChar pathSeparator = ':';
 #endif
 
-#if QT_VERSION >= 0x040600
-	m_processEnvironment = QProcessEnvironment::systemEnvironment();
-	m_processEnvironment.insert("TEXINPUTS", path + pathSeparator + m_processEnvironment.value("TEXINPUTS"));
+	const QMutexLocker lock(&m_memberLock);
+	const QString texinputsValue = m_processEnvironment.value("TEXINPUTS");
+	const QString pathWithSeparator = path + pathSeparator;
+	if (!texinputsValue.contains(pathWithSeparator))
+		m_processEnvironment.insert("TEXINPUTS", pathWithSeparator + texinputsValue);
+}
+
+void TikzPreviewGenerator::removeFromLatexSearchPath(const QString &path)
+{
+#ifdef Q_OS_WIN
+	const QChar pathSeparator = ';';
 #else
-	m_processEnvironment = QProcess::systemEnvironment();
-	QRegExp rx("^TEXINPUTS=(.*)", Qt::CaseInsensitive);
-	const int num = m_processEnvironment.indexOf(rx);
-	if (num >= 0)
-		m_processEnvironment[num].replace(rx, "TEXINPUTS=" + path + pathSeparator + "\\1");
-	else
-		m_processEnvironment << "TEXINPUTS=" + path + pathSeparator;
+	const QChar pathSeparator = ':';
 #endif
+
+	const QMutexLocker lock(&m_memberLock);
+	QString texinputsValue = m_processEnvironment.value("TEXINPUTS");
+	const QString pathWithSeparator = path + pathSeparator;
+	if (texinputsValue.contains(pathWithSeparator))
+		m_processEnvironment.insert("TEXINPUTS", texinputsValue.remove(pathWithSeparator));
 }
 
 bool TikzPreviewGenerator::runProcess(const QString &name, const QString &command,
-    const QStringList &arguments, const QString &workingDir)
+                                      const QStringList &arguments, const QString &workingDir)
 {
 	m_memberLock.lock();
 	m_process = new QProcess;
@@ -454,21 +442,13 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 	if (!workingDir.isEmpty())
 		m_process->setWorkingDirectory(workingDir);
 
-	if (!m_templateFileName.isEmpty())
-	{
-		const QFileInfo templateFileInfo(m_templateFileName);
-		addToLatexSearchPath(templateFileInfo.absolutePath());
-#if QT_VERSION >= 0x040600
-		m_process->setProcessEnvironment(m_processEnvironment);
-#else
-		m_process->setEnvironment(m_processEnvironment);
-#endif
-	}
+	m_process->setProcessEnvironment(m_processEnvironment);
 
 	m_process->start(command, arguments);
-	m_memberLock.unlock();  // we must unlock here so that the signal emitted above can reach the main thread
+	m_memberLock.unlock();
 	emit processRunning(true);
-	if (!m_process->waitForStarted(1000)) m_runFailed = true;
+	if (!m_process->waitForStarted(1000))
+		m_runFailed = true;
 	qDebug() << "starting" << command + ' ' + arguments.join(" ");
 
 	QByteArray buffer;
@@ -493,6 +473,11 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 		m_shortLogText = '[' + name + "] " + tr("Process aborted.");
 		emit showErrorMessage(m_shortLogText);
 		m_runFailed = true;
+	}
+	else if (m_runFailed) // if the process could not be started
+	{
+		m_shortLogText = '[' + name + "] " + tr("Error: the process could not be started", "info process");
+		emit showErrorMessage(m_shortLogText);
 	}
 	else if (m_process->exitCode() == 0)
 	{
@@ -552,9 +537,9 @@ bool TikzPreviewGenerator::generatePdfFile()
 	if (m_useShellEscaping)
 		latexArguments << "-shell-escape";
 	latexArguments << "-halt-on-error" << "-file-line-error"
-	    << "-interaction" << "nonstopmode" << "-output-directory"
-	    << QFileInfo(m_tikzFileBaseName + ".tex").absolutePath()
-	    << m_tikzFileBaseName + ".tex";
+	               << "-interaction" << "nonstopmode" << "-output-directory"
+	               << QFileInfo(m_tikzFileBaseName + ".tex").absolutePath()
+	               << m_tikzFileBaseName + ".tex";
 
 	m_shortLogText = "[LaTeX] " + tr("Running...");
 	emit shortLogUpdated(m_shortLogText, m_runFailed);

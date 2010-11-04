@@ -22,7 +22,7 @@
 #include "../common/utils/fontdialog.h"
 
 ConfigEditorWidget::ConfigEditorWidget(QWidget *parent)
-    : QWidget(parent)
+	: QWidget(parent)
 {
 	ui.setupUi(this);
 

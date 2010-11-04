@@ -32,8 +32,10 @@ set(ktikz_SRCS
 	../common/tikzpreviewthread.cpp
 	../common/tikzpreviewcontroller.cpp
 	../common/tikzpreviewgenerator.cpp
+	../common/tikztemporaryfilecontroller.cpp
 	../common/utils/action.cpp
 	../common/utils/colorbutton.cpp
+	../common/utils/file.cpp
 	../common/utils/filedialog.cpp
 	../common/utils/lineedit.cpp
 	../common/utils/recentfilesaction.cpp

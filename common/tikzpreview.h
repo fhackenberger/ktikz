@@ -19,16 +19,15 @@
 #ifndef KTIKZ_TIKZPREVIEW_H
 #define KTIKZ_TIKZPREVIEW_H
 
-#include <QGraphicsView>
+#include <QtGui/QGraphicsView>
 
-class QComboBox;
 class QImage;
 class QLabel;
 class QToolBar;
 
 namespace Poppler
 {
-	class Document;
+class Document;
 }
 
 class Action;

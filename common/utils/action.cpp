@@ -25,21 +25,21 @@
 KActionCollection *Action::s_actionCollection = 0;
 
 Action::Action(QObject *parent, const QString &name)
-		: KAction(parent)
+	: KAction(parent)
 {
 	if (s_actionCollection && !name.isEmpty())
 		s_actionCollection->addAction(name, this);
 }
 
 Action::Action(const QString &text, QObject *parent, const QString &name)
-		: KAction(text, parent)
+	: KAction(text, parent)
 {
 	if (s_actionCollection && !name.isEmpty())
 		s_actionCollection->addAction(name, this);
 }
 
 Action::Action(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-		: KAction(icon, text, parent)
+	: KAction(icon, text, parent)
 {
 	if (s_actionCollection && !name.isEmpty())
 		s_actionCollection->addAction(name, this);
@@ -56,21 +56,21 @@ void Action::setActionCollection(KActionCollection *actionCollection)
 }
 #else
 Action::Action(QObject *parent, const QString &name)
-		: QAction(parent)
+	: QAction(parent)
 {
 	if (!name.isEmpty())
 		setObjectName(name);
 }
 
 Action::Action(const QString &text, QObject *parent, const QString &name)
-		: QAction(text, parent)
+	: QAction(text, parent)
 {
 	if (!name.isEmpty())
 		setObjectName(name);
 }
 
 Action::Action(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-		: QAction(icon, text, parent)
+	: QAction(icon, text, parent)
 {
 	if (!name.isEmpty())
 		setObjectName(name);
