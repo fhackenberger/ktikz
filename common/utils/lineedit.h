@@ -23,7 +23,7 @@ public:
 	LineEdit(QWidget *parent = 0);
 };
 #else
-#include <QLineEdit>
+#include <QtGui/QLineEdit>
 
 class QToolButton;
 

@@ -39,10 +39,10 @@ public:
 	static void setActionCollection(KActionCollection *actionCollection);
 
 private:
-	static KActionCollection *m_actionCollection;
+	static KActionCollection *s_actionCollection;
 };
 #else
-#include <QAction>
+#include <QtGui/QAction>
 
 class Action : public QAction
 {

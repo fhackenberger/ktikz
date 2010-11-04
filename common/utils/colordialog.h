@@ -37,7 +37,7 @@ public:
 	}
 };
 #else
-#include <QColorDialog>
+#include <QtGui/QColorDialog>
 
 class ColorDialog : public QColorDialog
 {

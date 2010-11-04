@@ -225,7 +225,7 @@
            <string>&lt;p&gt;Browse to the LaTeX executable.&lt;/p&gt;</string>
           </property>
           <property name="icon">
-           <iconset resource="application.qrc">
+           <iconset resource="qtikz.qrc">
             <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
           </property>
          </widget>
@@ -269,7 +269,7 @@
            <string>&lt;p&gt;Browse to the pdftops executable.&lt;/p&gt;</string>
           </property>
           <property name="icon">
-           <iconset resource="application.qrc">
+           <iconset resource="qtikz.qrc">
             <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
           </property>
          </widget>
@@ -348,7 +348,7 @@
            <string>&lt;p&gt;Browse to the editor executable.&lt;/p&gt;</string>
           </property>
           <property name="icon">
-           <iconset resource="application.qrc">
+           <iconset resource="qtikz.qrc">
             <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
           </property>
          </widget>
@@ -407,7 +407,7 @@
            <string>&lt;p&gt;Browse to the file containing the TikZ documentation.&lt;/p&gt;</string>
           </property>
           <property name="icon">
-           <iconset resource="application.qrc">
+           <iconset resource="qtikz.qrc">
             <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
           </property>
          </widget>
@@ -424,11 +424,11 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="whatsThis">
-           <string>&lt;p&gt;Press this button to search the file containing the TikZ documentation in the TeX directory structure using kpsewhich.&lt;/p&gt;</string>
-          </property>
           <property name="toolTip">
            <string>Search in TeX directory structure</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Press this button to search the file containing the TikZ documentation in the TeX directory structure using kpsewhich.&lt;/p&gt;</string>
           </property>
           <property name="text">
            <string>&amp;Search</string>
@@ -476,7 +476,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="application.qrc"/>
+  <include location="qtikz.qrc"/>
  </resources>
  <connections/>
  <buttongroups>

@@ -30,7 +30,7 @@ public:
 	Url(const KUrl &url);
 };
 #else
-#include <QUrl>
+#include <QtCore/QUrl>
 
 class Url : public QUrl
 {

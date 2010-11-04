@@ -17,7 +17,7 @@ Select the "End User" install mode and the "MinGW" compiler mode.  In the
 the poppler libs will be included automatically).
 
 3. Copy the DLL files of poppler and its dependencies from the bin directory
-inside the "KDE for Windows" installation directory to the poppler-win32
+inside the "KDE for Windows" installation directory to the win32/poppler
 directory in the qtikz source directory.  The following DLL files must be
 copied:
   iconv.dll
@@ -36,7 +36,7 @@ for compiling or running qtikz.
 
 4. Download the poppler source code from http://poppler.freedesktop.org/ and
 extract the following header files from the downloaded .tar.gz file and put
-them also in the poppler-win32 directory:
+them also in the win32/poppler directory:
   poppler-annotation.h
   poppler-export.h
   poppler-link.h

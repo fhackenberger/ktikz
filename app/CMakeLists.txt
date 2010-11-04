@@ -1,6 +1,4 @@
-set(KTIKZ_DATA_INSTALL_DIR ${DATA_INSTALL_DIR}/ktikz)
-set(KTIKZ_TRANSLATIONS_INSTALL_DIR ${KTIKZ_DATA_INSTALL_DIR}/locale)
-set(KTIKZ_TEMPLATES_INSTALL_DIR ${KTIKZ_DATA_INSTALL_DIR}/templates)
+include(../KtikzConfig.cmake)
 add_definitions(-DKTIKZ_TRANSLATIONS_INSTALL_DIR=\\\"${KTIKZ_TRANSLATIONS_INSTALL_DIR}\\\")
 add_definitions(-DKTIKZ_TEMPLATES_INSTALL_DIR=\\\"${KTIKZ_TEMPLATES_INSTALL_DIR}\\\")
 
@@ -58,22 +56,16 @@ qt4_wrap_ui(ktikz_UI_FILES
 kde4_add_kcfg_files(ktikz_SRCS ../common/settings.kcfgc)
 qt4_add_resources(ktikz_SRCS ktikz.qrc)
 
-file(GLOB ktikz_TS_FILES qtikz_*.ts)
-qt4_add_translation(ktikz_QM_FILES ${ktikz_TS_FILES})
-
 kde4_add_app_icon(ktikz_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/icons/hi*-apps-ktikz.png") # add icons for win32 and mac; this command assumes that the first arg is of the form <appname>_SRCS
 
 # dirty hack: use qt4_wrap_ui to let Qt translate the .ui files instead of KDE
-#kde4_add_executable(ktikz ${ktikz_SRCS} ${ktikz_QM_FILES})
-kde4_add_executable(ktikz ${ktikz_SRCS} ${ktikz_UI_FILES} ${ktikz_QM_FILES})
+#kde4_add_executable(ktikz ${ktikz_SRCS})
+kde4_add_executable(ktikz ${ktikz_SRCS} ${ktikz_UI_FILES})
 target_link_libraries(ktikz ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${POPPLER_QT4_LIBRARIES})
 
 install(TARGETS ktikz DESTINATION ${BIN_INSTALL_DIR})
 install(FILES ktikzui.rc DESTINATION ${DATA_INSTALL_DIR}/ktikz)
 install(FILES ../common/ktikz.kcfg DESTINATION ${KCFG_INSTALL_DIR})
-install(FILES ktikz.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES ${ktikz_QM_FILES} DESTINATION ${KTIKZ_TRANSLATIONS_INSTALL_DIR})
-install(FILES ../examples/template_example.pgs ../examples/template_example2.pgs ../examples/beamer-example-template.pgs DESTINATION ${KTIKZ_TEMPLATES_INSTALL_DIR})
 
 add_subdirectory(icons)
 

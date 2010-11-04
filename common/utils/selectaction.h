@@ -34,7 +34,7 @@ public:
 	SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = 0);
 };
 #else
-#include <QWidgetAction>
+#include <QtGui/QWidgetAction>
 
 class QComboBox;
 

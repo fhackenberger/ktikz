@@ -22,55 +22,55 @@
 #ifdef KTIKZ_USE_KDE
 #include <KActionCollection>
 
-KActionCollection *Action::m_actionCollection = 0;
+KActionCollection *Action::s_actionCollection = 0;
 
 Action::Action(QObject *parent, const QString &name)
-    : KAction(parent)
+		: KAction(parent)
 {
-	if (m_actionCollection && !name.isEmpty())
-		m_actionCollection->addAction(name, this);
+	if (s_actionCollection && !name.isEmpty())
+		s_actionCollection->addAction(name, this);
 }
 
 Action::Action(const QString &text, QObject *parent, const QString &name)
-    : KAction(text, parent)
+		: KAction(text, parent)
 {
-	if (m_actionCollection && !name.isEmpty())
-		m_actionCollection->addAction(name, this);
+	if (s_actionCollection && !name.isEmpty())
+		s_actionCollection->addAction(name, this);
 }
 
 Action::Action(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-    : KAction(icon, text, parent)
+		: KAction(icon, text, parent)
 {
-	if (m_actionCollection && !name.isEmpty())
-		m_actionCollection->addAction(name, this);
+	if (s_actionCollection && !name.isEmpty())
+		s_actionCollection->addAction(name, this);
 }
 
 KActionCollection *Action::actionCollection()
 {
-	return m_actionCollection;
+	return s_actionCollection;
 }
 
 void Action::setActionCollection(KActionCollection *actionCollection)
 {
-	m_actionCollection = actionCollection;
+	s_actionCollection = actionCollection;
 }
 #else
 Action::Action(QObject *parent, const QString &name)
-    : QAction(parent)
+		: QAction(parent)
 {
 	if (!name.isEmpty())
 		setObjectName(name);
 }
 
 Action::Action(const QString &text, QObject *parent, const QString &name)
-    : QAction(text, parent)
+		: QAction(text, parent)
 {
 	if (!name.isEmpty())
 		setObjectName(name);
 }
 
 Action::Action(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-    : QAction(icon, text, parent)
+		: QAction(icon, text, parent)
 {
 	if (!name.isEmpty())
 		setObjectName(name);

@@ -27,7 +27,7 @@
 #include "ktikzapplication.h"
 
 AssistantController::AssistantController()
-    : m_process(0)
+		: m_process(0)
 {
 }
 
@@ -55,25 +55,25 @@ bool AssistantController::startAssistant()
 		app += QLatin1String("Assistant.app/Contents/MacOS/Assistant");
 #endif
 
-		const QString ktikzDocFile = QLatin1String(KTIKZ_DOCUMENTATION_INSTALL_DIR) + QLatin1String("/qtikz.qhc");
+		const QString ktikzDocFile = QString::fromLocal8Bit(KTIKZ_DOCUMENTATION_INSTALL_DIR) + QLatin1String("/qtikz.qhc");
 		if (!QFileInfo(ktikzDocFile).isReadable())
 		{
 			QMessageBox::critical(0, KtikzApplication::applicationName(),
-			    QObject::tr("Unable to open the help file (%1)").arg(ktikzDocFile));
+			                      QObject::tr("Unable to open the help file (%1)").arg(ktikzDocFile));
 			return false;
 		}
 
 		QStringList args;
 		args << QLatin1String("-collectionFile")
-		    << ktikzDocFile
-		    << QLatin1String("-enableRemoteControl");
+		     << ktikzDocFile
+		     << QLatin1String("-enableRemoteControl");
 
 		m_process->start(app, args);
 
 		if (!m_process->waitForStarted())
 		{
 			QMessageBox::critical(0, KtikzApplication::applicationName(),
-			    QObject::tr("Unable to launch Qt Assistant (%1)").arg(app));
+			                      QObject::tr("Unable to launch Qt Assistant (%1)").arg(app));
 			return false;
 		}
 	}

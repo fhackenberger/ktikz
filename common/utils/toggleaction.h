@@ -34,7 +34,7 @@ public:
 	ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = 0);
 };
 #else
-#include <QAction>
+#include <QtGui/QAction>
 
 class ToggleAction : public QAction
 {

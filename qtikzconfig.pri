@@ -12,20 +12,23 @@
 PREFIX = /usr
 
 # install binary here:
-#BINDIR = $${PREFIX}/bin
+#BIN_INSTALL_DIR = $${PREFIX}/bin
 
 # install data files (translation files, icons, example files) here:
-#RESOURCESDIR = $${PREFIX}/share/qtikz
+#RESOURCES_INSTALL_DIR = $${PREFIX}/share/qtikz
 
 # install desktop file here (*nix only):
-#DESKTOPDIR = $$(HOME)/.local/share/applications
-DESKTOPDIR = $${PREFIX}/share/applications
+#DESKTOP_INSTALL_DIR = $$(HOME)/.local/share/applications
+DESKTOP_INSTALL_DIR = $${PREFIX}/share/applications
 
 # install mimetype here:
-#MIMEDIR = /usr/share/mime/packages
+#MIME_INSTALL_DIR = /usr/share/mime/packages
+
+#install documentation here:
+#DOCUMENTATION_INSTALL_DIR=$${RESOURCES_INSTALL_DIR}/documentation
 
 # install man page in the man tree located here:
-#MANDIR = $${PREFIX}/share/man
+#MAN_INSTALL_DIR = $${PREFIX}/share/man
 
 # compile in debug mode:
 #CONFIG += debug

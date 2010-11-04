@@ -1,12 +1,11 @@
 # included by ../app/app.pro
 
-include(../conf.pri)
-include(../defaults.pri)
+include(../qtikzconfig.pri)
+include(../qtikzdefaults.pri)
+include(../qtikzmacros.pri)
 
 DOCUMENTATION_SOURCE_DIR = $${_PRO_FILE_PWD_}/../doc
-DOCUMENTATION_INSTALL_DIR = $${RESOURCESDIR}/documentation
-
-DEFINES += KTIKZ_DOCUMENTATION_INSTALL_DIR=\\\"$${DOCUMENTATION_INSTALL_DIR}\\\"
+#DOCUMENTATION_INSTALL_DIR = $${RESOURCES_INSTALL_DIR}/documentation
 
 ### Generate and install qhc file
 
@@ -37,7 +36,7 @@ unix:!macx {
 	createman.CONFIG = no_link target_predeps
 	QMAKE_EXTRA_COMPILERS += createman
 
-	man.path = $${MANDIR}/man1
+	man.path = $${MAN_INSTALL_DIR}/man1
 	man.files += $${OUT_PWD}/qtikz.1
 	man.CONFIG += no_check_exist
 	INSTALLS += man

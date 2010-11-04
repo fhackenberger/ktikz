@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Glad Deschrijver                                *
+ *   Copyright (C) 2009, 2010 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -19,9 +19,6 @@
 #include "filedialog.h"
 
 #ifdef KTIKZ_USE_KDE
-#include <KMessageBox>
-#include <KIO/NetAccess>
-
 Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
 {
 	return KFileDialog::getOpenUrl(dir, filter, parent, caption);

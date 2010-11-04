@@ -30,7 +30,7 @@ public:
 	Icon() : KIcon() {}
 };
 #else
-#include <QIcon>
+#include <QtGui/QIcon>
 
 class Icon : public QIcon
 {

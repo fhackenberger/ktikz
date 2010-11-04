@@ -47,7 +47,7 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../app/application.qrc">
+      <iconset resource="../app/qtikz.qrc">
        <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
      </property>
     </widget>
@@ -64,7 +64,7 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../app/application.qrc">
+      <iconset resource="../app/qtikz.qrc">
        <normaloff>:/icons/view-refresh.png</normaloff>:/icons/view-refresh.png</iconset>
      </property>
     </widget>
@@ -85,7 +85,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../app/application.qrc"/>
+  <include location="../app/qtikz.qrc"/>
  </resources>
  <connections/>
 </ui>

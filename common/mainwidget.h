@@ -19,8 +19,8 @@
 #ifndef KTIKZ_MAIN_WIDGET_H
 #define KTIKZ_MAIN_WIDGET_H
 
-#include <QString>
-#include <QWidget>
+#include <QtCore/QString>
+#include <QtGui/QWidget>
 
 #include "utils/url.h"
 

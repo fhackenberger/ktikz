@@ -58,16 +58,14 @@
 #include "../common/utils/action.h"
 
 K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<Part>();)
-K_EXPORT_PLUGIN(ktikzPartFactory("ktikz","ktikz") )
+K_EXPORT_PLUGIN(ktikzPartFactory("ktikz", "ktikz"))
 
 Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
-    : KParts::ReadOnlyPart(parent)
+		: KParts::ReadOnlyPart(parent)
 {
 	Q_UNUSED(args);
 
 	m_configDialog = 0;
-
-//	setObjectName("ktikz#");
 
 	Action::setActionCollection(actionCollection());
 	m_tikzPreviewController = new TikzPreviewController(this);
@@ -108,7 +106,7 @@ QWidget *Part::widget()
 KAboutData *Part::createAboutData()
 {
 	KAboutData *aboutData = new KAboutData("ktikzpart", "ktikz",
-	    ki18n("KTikZ KPart"), APPVERSION);
+	                                       ki18n("KTikZ KPart"), APPVERSION);
 	aboutData->setShortDescription(ki18n("A TikZ Viewer"));
 	aboutData->setLicense(KAboutData::License_GPL_V2);
 	aboutData->setCopyrightStatement(ki18n("Copyright 2007-2010 Florian Hackenberger, Glad Deschrijver"));
@@ -178,12 +176,12 @@ void Part::saveAs()
 
 	const KMimeType::Ptr mimeType = KMimeType::mimeType("text/x-pgf");
 	const QString tikzFilter = (mimeType) ?
-	    mimeType->patterns().join(" ") + '|' + mimeType->comment()
-	    : "*.pgf *.tikz *.tex|" + i18nc("@item:inlistbox filter", "TikZ files");
+	                           mimeType->patterns().join(" ") + '|' + mimeType->comment()
+	                           : "*.pgf *.tikz *.tex|" + i18nc("@item:inlistbox filter", "TikZ files");
 	const KUrl dstUrl = KFileDialog::getSaveUrl(srcUrl,
-	    tikzFilter + "\n*|" + i18nc("@item:inlistbox filter", "All files"),
-	    widget(), i18nc("@title:window", "Save TikZ Source File As"),
-	    KFileDialog::ConfirmOverwrite);
+	                    tikzFilter + "\n*|" + i18nc("@item:inlistbox filter", "All files"),
+	                    widget(), i18nc("@title:window", "Save TikZ Source File As"),
+	                    KFileDialog::ConfirmOverwrite);
 	if (!dstUrl.isValid())
 		return;
 

@@ -37,7 +37,7 @@ public:
 	}
 };
 #else
-#include <QFontDialog>
+#include <QtGui/QFontDialog>
 
 class FontDialog : public QFontDialog
 {

@@ -15,7 +15,7 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="application.qrc">
+      <iconset resource="qtikz.qrc">
        <normaloff>:/icons/window-close.png</normaloff>:/icons/window-close.png</iconset>
      </property>
     </widget>
@@ -89,7 +89,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="application.qrc">
+        <iconset resource="qtikz.qrc">
          <normaloff>:/icons/go-up.png</normaloff>:/icons/go-up.png</iconset>
        </property>
        <property name="checkable">
@@ -106,7 +106,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="application.qrc">
+        <iconset resource="qtikz.qrc">
          <normaloff>:/icons/go-down.png</normaloff>:/icons/go-down.png</iconset>
        </property>
        <property name="checkable">
@@ -147,7 +147,7 @@
   <tabstop>pushButtonReplace</tabstop>
  </tabstops>
  <resources>
-  <include location="application.qrc"/>
+  <include location="qtikz.qrc"/>
  </resources>
  <connections/>
 </ui>

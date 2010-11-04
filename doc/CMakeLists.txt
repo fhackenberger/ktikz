@@ -1,8 +1,14 @@
+### Install KDE Help Center documentation
+
 kde4_create_handbook(index.docbook
 	INSTALL_DESTINATION ${HTML_INSTALL_DIR}/en
 	SUBDIR ktikz)
 
+### Install man files
+
 install(FILES ktikz.1 DESTINATION ${MAN_INSTALL_DIR}/man1)
+
+### Remove installation directories
 
 add_custom_target(uninstalldirs_doc)
 add_custom_command(TARGET uninstalldirs_doc

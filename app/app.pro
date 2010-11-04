@@ -1,6 +1,6 @@
-include(../conf.pri)
-include(../defaults.pri)
-include(../macros.pri)
+include(../qtikzconfig.pri)
+include(../qtikzdefaults.pri)
+include(../qtikzmacros.pri)
 
 TEMPLATE = app
 CONFIG += warn_on \
@@ -18,8 +18,9 @@ TEMPLATESUBDIR = templates
 DEFINES += ORGNAME=\\\"$${ORGNAME}\\\"
 DEFINES += APPNAME=\\\"$${APPNAME}\\\"
 DEFINES += APPVERSION=\\\"$${APPVERSION}\\\"
-DEFINES += KTIKZ_TRANSLATIONS_INSTALL_DIR=\\\"$${RESOURCESDIR}/$${LOCALESUBDIR}\\\"
-DEFINES += KTIKZ_TEMPLATES_INSTALL_DIR=\\\"$${RESOURCESDIR}/$${TEMPLATESUBDIR}\\\"
+DEFINES += KTIKZ_TRANSLATIONS_INSTALL_DIR=\\\"$${RESOURCES_INSTALL_DIR}/$${LOCALESUBDIR}\\\"
+DEFINES += KTIKZ_TEMPLATES_INSTALL_DIR=\\\"$${RESOURCES_INSTALL_DIR}/$${TEMPLATESUBDIR}\\\"
+DEFINES += KTIKZ_DOCUMENTATION_INSTALL_DIR=\\\"$${DOCUMENTATION_INSTALL_DIR}\\\"
 DEFINES += KTIKZ_TIKZ_DOCUMENTATION_DEFAULT=\\\"$${TIKZ_DOCUMENTATION_DEFAULT}\\\"
 DEFINES += KTIKZ_TEMPLATE_EDITOR_DEFAULT=\\\"$${TEMPLATE_EDITOR_DEFAULT}\\\"
 
@@ -81,107 +82,25 @@ HEADERS += $$headerFiles($$SOURCES) \
 	../common/utils/fontdialog.h \
 	../common/utils/icon.h
 RESOURCES = qtikz.qrc
-TRANSLATIONS = qtikz_de.ts qtikz_es.ts qtikz_fr.ts
 
 ### Output
 
 TARGET = qtikz
-target.path = $${BINDIR}
+target.path = $${BIN_INSTALL_DIR}
 INSTALLS += target
-
-### Desktop file
-
-unix:!macx {
-	ICONDIR = $$replace(RESOURCESDIR, "/", "\\/")
-	DESKTOPTEMPLATES = qtikz.desktop.template
-
-	createdesktop.name = create desktop file
-	createdesktop.input = DESKTOPTEMPLATES
-	createdesktop.output = ${QMAKE_FILE_BASE}
-	createdesktop.commands = sed -e \"s/Icon=/Icon=$${ICONDIR}\\/qtikz-128.png/\" ${QMAKE_FILE_IN} > ${QMAKE_FILE_OUT}
-	createdesktop.CONFIG = no_link target_predeps
-	QMAKE_EXTRA_COMPILERS += createdesktop
-
-	desktop.path = $${DESKTOPDIR}
-	desktop.files += $${OUT_PWD}/qtikz.desktop
-	desktop.CONFIG += no_check_exist
-	INSTALLS += desktop
-
-	resources.files += icons/qtikz-128.png
-}
 
 ### Translations
 
-include(translations.pri)
-
-LOCALEDIR = $${LOCALESUBDIR}/ # the function qmFiles assumes that this variable ends with / or is empty
-
-!isEmpty(TRANSLATIONS) {
-	updateqm.name = lrelease ${QMAKE_FILE_IN}
-	updateqm.input = TRANSLATIONS
-	updateqm.output = $${LOCALEDIR}${QMAKE_FILE_BASE}.qm
-	updateqm.commands = $${LRELEASECOMMAND} -silent ${QMAKE_FILE_IN} -qm ${QMAKE_FILE_OUT}
-	updateqm.CONFIG = no_link target_predeps
-	QMAKE_EXTRA_COMPILERS += updateqm
-
-	#translations.path = $${RESOURCESDIR}
-	#translations.files += $${LOCALESUBDIR}
-	translations.path = $${RESOURCESDIR}/$${LOCALESUBDIR}
-	translations.files += $$qmFiles($${TRANSLATIONS})
-	translations.CONFIG += no_check_exist
-	INSTALLS += translations
-}
+include(../translations/translations.pri)
 
 ### Documentation
 
 include(../doc/doc.pri)
 
-### Templates
+### Desktop file and templates (do this after translations and documentation, because in the following $${RESOURCES_INSTALL_DIR} is removed if empty)
 
-templates.path = $${RESOURCESDIR}/$${TEMPLATESUBDIR}
-templates.files += ../examples/template_example.pgs \
-	../examples/template_example2.pgs \
-	../examples/beamer-example-template.pgs
-INSTALLS += templates
-
-### Resources (install resources here so that "make uninstall" tries and succeeds to remove $${RESOURCESDIR} after everything inside it has been uninstalled)
-
-resources.path = $${RESOURCESDIR}
-INSTALLS += resources
-
-### Mimetype
-
-unix:!macx {
-	mimetype.path = $${MIMEDIR}
-	mimetype.files += ../common/qtikz.xml
-	INSTALLS += mimetype
-}
+include(../data/data.pri)
 
 ### Install icon and dll files
 
-win32 {
-	RC_FILE = qtikz.rc
-	icon.files = icon/qtikz.ico
-	icon.path = $${PREFIX}
-	INSTALLS += icon
-
-	dlls.path = $${PREFIX}
-	dlls.files += $${_PRO_FILE_PWD_}/../poppler-win32/*.dll
-	debug {
-		dlls.files += $$[QT_INSTALL_BINS]/QtCored4.dll \
-			$$[QT_INSTALL_BINS]/QtGuid4.dll \
-			$$[QT_INSTALL_BINS]/QtXmld4.dll
-	}
-	dlls.files += $$[QT_INSTALL_BINS]/assistant.exe \
-		$$[QT_INSTALL_BINS]/QtCore4.dll \
-		$$[QT_INSTALL_BINS]/QtGui4.dll \
-		$$[QT_INSTALL_BINS]/QtXml4.dll \
-		$$[QT_INSTALL_BINS]/mingwm10.dll \
-		$$[QT_INSTALL_BINS]/libgcc_s_dw2-1.dll
-	INSTALLS += dlls
-
-	installer.path = $${PREFIX}
-	installer.files = ../qtikz.nsi
-	installer.extra = "echo !define VERSION \"$${APPVERSION}\" > $${PREFIX}/qtikz.nsh"
-	INSTALLS += installer
-}
+include(../win32/win32.pri)

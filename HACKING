@@ -4,12 +4,12 @@ Generating the translation source files:
 ----------------------------------------
 
 When you add/change/remove translatable strings in the C++ code, you must
-recreate the translation source files (app/*.ts and po/*.po).  You must build
-the Qt-only version as described in INSTALL (but don't do 'make install' yet).
-Then run
+recreate the translation source files (translations/*/*.ts and
+translations/*/*.po).  You must build the Qt-only version as described in
+INSTALL (but don't do 'make install' yet).  Then run
   make ts
 to generate an updated version of the .ts files.  Note that running
-  lupdate app.pro
+  lupdate app.pro -ts ../translations/*/qtikz_*.ts
 in the app directory is only sufficient if you have not changed the file
 app/tikzcommands.xml (if you have changed this file, 'make ts' must be run
 so that the translatable strings in this file are also added to the .ts files).
@@ -17,10 +17,11 @@ so that the translatable strings in this file are also added to the .ts files).
 If you build the KDE version, the above steps must also be accomplished, but
 additionally you must run
   ./extract_messages.sh
-in the po directory to get the strings that only appear in the KDE version.
+in the translations directory to get the strings that only appear in the KDE
+version.
 
-The app/*.ts files can be edited using Qt Linguist, the po/*.po files can be
-edited using KDE's Lokalize.
+The translations/*/*.ts files can be edited using Qt Linguist, the
+translations/*/*.po files can be edited using KDE's Lokalize.
 
 After editing the translation source files, they will be compiled and installed
 when you run (both for the Qt-only and the KDE version):
