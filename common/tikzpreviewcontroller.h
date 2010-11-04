@@ -76,6 +76,7 @@ private slots:
 
 signals:
 	void logUpdated(const QString &logText, bool runFailed);
+	void showMouseCoordinates(qreal x, qreal y);
 
 private:
 	void createActions();

@@ -1,7 +1,7 @@
 project(ktikz)
 cmake_minimum_required(VERSION 2.6)
 
-set(KTIKZ_VERSION "0.10")
+set(KTIKZ_VERSION "0.11")
 
 add_definitions(-DORGNAME=\"Florian_Hackenberger\" -DAPPNAME=\"ktikz\")
 add_definitions(-DAPPVERSION=\"${KTIKZ_VERSION}\")

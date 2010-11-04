@@ -181,6 +181,8 @@ MainWindow::MainWindow()
 
 	connect(m_tikzPreviewController, SIGNAL(logUpdated(QString,bool)),
 	        m_logTextEdit, SLOT(logUpdated(QString,bool)));
+	connect(m_tikzPreviewController, SIGNAL(showMouseCoordinates(qreal,qreal)),
+	        this, SLOT(showMouseCoordinates(qreal,qreal)));
 
 	readSettings(); // must be run after defining tikzController and tikzHighlighter, and after creating the toolbars, and after the connects
 
@@ -639,6 +641,10 @@ void MainWindow::createStatusBar()
 	m_positionLabel->setMinimumWidth(150);
 	status->addPermanentWidget(m_positionLabel, 0);
 
+	m_mouseCoordinatesLabel = new QLabel(status);
+	m_mouseCoordinatesLabel->setMinimumWidth(300);
+	status->addPermanentWidget(m_mouseCoordinatesLabel, 0);
+
 	status->showMessage(tr("Ready"));
 }
 
@@ -895,6 +901,11 @@ QString MainWindow::strippedName(const Url &url) const
 void MainWindow::showCursorPosition(int row, int col)
 {
 	m_positionLabel->setText(tr("Line: %1\tCol: %2", "@info:status").arg(QString::number(row)).arg(QString::number(col)));
+}
+
+void MainWindow::showMouseCoordinates(qreal x, qreal y)
+{
+	m_mouseCoordinatesLabel->setText(tr("Preview: x = %1\ty = %2", "@info:status").arg(QString::number(x)).arg(QString::number(y)));
 }
 
 /***************************************************************************/

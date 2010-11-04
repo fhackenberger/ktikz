@@ -53,8 +53,9 @@ TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
 
 	createActions();
 
-	connect(m_tikzPreviewGenerator, SIGNAL(pixmapUpdated(Poppler::Document*)),
-	        m_tikzPreview, SLOT(pixmapUpdated(Poppler::Document*)));
+	qRegisterMetaType<QList<qreal> >("QList<qreal>");
+	connect(m_tikzPreviewGenerator, SIGNAL(pixmapUpdated(Poppler::Document*,QList<qreal>)),
+	        m_tikzPreview, SLOT(pixmapUpdated(Poppler::Document*,QList<qreal>)));
 	connect(m_tikzPreviewGenerator, SIGNAL(showErrorMessage(QString)),
 	        m_tikzPreview, SLOT(showErrorMessage(QString)));
 	connect(m_tikzPreviewGenerator, SIGNAL(setExportActionsEnabled(bool)),
@@ -63,6 +64,8 @@ TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
 	        this, SIGNAL(logUpdated(QString,bool)));
 	connect(m_templateWidget, SIGNAL(fileNameChanged(QString)),
 	        this, SLOT(setTemplateFileAndRegenerate(QString)));
+	connect(m_tikzPreview, SIGNAL(showMouseCoordinates(qreal,qreal)),
+	        this, SIGNAL(showMouseCoordinates(qreal,qreal)));
 
 	m_regenerateTimer = new QTimer(this);
 	m_regenerateTimer->setSingleShot(true);

@@ -51,13 +51,17 @@ public:
 
 public slots:
 	void showPreview(const QImage &tikzImage);
-	void pixmapUpdated(Poppler::Document *tikzPdfDoc);
+	void pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
 	void showErrorMessage(const QString &message);
+
+signals:
+	void showMouseCoordinates(qreal x, qreal y);
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
 	void paintEvent(QPaintEvent *event);
 	void wheelEvent(QWheelEvent *event);
+	void mouseMoveEvent(QMouseEvent *event);
 
 private slots:
 	void setZoomFactor(const QString &zoomFactorText);
@@ -97,6 +101,7 @@ private:
 	bool m_infoWidgetAdded;
 
 	Poppler::Document *m_tikzPdfDoc;
+	QList<qreal> m_tikzCoordinates;
 	int m_currentPage;
 	qreal m_zoomFactor;
 	qreal m_oldZoomFactor;

@@ -53,6 +53,7 @@ TikzPreview::TikzPreview(QWidget *parent)
 	m_tikzPixmapItem = m_tikzScene->addPixmap(QPixmap());
 	setScene(m_tikzScene);
 	setDragMode(QGraphicsView::ScrollHandDrag);
+	m_tikzPixmapItem->setCursor(Qt::CrossCursor);
 	setWhatsThis(tr("<p>Here the preview image of "
 	                "your TikZ code is shown.  You can zoom in and out, and you "
 	                "can scroll the image by dragging it.</p>"));
@@ -427,6 +428,7 @@ void TikzPreview::showPdfPage()
 void TikzPreview::emptyPreview()
 {
 	m_tikzPdfDoc = 0;
+	m_tikzCoordinates.clear();
 	m_tikzPixmapItem->setPixmap(QPixmap());
 	m_tikzPixmapItem->update();
 //	m_infoWidget->setVisible(false);
@@ -439,9 +441,10 @@ void TikzPreview::emptyPreview()
 	m_nextPageAction->setVisible(false);
 }
 
-void TikzPreview::pixmapUpdated(Poppler::Document *tikzPdfDoc)
+void TikzPreview::pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates)
 {
 	m_tikzPdfDoc = tikzPdfDoc;
+	m_tikzCoordinates = tikzCoordinates;
 
 	if (!m_tikzPdfDoc)
 	{
@@ -534,4 +537,27 @@ void TikzPreview::wheelEvent(QWheelEvent *event)
 	}
 	else
 		QGraphicsView::wheelEvent(event);
+}
+
+void TikzPreview::mouseMoveEvent(QMouseEvent *event)
+{
+	const int offset = 6 * m_currentPage;
+	if (m_tikzCoordinates.length() >= offset + 6)
+	{
+		const qreal unitX = m_tikzCoordinates.at(offset);
+		const qreal unitY = m_tikzCoordinates.at(1 + offset);
+		const qreal minX = m_tikzCoordinates.at(2 + offset) / unitX;
+		const qreal maxX = m_tikzCoordinates.at(3 + offset) / unitX;
+		const qreal minY = m_tikzCoordinates.at(4 + offset) / unitY;
+		const qreal maxY = m_tikzCoordinates.at(5 + offset) / unitY;
+		qreal cursorX = event->x() + horizontalScrollBar()->value() - qMax(0.0, viewport()->width() - m_tikzPixmapItem->boundingRect().width()) / 2;
+		cursorX /= m_zoomFactor * unitX;
+		qreal cursorY = event->y() + verticalScrollBar()->value() - qMax(0.0, viewport()->height() - m_tikzPixmapItem->boundingRect().height()) / 2;
+		cursorY /= m_zoomFactor * unitY;
+		const qreal coordX = cursorX + minX;
+		const qreal coordY = maxY - cursorY;
+		if (coordX >= minX && coordX <= maxX && coordY >= minY && coordY <= maxY)
+		emit showMouseCoordinates(coordX, coordY);
+	}
+	QGraphicsView::mouseMoveEvent(event);
 }

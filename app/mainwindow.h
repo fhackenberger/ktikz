@@ -114,6 +114,7 @@ private slots:
 	void toggleWhatsThisMode();
 #endif
 	void showCursorPosition(int row, int col);
+	void showMouseCoordinates(qreal x, qreal y);
 
 private:
 	void createActions();
@@ -153,6 +154,7 @@ private:
 	TikzCommandInserter *m_commandInserter;
 
 	QLabel *m_positionLabel;
+	QLabel *m_mouseCoordinatesLabel;
 
 	QMenu *m_settingsMenu;
 	QMenu *m_sideBarMenu;

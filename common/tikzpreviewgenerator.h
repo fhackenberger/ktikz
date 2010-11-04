@@ -67,7 +67,7 @@ public slots:
 	void abortProcess();
 
 signals:
-	void pixmapUpdated(Poppler::Document *tikzPdfDoc);
+	void pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
 	void setExportActionsEnabled(bool enabled);
 	void showErrorMessage(const QString &message);
 	void shortLogUpdated(const QString &logText, bool runFailed);
@@ -82,6 +82,7 @@ private slots:
 protected:
 	QString getParsedLogText(QTextStream *logStream) const;
 	void parseLogFile();
+	QList<qreal> tikzCoordinates();
 	void createPreview();
 	void createTempLatexFile();
 	void createTempTikzFile();

@@ -237,6 +237,25 @@ void TikzPreviewGenerator::parseLogFile()
 
 /***************************************************************************/
 
+QList<qreal> TikzPreviewGenerator::tikzCoordinates()
+{
+	QList<qreal> tikzCoordinateList;
+	const QFileInfo tikzAuxFileInfo = QFileInfo(m_tikzFileBaseName + QLatin1String(".ktikzaux"));
+	QFile tikzAuxFile(tikzAuxFileInfo.absoluteFilePath());
+	if (tikzAuxFile.open(QFile::ReadOnly | QIODevice::Text))
+	{
+		QTextStream tikzAuxFileStream(&tikzAuxFile);
+		QStringList tikzAuxLine;
+		for (int i = 0; !tikzAuxFileStream.atEnd(); ++i)
+		{
+			tikzAuxLine = tikzAuxFileStream.readLine().split(QLatin1Char(';'));
+			for (int j = 0; j < tikzAuxLine.length(); ++j)
+				tikzCoordinateList << tikzAuxLine.at(j).toDouble();
+		}
+	}
+	return tikzCoordinateList;
+}
+
 void TikzPreviewGenerator::createPreview()
 {
 	emit setExportActionsEnabled(false);
@@ -256,7 +275,7 @@ void TikzPreviewGenerator::createPreview()
 			if (m_tikzPdfDoc)
 			{
 				m_shortLogText = "[LaTeX] " + tr("Process finished successfully.");
-				emit pixmapUpdated(m_tikzPdfDoc);
+				emit pixmapUpdated(m_tikzPdfDoc, tikzCoordinates());
 				emit setExportActionsEnabled(true);
 			}
 			else
@@ -309,7 +328,33 @@ void TikzPreviewGenerator::generatePreviewImpl(bool templateChanged)
 
 void TikzPreviewGenerator::createTempLatexFile()
 {
-	const QString inputTikzCode = "\\input{" + m_tikzFileBaseName + ".pgf}";
+	const QString inputTikzCode = "\\makeatletter\n"
+		"\\ifdefined\\endtikzpicture%\n"
+		"  \\newdimen\\ktikzorig@x\n"
+		"  \\newdimen\\ktikzorig@y\n"
+		"  \\newwrite\\@ktikzaux\n"
+		"  \\immediate\\openout\\@ktikzaux\\jobname.ktikzaux\n"
+		"  \\let\\old@endtikzpicture\\endtikzpicture\n"
+		"  \\def\\endtikzpicture{%\n"
+		"    \\pgfextractx{\\ktikzorig@x}{\\pgfpointxy{1}{0}}\n"
+		"    \\pgfextracty{\\ktikzorig@y}{\\pgfpointxy{0}{1}}\n"
+		"    \\pgfmathsetmacro{\\ktikzunitx}{\\ktikzorig@x}\n"
+		"    \\pgfmathsetmacro{\\ktikzunity}{\\ktikzorig@y}\n"
+		"    \\pgfmathsetmacro{\\ktikzminx}{\\pgf@picminx}\n"
+		"    \\pgfmathsetmacro{\\ktikzmaxx}{\\pgf@picmaxx}\n"
+		"    \\pgfmathsetmacro{\\ktikzminy}{\\pgf@picminy}\n"
+		"    \\pgfmathsetmacro{\\ktikzmaxy}{\\pgf@picmaxy}\n"
+		"    \\immediate\\write\\@ktikzaux{\\ktikzunitx;\\ktikzunity;\\ktikzminx;\\ktikzmaxx;\\ktikzminy;\\ktikzmaxy}\n"
+		"    \\old@endtikzpicture\n"
+		"  }\n"
+		"\\fi\n"
+		"\\makeatother"
+		"\\input{" + m_tikzFileBaseName + ".pgf}"
+		"\\makeatletter\n"
+		"\\ifdefined\\endtikzpicture%\n"
+		"  \\immediate\\closeout\\@ktikzaux\n"
+		"\\fi\n"
+		"\\makeatother";
 
 	File tikzTexFile(m_tikzFileBaseName + ".tex", File::WriteOnly);
 	if (!tikzTexFile.open())

@@ -8,7 +8,7 @@ include(../qtikzmacros.pri)
 
 ### Input
 
-LANGUAGES = de es fr
+LANGUAGES = cs de es fr
 TRANSLATIONS = $$tsFilesInDir($${PWD} $${LANGUAGES})
 
 ### Output

@@ -1,4 +1,6 @@
 version 0.11:
+- Show in the statusbar the x- and y-coordinates of the mouse cursor
+  according to the tikzpicture's coordinate system
 - Add the directory in which the pgf file is located to TEXINPUTS
 - Add Czech translation (by Pavel Fric)
 version 0.10 (2010-08-26):
