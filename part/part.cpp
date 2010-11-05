@@ -83,7 +83,7 @@ Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
 
 	// document watcher and reloader
 	m_watcher = new KDirWatch(this);
-	connect(m_watcher, SIGNAL(dirty(const QString&)), this, SLOT(slotFileDirty(const QString&)));
+	connect(m_watcher, SIGNAL(dirty(QString)), this, SLOT(slotFileDirty(QString)));
 	m_dirtyHandler = new QTimer(this);
 	m_dirtyHandler->setSingleShot(true);
 	connect(m_dirtyHandler, SIGNAL(timeout()), this, SLOT(slotDoFileDirty()));
