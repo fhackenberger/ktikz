@@ -64,8 +64,8 @@ public:
 	void createRecentFilesList();
 	void loadEntries();
 	void saveEntries();
-	void addUrl(const QUrl &url, const QString &name = QString());
-	void removeUrl(const QUrl &url);
+	void addUrl(const Url &url, const QString &name = QString());
+	void removeUrl(const Url &url);
 
 signals:
 	void urlSelected(const Url &url);

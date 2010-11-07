@@ -6,13 +6,13 @@ include(../qtikzdefaults.pri)
 ### Install icon and dll files
 
 win32 {
-	RC_FILE = qtikz.rc
+        RC_FILE = $${PWD}/../win32/qtikz.rc
 	icon.files = icon/qtikz.ico
 	icon.path = $${PREFIX}
 	INSTALLS += icon
 
 	dlls.path = $${PREFIX}
-	dlls.files += $${PWD}/poppler/*.dll
+        dlls.files += $${PWD}/../win32/poppler/*.dll
 	debug {
 		dlls.files += $$[QT_INSTALL_BINS]/QtCored4.dll \
 			$$[QT_INSTALL_BINS]/QtGuid4.dll \

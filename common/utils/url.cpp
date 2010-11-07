@@ -52,6 +52,19 @@ QString Url::fileName() const
 
 QString Url::pathOrUrl() const
 {
+#ifdef Q_OS_WIN32
+	return QUrl::toString();
+#else
 	return QUrl::path();
+#endif
+}
+
+QString Url::path() const
+{
+#ifdef Q_OS_WIN32
+	return QUrl::toString();
+#else
+	return QUrl::path();
+#endif
 }
 #endif

@@ -228,7 +228,10 @@ Url TikzPreviewController::getExportUrl(const Url &url, const QString &mimeType)
 	if (!url.isEmpty())
 	{
 		QFileInfo currentFileInfo(url.path());
-		currentFile = currentFileInfo.absolutePath() + '/' + currentFileInfo.completeBaseName() + '.' + extension;
+		currentFile = currentFileInfo.absolutePath();
+		if (!currentFile.endsWith('/'))
+			currentFile += '/';
+		currentFile += currentFileInfo.completeBaseName() + '.' + extension;
 	}
 	const QString filter = QString("*.%1|%2\n*|%3")
 	                       .arg(extension)

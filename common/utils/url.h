@@ -41,6 +41,7 @@ public:
 
 	QString fileName() const;
 	QString pathOrUrl() const;
+	QString path() const;
 };
 #endif
 

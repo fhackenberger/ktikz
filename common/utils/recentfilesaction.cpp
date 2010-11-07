@@ -114,7 +114,11 @@ void RecentFilesAction::openRecentFile()
 {
 	QAction *action = qobject_cast<QAction*>(sender());
 	if (action)
-		emit urlSelected(Url("file://" + action->data().toString()));
+#ifdef Q_OS_WIN32
+	emit urlSelected(Url(action->data().toString()));
+#else
+	emit urlSelected(Url("file://" + action->data().toString()));
+#endif
 }
 
 void RecentFilesAction::createRecentFilesList()
@@ -169,7 +173,7 @@ void RecentFilesAction::updateRecentFilesList()
 		m_recentFileActions[i]->setVisible(false);
 }
 
-void RecentFilesAction::addUrl(const QUrl &url, const QString &name)
+void RecentFilesAction::addUrl(const Url &url, const QString &name)
 {
 	Q_UNUSED(name);
 	const QString fileName = url.path();
@@ -185,7 +189,7 @@ void RecentFilesAction::addUrl(const QUrl &url, const QString &name)
 	updateRecentFilesList();
 }
 
-void RecentFilesAction::removeUrl(const QUrl &url)
+void RecentFilesAction::removeUrl(const Url &url)
 {
 	m_recentFilesList.removeAll(url.path());
 	updateRecentFilesList();

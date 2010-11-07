@@ -349,7 +349,11 @@ void TikzPreviewGenerator::createTempLatexFile()
 		"  }\n"
 		"\\fi\n"
 		"\\makeatother"
+#ifdef Q_OS_WIN32
+		"\\input{" + QFileInfo(m_tikzFileBaseName).baseName() + ".pgf}"
+#else
 		"\\input{" + m_tikzFileBaseName + ".pgf}"
+#endif
 		"\\makeatletter\n"
 		"\\ifdefined\\endtikzpicture%\n"
 		"  \\immediate\\closeout\\ktikzauxfile\n"
