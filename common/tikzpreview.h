@@ -46,6 +46,7 @@ public:
 	QList<QAction*> actions();
 	QToolBar *toolBar();
 	QPixmap pixmap() const;
+	int currentPage() const;
 	void emptyPreview();
 	void setProcessRunning(bool isRunning);
 

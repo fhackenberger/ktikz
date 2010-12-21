@@ -115,9 +115,9 @@ void RecentFilesAction::openRecentFile()
 	QAction *action = qobject_cast<QAction*>(sender());
 	if (action)
 #ifdef Q_OS_WIN32
-	emit urlSelected(Url(action->data().toString()));
+		emit urlSelected(Url(action->data().toString()));
 #else
-	emit urlSelected(Url("file://" + action->data().toString()));
+		emit urlSelected(Url("file://" + action->data().toString()));
 #endif
 }
 

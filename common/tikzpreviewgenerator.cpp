@@ -560,11 +560,28 @@ void TikzPreviewGenerator::abortProcess()
 
 /***************************************************************************/
 
-bool TikzPreviewGenerator::generateEpsFile()
+bool TikzPreviewGenerator::generateEpsFile(int page)
 {
 	QStringList pdftopsArguments;
-	pdftopsArguments << "-eps" << m_tikzFileBaseName + ".pdf" << m_tikzFileBaseName + ".eps";
+	pdftopsArguments << "-f" << QString::number(page+1) << "-l" << QString::number(page+1) << "-eps" << m_tikzFileBaseName + ".pdf" << m_tikzFileBaseName + ".eps";
 	return runProcess("pdftops", m_pdftopsCommand, pdftopsArguments);
+/*
+	int width = m_tikzPdfDoc->page(page)->pageSize().width();
+	int height = m_tikzPdfDoc->page(page)->pageSize().height();
+
+	Poppler::PSConverter *psConverter = m_tikzPdfDoc->psConverter();
+	psConverter->setOutputFileName(m_tikzFileBaseName + ".eps");
+	psConverter->setPageList(QList<int>() << page+1);
+	psConverter->setPaperWidth(width);
+	psConverter->setPaperHeight(height);
+	if (psConverter->convert())
+	{
+		delete psConverter;
+		return true;
+	}
+	delete psConverter;
+	return false;
+*/
 }
 
 bool TikzPreviewGenerator::generatePdfFile()

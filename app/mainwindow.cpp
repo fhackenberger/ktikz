@@ -499,6 +499,8 @@ void MainWindow::createMenus()
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_reloadAction);
 	fileMenu->addSeparator();
+	fileMenu->addAction(m_tikzPreviewController->printAction());
+	fileMenu->addSeparator();
 	fileMenu->addAction(m_closeAction);
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_exitAction);

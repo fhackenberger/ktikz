@@ -1,8 +1,7 @@
-- Print image
 - In multiple image mode, allow to save and export only the current image
-  (use KFileDialog(url, filter, parent, widget) where widget is a checkbox)
-- Use Poppler::PSConverter instead of pdftops in order to export to EPS
-  (if possible).
+  (use KFileDialog(url, filter, parent, widget) where widget is a checkbox).
+  This is already the case for all exports except "Export to PDF" because
+  that's the only thing that works.
 - Clicking an item in the TikZ commands dock widget should not insert
   it, but only select it.  Pressing an Insert button would then do the
   actual insertion.  There should also be a Help button which opens the

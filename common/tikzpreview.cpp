@@ -481,6 +481,11 @@ QPixmap TikzPreview::pixmap() const
 	return m_tikzPixmapItem->pixmap();
 }
 
+int TikzPreview::currentPage() const
+{
+	return m_currentPage;
+}
+
 /***************************************************************************/
 
 void TikzPreview::centerInfoLabel()

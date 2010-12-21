@@ -153,6 +153,10 @@ Action *preferences(const QObject *recvr, const char *slot, QObject *parent)
 {
 	return copyAction(KStandardAction::preferences(recvr, slot, parent), recvr, slot);
 }
+Action *print(const QObject *recvr, const char *slot, QObject *parent)
+{
+	return copyAction(KStandardAction::print(recvr, slot, parent), recvr, slot);
+}
 #else
 Action *createAction(int which, const QObject *recvr, const char *slot, QObject *parent)
 {
@@ -256,6 +260,11 @@ Action *createAction(int which, const QObject *recvr, const char *slot, QObject 
 		iconName = "configure";
 		text = QObject::tr("&Configure %1...").arg(QCoreApplication::applicationName());
 		break;
+	case 20:
+		iconName = "document-print";
+		text = QObject::tr("&Print...");
+		key = QKeySequence::Print;
+		break;
 	}
 
 	Action *action;
@@ -358,6 +367,10 @@ Action *zoomOut(const QObject *recvr, const char *slot, QObject *parent)
 Action *preferences(const QObject *recvr, const char *slot, QObject *parent)
 {
 	return createAction(19, recvr, slot, parent);
+}
+Action *print(const QObject *recvr, const char *slot, QObject *parent)
+{
+	return createAction(20, recvr, slot, parent);
 }
 #endif
 }

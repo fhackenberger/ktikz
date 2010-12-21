@@ -25,6 +25,9 @@
 
 #include <QMenu>
 #include <QMessageBox>
+#include <QPointer>
+#include <QPrintDialog>
+#include <QPrinter>
 #include <QSettings>
 #include <QTimer>
 
@@ -37,6 +40,7 @@
 #include "utils/file.h"
 #include "utils/filedialog.h"
 #include "utils/icon.h"
+#include "utils/standardaction.h"
 #include "utils/toggleaction.h"
 
 static const int s_minUpdateInterval = 1000; // 1 sec
@@ -129,12 +133,23 @@ void TikzPreviewController::createActions()
 	connect(exportPdfAction, SIGNAL(triggered()), this, SLOT(exportImage()));
 	exportMenu->addAction(exportPdfAction);
 
-	Action *exportPngAction = new Action(Icon("image-png"), tr("Portable Network &Graphics (PNG)"), m_parentWidget, "file_export_png");
-	exportPngAction->setData("image/png");
-	exportPngAction->setStatusTip(tr("Export to PNG"));
-	exportPngAction->setWhatsThis(tr("<p>Export to PNG.</p>"));
-	connect(exportPngAction, SIGNAL(triggered()), this, SLOT(exportImage()));
-	exportMenu->addAction(exportPngAction);
+	QStringList mimeTypes;
+	QStringList mimeTypeNames;
+	mimeTypes << "png" << "jpeg" << "tiff" << "bmp";
+	mimeTypeNames << tr("Portable Network &Graphics") << tr("&Joint Photographic Experts Group Format") << tr("Tagged Image File Format") << tr("Windows Bitmap");
+	for (int i = 0; i < mimeTypes.size(); ++i)
+	{
+		Action *exportImageAction = new Action(Icon("image-" + mimeTypes.at(i)), mimeTypeNames.at(i) + " (" + mimeTypes.at(i).toUpper() + ")", m_parentWidget, "file_export_" + mimeTypes.at(i));
+		exportImageAction->setData("image/" + mimeTypes.at(i));
+		exportImageAction->setStatusTip(tr("Export to %1").arg(mimeTypes.at(i).toUpper()));
+		exportImageAction->setWhatsThis(tr("<p>Export to %1.</p>").arg(mimeTypes.at(i).toUpper()));
+		connect(exportImageAction, SIGNAL(triggered()), this, SLOT(exportImage()));
+		exportMenu->addAction(exportImageAction);
+	}
+
+	m_printAction = StandardAction::print(this, SLOT(printImage()), this);
+	m_printAction->setStatusTip(tr("Print image"));
+	m_printAction->setWhatsThis(tr("<p>Print preview image.</p>"));
 
 	setExportActionsEnabled(false);
 
@@ -160,6 +175,11 @@ void TikzPreviewController::createActions()
 QAction *TikzPreviewController::exportAction()
 {
 	return m_exportAction;
+}
+
+QAction *TikzPreviewController::printAction()
+{
+	return m_printAction;
 }
 
 QMenu *TikzPreviewController::menu()
@@ -222,9 +242,9 @@ Url TikzPreviewController::getExportUrl(const Url &url, const QString &mimeType)
 {
 	QString currentFile;
 	const QString extension = (mimeType == "image/x-eps") ? "eps"
-	                          : ((mimeType == "application/pdf") ? "pdf" : "png");
+	                          : ((mimeType == "application/pdf") ? "pdf" : mimeType.mid(6));
 	const QString mimeTypeName = (mimeType == "image/x-eps") ? tr("EPS image")
-	                             : ((mimeType == "application/pdf") ? tr("PDF document") : tr("PNG image"));
+	                             : ((mimeType == "application/pdf") ? tr("PDF document") : tr("%1 image").arg(mimeType.mid(6).toUpper()));
 	if (!url.isEmpty())
 	{
 		QFileInfo currentFileInfo(url.path());
@@ -261,19 +281,40 @@ void TikzPreviewController::exportImage()
 	}
 	else if (mimeType == "image/x-eps")
 	{
-		if (!m_tikzPreviewGenerator->generateEpsFile())
+		if (!m_tikzPreviewGenerator->generateEpsFile(m_tikzPreview->currentPage()))
 			return;
 		extension = ".eps";
 	}
-	else if (mimeType == "image/png")
+	else
 	{
-		extension = ".png";
+		extension = '.' + mimeType.mid(6);
 		tikzImage.save(m_temporaryFileController->baseName() + extension);
 	}
 
 	if (!File::copy(Url(m_temporaryFileController->baseName() + extension), exportUrl))
 		QMessageBox::critical(m_parentWidget, QCoreApplication::applicationName(),
 		                      tr("The image could not be exported to the file \"%1\".").arg(exportUrl.path()));
+}
+
+/***************************************************************************/
+
+void TikzPreviewController::printImage()
+{
+	QPrinter printer;
+
+	QPointer<QPrintDialog> printDialog = new QPrintDialog(&printer, m_parentWidget);
+	printDialog->setWindowTitle(tr("Print image"));
+	if (printDialog->exec() != QDialog::Accepted)
+	{
+		delete printDialog;
+		return;
+	}
+	delete printDialog;
+	// There does not seem to exist a cross-platform way of printing PDF files directly, so we use the following:
+	QPainter painter;
+	painter.begin(&printer);
+	painter.drawPixmap(0, 0, m_tikzPreview->pixmap());
+	painter.end();
 }
 
 /***************************************************************************/
@@ -386,6 +427,7 @@ void TikzPreviewController::applySettings()
 void TikzPreviewController::setExportActionsEnabled(bool enabled)
 {
 	m_exportAction->setEnabled(enabled);
+	m_printAction->setEnabled(enabled);
 }
 
 void TikzPreviewController::setProcessRunning(bool isRunning)

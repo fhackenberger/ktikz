@@ -50,6 +50,7 @@ Action *gotoLine(const QObject *recvr, const char *slot, QObject *parent);
 Action *zoomIn(const QObject *recvr, const char *slot, QObject *parent);
 Action *zoomOut(const QObject *recvr, const char *slot, QObject *parent);
 Action *preferences(const QObject *recvr, const char *slot, QObject *parent);
+Action *print(const QObject *recvr, const char *slot, QObject *parent);
 }
 
 #endif

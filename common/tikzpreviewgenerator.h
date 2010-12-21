@@ -58,7 +58,7 @@ public:
 	bool hasRunFailed();
 	void addToLatexSearchPath(const QString &path);
 	void removeFromLatexSearchPath(const QString &path);
-	bool generateEpsFile();
+	bool generateEpsFile(int page);
 
 public slots:
 	void setTemplateFile(const QString &fileName);

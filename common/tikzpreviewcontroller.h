@@ -51,6 +51,7 @@ public:
 	TikzPreview *tikzPreview() const;
 #ifndef KTIKZ_USE_KDE
 	QAction *exportAction();
+	QAction *printAction();
 	QMenu *menu();
 	QList<QToolBar*> toolBars();
 	void setToolBarStyle(const Qt::ToolButtonStyle &style);
@@ -70,6 +71,7 @@ private slots:
 	void regeneratePreview();
 	void abortProcess();
 	void exportImage();
+	void printImage();
 	void setExportActionsEnabled(bool enabled);
 	void setProcessRunning(bool isRunning);
 	void toggleShellEscaping(bool useShellEscaping);
@@ -98,6 +100,7 @@ private:
 	QList<QToolBar*> m_toolBars;
 #endif
 	Action *m_exportAction;
+	Action *m_printAction;
 	Action *m_procStopAction;
 	ToggleAction *m_shellEscapeAction;
 

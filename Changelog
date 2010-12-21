@@ -1,8 +1,12 @@
 version 0.11:
-- Show in the statusbar the x- and y-coordinates of the mouse cursor
+- show in the statusbar the x- and y-coordinates of the mouse cursor
   according to the tikzpicture's coordinate system
-- Add the directory in which the pgf file is located to TEXINPUTS
-- Add Czech translation (by Pavel Fric)
+- add the directory in which the pgf file is located to TEXINPUTS
+- add Czech translation (by Pavel Fric)
+- add JPEG, TIFF, BMP to the Export menu
+- in multiple images mode, export to EPS now exports the currently visible
+  image (instead of giving an error)
+- add printing of the preview image
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE
