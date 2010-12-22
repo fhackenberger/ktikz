@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2010-11-04 12:06+0100\n"
+"POT-Creation-Date: 2010-12-22 10:33+0100\n"
 "PO-Revision-Date: 2010-08-26 11:10+0200\n"
 "Last-Translator: Glad Deschrijver <glad.deschrijver@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -130,7 +130,7 @@ msgctxt "@title:window"
 msgid "Save TikZ Source File As"
 msgstr "Enregistrer fichier source TikZ sous"
 
-#: ../part/part.cpp:279
+#: ../part/part.cpp:277
 msgctxt "@info:status"
 msgid "Reloading the document..."
 msgstr "Rechargeant le document..."
@@ -144,83 +144,83 @@ msgctxt "@title:menu"
 msgid "&File"
 msgstr "&Fichier"
 
-#. i18n: file: ../app/ktikzui.rc:22
+#. i18n: file: ../app/ktikzui.rc:24
 #. i18n: ectx: Menu (edit)
 #: rc.cpp:6
 msgctxt "@title:menu"
 msgid "&Edit"
 msgstr "&Édition"
 
-#. i18n: file: ../app/ktikzui.rc:42
+#. i18n: file: ../app/ktikzui.rc:44
 #. i18n: ectx: Menu (view)
-#. i18n: file: ../part/ktikzpart.rc:8
+#. i18n: file: ../part/ktikzpart.rc:9
 #. i18n: ectx: Menu (view)
 #: rc.cpp:9 rc.cpp:129
 msgctxt "@title:menu"
 msgid "&View"
 msgstr "Afficha&ge"
 
-#. i18n: file: ../app/ktikzui.rc:50
+#. i18n: file: ../app/ktikzui.rc:52
 #. i18n: ectx: Menu (go)
 #: rc.cpp:12
 msgctxt "@title:menu"
 msgid "&Go"
 msgstr "&Aller"
 
-#. i18n: file: ../app/ktikzui.rc:54
+#. i18n: file: ../app/ktikzui.rc:56
 #. i18n: ectx: Menu (process)
-#. i18n: file: ../part/ktikzpart.rc:15
+#. i18n: file: ../part/ktikzpart.rc:16
 #. i18n: ectx: Menu (process)
 #: rc.cpp:15 rc.cpp:132
 msgctxt "@title:menu"
 msgid "&Process"
 msgstr "&Processus"
 
-#. i18n: file: ../app/ktikzui.rc:63
+#. i18n: file: ../app/ktikzui.rc:65
 #. i18n: ectx: Menu (settings)
-#. i18n: file: ../part/ktikzpart.rc:20
+#. i18n: file: ../part/ktikzpart.rc:21
 #. i18n: ectx: Menu (settings)
 #: rc.cpp:18 rc.cpp:135
 msgctxt "@title:menu"
 msgid "&Settings"
 msgstr "&Options"
 
-#. i18n: file: ../app/ktikzui.rc:66
+#. i18n: file: ../app/ktikzui.rc:68
 #. i18n: ectx: Menu (sidebars)
 #: rc.cpp:21
 msgctxt "@title:menu"
 msgid "&Sidebars"
 msgstr "Barres &latérales"
 
-#. i18n: file: ../app/ktikzui.rc:78
+#. i18n: file: ../app/ktikzui.rc:80
 #. i18n: ectx: Menu (help)
 #: rc.cpp:24
 msgctxt "@title:menu"
 msgid "&Help"
 msgstr "&Aide"
 
-#. i18n: file: ../app/ktikzui.rc:92
+#. i18n: file: ../app/ktikzui.rc:94
 #. i18n: ectx: ToolBar (mainToolBar)
 #: rc.cpp:27
 msgctxt "@title:menu toolbar title"
 msgid "File Toolbar"
 msgstr "Barre d'outils <resource>Fichier</resource>"
 
-#. i18n: file: ../app/ktikzui.rc:99
+#. i18n: file: ../app/ktikzui.rc:101
 #. i18n: ectx: ToolBar (editToolBar)
 #: rc.cpp:30
 msgctxt "@title:menu toolbar title"
 msgid "Edit Toolbar"
 msgstr "Barre d'outils <resource>Éditeur</resource>"
 
-#. i18n: file: ../app/ktikzui.rc:104
+#. i18n: file: ../app/ktikzui.rc:106
 #. i18n: ectx: ToolBar (processToolBar)
 #: rc.cpp:33
 msgctxt "@title:menu toolbar title"
 msgid "Process Toolbar"
 msgstr "Barre d'outils <resource>Processus</resource>"
 
-#. i18n: file: ../app/ktikzui.rc:111
+#. i18n: file: ../app/ktikzui.rc:113
 #. i18n: ectx: ToolBar (viewToolBar)
 #: rc.cpp:36
 msgctxt "@title:menu toolbar title"
@@ -419,7 +419,7 @@ msgstr ""
 msgid "&Editor command:"
 msgstr "Commande de l'&éditeur :"
 
-#. i18n: file: ../part/ktikzpart.rc:24
+#. i18n: file: ../part/ktikzpart.rc:25
 #. i18n: ectx: ToolBar (mainToolBar)
 #: rc.cpp:138
 msgctxt "@title:menu toolbar title"

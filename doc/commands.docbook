@@ -82,24 +82,9 @@
 			</menuchoice>
 		</term>
 		<listitem>
-			<para>Exports the current document to different formats, so that the document can be viewed as an image.  Currently the document can be exported as Encapsulated PostScript (EPS), Portable Document Format (PDF) and Portable Network Graphics (PNG).</para>
+			<para>Exports the current document to different formats, so that the document can be viewed as an image.  Currently the document can be exported as Encapsulated PostScript (EPS), Portable Document Format (PDF), Portable Network Graphics (PNG), Joint Photographic Experts Group Format (JPEG), Tagged Image File Format (TIFF) and Windows Bitmap (BMP).</para>
 		</listitem>
 	</varlistentry>
-
-<!--
-	<varlistentry>
-		<term id="term-commands-file-print">
-			<menuchoice>
-				<shortcut><keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo></shortcut>
-				<guimenu>File</guimenu>
-				<guimenuitem>Print...</guimenuitem>
-			</menuchoice>
-		</term>
-		<listitem>
-			<para>Opens a simple print dialog allowing the user to specify what, where, and how to print.</para>
-		</listitem>
-	</varlistentry>
--->
 
 	<varlistentry>
 		<term id="term-commands-file-reload">
@@ -111,6 +96,19 @@
 		</term>
 		<listitem>
 			<para>Reload the current document from disk.  If you have made unsaved changes, you will be prompted to save the file before &kappname; reloads it.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term id="term-commands-file-print">
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo></shortcut>
+				<guimenu>File</guimenu>
+				<guimenuitem>Print...</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Opens a simple print dialog allowing the user to specify what, where, and how to print.</para>
 		</listitem>
 	</varlistentry>
 

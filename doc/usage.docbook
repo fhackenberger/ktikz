@@ -166,7 +166,7 @@
 				<programlisting>#!/bin/sh
 
 # This shell script compiles a LaTeX file to PDF using the latex, dvips,
-# ps2pdf sequence and is supposed to be used in KTikZ only, as a replacement
+# ps2pdf sequence and is supposed to be used in &ktikz; only, as a replacement
 # for pdflatex.
 # Therefore the following assumptions are made in the code of this script:
 # - the only options with a value are -output-directory and -interaction
@@ -175,7 +175,7 @@
 #   the value of one of the above mentioned options
 
 # Usage:
-# - open KTikZ, go to Settings -> Configure KTikZ..., in the "General" tab
+# - open &ktikz;, go to Settings -> Configure &ktikz;..., in the "General" tab
 #   change the value of PDFLaTeX command to /path/to/ktikzlatex2ps2pdf.sh
 # - in the "Template" box change the value to /path/to/ktikzlatex2ps2pdf_template.pgs
 
@@ -389,12 +389,10 @@ ps2pdf14 $texfilebasename.ps $texfilebasename.pdf</programlisting>
 			<entry><para><link linkend="term-commands-file-open"><guilabel>Open</guilabel></link> a document.</para></entry>
 		</row>
 
-<!--
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo></para></entry>
 			<entry><para>Invokes the <link linkend="term-commands-file-print"><guilabel>Print</guilabel></link> command.</para></entry>
 		</row>
--->
 
 		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo></para></entry>

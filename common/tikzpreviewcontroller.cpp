@@ -136,7 +136,7 @@ void TikzPreviewController::createActions()
 	QStringList mimeTypes;
 	QStringList mimeTypeNames;
 	mimeTypes << "png" << "jpeg" << "tiff" << "bmp";
-	mimeTypeNames << tr("Portable Network &Graphics") << tr("&Joint Photographic Experts Group Format") << tr("Tagged Image File Format") << tr("Windows Bitmap");
+	mimeTypeNames << tr("Portable Network &Graphics") << tr("&Joint Photographic Experts Group Format") << tr("&Tagged Image File Format") << tr("&Windows Bitmap");
 	for (int i = 0; i < mimeTypes.size(); ++i)
 	{
 		Action *exportImageAction = new Action(Icon("image-" + mimeTypes.at(i)), mimeTypeNames.at(i) + " (" + mimeTypes.at(i).toUpper() + ")", m_parentWidget, "file_export_" + mimeTypes.at(i));
