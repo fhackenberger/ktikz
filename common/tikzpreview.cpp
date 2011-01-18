@@ -486,6 +486,11 @@ int TikzPreview::currentPage() const
 	return m_currentPage;
 }
 
+int TikzPreview::numberOfPages() const
+{
+	return m_tikzPdfDoc->numPages();
+}
+
 /***************************************************************************/
 
 void TikzPreview::centerInfoLabel()

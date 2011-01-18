@@ -265,6 +265,7 @@ bool MainWindow::closeFile()
 		setCurrentUrl(Url());
 		m_tikzPreviewController->emptyPreview(); // abort still running processes
 		m_logTextEdit->logUpdated("", false); // clear log window
+		m_mouseCoordinatesLabel->setText("");
 		return true;
 	}
 	return false;

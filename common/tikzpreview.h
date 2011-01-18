@@ -47,6 +47,7 @@ public:
 	QToolBar *toolBar();
 	QPixmap pixmap() const;
 	int currentPage() const;
+	int numberOfPages() const;
 	void emptyPreview();
 	void setProcessRunning(bool isRunning);
 

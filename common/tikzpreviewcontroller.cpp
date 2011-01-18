@@ -226,6 +226,7 @@ Url TikzPreviewController::getExportUrl(const Url &url, const QString &mimeType)
 
 	const KUrl exportUrl = KUrl(url.url().left(url.url().length()
 	                            - (exportUrlExtension.isEmpty() ? 0 : exportUrlExtension.length() + 1)) // the extension is empty when the text/x-pgf mimetype is not correctly installed or when the file does not have a correct extension
+	                            + (m_tikzPreview->numberOfPages() > 1 && mimeType != "application/pdf" ? "_" + QString::number(m_tikzPreview->currentPage() + 1) : "")
 	                            + mimeTypePtr->patterns().at(0).mid(1)); // first extension in the list of possible extensions (without *)
 
 	return KFileDialog::getSaveUrl(exportUrl,
@@ -251,7 +252,9 @@ Url TikzPreviewController::getExportUrl(const Url &url, const QString &mimeType)
 		currentFile = currentFileInfo.absolutePath();
 		if (!currentFile.endsWith('/'))
 			currentFile += '/';
-		currentFile += currentFileInfo.completeBaseName() + '.' + extension;
+		currentFile += currentFileInfo.completeBaseName()
+		               + (m_tikzPreview->numberOfPages() > 1 && mimeType != "application/pdf" ? "_" + QString::number(m_tikzPreview->currentPage() + 1) : "")
+		               + '.' + extension;
 	}
 	const QString filter = QString("*.%1|%2\n*|%3")
 	                       .arg(extension)
