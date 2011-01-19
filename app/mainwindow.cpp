@@ -340,7 +340,7 @@ void MainWindow::checkForFileChanges(const FileCheckMoment &moment)
 			reloadButton = fileChangedWarningMessageBox->addButton(tr("&Save under another name"), QMessageBox::AcceptRole);
 			break;
 		case Closing:
-			reloadButton = fileChangedWarningMessageBox->addButton(tr("&Close anyway"), QMessageBox::AcceptRole);
+			reloadButton = fileChangedWarningMessageBox->addButton(tr("&Close without saving"), QMessageBox::AcceptRole);
 			break;
 		case FocusIn:
 		default:
