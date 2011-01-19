@@ -63,6 +63,16 @@ class MainWindow : public QMainWindow, public MainWidget
 	Q_OBJECT
 
 public:
+	/*!
+	 * This enum is used to determine when the file is checked for external changes.
+	 */
+	enum FileCheckMoment
+	{
+		FocusIn, /*!<During focusing in. */
+		Saving, /*!<During saving. */
+		Closing /*!<During closing. */
+	};
+
 	MainWindow();
 	virtual ~MainWindow();
 
@@ -92,7 +102,7 @@ protected:
 	void closeEvent(QCloseEvent *event);
 
 private slots:
-	void checkForFileChanges();
+	void checkForFileChanges(const FileCheckMoment &moment = FocusIn);
 	void saveLastInternalModifiedDateTime();
 	void setDockWidgetStatusTip(bool enabled);
 	void setToolBarStatusTip(bool enabled);
@@ -198,6 +208,7 @@ private:
 	Url m_currentUrl;
 	Url m_lastUrl;
 	QDateTime m_lastInternalModifiedDateTime;
+	bool m_isModifiedExternally;
 };
 
 #endif

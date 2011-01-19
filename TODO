@@ -9,11 +9,6 @@
 - Make a graphical tool for editing the XML file containing the TikZ
   commands similar to keditbookmarks
 - Create a new process for each window opened by the "New" action.
-- Remove bug in KDE version in which the template is not loaded if the
-  contents do not start with \documentclass (the mimetype is then not
-  recognized as text/plain).
-- Check whether the file has changed when ktikz gets the focus, and also
-  when saving or closing (similar to kwrite).
 - Download files which are \included or \inputted in remote template files
   or remote pgf files to the temporary directory (could be dangerous when
   the user is still editing the \input command).

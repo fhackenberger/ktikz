@@ -7,6 +7,9 @@ version 0.11:
 - in multiple images mode, export to EPS now exports the currently visible
   image (instead of giving an error)
 - add printing of the preview image
+- let the built-in template also work with xelatex
+- check whether the file has been modified by another program when ktikz gets
+  the focus or when the user saves or closes the file (similar to kwrite)
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE

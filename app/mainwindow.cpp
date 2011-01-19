@@ -85,6 +85,7 @@ MainWindow::MainWindow()
 #endif
 	m_configDialog = 0;
 	m_completer = 0;
+	m_isModifiedExternally = false;
 
 	s_mainWindowList.append(this);
 
@@ -283,7 +284,15 @@ bool MainWindow::save()
 	if (!m_currentUrl.isValid() || m_currentUrl.isEmpty())
 		return saveAs();
 	else
-		return saveUrl(m_currentUrl);
+	{
+		if (m_isModifiedExternally)
+		{
+			checkForFileChanges(Saving);
+			return true;
+		}
+		else
+			return saveUrl(m_currentUrl);
+	}
 }
 
 bool MainWindow::saveAs()
@@ -304,24 +313,60 @@ void MainWindow::reload()
 	}
 }
 
-void MainWindow::checkForFileChanges()
+void MainWindow::checkForFileChanges(const FileCheckMoment &moment)
 {
-	QDateTime lastExternalModifiedDateTime(QFileInfo(m_currentUrl.path()).lastModified());
-	if (lastExternalModifiedDateTime <= m_lastInternalModifiedDateTime)
+	if (moment == FocusIn)
+	{
+		QDateTime lastExternalModifiedDateTime(QFileInfo(m_currentUrl.path()).lastModified());
+		if (lastExternalModifiedDateTime > m_lastInternalModifiedDateTime)
+			m_isModifiedExternally = true;
+		else // when the fileChangedWarningMessageBox below is cancelled, the main window is focused in again with m_isModifiedExternally == true so this slot is called again, but now m_lastInternalModifiedDateTime has been updated (during focusOut) and now we don't want to show the dialog again
+			return;
+	}
+
+	if (!m_isModifiedExternally)
 		return;
 
+	m_isModifiedExternally = false;
 	QPointer<QMessageBox> fileChangedWarningMessageBox = new QMessageBox(this);
 	fileChangedWarningMessageBox->setText(tr("The document was modified by another program.\nWhat do you want to do?"));
 	fileChangedWarningMessageBox->setWindowTitle(KtikzApplication::applicationName());
 	fileChangedWarningMessageBox->setIcon(QMessageBox::Warning);
 	QAbstractButton *overwriteButton = fileChangedWarningMessageBox->addButton(tr("&Overwrite"), QMessageBox::AcceptRole);
-	QAbstractButton *reloadButton = fileChangedWarningMessageBox->addButton(tr("&Reload file"), QMessageBox::AcceptRole);
+	QAbstractButton *reloadButton;
+	switch (moment)
+	{
+		case Saving:
+			reloadButton = fileChangedWarningMessageBox->addButton(tr("&Save under another name"), QMessageBox::AcceptRole);
+			break;
+		case Closing:
+			reloadButton = fileChangedWarningMessageBox->addButton(tr("&Close anyway"), QMessageBox::AcceptRole);
+			break;
+		case FocusIn:
+		default:
+			reloadButton = fileChangedWarningMessageBox->addButton(tr("&Reload file"), QMessageBox::AcceptRole);
+			break;
+	}
 	fileChangedWarningMessageBox->addButton(QMessageBox::Cancel);
 	fileChangedWarningMessageBox->exec();
 	if (fileChangedWarningMessageBox->clickedButton() == overwriteButton)
 		saveUrl(m_currentUrl);
 	else if (fileChangedWarningMessageBox->clickedButton() == reloadButton)
-		reload();
+		switch (moment)
+		{
+			case Saving:
+				saveAs();
+				break;
+			case Closing:
+				// do nothing since the file will be closed anyway
+				break;
+			case FocusIn:
+			default:
+				reload();
+				break;
+		}
+	else // cancel (check again on "Save" or "Close")
+		m_isModifiedExternally = true;
 	delete fileChangedWarningMessageBox;
 }
 
@@ -778,6 +823,10 @@ void MainWindow::writeSettings()
 
 bool MainWindow::maybeSave()
 {
+	checkForFileChanges(Closing);
+	if (m_isModifiedExternally) // if the user presses "Cancel" when asked to overwrite or close the file, then we abort the closing procedure
+		return false;
+
 	if (m_tikzEditorView->editor()->document()->isModified())
 	{
 		const int ret = QMessageBox::warning(this, KtikzApplication::applicationName(),
