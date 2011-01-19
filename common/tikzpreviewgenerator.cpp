@@ -398,7 +398,7 @@ void TikzPreviewGenerator::createTempLatexFile()
 		tikzStream << "\\documentclass[12pt]{article}\n"
 		              "\\usepackage{tikz}\n"
 		              "\\usepackage{pgf}\n"
-		              "\\usepackage[active,pdftex,tightpage]{preview}\n"
+		              "\\usepackage[active,tightpage]{preview}\n"
 		              "\\PreviewEnvironment[]{tikzpicture}\n"
 		              "\\PreviewEnvironment[]{pgfpicture}\n"
 		              "\\begin{document}\n"
