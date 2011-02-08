@@ -1,5 +1,5 @@
 lessThan(QT_VERSION, 4.6) {
-	error("QTikZ requires Qt version 4.6 or higher.")
+	error("QtikZ requires Qt version 4.6 or higher.")
 }
 
 SUBDIRS += app
@@ -11,7 +11,7 @@ CONFIG += warn_on \
 include(qtikzconfig.pri)
 include(qtikzdefaults.pri)
 
-message(*** QTikZ v$${APPVERSION} ***)
+message(*** QtikZ v$${APPVERSION} ***)
 message(Qt version: $$[QT_VERSION])
 message(The program will be installed in)
 message("  $${BIN_INSTALL_DIR}")

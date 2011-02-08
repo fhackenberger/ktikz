@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -36,6 +36,7 @@ struct TikzCommand
 	QString name;
 	QString description;
 	QString command;
+	QString highlightString;
 	int dx;
 	int dy;
 	int type;
@@ -81,7 +82,7 @@ private:
 	QMenu *getMenu(const TikzCommandList &commandList);
 	void addListWidgetItems(QListWidget *listWidget, const TikzCommandList &commandList, bool addChildren = true);
 	TikzCommand newCommand(const QString &name, const QString &command, int dx, int dy, int type = 0);
-	TikzCommand newCommand(const QString &name, const QString &description, const QString &command, int dx, int dy, int type = 0);
+	TikzCommand newCommand(const QString &name, const QString &description, const QString &command, const QString &highlightString, int dx, int dy, int type = 0);
 
 	QPlainTextEdit *m_mainEdit;
 	QWidget *m_parentWidget;

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2011-01-19 20:16+0100\n"
+"POT-Creation-Date: 2011-02-08 20:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../app/main.cpp:105
-msgid "KTikZ"
+msgid "KtikZ"
 msgstr ""
 
 #: ../app/main.cpp:106
@@ -26,7 +26,7 @@ msgid "A TikZ Editor"
 msgstr ""
 
 #: ../app/main.cpp:108 ../part/part.cpp:112
-msgid "Copyright 2007-2010 Florian Hackenberger, Glad Deschrijver"
+msgid "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
 msgstr ""
 
 #: ../app/main.cpp:109
@@ -56,7 +56,7 @@ msgstr ""
 
 #: ../part/configdialog.cpp:29
 msgctxt "@title:window"
-msgid "Configure KTikZ Viewer"
+msgid "Configure KtikZ Viewer"
 msgstr ""
 
 #: ../part/configdialog.cpp:53
@@ -77,7 +77,7 @@ msgid ""
 msgstr ""
 
 #: ../part/part.cpp:109
-msgid "KTikZ KPart"
+msgid "KtikZ KPart"
 msgstr ""
 
 #: ../part/part.cpp:110
@@ -96,7 +96,7 @@ msgstr ""
 
 #: ../part/part.cpp:138
 msgctxt "@action"
-msgid "Configure KTikZ Viewer..."
+msgid "Configure KtikZ Viewer..."
 msgstr ""
 
 #: ../part/part.cpp:150
@@ -358,7 +358,7 @@ msgstr ""
 #. i18n: file: ../part/configgeneralwidget.ui:6
 #. i18n: ectx: property (windowTitle), widget (QWidget, PartConfigGeneralWidget)
 #: rc.cpp:102
-msgid "Configure KTikZ Viewer"
+msgid "Configure KtikZ Viewer"
 msgstr ""
 
 #. i18n: file: ../part/configgeneralwidget.ui:12

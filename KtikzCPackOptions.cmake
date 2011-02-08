@@ -1,8 +1,8 @@
-set(KTIKZ_PACKAGE_NAME "KTikZ")
+set(KTIKZ_PACKAGE_NAME "KtikZ")
 
 include(InstallRequiredSystemLibraries)
-#set(CPACK_PACKAGE_NAME "KTikZ")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "KTikZ is a program for making pictures using TikZ")
+#set(CPACK_PACKAGE_NAME "KtikZ")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "KtikZ is a program for making pictures using TikZ")
 set(CPACK_PACKAGE_VENDOR "Florian Hackenberger")
 set(CPACK_PACKAGE_VERSION ${KTIKZ_VERSION})
 #set(CPACK_PACKAGE_VERSION_MAJOR "0")

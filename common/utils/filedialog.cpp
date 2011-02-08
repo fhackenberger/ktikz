@@ -118,16 +118,6 @@ Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &d
 	if (saveAsFileName.isEmpty())
 		return Url();
 
-/*
-	if (QFile::exists(saveAsFileName))
-	{
-		if (QMessageBox::warning(parent, QCoreApplication::applicationName(),
-		    tr("File \"%1\" already exists.\nDo you want to overwrite it?").arg(saveAsFileName),
-		    QMessageBox::Save | QMessageBox::Default,
-		    QMessageBox::Discard | QMessageBox::Escape) == QMessageBox::Discard)
-			return Url();
-	}
-*/
 	return Url(saveAsFileName);
 }
 #endif

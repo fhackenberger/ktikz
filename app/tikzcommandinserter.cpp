@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -87,6 +87,7 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 	QString name;
 	QString description;
 	QString insertion;
+	QString highlightString;
 	QString type;
 	QRegExp newLineRegExp("([^\\\\])\\\\n"); // newlines are the "\n" not preceded by a backslash as in "\\node"
 	QRegExp descriptionRegExp("<([^<>]*)>"); // descriptions are between < and >
@@ -95,6 +96,7 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 		name = tr(child.attribute("name").toLatin1().data());
 		description = child.attribute("description");
 		insertion = child.attribute("insert");
+		highlightString = child.attribute("highlight");
 		type = child.attribute("type");
 
 		if (description.contains(QLatin1String("\\n"))) // minimize the number of uses of QRegExp
@@ -136,7 +138,7 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 		if (type.isEmpty())
 			type = '0';
 
-		commands << newCommand(name, description, insertion, child.attribute("dx").toInt(), child.attribute("dy").toInt(), type.toInt());
+		commands << newCommand(name, description, insertion, highlightString, child.attribute("dx").toInt(), child.attribute("dy").toInt(), type.toInt());
 
 		if (child.nextSiblingElement().tagName() == "separator")
 			commands << newCommand("", "", "", 0, 0, 0);
@@ -451,6 +453,7 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
 		QString command = m_tikzCommandsList.at(i).command;
 		const int type = m_tikzCommandsList.at(i).type;
 		int end;
+		rule.pattern = QRegExp(m_tikzCommandsList.at(i).highlightString);
 		switch (type)
 		{
 		case 1:
@@ -508,12 +511,12 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
 TikzCommand TikzCommandInserter::newCommand(const QString &name,
         const QString &command, int dx, int dy, int type)
 {
-	return newCommand(name, "", command, dx, dy, type);
+	return newCommand(name, "", command, "", dx, dy, type);
 }
 
 TikzCommand TikzCommandInserter::newCommand(const QString &name,
         const QString &description, const QString &command,
-        int dx, int dy, int type)
+        const QString &highlightString, int dx, int dy, int type)
 {
 	/* type:
 	 * 0: plain text
@@ -524,6 +527,7 @@ TikzCommand TikzCommandInserter::newCommand(const QString &name,
 	tikzCommand.name = name;
 	tikzCommand.description = description;
 	tikzCommand.command = command;
+	tikzCommand.highlightString = highlightString;
 	tikzCommand.dx = dx;
 	tikzCommand.dy = dy;
 	tikzCommand.type = type;

@@ -1,7 +1,7 @@
 ?package(ktikz):needs="X11" \
 section="Applications/Graphics" \
-title="KTikZ" \
-longtitle="KTikZ TikZ drawing editor" \
+title="KtikZ" \
+longtitle="KtikZ TikZ drawing editor" \
 command="/usr/bin/ktikz" \
 icon="/usr/share/pixmaps/ktikz32.xpm" \
 icon32x32="/usr/share/pixmaps/ktikz32.xpm" \

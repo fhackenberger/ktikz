@@ -1,33 +1,33 @@
-# Copyright (C) 2007-2010 Florian Hackenberger, Glad Deschrijver
-# This file is distributed under the same license as the KTikZ package.
+# Copyright (C) 2007-2011 Florian Hackenberger, Glad Deschrijver
+# This file is distributed under the same license as the KtikZ package.
 #
-# Glad Deschrijver <glad.deschrijver@gmail.com>, 2009, 2010.
+# Glad Deschrijver <glad.deschrijver@gmail.com>, 2009, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2011-01-19 20:16+0100\n"
-"PO-Revision-Date: 2010-08-26 11:10+0200\n"
+"POT-Creation-Date: 2011-02-08 20:23+0100\n"
+"PO-Revision-Date: 2011-02-08 20:12+0100\n"
 "Last-Translator: Glad Deschrijver <glad.deschrijver@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.1\n"
+"X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../app/main.cpp:105
-msgid "KTikZ"
-msgstr "KTikZ"
+msgid "KtikZ"
+msgstr "KtikZ"
 
 #: ../app/main.cpp:106
 msgid "A TikZ Editor"
 msgstr "Un éditeur TikZ"
 
 #: ../app/main.cpp:108 ../part/part.cpp:112
-msgid "Copyright 2007-2010 Florian Hackenberger, Glad Deschrijver"
-msgstr "Copyright 2007-2010 Florian Hackenberger, Glad Deschrijver"
+msgid "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
+msgstr "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
 
 #: ../app/main.cpp:109
 msgid ""
@@ -57,8 +57,8 @@ msgstr "Document TikZ à ouvrir"
 
 #: ../part/configdialog.cpp:29
 msgctxt "@title:window"
-msgid "Configure KTikZ Viewer"
-msgstr "Configurer la visionneuse KTikZ"
+msgid "Configure KtikZ Viewer"
+msgstr "Configurer la visionneuse KtikZ"
 
 #: ../part/configdialog.cpp:53
 msgctxt "@title:group"
@@ -80,8 +80,8 @@ msgstr ""
 "que le fichier est modifié par un autre programme.</para>"
 
 #: ../part/part.cpp:109
-msgid "KTikZ KPart"
-msgstr "KTikZ KPart"
+msgid "KtikZ KPart"
+msgstr "KtikZ KPart"
 
 #: ../part/part.cpp:110
 msgid "A TikZ Viewer"
@@ -100,8 +100,8 @@ msgstr "<para>Enregistrer le document sous un nouveau nom.</para>"
 
 #: ../part/part.cpp:138
 msgctxt "@action"
-msgid "Configure KTikZ Viewer..."
-msgstr "Configurer la visionneuse KTikZ..."
+msgid "Configure KtikZ Viewer..."
+msgstr "Configurer la visionneuse KtikZ..."
 
 #: ../part/part.cpp:150
 msgctxt "@info"
@@ -370,8 +370,8 @@ msgstr "Le facteur avec lequel l'aperçu est agrandi ou rétréci."
 #. i18n: file: ../part/configgeneralwidget.ui:6
 #. i18n: ectx: property (windowTitle), widget (QWidget, PartConfigGeneralWidget)
 #: rc.cpp:102
-msgid "Configure KTikZ Viewer"
-msgstr "Configurer la visionneuse KTikZ"
+msgid "Configure KtikZ Viewer"
+msgstr "Configurer la visionneuse KtikZ"
 
 #. i18n: file: ../part/configgeneralwidget.ui:12
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)

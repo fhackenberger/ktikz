@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=KTikZ
+Name=KtikZ
 Exec=ktikz
 Icon=ktikz
 Terminal=false

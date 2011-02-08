@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=QTikZ
+Name=QtikZ
 Exec=qtikz
 Icon=
 Terminal=false

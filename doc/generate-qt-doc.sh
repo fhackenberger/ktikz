@@ -28,21 +28,24 @@ generate_html()
 {
 	ksgmltoolsdir="`kde4-config --install data --expandvars`/ksgmltools2"
 	dtddir="${ksgmltoolsdir}/customization/dtd"
-	xslfile="${ksgmltoolsdir}/docbook/xsl/html/docbook.xsl"
+#	xslfile="${ksgmltoolsdir}/docbook/xsl/html/docbook.xsl"
+#	xslfile="${ksgmltoolsdir}/customization/kde-chunk.xsl"
+	xslfile="/usr/share/xml/docbook/stylesheet/docbook-xsl/html/docbook.xsl"
 
 	xsltproc --path ${dtddir} -o ${outputfile} ${xslfile} ${inputfile}
 	sed -e "s/<head>/<head><meta http-equiv=\"Content-Style-Type\" content=\"text\/css\"><link href=\"index.css\" rel=\"stylesheet\" type=\"text\/css\">/" \
-	    -e "s/KTikZ/QTikZ/g" \
+	    -e "s/KtikZ/QtikZ/g" \
 	    -e "s/cmake/qmake/g" \
+	    -e "s/<acronym class=\"acronym\">KDE<\/acronym>/Qt/g" \
 	    -e "s/KDE/Qt/g" \
-	    -e "s/kdebase and kdelibs from [^,]*,/<span class=\"application\">Qt<\/span> 4.4/g" \
+	    -e "s/kdebase and kdelibs from [^,]*,/Qt 4.4/g" \
 	    ${outputfile} > ${outputfile}_temp
 	# Remove information about "Report Bug" and "Switch Application Language" items in the Help menu which do not exist in the Qt-only version
-	sed -e ":a;s/<dt><span class=\"term\"><span class=\"guimenu\">Help<\/span>-&gt;<span class=\"guimenuitem\">Report Bug.*for this application\.<\/p><\/dd>//;/</N;//ba" \
+	sed -e ":a;s/<dt><span class=\"term\"><span class=\"guimenu\">Help<\/span> &#8594; <span class=\"guimenuitem\">Report Bug.*for this application\.<\/p><\/dd>//;/</N;//ba" \
 	    ${outputfile}_temp > ${outputfile}
 	# Remove duplicate "Qt 4.4" in the "Compilation and Installation" section
 	# Remove instructions about "Show Statusbar", "Configure Shortcuts" and "Configure Toolbars" which do not exist in the Qt-only version
-	sed -e "s/<span class=\"application\">Qt<\/span> 4.4 <span/<span/" \
+	sed -e "s/Qt 4.4, Qt 4.4/Qt 4.4,/" \
 	    -e "/term-commands-show-statusbar/,/toolbar\.<\/p><\/dd>/d" \
 	    ${outputfile} > ${outputfile}_temp
 	mv ${outputfile}_temp ${outputfile}

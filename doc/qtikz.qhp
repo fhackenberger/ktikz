@@ -4,7 +4,7 @@
 	<virtualFolder>doc</virtualFolder>
 	<filterSection>
 		<toc>
-			<section title="QTikZ" ref="index.html"></section>
+			<section title="QtikZ" ref="index.html"></section>
 		</toc>
 		<files>
 			<file>index.html</file>

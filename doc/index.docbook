@@ -1,9 +1,11 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
-  <!ENTITY ktikz "<application>KTikZ</application>">
+  <!ENTITY ktikz "<application>KtikZ</application>">
   <!ENTITY kappname "&ktikz;">
   <!ENTITY poppler "<application>poppler</application>">
-  <!ENTITY qt "<application>Qt</application>">
+  <!ENTITY qt "Qt">
+  <!ENTITY bullet "&#8226;">
+  <!ENTITY to "&#8594;">
   <!ENTITY ktikz-interface SYSTEM "interface.docbook">
   <!ENTITY ktikz-usage SYSTEM "usage.docbook">
   <!ENTITY ktikz-commands SYSTEM "commands.docbook">
@@ -37,7 +39,7 @@ as Authors, publish date, the abstract, and Keywords -->
 </authorgroup>
 
 <copyright>
-	<year>2010</year>
+	<year>2010, 2011</year>
 	<holder>Glad Deschrijver</holder>
 </copyright>
 
@@ -52,8 +54,8 @@ as Authors, publish date, the abstract, and Keywords -->
      (V.MM.LL), it could be used by automation scripts.
      Do NOT change these in the translation. -->
 
-<date>2010-07-15</date>
-<releaseinfo>0.1</releaseinfo>
+<date>2011-02-08</date>
+<releaseinfo>0.2</releaseinfo>
 
 <abstract>
 	<para>&ktikz; is program for &kde; for creating TikZ (from the LaTeX pgf package) diagrams.</para>
@@ -65,7 +67,7 @@ as Authors, publish date, the abstract, and Keywords -->
 
 <keywordset>
 	<keyword>KDE</keyword>
-	<keyword>KTikZ</keyword>
+	<keyword>KtikZ</keyword>
 	<keyword>Editor</keyword>
 	<keyword>PGF</keyword>
 	<keyword>LaTeX</keyword>
@@ -113,9 +115,9 @@ Please report any problems or feature requests to the &ktikz; author via the bug
 <title>Credits and License</title>
 
 <para>&ktikz;</para>
-<para>Program copyright 2007-2010 Florian Hackenberger <email>florian@hackenberger.at</email></para>
-<para>Program copyright 2007-2010 Glad Deschrijver <email>glad.deschrijver@gmail.com</email></para>
-<para>Documentation copyright 2010 Glad Deschrijver <email>glad.deschrijver@gmail.com</email></para>
+<para>Program copyright 2007-2011 Florian Hackenberger <email>florian@hackenberger.at</email></para>
+<para>Program copyright 2007-2011 Glad Deschrijver <email>glad.deschrijver@gmail.com</email></para>
+<para>Documentation copyright 2010, 2011 Glad Deschrijver <email>glad.deschrijver@gmail.com</email></para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 

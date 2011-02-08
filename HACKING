@@ -51,7 +51,7 @@ Generating the icons:
 
 The app/icons/qtikz.svg and app/icons/ktikz.svg icons are derived from the
 accessories-text-editor icon in KDE's Oxygen icon set, in Inkscape the "Lorem
-ipsum..." text is removed and the QTikZ/KTikZ text is added using the Prociono
+ipsum..." text is removed and the QtikZ/KtikZ text is added using the Prociono
 font (http://www.fontsquirrel.com/fonts/Prociono).  The PNG versions of these
 icons in different sizes are all obtained by opening the SVG versions in the
 GIMP, selecting the appropriate size when the SVG file is opened and saving

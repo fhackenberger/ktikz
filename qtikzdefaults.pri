@@ -1,5 +1,5 @@
 ORGNAME = "Florian_Hackenberger"
-APPNAME = ktikz
+APPNAME = qtikz
 APPVERSION = 0.11
 
 isEmpty(QMAKECOMMAND) {
@@ -59,8 +59,8 @@ macx { # untested
 }
 win32 {
 	isEmpty(PREFIX) {
-#		PREFIX = $$quote(C:/Program Files/QTikZ)
-		PREFIX = "C:/QTikZ"
+#		PREFIX = $$quote(C:/Program Files/QtikZ)
+		PREFIX = "C:/QtikZ"
 	}
 	isEmpty(BIN_INSTALL_DIR) {
 		BIN_INSTALL_DIR = $${PREFIX}

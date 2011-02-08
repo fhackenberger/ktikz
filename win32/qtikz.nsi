@@ -1,9 +1,9 @@
 ;NSIS Modern User Interface
-;QTikZ installation script
+;QtikZ installation script
 ;Written by Glad Deschrijver
 
 !define ORGNAME "Florian_Hackenberger"
-!define APPNAME "QTikZ"
+!define APPNAME "QtikZ"
 !define FILENAME "qtikz"
 ; qtikz.nsh file is created by "make install" and it contains VERSION
 !include "qtikz.nsh"

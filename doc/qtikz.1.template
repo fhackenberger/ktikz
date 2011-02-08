@@ -8,7 +8,7 @@ qtikz \- editor for the TikZ language
 [url | file]
 
 .SH DESCRIPTION
-QTikZ is a small application to assist in the creation of diagrams and
+QtikZ is a small application to assist in the creation of diagrams and
 drawings  using the TikZ macros from the LaTeX package "pgf".
 It consists of a text editor pane in
 which the TikZ code for the drawing is edited and a preview pane showing the
@@ -21,7 +21,7 @@ accepts no command line options other than the name of the file
 to open.
 
 .SH SEE ALSO
-Full user documentation is available through Help -> QTikZ Handbook.
+Full user documentation is available through Help -> QtikZ Handbook.
 You can also run
 .BR "`assistant -collectionFile'"
 from the command-line.

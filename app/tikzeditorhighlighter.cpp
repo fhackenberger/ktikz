@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007 by Glad Deschrijver                                *
+ *   Copyright (C) 2007, 2011 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -28,16 +28,17 @@ TikzHighlighter::TikzHighlighter(TikzCommandInserter *commandInserter, QTextDocu
 {
 	m_commandInserter = commandInserter;
 
-	HighlightingRule rule;
-
 	if (commandInserter)
 	{
 		m_highlightingRules << commandInserter->getHighlightingRules();
 		m_highlightTypeNames << commandInserter->getHighlightTypeNames();
 	}
+
+	// add highlighting for environments and comments
+	HighlightingRule rule;
 	const int currentIndex = m_highlightTypeNames.size();
 	m_highlightTypeNames << "Environments" << "Comments";
-
+	// environments
 	QStringList keywordPatterns;
 	keywordPatterns << "\\\\begin\\{[^\\}]*\\}" << "\\\\end\\{[^\\}]*\\}";
 	foreach (const QString &pattern, keywordPatterns)
@@ -46,7 +47,7 @@ TikzHighlighter::TikzHighlighter(TikzCommandInserter *commandInserter, QTextDocu
 		rule.pattern = QRegExp(pattern);
 		m_highlightingRules.append(rule);
 	}
-
+	// comments
 	rule.type = m_highlightTypeNames.at(currentIndex + 1);
 	rule.pattern = QRegExp("%[^\n]*");
 	m_highlightingRules.append(rule);
@@ -65,12 +66,14 @@ QMap<QString, QTextCharFormat> TikzHighlighter::getDefaultHighlightFormats()
 		formatList = m_commandInserter->getDefaultHighlightFormats();
 	const int currentIndex = m_highlightTypeNames.size() - 2;
 
+	// format for environments
 	QTextCharFormat keywordFormat;
 	keywordFormat.setForeground(Qt::darkBlue);
 	keywordFormat.setFont(qApp->font());
 	keywordFormat.setFontWeight(QFont::Bold);
 	formatList[m_highlightTypeNames.at(currentIndex)] = keywordFormat;
 
+	// format for comments
 	QTextCharFormat commentFormat;
 	commentFormat.setForeground(Qt::gray);
 	commentFormat.setFont(qApp->font());
@@ -109,7 +112,7 @@ void TikzHighlighter::highlightBlock(const QString &text)
 	// Try each highlighting pattern and apply formatting if it matches
 	foreach (const HighlightingRule &rule, m_highlightingRules)
 	{
-		if (!rule.matchString.isEmpty())
+		if (rule.pattern.isEmpty()) // match the insertion string
 		{
 			int index = text.indexOf(rule.matchString);
 			while (index >= 0)
@@ -120,10 +123,8 @@ void TikzHighlighter::highlightBlock(const QString &text)
 				index = text.indexOf(rule.matchString, index + length);
 			}
 		}
-		else
+		else // match the pattern
 		{
-//			const QRegExp expression(rule.pattern);
-//			int index = text.indexOf(expression);
 			QRegExp expression(rule.pattern);
 			int index = expression.indexIn(text);
 			while (index >= 0)
@@ -131,7 +132,6 @@ void TikzHighlighter::highlightBlock(const QString &text)
 				const int length = expression.matchedLength();
 				if (index == 0 || text.at(index-1) != '\\')
 					setFormat(index, length, m_formatList[rule.type]);
-//				index = text.indexOf(expression, index + length);
 				index = expression.indexIn(text, index + length);
 			}
 		}

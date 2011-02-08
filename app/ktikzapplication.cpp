@@ -56,7 +56,7 @@ void KtikzApplication::init()
 
 QString KtikzApplication::applicationName()
 {
-	return "KTikZ";
+	return "KtikZ";
 }
 #else
 #include <QFileInfo>
@@ -112,7 +112,7 @@ void KtikzApplication::init()
 
 QString KtikzApplication::applicationName()
 {
-	return "QTikZ";
+	return "QtikZ";
 }
 
 void KtikzApplication::commitData(QSessionManager &manager)

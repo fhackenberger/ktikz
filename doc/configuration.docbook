@@ -93,11 +93,11 @@
 			<variablelist>
 			<varlistentry>
 				<term><guilabel>Replace text</guilabel></term>
-				<listitem><para>Enter the text which will be replaced by the TikZ code in the template here.</para></listitem>
+				<listitem><para>Enter the text which will be replaced by the TikZ code in the <link linkend="sect1-using-ktikz-templates">template</link> here.</para></listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><guilabel>Editor command</guilabel></term>
-				<listitem><para>Enter the path to the executable of the text editor for the template here.</para></listitem>
+				<listitem><para>Enter the path to the executable of the text editor for the <link linkend="sect1-using-ktikz-templates">template</link> here.</para></listitem>
 			</varlistentry>
 			</variablelist>
 		</listitem>

@@ -117,7 +117,7 @@
 		<title>Using &ktikz; for picture packages other than PGF</title>
 
 		<para>
-			&ktikz; is designed to be used for TikZ or PGF pictures (pictures created using the LaTeX PGF package).  But by using the template mechanism in a smart way it is possible to use &ktikz; also for other picture packages available in LaTeX.  For example, the following template file could be used to be able to draw pspictures (with the pstricks package).  Note however that pstricks only supports LaTeX -> PS -> PDF compilation, so you will also have to apply the next tip.
+			&ktikz; is designed to be used for TikZ or PGF pictures (pictures created using the LaTeX PGF package).  But by using the template mechanism in a smart way it is possible to use &ktikz; also for other picture packages available in LaTeX.  For example, the following template file could be used to be able to draw pspictures (with the pstricks package).  Note however that pstricks only supports LaTeX &to; PS &to; PDF compilation, so you will also have to apply the next tip.
 			<example id="ex-using-ktikz-templatefile-pstricks">
 				<title>Example template file for pstricks</title>
 				<programlisting>\documentclass{article}
@@ -157,12 +157,12 @@
 
 	</sect2>
 	<sect2 id="sect2-using-ktikz-tips-using-ps2pdf">
-		<title>Using LaTeX -> PS -> PDF compilation</title>
+		<title>Using LaTeX &to; PS &to; PDF compilation</title>
 
 		<para>
 			Since &ktikz; is designed to be used for TikZ and PGF pictures, the compilation done behind the scenes is done with <command>pdflatex</command>.  Using the following shell script (only for Unices) and an appropriate template file, it is however possible to generate the preview by using the <command>latex</command>, <command>dvips</command>, <command>ps2pdf</command> sequence (i.e. first compile to PS and then convert the PS to PDF).
 			<example id="ex-using-ktikz-latex-ps-pdf-shell-script">
-				<title>LaTeX -> PS -> PDF compilation shell script</title>
+				<title>LaTeX &to; PS &to; PDF compilation shell script</title>
 				<programlisting>#!/bin/sh
 
 # This shell script compiles a LaTeX file to PDF using the latex, dvips,
@@ -215,7 +215,7 @@ dvips -Ppdf -G0 -o $texfilebasename.ps $texfilebasename.dvi
 ps2pdf14 $texfilebasename.ps $texfilebasename.pdf</programlisting>
 			</example>
 			<example id="ex-using-ktikz-templatefile-latex-ps-pdf">
-				<title>Example template file for LaTeX -> PS -> PDF compilation</title>
+				<title>Example template file for LaTeX &to; PS &to; PDF compilation</title>
 				<programlisting>\documentclass{article}
 \usepackage{mathptmx}
 \usepackage{tikz}
@@ -230,7 +230,7 @@ ps2pdf14 $texfilebasename.ps $texfilebasename.pdf</programlisting>
 &lt;&gt;
 \end{document}</programlisting>
 			</example>
-			In the configuration dialog (<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &ktikz;...</guimenuitem></menuchoice>), the <guilabel>PDFLaTeX command</guilabel> should be replaced by the full path to the above shell script (or simply the shell script name if the script is in the PATH).  In the main window, the <guilabel>Template</guilabel> should be replaced by the above template (or another template file that is compatible with LaTeX -> PS -> PDF compilation).
+			In the configuration dialog (<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &ktikz;...</guimenuitem></menuchoice>), the <guilabel>PDFLaTeX command</guilabel> should be replaced by the full path to the above shell script (or simply the shell script name if the script is in the PATH).  In the main window, the <guilabel>Template</guilabel> should be replaced by the above template (or another template file that is compatible with LaTeX &to; PS &to; PDF compilation).
 		</para>
 	</sect2>
 </sect1>

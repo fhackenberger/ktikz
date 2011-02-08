@@ -106,10 +106,10 @@ QWidget *Part::widget()
 KAboutData *Part::createAboutData()
 {
 	KAboutData *aboutData = new KAboutData("ktikzpart", "ktikz",
-	                                       ki18n("KTikZ KPart"), APPVERSION);
+	                                       ki18n("KtikZ KPart"), APPVERSION);
 	aboutData->setShortDescription(ki18n("A TikZ Viewer"));
 	aboutData->setLicense(KAboutData::License_GPL_V2);
-	aboutData->setCopyrightStatement(ki18n("Copyright 2007-2010 Florian Hackenberger, Glad Deschrijver"));
+	aboutData->setCopyrightStatement(ki18n("Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"));
 	aboutData->setOtherText(ki18n("This is a plugin for viewing TikZ (from the LaTeX pgf package) diagrams."));
 	aboutData->setBugAddress("florian@hackenberger.at");
 	aboutData->addAuthor(ki18n("Florian Hackenberger"), ki18n("Maintainer"), "florian@hackenberger.at");
@@ -135,7 +135,7 @@ void Part::createActions()
 
 	// Configure
 	KAction *action = KStandardAction::preferences(this, SLOT(configure()), actionCollection());
-	action->setText(i18nc("@action", "Configure KTikZ Viewer..."));
+	action->setText(i18nc("@action", "Configure KtikZ Viewer..."));
 }
 
 /***************************************************************************/

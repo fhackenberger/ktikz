@@ -1,13 +1,13 @@
-KTikZ is a program for making pictures using tikz.
+KtikZ is a program for making pictures using TikZ.
 
 Usage
 -----
 
-You write the tikz code in the editor and KTikZ automatically generates the
+You write the TikZ code in the editor and KtikZ automatically generates the
 image in a preview panel.
 
 The complete description of the usage is available in the application itself,
-under Help -> KTikZ Manual.
+under Help -> KtikZ Manual.
 
 Installation
 ------------
@@ -17,8 +17,8 @@ See the INSTALL file.
 License
 -------
 
-Copyright (C) 2007-2010 Florian Hackenberger <florian@hackenberger.at>
-              2007-2010 Glad Deschrijver <glad.deschrijver@gmail.com>
+Copyright (C) 2007-2011 Florian Hackenberger <florian@hackenberger.at>
+              2007-2011 Glad Deschrijver <glad.deschrijver@gmail.com>
 Portions are copyrighted also by other people (see app/tikzeditor.cpp,
 common/utils/lineedit.cpp and part/part.cpp).
 
@@ -38,7 +38,7 @@ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 The icons are copied or derived from KDE's Oxygen icon set which is released
 under the LGPL (see http://www.oxygen-icons.org/?page_id=4).  The font used
-in the qtikz and ktikz icons is Prociono and is released under the following
+in the QtikZ and KtikZ icons is Prociono and is released under the following
 license:
 
   This font has been released into the public domain by its author,

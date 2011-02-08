@@ -3,7 +3,7 @@
  <class>PartConfigGeneralWidget</class>
  <widget class="QWidget" name="PartConfigGeneralWidget">
   <property name="windowTitle">
-   <string>Configure KTikZ Viewer</string>
+   <string>Configure KtikZ Viewer</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

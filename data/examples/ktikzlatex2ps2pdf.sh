@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # This shell script compiles a LaTeX file to PDF using the latex, dvips,
-# ps2pdf sequence and is supposed to be used in KTikZ only, as a replacement
+# ps2pdf sequence and is supposed to be used in KtikZ only, as a replacement
 # for pdflatex.
 # Therefore the following assumptions are made in the code of this script:
 # - the only options with a value are -output-directory and -interaction
@@ -10,7 +10,7 @@
 #   the value of one of the above mentioned options
 
 # Usage:
-# - open KTikZ, go to Settings -> Configure KTikZ..., in the "General" tab
+# - open KtikZ, go to Settings -> Configure KtikZ..., in the "General" tab
 #   change the value of PDFLaTeX command to /path/to/ktikzlatex2ps2pdf.sh
 # - in the "Template" box change the value to /path/to/ktikzlatex2ps2pdf_template.pgs
 

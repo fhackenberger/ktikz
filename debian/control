@@ -26,7 +26,7 @@ Depends: pgf,
 Recommends: poppler-utils,
               khelpcenter4
 Description: editor for the TikZ drawing language - KDE version
- KTikZ is a small application to assist in the creation of diagrams and
+ KtikZ is a small application to assist in the creation of diagrams and
  drawings using the TikZ macros from the LaTeX package "pgf". It consists of
  a text editor pane in which the TikZ code for the drawing is edited and a
  preview pane showing the drawing as rendered by LaTeX. The preview pane can be
@@ -49,7 +49,7 @@ Depends: pgf,
 Recommends: poppler-utils,
             qt4-dev-tools
 Description: editor for the TikZ drawing language - Qt version
- QTikZ is a small application to assist in the creation of diagrams and
+ QtikZ is a small application to assist in the creation of diagrams and
  drawings using the TikZ macros from the LaTeX package "pgf". It consists of
  a text editor pane in which the TikZ code for the drawing is edited and a
  preview pane showing the drawing as rendered by LaTeX. The preview pane can be
