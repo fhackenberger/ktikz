@@ -1257,52 +1257,52 @@ Do you want to save your changes?</source>
         <translation>&amp;Introducir</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="225"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="228"/>
         <source>Define st&amp;yle</source>
         <translation>Definir est&amp;ilo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="94"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="96"/>
         <source>&amp;Options</source>
         <translation>&amp;Opciones</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="304"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="312"/>
         <source>&lt;p&gt;This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Este es una lista de comandos TikZ.  Puede insertar estos comandos en su código pulsandolos.  Puede obtener más comandos cambiando la categoría.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="310"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="318"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="314"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="322"/>
         <source>Category:</source>
         <translation>Categoría:</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="327"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="335"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="422"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="430"/>
         <source>Commands</source>
         <translation>Comandos</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="422"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="430"/>
         <source>Draw to</source>
         <translation>Tirar a</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="422"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="430"/>
         <source>Options</source>
         <translation>Opciones</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="223"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="226"/>
         <source>Define c&amp;olor</source>
         <translation>Definir c&amp;olor</translation>
     </message>
@@ -1585,12 +1585,12 @@ Do you want to save your changes?</source>
         <translation>valor</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="81"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="80"/>
         <source>rectangle/circle/...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="80"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="81"/>
         <source>style</source>
         <translation>estilo</translation>
     </message>
@@ -1730,602 +1730,647 @@ Do you want to save your changes?</source>
         <translation>código</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="84"/>
-        <source>&amp;Draw</source>
-        <translation>&amp;Tirar</translation>
-    </message>
-    <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="85"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="87"/>
         <source>Draw &amp;to Next Point</source>
         <translation>Tirar &amp;al punto siguiente</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="88"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="90"/>
         <source>&amp;Specifying Coordinates</source>
         <translation>E&amp;specificar coordenadas</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="89"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="91"/>
         <source>&amp;Curves</source>
         <translation>&amp;Curvas</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="91"/>
-        <source>Assignments using &amp;let</source>
-        <translation>Asignaciones con «&amp;let»</translation>
-    </message>
-    <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="92"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="94"/>
         <source>&amp;Nodes</source>
         <translation>&amp;Nodos</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="93"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="95"/>
         <source>&amp;Arrows</source>
         <translation>&amp;Flechas</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="111"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="113"/>
         <source>&amp;Styles</source>
         <translation>E&amp;stilos</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="106"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="108"/>
         <source>&amp;Node Options</source>
         <translation>Opciones &amp;nodos</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="101"/>
-        <source>&amp;Line Options</source>
-        <translation>Opciones &amp;línea</translation>
-    </message>
-    <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="105"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="107"/>
         <source>&amp;Plot Options</source>
         <translation>Opciones &amp;trazar</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="95"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="97"/>
         <source>&amp;Opacity</source>
         <translation>&amp;Opacidad</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="96"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="98"/>
         <source>&amp;Dash Patterns</source>
         <translation>Patrones de &amp;guiones</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="97"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="99"/>
         <source>S&amp;hade Options</source>
         <translation>Opciones de s&amp;ombras</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="98"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="100"/>
         <source>&amp;Snaked Lines Options</source>
         <translation>Opciones &amp;serpentinas</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="99"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="101"/>
         <source>&amp;Path Options</source>
         <translation>Opciones &amp;rutas</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="100"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="102"/>
         <source>&amp;Transformations on Subsequent Objects in Path</source>
         <translation>&amp;Transformaciones en los objetos siguientes en la ruta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="102"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="104"/>
         <source>Para&amp;bola Options</source>
         <translation>Opciones pará&amp;bola</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="104"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="106"/>
         <source>&amp;Grid Options</source>
         <translation>Opciones &amp;grilla</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="103"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="105"/>
         <source>&amp;To Options</source>
         <translation>Opciones «&amp;to»</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="116"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="118"/>
         <source>\foreach with iteration</source>
         <translation>\foreach con iteración</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="117"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="119"/>
         <source>\foreach with custom text</source>
         <translation>\foreach con texto personalizado</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="118"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="120"/>
         <source>Specify &amp;coordinate</source>
         <translation>Especificar &amp;coordenada</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="119"/>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="135"/>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="160"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="121"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="155"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="162"/>
         <source>&amp;Node</source>
         <translation>&amp;Nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="120"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="122"/>
         <source>&amp;Clip and draw the clipping contours</source>
         <translation>Re&amp;cortar y trazar contornos de recorte</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="121"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="123"/>
         <source>Draw &amp;line between two points</source>
         <translation>Trazar &amp;línea entre dos puntos</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="122"/>
-        <source>Draw p&amp;olygon</source>
-        <translation>Trazar p&amp;olígono</translation>
-    </message>
-    <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="123"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="125"/>
         <source>&amp;Clip rectangle</source>
         <translation>Re&amp;cortar rectángulo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="87"/>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="127"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="89"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="129"/>
         <source>&amp;Line to</source>
         <translation>&amp;Línea a</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="132"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="134"/>
         <source>&amp;Edge to</source>
         <translation>&amp;Enlace a</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="134"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="158"/>
         <source>C&amp;ycle</source>
         <translation>&amp;Ciclo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="150"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="148"/>
         <source>&amp;To</source>
         <translation>&amp;A</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="136"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="156"/>
         <source>&amp;Node (with options and name)</source>
         <translation>&amp;Nodo (con opciones y nombre)</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="90"/>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="154"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="92"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="152"/>
         <source>&amp;Plot</source>
         <translation>&amp;Trazar</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="155"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="153"/>
         <source>&amp;Function</source>
         <translation>&amp;Función</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="138"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="136"/>
         <source>&amp;Absolute point</source>
         <translation>Punto &amp;absoluto</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="139"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="93"/>
+        <source>Assignments Using &quot;&amp;let&quot;</source>
+        <translation>Asignaciones con «&amp;let»</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="103"/>
+        <source>&amp;Line Styles</source>
+        <translation>Estilos &amp;línea</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="109"/>
+        <source>&amp;Label Position</source>
+        <translation>Posición de la &amp;etiqueta</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="110"/>
+        <source>Position on &amp;Path</source>
+        <translation>Posición en la &amp;ruta</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="111"/>
+        <source>Label &amp;Style</source>
+        <translation>E&amp;stilo de la etiqueta</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="114"/>
+        <source>&amp;Define Style of Subsequent Paths (standalone)</source>
+        <translation>&amp;Definir estilo de los objetos siguientes (autónomo)</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="115"/>
+        <source>Define Style of Subsequent Paths (as &amp;option)</source>
+        <translation>Definir estilo de los objetos siguientes (como &amp;opción)</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="116"/>
+        <source>&amp;Add to Style of Subsequent Paths (standalone)</source>
+        <translation>&amp;Añadir al estilo de los objetos siguientes (autónomo)</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="117"/>
+        <source>Add to Style of Subsequent Paths (as o&amp;ption)</source>
+        <translation>Añadir al estilo de los objetos siguientes (como &amp;opción)</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="124"/>
+        <source>Draw &amp;polygon</source>
+        <translation>Trazar p&amp;olígono</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="137"/>
         <source>Point &amp;relative to initial position</source>
         <translation>Punto &amp;relativo a la posición inicial</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="140"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="138"/>
         <source>Point &amp;relative to previous position</source>
         <translation>Punto &amp;relativo a la posición anterior</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="141"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="139"/>
         <source>&amp;Polar coordinates</source>
         <translation>Coordenadas &amp;polares</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="142"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="140"/>
         <source>&amp;Intersection of two lines</source>
         <translation>&amp;Intersección de dos líneas</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="143"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="141"/>
         <source>&amp;Rectangle</source>
         <translation>&amp;Rectángulo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="144"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="142"/>
         <source>&amp;Circle</source>
         <translation>&amp;Círculo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="145"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="143"/>
         <source>&amp;Ellipse</source>
         <translation>&amp;Elipse</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="146"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="144"/>
         <source>&amp;Arc</source>
         <translation>&amp;Arco</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="147"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="145"/>
         <source>&amp;Parabola</source>
         <translation>&amp;Parábola</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="148"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="146"/>
         <source>&amp;Sine curve in [0, pi/2]</source>
         <translation>&amp;Sinusoide en [0, pi/2]</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="153"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="151"/>
         <source>&amp;Grid</source>
         <translation>&amp;Grilla</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="157"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="159"/>
         <source>&amp;Let</source>
         <translation>&amp;Sea</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="158"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="160"/>
         <source>Let &amp;number</source>
         <translation>Sea &amp;número</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="159"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="161"/>
         <source>Let &amp;point</source>
         <translation>Sea &amp;punto</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="161"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="163"/>
         <source>&amp;Child</source>
         <translation>&amp;Hijo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="162"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="164"/>
         <source>C&amp;hild node</source>
         <translation>Nodo &amp;hijo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="163"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="165"/>
         <source>Node &amp;part</source>
         <translation>&amp;Parte de nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="164"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="166"/>
         <source>Set &amp;distance between nodes</source>
         <translation>Definir &amp;distancia entre los nodos</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="165"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="167"/>
         <source>Set parent &amp;anchor</source>
         <translation>Definir &amp;áncora del padre</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="166"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="168"/>
         <source>Set child &amp;anchor</source>
         <translation>Definir &amp;áncora del hijo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="167"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="169"/>
         <source>Set node tree &amp;grow direction</source>
         <translation>Definir dirección de &amp;crecimiento del árbol de nodos</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="168"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="170"/>
         <source>Set &amp;label</source>
         <translation>Definir &amp;etiqueta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="169"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="171"/>
         <source>Set &amp;pin (label with connecting edge)</source>
         <translation>Definir &amp;perno (etiqueta con enlace)</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="170"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="172"/>
         <source>&amp;Shorten start of line</source>
         <translation>&amp;Acortar comienzo de la línea</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="171"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="173"/>
         <source>&amp;Shorten end of line</source>
         <translation>&amp;Acortar final de la línea</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="199"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="201"/>
         <source>Set node &amp;very near start of path</source>
         <translation>Poner nodo &amp;muy cerca del comienzo de la ruta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="200"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="202"/>
         <source>Set node &amp;near start of path</source>
         <translation>Poner nodo c&amp;erca del comienzo de la ruta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="202"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="204"/>
         <source>Set node ne&amp;ar end of path</source>
         <translation>Poner nodo cerc&amp;a del final de la ruta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="203"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="205"/>
         <source>Set node ver&amp;y near end of path</source>
         <translation>Poner nodo m&amp;uy cerca del final de la ruta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="205"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="207"/>
         <source>Set &amp;relative position of node on path</source>
         <translation>Definir posición &amp;relativa del nodo en la ruta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="206"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="208"/>
         <source>Set text in node &amp;justified</source>
         <translation>&amp;Justificar texto en el nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="207"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="209"/>
         <source>Align text in node to the &amp;left</source>
         <translation>Alinear texto en el nodo a la i&amp;zquierda</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="208"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="210"/>
         <source>Align text to the left without h&amp;yphenation</source>
         <translation>Alinear texto en el nodo a la izquierda sin ces&amp;ura</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="209"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="211"/>
         <source>&amp;Center text in node</source>
         <translation>&amp;Centrar texto en el nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="210"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="212"/>
         <source>Center text without hy&amp;phenation</source>
         <translation>Centrar texto sin cesu&amp;ra</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="211"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="213"/>
         <source>Set text &amp;width in node</source>
         <translation>Definir anc&amp;hura del texto en el nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="212"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="214"/>
         <source>Set text &amp;height in node</source>
         <translation>Definir &amp;altura del texto en el nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="213"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="215"/>
         <source>Set text &amp;depth in node</source>
         <translation>Definir &amp;profundidad del texto en el nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="217"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="219"/>
         <source>Set separation &amp;outside node shape</source>
         <translation>Definir separación al e&amp;xterior del nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="219"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="221"/>
         <source>Set distance between node and its &amp;pin label</source>
         <translation>Definir distancia entre el nodo y su etiqueta con &amp;perno</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="220"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="222"/>
         <source>Set pin &amp;edge options</source>
         <translation>Definir opciones del &amp;enlace de perno</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="221"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="223"/>
         <source>Set node s&amp;loped in the direction of path</source>
         <translation>&amp;Inclinar nodo en la dirección de la ruta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="222"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="224"/>
         <source>Set s&amp;hape of node</source>
         <translation>Definir &amp;forma del nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="224"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="225"/>
+        <source>Set st&amp;yle to globally defined style</source>
+        <translation>Fijar est&amp;ilo a un estilo definido globalmente</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="227"/>
         <source>Set &amp;definition</source>
         <translation>Establecer &amp;definición</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="226"/>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="230"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="229"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="233"/>
         <source>Define style for every &amp;path</source>
         <translation>Definir estilo para cada &amp;ruta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="227"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="230"/>
         <source>Define style for every &amp;to</source>
         <translation>Definir estilo para cada «&amp;to»</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="228"/>
         <location filename="../../buildqt/app/tikzcommands_tr.h" line="231"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="234"/>
         <source>Define style for every &amp;node</source>
         <translation>Definir estilo para cada &amp;nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="229"/>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="237"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="232"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="240"/>
         <source>Define style for every node with a certain &amp;shape</source>
         <translation>Definir estilo para cada nodo con una &amp;forma</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="232"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="235"/>
         <source>Define style for every &amp;edge</source>
         <translation>Definir estilo para cada &amp;enlace</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="233"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="236"/>
         <source>Define style for every n&amp;ode part</source>
         <translation>Definir estilo para cada parte de n&amp;odo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="234"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="237"/>
         <source>Define style for every node &amp;label</source>
         <translation>Definir estilo para cada &amp;etiqueta de nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="235"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="238"/>
         <source>Define style for every node p&amp;in label</source>
         <translation>Definir estilo para cada etiqueta de &amp;perno de un nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="236"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="239"/>
         <source>Define style for every node pin e&amp;dge</source>
         <translation>Definir estilo para cada enlace de p&amp;erno de un nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="238"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="241"/>
         <source>Define style for every &amp;join</source>
         <translation>Definir estilo para cada &amp;juntura</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="239"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="242"/>
         <source>Define style for every pi&amp;cture</source>
         <translation>Definir estilo para cada «pi&amp;cture»</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="240"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="243"/>
         <source>Define style for every &amp;to path</source>
         <translation>Definir estilo para cada ruta «&amp;to»</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="241"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="244"/>
+        <source>Define style for ed&amp;ges from parent (in trees)</source>
+        <translation>Definir estilo para &amp;enlaces de un padre (en árboles)</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="245"/>
         <source>Add to st&amp;yle</source>
         <translation>Añadir al e&amp;stilo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="242"/>
         <location filename="../../buildqt/app/tikzcommands_tr.h" line="246"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="250"/>
         <source>Add to style for every &amp;path</source>
         <translation>Añadir al estilo para cada &amp;ruta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="243"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="247"/>
         <source>Add to style for every &amp;to</source>
         <translation>Añadir al estilo para cada «&amp;to»</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="244"/>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="247"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="248"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="251"/>
         <source>Add to style for every &amp;node</source>
         <translation>Añadir al estilo para cada &amp;nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="245"/>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="253"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="249"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="257"/>
         <source>Add to style for every node with a certain &amp;shape</source>
         <translation>Añadir al estilo para cada nodo con una &amp;forma</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="248"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="252"/>
         <source>Add to style for every &amp;edge</source>
         <translation>Añadir al estilo para cada &amp;enlace</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="249"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="253"/>
         <source>Add to style for every n&amp;ode part</source>
         <translation>Añadir al estilo para cada parte de n&amp;odo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="250"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="254"/>
         <source>Add to style for every node &amp;label</source>
         <translation>Añadir al estilo para cada &amp;etiqueta de nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="251"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="255"/>
         <source>Add to style for every node p&amp;in label</source>
         <translation>Añadir al estilo para cada etiqueta de &amp;perno de un nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="252"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="256"/>
         <source>Add to style for every node pin e&amp;dge</source>
         <translation>Añadir al estilo para cada enlace de p&amp;erno de un nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="254"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="258"/>
         <source>Add to style for every &amp;join</source>
         <translation>Añadir al estilo para cada &amp;juntura</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="255"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="259"/>
         <source>Add to style for every pi&amp;cture</source>
         <translation>Añadir al estilo para cada «pi&amp;cture»</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="256"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="260"/>
         <source>Add to style for every &amp;to path</source>
         <translation>Añadir al estilo para cada ruta «&amp;to»</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="198"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="261"/>
+        <source>Add to style for ed&amp;ges from parent (in trees)</source>
+        <translation>Añadir al estilo para &amp;enlaces de un padre (en árboles)</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="200"/>
         <source>Set node at &amp;start of path</source>
         <translation>Poner nodo al &amp;comienzo de la ruta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="201"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="203"/>
         <source>Set node &amp;midway path</source>
         <translation>Poner nodo a &amp;mitad de la ruta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="204"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="206"/>
         <source>Set node at &amp;end of path</source>
         <translation>Poner nodo al &amp;final de la ruta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="214"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="216"/>
         <source>Set minimum &amp;height of node</source>
         <translation>Definir &amp;altura mínima del nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="215"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="217"/>
         <source>Set minimum &amp;width of node</source>
         <translation>Definir &amp;anchura mínima del nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="216"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="218"/>
         <source>Set &amp;separation between text and node shape</source>
         <translation>Definir &amp;separación entre el texto y el contorno del nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="218"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="220"/>
         <source>Set &amp;distance between node and its label</source>
         <translation>Definir &amp;distancia entre el nodo y su etiqueta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="189"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="191"/>
         <source>&amp;Double line</source>
         <translation>Línea &amp;doble</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="190"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="192"/>
         <source>&amp;Distance between the two lines of a double line</source>
         <translation>&amp;Distancia entra las dos líneas de una línea doble</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="191"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="193"/>
         <source>Specify shape of line &amp;end</source>
         <translation>Especificar forma del &amp;fin de la línea</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="192"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="194"/>
         <source>Specify shape of line &amp;joins</source>
         <translation>Especificar forma de las &amp;junturas de las líneas</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="193"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="195"/>
         <source>Maximal length of m&amp;iter join</source>
         <translation>Longitud máxima de las junturas «&amp;miter»</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="172"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="174"/>
         <source>&amp;Equal lines</source>
         <translation>Líneas &amp;iguales</translation>
     </message>
@@ -2335,212 +2380,192 @@ Do you want to save your changes?</source>
         <translation>&amp;Bucles</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="86"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="88"/>
         <source>&amp;Move to</source>
         <translation>&amp;Avanzar a</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="107"/>
-        <source>&amp;Label position</source>
-        <translation>Posición de la &amp;etiqueta</translation>
-    </message>
-    <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="108"/>
-        <source>Position on &amp;path</source>
-        <translation>Posición en la &amp;ruta</translation>
-    </message>
-    <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="109"/>
-        <source>Label &amp;style</source>
-        <translation>E&amp;stilo de la etiqueta</translation>
-    </message>
-    <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="110"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="112"/>
         <source>St&amp;yle</source>
         <translation>Est&amp;ilo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="112"/>
-        <source>&amp;Define style (standalone)</source>
-        <translation>&amp;Definir estilo (autónomo)</translation>
-    </message>
-    <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="113"/>
-        <source>Define style (as &amp;option)</source>
-        <translation>Definir estilo (como &amp;opción)</translation>
-    </message>
-    <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="114"/>
-        <source>&amp;Add to style (standalone)</source>
-        <translation>&amp;Añadir al estilo (autónomo)</translation>
-    </message>
-    <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="115"/>
-        <source>Add to style (as o&amp;ption)</source>
-        <translation>Añadir al estilo (como o&amp;pción)</translation>
-    </message>
-    <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="124"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="126"/>
         <source>Move to &amp;point</source>
         <translation>Avanzar al &amp;punto</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="125"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="127"/>
         <source>Move to &amp;relative point</source>
         <translation>Avanzar al punto &amp;relativo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="126"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="128"/>
         <source>Move to r&amp;elative point</source>
         <translation>Avanzar al punto r&amp;elativo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="128"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="130"/>
         <source>Line to &amp;relative point</source>
         <translation>Línea a punto &amp;relativo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="129"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="131"/>
         <source>Line to rela&amp;tive point</source>
         <translation>Línea a punto rela&amp;tivo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="130"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="132"/>
         <source>Line to &amp;node</source>
         <translation>Línea a &amp;nodo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="131"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="133"/>
         <source>Line to node with &amp;anchor</source>
         <translation>Línea a nodo con á&amp;ncora</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="133"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="135"/>
         <source>Edge to (with &amp;options)</source>
         <translation>Enlace a (con &amp;opciones)</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="137"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="157"/>
         <source>Define &amp;coordinate</source>
         <translation>Definir &amp;coordenada</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="149"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="147"/>
         <source>C&amp;osine curve in [0, pi/2]</source>
         <translation>C&amp;osinusoide en [0, pi/2]</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="151"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="84"/>
+        <source>&amp;Draw/Fill/... Paths</source>
+        <translation>&amp;Trazar/llenar/... rutas</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="85"/>
+        <source>&amp;Draw/Fill/... (standalone)</source>
+        <translation>&amp;Trazar/llenar/... (autónomo)</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="86"/>
+        <source>Draw/Fill/... (as &amp;option)</source>
+        <translation>Trazar/llenar/... (como &amp;opción)</translation>
+    </message>
+    <message>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="149"/>
         <source>C&amp;urve to (specify angles)</source>
         <translation>C&amp;urva a (especificar ángulos)</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="152"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="150"/>
         <source>Cur&amp;ve to (specify control points)</source>
         <translation>Cur&amp;va a (especificar puntos de control)</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="156"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="154"/>
         <source>Pl&amp;ot function</source>
         <translation>&amp;Trazar función</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="173"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="175"/>
         <source>&amp;Alternating lines</source>
         <translation>Líneas &amp;alternas</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="174"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="176"/>
         <source>S&amp;hift dash start</source>
         <translation>&amp;Desplazar comienzo del guión</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="175"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="177"/>
         <source>S&amp;hift horizontally</source>
         <translation>&amp;Desplazamiento horizontal</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="176"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="178"/>
         <source>S&amp;hift vertically</source>
         <translation>&amp;Desplazamiento vertical</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="177"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="179"/>
         <source>S&amp;hift to a point</source>
         <translation>&amp;Desplazamiento hacia un punto</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="178"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="180"/>
         <source>&amp;Cancel all transformations except shift</source>
         <translation>&amp;Cancelar todas las transformaciones salvo desplazamiento</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="179"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="181"/>
         <source>&amp;Rotate by angle</source>
         <translation>&amp;Rotación por un ángulo</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="180"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="182"/>
         <source>&amp;Rotate around a point</source>
         <translation>&amp;Rotación alrededor de un punto</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="181"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="183"/>
         <source>S&amp;cale horizontally</source>
         <translation>Es&amp;calar horizontalmente</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="182"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="184"/>
         <source>S&amp;cale vertically</source>
         <translation>Es&amp;calar verticalmente</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="183"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="185"/>
         <source>S&amp;cale in both directions</source>
         <translation>Es&amp;calar en ambas direcciones</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="184"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="186"/>
         <source>&amp;Flip horizontally</source>
         <translation>&amp;Voltear horizontalmente</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="185"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="187"/>
         <source>&amp;Flip vertically</source>
         <translation>&amp;Voltear verticalmente</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="186"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="188"/>
         <source>&amp;Slant horizontally</source>
         <translation>&amp;Inclinación horizontal</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="187"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="189"/>
         <source>&amp;Slant vertically</source>
         <translation>&amp;Inclinación vertical</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="188"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="190"/>
         <source>C&amp;oordinate transformation</source>
         <translation>Transformación de c&amp;oordenadas</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="194"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="196"/>
         <source>Parabola with specified &amp;width and height</source>
         <translation>Parábola con &amp;anchura y altura especificada</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="197"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="199"/>
         <source>Draw &quot;subdued&quot; &amp;grid with specified step</source>
         <translation>Trazar &amp;grilla con paso específico</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="195"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="197"/>
         <source>&quot;to&quot; curved with &amp;label</source>
         <translation>«to» curvo con &amp;etiqueta</translation>
     </message>
     <message>
-        <location filename="../../buildqt/app/tikzcommands_tr.h" line="196"/>
+        <location filename="../../buildqt/app/tikzcommands_tr.h" line="198"/>
         <source>&quot;to&quot; curved with to &amp;path</source>
         <translation>«to» curvo con «to &amp;path»</translation>
     </message>

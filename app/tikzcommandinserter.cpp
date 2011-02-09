@@ -27,9 +27,9 @@
 #include <QListWidget>
 #include <QMenu>
 #include <QMessageBox>
+#include <QPlainTextEdit>
 #include <QStackedWidget>
 #include <QTextCursor>
-#include <QPlainTextEdit>
 
 #include "tikzeditorhighlighter.h"
 #include "tikzcommandwidget.h"
@@ -83,7 +83,7 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 
 	commandList.title = tr(element.attribute("title").toLatin1().data());
 
-	QDomElement child = element.firstChildElement("item");
+	QDomElement child = element.firstChildElement();
 	QString name;
 	QString description;
 	QString insertion;
@@ -93,66 +93,67 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 	QRegExp descriptionRegExp("<([^<>]*)>"); // descriptions are between < and >
 	while (!child.isNull())
 	{
-		name = tr(child.attribute("name").toLatin1().data());
-		description = child.attribute("description");
-		insertion = child.attribute("insert");
-		highlightString = child.attribute("highlight");
-		type = child.attribute("type");
+		if (child.tagName() == "item")
+		{
+			name = tr(child.attribute("name").toLatin1().data());
+			description = child.attribute("description");
+			insertion = child.attribute("insert");
+			highlightString = child.attribute("highlight");
+			type = child.attribute("type");
 
-		if (description.contains(QLatin1String("\\n"))) // minimize the number of uses of QRegExp
-		{
-			description.replace(newLineRegExp, QLatin1String("\\1\n")); // replace newlines, these are the "\n" not preceded by a backslash as in "\\node"
-			description.replace(newLineRegExp, QLatin1String("\\1\n")); // do this twice to replace all newlines
-		}
-		description.replace(QLatin1String("\\\\"), QLatin1String("\\"));
-		// translate options in the description:
-		QString tempDescription;
-		for (int pos = 0, oldPos = 0; pos >= 0;)
-		{
-			oldPos = pos;
-			pos = descriptionRegExp.indexIn(description, pos);
-			tempDescription += description.midRef(oldPos, pos - oldPos + 1);
-			if (pos >= 0)
+			if (description.contains(QLatin1String("\\n"))) // minimize the number of uses of QRegExp
 			{
-				tempDescription += tr(descriptionRegExp.cap(1).toLatin1().data());
-				pos += descriptionRegExp.matchedLength() - 1;
+				description.replace(newLineRegExp, QLatin1String("\\1\n")); // replace newlines, these are the "\n" not preceded by a backslash as in "\\node"
+				description.replace(newLineRegExp, QLatin1String("\\1\n")); // do this twice to replace all newlines
 			}
-		}
-		if (!tempDescription.isEmpty())
-			description = tempDescription;
+			description.replace(QLatin1String("\\\\"), QLatin1String("\\"));
+			// translate options in the description:
+			QString tempDescription;
+			for (int pos = 0, oldPos = 0; pos >= 0;)
+			{
+				oldPos = pos;
+				pos = descriptionRegExp.indexIn(description, pos);
+				tempDescription += description.midRef(oldPos, pos - oldPos + 1);
+				if (pos >= 0)
+				{
+					tempDescription += tr(descriptionRegExp.cap(1).toLatin1().data());
+					pos += descriptionRegExp.matchedLength() - 1;
+				}
+			}
+			if (!tempDescription.isEmpty())
+				description = tempDescription;
 
-		if (insertion.contains(QLatin1String("\\n"))) // minimize the number of uses of QRegExp
+			if (insertion.contains(QLatin1String("\\n"))) // minimize the number of uses of QRegExp
+			{
+				insertion.replace(newLineRegExp, QLatin1String("\\1\n")); // replace newlines, these are the "\n" not preceded by a backslash as in "\\node"
+				insertion.replace(newLineRegExp, QLatin1String("\\1\n")); // do this twice to replace all newlines
+			}
+			insertion.replace(QLatin1String("\\\\"), QLatin1String("\\"));
+
+			if (name.isEmpty())
+				name = description;
+			description.remove('&');
+			if (name.isEmpty())
+				name = insertion;
+			if (description.isEmpty())
+				description = insertion;
+			if (type.isEmpty())
+				type = '0';
+
+			commands << newCommand(name, description, insertion, highlightString, child.attribute("dx").toInt(), child.attribute("dy").toInt(), type.toInt());
+		}
+		else if (child.tagName() == "separator")
 		{
-			insertion.replace(newLineRegExp, QLatin1String("\\1\n")); // replace newlines, these are the "\n" not preceded by a backslash as in "\\node"
-			insertion.replace(newLineRegExp, QLatin1String("\\1\n")); // do this twice to replace all newlines
+			commands << newCommand("", "", "", "", 0, 0, 0);
 		}
-		insertion.replace(QLatin1String("\\\\"), QLatin1String("\\"));
-
-		if (name.isEmpty())
-			name = description;
-		description.remove('&');
-		if (name.isEmpty())
-			name = insertion;
-		if (description.isEmpty())
-			description = insertion;
-		if (type.isEmpty())
-			type = '0';
-
-		commands << newCommand(name, description, insertion, highlightString, child.attribute("dx").toInt(), child.attribute("dy").toInt(), type.toInt());
-
-		if (child.nextSiblingElement().tagName() == "separator")
-			commands << newCommand("", "", "", 0, 0, 0);
-
-		child = child.nextSiblingElement("item");
+		else if (child.tagName() == "section")
+		{
+			commands << newCommand("", "", "", "", 0, 0, -1); // the i-th command with type == -1 corresponds to the i-th submenu (assumed in getMenu())
+			commandList.children << getCommands(child);
+		}
+		child = child.nextSiblingElement();
 	}
 	commandList.commands = commands;
-
-	QDomElement section = element.firstChildElement("section");
-	while (!section.isNull())
-	{
-		commandList.children << getCommands(section);
-		section = section.nextSiblingElement("section");
-	}
 
 	return commandList;
 }
@@ -203,27 +204,31 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList)
 	QMenu *menu = new QMenu(commandList.title, m_parentWidget);
 	const int numOfCommands = commandList.commands.size();
 	QAction *action;
-	for (int i = 0; i < numOfCommands; ++i)
+	for (int i = 0, whichSection = 0; i < numOfCommands; ++i)
 	{
 		const QString name = commandList.commands.at(i).name;
-		if (name.isEmpty())
+		if (name.isEmpty()) // add separator or submenu
 		{
-			action = new QAction(this);
-			action->setSeparator(true);
+			if (commandList.commands.at(i).type == 0)
+			{
+				action = new QAction(this);
+				action->setSeparator(true);
+				menu->addAction(action);
+			}
+			else // type == -1, so add submenu; this assumes that the i-th command with type == -1 corresponds with the i-th submenu (see getCommands())
+			{
+				menu->addMenu(getMenu(commandList.children.at(whichSection)));
+				++whichSection;
+			}
 		}
-		else
+		else // add command
 		{
 			action = new QAction(name, this);
 			action->setData(commandList.commands.at(i).number); // link to the corresponding item in m_tikzCommandsList
 			action->setStatusTip(commandList.commands.at(i).description);
 			connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));
+			menu->addAction(action);
 		}
-		menu->addAction(action);
-	}
-	const int numOfChildren = commandList.children.size();
-	for (int i = 0; i < numOfChildren; ++i)
-	{
-		menu->addMenu(getMenu(commandList.children.at(i)));
 	}
 	return menu;
 }
@@ -261,6 +266,9 @@ void TikzCommandInserter::addListWidgetItems(QListWidget *listWidget, const Tikz
 
 	for (int i = 0; i < commandList.commands.size(); ++i)
 	{
+		if (commandList.commands.at(i).type == -1) // if we have an empty command corresponding to a submenu, then don't add the command, the submenus will be added later
+			continue;
+
 		QListWidgetItem *item = new QListWidgetItem(listWidget);
 		QString itemText = commandList.commands.at(i).name;
 		item->setText(itemText.remove('&'));

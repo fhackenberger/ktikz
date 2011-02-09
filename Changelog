@@ -7,6 +7,8 @@ version 0.11:
 - in multiple images mode, export to EPS now exports the currently visible
   image (instead of giving an error)
 - add printing of the preview image
+- in multiple image mode, the export dialog automatically appends the number
+  of the current image to the file name
 - let the built-in template also work with xelatex
 - check whether the file has been modified by another program when ktikz gets
   the focus or when the user saves or closes the file (similar to kwrite)
