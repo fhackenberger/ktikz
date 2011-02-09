@@ -1293,37 +1293,37 @@ Chcete uložit své změny?</translation>
         <translation>Nelze zpracovat soubor s příkazy TikZ.</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="312"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="355"/>
         <source>&lt;p&gt;This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Toto je seznam příkazů TikZ. Můžete tyto příkazy vložit do svého kódu klepnutím na ně. Více příkazů obdržíte změnou skupiny ve smíšeném okénku.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="318"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="361"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="322"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="365"/>
         <source>Category:</source>
         <translation>Skupina:</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="335"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="378"/>
         <source>General</source>
         <translation>Obecné</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="430"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="473"/>
         <source>Commands</source>
         <translation>Příkazy</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="430"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="473"/>
         <source>Draw to</source>
         <translation>Vytáhnout do</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="430"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="473"/>
         <source>Options</source>
         <translation>Volby</translation>
     </message>

@@ -1267,17 +1267,17 @@ Voulez-vous enregistrer les modifications ?</translation>
         <translation>&amp;Options</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="430"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="473"/>
         <source>Commands</source>
         <translation>Commandes</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="430"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="473"/>
         <source>Draw to</source>
         <translation>Tirer vers</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="430"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="473"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
@@ -1503,22 +1503,22 @@ Voulez-vous enregistrer les modifications ?</translation>
         <translation>Parabole avec &amp;largeur et hauteur définies</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="312"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="355"/>
         <source>&lt;p&gt;This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ceci est une liste des commandes TikZ.  Vous pouvez insérer ces commandes dans votre code TikZ en les cliquant.  Vous pouvez obtenir plus de commandes en changeant la catégorie en haut.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="318"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="361"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="335"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="378"/>
         <source>General</source>
         <translation>Général</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="322"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="365"/>
         <source>Category:</source>
         <translation>Catégorie :</translation>
     </message>

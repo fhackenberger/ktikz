@@ -92,6 +92,7 @@ private:
 	QStringList highlightTypeNames;
 
 private slots:
+	void updateDescriptionMenuItem();
 	void setListStatusTip(QListWidgetItem *item);
 	void insertTag();
 	void insertTag(QListWidgetItem *item);

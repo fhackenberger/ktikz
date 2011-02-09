@@ -60,5 +60,8 @@ QString TikzDocumentationController::searchTikzDocumentationInTexTree()
 		process.waitForFinished(100 /*msec*/);
 
 	QString tikzDocFile = process.readAllStandardOutput();
+	int newLinePosition = tikzDocFile.indexOf('\n');
+	if (newLinePosition >= 0)
+		tikzDocFile.remove(newLinePosition, tikzDocFile.length());
 	return tikzDocFile.trimmed();
 }

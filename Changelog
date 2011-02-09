@@ -15,6 +15,13 @@ version 0.11:
 - rearrange "Insert" menu
 - improve syntax highlighting (now path commands such as ".. controls",
   "parabola", ... are highlighted too)
+- remove bug in the Qt-only version which caused in the config dialog
+  the "TikZ documentation" to contain the list of all occurrences of
+  pgfmanual.* when more than one was found in the LaTeX trees, now only
+  the first occurrence is shown
+- in the "Insert" menu, show the description of the currently highlighted
+  item at the bottom of the current submenu (instead of only showing it
+  in the statusbar which could be covered by those submenus)
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE

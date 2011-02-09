@@ -199,19 +199,43 @@ QStringList TikzCommandInserter::getCommandWords()
  */
 //@{
 
+void TikzCommandInserter::updateDescriptionMenuItem()
+{
+	QAction *action = qobject_cast<QAction*>(sender());
+	if (action)
+	{
+		const int num = action->data().toInt();
+		const TikzCommand cmd = m_tikzCommandsList.at(num);
+		QList<QAction*> menuActions = qobject_cast<QMenu*>(action->parentWidget())->actions();
+		menuActions[menuActions.size()-1]->setText(cmd.description);
+		menuActions[menuActions.size()-1]->setData(cmd.number);
+	}
+}
+
 QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList)
 {
 	QMenu *menu = new QMenu(commandList.title, m_parentWidget);
 	const int numOfCommands = commandList.commands.size();
-	QAction *action;
-	for (int i = 0, whichSection = 0; i < numOfCommands; ++i)
+	QAction *action = new QAction("test", menu);
+	int whichSection = 0;
+
+	// get left margin of the menu (to be added to the minimum width of the menu)
+	menu->addAction(action);
+	QFont actionFont = action->font();
+	actionFont.setPointSize(actionFont.pointSize() - 1);
+	QFontMetrics actionFontMetrics(actionFont);
+	int menuLeftMargin = menu->width() - actionFontMetrics.boundingRect(action->text()).width();
+	menu->removeAction(action);
+	int menuMinimumWidth = 0;
+
+	for (int i = 0; i < numOfCommands; ++i)
 	{
 		const QString name = commandList.commands.at(i).name;
 		if (name.isEmpty()) // add separator or submenu
 		{
 			if (commandList.commands.at(i).type == 0)
 			{
-				action = new QAction(this);
+				action = new QAction(menu);
 				action->setSeparator(true);
 				menu->addAction(action);
 			}
@@ -223,13 +247,32 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList)
 		}
 		else // add command
 		{
-			action = new QAction(name, this);
+			action = new QAction(name, menu);
 			action->setData(commandList.commands.at(i).number); // link to the corresponding item in m_tikzCommandsList
 			action->setStatusTip(commandList.commands.at(i).description);
+			menuMinimumWidth = qMax(menuMinimumWidth, actionFontMetrics.boundingRect(commandList.commands.at(i).description).width());
 			connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));
+			connect(action, SIGNAL(hovered()), this, SLOT(updateDescriptionMenuItem()));
 			menu->addAction(action);
 		}
 	}
+
+	if (whichSection < menu->actions().size()) // if the menu does not only contain submenus
+	{
+		action = new QAction(this);
+		action->setSeparator(true);
+		menu->addAction(action);
+
+		action = new QAction(this);
+		QFont actionFont = action->font();
+		actionFont.setPointSize(actionFont.pointSize() - 1);
+		action->setFont(actionFont);
+		connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));
+		menu->addAction(action);
+
+		menu->setMinimumWidth(menuMinimumWidth + menuLeftMargin);
+	}
+
 	return menu;
 }
 
