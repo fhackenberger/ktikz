@@ -70,6 +70,11 @@ TemplateWidget::~TemplateWidget()
 	saveRecentTemplates();
 }
 
+QWidget *TemplateWidget::lastTabOrderWidget()
+{
+	return ui.templateEditButton;
+}
+
 void TemplateWidget::readRecentTemplates()
 {
 	QSettings settings(ORGNAME, APPNAME);

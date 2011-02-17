@@ -28,6 +28,7 @@ class TemplateWidget : public QWidget
 public:
 	TemplateWidget(QWidget *parent = 0);
 	~TemplateWidget();
+	QWidget *lastTabOrderWidget();
 	void setFileName(const QString &fileName);
 	void setReplaceText(const QString &replace);
 	void setEditor(const QString &editor);

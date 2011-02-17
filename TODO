@@ -12,10 +12,22 @@
 - Download files which are \included or \inputted in remote template files
   or remote pgf files to the temporary directory (could be dangerous when
   the user is still editing the \input command).
-- Complete tikzcommands.xml:
+- Complete tikzcommands.xml (only add commands from Part III):
 
-  The following sections of the TikZ manual are implemented:
-  Section 13 complete (except \pgfextra)
-  Section 14 almost complete (except preaction=<options>, postaction=<options>,
+  The following sections of the TikZ manual v2.10 are implemented:
+  Section 13 almost complete (except 13.2.2, 13.2.4, 13.2.5 (maybe this is too
+    advanced), 13.3, current point is local)
+  Section 14 almost complete (except insert path, append after command,
+    prefix after command, svg, \pgfextra)
+  Section 15 almost complete (except double equal sign distance, 15.5, 15.7,
+    preaction=<options>, postaction=<options>,
     decorate, decoration=<zigzag/...>)
-  Section 15 partially
+  Section 16 partially (except alias, shape border uses incircle, shape border
+    rotate, 16.3, node halign header, 16.5.3, 16.6, transform shape, 16.10,
+    16.13, 16.14)
+  Section 17
+  Section 18
+  Section 19
+  Section 20
+  Section 21
+  Section 22

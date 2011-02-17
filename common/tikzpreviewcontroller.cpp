@@ -371,6 +371,7 @@ void TikzPreviewController::generatePreview(bool templateChanged)
 	if (!currentFileName.isEmpty())
 		m_tikzPreviewGenerator->addToLatexSearchPath(QFileInfo(currentFileName).absolutePath());
 
+	m_tikzPreviewGenerator->abortProcess(); // abort still running process before starting a new one (without this, if a process hangs, all subsequently started processes are executed one after the other when the user aborts the hanging process)
 	m_tikzPreviewGenerator->generatePreview(templateChanged);
 }
 

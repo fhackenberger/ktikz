@@ -164,6 +164,7 @@ MainWindow::MainWindow()
 	createGUI();
 	guiFactory()->addClient(this);
 #endif
+	setTabOrder(m_tikzPreviewController->templateWidget()->lastTabOrderWidget(), m_tikzEditorView->editor());
 
 	connect(m_commandInserter, SIGNAL(showStatusMessage(QString,int)),
 	        statusBar(), SLOT(showMessage(QString,int)));
@@ -972,6 +973,8 @@ QString MainWindow::tikzCode() const
 void MainWindow::updateCompleter()
 {
 	QStringList words = m_commandInserter->getCommandWords();
+	words.sort();
+	words.removeDuplicates();
 	QStringListModel *model = new QStringListModel(words, m_completer);
 	m_completer->setModel(model);
 	m_completer->setModelSorting(QCompleter::CaseSensitivelySortedModel);
