@@ -571,3 +571,12 @@ void TikzPreview::mouseMoveEvent(QMouseEvent *event)
 	}
 	QGraphicsView::mouseMoveEvent(event);
 }
+
+void TikzPreview::mousePressEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::XButton1)
+		showPreviousPage();
+	else if (event->button() == Qt::XButton2)
+		showNextPage();
+	QGraphicsView::mousePressEvent(event);
+}

@@ -29,6 +29,8 @@ version 0.11:
   LaTeX compilation process hangs, all subsequently started processes are
   executed one after the other when the user aborts the hanging process)
 - update list of tikz commands in the "Insert" menu
+- let the mouse "back" and "forward" button (the buttons on the sides of
+  the mouse) switch the image in multiple image mode (if these buttons exist)
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE

@@ -57,6 +57,7 @@ qt4_wrap_ui(ktikz_UI_FILES
 )
 kde4_add_kcfg_files(ktikz_SRCS ../common/settings.kcfgc)
 qt4_add_resources(ktikz_SRCS ktikz.qrc)
+qt4_add_resources(ktikz_SRCS qtikz.qrc)
 
 kde4_add_app_icon(ktikz_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/icons/hi*-apps-ktikz.png") # add icons for win32 and mac; this command assumes that the first arg is of the form <appname>_SRCS
 

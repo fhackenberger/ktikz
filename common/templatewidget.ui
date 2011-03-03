@@ -5,7 +5,7 @@
   <property name="windowTitle">
    <string>Choose Template</string>
   </property>
-  <layout class="QHBoxLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QLabel" name="templateLabel">
      <property name="whatsThis">
@@ -35,7 +35,7 @@
    <item>
     <widget class="QToolButton" name="templateChooseButton">
      <property name="toolTip">
-      <string>&lt;p&gt;Select template file&lt;/p&gt;</string>
+      <string>Select template file</string>
      </property>
      <property name="whatsThis">
       <string>&lt;p&gt;Browse to an existing template file.&lt;/p&gt;</string>
@@ -52,7 +52,7 @@
    <item>
     <widget class="QToolButton" name="templateReloadButton">
      <property name="toolTip">
-      <string>&lt;p&gt;Reload template file&lt;/p&gt;</string>
+      <string>Reload template file</string>
      </property>
      <property name="whatsThis">
       <string>&lt;p&gt;Reload current template file.&lt;/p&gt;</string>
@@ -67,15 +67,16 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="templateEditButton">
+    <widget class="QToolButton" name="templateEditButton">
      <property name="toolTip">
-      <string>&lt;p&gt;Edit template file&lt;/p&gt;</string>
+      <string>Edit template file</string>
      </property>
      <property name="whatsThis">
       <string>&lt;p&gt;Edit this template with an external editor specified in the &quot;Configure&quot; dialog.&lt;/p&gt;</string>
      </property>
-     <property name="text">
-      <string>Edit</string>
+     <property name="icon">
+      <iconset resource="../app/qtikz.qrc">
+       <normaloff>:/icons/document-edit.png</normaloff>:/icons/document-edit.png</iconset>
      </property>
     </widget>
    </item>

@@ -45,6 +45,7 @@
 #include <QMessageBox>
 #include <QPlainTextEdit>
 #include <QProcess>
+#include <QPushButton>
 #include <QSettings>
 #include <QStringListModel>
 #include <QTextStream>

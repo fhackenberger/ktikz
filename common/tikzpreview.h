@@ -64,6 +64,7 @@ protected:
 	void paintEvent(QPaintEvent *event);
 	void wheelEvent(QWheelEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
+	void mousePressEvent(QMouseEvent *event);
 
 private slots:
 	void setZoomFactor(const QString &zoomFactorText);
