@@ -60,7 +60,7 @@ TikzPreview::TikzPreview(QWidget *parent)
 
 	m_tikzPdfDoc = 0;
 	m_currentPage = 0;
-//	m_centerPoint = QPoint(0, 0);
+	m_centerPoint = QPointF(0, 0);
 	m_processRunning = false;
 	m_pageSeparator = 0;
 
@@ -235,6 +235,9 @@ void TikzPreview::paintEvent(QPaintEvent *event)
 {
 	// when m_infoWidget is visible, then it must be resized and
 	// repositioned, this must be done here to do it successfully
+// TODO: solve bug: when the preview is scrolled that much that
+// m_infoWidget is now outside the view, then it is only repositioned
+// on the second paintEvent (I haven't got a clue why this bug occurs)
 	if (m_infoWidgetAdded && m_infoWidget->isVisible())
 	{
 		m_infoWidget->resize(0, 0);
@@ -242,19 +245,6 @@ void TikzPreview::paintEvent(QPaintEvent *event)
 		m_infoWidgetAdded = false;
 	}
 
-/*
-	setSceneRect(m_tikzScene->itemsBoundingRect());
-	if (m_hasZoomed)
-	{
-		// center the viewport on the same object in the image
-		// that was previously the center (in order to avoid
-		// flicker, this must be done here)
-//		setSceneRect(m_tikzScene->itemsBoundingRect());
-		if (!m_centerPoint.isNull())
-			centerOn(m_centerPoint);
-		m_hasZoomed = false;
-	}
-*/
 	if (m_hasZoomed)
 	{
 		// center the viewport on the same object in the image
@@ -262,11 +252,18 @@ void TikzPreview::paintEvent(QPaintEvent *event)
 		// flicker, this must be done here)
 		const qreal zoomFraction = (m_oldZoomFactor > 0) ? m_zoomFactor / m_oldZoomFactor : 1;
 		setSceneRect(m_tikzScene->itemsBoundingRect());
-		centerOn((horizontalScrollBar()->value() + viewport()->width() / 2) * zoomFraction,
-		         (verticalScrollBar()->value() + viewport()->height() / 2) * zoomFraction);
+//		centerOn((horizontalScrollBar()->value() + viewport()->width() * 0.5) * zoomFraction,
+//		         (verticalScrollBar()->value() + viewport()->height() * 0.5) * zoomFraction);
+		if (!m_centerPoint.isNull())
+		{
+			m_centerPoint *= zoomFraction;
+			centerOn(m_centerPoint);
+		}
 		m_oldZoomFactor = m_zoomFactor; // m_oldZoomFactor must be set here and not in the zoom functions below in order to avoid skipping some steps when the user zooms fast
 		m_hasZoomed = false;
+		m_infoWidgetAdded = true; // dirty hack to force m_infoWidget to be recentered also when zooming
 	}
+
 	QGraphicsView::paintEvent(event);
 }
 
@@ -408,8 +405,8 @@ void TikzPreview::showPdfPage()
 	if (!m_tikzPdfDoc || m_tikzPdfDoc->numPages() < 1)
 		return;
 
-//	m_centerPoint = QPoint(horizontalScrollBar()->value() + viewport()->width() / 2,
-//	    verticalScrollBar()->value() + viewport()->height() / 2); // get current center of the viewport and use it in paintEvent
+	m_centerPoint = QPointF(horizontalScrollBar()->value() + viewport()->width() * 0.5,
+	    verticalScrollBar()->value() + viewport()->height() * 0.5); // get current center of the viewport and use it in paintEvent
 
 	if (!m_processRunning)
 		m_tikzPreviewThread->generatePreview(m_tikzPdfDoc, m_zoomFactor, m_currentPage);
@@ -495,13 +492,16 @@ int TikzPreview::numberOfPages() const
 
 void TikzPreview::centerInfoLabel()
 {
-	qreal posX = (sceneRect().width() - m_infoWidget->width()) / 2;
-	qreal posY = (sceneRect().height() - m_infoWidget->height()) / 2;
-
+	qreal posX;
+	qreal posY;
 	if (sceneRect().width() > viewport()->width())
-		posX += horizontalScrollBar()->value();
+		posX = horizontalScrollBar()->value() + (viewport()->width() - m_infoWidget->width()) * 0.5;
+	else
+		posX = (sceneRect().width() - m_infoWidget->width()) * 0.5;
 	if (sceneRect().height() > viewport()->height())
-		posY += verticalScrollBar()->value();
+		posY = verticalScrollBar()->value() + (viewport()->height() - m_infoWidget->height()) * 0.5;
+	else
+		posY = (sceneRect().height() - m_infoWidget->height()) * 0.5;
 
 	m_infoWidget->move(posX, posY);
 }

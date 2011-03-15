@@ -87,7 +87,7 @@ private:
 	QGraphicsScene *m_tikzScene;
 	QGraphicsPixmapItem *m_tikzPixmapItem;
 	TikzPreviewThread *m_tikzPreviewThread;
-//	QPoint m_centerPoint;
+	QPointF m_centerPoint;
 	bool m_processRunning;
 
 	QAction *m_zoomInAction;

@@ -31,6 +31,12 @@ version 0.11:
 - update list of tikz commands in the "Insert" menu
 - let the mouse "back" and "forward" button (the buttons on the sides of
   the mouse) switch the image in multiple image mode (if these buttons exist)
+- remove bug which caused the preview to slightly move to the left/top each
+  time it was generated until the left/top edge is reached (this happened when
+  the width/height of the preview window is an odd integer)
+- remove bug which caused incorrect recentering of the preview when zooming
+- the text box showing the messages in the preview is now centered correctly
+  in most cases
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE
