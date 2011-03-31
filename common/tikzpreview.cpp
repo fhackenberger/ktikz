@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -60,7 +60,6 @@ TikzPreview::TikzPreview(QWidget *parent)
 
 	m_tikzPdfDoc = 0;
 	m_currentPage = 0;
-	m_centerPoint = QPointF(0, 0);
 	m_processRunning = false;
 	m_pageSeparator = 0;
 
@@ -76,7 +75,7 @@ TikzPreview::TikzPreview(QWidget *parent)
 	setZoomFactor(m_zoomFactor);
 
 	m_tikzPreviewThread = new TikzPreviewThread();
-	connect(m_tikzPreviewThread, SIGNAL(showPreview(QImage)), this, SLOT(showPreview(QImage)));
+	connect(m_tikzPreviewThread, SIGNAL(showPreview(QImage,qreal)), this, SLOT(showPreview(QImage,qreal)));
 }
 
 TikzPreview::~TikzPreview()
@@ -226,18 +225,12 @@ void TikzPreview::createInformationLabel()
 
 /***************************************************************************/
 
-void TikzPreview::centerView()
-{
-	m_hasZoomed = true;
-}
-
 void TikzPreview::paintEvent(QPaintEvent *event)
 {
 	// when m_infoWidget is visible, then it must be resized and
-	// repositioned, this must be done here to do it successfully
-// TODO: solve bug: when the preview is scrolled that much that
-// m_infoWidget is now outside the view, then it is only repositioned
-// on the second paintEvent (I haven't got a clue why this bug occurs)
+	// repositioned, this must be done here to do it successfully;
+	// why m_infoWidget->resize() doesn't work in setInfoLabelText()
+	// is beyond my understanding :-(
 	if (m_infoWidgetAdded && m_infoWidget->isVisible())
 	{
 		m_infoWidget->resize(0, 0);
@@ -247,19 +240,7 @@ void TikzPreview::paintEvent(QPaintEvent *event)
 
 	if (m_hasZoomed)
 	{
-		// center the viewport on the same object in the image
-		// that was previously the center (in order to avoid
-		// flicker, this must be done here)
-		const qreal zoomFraction = (m_oldZoomFactor > 0) ? m_zoomFactor / m_oldZoomFactor : 1;
-		setSceneRect(m_tikzScene->itemsBoundingRect());
-//		centerOn((horizontalScrollBar()->value() + viewport()->width() * 0.5) * zoomFraction,
-//		         (verticalScrollBar()->value() + viewport()->height() * 0.5) * zoomFraction);
-		if (!m_centerPoint.isNull())
-		{
-			m_centerPoint *= zoomFraction;
-			centerOn(m_centerPoint);
-		}
-		m_oldZoomFactor = m_zoomFactor; // m_oldZoomFactor must be set here and not in the zoom functions below in order to avoid skipping some steps when the user zooms fast
+		setSceneRect(m_tikzScene->itemsBoundingRect()); // make sure that the scroll area is not bigger than the actual image
 		m_hasZoomed = false;
 		m_infoWidgetAdded = true; // dirty hack to force m_infoWidget to be recentered also when zooming
 	}
@@ -330,7 +311,6 @@ void TikzPreview::createZoomFactorList(qreal newZoomFactor)
 
 void TikzPreview::setZoomFactor(qreal zoomFactor)
 {
-//	m_oldZoomFactor = m_zoomFactor;
 	m_zoomFactor = zoomFactor;
 	if (m_zoomFactor == m_oldZoomFactor)
 		return;
@@ -393,11 +373,25 @@ void TikzPreview::showNextPage()
 	showPdfPage();
 }
 
-void TikzPreview::showPreview(const QImage &tikzImage)
+void TikzPreview::showPreview(const QImage &tikzImage, qreal zoomFactor)
 {
+	// this slot is called when TikzPreviewThread has finished rendering
+	// the current pdf page to tikzImage, so before we actually display
+	// the image the old center point must be calculated and multiplied
+	// by the quotient of the new and old zoom factor in order to obtain
+	// the new center point of the image; the recentering itself is done
+	// at the end of this function
+	QPointF centerPoint(horizontalScrollBar()->value() + viewport()->width() * 0.5,
+	    verticalScrollBar()->value() + viewport()->height() * 0.5);
+	const qreal zoomFraction = (m_oldZoomFactor > 0) ? zoomFactor / m_oldZoomFactor : 1;
+	if (!centerPoint.isNull())
+		centerPoint *= zoomFraction;
+	m_oldZoomFactor = zoomFactor; // m_oldZoomFactor must be set here and not in the zoom functions in order to avoid skipping some steps when the user zooms fast
+	m_hasZoomed = true;
+
+	// display and center the preview image
 	m_tikzPixmapItem->setPixmap(QPixmap::fromImage(tikzImage));
-	m_tikzPixmapItem->update();
-	centerView(); // adjust viewport when new objects are added to the tikz picture or when zooming
+	centerOn(centerPoint);
 }
 
 void TikzPreview::showPdfPage()
@@ -405,21 +399,8 @@ void TikzPreview::showPdfPage()
 	if (!m_tikzPdfDoc || m_tikzPdfDoc->numPages() < 1)
 		return;
 
-	m_centerPoint = QPointF(horizontalScrollBar()->value() + viewport()->width() * 0.5,
-	    verticalScrollBar()->value() + viewport()->height() * 0.5); // get current center of the viewport and use it in paintEvent
-
 	if (!m_processRunning)
 		m_tikzPreviewThread->generatePreview(m_tikzPdfDoc, m_zoomFactor, m_currentPage);
-/*
-	if (!m_processRunning)
-	{
-		Poppler::Page *pdfPage = m_tikzPdfDoc->page(m_currentPage);
-		m_tikzPixmapItem->setPixmap(QPixmap::fromImage(pdfPage->renderToImage(m_zoomFactor * 72, m_zoomFactor * 72)));
-		m_tikzPixmapItem->update();
-		centerView(); // adjust viewport when new objects are added to the tikz picture
-		delete pdfPage;
-	}
-*/
 }
 
 void TikzPreview::emptyPreview()
@@ -515,6 +496,7 @@ void TikzPreview::setInfoLabelText(const QString &message, bool isPixmapVisible)
 	if (m_infoProxyWidget->scene() != 0) // only remove if the widget is still attached to m_tikzScene
 		m_tikzScene->removeItem(m_infoProxyWidget); // make sure that any previous messages are not visible anymore
 	m_tikzScene->addItem(m_infoProxyWidget);
+	centerInfoLabel(); // must be run here so that the label is always centered
 	m_infoWidgetAdded = true;
 }
 

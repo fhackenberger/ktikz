@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -52,7 +52,7 @@ public:
 	void setProcessRunning(bool isRunning);
 
 public slots:
-	void showPreview(const QImage &tikzImage);
+	void showPreview(const QImage &tikzImage, qreal zoomFactor = 1.0);
 	void pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
 	void showErrorMessage(const QString &message);
 
@@ -75,7 +75,6 @@ private slots:
 
 private:
 	void createInformationLabel();
-	void centerView();
 	void setZoomFactor(qreal zoomFactor);
 	void createActions();
 	void showPdfPage();
@@ -87,7 +86,6 @@ private:
 	QGraphicsScene *m_tikzScene;
 	QGraphicsPixmapItem *m_tikzPixmapItem;
 	TikzPreviewThread *m_tikzPreviewThread;
-	QPointF m_centerPoint;
 	bool m_processRunning;
 
 	QAction *m_zoomInAction;

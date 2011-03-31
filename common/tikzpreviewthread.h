@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009 by Glad Deschrijver                    *
+ *   Copyright (C) 2007, 2008, 2009, 2011 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -41,7 +41,7 @@ public:
 	void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor = 1.0, int currentPage = 0);
 
 signals:
-	void showPreview(const QImage &image);
+	void showPreview(const QImage &image, qreal zoomFactor = 1.0);
 
 protected:
 	void run();

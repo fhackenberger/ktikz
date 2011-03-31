@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009 by Glad Deschrijver                    *
+ *   Copyright (C) 2007, 2008, 2009, 2011 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -27,15 +27,14 @@ TikzPreviewThread::TikzPreviewThread(QObject *parent)
 {
 	m_restart = false;
 	m_abort = false;
-
-	setTerminationEnabled(true);
 }
 
 TikzPreviewThread::~TikzPreviewThread()
 {
 	m_mutex.lock();
+	m_restart = true; // when this thread is destroyed while run() is running, make sure that m_condition.wait() is not called in run() and thus the abortion can succeed
 	m_abort = true;
-	m_condition.wakeOne();
+	m_condition.wakeAll();
 	m_mutex.unlock();
 
 	wait();
@@ -55,14 +54,8 @@ void TikzPreviewThread::generatePreview(Poppler::Document *tikzPdfDoc, qreal zoo
 	}
 	else
 	{
-//		m_restart = true;
-//		m_condition.wakeOne();
-
-		m_abort = true;
-		m_condition.wakeAll();
-		m_abort = false;
 		m_restart = true;
-//		start(LowPriority);
+		m_condition.wakeAll();
 	}
 }
 
@@ -80,7 +73,7 @@ void TikzPreviewThread::run()
 		const QImage tikzImage = pdfPage->renderToImage(zoomFactor * 72, zoomFactor * 72);
 		delete pdfPage;
 
-		emit showPreview(tikzImage);
+		emit showPreview(tikzImage, zoomFactor); // use zoomFactor and not m_zoomFactor because the latter can already be changed by a new call to generatePreview()
 
 		// sleep
 		m_mutex.lock();
