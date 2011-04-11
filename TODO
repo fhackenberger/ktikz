@@ -25,7 +25,7 @@
   Section 16 partially (except alias, shape border uses incircle, shape border
     rotate, 16.3, node halign header, 16.5.3, 16.6, transform shape, 16.10,
     16.13, 16.14)
-  Section 17
+  Section 17 complete (except between origins, between borders)
   Section 18
   Section 19
   Section 20

@@ -131,8 +131,10 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 			insertion.replace(QLatin1String("\\\\"), QLatin1String("\\"));
 
 			if (name.isEmpty())
+			{
 				name = description;
-			description.remove('&');
+				description.remove('&'); // we assume that if name.isEmpty() then an accelerator is defined in description
+			}
 			if (name.isEmpty())
 				name = insertion;
 			if (description.isEmpty())
@@ -207,7 +209,9 @@ void TikzCommandInserter::updateDescriptionMenuItem()
 		const int num = action->data().toInt();
 		const TikzCommand cmd = m_tikzCommandsList.at(num);
 		QList<QAction*> menuActions = qobject_cast<QMenu*>(action->parentWidget())->actions();
-		menuActions[menuActions.size()-1]->setText(cmd.description);
+		QString description = cmd.description;
+		description.replace(QLatin1Char('&'), QLatin1String("&&")); // don't use ampersands in the description to create a keyboard accelerator
+		menuActions[menuActions.size()-1]->setText(description);
 		menuActions[menuActions.size()-1]->setData(cmd.number);
 	}
 }

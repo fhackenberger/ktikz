@@ -108,6 +108,8 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 
 	connect(m_goToLineWidget, SIGNAL(goToLine(int)),
 	        this, SLOT(goToLine(int)));
+	connect(m_goToLineWidget, SIGNAL(focusEditor()),
+	        m_tikzEditor, SLOT(setFocus()));
 }
 
 TikzEditorView::~TikzEditorView()
