@@ -41,7 +41,13 @@ TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 	ui.templateCombo->setLineEdit(new LineEdit(this));
 	ui.templateCombo->setMinimumContentsLength(20);
 	ui.templateChooseButton->setIcon(Icon("document-open"));
+#ifdef KTIKZ_KPART
+	ui.templateReloadButton->setVisible(false);
+	ui.templateEditButton->setVisible(false);
+#else
 	ui.templateReloadButton->setIcon(Icon("view-refresh"));
+	ui.templateEditButton->setIcon(Icon("document-edit"));
+#endif
 
 #ifdef KTIKZ_USE_KDE
 	KUrlCompletion *completion = new KUrlCompletion();

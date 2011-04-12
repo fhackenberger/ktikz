@@ -62,6 +62,7 @@ public:
 	void applySettings();
 
 public slots:
+	void printImage();
 	void generatePreview();
 	void regeneratePreviewAfterDelay();
 
@@ -71,7 +72,6 @@ private slots:
 	void regeneratePreview();
 	void abortProcess();
 	void exportImage();
-	void printImage();
 	void setExportActionsEnabled(bool enabled);
 	void setProcessRunning(bool isRunning);
 	void toggleShellEscaping(bool useShellEscaping);

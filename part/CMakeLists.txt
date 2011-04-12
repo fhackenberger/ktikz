@@ -1,11 +1,13 @@
 set(KTIKZPART_DATA_INSTALL_DIR ${DATA_INSTALL_DIR}/ktikzpart)
 #add_definitions(-DORGNAME=\\\"Florian_Hackenberger\\\" -DAPPNAME=\\\"ktikz\\\")
+add_definitions(-DKTIKZ_KPART)
 
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/../common
 )
 
 set(ktikzpart_SRCS
+	browserextension.cpp
 	configdialog.cpp
 	configgeneralwidget.cpp
 	part.cpp

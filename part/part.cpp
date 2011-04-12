@@ -56,6 +56,7 @@
 #include "../common/tikzpreview.h"
 #include "../common/tikzpreviewcontroller.h"
 #include "../common/utils/action.h"
+#include "browserextension.h"
 
 K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<Part>();)
 K_EXPORT_PLUGIN(ktikzPartFactory("ktikz", "ktikz"))
@@ -87,6 +88,8 @@ Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
 	m_dirtyHandler = new QTimer(this);
 	m_dirtyHandler->setSingleShot(true);
 	connect(m_dirtyHandler, SIGNAL(timeout()), this, SLOT(slotDoFileDirty()));
+
+	new BrowserExtension(this, m_tikzPreviewController);
 
 	setXMLFile("ktikzpart/ktikzpart.rc");
 
@@ -197,6 +200,8 @@ bool Part::closeUrl()
 		QFileInfo fi(localFilePath());
 		m_watcher->removeDir(fi.absolutePath());
 	}
+
+	emit setWindowCaption("");
 	m_fileWasRemoved = false;
 
 	return KParts::ReadOnlyPart::closeUrl();

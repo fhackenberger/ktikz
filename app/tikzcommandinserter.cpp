@@ -134,9 +134,9 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 			{
 				name = description;
 				description.remove('&'); // we assume that if name.isEmpty() then an accelerator is defined in description
+				if (name.isEmpty())
+					name = insertion;
 			}
-			if (name.isEmpty())
-				name = insertion;
 			if (description.isEmpty())
 				description = insertion;
 			if (type.isEmpty())
@@ -261,7 +261,10 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList)
 		}
 	}
 
-	if (whichSection < menu->actions().size()) // if the menu does not only contain submenus
+	// if the menu does not only contain submenus, then we add a menu item
+	// at the bottom of the menu which shows the description of the currently
+	// highlighted menu item
+	if (whichSection < menu->actions().size())
 	{
 		action = new QAction(this);
 		action->setSeparator(true);
@@ -274,6 +277,8 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList)
 		connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));
 		menu->addAction(action);
 
+		// make sure that the menu width does not change when the content
+		// of the above menu item changes
 		menu->setMinimumWidth(menuMinimumWidth + menuLeftMargin);
 	}
 
@@ -633,8 +638,9 @@ void TikzCommandInserter::insertTag(const QString &tag, int dx, int dy)
 	if (tag.contains(s_completionPlaceHolder))
 	{
 		cur = m_mainEdit->document()->find(s_completionPlaceHolder, cur);
+		m_mainEdit->setTextCursor(cur);
 	}
-	else
+	else if (dx > 0 || dy > 0)
 	{
 		if (dy > 0)
 		{
@@ -643,7 +649,9 @@ void TikzCommandInserter::insertTag(const QString &tag, int dx, int dy)
 		}
 		if (dx > 0)
 			cur.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, dx);
+		m_mainEdit->setTextCursor(cur);
 	}
-	m_mainEdit->setTextCursor(cur);
+	// else we are only inserting a string with no placeholders and no positioning, so the cursor must come at the end of the string (this is done automatically by Qt)
+
 	m_mainEdit->setFocus();
 }

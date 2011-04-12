@@ -4,7 +4,6 @@
 	<Menu name="file"><text context="@title:menu">&amp;File</text>
 		<Action name="file_save_as"/>
 		<Action name="file_export_as"/>
-		<Action name="file_print"/>
 	</Menu>
 	<Menu name="view"><text context="@title:menu">&amp;View</text>
 		<Action name="view_zoom_in"/>
