@@ -910,7 +910,7 @@ bool MainWindow::saveUrl(const Url &url)
 
 	QTextStream out(file.file());
 	QApplication::setOverrideCursor(Qt::WaitCursor);
-	out << m_tikzEditorView->editor()->toPlainText().toUtf8();
+	out << m_tikzEditorView->editor()->toPlainText();
 	out.flush();
 	QApplication::restoreOverrideCursor();
 

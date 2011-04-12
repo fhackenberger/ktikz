@@ -37,6 +37,13 @@ version 0.11:
 - remove bugs which caused incorrect recentering of the preview when zooming
 - the text box showing the messages in the preview is now centered correctly
 - remove bug in preview rendering: remove flicker while zooming fast
+- don't duplicate the "Print" action in the "File" menu when using the kpart
+  in Konqueror (and let Konqueror's "Print" action work)
+- don't show the "Reload" and "Edit" button in the template widget in the
+  kpart (the purpose of the kpart is viewing, not editing, and there is
+  already a "Reload" action in Konqueror)
+- remove bug: if non-Latin UTF-8 characters are used in the editor then they
+  are not correctly written to the file when the file is saved
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE

@@ -126,7 +126,7 @@ type: the highlighting color/font/style depends on the type
 			<item name="Use &amp;standard arrow tip" insert="-&gt;" type="3"/>
 			<item name="Use &amp;double standard arrow tip" insert="-&gt;&gt;" type="3"/>
 			<item name="Use standard arrow tip with &amp;vertical line" insert="-&gt;|" type="3"/>
-			<item name="Use &amp;TeX' arrow tip" insert="-to" type="3"/>
+			<item name="Use &amp;TeX's arrow tip" insert="-to" type="3"/>
 			<item name="Use &amp;LaTeX's arrow tip" insert="-latex" type="3"/>
 			<item name="Use &amp;PSTricks' arrow tip" insert="-stealth" type="3"/>
 		</section>
@@ -134,7 +134,7 @@ type: the highlighting color/font/style depends on the type
 			<item name="Use &amp;standard arrow tip" insert="&lt;-" type="3"/>
 			<item name="Use &amp;double standard arrow tip" insert="&lt;&lt;-" type="3"/>
 			<item name="Use standard arrow tip with &amp;vertical line" insert="|&lt;-" type="3"/>
-			<item name="Use &amp;TeX' arrow tip" insert="to-" type="3"/>
+			<item name="Use &amp;TeX's arrow tip" insert="to-" type="3"/>
 			<item name="Use &amp;LaTeX's arrow tip" insert="latex-" type="3"/>
 			<item name="Use &amp;PSTricks' arrow tip" insert="stealth-" type="3"/>
 		</section>
@@ -142,7 +142,7 @@ type: the highlighting color/font/style depends on the type
 			<item name="Use &amp;standard arrow tip" insert="&lt;-&gt;" type="3"/>
 			<item name="Use &amp;double standard arrow tip" insert="&lt;&lt;-&gt;&gt;" type="3"/>
 			<item name="Use standard arrow tip with &amp;vertical line" insert="|&lt;-&gt;|" type="3"/>
-			<item name="Use &amp;TeX' arrow tip" insert="to-to" type="3"/>
+			<item name="Use &amp;TeX's arrow tip" insert="to-to" type="3"/>
 			<item name="Use &amp;LaTeX's arrow tip" insert="latex-latex" type="3"/>
 			<item name="Use &amp;PSTricks' arrow tip" insert="stealth-stealth" type="3"/>
 		</section>
