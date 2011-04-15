@@ -26,8 +26,12 @@ class KAboutData;
 class KAction;
 class KDirWatch;
 
-class PartConfigDialog;
 class TikzPreviewController;
+
+namespace KtikZ
+{
+
+class PartConfigDialog;
 
 /** Provides a kpart for viewing TikZ graphics
  * @author Florian Hackenberger, Glad Deschrijver
@@ -50,6 +54,8 @@ protected:
 	bool closeUrl();
 
 private slots:
+	void showAboutDialog();
+
 	void saveAs();
 	void showJobError(KJob *job);
 //	void slotReload();
@@ -76,5 +82,7 @@ private:
 	QTimer *m_dirtyHandler;
 	bool m_fileWasRemoved;
 };
+
+} // namespace KtikZ
 
 #endif

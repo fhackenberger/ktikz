@@ -23,6 +23,9 @@
 
 class TikzPreviewController;
 
+namespace KtikZ
+{
+
 class BrowserExtension : public KParts::BrowserExtension
 {
 	Q_OBJECT
@@ -37,5 +40,7 @@ private:
 	KParts::ReadOnlyPart* m_part;
 	TikzPreviewController *m_tikzPreviewController;
 };
+
+} // namespace KtikZ
 
 #endif

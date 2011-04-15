@@ -21,8 +21,12 @@
 
 #include <KDialog>
 
-class PartConfigGeneralWidget;
 class QCheckBox;
+
+namespace KtikZ
+{
+
+class PartConfigGeneralWidget;
 
 class PartConfigDialog : public KDialog
 {
@@ -51,5 +55,7 @@ private:
 
 	QCheckBox *m_watchFileCheckBox;
 };
+
+} // namespace KtikZ
 
 #endif

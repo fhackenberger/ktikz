@@ -20,6 +20,9 @@
 
 #include <QSettings>
 
+namespace KtikZ
+{
+
 PartConfigGeneralWidget::PartConfigGeneralWidget(QWidget *parent)
 	: QWidget(parent)
 {
@@ -75,3 +78,5 @@ void PartConfigGeneralWidget::writeSettings(const QString &settingsGroup)
 	settings.setValue("TemplateReplaceText", ui.replaceEdit->text());
 	settings.endGroup();
 }
+
+} // namespace KtikZ

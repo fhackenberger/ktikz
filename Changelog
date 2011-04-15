@@ -44,6 +44,10 @@ version 0.11:
   already a "Reload" action in Konqueror)
 - remove bug: if non-Latin UTF-8 characters are used in the editor then they
   are not correctly written to the file when the file is saved
+- add an "About KtikZ Viewer" item in Konqueror's "Help" menu (when the kpart
+  is used)
+- let the actions of the kpart go in a separate section labeled "KtikZ Viewer"
+  in the "Configure Shortcuts" dialog
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE

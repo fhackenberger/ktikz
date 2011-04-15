@@ -147,9 +147,11 @@ void TikzPreviewController::createActions()
 		exportMenu->addAction(exportImageAction);
 	}
 
+#ifndef KTIKZ_KPART // don't have two "Print" actions in the kpart
 	m_printAction = StandardAction::print(this, SLOT(printImage()), this);
 	m_printAction->setStatusTip(tr("Print image"));
 	m_printAction->setWhatsThis(tr("<p>Print preview image.</p>"));
+#endif
 
 	setExportActionsEnabled(false);
 
@@ -431,7 +433,9 @@ void TikzPreviewController::applySettings()
 void TikzPreviewController::setExportActionsEnabled(bool enabled)
 {
 	m_exportAction->setEnabled(enabled);
+#ifndef KTIKZ_KPART
 	m_printAction->setEnabled(enabled);
+#endif
 }
 
 void TikzPreviewController::setProcessRunning(bool isRunning)

@@ -23,6 +23,9 @@
 
 #include "configgeneralwidget.h"
 
+namespace KtikZ
+{
+
 PartConfigDialog::PartConfigDialog(QWidget *parent)
 	: KDialog(parent)
 {
@@ -96,3 +99,5 @@ void PartConfigDialog::writeSettings()
 	enableButtonApply(false);
 	emit settingsChanged("preferences");
 }
+
+} // namespace KtikZ

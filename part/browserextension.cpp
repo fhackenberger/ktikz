@@ -23,6 +23,9 @@
 
 #include "../common/tikzpreviewcontroller.h"
 
+namespace KtikZ
+{
+
 BrowserExtension::BrowserExtension(KParts::ReadOnlyPart *part, TikzPreviewController *tikzPreviewController)
     : KParts::BrowserExtension(part)
 {
@@ -41,3 +44,5 @@ void BrowserExtension::print()
 {
 	m_tikzPreviewController->printImage();
 }
+
+} // namespace KtikZ

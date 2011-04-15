@@ -24,7 +24,7 @@ In Ubuntu you would obtain those by installing the following packages:
 Install the Qt-only (qtikz) application (using qmake):
 ------------------------------------------------------
 
-1. Edit the paths in conf.pri
+1. Edit the paths in qtikzconfig.pri
 2. Run the following commands (this will create an executable named qtikz):
   mkdir buildqt
   cd buildqt
@@ -35,8 +35,8 @@ Install the Qt-only (qtikz) application (using qmake):
 
 Note that qmake will tell you where the files will be installed. If
 you don't like the installation directories, you can change them in
-the file conf.pri before running make.  Make sure to make the changes
-in conf.pri before running make.
+the file qtikzconfig.pri before running make.  Make sure to make the
+changes in qtikzconfig.pri before running make.
 
 In order to uninstall qtikz run the following commands in the build directory:
   sudo make uninstall
@@ -60,8 +60,8 @@ may additionally have to run
 or restart KDE so that konqueror uses the KPart for this mimetype.
 
 In order to uninstall ktikz run the following commands in the build directory
-(the paths in the last two commands depend of course on where the files were
-installed, see the output of the make uninstall command for the correct paths):
+(the path in the last command depends of course on where the mimetype was
+installed, see the output of the make uninstall command for the correct path):
   sudo make uninstall
   sudo update-mime-database /usr/share/mime
 

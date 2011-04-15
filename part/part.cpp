@@ -37,6 +37,7 @@
 
 #include "part.h"
 
+#include <KAboutApplicationDialog>
 #include <KAboutData>
 #include <KAction>
 #include <KActionCollection>
@@ -58,13 +59,18 @@
 #include "../common/utils/action.h"
 #include "browserextension.h"
 
-K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<Part>();)
-K_EXPORT_PLUGIN(ktikzPartFactory("ktikz", "ktikz"))
+K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<KtikZ::Part>();)
+K_EXPORT_PLUGIN(ktikzPartFactory(KAboutData("ktikzpart", "ktikz", ki18n("KtikZ Viewer"), APPVERSION)))
+
+namespace KtikZ
+{
 
 Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
 	: KParts::ReadOnlyPart(parent)
 {
 	Q_UNUSED(args);
+
+	setComponentData(ktikzPartFactory::componentData()); // make sure that the actions of this kpart go in a separate section labeled "KtikZ Viewer" (as defined in K_EXPORT_PLUGIN above) in the "Configure Shortcuts" dialog
 
 	m_configDialog = 0;
 
@@ -89,7 +95,7 @@ Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
 	m_dirtyHandler->setSingleShot(true);
 	connect(m_dirtyHandler, SIGNAL(timeout()), this, SLOT(slotDoFileDirty()));
 
-	new BrowserExtension(this, m_tikzPreviewController);
+	new BrowserExtension(this, m_tikzPreviewController); // needed to be able to use Konqueror's "Print" action
 
 	setXMLFile("ktikzpart/ktikzpart.rc");
 
@@ -109,7 +115,7 @@ QWidget *Part::widget()
 KAboutData *Part::createAboutData()
 {
 	KAboutData *aboutData = new KAboutData("ktikzpart", "ktikz",
-	                                       ki18n("KtikZ KPart"), APPVERSION);
+	                                       ki18n("KtikZ Viewer"), APPVERSION);
 	aboutData->setShortDescription(ki18n("A TikZ Viewer"));
 	aboutData->setLicense(KAboutData::License_GPL_V2);
 	aboutData->setCopyrightStatement(ki18n("Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"));
@@ -117,7 +123,14 @@ KAboutData *Part::createAboutData()
 	aboutData->setBugAddress("florian@hackenberger.at");
 	aboutData->addAuthor(ki18n("Florian Hackenberger"), ki18n("Maintainer"), "florian@hackenberger.at");
 	aboutData->addAuthor(ki18n("Glad Deschrijver"), ki18n("Developer"), "glad.deschrijver@gmail.com");
+	aboutData->setProgramIconName("ktikz");
 	return aboutData;
+}
+
+void Part::showAboutDialog()
+{
+	KAboutApplicationDialog dlg(createAboutData(), widget());
+	dlg.exec();
 }
 
 void Part::createActions()
@@ -139,6 +152,12 @@ void Part::createActions()
 	// Configure
 	KAction *action = KStandardAction::preferences(this, SLOT(configure()), actionCollection());
 	action->setText(i18nc("@action", "Configure KtikZ Viewer..."));
+
+	// Help
+	action = actionCollection()->addAction("help_about_ktikz");
+	action->setText(i18n("About KtikZ Viewer"));
+	action->setIcon(KIcon("ktikz"));
+	connect(action, SIGNAL(triggered()), this, SLOT(showAboutDialog()));
 }
 
 /***************************************************************************/
@@ -318,3 +337,5 @@ void Part::configure()
 	m_configDialog->readSettings();
 	m_configDialog->show();
 }
+
+} // namespace KtikZ

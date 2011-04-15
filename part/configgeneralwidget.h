@@ -22,6 +22,9 @@
 #include <QWidget>
 #include "ui_configgeneralwidget.h"
 
+namespace KtikZ
+{
+
 class PartConfigGeneralWidget : public QWidget
 {
 	Q_OBJECT
@@ -42,5 +45,7 @@ protected:
 private slots:
 	void setModified();
 };
+
+} // namespace KtikZ
 
 #endif

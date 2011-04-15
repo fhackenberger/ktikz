@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="KtikZPart" version="4">
+<kpartgui name="KtikZ Viewer" version="4">
 <MenuBar>
 	<Menu name="file"><text context="@title:menu">&amp;File</text>
 		<Action name="file_save_as"/>
@@ -19,6 +19,9 @@
 	</Menu>
 	<Menu name="settings"><text context="@title:menu">&amp;Settings</text>
 		<Action name="options_configure"/>
+	</Menu>
+	<Menu name="help"><text context="@title:menu">&amp;Help</text>
+		<Action name="help_about_ktikz" group="about_merge"/>
 	</Menu>
 </MenuBar>
 <ToolBar name="mainToolBar"><text context="@title:menu toolbar title">Main Toolbar</text>
