@@ -74,9 +74,14 @@ type: the highlighting color/font/style depends on the type
 		</section>
 		<section title="&amp;Curves">
 			<item name="&amp;Rectangle" description="rectangle &lt;corner&gt;" insert=" rectangle (&#8226;,&#8226;)" highlight=" rectangle(?=\s*\+*\()" type="2"/>
+<!--
 			<item name="&amp;Circle" description="circle (&lt;radius&gt;)" insert=" circle (&#8226;)" highlight=" circle(?=\s*(\[|\())" type="2"/>
 			<item name="&amp;Ellipse" description="ellipse (&lt;half width&gt; and &lt;half height&gt;)" insert=" ellipse (&#8226; and &#8226;)" highlight=" ellipse(?=\s*(\[|\())" type="2"/>
 			<item name="&amp;Arc (part of ellipse)" description="arc (&lt;start angle&gt;:&lt;end angle&gt;:&lt;radius&gt; and &lt;half height&gt;)" insert=" arc (&#8226;:&#8226;:&#8226;)" highlight=" arc(?=\s*(\[|\())" type="2"/>
+-->
+			<item name="&amp;Circle" description="circle [radius=&lt;value&gt;]" insert=" circle [radius=&#8226;]" highlight=" circle(?=\s*(\[|\())" type="2"/>
+			<item name="&amp;Ellipse" description="ellipse [x radius=&lt;value&gt;,y radius=&lt;value&gt;,rotate=&lt;angle&gt;]" insert=" ellipse [x radius=&#8226;,y radius=&#8226;,rotate=&#8226;]" highlight=" ellipse(?=\s*(\[|\())" type="2"/>
+			<item name="&amp;Arc (part of ellipse)" description="arc [start angle=&lt;angle&gt;,end angle=&lt;angle&gt;,x radius=&lt;value&gt;,y radius=&lt;value&gt;]" insert=" arc [start angle=&#8226;,end angle=&#8226;,x radius=&#8226;,y radius=&#8226;]" highlight=" arc(?=\s*(\[|\())" type="2"/>
 			<item name="&amp;Parabola" description="parabola[&lt;options&gt;] bend &lt;bend coord&gt; &lt;end point&gt;" insert=" parabola (&#8226;,&#8226;)" highlight=" parabola(?=\s*(\[|\(|bend))" type="2"/>
 			<item name="&amp;Sine curve in [0, pi/2]" description="sin &lt;end point&gt;" insert=" sin (&#8226;,&#8226;)" highlight=" sin(?=\s*\()" type="2"/>
 			<item name="C&amp;osine curve in [0, pi/2]" description="cos &lt;end point&gt;" insert=" cos (&#8226;,&#8226;)" highlight=" cos(?=\s*\()" type="2"/>

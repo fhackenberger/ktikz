@@ -5,13 +5,13 @@
   <property name="windowTitle">
    <string>General</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="interfaceGroupBox">
      <property name="title">
       <string>Interface</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="interfaceVerticalLayout">
       <property name="spacing">
        <number>10</number>
       </property>
@@ -80,49 +80,6 @@
        </layout>
       </item>
       <item>
-       <layout class="QFormLayout" name="buildFormLayout">
-        <property name="verticalSpacing">
-         <number>2</number>
-        </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="buildLabel">
-          <property name="whatsThis">
-           <string>&lt;p&gt;Specify whether the preview should be generated automatically or manually.  If the option &quot;Automatically&quot; is checked, the TikZ code in the editor is compiled while editing.  If the option &quot;Manually&quot; is checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</string>
-          </property>
-          <property name="text">
-           <string>Preview generation:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QRadioButton" name="buildAutomaticallyRadio">
-          <property name="whatsThis">
-           <string>&lt;p&gt;If this option is checked, the TikZ code in the editor is compiled while editing.&lt;/p&gt;</string>
-          </property>
-          <property name="text">
-           <string>&amp;Automatically</string>
-          </property>
-          <attribute name="buttonGroup">
-           <string>buildButtonGroup</string>
-          </attribute>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QRadioButton" name="buildManuallyRadio">
-          <property name="whatsThis">
-           <string>&lt;p&gt;If this option is checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</string>
-          </property>
-          <property name="text">
-           <string>&amp;Manually</string>
-          </property>
-          <attribute name="buttonGroup">
-           <string>buildButtonGroup</string>
-          </attribute>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="toolBarStyleHorizontalLayout">
         <item>
          <widget class="QLabel" name="toolBarStyleLabel">
@@ -183,11 +140,131 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="previewGroupBox">
+     <property name="title">
+      <string>Preview</string>
+     </property>
+     <layout class="QVBoxLayout" name="previewVerticalLayout">
+      <item>
+       <layout class="QFormLayout" name="buildFormLayout">
+        <property name="verticalSpacing">
+         <number>2</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="buildLabel">
+          <property name="whatsThis">
+           <string>&lt;p&gt;Specify whether the preview should be generated automatically or manually.  If the option &quot;Automatically&quot; is checked, the TikZ code in the editor is compiled while editing.  If the option &quot;Manually&quot; is checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>Preview generation:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QRadioButton" name="buildAutomaticallyRadio">
+          <property name="whatsThis">
+           <string>&lt;p&gt;If this option is checked, the TikZ code in the editor is compiled while editing.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>&amp;Automatically</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string>buildButtonGroup</string>
+          </attribute>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QRadioButton" name="buildManuallyRadio">
+          <property name="whatsThis">
+           <string>&lt;p&gt;If this option is checked, a &quot;Build&quot; button is available and the TikZ code is only compiled when you press that button.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>&amp;Manually</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string>buildButtonGroup</string>
+          </attribute>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QFormLayout" name="coordinatesFormLayout">
+        <item row="0" column="0">
+         <widget class="QCheckBox" name="showCoordinatesCheck">
+          <property name="whatsThis">
+           <string>&lt;p&gt;If this option is checked, the coordinates of the mouse cursor in the preview are shown.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>S&amp;how mouse coordinates:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QRadioButton" name="bestPrecisionRadio">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;If this option is checked, the mouse coordinates are shown with enough precision but without redundant decimals.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>Use &amp;best precision</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+          <attribute name="buttonGroup">
+           <string>precisionButtonGroup</string>
+          </attribute>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QWidget" name="specifyPrecisionWidget" native="true">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <property name="margin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QRadioButton" name="specifyPrecisionRadio">
+             <property name="whatsThis">
+              <string>&lt;p&gt;If this option is checked, the mouse coordinates are shown with the specified number of decimals.&lt;/p&gt;</string>
+             </property>
+             <property name="text">
+              <string>Speci&amp;fy precision:</string>
+             </property>
+             <attribute name="buttonGroup">
+              <string>precisionButtonGroup</string>
+             </attribute>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="specifyPrecisionSpinBox">
+             <property name="whatsThis">
+              <string>&lt;p&gt;Specify the number of decimals with which the mouse coordinates are shown.&lt;/p&gt;</string>
+             </property>
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="commandsGroupBox">
      <property name="title">
       <string>Commands</string>
      </property>
-     <layout class="QFormLayout" name="formLayout">
+     <layout class="QFormLayout" name="commandsFormLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="latexLabel">
         <property name="whatsThis">
@@ -280,11 +357,11 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_3">
+    <widget class="QGroupBox" name="templatesGroupBox">
      <property name="title">
       <string>Templates</string>
      </property>
-     <layout class="QFormLayout" name="formLayout_2">
+     <layout class="QFormLayout" name="templatesFormLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="replaceLabel">
         <property name="whatsThis">
@@ -359,11 +436,11 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_4">
+    <widget class="QGroupBox" name="documentationGroupBox">
      <property name="title">
       <string>Help</string>
      </property>
-     <layout class="QFormLayout" name="formLayout_3">
+     <layout class="QFormLayout" name="documentationFormLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="tikzDocLabel">
         <property name="sizePolicy">
@@ -483,7 +560,56 @@
  <resources>
   <include location="qtikz.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>showCoordinatesCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bestPrecisionRadio</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>101</x>
+     <y>245</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>258</x>
+     <y>245</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>showCoordinatesCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>specifyPrecisionWidget</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>101</x>
+     <y>241</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>287</x>
+     <y>269</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>specifyPrecisionRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>specifyPrecisionSpinBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>255</x>
+     <y>269</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>351</x>
+     <y>269</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <buttongroups>
   <buttongroup name="buildButtonGroup"/>
  </buttongroups>

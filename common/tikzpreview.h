@@ -50,6 +50,8 @@ public:
 	int numberOfPages() const;
 	void emptyPreview();
 	void setProcessRunning(bool isRunning);
+	void setShowCoordinates(bool show);
+	void setCoordinatePrecision(int precision);
 
 public slots:
 	void showPreview(const QImage &tikzImage, qreal zoomFactor = 1.0);
@@ -57,7 +59,7 @@ public slots:
 	void showErrorMessage(const QString &message);
 
 signals:
-	void showMouseCoordinates(qreal x, qreal y);
+	void showMouseCoordinates(qreal x, qreal y, int precisionX = 5, int precisionY = 5);
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
@@ -102,11 +104,14 @@ private:
 	bool m_infoWidgetAdded;
 
 	Poppler::Document *m_tikzPdfDoc;
-	QList<qreal> m_tikzCoordinates;
 	int m_currentPage;
 	qreal m_zoomFactor;
 	qreal m_oldZoomFactor;
 	bool m_hasZoomed;
+
+	bool m_showCoordinates;
+	QList<qreal> m_tikzCoordinates;
+	int m_precision;
 };
 
 #endif

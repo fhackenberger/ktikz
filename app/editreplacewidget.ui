@@ -6,20 +6,6 @@
    <string>Find and Replace</string>
   </property>
   <layout class="QGridLayout">
-   <item row="0" column="0">
-    <widget class="QToolButton" name="pushButtonClose">
-     <property name="toolTip">
-      <string>Close find and replace box</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="qtikz.qrc">
-       <normaloff>:/icons/window-close.png</normaloff>:/icons/window-close.png</iconset>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="1">
     <widget class="QLabel" name="labelFind">
      <property name="text">
@@ -125,6 +111,20 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonClose">
+       <property name="toolTip">
+        <string>Close find and replace box</string>
+       </property>
+       <property name="text">
+        <string>&amp;Done</string>
+       </property>
+       <property name="icon">
+        <iconset resource="qtikz.qrc">
+         <normaloff>:/icons/window-close.png</normaloff>:/icons/window-close.png</iconset>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>
@@ -137,7 +137,6 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>pushButtonClose</tabstop>
   <tabstop>comboBoxFind</tabstop>
   <tabstop>comboBoxReplace</tabstop>
   <tabstop>checkBoxWholeWords</tabstop>
@@ -146,6 +145,7 @@
   <tabstop>pushButtonForward</tabstop>
   <tabstop>pushButtonFind</tabstop>
   <tabstop>pushButtonReplace</tabstop>
+  <tabstop>pushButtonClose</tabstop>
  </tabstops>
  <resources>
   <include location="qtikz.qrc"/>

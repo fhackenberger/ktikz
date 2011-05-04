@@ -16,6 +16,7 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
+#include <qmath.h>
 #include "tikzpreview.h"
 
 #ifdef KTIKZ_USE_KDE
@@ -518,6 +519,18 @@ void TikzPreview::setProcessRunning(bool isRunning)
 
 /***************************************************************************/
 
+void TikzPreview::setShowCoordinates(bool show)
+{
+	m_showCoordinates = show;
+}
+
+void TikzPreview::setCoordinatePrecision(int precision)
+{
+	m_precision = precision;
+}
+
+/***************************************************************************/
+
 void TikzPreview::wheelEvent(QWheelEvent *event)
 {
 	if (event->modifiers() == Qt::ControlModifier)
@@ -534,22 +547,35 @@ void TikzPreview::wheelEvent(QWheelEvent *event)
 void TikzPreview::mouseMoveEvent(QMouseEvent *event)
 {
 	const int offset = 6 * m_currentPage;
-	if (m_tikzCoordinates.length() >= offset + 6)
+	if (m_showCoordinates && m_tikzCoordinates.length() >= offset + 6)
 	{
 		const qreal unitX = m_tikzCoordinates.at(offset);
 		const qreal unitY = m_tikzCoordinates.at(1 + offset);
-		const qreal minX = m_tikzCoordinates.at(2 + offset) / unitX;
-		const qreal maxX = m_tikzCoordinates.at(3 + offset) / unitX;
-		const qreal minY = m_tikzCoordinates.at(4 + offset) / unitY;
-		const qreal maxY = m_tikzCoordinates.at(5 + offset) / unitY;
+		const qreal minX = m_tikzCoordinates.at(2 + offset);
+		const qreal maxX = m_tikzCoordinates.at(3 + offset);
+		const qreal minY = m_tikzCoordinates.at(4 + offset);
+		const qreal maxY = m_tikzCoordinates.at(5 + offset);
+
+		int precisionX = m_precision;
+		int precisionY = m_precision;
+		if (m_precision < 0)
+		{
+			qreal invUnitX = 1 / unitX;
+			qreal invUnitY = 1 / unitY;
+			for (precisionX = 0; invUnitX < 1; ++precisionX)
+				invUnitX *= 10;
+			for (precisionY = 0; invUnitY < 1; ++precisionY)
+				invUnitY *= 10;
+		}
+
 		qreal cursorX = event->x() + horizontalScrollBar()->value() - qMax(0.0, viewport()->width() - m_tikzPixmapItem->boundingRect().width()) / 2;
-		cursorX /= m_zoomFactor * unitX;
+		cursorX /= m_zoomFactor;
 		qreal cursorY = event->y() + verticalScrollBar()->value() - qMax(0.0, viewport()->height() - m_tikzPixmapItem->boundingRect().height()) / 2;
-		cursorY /= m_zoomFactor * unitY;
+		cursorY /= m_zoomFactor;
 		const qreal coordX = cursorX + minX;
 		const qreal coordY = maxY - cursorY;
 		if (coordX >= minX && coordX <= maxX && coordY >= minY && coordY <= maxY)
-		emit showMouseCoordinates(coordX, coordY);
+			emit showMouseCoordinates(coordX / unitX, coordY / unitY, precisionX, precisionY);
 	}
 	QGraphicsView::mouseMoveEvent(event);
 }

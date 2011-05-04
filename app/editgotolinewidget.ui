@@ -7,20 +7,6 @@
   </property>
   <layout class="QHBoxLayout">
    <item>
-    <widget class="QToolButton" name="pushButtonClose">
-     <property name="toolTip">
-      <string>Close go to line box</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="qtikz.qrc">
-       <normaloff>:/icons/window-close.png</normaloff>:/icons/window-close.png</iconset>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QLabel" name="labelGo">
      <property name="text">
       <string>Go to line:</string>
@@ -41,6 +27,20 @@
     </widget>
    </item>
    <item>
+    <widget class="QPushButton" name="pushButtonClose">
+     <property name="toolTip">
+      <string>Close go to line box</string>
+     </property>
+     <property name="text">
+      <string>&amp;Done</string>
+     </property>
+     <property name="icon">
+      <iconset resource="qtikz.qrc">
+       <normaloff>:/icons/window-close.png</normaloff>:/icons/window-close.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -56,9 +56,9 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pushButtonClose</tabstop>
   <tabstop>spinBoxGo</tabstop>
   <tabstop>pushButtonGo</tabstop>
+  <tabstop>pushButtonClose</tabstop>
  </tabstops>
  <resources>
   <include location="qtikz.qrc"/>

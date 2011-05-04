@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -78,7 +78,7 @@ private slots:
 
 signals:
 	void logUpdated(const QString &logText, bool runFailed);
-	void showMouseCoordinates(qreal x, qreal y);
+	void showMouseCoordinates(qreal x, qreal y, int precisionX, int precisionY);
 
 private:
 	void createActions();

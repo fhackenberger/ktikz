@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -81,6 +81,18 @@ void ConfigGeneralWidget::readSettings(const QString &settingsGroup)
 	ui.replaceEdit->setText(settings.value("TemplateReplaceText", "<>").toString());
 	settings.endGroup();
 
+	settings.beginGroup("Preview");
+	ui.showCoordinatesCheck->setChecked(settings.value("ShowCoordinates", true).toBool());
+	const int precision = settings.value("ShowCoordinatesPrecision", -1).toInt();
+	if (precision < 0)
+		ui.bestPrecisionRadio->setChecked(true);
+	else
+	{
+		ui.specifyPrecisionRadio->setChecked(true);
+		ui.specifyPrecisionSpinBox->setValue(precision);
+	}
+	settings.endGroup();
+
 #ifndef KTIKZ_USE_KDE
 	settings.beginGroup("MainWindow");
 	ui.toolBarStyleComboBox->setCurrentIndex(settings.value("ToolBarStyle", 0).toInt());
@@ -102,6 +114,14 @@ void ConfigGeneralWidget::writeSettings(const QString &settingsGroup)
 	settings.setValue("PdftopsCommand", ui.pdftopsEdit->text());
 	settings.setValue("TemplateEditor", ui.editorEdit->text());
 	settings.setValue("TemplateReplaceText", ui.replaceEdit->text());
+	settings.endGroup();
+
+	settings.beginGroup("Preview");
+	settings.setValue("ShowCoordinates", ui.showCoordinatesCheck->isChecked());
+	if (ui.bestPrecisionRadio->isChecked())
+		settings.setValue("ShowCoordinatesPrecision", -1);
+	else
+		settings.setValue("ShowCoordinatesPrecision", ui.specifyPrecisionSpinBox->value());
 	settings.endGroup();
 
 #ifndef KTIKZ_USE_KDE

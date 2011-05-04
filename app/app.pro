@@ -100,7 +100,7 @@ include(../translations/translations.pri)
 
 include(../doc/doc.pri)
 
-### Desktop file and templates (do this after translations and documentation, because in the following $${RESOURCES_INSTALL_DIR} is removed if empty)
+### Desktop file and templates (do this after translations and documentation, because in the following $${RESOURCES_INSTALL_DIR} is removed if empty when uninstalling)
 
 include(../data/data.pri)
 

@@ -24,13 +24,14 @@
 #ifdef KTIKZ_USE_KDE
 #include <KActionCollection>
 #include <KConfigGroup>
-#include <KLocalizedString>
+#include <KLocale>
 #include <KMenuBar>
 #include <KMessageBox>
 #include <KStandardAction>
 #include <KStatusBar>
 #include <KXMLGUIFactory>
 #else
+#include <QLocale>
 #include <QMenuBar>
 #include <QStatusBar>
 #include "aboutdialog.h"
@@ -184,8 +185,8 @@ MainWindow::MainWindow()
 
 	connect(m_tikzPreviewController, SIGNAL(logUpdated(QString,bool)),
 	        m_logTextEdit, SLOT(logUpdated(QString,bool)));
-	connect(m_tikzPreviewController, SIGNAL(showMouseCoordinates(qreal,qreal)),
-	        this, SLOT(showMouseCoordinates(qreal,qreal)));
+	connect(m_tikzPreviewController, SIGNAL(showMouseCoordinates(qreal,qreal,int,int)),
+	        this, SLOT(showMouseCoordinates(qreal,qreal,int,int)));
 
 	readSettings(); // must be run after defining tikzController and tikzHighlighter, and after creating the toolbars, and after the connects
 
@@ -749,6 +750,11 @@ void MainWindow::applySettings()
 	m_buildAutomatically = settings.value("BuildAutomatically", true).toBool();
 	m_buildAction->setVisible(!m_buildAutomatically);
 
+	settings.beginGroup("Preview");
+	if (!settings.value("ShowCoordinates", true).toBool())
+		m_mouseCoordinatesLabel->setText("");
+	settings.endGroup();
+
 	settings.beginGroup("Editor");
 	m_useCompletion = settings.value("UseCompletion", true).toBool();
 	if (m_useCompletion)
@@ -957,9 +963,13 @@ void MainWindow::showCursorPosition(int row, int col)
 	m_positionLabel->setText(tr("Line: %1\tCol: %2", "@info:status").arg(QString::number(row)).arg(QString::number(col)));
 }
 
-void MainWindow::showMouseCoordinates(qreal x, qreal y)
+void MainWindow::showMouseCoordinates(qreal x, qreal y, int precisionX, int precisionY)
 {
-	m_mouseCoordinatesLabel->setText(tr("Preview: x = %1\ty = %2", "@info:status").arg(QString::number(x)).arg(QString::number(y)));
+#ifdef KTIKZ_USE_KDE
+	m_mouseCoordinatesLabel->setText(tr("Preview: x = %1\ty = %2", "@info:status").arg(KGlobal::locale()->formatNumber(x, precisionX)).arg(KGlobal::locale()->formatNumber(y, precisionY)));
+#else
+	m_mouseCoordinatesLabel->setText(tr("Preview: x = %1\ty = %2", "@info:status").arg(QLocale::system().toString(x, 'f', precisionX)).arg(QLocale::system().toString(y, 'f', precisionY)));
+#endif
 }
 
 /***************************************************************************/

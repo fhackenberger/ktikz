@@ -52,6 +52,14 @@
 				<term><guilabel>Show TikZ commands in dock instead of menu</guilabel></term>
 				<listitem><para>If this option is checked, a dock widget is available with a list of TikZ commands which you can insert in your code by clicking on them.  If this option is not checked, the TikZ commands will be available in a menu instead.  You have to restart &ktikz; for this change to take effect.</para></listitem>
 			</varlistentry>
+			</variablelist>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term><guilabel>Preview</guilabel></term>
+		<listitem>
+			<variablelist>
 			<varlistentry>
 				<term><guilabel>Preview generation</guilabel></term>
 				<listitem><para>Specify whether the preview should be generated automatically or manually.</para>
@@ -63,6 +71,21 @@
 					<varlistentry>
 						<term><guilabel>Manually</guilabel></term>
 						<listitem><para>If this option is checked, a <guilabel>Build</guilabel> button is available and the TikZ code is only compiled when you press that button.</para></listitem>
+					</varlistentry>
+					</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Show mouse coordinates</guilabel></term>
+				<listitem><para>If this option is checked, the coordinates of the mouse cursor in the preview are shown.</para>
+					<variablelist>
+					<varlistentry>
+						<term><guilabel>Use best precision</guilabel></term>
+						<listitem><para>If this option is checked, the mouse coordinates are shown with enough precision but without redundant decimals.</para></listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><guilabel>Specify precision</guilabel></term>
+						<listitem><para>If this option is checked, the mouse coordinates are shown with the specified number of decimals.</para></listitem>
 					</varlistentry>
 					</variablelist>
 				</listitem>

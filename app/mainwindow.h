@@ -124,7 +124,7 @@ private slots:
 	void toggleWhatsThisMode();
 #endif
 	void showCursorPosition(int row, int col);
-	void showMouseCoordinates(qreal x, qreal y);
+	void showMouseCoordinates(qreal x, qreal y, int precisionX = 5, int precisionY = 5);
 
 private:
 	void createActions();

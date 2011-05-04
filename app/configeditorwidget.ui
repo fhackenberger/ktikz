@@ -5,15 +5,15 @@
   <property name="windowTitle">
    <string>Configure Editor</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="editorGroupBox">
      <property name="title">
       <string>Editor</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="editorVerticalLayout">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QHBoxLayout" name="fontHorizontalLayout">
         <item>
          <widget class="QLabel" name="generalFontLabel">
           <property name="whatsThis">
@@ -56,7 +56,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout">
+       <layout class="QGridLayout" name="whiteSpaceGridLayout">
         <item row="0" column="0">
          <widget class="QCheckBox" name="showWhiteSpacesCheck">
           <property name="whatsThis">

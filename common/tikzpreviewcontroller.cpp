@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -68,8 +68,8 @@ TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
 	        this, SIGNAL(logUpdated(QString,bool)));
 	connect(m_templateWidget, SIGNAL(fileNameChanged(QString)),
 	        this, SLOT(setTemplateFileAndRegenerate(QString)));
-	connect(m_tikzPreview, SIGNAL(showMouseCoordinates(qreal,qreal)),
-	        this, SIGNAL(showMouseCoordinates(qreal,qreal)));
+	connect(m_tikzPreview, SIGNAL(showMouseCoordinates(qreal,qreal,int,int)),
+	        this, SIGNAL(showMouseCoordinates(qreal,qreal,int,int)));
 
 	m_regenerateTimer = new QTimer(this);
 	m_regenerateTimer->setSingleShot(true);
@@ -428,6 +428,11 @@ void TikzPreviewController::applySettings()
 	m_tikzPreviewGenerator->setReplaceText(replaceText);
 	m_templateWidget->setReplaceText(replaceText);
 	m_templateWidget->setEditor(settings.value("TemplateEditor", KTIKZ_TEMPLATE_EDITOR_DEFAULT).toString());
+
+	settings.beginGroup("Preview");
+	m_tikzPreview->setShowCoordinates(settings.value("ShowCoordinates", true).toBool());
+	m_tikzPreview->setCoordinatePrecision(settings.value("ShowCoordinatesPrecision", -1).toInt());
+	settings.endGroup();
 }
 
 void TikzPreviewController::setExportActionsEnabled(bool enabled)
