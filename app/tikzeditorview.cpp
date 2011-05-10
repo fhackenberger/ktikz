@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -448,7 +448,7 @@ void TikzEditorView::editFind()
 }
 
 bool TikzEditorView::search(const QString &text, bool isCaseSensitive,
-                            bool findWholeWords, bool forward, bool startAtCursor)
+                            bool findWholeWords, bool forward, bool startAtCursor, bool continueFromBeginning)
 {
 	bool isFound = false;
 
@@ -465,8 +465,10 @@ bool TikzEditorView::search(const QString &text, bool isCaseSensitive,
 	}
 	else
 		textCursor.setPosition(textCursor.selectionStart());
-	if (!forward) flags |= QTextDocument::FindBackward;
-	else textCursor.movePosition(QTextCursor::Right);
+	if (!forward)
+		flags |= QTextDocument::FindBackward;
+	else if (!continueFromBeginning)
+		textCursor.movePosition(QTextCursor::Right);
 	const QTextCursor found = m_tikzEditor->document()->find(text, textCursor, flags);
 
 	if (found.isNull())
@@ -478,7 +480,7 @@ bool TikzEditorView::search(const QString &text, bool isCaseSensitive,
 		                                     QMessageBox::Yes | QMessageBox::Default, QMessageBox::No | QMessageBox::Escape);
 		if (ret == QMessageBox::Yes)
 		{
-			return search(text, isCaseSensitive, findWholeWords, forward, false);
+			return search(text, isCaseSensitive, findWholeWords, forward, false, true);
 		}
 	}
 	else

@@ -27,7 +27,7 @@ namespace KtikZ
 {
 
 BrowserExtension::BrowserExtension(KParts::ReadOnlyPart *part, TikzPreviewController *tikzPreviewController)
-    : KParts::BrowserExtension(part)
+	: KParts::BrowserExtension(part)
 {
 	m_part = part;
 	m_tikzPreviewController = tikzPreviewController;

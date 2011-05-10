@@ -383,7 +383,7 @@ void TikzPreview::showPreview(const QImage &tikzImage, qreal zoomFactor)
 	// the new center point of the image; the recentering itself is done
 	// at the end of this function
 	QPointF centerPoint(horizontalScrollBar()->value() + viewport()->width() * 0.5,
-	    verticalScrollBar()->value() + viewport()->height() * 0.5);
+	                    verticalScrollBar()->value() + viewport()->height() * 0.5);
 	const qreal zoomFraction = (m_oldZoomFactor > 0) ? zoomFactor / m_oldZoomFactor : 1;
 	if (!centerPoint.isNull())
 		centerPoint *= zoomFraction;

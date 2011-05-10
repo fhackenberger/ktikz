@@ -166,105 +166,105 @@ Action *createAction(int which, const QObject *recvr, const char *slot, QObject 
 
 	switch (which)
 	{
-	case 0:
-		iconName = "document-new";
-		text = QObject::tr("&New");
-		key = QKeySequence::New;
-		break;
-	case 1:
-		iconName = "document-open";
-		text = QObject::tr("&Open...");
-		key = QKeySequence::Open;
-		break;
-	case 2:
-		iconName = "document-save";
-		text = QObject::tr("&Save");
-		key = QKeySequence::Save;
-		break;
-	case 3:
-		iconName = "document-save-as";
-		text = QObject::tr("Save &As...");
-		break;
-	case 4:
-		iconName = "window-close";
-		text = QObject::tr("&Close");
-		key = QKeySequence::Close;
-		break;
-	case 5:
-		iconName = "application-exit";
-		text = QObject::tr("&Quit");
-		break;
-	case 6:
-		iconName = "edit-undo";
-		text = QObject::tr("&Undo");
-		key = QKeySequence::Undo;
-		break;
-	case 7:
-		iconName = "edit-redo";
-		text = QObject::tr("Re&do");
-		key = QKeySequence::Redo;
-		break;
-	case 8:
-		iconName = "edit-cut";
-		text = QObject::tr("Cu&t");
-		key = QKeySequence::Cut;
-		break;
-	case 9:
-		iconName = "edit-copy";
-		text = QObject::tr("&Copy");
-		key = QKeySequence::Copy;
-		break;
-	case 10:
-		iconName = "edit-paste";
-		text = QObject::tr("&Paste");
-		key = QKeySequence::Paste;
-		break;
-	case 11:
-		text = QObject::tr("Select &All");
-		key = QKeySequence::SelectAll;
-		break;
-	case 12:
-		iconName = "edit-find";
-		text = QObject::tr("&Find...");
-		key = QKeySequence::Find;
-		break;
-	case 13:
-		iconName = "go-down";
-		text = QObject::tr("Find &Next");
-		key = QKeySequence::FindNext;
-		break;
-	case 14:
-		iconName = "go-up";
-		text = QObject::tr("Find Pre&vious");
-		key = QKeySequence::FindPrevious;
-		break;
-	case 15:
-		text = QObject::tr("&Replace...");
-		key = QKeySequence::Replace;
-		break;
-	case 16:
-		iconName = "go-jump";
-		text = QObject::tr("&Go to Line...");
-		break;
-	case 17:
-		iconName = "zoom-in";
-		text = QObject::tr("Zoom &In");
-		key = QKeySequence::ZoomIn;
-		break;
-	case 18:
-		iconName = "zoom-out";
-		text = QObject::tr("Zoom &Out");
-		key = QKeySequence::ZoomOut;
-		break;
-	case 19:
-		iconName = "configure";
-		text = QObject::tr("&Configure %1...").arg(QCoreApplication::applicationName());
-		break;
-	case 20:
-		iconName = "document-print";
-		text = QObject::tr("&Print...");
-		key = QKeySequence::Print;
-		break;
+		case 0:
+			iconName = "document-new";
+			text = QObject::tr("&New");
+			key = QKeySequence::New;
+			break;
+		case 1:
+			iconName = "document-open";
+			text = QObject::tr("&Open...");
+			key = QKeySequence::Open;
+			break;
+		case 2:
+			iconName = "document-save";
+			text = QObject::tr("&Save");
+			key = QKeySequence::Save;
+			break;
+		case 3:
+			iconName = "document-save-as";
+			text = QObject::tr("Save &As...");
+			break;
+		case 4:
+			iconName = "window-close";
+			text = QObject::tr("&Close");
+			key = QKeySequence::Close;
+			break;
+		case 5:
+			iconName = "application-exit";
+			text = QObject::tr("&Quit");
+			break;
+		case 6:
+			iconName = "edit-undo";
+			text = QObject::tr("&Undo");
+			key = QKeySequence::Undo;
+			break;
+		case 7:
+			iconName = "edit-redo";
+			text = QObject::tr("Re&do");
+			key = QKeySequence::Redo;
+			break;
+		case 8:
+			iconName = "edit-cut";
+			text = QObject::tr("Cu&t");
+			key = QKeySequence::Cut;
+			break;
+		case 9:
+			iconName = "edit-copy";
+			text = QObject::tr("&Copy");
+			key = QKeySequence::Copy;
+			break;
+		case 10:
+			iconName = "edit-paste";
+			text = QObject::tr("&Paste");
+			key = QKeySequence::Paste;
+			break;
+		case 11:
+			text = QObject::tr("Select &All");
+			key = QKeySequence::SelectAll;
+			break;
+		case 12:
+			iconName = "edit-find";
+			text = QObject::tr("&Find...");
+			key = QKeySequence::Find;
+			break;
+		case 13:
+			iconName = "go-down";
+			text = QObject::tr("Find &Next");
+			key = QKeySequence::FindNext;
+			break;
+		case 14:
+			iconName = "go-up";
+			text = QObject::tr("Find Pre&vious");
+			key = QKeySequence::FindPrevious;
+			break;
+		case 15:
+			text = QObject::tr("&Replace...");
+			key = QKeySequence::Replace;
+			break;
+		case 16:
+			iconName = "go-jump";
+			text = QObject::tr("&Go to Line...");
+			break;
+		case 17:
+			iconName = "zoom-in";
+			text = QObject::tr("Zoom &In");
+			key = QKeySequence::ZoomIn;
+			break;
+		case 18:
+			iconName = "zoom-out";
+			text = QObject::tr("Zoom &Out");
+			key = QKeySequence::ZoomOut;
+			break;
+		case 19:
+			iconName = "configure";
+			text = QObject::tr("&Configure %1...").arg(QCoreApplication::applicationName());
+			break;
+		case 20:
+			iconName = "document-print";
+			text = QObject::tr("&Print...");
+			key = QKeySequence::Print;
+			break;
 	}
 
 	Action *action;

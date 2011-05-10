@@ -634,18 +634,18 @@ void MainWindow::setToolBarStyle()
 	Qt::ToolButtonStyle toolBarStyle = Qt::ToolButtonIconOnly;
 	switch (toolBarStyleNumber)
 	{
-	case 0:
-		toolBarStyle = Qt::ToolButtonIconOnly;
-		break;
-	case 1:
-		toolBarStyle = Qt::ToolButtonTextOnly;
-		break;
-	case 2:
-		toolBarStyle = Qt::ToolButtonTextBesideIcon;
-		break;
-	case 3:
-		toolBarStyle = Qt::ToolButtonTextUnderIcon;
-		break;
+		case 0:
+			toolBarStyle = Qt::ToolButtonIconOnly;
+			break;
+		case 1:
+			toolBarStyle = Qt::ToolButtonTextOnly;
+			break;
+		case 2:
+			toolBarStyle = Qt::ToolButtonTextBesideIcon;
+			break;
+		case 3:
+			toolBarStyle = Qt::ToolButtonTextUnderIcon;
+			break;
 	}
 
 	m_fileToolBar->setToolButtonStyle(toolBarStyle);

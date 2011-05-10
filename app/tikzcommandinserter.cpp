@@ -516,52 +516,52 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
 		rule.pattern = QRegExp(m_tikzCommandsList.at(i).highlightString);
 		switch (type)
 		{
-		case 1:
-		{
-			const int end1 = command.indexOf(' ', 0);
-			const int end2 = command.indexOf('[', 0);
-			const int end3 = command.indexOf('{', 0);
-			end = end1;
-			if (end < 0 || (end2 >= 0 && end2 < end))
-				end = end2;
-			if (end < 0 || (end3 >= 0 && end3 < end))
-				end = end3;
+			case 1:
+			{
+				const int end1 = command.indexOf(' ', 0);
+				const int end2 = command.indexOf('[', 0);
+				const int end3 = command.indexOf('{', 0);
+				end = end1;
+				if (end < 0 || (end2 >= 0 && end2 < end))
+					end = end2;
+				if (end < 0 || (end3 >= 0 && end3 < end))
+					end = end3;
 
-			command = command.left(end);
-//			command = command.replace(QLatin1Char('\\'), QLatin1String("\\\\"));
-			rule.type = highlightTypeNames.at(0);
-//			rule.pattern = QRegExp(command);
-//			rule.pattern.setPattern(command);
-			rule.matchString = command;
-			highlightingRules.append(rule);
-			break;
-		}
-		case 2:
-//			command = command.replace("()", "\\([^\\)]*\\)");
-//			command = command.replace("(,)", "\\([^\\)]*\\)");
-//			command = command.replace("(:::)", "\\([^\\)]*\\)");
-			command = command.remove('+');
-			command = command.remove(" ()");
-			command = command.remove(" (,)");
-			command = command.remove(" (:::)");
-			command = command.remove(" {} ");
-			rule.type = highlightTypeNames.at(1);
-//			rule.pattern = QRegExp(command);
-//			rule.pattern.setPattern(command);
-			rule.matchString = command;
-			highlightingRules.append(rule);
-			break;
-		case 3:
-//			command = command.replace(QLatin1Char('|'), QLatin1String("\\|"));
-			end = command.indexOf('=', 0) + 1;
-			if (end > 0)
 				command = command.left(end);
-			rule.type = highlightTypeNames.at(2);
-//			rule.pattern = QRegExp(command);
-//			rule.pattern.setPattern(command);
-			rule.matchString = command;
-			highlightingRules.append(rule);
-			break;
+//				command = command.replace(QLatin1Char('\\'), QLatin1String("\\\\"));
+				rule.type = highlightTypeNames.at(0);
+//				rule.pattern = QRegExp(command);
+//				rule.pattern.setPattern(command);
+				rule.matchString = command;
+				highlightingRules.append(rule);
+				break;
+			}
+			case 2:
+//				command = command.replace("()", "\\([^\\)]*\\)");
+//				command = command.replace("(,)", "\\([^\\)]*\\)");
+//				command = command.replace("(:::)", "\\([^\\)]*\\)");
+				command = command.remove('+');
+				command = command.remove(" ()");
+				command = command.remove(" (,)");
+				command = command.remove(" (:::)");
+				command = command.remove(" {} ");
+				rule.type = highlightTypeNames.at(1);
+//				rule.pattern = QRegExp(command);
+//				rule.pattern.setPattern(command);
+				rule.matchString = command;
+				highlightingRules.append(rule);
+				break;
+			case 3:
+//				command = command.replace(QLatin1Char('|'), QLatin1String("\\|"));
+				end = command.indexOf('=', 0) + 1;
+				if (end > 0)
+					command = command.left(end);
+				rule.type = highlightTypeNames.at(2);
+//				rule.pattern = QRegExp(command);
+//				rule.pattern.setPattern(command);
+				rule.matchString = command;
+				highlightingRules.append(rule);
+				break;
 		}
 	}
 

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -72,7 +72,7 @@ private slots:
 	void editFindNext();
 	void editFindPrevious();
 	void editReplace();
-	bool search(const QString &text, bool isCaseSensitive = false, bool findWholeWords = false, bool forward = true, bool startAtCursor = true);
+	bool search(const QString &text, bool isCaseSensitive = false, bool findWholeWords = false, bool forward = true, bool startAtCursor = true, bool continueFromBeginning = false);
 	void replace(const QString &replacement);
 	void replace(const QString &text, const QString &replacement, bool isCaseSensitive = false, bool findWholeWords = false, bool forward = true, bool startAtCursor = true);
 	void replaceAll(const QString &text, const QString &replacement, bool isCaseSensitive = false, bool findWholeWords = false, bool forward = true, bool startAtCursor = true);

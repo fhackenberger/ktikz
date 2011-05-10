@@ -37,18 +37,18 @@ void debugOutput(QtMsgType type, const char *msg)
 	// qDebug() and qWarning() only show messages when in debug mode
 	switch (type)
 	{
-	case QtDebugMsg:
-	case QtWarningMsg:
+		case QtDebugMsg:
+		case QtWarningMsg:
 #ifndef QT_NO_DEBUG
-		fprintf(stderr, "%s\n", msg);
+			fprintf(stderr, "%s\n", msg);
 #endif
-		break;
-	case QtCriticalMsg:
-		fprintf(stderr, "%s\n", msg);
-		break;
-	case QtFatalMsg:
-		fprintf(stderr, "Fatal: %s\n", msg);
-		abort();
+			break;
+		case QtCriticalMsg:
+			fprintf(stderr, "%s\n", msg);
+			break;
+		case QtFatalMsg:
+			fprintf(stderr, "Fatal: %s\n", msg);
+			abort();
 	}
 }
 

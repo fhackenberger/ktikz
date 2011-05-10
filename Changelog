@@ -48,6 +48,9 @@ version 0.11:
   is used)
 - let the actions of the kpart go in a separate section labeled "KtikZ Viewer"
   in the "Configure Shortcuts" dialog
+- update code snippets for circle, ellipse and arc to TikZ v2.10
+- remove bug: searching a string doesn't find the very first word of the
+  document if it matches
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE

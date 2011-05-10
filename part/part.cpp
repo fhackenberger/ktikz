@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   Document watcher and reloader code copied from Okular KPart code      *

@@ -444,13 +444,13 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 		// the following keys are forwarded by the completer to the widget
 		switch (event->key())
 		{
-		case Qt::Key_Enter:
-		case Qt::Key_Return:
-		case Qt::Key_Escape:
-		case Qt::Key_Tab:
-		case Qt::Key_Backtab:
-			event->ignore();
-			return;
+			case Qt::Key_Enter:
+			case Qt::Key_Return:
+			case Qt::Key_Escape:
+			case Qt::Key_Tab:
+			case Qt::Key_Backtab:
+				event->ignore();
+				return;
 		}
 	}
 
