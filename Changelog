@@ -24,7 +24,8 @@ version 0.11:
   in the statusbar which could be covered by those submenus)
 - sort the entries in the completion box
 - correct tab order so that pressing the Tab-key when the "Edit template"
-  button is focussed, switches the focus to the editor (instead of the preview)
+  button is focussed, switches the focus to the editor (instead of the
+  preview)
 - abort still running process before starting a new one (without this, if a
   LaTeX compilation process hangs, all subsequently started processes are
   executed one after the other when the user aborts the hanging process)
@@ -32,8 +33,8 @@ version 0.11:
 - let the mouse "back" and "forward" button (the buttons on the sides of
   the mouse) switch the image in multiple image mode (if these buttons exist)
 - remove bug which caused the preview to slightly move to the left/top each
-  time it was generated until the left/top edge is reached (this happened when
-  the width/height of the preview window is an odd integer)
+  time it was generated until the left/top edge is reached (this happened
+  when the width/height of the preview window is an odd integer)
 - remove bugs which caused incorrect recentering of the preview when zooming
 - the text box showing the messages in the preview is now centered correctly
 - remove bug in preview rendering: remove flicker while zooming fast
@@ -44,13 +45,16 @@ version 0.11:
   already a "Reload" action in Konqueror)
 - remove bug: if non-Latin UTF-8 characters are used in the editor then they
   are not correctly written to the file when the file is saved
-- add an "About KtikZ Viewer" item in Konqueror's "Help" menu (when the kpart
-  is used)
-- let the actions of the kpart go in a separate section labeled "KtikZ Viewer"
-  in the "Configure Shortcuts" dialog
+- add an "About KtikZ Viewer" item in Konqueror's "Help" menu (when the
+  kpart is used)
+- let the actions of the kpart go in a separate section labeled "KtikZ
+  Viewer" in the "Configure Shortcuts" dialog
 - update code snippets for circle, ellipse and arc to TikZ v2.10
 - remove bug: searching a string doesn't find the very first word of the
   document if it matches
+- remove bug: replacing a string and pressing "Ctrl+F" again when the
+  "Replace ... by ...?" box is visible doesn't hide that box, so both that
+  box and the "Search and Replace" box are visible
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE

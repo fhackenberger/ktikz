@@ -3453,12 +3453,12 @@ Do you want to save your changes?</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="340"/>
+        <location filename="../../app/tikzeditorview.cpp" line="341"/>
         <source>Indent</source>
         <translation>Sangrar</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="475"/>
+        <location filename="../../app/tikzeditorview.cpp" line="479"/>
         <source>End of document reached.
 
 Continue from the beginning?</source>
@@ -3467,7 +3467,7 @@ Continue from the beginning?</source>
 Continuar al inicio?</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="476"/>
+        <location filename="../../app/tikzeditorview.cpp" line="480"/>
         <source>Beginning of document reached.
 
 Continue from the end?</source>

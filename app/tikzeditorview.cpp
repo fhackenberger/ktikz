@@ -311,6 +311,7 @@ void TikzEditorView::setLine(const QString &line)
 void TikzEditorView::setLine(int lineNumber)
 {
 	m_replaceWidget->setVisible(false);
+	m_replaceCurrentWidget->setVisible(false);
 	m_goToLineWidget->setVisible(true);
 	m_goToLineWidget->setFocus();
 	m_goToLineWidget->setMaximumValue(m_tikzEditor->numOfLines());
@@ -440,6 +441,7 @@ void TikzEditorView::editUncomment()
 void TikzEditorView::editFind()
 {
 	m_goToLineWidget->setVisible(false);
+	m_replaceCurrentWidget->setVisible(false);
 	m_replaceWidget->setVisible(true);
 	m_replaceWidget->setFocus();
 	const QTextCursor textCursor = m_tikzEditor->textCursor();
@@ -496,6 +498,7 @@ bool TikzEditorView::search(const QString &text, bool isCaseSensitive,
 void TikzEditorView::editFindNext()
 {
 	m_goToLineWidget->setVisible(false);
+	m_replaceCurrentWidget->setVisible(false);
 	m_replaceWidget->setVisible(true);
 	m_replaceWidget->setFocus();
 	m_replaceWidget->setForward(true);
@@ -505,6 +508,7 @@ void TikzEditorView::editFindNext()
 void TikzEditorView::editFindPrevious()
 {
 	m_goToLineWidget->setVisible(false);
+	m_replaceCurrentWidget->setVisible(false);
 	m_replaceWidget->setVisible(true);
 	m_replaceWidget->setFocus();
 	m_replaceWidget->setForward(false);
