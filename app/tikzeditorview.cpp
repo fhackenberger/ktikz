@@ -95,8 +95,8 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	connect(m_replaceWidget, SIGNAL(focusEditor()),
 	        m_tikzEditor, SLOT(setFocus()));
 
-	connect(m_replaceCurrentWidget, SIGNAL(showReplaceWidget()),
-	        m_replaceWidget, SLOT(show()));
+	connect(m_replaceCurrentWidget, SIGNAL(hidden()),
+	        m_tikzEditor, SLOT(setFocus()));
 	connect(m_replaceCurrentWidget, SIGNAL(search(QString,bool,bool,bool,bool)),
 	        this, SLOT(search(QString,bool,bool,bool,bool)));
 	connect(m_replaceCurrentWidget, SIGNAL(replace(QString)),
@@ -481,8 +481,11 @@ bool TikzEditorView::search(const QString &text, bool isCaseSensitive,
 		const int ret = QMessageBox::warning(this, "Find", msg,
 		                                     QMessageBox::Yes | QMessageBox::Default, QMessageBox::No | QMessageBox::Escape);
 		if (ret == QMessageBox::Yes)
-		{
 			return search(text, isCaseSensitive, findWholeWords, forward, false, true);
+		else
+		{
+			m_replaceCurrentWidget->setVisible(false);
+			m_tikzEditor->setFocus();
 		}
 	}
 	else
@@ -517,14 +520,6 @@ void TikzEditorView::editFindPrevious()
 
 void TikzEditorView::editReplace()
 {
-/*
-	m_goToLineWidget->setVisible(false);
-	m_replaceWidget->setVisible(true);
-	m_replaceWidget->setFocus();
-	const QTextCursor textCursor = m_tikzEditor->textCursor();
-	if (textCursor.hasSelection())
-		m_replaceWidget->setText(textCursor.selectedText());
-*/
 	editFind();
 }
 
@@ -552,34 +547,6 @@ void TikzEditorView::replace(const QString &text, const QString &replacement,
 	m_replaceCurrentWidget->setReplacement(text, replacement);
 	m_replaceCurrentWidget->setVisible(true);
 	m_replaceCurrentWidget->search(text, replacement, isCaseSensitive, findWholeWords, forward, startAtCursor);
-/*
-	bool go = true;
-	while (go && search(text, isCaseSensitive, findWholeWords, forward, startAtCursor))
-	{
-		switch(QMessageBox::warning(this, "Replace", tr("Replace this occurrence?"), QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No | QMessageBox::Cancel, QMessageBox::Yes))
-		{
-			case QMessageBox::Yes:
-				replace(replacement);
-				emit setSearchFromBegin(false);
-				break;
-			case QMessageBox::YesToAll:
-				replace(replacement);
-				replaceAll(text, replacement, isCaseSensitive, findWholeWords, forward, startAtCursor);
-				return;
-				break;
-			case QMessageBox::No:
-				emit setSearchFromBegin(false);
-				break;
-			case QMessageBox::Cancel:
-				go = false;
-				break;
-			default:
-				break;
-		}
-	}
-	if (go)
-		emit setSearchFromBegin(true);
-*/
 }
 
 void TikzEditorView::replaceAll(const QString &text, const QString &replacement,

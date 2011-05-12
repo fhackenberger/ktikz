@@ -1,17 +1,11 @@
+Features:
+---------
+
 - In multiple image mode, allow to save and export only the current image
   (use KFileDialog(url, filter, parent, widget) where widget is a checkbox).
   This is already the case for all exports except "Export to PDF" because
   that's the only thing that works.
-- Clicking an item in the TikZ commands dock widget should not insert
-  it, but only select it.  Pressing an Insert button would then do the
-  actual insertion.  There should also be a Help button which opens the
-  TikZ manual at the page where the selected item is explained.
-- Make a graphical tool for editing the XML file containing the TikZ
-  commands similar to keditbookmarks
-- Create a new process for each window opened by the "New" action.
-- Download files which are \included or \inputted in remote template files
-  or remote pgf files to the temporary directory (could be dangerous when
-  the user is still editing the \input command).
+
 - Complete tikzcommands.xml (only add commands from Part III):
 
   The following sections of the TikZ manual v2.10 are implemented:
@@ -31,3 +25,31 @@
   Section 20
   Section 21
   Section 22
+
+- Clicking an item in the TikZ commands dock widget should not insert
+  it, but only select it.  Pressing an Insert button would then do the
+  actual insertion.  There should also be a Help button which opens the
+  TikZ manual at the page where the selected item is explained.
+
+- Make a graphical tool for editing the XML file containing the TikZ
+  commands similar to keditbookmarks
+
+- Create a new process for each window opened by the "New" action.
+  Is that really necessary?
+
+- Download files which are \included or \inputted in remote template files
+  or remote pgf files to the temporary directory (could be dangerous when
+  the user is still editing the \input command).
+  No, don't do that, find a better way to handle this.
+
+Bugs or shortcomings:
+---------------------
+
+- In common/utils/standardaction.cpp a better way of promoting the KActions
+  to Action must be found.
+
+- In common/tikzpreviewcontroller.cpp find a better way to print the image.
+
+- If common/utils/file.cpp is going to be used more generally, then it should
+  create s_tempDir itself instead of relying that it is already been done
+  elsewhere in the program.

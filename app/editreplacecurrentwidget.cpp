@@ -98,7 +98,7 @@ void ReplaceCurrentWidget::dontReplace()
 void ReplaceCurrentWidget::hide()
 {
 	setVisible(false);
-	emit showReplaceWidget();
+	emit hidden();
 }
 
 void ReplaceCurrentWidget::showEvent(QShowEvent *event)
