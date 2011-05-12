@@ -28,7 +28,7 @@
 #include <QToolBar>
 
 #include "editgotolinewidget.h"
-#include "editindentdialog.h"
+#include "editindentwidget.h"
 #include "editreplacewidget.h"
 #include "editreplacecurrentwidget.h"
 #include "tikzeditor.h"
@@ -60,6 +60,9 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	m_goToLineWidget = new GoToLineWidget(this);
 	m_goToLineWidget->setVisible(false);
 
+	m_indentWidget = new IndentWidget(this);
+	m_indentWidget->setVisible(false);
+
 //	QFrame *mainWidget = new QFrame;
 //	mainWidget->setLineWidth(1);
 //	mainWidget->setFrameShape(QFrame::StyledPanel);
@@ -71,6 +74,7 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	mainLayout->addWidget(m_replaceWidget);
 	mainLayout->addWidget(m_replaceCurrentWidget);
 	mainLayout->addWidget(m_goToLineWidget);
+	mainLayout->addWidget(m_indentWidget);
 
 	createActions();
 
@@ -82,6 +86,8 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	        this, SIGNAL(cursorPositionChanged(int,int)));
 	connect(m_tikzEditor, SIGNAL(showStatusMessage(QString,int)),
 	        this, SIGNAL(showStatusMessage(QString,int)));
+	connect(m_tikzEditor, SIGNAL(tabIndent(bool)),
+	        this, SLOT(tabIndent(bool)));
 
 	connect(m_tikzEditor, SIGNAL(focusIn()),
 	        this, SIGNAL(focusIn()));
@@ -110,6 +116,11 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	        this, SLOT(goToLine(int)));
 	connect(m_goToLineWidget, SIGNAL(focusEditor()),
 	        m_tikzEditor, SLOT(setFocus()));
+
+	connect(m_indentWidget, SIGNAL(hidden()),
+	        m_tikzEditor, SLOT(setFocus()));
+	connect(m_indentWidget, SIGNAL(indent(QChar,int,bool)),
+	        this, SLOT(indent(QChar,int,bool)));
 }
 
 TikzEditorView::~TikzEditorView()
@@ -155,6 +166,13 @@ void TikzEditorView::createActions()
 	action->setStatusTip(tr("Indent the current line or selection"));
 	action->setWhatsThis(tr("<p>Indent the current line or selection.</p>"));
 	connect(action, SIGNAL(triggered()), this, SLOT(editIndent()));
+	m_editActions.append(action);
+
+	action = new Action(Icon("format-indent-less"), tr("Unind&ent..."), this, "edit_unindent");
+	action->setShortcut(tr("Ctrl+Shift+I", "Edit|Unindent"));
+	action->setStatusTip(tr("Unindent the current line or selection"));
+	action->setWhatsThis(tr("<p>Unindent the current line or selection.</p>"));
+	connect(action, SIGNAL(triggered()), this, SLOT(editUnindent()));
 	m_editActions.append(action);
 
 	action = new Action(tr("C&omment"), this, "edit_comment");
@@ -310,6 +328,7 @@ void TikzEditorView::setLine(const QString &line)
 
 void TikzEditorView::setLine(int lineNumber)
 {
+	m_indentWidget->setVisible(false);
 	m_replaceWidget->setVisible(false);
 	m_replaceCurrentWidget->setVisible(false);
 	m_goToLineWidget->setVisible(true);
@@ -338,16 +357,32 @@ void TikzEditorView::editGoToLine()
 
 void TikzEditorView::editIndent()
 {
-	QPointer<IndentDialog> indentDialog = new IndentDialog(this, tr("Indent"));
-	if (!indentDialog->exec())
-	{
-		delete indentDialog;
-		return;
-	}
+	m_replaceWidget->setVisible(false);
+	m_replaceCurrentWidget->setVisible(false);
+	m_goToLineWidget->setVisible(false);
+	m_indentWidget->setUnindenting(false);
+	m_indentWidget->setVisible(true);
+	m_indentWidget->setFocus();
+}
 
-	const QString insertString = indentDialog->insertChar();
-	const int numOfInserts = indentDialog->numOfInserts();
-	delete indentDialog;
+void TikzEditorView::editUnindent()
+{
+	m_replaceWidget->setVisible(false);
+	m_replaceCurrentWidget->setVisible(false);
+	m_goToLineWidget->setVisible(false);
+	m_indentWidget->setUnindenting(true);
+	m_indentWidget->setVisible(true);
+	m_indentWidget->setFocus();
+}
+
+void TikzEditorView::tabIndent(bool isUnindenting)
+{
+	indent(m_indentWidget->insertChar(), m_indentWidget->numOfInserts(), isUnindenting);
+}
+
+void TikzEditorView::indent(QChar insertChar, int numOfInserts, bool isUnindenting)
+{
+	m_indentWidget->setVisible(false);
 
 	bool go = true;
 	QTextCursor textCursor = m_tikzEditor->textCursor();
@@ -358,12 +393,31 @@ void TikzEditorView::editIndent()
 		int end = textCursor.selectionEnd();
 		textCursor.setPosition(start, QTextCursor::MoveAnchor);
 		textCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
-		while (textCursor.position() < end && go)
+		if (!isUnindenting)
 		{
-			for (int i = 0; i < numOfInserts; ++i)
-				textCursor.insertText(insertString);
-			end++;
-			go = textCursor.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor);
+			while (textCursor.position() < end && go)
+			{
+				for (int i = 0; i < numOfInserts; ++i)
+				{
+					textCursor.insertText(insertChar);
+					++end; // when a character is inserted, textCursor.selectionEnd() is shifted by 1 character, in order to let the test in the while-loop behave correctly, we must increment end
+				}
+				go = textCursor.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor);
+			}
+		}
+		else
+		{
+			while (textCursor.position() < end && go)
+			{
+				for (int i = 0; i < numOfInserts; ++i)
+				{
+					textCursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
+					if (textCursor.selectedText() == insertChar)
+						textCursor.removeSelectedText();
+					--end; // when a character is removed, textCursor.selectionEnd() is shifted by 1 character, in order to let the test in the while-loop behave correctly, we must decrement end
+				}
+				go = textCursor.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor);
+			}
 		}
 		textCursor.endEditBlock();
 	}
@@ -371,11 +425,26 @@ void TikzEditorView::editIndent()
 	{
 		textCursor.beginEditBlock();
 		textCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
-		for (int i = 0; i < numOfInserts; ++i)
-			textCursor.insertText(insertString);
+		if (!isUnindenting)
+		{
+			for (int i = 0; i < numOfInserts; ++i)
+				textCursor.insertText(insertChar);
+		}
+		else
+		{
+			for (int i = 0; i < numOfInserts; ++i)
+			{
+				textCursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
+				if (textCursor.selectedText() == insertChar)
+					textCursor.removeSelectedText();
+			}
+		}
 		textCursor.endEditBlock();
 	}
+	m_tikzEditor->setFocus();
 }
+
+/***************************************************************************/
 
 void TikzEditorView::editComment()
 {
@@ -441,6 +510,7 @@ void TikzEditorView::editUncomment()
 void TikzEditorView::editFind()
 {
 	m_goToLineWidget->setVisible(false);
+	m_indentWidget->setVisible(false);
 	m_replaceCurrentWidget->setVisible(false);
 	m_replaceWidget->setVisible(true);
 	m_replaceWidget->setFocus();
@@ -501,6 +571,7 @@ bool TikzEditorView::search(const QString &text, bool isCaseSensitive,
 void TikzEditorView::editFindNext()
 {
 	m_goToLineWidget->setVisible(false);
+	m_indentWidget->setVisible(false);
 	m_replaceCurrentWidget->setVisible(false);
 	m_replaceWidget->setVisible(true);
 	m_replaceWidget->setFocus();
@@ -511,6 +582,7 @@ void TikzEditorView::editFindNext()
 void TikzEditorView::editFindPrevious()
 {
 	m_goToLineWidget->setVisible(false);
+	m_indentWidget->setVisible(false);
 	m_replaceCurrentWidget->setVisible(false);
 	m_replaceWidget->setVisible(true);
 	m_replaceWidget->setFocus();

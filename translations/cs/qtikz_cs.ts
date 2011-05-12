@@ -537,6 +537,11 @@ Chcete jej přepsat?</translation>
         <translation type="unfinished">Zavřít okénko pro přechod na řádek</translation>
     </message>
     <message>
+        <location filename="../../app/editgotolinewidget.ui" line="35"/>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Zrušit</translation>
+    </message>
+    <message>
         <location filename="../../app/editgotolinewidget.ui" line="12"/>
         <source>Go to line:</source>
         <translation>Jít na řádek:</translation>
@@ -546,38 +551,93 @@ Chcete jej přepsat?</translation>
         <source>&amp;Go</source>
         <translation>&amp;Přechod</translation>
     </message>
-    <message>
-        <location filename="../../app/editgotolinewidget.ui" line="35"/>
-        <source>&amp;Done</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>IndentDialog</name>
     <message>
-        <location filename="../../app/editindentdialog.ui" line="6"/>
         <source>Indent Selection</source>
-        <translation>Odsadit výběr</translation>
+        <translation type="obsolete">Odsadit výběr</translation>
     </message>
     <message>
-        <location filename="../../app/editindentdialog.ui" line="14"/>
         <source>Using &amp;spaces</source>
-        <translation>Pomocí &amp;mezer</translation>
+        <translation type="obsolete">Pomocí &amp;mezer</translation>
     </message>
     <message>
-        <location filename="../../app/editindentdialog.ui" line="37"/>
         <source>&amp;Number of spaces:</source>
-        <translation>&amp;Počet mezer:</translation>
+        <translation type="obsolete">&amp;Počet mezer:</translation>
     </message>
     <message>
-        <location filename="../../app/editindentdialog.ui" line="72"/>
         <source>Using &amp;tabs</source>
-        <translation>Pomocí &amp;zarážek</translation>
+        <translation type="obsolete">Pomocí &amp;zarážek</translation>
     </message>
     <message>
-        <location filename="../../app/editindentdialog.ui" line="82"/>
         <source>Num&amp;ber of tabs:</source>
-        <translation>P&amp;očet zarážek:</translation>
+        <translation type="obsolete">P&amp;očet zarážek:</translation>
+    </message>
+</context>
+<context>
+    <name>IndentWidget</name>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="6"/>
+        <location filename="../../app/editindentwidget.cpp" line="65"/>
+        <source>Indent</source>
+        <translation type="unfinished">Odsadit</translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="12"/>
+        <source>Using sp&amp;aces</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="15"/>
+        <location filename="../../app/editindentwidget.ui" line="73"/>
+        <source>buttonGroup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="41"/>
+        <source>&amp;Number of spaces:</source>
+        <translation type="unfinished">&amp;Počet mezer:</translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="67"/>
+        <source>Using ta&amp;bs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="80"/>
+        <source>N&amp;umber of tabs:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="105"/>
+        <location filename="../../app/editindentwidget.cpp" line="66"/>
+        <source>In&amp;dent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="112"/>
+        <source>Close indent box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close find and replace box</source>
+        <translation type="obsolete">Zavřít okénko pro hledání a nahrazování</translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="115"/>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Zrušit</translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.cpp" line="65"/>
+        <source>Unindent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.cpp" line="66"/>
+        <source>Unin&amp;dent</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1203,54 +1263,66 @@ Chcete uložit své změny?</translation>
         <translation>Najít a nahradit</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="117"/>
+        <location filename="../../app/editreplacewidget.ui" line="12"/>
+        <source>Fin&amp;d:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/editreplacewidget.ui" line="44"/>
+        <source>C&amp;ase sensitive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/editreplacewidget.ui" line="53"/>
+        <source>Rep&amp;lace with:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/editreplacewidget.ui" line="129"/>
         <source>Close find and replace box</source>
         <translation type="unfinished">Zavřít okénko pro hledání a nahrazování</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="12"/>
-        <source>Find:</source>
-        <translation>Najít:</translation>
+        <location filename="../../app/editreplacewidget.ui" line="132"/>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Zrušit</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="31"/>
+        <source>Find:</source>
+        <translation type="obsolete">Najít:</translation>
+    </message>
+    <message>
+        <location filename="../../app/editreplacewidget.ui" line="37"/>
         <source>&amp;Whole words</source>
         <translation>Celá &amp;slova</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="38"/>
         <source>&amp;Case sensitive</source>
-        <translation>&amp;Rozlišující velká a malá písmena</translation>
+        <translation type="obsolete">&amp;Rozlišující velká a malá písmena</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="47"/>
         <source>Replace with:</source>
-        <translation>Nahradit:</translation>
+        <translation type="obsolete">Nahradit:</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="66"/>
+        <location filename="../../app/editreplacewidget.ui" line="78"/>
         <source>Search backward</source>
         <translation>Hledat zpět</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="83"/>
+        <location filename="../../app/editreplacewidget.ui" line="95"/>
         <source>Search forward</source>
         <translation>Hledat vpřed</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="103"/>
+        <location filename="../../app/editreplacewidget.ui" line="115"/>
         <source>&amp;Find</source>
         <translation>&amp;Najít</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="110"/>
+        <location filename="../../app/editreplacewidget.ui" line="122"/>
         <source>&amp;Replace</source>
         <translation>&amp;Nahradit</translation>
-    </message>
-    <message>
-        <location filename="../../app/editreplacewidget.ui" line="120"/>
-        <source>&amp;Done</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3406,195 +3478,215 @@ Chcete uložit své změny?</translation>
         <translation>&lt;p&gt;Zde zadejte svůj kód TikZ. Kód má začínat \begin{tikzpicture} a končit \end{tikzpicture}.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="139"/>
+        <location filename="../../app/tikzeditorview.cpp" line="150"/>
         <source>Undo the previous action</source>
         <translation>Zpět předchozí krok</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="140"/>
+        <location filename="../../app/tikzeditorview.cpp" line="151"/>
         <source>Redo the previous undone action</source>
         <translation>Znovu předchozí krok Zpět</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="141"/>
+        <location filename="../../app/tikzeditorview.cpp" line="152"/>
         <source>Cut the current selection&apos;s contents to the clipboard</source>
         <translation>Vyjmout obsah nynějšího výběru do schránky</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="142"/>
+        <location filename="../../app/tikzeditorview.cpp" line="153"/>
         <source>Copy the current selection&apos;s contents to the clipboard</source>
         <translation>Kopírovat obsah nynějšího výběru do schránky</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="143"/>
+        <location filename="../../app/tikzeditorview.cpp" line="154"/>
         <source>Paste the clipboard&apos;s contents into the current selection</source>
         <translation>Vložit obsah schránky do nynějšího výběru</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="144"/>
+        <location filename="../../app/tikzeditorview.cpp" line="155"/>
         <source>Select all the content</source>
         <translation>Vybrat veškerý obsah</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="145"/>
+        <location filename="../../app/tikzeditorview.cpp" line="156"/>
         <source>&lt;p&gt;Undo the previous action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Zpět předchozí krok.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="146"/>
+        <location filename="../../app/tikzeditorview.cpp" line="157"/>
         <source>&lt;p&gt;Redo the previous undone action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Znovu předchozí krok Zpět.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="147"/>
+        <location filename="../../app/tikzeditorview.cpp" line="158"/>
         <source>&lt;p&gt;Cut the current selection&apos;s contents to the clipboard.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyjmout obsah schránky do nynějšího výběru.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="148"/>
+        <location filename="../../app/tikzeditorview.cpp" line="159"/>
         <source>&lt;p&gt;Copy the current selection&apos;s contents to the clipboard.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Kopírovat obsah nynějšího výběru do schránky.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="149"/>
+        <location filename="../../app/tikzeditorview.cpp" line="160"/>
         <source>&lt;p&gt;Paste the clipboard&apos;s contents into the current selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vložit obsah schránky do nynějšího výběru.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="150"/>
+        <location filename="../../app/tikzeditorview.cpp" line="161"/>
         <source>&lt;p&gt;Select all the content.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vybrat veškerý obsah.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="153"/>
+        <location filename="../../app/tikzeditorview.cpp" line="164"/>
         <source>&amp;Indent...</source>
         <translation>&amp;Odsadit...</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="154"/>
+        <location filename="../../app/tikzeditorview.cpp" line="165"/>
         <source>Ctrl+I</source>
         <comment>Edit|Indent</comment>
         <translation>Ctrl+I</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="155"/>
+        <location filename="../../app/tikzeditorview.cpp" line="166"/>
         <source>Indent the current line or selection</source>
         <translation>Odsadit nynější řádek nebo výběr</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="156"/>
+        <location filename="../../app/tikzeditorview.cpp" line="167"/>
         <source>&lt;p&gt;Indent the current line or selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Odsadit nynější řádek nebo výběr.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="160"/>
+        <location filename="../../app/tikzeditorview.cpp" line="171"/>
+        <source>Unind&amp;ent...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="172"/>
+        <source>Ctrl+Shift+I</source>
+        <comment>Edit|Unindent</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="173"/>
+        <source>Unindent the current line or selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="174"/>
+        <source>&lt;p&gt;Unindent the current line or selection.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="178"/>
         <source>C&amp;omment</source>
         <translation>&amp;Poznámka</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="161"/>
+        <location filename="../../app/tikzeditorview.cpp" line="179"/>
         <source>Ctrl+D</source>
         <comment>Edit|Comment</comment>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="162"/>
+        <location filename="../../app/tikzeditorview.cpp" line="180"/>
         <source>Comment the current line or selection</source>
         <translation>Opatřit nynější řádek nebo výběr poznámkou</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="163"/>
+        <location filename="../../app/tikzeditorview.cpp" line="181"/>
         <source>&lt;p&gt;Comment the current line or selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Opatřit nynější řádek nebo výběr poznámkou.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="167"/>
+        <location filename="../../app/tikzeditorview.cpp" line="185"/>
         <source>Unco&amp;mment</source>
         <translation>&amp;Odebrat poznámku</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="168"/>
+        <location filename="../../app/tikzeditorview.cpp" line="186"/>
         <source>Ctrl+Shift+D</source>
         <comment>Edit|Uncomment</comment>
         <translation>Ctrl+Shift+D</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="169"/>
+        <location filename="../../app/tikzeditorview.cpp" line="187"/>
         <source>Uncomment the current line or selection</source>
         <translation>Zrušit poznámku pro nynější řádek nebo výběr</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="170"/>
+        <location filename="../../app/tikzeditorview.cpp" line="188"/>
         <source>&lt;p&gt;Uncomment the current line or selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Zrušit poznámku pro nynější řádek nebo výběr.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="183"/>
+        <location filename="../../app/tikzeditorview.cpp" line="201"/>
         <source>Look up a piece of text in the document</source>
         <translation>Vyhledat kus textu v dokumentu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="184"/>
+        <location filename="../../app/tikzeditorview.cpp" line="202"/>
         <source>Search the next occurrence of a text</source>
         <translation>Hledat další výskyt textu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="185"/>
+        <location filename="../../app/tikzeditorview.cpp" line="203"/>
         <source>Search the previous occurrence of a text</source>
         <translation>Hledat předchozí výskyt textu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="186"/>
+        <location filename="../../app/tikzeditorview.cpp" line="204"/>
         <source>Search and replace a piece of text in the document</source>
         <translation>Hledat a nahradit kus textu v dokumentu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="187"/>
+        <location filename="../../app/tikzeditorview.cpp" line="205"/>
         <source>Go to a certain line in the document</source>
         <translation>Jít na určitý řádek v dokumentu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="188"/>
+        <location filename="../../app/tikzeditorview.cpp" line="206"/>
         <source>&lt;p&gt;Look up a piece of text in the document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyhledat kus textu v dokumentu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="189"/>
+        <location filename="../../app/tikzeditorview.cpp" line="207"/>
         <source>&lt;p&gt;Search the next occurrence of a text.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Hledat další výskyt textu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="190"/>
+        <location filename="../../app/tikzeditorview.cpp" line="208"/>
         <source>&lt;p&gt;Search the previous occurrence of a text.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Hledat předchozí výskyt textu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="191"/>
+        <location filename="../../app/tikzeditorview.cpp" line="209"/>
         <source>&lt;p&gt;Search and replace a piece of text in the document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Hledat a nahradit kus textu v dokumentu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="192"/>
+        <location filename="../../app/tikzeditorview.cpp" line="210"/>
         <source>&lt;p&gt;Go to a certain line in the document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Jít na určitý řádek v dokumentu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="214"/>
+        <location filename="../../app/tikzeditorview.cpp" line="232"/>
         <source>&amp;Edit</source>
         <translation>&amp;Upravit</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="230"/>
+        <location filename="../../app/tikzeditorview.cpp" line="248"/>
         <source>Edit</source>
         <translation>Upravit</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="341"/>
         <source>Indent</source>
-        <translation>Odsadit</translation>
+        <translation type="obsolete">Odsadit</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="479"/>
+        <location filename="../../app/tikzeditorview.cpp" line="549"/>
         <source>End of document reached.
 
 Continue from the beginning?</source>
@@ -3603,7 +3695,7 @@ Continue from the beginning?</source>
 Pokračovat od začátku?</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="480"/>
+        <location filename="../../app/tikzeditorview.cpp" line="550"/>
         <source>Beginning of document reached.
 
 Continue from the end?</source>

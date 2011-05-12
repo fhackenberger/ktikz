@@ -13,7 +13,7 @@ set(ktikz_SRCS
 	configgeneralwidget.cpp
 	configdialog.cpp
 	editgotolinewidget.cpp
-	editindentdialog.cpp
+	editindentwidget.cpp
 	editreplacewidget.cpp
 	editreplacecurrentwidget.cpp
 	ktikzapplication.cpp
@@ -51,7 +51,7 @@ qt4_wrap_ui(ktikz_UI_FILES
 	configeditorwidget.ui
 	configgeneralwidget.ui
 	editgotolinewidget.ui
-	editindentdialog.ui
+	editindentwidget.ui
 	editreplacewidget.ui
 	../common/templatewidget.ui
 )

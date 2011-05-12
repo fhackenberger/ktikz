@@ -55,6 +55,16 @@ version 0.11:
 - remove bug: replacing a string and pressing "Ctrl+F" again when the
   "Replace ... by ...?" box is visible doesn't hide that box, so both that
   box and the "Search and Replace" box are visible
+- remove bug: sometimes when indenting a highlighted text consisting of
+  several lines, the last line is not indented
+- replace the "Indent" dialog by an "Indent" box (similar to the "Find and
+  Replace" box)
+- when the Tab key is pressed when the cursor is in the white space at
+  the beginning of the line or when more than one line is selected, the
+  corresponding lines are indented using the indentation character and the
+  number of indentations last specified in the "Indent" box
+- add an "Unindent" action; pressing the Shift+Tab key has a similar effect
+  as pressing the Tab key described above, but for unindenting
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE

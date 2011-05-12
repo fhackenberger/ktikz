@@ -9,7 +9,13 @@
    <item row="0" column="1">
     <widget class="QLabel" name="labelFind">
      <property name="text">
-      <string>Find:</string>
+      <string>Fin&amp;d:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buddy">
+      <cstring>comboBoxFind</cstring>
      </property>
     </widget>
    </item>
@@ -35,7 +41,7 @@
      <item>
       <widget class="QCheckBox" name="checkBoxCaseSensitive">
        <property name="text">
-        <string>&amp;Case sensitive</string>
+        <string>C&amp;ase sensitive</string>
        </property>
       </widget>
      </item>
@@ -44,7 +50,13 @@
    <item row="1" column="1">
     <widget class="QLabel" name="labelReplace">
      <property name="text">
-      <string>Replace with:</string>
+      <string>Rep&amp;lace with:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="buddy">
+      <cstring>comboBoxReplace</cstring>
      </property>
     </widget>
    </item>
@@ -117,7 +129,7 @@
         <string>Close find and replace box</string>
        </property>
        <property name="text">
-        <string>&amp;Done</string>
+        <string>&amp;Cancel</string>
        </property>
        <property name="icon">
         <iconset resource="qtikz.qrc">

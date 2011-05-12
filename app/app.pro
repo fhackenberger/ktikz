@@ -37,7 +37,7 @@ FORMS += configappearancewidget.ui \
 	configeditorwidget.ui \
 	configgeneralwidget.ui \
 	editgotolinewidget.ui \
-	editindentdialog.ui \
+	editindentwidget.ui \
 	editreplacewidget.ui \
 	../common/templatewidget.ui
 #SOURCES += $$formSources($$FORMS) \ # linguist does not use translations in corresponding cpp files if we use this :-(
@@ -58,7 +58,7 @@ SOURCES += ../common/utils/action.cpp \
 	configeditorwidget.cpp \
 	configgeneralwidget.cpp \
 	editgotolinewidget.cpp \
-	editindentdialog.cpp \
+	editindentwidget.cpp \
 	editreplacewidget.cpp \
 	editreplacecurrentwidget.cpp \
 	ktikzapplication.cpp \

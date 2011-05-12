@@ -32,7 +32,7 @@
       <string>Close go to line box</string>
      </property>
      <property name="text">
-      <string>&amp;Done</string>
+      <string>&amp;Cancel</string>
      </property>
      <property name="icon">
       <iconset resource="qtikz.qrc">

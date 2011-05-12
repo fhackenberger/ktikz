@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008 by Glad Deschrijver                                *
+ *   Copyright (C) 2008, 2011 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -25,7 +25,7 @@ GoToLineWidget::GoToLineWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
 	ui.spinBoxGo->setMinimum(1);
-	ui.pushButtonClose->setIcon(Icon("window-close"));
+	ui.pushButtonClose->setIcon(Icon("dialog-cancel"));
 
 	setFocusProxy(ui.spinBoxGo);
 

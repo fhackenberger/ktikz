@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -51,6 +51,7 @@ signals:
 	void showStatusMessage(const QString &message, int timeout = 3000);
 	void focusIn();
 	void focusOut();
+	void tabIndent(bool isUnindenting);
 
 protected:
 	void paintEvent(QPaintEvent *event);

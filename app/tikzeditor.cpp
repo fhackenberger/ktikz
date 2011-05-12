@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   Bracket matching and white space showing code originally from         *
@@ -525,16 +525,28 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 		QTextDocument::FindFlags flags = 0;
 		if (event->key() == Qt::Key_Backtab)
 			flags = QTextDocument::FindBackward;
-		if (block.isValid() && block.text().contains(s_completionPlaceHolder))
+		if (cursor.hasSelection() && cursor.selectedText().contains(QChar::ParagraphSeparator))
+		{
+			emit tabIndent(event->key() == Qt::Key_Backtab);
+			return;
+		}
+		else if (block.isValid() && block.text().contains(s_completionPlaceHolder))
 		{
 			cursor = document()->find(s_completionPlaceHolder, cursor, flags);
 			if (!cursor.isNull())
+			{
 				setTextCursor(cursor);
-			else
-				QPlainTextEdit::keyPressEvent(event);
+				return;
+			}
 		}
+		// the following is done when there is no multiline selection and no s_completionPlaceHolder can be found
+		cursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
+		QString selectedText = cursor.selectedText();
+		if (selectedText.remove(' ').remove('\t').isEmpty() || event->key() == Qt::Key_Backtab)
+			emit tabIndent(event->key() == Qt::Key_Backtab);
 		else
 			QPlainTextEdit::keyPressEvent(event);
+		return;
 	}
 	else
 		QPlainTextEdit::keyPressEvent(event);

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008 by Glad Deschrijver                                *
+ *   Copyright (C) 2008, 2011 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -31,7 +31,7 @@ ReplaceWidget::ReplaceWidget(QWidget *parent) : QWidget(parent)
 	ui.setupUi(this);
 	ui.comboBoxFind->setLineEdit(new LineEdit(this));
 	ui.comboBoxReplace->setLineEdit(new LineEdit(this));
-	ui.pushButtonClose->setIcon(Icon("window-close"));
+	ui.pushButtonClose->setIcon(Icon("dialog-cancel"));
 	ui.pushButtonBackward->setIcon(Icon("go-up"));
 	ui.pushButtonForward->setIcon(Icon("go-down"));
 #ifdef KTIKZ_USE_KDE

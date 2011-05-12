@@ -528,6 +528,11 @@
         <translation>Cerrar herramienta «Ir a línea»</translation>
     </message>
     <message>
+        <location filename="../../app/editgotolinewidget.ui" line="35"/>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annular</translation>
+    </message>
+    <message>
         <location filename="../../app/editgotolinewidget.ui" line="12"/>
         <source>Go to line:</source>
         <translation>Ir a línea:</translation>
@@ -538,37 +543,69 @@
         <translation>&amp;Ir</translation>
     </message>
     <message>
-        <location filename="../../app/editgotolinewidget.ui" line="35"/>
         <source>&amp;Done</source>
-        <translation>&amp;Hecho</translation>
+        <translation type="obsolete">&amp;Hecho</translation>
     </message>
 </context>
 <context>
-    <name>IndentDialog</name>
+    <name>IndentWidget</name>
     <message>
-        <location filename="../../app/editindentdialog.ui" line="6"/>
-        <source>Indent Selection</source>
-        <translation>Sangrar selección</translation>
+        <location filename="../../app/editindentwidget.ui" line="6"/>
+        <location filename="../../app/editindentwidget.cpp" line="65"/>
+        <source>Indent</source>
+        <translation>Sangrar</translation>
     </message>
     <message>
-        <location filename="../../app/editindentdialog.ui" line="14"/>
-        <source>Using &amp;spaces</source>
-        <translation>Con &amp;espacios</translation>
+        <location filename="../../app/editindentwidget.ui" line="12"/>
+        <source>Using sp&amp;aces</source>
+        <translation>Con espa&amp;cios</translation>
     </message>
     <message>
-        <location filename="../../app/editindentdialog.ui" line="37"/>
+        <location filename="../../app/editindentwidget.ui" line="15"/>
+        <location filename="../../app/editindentwidget.ui" line="73"/>
+        <source>buttonGroup</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="41"/>
         <source>&amp;Number of spaces:</source>
         <translation>&amp;Número de espacios:</translation>
     </message>
     <message>
-        <location filename="../../app/editindentdialog.ui" line="72"/>
-        <source>Using &amp;tabs</source>
-        <translation>Con &amp;tabs</translation>
+        <location filename="../../app/editindentwidget.ui" line="67"/>
+        <source>Using ta&amp;bs</source>
+        <translation>Con ta&amp;bs</translation>
     </message>
     <message>
-        <location filename="../../app/editindentdialog.ui" line="82"/>
-        <source>Num&amp;ber of tabs:</source>
-        <translation>Núm&amp;ero de tabs:</translation>
+        <location filename="../../app/editindentwidget.ui" line="80"/>
+        <source>N&amp;umber of tabs:</source>
+        <translation>Núme&amp;ro de tabs:</translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="105"/>
+        <location filename="../../app/editindentwidget.cpp" line="66"/>
+        <source>In&amp;dent</source>
+        <translation>San&amp;grar</translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="112"/>
+        <source>Close indent box</source>
+        <translation>Cerrar herramienta «Sangrar»</translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="115"/>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annular</translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.cpp" line="65"/>
+        <source>Unindent</source>
+        <translation>Desangrar</translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.cpp" line="66"/>
+        <source>Unin&amp;dent</source>
+        <translation>Desan&amp;grar</translation>
     </message>
 </context>
 <context>
@@ -1180,54 +1217,54 @@ Do you want to save your changes?</source>
         <translation>Buscar y reemplazar</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="117"/>
+        <location filename="../../app/editreplacewidget.ui" line="12"/>
+        <source>Fin&amp;d:</source>
+        <translation>Texto a enc&amp;ontrar:</translation>
+    </message>
+    <message>
+        <location filename="../../app/editreplacewidget.ui" line="44"/>
+        <source>C&amp;ase sensitive</source>
+        <translation>&amp;Distinguir may/minúsculas</translation>
+    </message>
+    <message>
+        <location filename="../../app/editreplacewidget.ui" line="53"/>
+        <source>Rep&amp;lace with:</source>
+        <translation>Texto de reemp&amp;lazo:</translation>
+    </message>
+    <message>
+        <location filename="../../app/editreplacewidget.ui" line="129"/>
         <source>Close find and replace box</source>
         <translation>Cerrar herramienta «Buscar y reemplazar»</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="12"/>
-        <source>Find:</source>
-        <translation>Texto a encontrar:</translation>
+        <location filename="../../app/editreplacewidget.ui" line="132"/>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annular</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="31"/>
+        <location filename="../../app/editreplacewidget.ui" line="37"/>
         <source>&amp;Whole words</source>
         <translation>Palabras &amp;completas</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="38"/>
-        <source>&amp;Case sensitive</source>
-        <translation>Distinguir &amp;may/minúsculas</translation>
-    </message>
-    <message>
-        <location filename="../../app/editreplacewidget.ui" line="47"/>
-        <source>Replace with:</source>
-        <translation>Texto de reemplazo:</translation>
-    </message>
-    <message>
-        <location filename="../../app/editreplacewidget.ui" line="66"/>
+        <location filename="../../app/editreplacewidget.ui" line="78"/>
         <source>Search backward</source>
         <translation>Buscar anterior</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="83"/>
+        <location filename="../../app/editreplacewidget.ui" line="95"/>
         <source>Search forward</source>
         <translation>Buscar siguiente</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="103"/>
+        <location filename="../../app/editreplacewidget.ui" line="115"/>
         <source>&amp;Find</source>
         <translation>&amp;Buscar</translation>
     </message>
     <message>
-        <location filename="../../app/editreplacewidget.ui" line="110"/>
+        <location filename="../../app/editreplacewidget.ui" line="122"/>
         <source>&amp;Replace</source>
         <translation>&amp;Reemplazar</translation>
-    </message>
-    <message>
-        <location filename="../../app/editreplacewidget.ui" line="120"/>
-        <source>&amp;Done</source>
-        <translation>&amp;Hecho</translation>
     </message>
 </context>
 <context>
@@ -3383,82 +3420,77 @@ Do you want to save your changes?</source>
         <translation>&lt;p&gt;Introduzca el código TikZ aquí.  El código tiene que empezar con \begin{tikzpicture} y terminar con \end{tikzpicture}.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="139"/>
+        <location filename="../../app/tikzeditorview.cpp" line="150"/>
         <source>Undo the previous action</source>
         <translation>Deshacer la acción precediente</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="140"/>
+        <location filename="../../app/tikzeditorview.cpp" line="151"/>
         <source>Redo the previous undone action</source>
         <translation>Rehacer la acción precedientamente deshacido</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="141"/>
+        <location filename="../../app/tikzeditorview.cpp" line="152"/>
         <source>Cut the current selection&apos;s contents to the clipboard</source>
         <translation>Cortar la selección actual en el portapapeles</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="142"/>
+        <location filename="../../app/tikzeditorview.cpp" line="153"/>
         <source>Copy the current selection&apos;s contents to the clipboard</source>
         <translation>Copiar la selección actual en el portapapeles</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="143"/>
+        <location filename="../../app/tikzeditorview.cpp" line="154"/>
         <source>Paste the clipboard&apos;s contents into the current selection</source>
         <translation>Pegar el contenido del portapapeles en la selección actual</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="144"/>
+        <location filename="../../app/tikzeditorview.cpp" line="155"/>
         <source>Select all the content</source>
         <translation>Seleccionar todo el contenido</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="153"/>
+        <location filename="../../app/tikzeditorview.cpp" line="164"/>
         <source>&amp;Indent...</source>
         <translation>Sa&amp;ngrar...</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="155"/>
+        <location filename="../../app/tikzeditorview.cpp" line="166"/>
         <source>Indent the current line or selection</source>
         <translation>Sangrar la línea actual o la selección</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="160"/>
+        <location filename="../../app/tikzeditorview.cpp" line="178"/>
         <source>C&amp;omment</source>
         <translation>C&amp;omentar</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="162"/>
+        <location filename="../../app/tikzeditorview.cpp" line="180"/>
         <source>Comment the current line or selection</source>
         <translation>Comentar la línea actual o la selección</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="167"/>
+        <location filename="../../app/tikzeditorview.cpp" line="185"/>
         <source>Unco&amp;mment</source>
         <translation>Desco&amp;mentar</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="169"/>
+        <location filename="../../app/tikzeditorview.cpp" line="187"/>
         <source>Uncomment the current line or selection</source>
         <translation>Descomentar la línea actual o la selección</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="214"/>
+        <location filename="../../app/tikzeditorview.cpp" line="232"/>
         <source>&amp;Edit</source>
         <translation>&amp;Editar</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="230"/>
+        <location filename="../../app/tikzeditorview.cpp" line="248"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="341"/>
-        <source>Indent</source>
-        <translation>Sangrar</translation>
-    </message>
-    <message>
-        <location filename="../../app/tikzeditorview.cpp" line="479"/>
+        <location filename="../../app/tikzeditorview.cpp" line="549"/>
         <source>End of document reached.
 
 Continue from the beginning?</source>
@@ -3467,7 +3499,7 @@ Continue from the beginning?</source>
 Continuar al inicio?</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="480"/>
+        <location filename="../../app/tikzeditorview.cpp" line="550"/>
         <source>Beginning of document reached.
 
 Continue from the end?</source>
@@ -3476,115 +3508,136 @@ Continue from the end?</source>
 Continuar al fin?</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="183"/>
+        <location filename="../../app/tikzeditorview.cpp" line="201"/>
         <source>Look up a piece of text in the document</source>
         <translation>Buscar un texto en el documento</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="145"/>
+        <location filename="../../app/tikzeditorview.cpp" line="156"/>
         <source>&lt;p&gt;Undo the previous action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Deshacer la acción precediente.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="146"/>
+        <location filename="../../app/tikzeditorview.cpp" line="157"/>
         <source>&lt;p&gt;Redo the previous undone action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Rehacer la acción precedientamente deshacido.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="147"/>
+        <location filename="../../app/tikzeditorview.cpp" line="158"/>
         <source>&lt;p&gt;Cut the current selection&apos;s contents to the clipboard.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Cortar la selección actual en el portapapeles.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="148"/>
+        <location filename="../../app/tikzeditorview.cpp" line="159"/>
         <source>&lt;p&gt;Copy the current selection&apos;s contents to the clipboard.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Copiar la selección actual en el portapapeles.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="149"/>
+        <location filename="../../app/tikzeditorview.cpp" line="160"/>
         <source>&lt;p&gt;Paste the clipboard&apos;s contents into the current selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Pegar el contenido del portapapeles en la selección actual.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="150"/>
+        <location filename="../../app/tikzeditorview.cpp" line="161"/>
         <source>&lt;p&gt;Select all the content.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Seleccionar todo el contenido.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="154"/>
+        <location filename="../../app/tikzeditorview.cpp" line="165"/>
         <source>Ctrl+I</source>
         <comment>Edit|Indent</comment>
         <translation>Ctrl+I</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="156"/>
+        <location filename="../../app/tikzeditorview.cpp" line="167"/>
         <source>&lt;p&gt;Indent the current line or selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Sangrar la línea actual o la selección.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="161"/>
+        <location filename="../../app/tikzeditorview.cpp" line="171"/>
+        <source>Unind&amp;ent...</source>
+        <translation>D&amp;esangrar...</translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="172"/>
+        <source>Ctrl+Shift+I</source>
+        <comment>Edit|Unindent</comment>
+        <translation>Ctrl+Shift+I</translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="173"/>
+        <source>Unindent the current line or selection</source>
+        <translation>Desangrar la línea actual o la selección</translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="174"/>
+        <source>&lt;p&gt;Unindent the current line or selection.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Desangrar la línea actual o la selección.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="179"/>
         <source>Ctrl+D</source>
         <comment>Edit|Comment</comment>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="163"/>
+        <location filename="../../app/tikzeditorview.cpp" line="181"/>
         <source>&lt;p&gt;Comment the current line or selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Comentar la línea actual o la selección.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="168"/>
+        <location filename="../../app/tikzeditorview.cpp" line="186"/>
         <source>Ctrl+Shift+D</source>
         <comment>Edit|Uncomment</comment>
         <translation>Ctrl+Shift+D</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="170"/>
+        <location filename="../../app/tikzeditorview.cpp" line="188"/>
         <source>&lt;p&gt;Uncomment the current line or selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Descomentar la línea actual o la selección.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="184"/>
+        <location filename="../../app/tikzeditorview.cpp" line="202"/>
         <source>Search the next occurrence of a text</source>
         <translation>Buscar la aparición siguiente de un texto</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="185"/>
+        <location filename="../../app/tikzeditorview.cpp" line="203"/>
         <source>Search the previous occurrence of a text</source>
         <translation>Buscar la aparición anterior de un texto</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="186"/>
+        <location filename="../../app/tikzeditorview.cpp" line="204"/>
         <source>Search and replace a piece of text in the document</source>
         <translation>Buscar y reemplazar un texto en el documento</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="187"/>
+        <location filename="../../app/tikzeditorview.cpp" line="205"/>
         <source>Go to a certain line in the document</source>
         <translation>Ir a una determinada línea en el documento</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="188"/>
+        <location filename="../../app/tikzeditorview.cpp" line="206"/>
         <source>&lt;p&gt;Look up a piece of text in the document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Buscar un texto en el documento.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="189"/>
+        <location filename="../../app/tikzeditorview.cpp" line="207"/>
         <source>&lt;p&gt;Search the next occurrence of a text.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Buscar la aparición siguiente de un texto.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="190"/>
+        <location filename="../../app/tikzeditorview.cpp" line="208"/>
         <source>&lt;p&gt;Search the previous occurrence of a text.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Buscar la aparición anterior de un texto.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="191"/>
+        <location filename="../../app/tikzeditorview.cpp" line="209"/>
         <source>&lt;p&gt;Search and replace a piece of text in the document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Buscar y reemplazar un texto en el documento.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="192"/>
+        <location filename="../../app/tikzeditorview.cpp" line="210"/>
         <source>&lt;p&gt;Go to a certain line in the document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ir a una determinada línea en el documento.&lt;/p&gt;</translation>
     </message>

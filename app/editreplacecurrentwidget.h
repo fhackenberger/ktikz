@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008 by Glad Deschrijver                                *
+ *   Copyright (C) 2008, 2011 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -35,11 +35,11 @@ public:
 	void search(const QString &text, const QString &replacement, bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor);
 
 signals:
-	void hidden();
 	void search(const QString &text, bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor);
 	void replace(const QString &replacement);
 	void replaceAll(const QString &text, const QString &replacement, bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor);
 	void setSearchFromBegin(bool searchFromBegin);
+	void hidden();
 
 protected:
 	virtual void showEvent(QShowEvent *event);

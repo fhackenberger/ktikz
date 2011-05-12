@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007 by Glad Deschrijver                                *
+ *   Copyright (C) 2007, 2011 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,23 +16,41 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef INDENTDIALOG_H
-#define INDENTDIALOG_H
+#ifndef INDENTWIDGET_H
+#define INDENTWIDGET_H
 
-#include "ui_editindentdialog.h"
+#include "ui_editindentwidget.h"
 
-class IndentDialog : public QDialog
+class IndentWidget : public QWidget
 {
 	Q_OBJECT
 
 public:
-	explicit IndentDialog(QWidget *parent = 0, const QString &name = 0);
-	~IndentDialog();
-	int numOfInserts() const;
+	explicit IndentWidget(QWidget *parent = 0);
+	~IndentWidget();
+
+	void setUnindenting(bool isUnindenting = true);
 	QChar insertChar() const;
+	int numOfInserts() const;
+
+signals:
+	void indent(QChar insertChar, int numOfInserts, bool isUnindenting);
+	void hidden();
+
+protected:
+	virtual void showEvent(QShowEvent *event);
+	virtual void keyPressEvent(QKeyEvent *event);
+
+private slots:
+	void indent();
+	void hide();
 
 private:
-	Ui::IndentDialog ui;
+	void readSettings();
+	void writeSettings();
+
+	Ui::IndentWidget ui;
+	bool m_isUnindenting;
 };
 
 #endif

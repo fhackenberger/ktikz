@@ -29,6 +29,7 @@ class QMenu;
 class QPlainTextEdit;
 class QToolBar;
 class GoToLineWidget;
+class IndentWidget;
 class ReplaceWidget;
 class ReplaceCurrentWidget;
 class TikzEditor;
@@ -66,12 +67,15 @@ private slots:
 //	void showCursorPosition();
 	void editGoToLine();
 	void editIndent();
+	void editUnindent();
 	void editComment();
 	void editUncomment();
 	void editFind();
 	void editFindNext();
 	void editFindPrevious();
 	void editReplace();
+	void tabIndent(bool isUnindenting = false);
+	void indent(QChar insertChar, int numOfInserts, bool isUnindenting = false);
 	bool search(const QString &text, bool isCaseSensitive = false, bool findWholeWords = false, bool forward = true, bool startAtCursor = true, bool continueFromBeginning = false);
 	void replace(const QString &replacement);
 	void replace(const QString &text, const QString &replacement, bool isCaseSensitive = false, bool findWholeWords = false, bool forward = true, bool startAtCursor = true);
@@ -87,6 +91,7 @@ private:
 	ReplaceWidget *m_replaceWidget;
 	ReplaceCurrentWidget *m_replaceCurrentWidget;
 	GoToLineWidget *m_goToLineWidget;
+	IndentWidget *m_indentWidget;
 
 //	TikzHighlighter *tikzHighlighter;
 
