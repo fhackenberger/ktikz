@@ -857,38 +857,43 @@
     </message>
     <message>
         <location filename="../../app/editindentwidget.ui" line="12"/>
+        <source>Indent:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="19"/>
         <source>Using sp&amp;aces</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="15"/>
-        <location filename="../../app/editindentwidget.ui" line="73"/>
+        <location filename="../../app/editindentwidget.ui" line="22"/>
+        <location filename="../../app/editindentwidget.ui" line="80"/>
         <source>buttonGroup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="41"/>
+        <location filename="../../app/editindentwidget.ui" line="48"/>
         <source>&amp;Number of spaces:</source>
         <translation type="unfinished">A&amp;nzahl Leerzeichen:</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="67"/>
+        <location filename="../../app/editindentwidget.ui" line="74"/>
         <source>Using ta&amp;bs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="80"/>
+        <location filename="../../app/editindentwidget.ui" line="87"/>
         <source>N&amp;umber of tabs:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="105"/>
+        <location filename="../../app/editindentwidget.ui" line="112"/>
         <location filename="../../app/editindentwidget.cpp" line="66"/>
         <source>In&amp;dent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="112"/>
+        <location filename="../../app/editindentwidget.ui" line="119"/>
         <source>Close indent box</source>
         <translation type="unfinished"></translation>
     </message>
@@ -897,7 +902,7 @@
         <translation type="obsolete">Box schließen</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="115"/>
+        <location filename="../../app/editindentwidget.ui" line="122"/>
         <source>&amp;Cancel</source>
         <translation type="unfinished">Abbre&amp;chen</translation>
     </message>
@@ -1814,55 +1819,54 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation type="unfinished">E&amp;infügen</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="482"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="477"/>
         <source>Commands</source>
         <translation>Befehle</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="482"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="477"/>
         <source>Draw to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="482"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="477"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="364"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="359"/>
         <source>&lt;p&gt;This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.&lt;/p&gt;</source>
         <oldsource>This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="370"/>
-        <source>Alt+I</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="374"/>
-        <source>Category:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="387"/>
-        <source>General</source>
-        <translation>Allgemein</translation>
-    </message>
-    <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="62"/>
-        <location filename="../../app/tikzcommandinserter.cpp" line="70"/>
-        <source>TikZ Commands</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="63"/>
-        <source>Parse error at line %1, column %2:
+        <location filename="../../app/tikzcommandinserter.cpp" line="66"/>
+        <source>Parse error in TikZ commands file at line %1, column %2:
 %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="71"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="365"/>
+        <source>Alt+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzcommandinserter.cpp" line="369"/>
+        <source>Category:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzcommandinserter.cpp" line="382"/>
+        <source>General</source>
+        <translation>Allgemein</translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzcommandinserter.cpp" line="65"/>
+        <source>TikZ Commands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzcommandinserter.cpp" line="62"/>
         <source>Cannot parse the TikZ commands file.</source>
         <translation type="unfinished"></translation>
     </message>

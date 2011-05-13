@@ -6,7 +6,6 @@ TEMPLATE = app
 CONFIG += warn_on \
 	thread \
 	qt
-QT += xml
 
 win32:INCLUDEPATH += $${_PRO_FILE_PWD_} $${_PRO_FILE_PWD_}/../win32/poppler
 win32:LIBS += -L$${_PRO_FILE_PWD_}/../win32/poppler/

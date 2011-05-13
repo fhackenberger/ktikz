@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tikzcommands>
 <!--
 name: human readable name used in the menu or dock widget
 description: is shown in the completion popup and in the statusbar (and is also used for the completion)
@@ -34,7 +36,7 @@ type: the highlighting color/font/style depends on the type
 			<item name="Specify &amp;coordinate" description="\\coordinate (&lt;name&gt;) at (&lt;x&gt;,&lt;y&gt;)" insert="\\coordinate (&#8226;) at (&#8226;,&#8226;);" type="1"/>
 			<item name="&amp;Node" description="\\node (&lt;name&gt;) at (&lt;x&gt;,&lt;y&gt;) {&lt;text&gt;}" insert="\\node (&#8226;) at (&#8226;,&#8226;) {&#8226;};" type="1"/>
 			<item name="Define &amp;bounding box for picture" description="\\useasboundingbox" insert="\\useasboundingbox &#8226;;" type="1"/>
-			<item name="&amp;Clip and draw the clipping contours" insert="\\clip[draw] &#8226;;" type="1"/>
+			<item name="&amp;Clip and draw the clipping contours" description="\\clip[draw]" insert="\\clip[draw] &#8226;;" type="1"/>
 		</section>
 		<section title="Draw/Fill/... (as &amp;option)">
 			<item name="&amp;Draw current path" description="draw" insert="draw" type="3"/>
@@ -128,20 +130,20 @@ type: the highlighting color/font/style depends on the type
 	<section title="&amp;Arrows">
 		<item name="Set the start and end arrow &amp;tips" description="arrows=&lt;arrow tip kind&gt;-&lt;arrow tip kind&gt;" insert="arrows=&#8226;-&#8226;" type="3"/>
 		<section title="Arrow at &amp;begin of line">
-			<item name="Use &amp;standard arrow tip" insert="-&gt;" type="3"/>
-			<item name="Use &amp;double standard arrow tip" insert="-&gt;&gt;" type="3"/>
-			<item name="Use standard arrow tip with &amp;vertical line" insert="-&gt;|" type="3"/>
-			<item name="Use &amp;TeX's arrow tip" insert="-to" type="3"/>
-			<item name="Use &amp;LaTeX's arrow tip" insert="-latex" type="3"/>
-			<item name="Use &amp;PSTricks' arrow tip" insert="-stealth" type="3"/>
-		</section>
-		<section title="Arrow at &amp;end of line">
 			<item name="Use &amp;standard arrow tip" insert="&lt;-" type="3"/>
 			<item name="Use &amp;double standard arrow tip" insert="&lt;&lt;-" type="3"/>
 			<item name="Use standard arrow tip with &amp;vertical line" insert="|&lt;-" type="3"/>
 			<item name="Use &amp;TeX's arrow tip" insert="to-" type="3"/>
 			<item name="Use &amp;LaTeX's arrow tip" insert="latex-" type="3"/>
 			<item name="Use &amp;PSTricks' arrow tip" insert="stealth-" type="3"/>
+		</section>
+		<section title="Arrow at &amp;end of line">
+			<item name="Use &amp;standard arrow tip" insert="-&gt;" type="3"/>
+			<item name="Use &amp;double standard arrow tip" insert="-&gt;&gt;" type="3"/>
+			<item name="Use standard arrow tip with &amp;vertical line" insert="-&gt;|" type="3"/>
+			<item name="Use &amp;TeX's arrow tip" insert="-to" type="3"/>
+			<item name="Use &amp;LaTeX's arrow tip" insert="-latex" type="3"/>
+			<item name="Use &amp;PSTricks' arrow tip" insert="-stealth" type="3"/>
 		</section>
 		<section title="Arrow at b&amp;oth ends of line">
 			<item name="Use &amp;standard arrow tip" insert="&lt;-&gt;" type="3"/>

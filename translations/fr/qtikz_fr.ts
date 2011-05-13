@@ -557,43 +557,48 @@
     </message>
     <message>
         <location filename="../../app/editindentwidget.ui" line="12"/>
+        <source>Indent:</source>
+        <translation>Indenter :</translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="19"/>
         <source>Using sp&amp;aces</source>
         <translation>Avec esp&amp;aces</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="15"/>
-        <location filename="../../app/editindentwidget.ui" line="73"/>
+        <location filename="../../app/editindentwidget.ui" line="22"/>
+        <location filename="../../app/editindentwidget.ui" line="80"/>
         <source>buttonGroup</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="41"/>
+        <location filename="../../app/editindentwidget.ui" line="48"/>
         <source>&amp;Number of spaces:</source>
         <translation>&amp;Nombre d&apos;espaces :</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="67"/>
+        <location filename="../../app/editindentwidget.ui" line="74"/>
         <source>Using ta&amp;bs</source>
         <translation>Avec ta&amp;bs</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="80"/>
+        <location filename="../../app/editindentwidget.ui" line="87"/>
         <source>N&amp;umber of tabs:</source>
         <translation>N&amp;ombre de tabs :</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="105"/>
+        <location filename="../../app/editindentwidget.ui" line="112"/>
         <location filename="../../app/editindentwidget.cpp" line="66"/>
         <source>In&amp;dent</source>
         <translation>In&amp;denter</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="112"/>
+        <location filename="../../app/editindentwidget.ui" line="119"/>
         <source>Close indent box</source>
         <translation>Fermer outil « Indenter »</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="115"/>
+        <location filename="../../app/editindentwidget.ui" line="122"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Annuler</translation>
     </message>
@@ -1357,17 +1362,24 @@ Voulez-vous enregistrer les modifications ?</translation>
         <translation>&amp;Options</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="482"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="66"/>
+        <source>Parse error in TikZ commands file at line %1, column %2:
+%3</source>
+        <translation>Erreur d&apos;évaluation dans le fichier des commandes TikZ à la ligne %1, colonne %2 :
+%3</translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzcommandinserter.cpp" line="477"/>
         <source>Commands</source>
         <translation>Commandes</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="482"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="477"/>
         <source>Draw to</source>
         <translation>Tirer vers</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="482"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="477"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
@@ -1543,22 +1555,22 @@ Voulez-vous enregistrer les modifications ?</translation>
         <translation>Parabole avec &amp;largeur et hauteur définies</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="364"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="359"/>
         <source>&lt;p&gt;This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ceci est une liste des commandes TikZ.  Vous pouvez insérer ces commandes dans votre code TikZ en les cliquant.  Vous pouvez obtenir plus de commandes en changeant la catégorie en haut.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="370"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="365"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="387"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="382"/>
         <source>General</source>
         <translation>Général</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="374"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="369"/>
         <source>Category:</source>
         <translation>Catégorie :</translation>
     </message>
@@ -3054,20 +3066,18 @@ Voulez-vous enregistrer les modifications ?</translation>
         <translation>Définir &amp;largeur minimale du nœud</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="62"/>
-        <location filename="../../app/tikzcommandinserter.cpp" line="70"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="65"/>
         <source>TikZ Commands</source>
         <translation>Commandes TikZ</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="63"/>
         <source>Parse error at line %1, column %2:
 %3</source>
-        <translation>Erreur d&apos;évaluation à la ligne %1, colonne %2 :
+        <translation type="obsolete">Erreur d&apos;évaluation à la ligne %1, colonne %2 :
 %3</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="71"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="62"/>
         <source>Cannot parse the TikZ commands file.</source>
         <translation>Impossible d&apos;évaluer le contenu du fichier contenant les commandes TikZ.</translation>
     </message>

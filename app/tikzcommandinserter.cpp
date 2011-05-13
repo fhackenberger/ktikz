@@ -20,7 +20,6 @@
 
 #include <QApplication>
 #include <QDockWidget>
-#include <QDomDocument>
 #include <QFile>
 #include <QGridLayout>
 #include <QLabel>
@@ -54,36 +53,28 @@ void TikzCommandInserter::getCommands()
 		return;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
-	QDomDocument domDocument;
-	QString errorStr;
-	int errorLine, errorColumn;
-	if (!domDocument.setContent(&tagsFile, true, &errorStr, &errorLine, &errorColumn))
+	xml.setDevice(&tagsFile);
+	if (xml.readNextStartElement())
 	{
-		QMessageBox::information(m_parentWidget, tr("TikZ Commands"),
-		                         tr("Parse error at line %1, column %2:\n%3")
-		                         .arg(errorLine).arg(errorColumn).arg(errorStr));
-		return;
+		if (xml.name() == "tikzcommands")
+			m_tikzSections = getChildCommands();
+		else
+			xml.raiseError(tr("Cannot parse the TikZ commands file."));
 	}
-	QDomElement root = domDocument.documentElement();
-	if (root.tagName() != "tikzcommands")
-	{
+	if (xml.error())
 		QMessageBox::information(m_parentWidget, tr("TikZ Commands"),
-		                         tr("Cannot parse the TikZ commands file."));
-		return;
-	}
-
-	m_tikzSections = getCommands(root);
+		                         tr("Parse error in TikZ commands file at line %1, column %2:\n%3")
+		                         .arg(xml.lineNumber()).arg(xml.columnNumber()).arg(xml.errorString()));
 	QApplication::restoreOverrideCursor();
 }
 
-TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
+TikzCommandList TikzCommandInserter::getChildCommands()
 {
 	TikzCommandList commandList;
 	QList<TikzCommand> commands;
 
-	commandList.title = tr(element.attribute("title").toLatin1().data());
+	commandList.title = tr(xml.attributes().value("title").toString().toLatin1().data());
 
-	QDomElement child = element.firstChildElement();
 	QString name;
 	QString description;
 	QString insertion;
@@ -91,15 +82,16 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 	QString type;
 	QRegExp newLineRegExp("([^\\\\])\\\\n"); // newlines are the "\n" not preceded by a backslash as in "\\node"
 	QRegExp descriptionRegExp("<([^<>]*)>"); // descriptions are between < and >
-	while (!child.isNull())
+
+	while (xml.readNextStartElement())
 	{
-		if (child.tagName() == "item")
+		if (xml.name() == "item")
 		{
-			name = tr(child.attribute("name").toLatin1().data());
-			description = child.attribute("description");
-			insertion = child.attribute("insert");
-			highlightString = child.attribute("highlight");
-			type = child.attribute("type");
+			name = tr(xml.attributes().value("name").toString().toLatin1().data());
+			description = xml.attributes().value("description").toString();
+			insertion = xml.attributes().value("insert").toString();
+			highlightString = xml.attributes().value("highlight").toString();
+			type = xml.attributes().value("type").toString();
 
 			if (description.contains(QLatin1String("\\n"))) // minimize the number of uses of QRegExp
 			{
@@ -142,18 +134,21 @@ TikzCommandList TikzCommandInserter::getCommands(const QDomElement &element)
 			if (type.isEmpty())
 				type = '0';
 
-			commands << newCommand(name, description, insertion, highlightString, child.attribute("dx").toInt(), child.attribute("dy").toInt(), type.toInt());
+			commands << newCommand(name, description, insertion, highlightString, xml.attributes().value("dx").toString().toInt(), xml.attributes().value("dy").toString().toInt(), type.toInt());
+			xml.skipCurrentElement(); // allow to read the next start element on the same level: this skips reading the current end element which would cause xml.readNextStartElement() to evaluate to false
 		}
-		else if (child.tagName() == "separator")
+		else if (xml.name() == "separator")
 		{
 			commands << newCommand("", "", "", "", 0, 0, 0);
+			xml.skipCurrentElement(); // same as above
 		}
-		else if (child.tagName() == "section")
+		else if (xml.name() == "section")
 		{
 			commands << newCommand("", "", "", "", 0, 0, -1); // the i-th command with type == -1 corresponds to the i-th submenu (assumed in getMenu())
-			commandList.children << getCommands(child);
+			commandList.children << getChildCommands();
 		}
-		child = child.nextSiblingElement();
+		else
+			xml.skipCurrentElement();
 	}
 	commandList.commands = commands;
 

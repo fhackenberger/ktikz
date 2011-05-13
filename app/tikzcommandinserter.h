@@ -21,9 +21,9 @@
 
 #include <QObject>
 #include <QStringList>
+#include <QXmlStreamReader>
 
 class QDockWidget;
-class QDomElement;
 class QListWidget;
 class QListWidgetItem;
 class QMenu;
@@ -78,7 +78,7 @@ signals:
 
 private:
 	void getCommands();
-	TikzCommandList getCommands(const QDomElement &element);
+	TikzCommandList getChildCommands();
 	QMenu *getMenu(const TikzCommandList &commandList);
 	void addListWidgetItems(QListWidget *listWidget, const TikzCommandList &commandList, bool addChildren = true);
 	TikzCommand newCommand(const QString &name, const QString &command, int dx, int dy, int type = 0);
@@ -86,6 +86,7 @@ private:
 
 	QPlainTextEdit *m_mainEdit;
 	QWidget *m_parentWidget;
+	QXmlStreamReader xml;
 	TikzCommandList m_tikzSections;
 	QList<TikzCommand> m_tikzCommandsList;
 

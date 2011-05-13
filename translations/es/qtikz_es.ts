@@ -557,43 +557,48 @@
     </message>
     <message>
         <location filename="../../app/editindentwidget.ui" line="12"/>
+        <source>Indent:</source>
+        <translation>Sangrar:</translation>
+    </message>
+    <message>
+        <location filename="../../app/editindentwidget.ui" line="19"/>
         <source>Using sp&amp;aces</source>
         <translation>Con espa&amp;cios</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="15"/>
-        <location filename="../../app/editindentwidget.ui" line="73"/>
+        <location filename="../../app/editindentwidget.ui" line="22"/>
+        <location filename="../../app/editindentwidget.ui" line="80"/>
         <source>buttonGroup</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="41"/>
+        <location filename="../../app/editindentwidget.ui" line="48"/>
         <source>&amp;Number of spaces:</source>
         <translation>&amp;Número de espacios:</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="67"/>
+        <location filename="../../app/editindentwidget.ui" line="74"/>
         <source>Using ta&amp;bs</source>
         <translation>Con ta&amp;bs</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="80"/>
+        <location filename="../../app/editindentwidget.ui" line="87"/>
         <source>N&amp;umber of tabs:</source>
         <translation>Núme&amp;ro de tabs:</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="105"/>
+        <location filename="../../app/editindentwidget.ui" line="112"/>
         <location filename="../../app/editindentwidget.cpp" line="66"/>
         <source>In&amp;dent</source>
         <translation>San&amp;grar</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="112"/>
+        <location filename="../../app/editindentwidget.ui" line="119"/>
         <source>Close indent box</source>
         <translation>Cerrar herramienta «Sangrar»</translation>
     </message>
     <message>
-        <location filename="../../app/editindentwidget.ui" line="115"/>
+        <location filename="../../app/editindentwidget.ui" line="122"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Annular</translation>
     </message>
@@ -1367,37 +1372,44 @@ Do you want to save your changes?</source>
         <translation>&amp;Opciones</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="364"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="66"/>
+        <source>Parse error in TikZ commands file at line %1, column %2:
+%3</source>
+        <translation>Error de análisis en el fichero de comandos TikZ en línea %1, columna %2:
+%3</translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzcommandinserter.cpp" line="359"/>
         <source>&lt;p&gt;This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Este es una lista de comandos TikZ.  Puede insertar estos comandos en su código pulsandolos.  Puede obtener más comandos cambiando la categoría.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="370"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="365"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="374"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="369"/>
         <source>Category:</source>
         <translation>Categoría:</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="387"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="382"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="482"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="477"/>
         <source>Commands</source>
         <translation>Comandos</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="482"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="477"/>
         <source>Draw to</source>
         <translation>Tirar a</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="482"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="477"/>
         <source>Options</source>
         <translation>Opciones</translation>
     </message>
@@ -1407,20 +1419,18 @@ Do you want to save your changes?</source>
         <translation>Definir c&amp;olor</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="62"/>
-        <location filename="../../app/tikzcommandinserter.cpp" line="70"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="65"/>
         <source>TikZ Commands</source>
         <translation>Comandos TikZ</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="63"/>
         <source>Parse error at line %1, column %2:
 %3</source>
-        <translation>Error de análisis en línea %1, columna %2:
+        <translation type="obsolete">Error de análisis en línea %1, columna %2:
 %3</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="71"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="62"/>
         <source>Cannot parse the TikZ commands file.</source>
         <translation>Imposible de analisar el fichero de comandos TikZ.</translation>
     </message>
