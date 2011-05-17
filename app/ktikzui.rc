@@ -61,6 +61,7 @@
    <Action name="shell_escape"/>
   </Menu>
   <Action name="insert"/>
+  <Action name="user_insert"/>
   <Merge/>
   <Menu noMerge="1" name="settings">
    <text context="@title:menu">&amp;Settings</text>

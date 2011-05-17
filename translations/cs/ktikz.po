@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2011-03-02 17:47+0100\n"
+"POT-Creation-Date: 2011-05-17 19:10+0200\n"
 "PO-Revision-Date: 2010-10-24 19:01+0200\n"
 "Last-Translator: Pavel Fric\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -25,7 +25,7 @@ msgstr "KtikZ"
 msgid "A TikZ Editor"
 msgstr "Editor TikZ"
 
-#: ../app/main.cpp:108 ../part/part.cpp:112
+#: ../app/main.cpp:108 ../part/part.cpp:121
 msgid "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
 msgstr "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
 
@@ -34,19 +34,19 @@ msgid ""
 "This is a program for creating TikZ (from the LaTeX pgf package) diagrams."
 msgstr "Toto je program pro vytváření nákresů TikZ (z balíčku LaTeX pgf)."
 
-#: ../app/main.cpp:111 ../part/part.cpp:115
+#: ../app/main.cpp:111 ../part/part.cpp:124
 msgid "Florian Hackenberger"
 msgstr "Florian Hackenberger"
 
-#: ../app/main.cpp:111 ../part/part.cpp:115
+#: ../app/main.cpp:111 ../part/part.cpp:124
 msgid "Maintainer"
 msgstr "Správce"
 
-#: ../app/main.cpp:112 ../part/part.cpp:116
+#: ../app/main.cpp:112 ../part/part.cpp:125
 msgid "Glad Deschrijver"
 msgstr "Glad Deschrijver"
 
-#: ../app/main.cpp:112 ../part/part.cpp:116
+#: ../app/main.cpp:112 ../part/part.cpp:125
 msgid "Developer"
 msgstr "Vývojář"
 
@@ -54,22 +54,22 @@ msgstr "Vývojář"
 msgid "TikZ document to open"
 msgstr "Dokument TikZ k otevření"
 
-#: ../part/configdialog.cpp:29
+#: ../part/configdialog.cpp:32
 msgctxt "@title:window"
 msgid "Configure KtikZ Viewer"
 msgstr "Nastavit prohlížeč KtikZ"
 
-#: ../part/configdialog.cpp:53
+#: ../part/configdialog.cpp:56
 msgctxt "@title:group"
 msgid "Viewer"
 msgstr "Prohlížeč"
 
-#: ../part/configdialog.cpp:55
+#: ../part/configdialog.cpp:58
 msgctxt "@option:check"
 msgid "&Reload document on file change"
 msgstr "&Nahrát dokument při změně souboru znovu"
 
-#: ../part/configdialog.cpp:57
+#: ../part/configdialog.cpp:60
 msgctxt "@info:whatsthis"
 msgid ""
 "<para>When this option is checked, the TikZ image will be reloaded each time "
@@ -78,57 +78,63 @@ msgstr ""
 "<para>Když je zaškrtnuta tato volba, obrázek TikZ bude nahrán znovu vždy, "
 "když je soubor změněn jiným programem.</para>"
 
-#: ../part/part.cpp:109
-msgid "KtikZ KPart"
-msgstr "Část KtikZ"
+#: ../part/part.cpp:63 ../part/part.cpp:118
+#, fuzzy
+msgid "KtikZ Viewer"
+msgstr "Prohlížeč obrázků TikZ"
 
-#: ../part/part.cpp:110
+#: ../part/part.cpp:119
 msgid "A TikZ Viewer"
 msgstr "Prohlížeč obrázků TikZ"
 
-#: ../part/part.cpp:113
+#: ../part/part.cpp:122
 msgid ""
 "This is a plugin for viewing TikZ (from the LaTeX pgf package) diagrams."
 msgstr ""
 "Toto je přídavný modul pro prohlížení nákresů TikZ (z balíčku LaTeX pgf)."
 
-#: ../part/part.cpp:124
+#: ../part/part.cpp:140
 msgctxt "@info:whatsthis"
 msgid "<para>Save the document under a new name.</para>"
 msgstr "<para>Uložit dokument pod novým názvem.</para>"
 
-#: ../part/part.cpp:138
+#: ../part/part.cpp:154
 msgctxt "@action"
 msgid "Configure KtikZ Viewer..."
 msgstr "Nastavit prohlížeč KtikZ..."
 
-#: ../part/part.cpp:150
+#: ../part/part.cpp:158
+#, fuzzy
+msgid "About KtikZ Viewer"
+msgstr "Prohlížeč obrázků TikZ"
+
+#: ../part/part.cpp:172
 msgctxt "@info"
 msgid "Cannot read file <filename>%1</filename>:<nl/><message>%2</message>"
 msgstr ""
 "Nelze přečíst soubor <filename>%1</filename> :<nl/><message>%2</message>"
 
-#: ../part/part.cpp:150
+#: ../part/part.cpp:172
 msgctxt "@title:window"
 msgid "File Read Error"
 msgstr "Chyba při čtení souboru"
 
-#: ../part/part.cpp:180
+#: ../part/part.cpp:202
 msgctxt "@item:inlistbox filter"
 msgid "TikZ files"
 msgstr "Soubory TikZ"
 
-#: ../part/part.cpp:182
+#: ../part/part.cpp:204
 msgctxt "@item:inlistbox filter"
 msgid "All files"
 msgstr "Všechny soubory"
 
-#: ../part/part.cpp:183
+#: ../part/part.cpp:205
 msgctxt "@title:window"
 msgid "Save TikZ Source File As"
 msgstr "Uložit zdrojový soubor TikZ jako"
 
-#: ../part/part.cpp:277
+#: ../part/part.cpp:301
 msgctxt "@info:status"
 msgid "Reloading the document..."
 msgstr "Dokument se nahrává znovu..."
@@ -149,76 +155,78 @@ msgctxt "@title:menu"
 msgid "&Edit"
 msgstr "&Úpravy"
 
-#. i18n: file: ../app/ktikzui.rc:44
+#. i18n: file: ../app/ktikzui.rc:45
 #. i18n: ectx: Menu (view)
-#. i18n: file: ../part/ktikzpart.rc:9
+#. i18n: file: ../part/ktikzpart.rc:8
 #. i18n: ectx: Menu (view)
 #: rc.cpp:9 rc.cpp:129
 msgctxt "@title:menu"
 msgid "&View"
 msgstr "&Pohled"
 
-#. i18n: file: ../app/ktikzui.rc:52
+#. i18n: file: ../app/ktikzui.rc:53
 #. i18n: ectx: Menu (go)
 #: rc.cpp:12
 msgctxt "@title:menu"
 msgid "&Go"
 msgstr "&Jít na"
 
-#. i18n: file: ../app/ktikzui.rc:56
+#. i18n: file: ../app/ktikzui.rc:57
 #. i18n: ectx: Menu (process)
-#. i18n: file: ../part/ktikzpart.rc:16
+#. i18n: file: ../part/ktikzpart.rc:15
 #. i18n: ectx: Menu (process)
 #: rc.cpp:15 rc.cpp:132
 msgctxt "@title:menu"
 msgid "&Process"
 msgstr "&Proces"
 
-#. i18n: file: ../app/ktikzui.rc:65
+#. i18n: file: ../app/ktikzui.rc:67
 #. i18n: ectx: Menu (settings)
-#. i18n: file: ../part/ktikzpart.rc:21
+#. i18n: file: ../part/ktikzpart.rc:20
 #. i18n: ectx: Menu (settings)
 #: rc.cpp:18 rc.cpp:135
 msgctxt "@title:menu"
 msgid "&Settings"
 msgstr "&Nastavení"
 
-#. i18n: file: ../app/ktikzui.rc:68
+#. i18n: file: ../app/ktikzui.rc:70
 #. i18n: ectx: Menu (sidebars)
 #: rc.cpp:21
 msgctxt "@title:menu"
 msgid "&Sidebars"
 msgstr "&Postranní pruhy"
 
-#. i18n: file: ../app/ktikzui.rc:80
+#. i18n: file: ../app/ktikzui.rc:82
 #. i18n: ectx: Menu (help)
-#: rc.cpp:24
+#. i18n: file: ../part/ktikzpart.rc:23
+#. i18n: ectx: Menu (help)
+#: rc.cpp:24 rc.cpp:138
 msgctxt "@title:menu"
 msgid "&Help"
 msgstr "&Nápověda"
 
-#. i18n: file: ../app/ktikzui.rc:94
+#. i18n: file: ../app/ktikzui.rc:96
 #. i18n: ectx: ToolBar (mainToolBar)
 #: rc.cpp:27
 msgctxt "@title:menu toolbar title"
 msgid "File Toolbar"
 msgstr "Nástrojový pruh <resource>Soubor</resource>"
 
-#. i18n: file: ../app/ktikzui.rc:101
+#. i18n: file: ../app/ktikzui.rc:103
 #. i18n: ectx: ToolBar (editToolBar)
 #: rc.cpp:30
 msgctxt "@title:menu toolbar title"
 msgid "Edit Toolbar"
 msgstr "Nástrojový pruh <resource>Úpravy</resource>"
 
-#. i18n: file: ../app/ktikzui.rc:106
+#. i18n: file: ../app/ktikzui.rc:108
 #. i18n: ectx: ToolBar (processToolBar)
 #: rc.cpp:33
 msgctxt "@title:menu toolbar title"
 msgid "Process Toolbar"
 msgstr "Nástrojový pruh <resource>Proces</resource>"
 
-#. i18n: file: ../app/ktikzui.rc:113
+#. i18n: file: ../app/ktikzui.rc:115
 #. i18n: ectx: ToolBar (viewToolBar)
 #: rc.cpp:36
 msgctxt "@title:menu toolbar title"
@@ -415,19 +423,22 @@ msgstr ""
 msgid "&Editor command:"
 msgstr "&Příkaz pro editor:"
 
-#. i18n: file: ../part/ktikzpart.rc:25
+#. i18n: file: ../part/ktikzpart.rc:27
 #. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:138
+#: rc.cpp:141
 msgctxt "@title:menu toolbar title"
 msgid "Main Toolbar"
 msgstr "Hlavní nástrojový pruh"
 
-#: rc.cpp:139
+#: rc.cpp:142
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: rc.cpp:140
+#: rc.cpp:143
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
+
+#~ msgid "KtikZ KPart"
+#~ msgstr "Část KtikZ"

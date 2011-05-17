@@ -27,6 +27,8 @@ set(ktikz_SRCS
 	tikzeditor.cpp
 	tikzeditorhighlighter.cpp
 	tikzeditorview.cpp
+	usercommandeditdialog.cpp
+	usercommandinserter.cpp
 	../common/templatewidget.cpp
 	../common/tikzpreview.cpp
 	../common/tikzpreviewthread.cpp
@@ -53,6 +55,7 @@ qt4_wrap_ui(ktikz_UI_FILES
 	editgotolinewidget.ui
 	editindentwidget.ui
 	editreplacewidget.ui
+	usercommandeditdialog.ui
 	../common/templatewidget.ui
 )
 kde4_add_kcfg_files(ktikz_SRCS ../common/settings.kcfgc)

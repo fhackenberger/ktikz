@@ -50,6 +50,7 @@ class TikzEditorView;
 class TikzHighlighter;
 class TikzPreviewController;
 class Url;
+class UserCommandInserter;
 
 /** Provides a tiny application for simple editing of TikZ graphics
  * @author Florian Hackenberger
@@ -125,6 +126,7 @@ private slots:
 #endif
 	void showCursorPosition(int row, int col);
 	void showMouseCoordinates(qreal x, qreal y, int precisionX = 5, int precisionY = 5);
+	void updateCompleter();
 
 private:
 	void createActions();
@@ -142,7 +144,6 @@ private:
 	void setCurrentUrl(const Url &url);
 	QString strippedName(const Url &url) const;
 	void showPdfPage();
-	void updateCompleter();
 
 	static QList<MainWindow*> s_mainWindowList;
 
@@ -162,6 +163,7 @@ private:
 
 	QDockWidget *m_commandsDock;
 	TikzCommandInserter *m_commandInserter;
+	UserCommandInserter *m_userCommandInserter;
 
 	QLabel *m_positionLabel;
 	QLabel *m_mouseCoordinatesLabel;

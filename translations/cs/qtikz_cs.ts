@@ -666,357 +666,356 @@ Chcete uložit své změny?</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="134"/>
+        <location filename="../../app/mainwindow.cpp" line="137"/>
         <source>Messages</source>
         <translation>Zprávy</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="137"/>
+        <location filename="../../app/mainwindow.cpp" line="140"/>
         <source>&lt;p&gt;The messages produced by LaTeX are shown here.  If your TikZ code contains errors, then a red border will appear and the errors will be highlighted.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Zprávy vytvářené LaTeXem se ukazují zde. Pokud váš kód TikZ obsahuje chyby, potom se objeví červený okraj a chyby budou zvýrazněny.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="149"/>
+        <location filename="../../app/mainwindow.cpp" line="152"/>
         <source>Preview</source>
         <translation>Náhled</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="280"/>
+        <location filename="../../app/mainwindow.cpp" line="286"/>
         <source>Open PGF source file</source>
         <translation>Otevřít zdrojový soubor PGF</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="280"/>
-        <location filename="../../app/mainwindow.cpp" line="303"/>
+        <location filename="../../app/mainwindow.cpp" line="286"/>
+        <location filename="../../app/mainwindow.cpp" line="309"/>
         <source>PGF files</source>
         <comment>filter</comment>
         <translation>Soubory PGF</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="280"/>
-        <location filename="../../app/mainwindow.cpp" line="303"/>
+        <location filename="../../app/mainwindow.cpp" line="286"/>
+        <location filename="../../app/mainwindow.cpp" line="309"/>
         <source>All files</source>
         <comment>filter</comment>
         <translation>Všechny soubory</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="303"/>
+        <location filename="../../app/mainwindow.cpp" line="309"/>
         <source>Save PGF source file</source>
         <translation>Uložit zdrojový soubor PGF</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="335"/>
+        <location filename="../../app/mainwindow.cpp" line="341"/>
         <source>The document was modified by another program.
 What do you want to do?</source>
         <translation>Dokument byl změněn jiným programem.
 Co chcete dělat?</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="338"/>
+        <location filename="../../app/mainwindow.cpp" line="344"/>
         <source>&amp;Overwrite</source>
         <translation>&amp;Přepsat</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="343"/>
+        <location filename="../../app/mainwindow.cpp" line="349"/>
         <source>&amp;Save under another name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="346"/>
+        <location filename="../../app/mainwindow.cpp" line="352"/>
         <source>&amp;Close without saving</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="350"/>
+        <location filename="../../app/mainwindow.cpp" line="356"/>
         <source>&amp;Reload file</source>
         <translation>&amp;Nahrát soubor znovu</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="395"/>
+        <location filename="../../app/mainwindow.cpp" line="401"/>
         <source>Cannot find TikZ documentation.
 Go to Settings -&gt; Configure %1 and change in the &quot;General&quot; tab the path to the TikZ documentation.</source>
         <translation>Nelze najít dokumentaci k TikZ.
 Jděte do Nastavení -&gt; Nastavit %1 a na kartě &quot;Obecné&quot; změňte cestu k dokumentaci pro TikZ.</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="401"/>
+        <location filename="../../app/mainwindow.cpp" line="407"/>
         <source>Cannot open TikZ documentation.
 No application is found which can open the file &quot;%1&quot;.</source>
         <translation>Nelze otevřít dokumentaci k TikZ.
 Nebyl nalezen žádný program, který by uměl otevřít soubor &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="463"/>
+        <location filename="../../app/mainwindow.cpp" line="469"/>
         <source>Reloa&amp;d</source>
         <translation>Na&amp;hrát znovu</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="465"/>
+        <location filename="../../app/mainwindow.cpp" line="471"/>
         <source>Reload the current document</source>
         <translation>Nahrát nynější dokument znovu</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="466"/>
+        <location filename="../../app/mainwindow.cpp" line="472"/>
         <source>&lt;p&gt;Reload the current document from disk.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Nahrát znovu nynější dokument z disku.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="471"/>
+        <location filename="../../app/mainwindow.cpp" line="477"/>
         <source>Create a new document</source>
         <translation>Vytvořit nový dokument</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="472"/>
+        <location filename="../../app/mainwindow.cpp" line="478"/>
         <source>Open an existing file</source>
         <translation>Otevřít stávající soubor</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="473"/>
+        <location filename="../../app/mainwindow.cpp" line="479"/>
         <source>Open a recently opened file</source>
         <translation>Otevřít naposledy otevřený soubor</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="474"/>
+        <location filename="../../app/mainwindow.cpp" line="480"/>
         <source>Save the current document to disk</source>
         <translation>Uložit nynější dokument na disk</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="475"/>
+        <location filename="../../app/mainwindow.cpp" line="481"/>
         <source>Save the document under a new name</source>
         <translation>Uložit dokument pod novým názvem</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="476"/>
+        <location filename="../../app/mainwindow.cpp" line="482"/>
         <source>Close the current document</source>
         <translation>Zavřít nynější dokument</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="477"/>
+        <location filename="../../app/mainwindow.cpp" line="483"/>
         <source>Exit the application</source>
         <translation>Ukončit program</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="479"/>
+        <location filename="../../app/mainwindow.cpp" line="485"/>
         <source>&lt;p&gt;Create a new document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vytvořit nový dokument.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="480"/>
+        <location filename="../../app/mainwindow.cpp" line="486"/>
         <source>&lt;p&gt;Open an existing file.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Otevřít stávající soubor.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="481"/>
+        <location filename="../../app/mainwindow.cpp" line="487"/>
         <source>&lt;p&gt;Open a recently opened file.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Otevřít naposledy otevřený soubor.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="482"/>
+        <location filename="../../app/mainwindow.cpp" line="488"/>
         <source>&lt;p&gt;Save the current document to disk.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Uložit nynější dokument na disk.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="483"/>
+        <location filename="../../app/mainwindow.cpp" line="489"/>
         <source>&lt;p&gt;Save the document under a new name.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Uložit dokument pod novým názvem.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="484"/>
+        <location filename="../../app/mainwindow.cpp" line="490"/>
         <source>&lt;p&gt;Close the current document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Zavřít nynější dokument.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="485"/>
+        <location filename="../../app/mainwindow.cpp" line="491"/>
         <source>&lt;p&gt;Exit the application.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ukončit program.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="488"/>
+        <location filename="../../app/mainwindow.cpp" line="494"/>
         <source>&amp;Build</source>
         <translation>&amp;Sestavit</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="489"/>
+        <location filename="../../app/mainwindow.cpp" line="495"/>
         <source>Ctrl+B</source>
         <comment>View|Build</comment>
         <translation>Ctrl+B</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="490"/>
+        <location filename="../../app/mainwindow.cpp" line="496"/>
         <source>Build preview</source>
         <translation>Sestavit náhled</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="491"/>
+        <location filename="../../app/mainwindow.cpp" line="497"/>
         <source>&lt;p&gt;Generate preview by building the current TikZ code in the editor.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vytvořit náhled sestavením nynějšího kódu TikZ v editoru.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="494"/>
+        <location filename="../../app/mainwindow.cpp" line="500"/>
         <source>View &amp;Log</source>
         <translation>Zobrazit &amp;zápis</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="495"/>
+        <location filename="../../app/mainwindow.cpp" line="501"/>
         <source>View log messages produced by the last executed process</source>
         <translation>Zobrazit zprávy zápisů vytvořené posledním provedeným procesem</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="496"/>
+        <location filename="../../app/mainwindow.cpp" line="502"/>
         <source>&lt;p&gt;Show the log messages produced by the last executed process in the Messages box.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ukázat zprávy zápisů vytvořené posledním provedeným procesem v okénku se zprávami.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="501"/>
+        <location filename="../../app/mainwindow.cpp" line="507"/>
         <source>&amp;Configure %1...</source>
         <translation>&amp;Nastavit %1...</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="502"/>
+        <location filename="../../app/mainwindow.cpp" line="508"/>
         <source>Configure the settings of this application</source>
         <translation>Nastavit nastavení tohoto programu</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="503"/>
+        <location filename="../../app/mainwindow.cpp" line="509"/>
         <source>&lt;p&gt;Configure the settings of this application.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Nastavit nastavení tohoto programu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="511"/>
+        <location filename="../../app/mainwindow.cpp" line="517"/>
         <source>TikZ &amp;Manual</source>
         <translation>&amp;Příručka k TikZ</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="512"/>
+        <location filename="../../app/mainwindow.cpp" line="518"/>
         <source>Show the manual of TikZ and PGF</source>
         <translation>Ukázat příručku k TikZ a PGF</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="513"/>
+        <location filename="../../app/mainwindow.cpp" line="519"/>
         <source>&lt;p&gt;Show the manual of TikZ and PGF.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ukázat příručku k TikZ a PGF.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="519"/>
+        <location filename="../../app/mainwindow.cpp" line="525"/>
         <source>%1 &amp;Handbook</source>
         <translation>%1 &amp;Příručka</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="520"/>
+        <location filename="../../app/mainwindow.cpp" line="526"/>
         <source>Show the application&apos;s documentation</source>
         <translation>Ukázat dokumentaci k programu</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="525"/>
+        <location filename="../../app/mainwindow.cpp" line="531"/>
         <source>Show simple description of any widget</source>
         <translation>Ukázat jenoduchý popis každého prvku</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="527"/>
+        <location filename="../../app/mainwindow.cpp" line="533"/>
         <source>&amp;About %1</source>
         <translation>&amp;O programu %1</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="528"/>
+        <location filename="../../app/mainwindow.cpp" line="534"/>
         <source>Show the application&apos;s About box</source>
         <translation>Ukázat okénko &quot;O programu&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="531"/>
+        <location filename="../../app/mainwindow.cpp" line="537"/>
         <source>About &amp;Qt</source>
         <translation>O &amp;Qt</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="532"/>
+        <location filename="../../app/mainwindow.cpp" line="538"/>
         <source>Show the Qt library&apos;s About box</source>
         <translation>Ukázat okénko &quot;O knihovně Qt&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="540"/>
+        <location filename="../../app/mainwindow.cpp" line="546"/>
         <source>&amp;File</source>
         <translation>&amp;Soubor</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="564"/>
+        <location filename="../../app/mainwindow.cpp" line="570"/>
         <source>&amp;Settings</source>
         <translation>&amp;Nastavení</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="565"/>
+        <location filename="../../app/mainwindow.cpp" line="571"/>
         <source>&amp;Toolbars</source>
         <translation>&amp;Nástrojové pruhy</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="567"/>
+        <location filename="../../app/mainwindow.cpp" line="573"/>
         <source>Show or hide toolbars</source>
         <translation>Ukázat nebo skrýt nástrojové pruhy</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="572"/>
-        <location filename="../../app/mainwindow.cpp" line="573"/>
-        <location filename="../../app/mainwindow.cpp" line="574"/>
-        <location filename="../../app/mainwindow.cpp" line="575"/>
-        <location filename="../../app/mainwindow.cpp" line="719"/>
+        <location filename="../../app/mainwindow.cpp" line="578"/>
+        <location filename="../../app/mainwindow.cpp" line="579"/>
+        <location filename="../../app/mainwindow.cpp" line="580"/>
+        <location filename="../../app/mainwindow.cpp" line="581"/>
+        <location filename="../../app/mainwindow.cpp" line="736"/>
         <source>Show toolbar &quot;%1&quot;</source>
         <translation>Ukázat nástrojový pruh &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="577"/>
+        <location filename="../../app/mainwindow.cpp" line="583"/>
         <source>&amp;Sidebars</source>
         <translation>&amp;Postranní pruhy</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="579"/>
+        <location filename="../../app/mainwindow.cpp" line="585"/>
         <source>Show or hide sidebars</source>
         <translation>Ukázat nebo skrýt postranní pruhy</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="582"/>
-        <location filename="../../app/mainwindow.cpp" line="583"/>
-        <location filename="../../app/mainwindow.cpp" line="710"/>
+        <location filename="../../app/mainwindow.cpp" line="588"/>
+        <location filename="../../app/mainwindow.cpp" line="589"/>
+        <location filename="../../app/mainwindow.cpp" line="727"/>
         <source>Show sidebar &quot;%1&quot;</source>
         <translation>Ukázat postranní pruh &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="596"/>
+        <location filename="../../app/mainwindow.cpp" line="602"/>
         <source>&amp;Help</source>
         <translation>&amp;Nápověda</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="607"/>
+        <location filename="../../app/mainwindow.cpp" line="613"/>
         <source>File</source>
         <translation>Soubor</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="679"/>
         <source>&amp;Insert</source>
-        <translation>&amp;Vložit</translation>
+        <translation type="obsolete">&amp;Vložit</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="699"/>
+        <location filename="../../app/mainwindow.cpp" line="716"/>
         <source>Ready</source>
         <translation>Připraven</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="708"/>
+        <location filename="../../app/mainwindow.cpp" line="725"/>
         <source>Hide sidebar &quot;%1&quot;</source>
         <translation>Skrýt postranní pruh &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="717"/>
+        <location filename="../../app/mainwindow.cpp" line="734"/>
         <source>Hide toolbar &quot;%1&quot;</source>
         <translation>Skrýt nástrojový pruh &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="841"/>
+        <location filename="../../app/mainwindow.cpp" line="858"/>
         <source>The document has been modified.
 Do you want to save your changes?</source>
         <translation>Dokument byl změněn.
 Chcete uložit své změny?</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="969"/>
-        <location filename="../../app/mainwindow.cpp" line="971"/>
+        <location filename="../../app/mainwindow.cpp" line="986"/>
+        <location filename="../../app/mainwindow.cpp" line="988"/>
         <source>Preview: x = %1	y = %2</source>
         <comment>@info:status</comment>
         <translation type="unfinished"></translation>
@@ -1037,19 +1036,19 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Chyba při čtení souboru</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="864"/>
+        <location filename="../../app/mainwindow.cpp" line="881"/>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
         <translation>Nelze přečíst soubor &quot;%1&quot;:
 %2.</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="899"/>
+        <location filename="../../app/mainwindow.cpp" line="916"/>
         <source>File loaded</source>
         <translation>Soubor nahrán</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="926"/>
+        <location filename="../../app/mainwindow.cpp" line="943"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Nelze zapsat soubor &quot;%1&quot;:
@@ -1061,7 +1060,7 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Chyba při ukládání souboru</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="911"/>
+        <location filename="../../app/mainwindow.cpp" line="928"/>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
         <translation>Nelze zapsat soubor &quot;%1&quot;:
@@ -1072,18 +1071,18 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Nepodařilo se zkopírovat dočasný soubor &quot;%1&quot; do &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="934"/>
+        <location filename="../../app/mainwindow.cpp" line="951"/>
         <source>File saved</source>
         <comment>@info:status</comment>
         <translation>Soubor uložen</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="948"/>
+        <location filename="../../app/mainwindow.cpp" line="965"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="963"/>
+        <location filename="../../app/mainwindow.cpp" line="980"/>
         <source>Line: %1	Col: %2</source>
         <comment>@info:status</comment>
         <translation>Řádek: %1	Sloupec: %2</translation>
@@ -4076,6 +4075,68 @@ Pokračovat od konce?</translation>
         <location filename="../../common/tikzpreviewgenerator.cpp" line="610"/>
         <source>Running...</source>
         <translation>Běží...</translation>
+    </message>
+</context>
+<context>
+    <name>UserCommandEditDialog</name>
+    <message>
+        <location filename="../../app/usercommandeditdialog.ui" line="14"/>
+        <source>Edit User Defined Commands</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/usercommandeditdialog.ui" line="22"/>
+        <source>&amp;Select item:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/usercommandeditdialog.ui" line="37"/>
+        <source>&amp;Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/usercommandeditdialog.ui" line="44"/>
+        <source>&amp;Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/usercommandeditdialog.ui" line="53"/>
+        <source>Item &amp;name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/usercommandeditdialog.ui" line="71"/>
+        <source>&amp;LaTeX content:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/usercommandeditdialog.ui" line="97"/>
+        <source>&amp;Insert placeholder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/usercommandeditdialog.cpp" line="32"/>
+        <source>Menu item 100</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/usercommandeditdialog.cpp" line="55"/>
+        <location filename="../../app/usercommandeditdialog.cpp" line="117"/>
+        <source>Menu item %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UserCommandInserter</name>
+    <message>
+        <location filename="../../app/usercommandinserter.cpp" line="64"/>
+        <source>&amp;User snippets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/usercommandinserter.cpp" line="84"/>
+        <source>&amp;Edit user commands</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

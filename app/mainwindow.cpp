@@ -63,6 +63,7 @@
 #include "tikzdocumentationcontroller.h"
 #include "tikzeditorhighlighter.h"
 #include "tikzeditorview.h"
+#include "usercommandinserter.h"
 #include "../common/templatewidget.h"
 #include "../common/tikzpreviewcontroller.h"
 #include "../common/tikzpreview.h"
@@ -119,6 +120,8 @@ MainWindow::MainWindow()
 	m_commandInserter->setEditor(m_tikzEditorView->editor());
 	m_tikzHighlighter = new TikzHighlighter(m_commandInserter, m_tikzEditorView->editor()->document());
 	m_tikzHighlighter->rehighlight(); // avoid that textEdit emits the signal contentsChanged() when it is still empty
+	m_userCommandInserter = new UserCommandInserter(this);
+	m_userCommandInserter->setEditor(m_tikzEditorView->editor());
 
 	QWidget *mainWidget = new QWidget(this);
 	QVBoxLayout *mainLayout = new QVBoxLayout(mainWidget);
@@ -187,6 +190,9 @@ MainWindow::MainWindow()
 	        m_logTextEdit, SLOT(logUpdated(QString,bool)));
 	connect(m_tikzPreviewController, SIGNAL(showMouseCoordinates(qreal,qreal,int,int)),
 	        this, SLOT(showMouseCoordinates(qreal,qreal,int,int)));
+
+	connect(m_userCommandInserter, SIGNAL(updateCompleter()),
+	        this, SLOT(updateCompleter()));
 
 	readSettings(); // must be run after defining tikzController and tikzHighlighter, and after creating the toolbars, and after the connects
 
@@ -658,6 +664,7 @@ void MainWindow::setToolBarStyle()
 
 void MainWindow::createCommandInsertWidget()
 {
+	// insert global commands widget
 	QSettings settings(ORGNAME, APPNAME);
 	bool commandsInDock = settings.value("CommandsInDock", false).toBool();
 
@@ -676,12 +683,22 @@ void MainWindow::createCommandInsertWidget()
 	else
 	{
 #ifdef KTIKZ_USE_KDE
-		KAction *insertAction = new Action(tr("&Insert"), this, "insert");
-		insertAction->setMenu(m_commandInserter->getMenu());
+		QMenu *insertMenu = m_commandInserter->getMenu();
+		KAction *insertAction = new Action(insertMenu->title(), this, "insert");
+		insertAction->setMenu(insertMenu);
 #else
 		menuBar()->insertMenu(m_settingsMenu->menuAction(), m_commandInserter->getMenu());
 #endif
 	}
+
+	// insert user commands menu
+#ifdef KTIKZ_USE_KDE
+	QMenu *userMenu = m_userCommandInserter->getMenu();
+	KAction *userInsertAction = new Action(userMenu->title(), this, "user_insert");
+	userInsertAction->setMenu(userMenu);
+#else
+	menuBar()->insertMenu(m_settingsMenu->menuAction(), m_userCommandInserter->getMenu());
+#endif
 }
 
 void MainWindow::createStatusBar()
@@ -984,6 +1001,7 @@ QString MainWindow::tikzCode() const
 void MainWindow::updateCompleter()
 {
 	QStringList words = m_commandInserter->getCommandWords();
+	words << m_userCommandInserter->getCommandWords();
 	words.sort();
 	words.removeDuplicates();
 	QStringListModel *model = new QStringListModel(words, m_completer);

@@ -38,6 +38,7 @@ FORMS += configappearancewidget.ui \
 	editgotolinewidget.ui \
 	editindentwidget.ui \
 	editreplacewidget.ui \
+	usercommandeditdialog.ui \
 	../common/templatewidget.ui
 #SOURCES += $$formSources($$FORMS) \ # linguist does not use translations in corresponding cpp files if we use this :-(
 SOURCES += ../common/utils/action.cpp \
@@ -71,6 +72,8 @@ SOURCES += ../common/utils/action.cpp \
 	tikzeditor.cpp \
 	tikzeditorhighlighter.cpp \
 	tikzeditorview.cpp \
+	usercommandeditdialog.cpp \
+	usercommandinserter.cpp \
 	../common/templatewidget.cpp \
 	../common/tikzpreview.cpp \
 	../common/tikzpreviewcontroller.cpp \
