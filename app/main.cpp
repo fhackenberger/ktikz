@@ -22,6 +22,8 @@
 #include <KAboutData>
 #include <KCmdLineArgs>
 #include <KUrl>
+#else
+#include <QSettings>
 #endif
 #include <QDir>
 #include <QFileInfo>
@@ -98,6 +100,20 @@ QTranslator *createTranslator(const QString &transName, const QString &transDir)
 int main(int argc, char **argv)
 {
 	qInstallMsgHandler(debugOutput);
+
+#ifndef KTIKZ_USE_KDE
+	// discard session (X11 calls QApplication::saveState() also when the app
+	// has been started, but then also calls QSessionManager::discardCommand()
+	// which we define as below in order to remove unnecessary session
+	// information)
+	if (argc == 3 && !strcmp(argv[1], "--discard"))
+	{
+		QSettings settings(ORGNAME, APPNAME);
+		settings.remove(QLatin1String("Session") + QLatin1String(argv[2])); // argv[2] contains the session id
+		settings.sync();
+		return 0;
+	}
+#endif
 
 #ifdef KTIKZ_USE_KDE
 	Q_INIT_RESOURCE(ktikz);

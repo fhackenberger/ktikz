@@ -22,6 +22,7 @@
 	<file>icons/edit-cut.png</file>
 	<file>icons/edit-paste.png</file>
 	<file>icons/format-indent-more.png</file>
+	<file>icons/format-indent-less.png</file>
 	<file>icons/edit-find.png</file>
 	<file>icons/go-up.png</file>
 	<file>icons/go-down.png</file>

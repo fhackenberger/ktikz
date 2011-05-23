@@ -53,7 +53,6 @@ private:
 #ifndef KTIKZ_USE_KDE
 	QStringList m_args;
 #endif
-	bool m_firstTime;
 };
 
 #endif

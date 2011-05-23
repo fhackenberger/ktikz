@@ -413,8 +413,10 @@ void TikzEditorView::indent(QChar insertChar, int numOfInserts, bool isUnindenti
 				{
 					textCursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
 					if (textCursor.selectedText() == insertChar)
+					{
 						textCursor.removeSelectedText();
-					--end; // when a character is removed, textCursor.selectionEnd() is shifted by 1 character, in order to let the test in the while-loop behave correctly, we must decrement end
+						--end; // when a character is removed, textCursor.selectionEnd() is shifted by 1 character, in order to let the test in the while-loop behave correctly, we must decrement end
+					}
 				}
 				go = textCursor.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor);
 			}

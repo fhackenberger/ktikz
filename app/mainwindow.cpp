@@ -105,6 +105,7 @@ MainWindow::MainWindow()
 	setWindowIcon(KIcon("ktikz"));
 	Action::setActionCollection(actionCollection());
 #else
+	setObjectName("qtikz#" + QString::number(s_mainWindowList.size()));
 	setWindowIcon(QIcon(":/icons/qtikz-22.png"));
 #endif
 

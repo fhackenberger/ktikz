@@ -29,7 +29,6 @@ KtikzApplication::KtikzApplication(int &argc, char **argv)
 {
 	Q_UNUSED(argc);
 	Q_UNUSED(argv);
-	m_firstTime = true;
 }
 
 void KtikzApplication::init()
@@ -72,7 +71,6 @@ KtikzApplication::KtikzApplication(int &argc, char **argv)
 {
 	for (int i = 0; i < argc; ++i)
 		m_args << QString::fromLocal8Bit(argv[i]);
-	m_firstTime = true;
 }
 
 void KtikzApplication::init()
@@ -80,7 +78,7 @@ void KtikzApplication::init()
 	if (isSessionRestored())
 	{
 		QSettings settings(ORGNAME, APPNAME);
-		settings.beginGroup("Session" + qApp->sessionId());
+		settings.beginGroup("Session" + sessionId());
 		const int size = settings.beginReadArray("MainWindowList");
 		for (int i = 0; i < size; ++i)
 		{
@@ -95,7 +93,6 @@ void KtikzApplication::init()
 		settings.remove("");
 		settings.endGroup();
 
-		m_firstTime = false;
 		return;
 	}
 
@@ -155,26 +152,20 @@ void KtikzApplication::commitData(QSessionManager &manager)
 
 void KtikzApplication::saveState(QSessionManager &manager)
 {
-	Q_UNUSED(manager);
-
 	QList<MainWindow*> mainWindowList = MainWindow::mainWindowList();
 	if (mainWindowList.size() == 0)
 		return;
 
-#ifdef Q_WS_X11
-	// in X11 the session manager calls savedState also on startup,
-	// we don't want to save anything at startup, so we return
-	// this is a dirty hack: it would be better to actually determine
-	// *when* this function is called
-	if (m_firstTime)
-	{
-		m_firstTime = false;
-		return;
-	}
-#endif
+	// in X11 the session manager calls saveState() also on startup,
+	// we don't want to save anything at startup, so we define a
+	// discard command (in main.cpp) which cleans up the unnecessary
+	// session information
+	QStringList discard = QStringList(applicationFilePath());
+	discard << QLatin1String("--discard") << sessionId();
+	manager.setDiscardCommand(discard); // this lets xsm hang, but it works in real session management in KDE Plasma
 
 	QSettings settings(ORGNAME, APPNAME);
-	settings.beginGroup("Session" + qApp->sessionId());
+	settings.beginGroup("Session" + sessionId());
 	settings.beginWriteArray("MainWindowList");
 	for (int i = 0; i < mainWindowList.size(); ++i)
 	{

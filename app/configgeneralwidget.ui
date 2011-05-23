@@ -35,9 +35,6 @@
           <property name="whatsThis">
            <string>&lt;p&gt;Select the maximum number of entries that appear in the &quot;Open Recent&quot; menu.  When the number of recently opened files exceeds this limit, the oldest entries will be lost.&lt;/p&gt;</string>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
          </widget>
         </item>
         <item>
@@ -612,5 +609,6 @@
  </connections>
  <buttongroups>
   <buttongroup name="buildButtonGroup"/>
+  <buttongroup name="precisionButtonGroup"/>
  </buttongroups>
 </ui>
