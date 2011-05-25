@@ -19,17 +19,17 @@
 #include "tikzpreviewcontroller.h"
 
 #ifndef KTIKZ_USE_KDE
-#include <QToolBar>
-#include <QToolButton>
+#include <QtGui/QToolBar>
+#include <QtGui/QToolButton>
 #endif
 
-#include <QMenu>
-#include <QMessageBox>
-#include <QPointer>
-#include <QPrintDialog>
-#include <QPrinter>
-#include <QSettings>
-#include <QTimer>
+#include <QtGui/QMenu>
+#include <QtGui/QMessageBox>
+#include <QtCore/QPointer>
+#include <QtGui/QPrintDialog>
+#include <QtGui/QPrinter>
+#include <QtCore/QSettings>
+#include <QtCore/QTimer>
 
 #include "templatewidget.h"
 #include "tikzpreview.h"

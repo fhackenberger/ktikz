@@ -19,15 +19,15 @@
 #include "configdialog.h"
 
 #ifndef KTIKZ_USE_KDE
-#include <QDialogButtonBox>
-#include <QGridLayout>
-#include <QListWidget>
-#include <QStackedWidget>
-//#include <QTabWidget>
-#include <QVBoxLayout>
+#include <QtGui/QDialogButtonBox>
+#include <QtGui/QGridLayout>
+#include <QtGui/QListWidget>
+#include <QtGui/QStackedWidget>
+//#include <QtGui/QTabWidget>
+#include <QtGui/QVBoxLayout>
 #endif
-#include <QKeyEvent>
-#include <QWhatsThis>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QWhatsThis>
 
 #include "configgeneralwidget.h"
 #include "configeditorwidget.h"

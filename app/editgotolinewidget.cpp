@@ -18,7 +18,7 @@
 
 #include "editgotolinewidget.h"
 
-#include <QKeyEvent>
+#include <QtGui/QKeyEvent>
 #include "../common/utils/icon.h"
 
 GoToLineWidget::GoToLineWidget(QWidget *parent) : QWidget(parent)

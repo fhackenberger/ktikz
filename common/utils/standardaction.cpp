@@ -23,7 +23,7 @@
 #include <KRecentFilesAction>
 #include <KStandardAction>
 #else
-#include <QCoreApplication>
+#include <QtCore/QCoreApplication>
 #endif
 #include "icon.h"
 

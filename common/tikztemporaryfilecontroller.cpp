@@ -21,12 +21,12 @@
 #ifdef KTIKZ_USE_KDE
 #include <KTempDir>
 #else
-#include <QTemporaryFile>
+#include <QtCore/QTemporaryFile>
 #endif
 
-#include <QDebug>
-#include <QDir>
-#include <QFileInfo>
+#include <QtCore/QDebug>
+#include <QtCore/QDir>
+#include <QtCore/QFileInfo>
 
 TikzTemporaryFileController::TikzTemporaryFileController(QObject *parent)
 	: QObject(parent)

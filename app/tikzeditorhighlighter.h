@@ -21,7 +21,7 @@
 #ifndef TIKZEDITORHIGHLIGHTER_H
 #define TIKZEDITORHIGHLIGHTER_H
 
-#include <QSyntaxHighlighter>
+#include <QtGui/QSyntaxHighlighter>
 
 class TikzCommandInserter;
 
@@ -46,8 +46,7 @@ public:
 	QMap<QString, QTextCharFormat> getDefaultHighlightFormats();
 	QStringList getTranslatedHighlightTypeNames();
 	QStringList getHighlightTypeNames();
-	QMap<QString, QTextCharFormat> getTextCharFormats();
-	void setTextCharFormats(const QMap<QString, QTextCharFormat> &formatList);
+	void applySettings();
 
 protected:
 	/** Implements QSyntaxHighlighter::highlightBlock()

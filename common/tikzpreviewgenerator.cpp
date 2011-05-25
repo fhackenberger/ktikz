@@ -23,12 +23,12 @@
 #ifdef KTIKZ_USE_KDE
 #include <KFileItem>
 #endif
-#include <QDebug>
-#include <QDir>
-#include <QPixmap>
-#include <QProcess>
-#include <QPlainTextEdit>
-#include <QTextStream>
+#include <QtCore/QDebug>
+#include <QtCore/QDir>
+#include <QtGui/QPixmap>
+#include <QtCore/QProcess>
+#include <QtGui/QPlainTextEdit>
+#include <QtCore/QTextStream>
 
 #include <poppler-qt4.h>
 

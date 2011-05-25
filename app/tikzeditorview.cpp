@@ -18,14 +18,14 @@
 
 #include "tikzeditorview.h"
 
-#include <QApplication>
-#include <QClipboard>
-#include <QMenu>
-#include <QMessageBox>
-#include <QPointer>
-#include <QSettings>
-#include <QTextCursor>
-#include <QToolBar>
+#include <QtGui/QApplication>
+#include <QtGui/QClipboard>
+#include <QtGui/QMenu>
+#include <QtGui/QMessageBox>
+#include <QtCore/QPointer>
+#include <QtCore/QSettings>
+#include <QtGui/QTextCursor>
+#include <QtGui/QToolBar>
 
 #include "editgotolinewidget.h"
 #include "editindentwidget.h"
@@ -277,28 +277,7 @@ void TikzEditorView::applySettings()
 	settings.endGroup();
 
 /*
-	settings.beginGroup("Highlighting");
-	customHighlighting = settings.value("Customize", true).toBool();
-	QMap<QString, QTextCharFormat> formatList = tikzHighlighter->getDefaultHighlightFormats();
-	if (customHighlighting)
-	{
-		int numOfRules = settings.value("Number", 0).toInt();
-		for (int i = 0; i < numOfRules; ++i)
-		{
-			QString name = settings.value("Item" + QString::number(i) + "/Name").toString();
-			QString colorName = settings.value("Item" + QString::number(i) + "/Color").toString();
-			QString fontName = settings.value("Item" + QString::number(i) + "/Font").toString();
-			QFont font;
-			font.fromString(fontName);
-			QTextCharFormat format;
-			format.setForeground(QBrush(QColor(colorName)));
-			format.setFont(font);
-			formatList[name] = format;
-		}
-	}
-	settings.endGroup();
-
-	tikzHighlighter->setTextCharFormats(formatList);
+	tikzHighlighter->applySettings();
 	tikzHighlighter->rehighlight();
 */
 }
@@ -308,10 +287,8 @@ void TikzEditorView::applySettings()
 /*
 void TikzEditorView::showCursorPosition()
 {
-	QTextCursor cur = m_tikzEditor->textCursor();
-	const int curPos = cur.position();
-	cur.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
-	emit cursorPositionChanged(cur.blockNumber() + 1, curPos - cur.position() + 1);
+	QTextCursor cursor = m_tikzEditor->textCursor();
+	emit cursorPositionChanged(cursor.blockNumber() + 1, cursor.position() - cursor.block().position() + 1);
 }
 */
 

@@ -74,8 +74,8 @@ void RecentFilesAction::removeUrl(const Url &url)
 	KRecentFilesAction::removeUrl(url);
 }
 #else
-#include <QMenu>
-#include <QSettings>
+#include <QtGui/QMenu>
+#include <QtCore/QSettings>
 
 RecentFilesAction::RecentFilesAction(QObject *parent)
 	: Action(parent)

@@ -18,8 +18,8 @@
 
 #include "editindentwidget.h"
 
-#include <QKeyEvent>
-#include <QSettings>
+#include <QtGui/QKeyEvent>
+#include <QtCore/QSettings>
 
 #include "../common/utils/icon.h"
 

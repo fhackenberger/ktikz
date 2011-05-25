@@ -18,10 +18,10 @@
 
 #include "aboutdialog.h"
 
-#include <QDialogButtonBox>
-#include <QLabel>
-#include <QTextEdit>
-#include <QVBoxLayout>
+#include <QtGui/QDialogButtonBox>
+#include <QtGui/QLabel>
+#include <QtGui/QTextEdit>
+#include <QtGui/QVBoxLayout>
 
 #include "ktikzapplication.h"
 

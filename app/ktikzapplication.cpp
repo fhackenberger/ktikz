@@ -58,11 +58,11 @@ QString KtikzApplication::applicationName()
 	return "KtikZ";
 }
 #else
-#include <QFileInfo>
-#include <QUrl>
-#include <QMessageBox>
-#include <QSessionManager>
-#include <QSettings>
+#include <QtCore/QFileInfo>
+#include <QtCore/QUrl>
+#include <QtGui/QMessageBox>
+#include <QtGui/QSessionManager>
+#include <QtCore/QSettings>
 
 #include "mainwindow.h"
 

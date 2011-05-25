@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008 by Glad Deschrijver                          *
+ *   Copyright (C) 2007, 2008, 2011 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -19,7 +19,9 @@
 #ifndef LOGTEXTEDIT_H
 #define LOGTEXTEDIT_H
 
-#include <QTextEdit>
+#include <QtGui/QTextEdit>
+
+class QSyntaxHighlighter;
 
 class LogTextEdit : public QTextEdit
 {
@@ -27,6 +29,7 @@ class LogTextEdit : public QTextEdit
 
 public:
 	LogTextEdit(QWidget *parent = 0);
+	~LogTextEdit();
 	virtual QSize sizeHint() const;
 
 public slots:
@@ -35,6 +38,7 @@ public slots:
 
 private:
 	void setLogPalette(bool runFailed);
+	QSyntaxHighlighter *m_logHighlighter;
 };
 
 #endif

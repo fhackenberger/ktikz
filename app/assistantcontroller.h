@@ -19,7 +19,7 @@
 #ifndef ASSISTANTCONTROLLER_H
 #define ASSISTANTCONTROLLER_H
 
-#include <QString>
+#include <QtCore/QString>
 
 class QProcess;
 

@@ -45,9 +45,9 @@ SelectAction::SelectAction(const Icon &icon, const QString &text, QObject *paren
 		Action::actionCollection()->addAction(name, this);
 }
 #else
-#include <QComboBox>
-#include <QLineEdit>
-#include <QWidgetAction>
+#include <QtGui/QComboBox>
+#include <QtGui/QLineEdit>
+#include <QtGui/QWidgetAction>
 
 SelectAction::SelectAction(QObject *parent, const QString &name)
 	: QWidgetAction(parent)

@@ -31,33 +31,32 @@
 #include <KStatusBar>
 #include <KXMLGUIFactory>
 #else
-#include <QLocale>
-#include <QMenuBar>
-#include <QStatusBar>
+#include <QtCore/QLocale>
+#include <QtGui/QMenuBar>
+#include <QtGui/QStatusBar>
 #include "aboutdialog.h"
 #include "assistantcontroller.h"
 #endif
 
-#include <QCloseEvent>
-#include <QCompleter>
-#include <QDesktopServices>
-#include <QDockWidget>
-#include <QLabel>
-#include <QMessageBox>
-#include <QPlainTextEdit>
-#include <QProcess>
-#include <QPushButton>
-#include <QSettings>
-#include <QStringListModel>
-#include <QTextStream>
-#include <QToolBar>
-#include <QToolButton>
-#include <QVBoxLayout>
-#include <QWhatsThis>
+#include <QtGui/QCloseEvent>
+#include <QtGui/QCompleter>
+#include <QtGui/QDesktopServices>
+#include <QtGui/QDockWidget>
+#include <QtGui/QLabel>
+#include <QtGui/QMessageBox>
+#include <QtGui/QPlainTextEdit>
+#include <QtCore/QProcess>
+#include <QtGui/QPushButton>
+#include <QtCore/QSettings>
+#include <QtGui/QStringListModel>
+#include <QtCore/QTextStream>
+#include <QtGui/QToolBar>
+#include <QtGui/QToolButton>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QWhatsThis>
 
 #include "configdialog.h"
 #include "ktikzapplication.h"
-#include "loghighlighter.h"
 #include "logtextedit.h"
 #include "tikzcommandinserter.h"
 #include "tikzdocumentationcontroller.h"
@@ -75,8 +74,6 @@
 #include "../common/utils/standardaction.h"
 #include "../common/utils/toggleaction.h"
 #include "../common/utils/url.h"
-
-#include <poppler-qt4.h>
 
 QList<MainWindow*> MainWindow::s_mainWindowList;
 
@@ -143,7 +140,6 @@ MainWindow::MainWindow()
 	                               "then a red border will appear and the errors will be "
 	                               "highlighted.</p>"));
 	m_logTextEdit->setReadOnly(true);
-	m_logHighlighter = new LogHighlighter(m_logTextEdit->document());
 	m_logDock->setWidget(m_logTextEdit);
 
 	m_previewDock = new QDockWidget(this);
@@ -219,7 +215,6 @@ MainWindow::~MainWindow()
 #endif
 
 	delete m_tikzPreviewController;
-	m_logHighlighter->deleteLater();
 	m_tikzHighlighter->deleteLater();
 }
 
@@ -790,28 +785,7 @@ void MainWindow::applySettings()
 	}
 	settings.endGroup();
 
-	settings.beginGroup("Highlighting");
-	bool customHighlighting = settings.value("Customize", true).toBool();
-	QMap<QString, QTextCharFormat> formatList = m_tikzHighlighter->getDefaultHighlightFormats();
-	if (customHighlighting)
-	{
-		int numOfRules = settings.value("Number", 0).toInt();
-		for (int i = 0; i < numOfRules; ++i)
-		{
-			QString name = settings.value("Item" + QString::number(i) + "/Name").toString();
-			QString colorName = settings.value("Item" + QString::number(i) + "/Color").toString();
-			QString fontName = settings.value("Item" + QString::number(i) + "/Font").toString();
-			QFont font;
-			font.fromString(fontName);
-			QTextCharFormat format;
-			format.setForeground(QBrush(QColor(colorName)));
-			format.setFont(font);
-			formatList[name] = format;
-		}
-	}
-	settings.endGroup();
-
-	m_tikzHighlighter->setTextCharFormats(formatList);
+	m_tikzHighlighter->applySettings();
 	m_tikzHighlighter->rehighlight();
 
 	m_openRecentAction->createRecentFilesList();

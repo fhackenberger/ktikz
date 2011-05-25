@@ -18,11 +18,11 @@
 
 #include "editreplacecurrentwidget.h"
 
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QKeyEvent>
-#include <QPushButton>
-#include <QVBoxLayout>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QLabel>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QPushButton>
+#include <QtGui/QVBoxLayout>
 
 #include "../common/utils/icon.h"
 

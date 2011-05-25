@@ -19,7 +19,7 @@
 #ifndef TIKZEDITOR_H
 #define TIKZEDITOR_H
 
-#include <QPlainTextEdit>
+#include <QtGui/QPlainTextEdit>
 
 class QCompleter;
 class QLabel;
@@ -61,12 +61,10 @@ protected:
 
 private:
 	void showMatchingBrackets();
-	uint spaceWidth() const;
-	void paintTabstop(QPainter &painter, qreal x, qreal y);
-	void paintSpace(QPainter &painter, qreal x, qreal y);
+	void paintTabstop(QPainter &painter, qreal x, qreal y, int spaceWidth);
+	void paintSpace(QPainter &painter, qreal x, qreal y, int spaceWidth);
 	void printWhiteSpaces(QPainter &painter);
 	QString textUnderCursor() const;
-	int getCursorPosition(int row, int col) const;
 	void setCursorPosition(int row, int col);
 
 	QColor m_highlightCurrentLineColor;

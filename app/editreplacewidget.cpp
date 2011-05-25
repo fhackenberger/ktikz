@@ -21,7 +21,7 @@
 #ifdef KTIKZ_USE_KDE
 #include <KCompletion>
 #endif
-#include <QKeyEvent>
+#include <QtGui/QKeyEvent>
 
 #include "../common/utils/icon.h"
 #include "../common/utils/lineedit.h"

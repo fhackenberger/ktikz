@@ -24,12 +24,12 @@
 #ifdef KTIKZ_USE_KDE
 #include <KXmlGuiWindow>
 #else
-#include <QMainWindow>
+#include <QtGui/QMainWindow>
 class AboutDialog;
 class AssistantController;
 #endif
-#include <QDateTime>
-#include <QPointer>
+#include <QtCore/QDateTime>
+#include <QtCore/QPointer>
 #include "../common/mainwidget.h"
 
 class QAction;
@@ -38,7 +38,6 @@ class QCompleter;
 class QDockWidget;
 class QLabel;
 class QMenu;
-class QSyntaxHighlighter;
 class QToolButton;
 
 class Action;
@@ -159,7 +158,6 @@ private:
 
 	QDockWidget *m_logDock;
 	LogTextEdit *m_logTextEdit;
-	QSyntaxHighlighter *m_logHighlighter;
 
 	QDockWidget *m_commandsDock;
 	TikzCommandInserter *m_commandInserter;

@@ -19,7 +19,7 @@
 #ifndef TIKZEDITORVIEW_H
 #define TIKZEDITORVIEW_H
 
-#include <QWidget>
+#include <QtGui/QWidget>
 //#include "tikzcommandinserter.h"
 
 class QAction;

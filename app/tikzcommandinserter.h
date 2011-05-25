@@ -19,9 +19,9 @@
 #ifndef TIKZCOMMANDINSERTER_H
 #define TIKZCOMMANDINSERTER_H
 
-#include <QObject>
-#include <QStringList>
-#include <QXmlStreamReader>
+#include <QtCore/QObject>
+#include <QtCore/QStringList>
+#include <QtCore/QXmlStreamReader>
 
 class QDockWidget;
 class QListWidget;

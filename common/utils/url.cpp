@@ -31,7 +31,7 @@ Url::Url(const KUrl &url) : KUrl(url)
 {
 }
 #else
-#include <QFileInfo>
+#include <QtCore/QFileInfo>
 
 Url::Url() : QUrl()
 {

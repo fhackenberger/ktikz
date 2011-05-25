@@ -19,7 +19,7 @@
 #ifndef TIKZCOMMANDWIDGET_H
 #define TIKZCOMMANDWIDGET_H
 
-#include <QWidget>
+#include <QtGui/QWidget>
 
 class TikzCommandWidget : public QWidget
 {

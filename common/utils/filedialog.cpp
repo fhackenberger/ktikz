@@ -29,8 +29,7 @@ Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &d
 	return KFileDialog::getSaveUrl(dir, filter, parent, caption, KFileDialog::ConfirmOverwrite);
 }
 #else
-#include <QCoreApplication>
-#include <QMessageBox>
+#include <QtCore/QCoreApplication>
 
 /*!
  * Parses a KDE-like filter and returns a Qt-like filter

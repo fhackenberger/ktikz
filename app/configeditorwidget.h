@@ -19,7 +19,6 @@
 #ifndef KTIKZ_CONFIGEDITORWIDGET_H
 #define KTIKZ_CONFIGEDITORWIDGET_H
 
-#include <QWidget>
 #include "ui_configeditorwidget.h"
 
 class ConfigEditorWidget : public QWidget

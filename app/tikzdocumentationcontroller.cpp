@@ -18,8 +18,8 @@
 
 #include "tikzdocumentationcontroller.h"
 
-#include <QProcess>
-#include <QSettings>
+#include <QtCore/QProcess>
+#include <QtCore/QSettings>
 
 QString TikzDocumentationController::tikzDocumentationPath()
 {

@@ -18,7 +18,7 @@
 
 #include "usercommandeditdialog.h"
 
-#include <QSettings>
+#include <QtCore/QSettings>
 
 static const QString s_completionPlaceHolder(0x2022);
 

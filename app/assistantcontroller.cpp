@@ -18,11 +18,11 @@
 
 #include "assistantcontroller.h"
 
-#include <QByteArray>
-#include <QDir>
-#include <QLibraryInfo>
-#include <QMessageBox>
-#include <QProcess>
+#include <QtCore/QByteArray>
+#include <QtCore/QDir>
+#include <QtCore/QLibraryInfo>
+#include <QtGui/QMessageBox>
+#include <QtCore/QProcess>
 
 #include "ktikzapplication.h"
 

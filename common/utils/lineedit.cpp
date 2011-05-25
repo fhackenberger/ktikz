@@ -23,8 +23,8 @@ LineEdit::LineEdit(QWidget *parent)
 	setClearButtonShown(true);
 }
 #else
-#include <QToolButton>
-#include <QStyle>
+#include <QtGui/QToolButton>
+#include <QtGui/QStyle>
 
 LineEdit::LineEdit(const QString &text, QWidget *parent)
 	: QLineEdit(parent)

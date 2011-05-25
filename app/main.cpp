@@ -23,14 +23,14 @@
 #include <KCmdLineArgs>
 #include <KUrl>
 #else
-#include <QSettings>
+#include <QtCore/QSettings>
 #endif
-#include <QDir>
-#include <QFileInfo>
-#include <QLibraryInfo>
-#include <QLocale>
-#include <QTranslator>
-#include <QWidget> // needed for abort() below
+#include <QtCore/QDir>
+#include <QtCore/QFileInfo>
+#include <QtCore/QLibraryInfo>
+#include <QtCore/QLocale>
+#include <QtCore/QTranslator>
+#include <QtGui/QWidget> // needed for abort() below
 
 #include "ktikzapplication.h"
 

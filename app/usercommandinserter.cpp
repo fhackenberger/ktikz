@@ -18,11 +18,11 @@
 
 #include "usercommandinserter.h"
 
-#include <QMenu>
-#include <QPlainTextEdit>
-#include <QPointer>
-#include <QSettings>
-#include <QTextCursor>
+#include <QtGui/QMenu>
+#include <QtGui/QPlainTextEdit>
+#include <QtCore/QPointer>
+#include <QtCore/QSettings>
+#include <QtGui/QTextCursor>
 
 #include "usercommandeditdialog.h"
 

@@ -18,17 +18,17 @@
 
 #include "tikzcommandinserter.h"
 
-#include <QApplication>
-#include <QDockWidget>
-#include <QFile>
-#include <QGridLayout>
-#include <QLabel>
-#include <QListWidget>
-#include <QMenu>
-#include <QMessageBox>
-#include <QPlainTextEdit>
-#include <QStackedWidget>
-#include <QTextCursor>
+#include <QtGui/QApplication>
+#include <QtGui/QDockWidget>
+#include <QtCore/QFile>
+#include <QtGui/QGridLayout>
+#include <QtGui/QLabel>
+#include <QtGui/QListWidget>
+#include <QtGui/QMenu>
+#include <QtGui/QMessageBox>
+#include <QtGui/QPlainTextEdit>
+#include <QtGui/QStackedWidget>
+#include <QtGui/QTextCursor>
 
 #include "tikzeditorhighlighter.h"
 #include "tikzcommandwidget.h"

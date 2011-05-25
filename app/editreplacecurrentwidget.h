@@ -19,7 +19,7 @@
 #ifndef REPLACECURRENTWIDGET_H
 #define REPLACECURRENTWIDGET_H
 
-#include <QWidget>
+#include <QtGui/QWidget>
 
 class QLabel;
 class QPushButton;

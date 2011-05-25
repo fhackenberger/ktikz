@@ -22,7 +22,7 @@
 #ifdef KTIKZ_USE_KDE
 #include <KPageDialog>
 #else
-#include <QDialog>
+#include <QtGui/QDialog>
 #endif
 
 class QLabel;

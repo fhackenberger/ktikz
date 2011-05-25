@@ -20,7 +20,9 @@
 
 #include "tikzeditorhighlighter.h"
 
-#include <QApplication>
+#include <QtGui/QApplication>
+#include <QtCore/QSettings>
+
 #include "tikzcommandinserter.h"
 
 TikzHighlighter::TikzHighlighter(TikzCommandInserter *commandInserter, QTextDocument *parent)
@@ -97,14 +99,32 @@ QStringList TikzHighlighter::getHighlightTypeNames()
 	return m_highlightTypeNames;
 }
 
-QMap<QString, QTextCharFormat> TikzHighlighter::getTextCharFormats()
+void TikzHighlighter::applySettings()
 {
-	return m_formatList;
-}
+	QSettings settings(ORGNAME, APPNAME);
+	settings.beginGroup("Highlighting");
+	const bool customHighlighting = settings.value("Customize", true).toBool();
 
-void TikzHighlighter::setTextCharFormats(const QMap<QString, QTextCharFormat> &formatList)
-{
-	m_formatList = formatList;
+	m_formatList.clear();
+	m_formatList = getDefaultHighlightFormats();
+
+	if (customHighlighting)
+	{
+		const int numOfRules = settings.value("Number", 0).toInt();
+		for (int i = 0; i < numOfRules; ++i)
+		{
+			const QString name = settings.value("Item" + QString::number(i) + "/Name").toString();
+			const QString colorName = settings.value("Item" + QString::number(i) + "/Color").toString();
+			const QString fontName = settings.value("Item" + QString::number(i) + "/Font").toString();
+			QFont font;
+			font.fromString(fontName);
+			QTextCharFormat format;
+			format.setForeground(QBrush(QColor(colorName)));
+			format.setFont(font);
+			m_formatList[name] = format;
+		}
+	}
+	settings.endGroup();
 }
 
 void TikzHighlighter::highlightBlock(const QString &text)
@@ -118,7 +138,7 @@ void TikzHighlighter::highlightBlock(const QString &text)
 			while (index >= 0)
 			{
 				const int length = rule.matchString.length();
-				if (index == 0 || text.at(index - 1) != '\\')
+				if (index == 0 || text.at(index - 1) != '\\') // avoid matching e.g. "node" as an option if in reality "\node" as a command is written
 					setFormat(index, length, m_formatList[rule.type]);
 				index = text.indexOf(rule.matchString, index + length);
 			}

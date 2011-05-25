@@ -18,12 +18,12 @@
 
 #include "configgeneralwidget.h"
 
-#include <QCompleter>
-#include <QDirModel>
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QProcess>
-#include <QSettings>
+#include <QtGui/QCompleter>
+#include <QtGui/QDirModel>
+#include <QtGui/QFileDialog>
+#include <QtGui/QMessageBox>
+#include <QtCore/QProcess>
+#include <QtCore/QSettings>
 
 #include "ktikzapplication.h"
 #include "tikzdocumentationcontroller.h"

@@ -36,14 +36,14 @@
 
 #include "tikzeditor.h"
 
-#include <QAbstractItemView>
-#include <QApplication>
-#include <QCompleter>
-#include <QPainter>
-#include <QPalette>
-#include <QScrollBar>
-#include <QTextBlock>
-#include <QTextLayout>
+#include <QtGui/QAbstractItemView>
+#include <QtGui/QApplication>
+#include <QtGui/QCompleter>
+#include <QtGui/QPainter>
+#include <QtGui/QPalette>
+#include <QtGui/QScrollBar>
+#include <QtGui/QTextBlock>
+#include <QtGui/QTextLayout>
 
 static const QString s_completionPlaceHolder(0x2022);
 
@@ -116,15 +116,15 @@ void TikzEditor::highlightCurrentLine()
 void TikzEditor::matchBrackets()
 {
 	// clear previous bracket highlighting
-	QList<QTextEdit::ExtraSelection> extraSelections;
 	if (!isReadOnly())
 	{
+		QList<QTextEdit::ExtraSelection> extraSelections;
 		QTextEdit::ExtraSelection selection;
 		selection.cursor = textCursor();
 		selection.cursor.clearSelection();
 		extraSelections.append(selection);
+		setExtraSelections(extraSelections);
 	}
-	setExtraSelections(extraSelections);
 
 	// find current matching brackets
 	m_matchingBegin = -1;
@@ -191,6 +191,9 @@ void TikzEditor::matchBrackets()
 
 void TikzEditor::showMatchingBrackets()
 {
+	if (isReadOnly())
+		return;
+
 	for (QTextBlock block = firstVisibleBlock(); block.isValid(); block = block.next())
 	{
 		if (blockBoundingGeometry(block).top() > viewport()->height())
@@ -204,15 +207,12 @@ void TikzEditor::showMatchingBrackets()
 			if (block.position() + i == m_matchingBegin || block.position() + i == m_matchingEnd)
 			{
 				QList<QTextEdit::ExtraSelection> extraSelectionList = extraSelections();
-				if (!isReadOnly())
-				{
-					QTextEdit::ExtraSelection selection;
-					selection.format.setBackground(m_matchingColor);
-					selection.cursor = textCursor();
-					selection.cursor.setPosition(block.position() + i, QTextCursor::MoveAnchor);
-					selection.cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
-					extraSelectionList.append(selection);
-				}
+				QTextEdit::ExtraSelection selection;
+				selection.format.setBackground(m_matchingColor);
+				selection.cursor = textCursor();
+				selection.cursor.setPosition(block.position() + i, QTextCursor::MoveAnchor);
+				selection.cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+				extraSelectionList.append(selection);
 				setExtraSelections(extraSelectionList);
 			}
 		}
@@ -249,27 +249,22 @@ void TikzEditor::setMatchingColor(const QColor &color)
 	m_matchingColor = color;
 }
 
-uint TikzEditor::spaceWidth() const
-{
-	return QFontMetrics(document()->defaultFont()).width(' ');
-}
-
-void TikzEditor::paintTabstop(QPainter &painter, qreal x, qreal y)
+void TikzEditor::paintTabstop(QPainter &painter, qreal x, qreal y, int spaceWidth)
 {
 	QPen penBackup(painter.pen());
 	QPen pen(m_tabulatorsColor);
-	pen.setWidthF(qMax(0.5, spaceWidth() * .1));
+	pen.setWidthF(qMax(0.5, spaceWidth * .1));
 	pen.setCapStyle(Qt::RoundCap);
 	painter.setPen(pen);
 
 	// FIXME: optimize for speed!
-	qreal dist = spaceWidth() * 0.3;
+	qreal dist = spaceWidth * 0.3;
 	QPointF points[8];
 	points[0] = QPointF(x - dist, y - dist);
 	points[1] = QPointF(x, y);
 	points[2] = QPointF(x, y);
 	points[3] = QPointF(x - dist, y + dist);
-	x += spaceWidth() / 3.0;
+	x += spaceWidth / 3.0;
 	points[4] = QPointF(x - dist, y - dist);
 	points[5] = QPointF(x, y);
 	points[6] = QPointF(x, y);
@@ -278,11 +273,11 @@ void TikzEditor::paintTabstop(QPainter &painter, qreal x, qreal y)
 	painter.setPen(penBackup);
 }
 
-void TikzEditor::paintSpace(QPainter &painter, qreal x, qreal y)
+void TikzEditor::paintSpace(QPainter &painter, qreal x, qreal y, int spaceWidth)
 {
 	QPen penBackup(painter.pen());
 	QPen pen(m_whiteSpacesColor);
-	pen.setWidthF(spaceWidth() / 3.5);
+	pen.setWidthF(spaceWidth / 3.5);
 	pen.setCapStyle(Qt::RoundCap);
 	painter.setPen(pen);
 
@@ -293,6 +288,9 @@ void TikzEditor::paintSpace(QPainter &painter, qreal x, qreal y)
 void TikzEditor::printWhiteSpaces(QPainter &painter)
 {
 	const QFontMetrics fontMetrics = QFontMetrics(document()->defaultFont());
+	const int spaceWidth = fontMetrics.width(' ');
+	const int fontHeight = fontMetrics.height();
+	QTextCursor cursor = textCursor();
 
 	for (QTextBlock block = firstVisibleBlock(); block.isValid(); block = block.next())
 	{
@@ -304,16 +302,15 @@ void TikzEditor::printWhiteSpaces(QPainter &painter)
 
 		for (int i = 0; i < textLength; ++i)
 		{
-			QTextCursor cursor = textCursor();
 			cursor.setPosition(block.position() + i, QTextCursor::MoveAnchor);
 			const QRect rect = cursorRect(cursor);
 
 //			const QFontMetrics fontMetrics = QFontMetrics(cursor.charFormat().font());
 
 			if (m_showWhiteSpaces && text.at(i) == ' ')
-				paintSpace(painter, rect.x() + spaceWidth() / 2.0, rect.y() + fontMetrics.height() / 2.0);
+				paintSpace(painter, rect.x() + spaceWidth / 2.0, rect.y() + fontHeight / 2.0, spaceWidth);
 			else if (m_showTabulators && text.at(i) == '\t')
-				paintTabstop(painter, rect.x() + spaceWidth() / 2.0, rect.y() + fontMetrics.height() / 2.0);
+				paintTabstop(painter, rect.x() + spaceWidth / 2.0, rect.y() + fontHeight / 2.0, spaceWidth);
 		}
 	}
 }
@@ -343,52 +340,27 @@ void TikzEditor::goToLine(int line)
 		setCursorPosition(line, 0);
 }
 
-int TikzEditor::getCursorPosition(int row, int col) const
-{
-	int i = 0;
-	QTextBlock p = document()->begin();
-	while (p.isValid())
-	{
-		if (row == i) break;
-		i++;
-		p = p.next();
-	}
-	return p.position() + col;
-}
-
 void TikzEditor::setCursorPosition(int row, int col)
 {
-	const int pos = getCursorPosition(row, col);
+	const int pos = document()->findBlockByLineNumber(row).position() + col;
 	QTextCursor cursor = textCursor();
 	cursor.setPosition(pos, QTextCursor::MoveAnchor);
 	setTextCursor(cursor);
 
 	// make sure that the cursor is in the middle of the visible area
-/*
-	ensureCursorVisible();
-	const int newPosition = verticalScrollBar()->value() + cursorRect().top() - viewport()->height() / 2;
-	verticalScrollBar()->setValue(newPosition);
-*/
 	centerCursor();
 	setFocus();
 }
 
 int TikzEditor::numOfLines() const
 {
-	int num = 0;
-	QTextBlock p;
-	for (p = document()->begin(); p.isValid(); p = p.next())
-		++num;
-	return num;
+	return document()->blockCount();
 }
 
 void TikzEditor::showCursorPosition()
 {
 	QTextCursor cursor = textCursor();
-	const int cursorPosition = cursor.position();
-	cursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
-	const int startPosition = cursor.position();
-	emit cursorPositionChanged(cursor.blockNumber() + 1, cursorPosition - startPosition + 1);
+	emit cursorPositionChanged(cursor.blockNumber() + 1, cursor.position() - cursor.block().position() + 1);
 }
 
 /**
@@ -399,39 +371,25 @@ void TikzEditor::showCursorPosition()
 QString TikzEditor::textUnderCursor() const
 {
 	QTextCursor cursor = textCursor();
-	const int oldPos = cursor.position();
-//	cursor.select(QTextCursor::WordUnderCursor);
-//	const int newPos = cursor.selectionStart();
-	int newPos;
-	for (newPos = oldPos; newPos > 0;) // move the cursor to the beginning of the word
+	QTextDocument *document = this->document();
+	const int startOfLine = cursor.block().position();
+	int position;
+	for (position = cursor.position() - 1; position > 0; --position) // find the beginning of the word
 	{
-		cursor.setPosition(--newPos, QTextCursor::KeepAnchor);
-		if (cursor.selectedText().trimmed().isEmpty()) // if the current char is a whitespace, then we have reached the beginning of the word
+		const QChar character = document->characterAt(position);
+		if (character.isSpace() // if the current char is a whitespace, then we have reached the beginning of the word
+		    || character == '[' || character == ',') // these characters also delimit the beginning of the word (the beginning of a TikZ option)
 		{
-			cursor.clearSelection();
-			cursor.setPosition(++newPos, QTextCursor::MoveAnchor);
+			++position;
 			break;
 		}
-		else if (cursor.selectedText() == "\\" || cursor.atBlockStart()) // these characters also delimit the beginning of the word (the beginning of a TikZ command)
+		else if (character == '\\' || position == startOfLine) // these characters also delimit the beginning of the word (the beginning of a TikZ command)
 		{
-			cursor.clearSelection();
 			break;
 		}
-		else if (cursor.selectedText() == "["
-		         || cursor.selectedText() == ",") // these characters also delimit the beginning of the word (the beginning of a TikZ option)
-		{
-			cursor.clearSelection();
-			cursor.setPosition(++newPos, QTextCursor::MoveAnchor);
-			break;
-		}
-		cursor.clearSelection();
 	}
-//	cursor.setPosition(newPos, QTextCursor::MoveAnchor);
-	cursor.setPosition(oldPos, QTextCursor::KeepAnchor);
-	QString word = cursor.selectedText();
-//	if (word.right(1) != word.trimmed().right(1))
-//		word = "";
-	return word;
+	cursor.setPosition(position, QTextCursor::KeepAnchor);
+	return cursor.selectedText();
 }
 
 void TikzEditor::keyPressEvent(QKeyEvent *event)
@@ -465,26 +423,6 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 		const int dy = 1 + verticalScrollBar()->value();
 		verticalScrollBar()->setValue(dy);
 	}
-/*
-	// ensure that PageUp and PageDown keep the cursor at the same visible place
-	else if (event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown)
-	{
-		const QTextCursor::MoveOperation moveOperation
-		    = (event->key() == Qt::Key_PageUp) ? QTextCursor::Up : QTextCursor::Down;
-		QTextCursor cursor = textCursor();
-		const QFontMetrics fontMetrics(document()->defaultFont());
-		const int repeat = viewport()->height() / fontMetrics.lineSpacing() - 1;
-		const int oldPosition = cursorRect().top();
-		if (modifier & Qt::ShiftModifier)
-			cursor.movePosition(moveOperation, QTextCursor::KeepAnchor, repeat);
-		else
-			cursor.movePosition(moveOperation, QTextCursor::MoveAnchor, repeat);
-		setTextCursor(cursor);
-		const int newPosition = verticalScrollBar()->value() + cursorRect().top() - oldPosition;
-		verticalScrollBar()->setValue(newPosition);
-		ensureCursorVisible();
-	}
-*/
 	// the first time End is pressed moves the cursor to the end of the line, the second time to the end of the block
 	else if (event->key() == Qt::Key_Home
 	         && !(modifier & Qt::ControlModifier)

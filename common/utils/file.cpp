@@ -182,9 +182,9 @@ void File::setTempDir(const QString &dirName)
 	s_tempDir = dirName;
 }
 #else
-//#include <QCoreApplication>
-//#include <QMessageBox>
-#include <QFileInfo>
+//#include <QtCore/QCoreApplication>
+//#include <QtGui/QMessageBox>
+#include <QtCore/QFileInfo>
 
 /*!
  * Constructs a File object.

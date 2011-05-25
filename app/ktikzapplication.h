@@ -22,8 +22,8 @@
 #ifdef KTIKZ_USE_KDE
 #include <KApplication>
 #else
-#include <QApplication>
-#include <QStringList>
+#include <QtGui/QApplication>
+#include <QtCore/QStringList>
 #endif
 
 class MainWindow;

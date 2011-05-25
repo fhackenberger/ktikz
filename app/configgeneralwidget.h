@@ -19,7 +19,6 @@
 #ifndef KTIKZ_CONFIGGENERALWIDGET_H
 #define KTIKZ_CONFIGGENERALWIDGET_H
 
-#include <QWidget>
 #include "ui_configgeneralwidget.h"
 
 class ConfigGeneralWidget : public QWidget

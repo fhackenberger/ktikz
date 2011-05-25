@@ -21,13 +21,13 @@
 #ifdef KTIKZ_USE_KDE
 #include <KUrlCompletion>
 #else
-#include <QCompleter>
+#include <QtGui/QCompleter>
 #endif
-#include <QApplication>
-#include <QDirModel>
-#include <QKeyEvent>
-#include <QProcess>
-#include <QSettings>
+#include <QtGui/QApplication>
+#include <QtGui/QDirModel>
+#include <QtGui/QKeyEvent>
+#include <QtCore/QProcess>
+#include <QtCore/QSettings>
 
 #include "utils/combobox.h"
 #include "utils/filedialog.h"

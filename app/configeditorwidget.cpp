@@ -18,7 +18,7 @@
 
 #include "configeditorwidget.h"
 
-#include <QSettings>
+#include <QtCore/QSettings>
 #include "../common/utils/fontdialog.h"
 
 ConfigEditorWidget::ConfigEditorWidget(QWidget *parent)

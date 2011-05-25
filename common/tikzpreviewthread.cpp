@@ -18,7 +18,7 @@
 
 #include "tikzpreviewthread.h"
 
-#include <QImage>
+#include <QtGui/QImage>
 
 #include <poppler-qt4.h>
 

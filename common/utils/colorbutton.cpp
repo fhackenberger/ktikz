@@ -24,10 +24,10 @@
 #include "colorbutton.h"
 
 #ifndef KTIKZ_USE_KDE
-#include <QApplication>
-#include <QColorDialog>
-#include <QPainter>
-#include <QStyle>
+#include <QtGui/QApplication>
+#include <QtGui/QColorDialog>
+#include <QtGui/QPainter>
+#include <QtGui/QStyle>
 
 ColorButton::ColorButton(QWidget *parent) : QToolButton(parent)
 {

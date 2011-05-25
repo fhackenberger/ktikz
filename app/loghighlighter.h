@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007 by Glad Deschrijver                                *
+ *   Copyright (C) 2007, 2011 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -21,9 +21,8 @@
 #ifndef LOGHIGHLIGHTER_H
 #define LOGHIGHLIGHTER_H
 
-#include <QSyntaxHighlighter>
-#include <QTextCharFormat>
-
+#include <QtGui/QSyntaxHighlighter>
+#include <QtGui/QTextCharFormat>
 
 /** A simple, incomplete highlighter for LaTeX .log files
  * @author Florian Hackenberger <florian@hackenberger.at>

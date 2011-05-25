@@ -19,7 +19,7 @@
 #ifndef KTIKZ_CONFIGAPPEARANCEWIDGET_H
 #define KTIKZ_CONFIGAPPEARANCEWIDGET_H
 
-#include <QWidget>
+#include <QtGui/QWidget>
 #include "ui_configappearancewidget.h"
 
 class QTableWidgetItem;

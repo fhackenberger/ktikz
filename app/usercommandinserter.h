@@ -19,8 +19,8 @@
 #ifndef USERCOMMANDINSERTER_H
 #define USERCOMMANDINSERTER_H
 
-#include <QObject>
-#include <QStringList>
+#include <QtCore/QObject>
+#include <QtCore/QStringList>
 
 class QMenu;
 class QPlainTextEdit;

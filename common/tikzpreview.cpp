@@ -22,19 +22,19 @@
 #ifdef KTIKZ_USE_KDE
 #include <KLocale>
 #else
-#include <QLocale>
+#include <QtCore/QLocale>
 #endif
 
-#include <QApplication>
-#include <QContextMenuEvent>
-#include <QGraphicsPixmapItem>
-#include <QGraphicsProxyWidget>
-#include <QHBoxLayout>
-#include <QLabel>
-#include <QMenu>
-#include <QScrollBar>
-#include <QSettings>
-#include <QToolBar>
+#include <QtGui/QApplication>
+#include <QtGui/QContextMenuEvent>
+#include <QtGui/QGraphicsPixmapItem>
+#include <QtGui/QGraphicsProxyWidget>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QLabel>
+#include <QtGui/QMenu>
+#include <QtGui/QScrollBar>
+#include <QtCore/QSettings>
+#include <QtGui/QToolBar>
 
 #include <poppler-qt4.h>
 

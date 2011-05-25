@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007 by Glad Deschrijver                                *
+ *   Copyright (C) 2007, 2011 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -73,11 +73,12 @@ void LogHighlighter::highlightBlock(const QString &text)
 			index = expression.indexIn(text, index + length);
 		}
 	}
-	// The current block state tracks multiline formatting
-	setCurrentBlockState(0);
+
+	// Highlight statistics (at the end of the log)
+	setCurrentBlockState(0); // The current block state tracks multiline formatting
 	int startIndex = text.indexOf(m_statisticsStartExpression); // Index to start highlighting statistics (if any)
 	if (previousBlockState() == 1) // The previous block ended within statistics
-		startIndex = 0;
+		startIndex = 0; // Continue highlighting statistics
 
 	if (startIndex >= 0)
 	{

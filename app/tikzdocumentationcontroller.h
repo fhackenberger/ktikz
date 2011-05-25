@@ -19,7 +19,7 @@
 #ifndef KTIKZ_TIKZDOCUMENTATIONCONTROLLER_H
 #define KTIKZ_TIKZDOCUMENTATIONCONTROLLER_H
 
-#include <QObject>
+#include <QtCore/QObject>
 
 class TikzDocumentationController : public QObject
 {
