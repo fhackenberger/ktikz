@@ -388,6 +388,8 @@ void TikzEditorView::indent(QChar insertChar, int numOfInserts, bool isUnindenti
 			{
 				for (int i = 0; i < numOfInserts; ++i)
 				{
+					if (textCursor.atBlockEnd()) // when the line is empty go to the next line instead of selecting the newline character (possibly together with characters of the next line)
+						break;
 					textCursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
 					if (textCursor.selectedText() == insertChar)
 					{

@@ -65,6 +65,9 @@ version 0.11:
   number of indentations last specified in the "Indent" box
 - add an "Unindent" action; pressing the Shift+Tab key has a similar effect
   as pressing the Tab key described above, but for unindenting
+- make sure that the temporary files are also deleted when a session in the
+  desktop environment ends
+- add menu with user defined code snippets
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE
