@@ -132,7 +132,7 @@ MainWindow::MainWindow()
 	m_logDock->setObjectName("LogDock");
 	m_logDock->setAllowedAreas(Qt::AllDockWidgetAreas);
 	m_logDock->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
-	m_logDock->setWindowTitle(tr("Messages"));
+	m_logDock->setWindowTitle(tr("&Messages"));
 	addDockWidget(Qt::BottomDockWidgetArea, m_logDock);
 	m_logTextEdit = new LogTextEdit;
 	m_logTextEdit->setWhatsThis(tr("<p>The messages produced by "
@@ -146,7 +146,7 @@ MainWindow::MainWindow()
 	m_previewDock->setObjectName("PreviewDock");
 	m_previewDock->setAllowedAreas(Qt::AllDockWidgetAreas);
 	m_previewDock->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
-	m_previewDock->setWindowTitle(tr("Preview"));
+	m_previewDock->setWindowTitle(tr("&Preview"));
 	m_previewDock->setWidget(m_tikzPreviewController->tikzPreview());
 	addDockWidget(Qt::RightDockWidgetArea, m_previewDock);
 
