@@ -131,6 +131,22 @@ const QString TikzTemporaryFileController::baseName() const
 
 bool TikzTemporaryFileController::cleanUp()
 {
+#ifndef KTIKZ_USE_KDE
+	// test whether the temporary directory still exists and recreate if it
+	// doesn't exist
+	// this is necessary because if an empty window is opened and another
+	// window is opened and closed, then the temporary directory is deleted
+	// and no file can be compiled in the first window, no static count
+	// variable can be declared which stores the number of open windows,
+	// because when windows are closed in another process and the temporary
+	// directory is removed, we cannot know this in the current process
+	// we do the test here because in tikzpreviewcontroller.cpp this function
+	// is always called before generating a preview
+	QDir tempDir(QDir::tempPath() + "/qtikz");
+	if (!tempDir.exists())
+		QDir::temp().mkdir("qtikz");
+#endif
+
 	bool success = true;
 
 	const QFileInfo tempTikzFileInfo(m_tempTikzFileBaseName + ".tex");

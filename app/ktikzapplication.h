@@ -23,10 +23,7 @@
 #include <KApplication>
 #else
 #include <QtGui/QApplication>
-#include <QtCore/QStringList>
 #endif
-
-class MainWindow;
 
 #ifdef KTIKZ_USE_KDE
 class KtikzApplication : public KApplication
@@ -47,11 +44,6 @@ public:
 protected:
 	void commitData(QSessionManager &manager);
 	void saveState(QSessionManager &manager);
-#endif
-
-private:
-#ifndef KTIKZ_USE_KDE
-	QStringList m_args;
 #endif
 };
 

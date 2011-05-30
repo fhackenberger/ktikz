@@ -69,8 +69,6 @@ QString KtikzApplication::applicationName()
 KtikzApplication::KtikzApplication(int &argc, char **argv)
 	: QApplication(argc, argv)
 {
-	for (int i = 0; i < argc; ++i)
-		m_args << QString::fromLocal8Bit(argv[i]);
 }
 
 void KtikzApplication::init()
@@ -99,12 +97,9 @@ void KtikzApplication::init()
 	MainWindow *mainWindow = new MainWindow;
 	mainWindow->show();
 
-	if (m_args.size() > 1)
-	{
-		const QFileInfo fi(m_args.at(1));
-		mainWindow->loadUrl(QUrl(fi.absoluteFilePath()));
-	}
-	m_args.clear();
+	QStringList args = arguments();
+	if (args.size() > 1)
+		mainWindow->loadUrl(QUrl(QFileInfo(args.at(1)).absoluteFilePath()));
 }
 
 QString KtikzApplication::applicationName()
