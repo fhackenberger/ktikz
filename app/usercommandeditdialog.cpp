@@ -89,7 +89,7 @@ void UserCommandEditDialog::writeSettings()
 
 void UserCommandEditDialog::accept()
 {
-	if (m_names.size() > 0)
+	if (m_names.size() > 0 && m_oldIndex >= 0)
 	{
 		m_names[m_oldIndex] = ui.lineEditName->text();
 		m_commands[m_oldIndex] = ui.textEditContent->toPlainText();
@@ -157,4 +157,5 @@ void UserCommandEditDialog::changeItem(int index)
 void UserCommandEditDialog::insertPlaceHolder()
 {
 	ui.textEditContent->insertPlainText(s_completionPlaceHolder);
+	ui.textEditContent->setFocus();
 }

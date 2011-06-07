@@ -13,6 +13,7 @@
 			<file>configuration-general.png</file>
 			<file>configuration-highlighting.png</file>
 			<file>interface-gotolinewidget.png</file>
+			<file>interface-indentwidget.png</file>
 			<file>interface-mainwindow.png</file>
 			<file>interface-replacecurrentwidget.png</file>
 			<file>interface-replacewidget.png</file>

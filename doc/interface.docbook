@@ -50,7 +50,7 @@
 		</para>
 
 		<para>
-			If the user triggers the <guilabel>Find</guilabel> or <guilabel>Replace</guilabel> action, a <quote>Find &amp; Replace</quote> panel appears at the bottom of the editor.  In the <guilabel>Find</guilabel> text field, the text to be searched is entered.  In the <guilabel>Replace with</guilabel> text field the text to replace with can be entered.  Pressing the <guilabel>Find</guilabel> button will only search for the text, while pressing the <guilabel>Replace</guilabel> button will show a <quote>Replace</quote> bar with the following options: <guilabel>Replace</guilabel> the first occurrence, <guilabel>Replace All</guilabel> occurrences, <guilabel>Don't Replace</guilabel> the current occurrence, or <guilabel>Cancel</guilabel> the replace operation.  Checking the <guilabel>Whole words</guilabel> option will cause the find to match only complete words, checking the <guilabel>Case sensitive</guilabel> option will cause the find to match only those occurrences which have exactly the same case (otherwise the find works case insensitive).  Two arrow buttons are available which allow the user to specify the direction in which the search should be done (move backwards or forward in the text).  Finally there is a <guilabel>Close</guilabel> button which causes the panel to be closed.
+			If the user triggers the <guilabel>Find</guilabel> or <guilabel>Replace</guilabel> action, a <quote>Find &amp; Replace</quote> panel appears at the bottom of the editor.  In the <guilabel>Find</guilabel> text field, the text to be searched is entered.  In the <guilabel>Replace with</guilabel> text field the text to replace with can be entered.  Pressing the <guilabel>Find</guilabel> button will only search for the text, while pressing the <guilabel>Replace</guilabel> button will show a <quote>Replace</quote> bar with the following options: <guilabel>Replace</guilabel> the first occurrence, <guilabel>Replace All</guilabel> occurrences, <guilabel>Don't Replace</guilabel> the current occurrence, or <guilabel>Cancel</guilabel> the replace operation.  Checking the <guilabel>Whole words</guilabel> option will cause the find to match only complete words, checking the <guilabel>Case sensitive</guilabel> option will cause the find to match only those occurrences which have exactly the same case (otherwise the find works case insensitive).  Two arrow buttons are available which allow the user to specify the direction in which the search should be done (move backwards or forward in the text).  Finally there is a <guilabel>Cancel</guilabel> button which causes the panel to be closed.
 		</para>
 
 		<para>
@@ -64,7 +64,21 @@
 		</para>
 
 		<para>
-			If the user triggers the <guilabel>Go to Line</guilabel> action, a <quote>Go to Line</quote> panel appears at the bottom of the editor.  In the <guilabel>Go to line</guilabel> spin box, the line number to which the cursor should be moved is entered.  Pressing <keycombo action="simul"><keycap>Enter</keycap></keycombo> or the <guilabel>Go</guilabel> button closes the panel and moves the cursor in the editor to the specified line.  Finally there is a <guilabel>Close</guilabel> button which causes the panel to be closed.
+			If the user triggers the <guilabel>Go to Line</guilabel> action, a <quote>Go to Line</quote> panel appears at the bottom of the editor.  In the <guilabel>Go to line</guilabel> spin box, the line number to which the cursor should be moved is entered.  Pressing <keycombo action="simul"><keycap>Enter</keycap></keycombo> or the <guilabel>Go</guilabel> button closes the panel and moves the cursor in the editor to the specified line.  Finally there is a <guilabel>Cancel</guilabel> button which causes the panel to be closed without moving the cursor.
+		</para>
+
+		<para>
+			<screenshot>
+				<screeninfo>Screenshot of &ktikz; indent panel</screeninfo>
+				<mediaobject>
+					<imageobject><imagedata fileref="interface-indentwidget.png" format="PNG"/></imageobject>
+					<textobject><phrase>&ktikz; indent panel</phrase></textobject>
+				</mediaobject>
+			</screenshot>
+		</para>
+
+		<para>
+			If the user triggers the <guilabel>Indent</guilabel> action, an <quote>Indent</quote> panel appears at the bottom of the editor.  The indentation character (space or tab) can be selected and the number of times that character is inserted at the start of each to be indented line can be chosen in the corresponding spin box.  Pressing <keycombo action="simul"><keycap>Enter</keycap></keycombo> or the <guilabel>Indent</guilabel> button closes the panel and indents the selected lines (or the current line if no line is selected) in the editor.  Finally there is a <guilabel>Cancel</guilabel> button which causes the panel to be closed without indenting.
 		</para>
 	</sect2>
 

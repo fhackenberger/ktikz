@@ -495,6 +495,11 @@
 	<para>This menu contains a (currently non-exhaustive) list of TikZ commands.  By selecting them, you can insert them in the text at the cursor's current position.</para>
 </sect1>
 
+<sect1 id="sect1-commands-usersnippets-menu">
+	<title>The <guimenu>User snippets</guimenu> Menu</title>
+	<para>This menu contains the list of user-defined TikZ commands.  By selecting them, you can insert them in the text at the cursor's current position.  The entries of this menu can be edited by selecting <guimenuitem>Edit user commands</guimenuitem>.</para>
+</sect1>
+
 <sect1 id="sect1-commands-settings-menu">
 	<title>The <guimenu>Settings</guimenu> Menu</title>
 
