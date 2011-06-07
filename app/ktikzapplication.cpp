@@ -44,9 +44,9 @@ void KtikzApplication::init()
 
 	KUrl url;
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-	if (args->count() > 0)
+	for (int i = 0; i < args->count(); ++i)
 	{
-		url = args->url(0);
+		url = args->url(i);
 		if (url.isValid() && url.isLocalFile())
 			mainWindow->loadUrl(url);
 	}
@@ -98,8 +98,8 @@ void KtikzApplication::init()
 	mainWindow->show();
 
 	QStringList args = arguments();
-	if (args.size() > 1)
-		mainWindow->loadUrl(QUrl(QFileInfo(args.at(1)).absoluteFilePath()));
+	for (int i = 1; i < args.size(); ++i)
+		mainWindow->loadUrl(QUrl(QFileInfo(args.at(i)).absoluteFilePath()));
 }
 
 QString KtikzApplication::applicationName()

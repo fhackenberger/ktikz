@@ -54,7 +54,6 @@ ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent)
 	ui.pdftopsButton->setIcon(Icon("document-open"));
 	ui.editorButton->setIcon(Icon("document-open"));
 
-	connect(ui.commandsInDockCheck, SIGNAL(toggled(bool)), this, SLOT(setCommandsInDock(bool)));
 	connect(ui.tikzDocButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
 	connect(ui.tikzDocSearchButton, SIGNAL(clicked()), this, SLOT(searchTikzDocumentation()));
 	connect(ui.latexButton, SIGNAL(clicked()), this, SLOT(browseCommand()));

@@ -388,6 +388,8 @@ QString TikzEditor::textUnderCursor() const
 			break;
 		}
 	}
+	if (position < 0)
+		position = 0;
 	cursor.setPosition(position, QTextCursor::KeepAnchor);
 	return cursor.selectedText();
 }
