@@ -78,6 +78,7 @@ void UserCommandEditDialog::writeSettings()
 
 	QSettings settings(ORGNAME, APPNAME);
 	settings.beginWriteArray("UserCommands");
+	settings.remove(""); // remove old entries (especially useful when the number of entries decreases)
 	for (int i = 0; i < m_names.size(); ++i)
 	{
 		settings.setArrayIndex(i);

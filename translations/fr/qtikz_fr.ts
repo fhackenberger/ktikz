@@ -818,8 +818,8 @@ Aucun programme capable d&apos;ouvrir le fichier « %1 » n&apos;est trouvé.</t
         <translation>Montrer l&apos;information sur Qt</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="961"/>
-        <location filename="../../app/mainwindow.cpp" line="963"/>
+        <location filename="../../app/mainwindow.cpp" line="972"/>
+        <location filename="../../app/mainwindow.cpp" line="974"/>
         <source>Preview: x = %1	y = %2</source>
         <comment>@info:status</comment>
         <translation>Aperçu : x = %1	y = %2</translation>
@@ -835,59 +835,59 @@ Aucun programme capable d&apos;ouvrir le fichier « %1 » n&apos;est trouvé.</t
         <translation>Ouvrir un fichier ouvert récemment</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="542"/>
+        <location filename="../../app/mainwindow.cpp" line="553"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="566"/>
+        <location filename="../../app/mainwindow.cpp" line="577"/>
         <source>&amp;Settings</source>
         <translation>&amp;Configuration</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="567"/>
+        <location filename="../../app/mainwindow.cpp" line="578"/>
         <source>&amp;Toolbars</source>
         <translation>Barres d&apos;&amp;outils</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="569"/>
+        <location filename="../../app/mainwindow.cpp" line="580"/>
         <source>Show or hide toolbars</source>
         <translation>Montrer ou cacher les barres d&apos;outils</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="579"/>
+        <location filename="../../app/mainwindow.cpp" line="590"/>
         <source>&amp;Sidebars</source>
         <translation>Barres &amp;latérales</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="581"/>
+        <location filename="../../app/mainwindow.cpp" line="592"/>
         <source>Show or hide sidebars</source>
         <translation>Montrer ou cacher les barres latérales</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="598"/>
+        <location filename="../../app/mainwindow.cpp" line="609"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="609"/>
+        <location filename="../../app/mainwindow.cpp" line="620"/>
         <source>File</source>
         <translation>Fichier</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="712"/>
+        <location filename="../../app/mainwindow.cpp" line="723"/>
         <source>Ready</source>
         <translation>Prêt</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="721"/>
+        <location filename="../../app/mainwindow.cpp" line="732"/>
         <source>Hide sidebar &quot;%1&quot;</source>
         <translation>Cacher la barre latérale « %1 »</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="584"/>
-        <location filename="../../app/mainwindow.cpp" line="585"/>
-        <location filename="../../app/mainwindow.cpp" line="723"/>
+        <location filename="../../app/mainwindow.cpp" line="595"/>
+        <location filename="../../app/mainwindow.cpp" line="596"/>
+        <location filename="../../app/mainwindow.cpp" line="734"/>
         <source>Show sidebar &quot;%1&quot;</source>
         <translation>Montrer la barre latérale « %1 »</translation>
     </message>
@@ -959,7 +959,7 @@ Ouvrez le dialogue « Configuration de %1 » et changez dans la page « Généra
         <translation>&lt;p&gt;Ouvrir le manuel de TikZ et PGF.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="730"/>
+        <location filename="../../app/mainwindow.cpp" line="741"/>
         <source>Hide toolbar &quot;%1&quot;</source>
         <translation>Cacher la barre d&apos;outils « %1 »</translation>
     </message>
@@ -969,14 +969,14 @@ Ouvrez le dialogue « Configuration de %1 » et changez dans la page « Généra
         <translation type="obsolete">Erreur de lecture du fichier</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="856"/>
+        <location filename="../../app/mainwindow.cpp" line="867"/>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
         <translation>Impossible de lire le fichier « %1 » :
 %2.</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="918"/>
+        <location filename="../../app/mainwindow.cpp" line="929"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Impossible d&apos;enregistrer le fichier « %1 » :
@@ -988,30 +988,30 @@ Ouvrez le dialogue « Configuration de %1 » et changez dans la page « Généra
         <translation type="obsolete">Erreur d&apos;enregistrement du fichier</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="903"/>
+        <location filename="../../app/mainwindow.cpp" line="914"/>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
         <translation>Impossible d&apos;enregistrer le fichier « %1 » :
 %2.</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="926"/>
+        <location filename="../../app/mainwindow.cpp" line="937"/>
         <source>File saved</source>
         <comment>@info:status</comment>
         <translation>Fichier enregistré</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="955"/>
+        <location filename="../../app/mainwindow.cpp" line="966"/>
         <source>Line: %1	Col: %2</source>
         <comment>@info:status</comment>
         <translation>Ligne : %1	Col : %2</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="574"/>
-        <location filename="../../app/mainwindow.cpp" line="575"/>
-        <location filename="../../app/mainwindow.cpp" line="576"/>
-        <location filename="../../app/mainwindow.cpp" line="577"/>
-        <location filename="../../app/mainwindow.cpp" line="732"/>
+        <location filename="../../app/mainwindow.cpp" line="585"/>
+        <location filename="../../app/mainwindow.cpp" line="586"/>
+        <location filename="../../app/mainwindow.cpp" line="587"/>
+        <location filename="../../app/mainwindow.cpp" line="588"/>
+        <location filename="../../app/mainwindow.cpp" line="743"/>
         <source>Show toolbar &quot;%1&quot;</source>
         <translation>Montrer la barre d&apos;outils « %1 »</translation>
     </message>
@@ -1021,19 +1021,19 @@ Ouvrez le dialogue « Configuration de %1 » et changez dans la page « Généra
         <translation>&amp;Configuration de %1...</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="833"/>
+        <location filename="../../app/mainwindow.cpp" line="844"/>
         <source>The document has been modified.
 Do you want to save your changes?</source>
         <translation>Le document a été modifié.
 Voulez-vous enregistrer les modifications ?</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="891"/>
+        <location filename="../../app/mainwindow.cpp" line="902"/>
         <source>File loaded</source>
         <translation>Fichier chargé</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="940"/>
+        <location filename="../../app/mainwindow.cpp" line="951"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
@@ -3735,7 +3735,7 @@ Continuer à partir de la fin ?</translation>
         <translation>&lt;p&gt;Montrer l&apos;aperçu du tikzpicture suivant dans le code TikZ.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="513"/>
+        <location filename="../../common/tikzpreview.cpp" line="515"/>
         <source>Generating image</source>
         <comment>tikz preview status</comment>
         <translation>Génération de l&apos;image</translation>
@@ -4022,7 +4022,7 @@ Continuer à partir de la fin ?</translation>
     </message>
     <message>
         <location filename="../../app/usercommandeditdialog.cpp" line="55"/>
-        <location filename="../../app/usercommandeditdialog.cpp" line="117"/>
+        <location filename="../../app/usercommandeditdialog.cpp" line="118"/>
         <source>Menu item %1</source>
         <translation>Élement menu %1</translation>
     </message>

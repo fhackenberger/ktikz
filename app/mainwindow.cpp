@@ -505,8 +505,8 @@ void MainWindow::createActions()
 	m_configureAction->setWhatsThis(tr("<p>Configure the settings of this application.</p>"));
 
 #ifdef KTIKZ_USE_KDE
-	actionCollection()->addAction("toggle_preview", m_previewDock->toggleViewAction());
-	actionCollection()->addAction("toggle_log", m_logDock->toggleViewAction());
+	addActionCloneToCollection("toggle_preview", m_previewDock->toggleViewAction());
+	addActionCloneToCollection("toggle_log", m_logDock->toggleViewAction());
 #endif
 
 	// Help
@@ -536,7 +536,18 @@ void MainWindow::createActions()
 #endif
 }
 
-#ifndef KTIKZ_USE_KDE
+#ifdef KTIKZ_USE_KDE
+void MainWindow::addActionCloneToCollection(const QString &actionName, QAction *action)
+{
+	// XXX This is a dirty hack to avoid the warning "Attempt to use QAction with KXMLGUIFactory"
+	KToggleAction *actionClone = new KToggleAction(this);
+	actionCollection()->addAction(actionName, actionClone);
+	actionClone->setText(action->text());
+	actionClone->setIcon(action->icon());
+	connect(action, SIGNAL(toggled(bool)), actionClone, SLOT(setChecked(bool)));
+	connect(actionClone, SIGNAL(triggered()), action, SLOT(trigger()));
+}
+#else
 void MainWindow::createMenus()
 {
 	QMenu *fileMenu = menuBar()->addMenu(tr("&File"));

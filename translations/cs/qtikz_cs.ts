@@ -940,58 +940,58 @@ Nebyl nalezen žádný program, který by uměl otevřít soubor &quot;%1&quot;.
         <translation>Ukázat okénko &quot;O knihovně Qt&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="542"/>
+        <location filename="../../app/mainwindow.cpp" line="553"/>
         <source>&amp;File</source>
         <translation>&amp;Soubor</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="566"/>
+        <location filename="../../app/mainwindow.cpp" line="577"/>
         <source>&amp;Settings</source>
         <translation>&amp;Nastavení</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="567"/>
+        <location filename="../../app/mainwindow.cpp" line="578"/>
         <source>&amp;Toolbars</source>
         <translation>&amp;Nástrojové pruhy</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="569"/>
+        <location filename="../../app/mainwindow.cpp" line="580"/>
         <source>Show or hide toolbars</source>
         <translation>Ukázat nebo skrýt nástrojové pruhy</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="574"/>
-        <location filename="../../app/mainwindow.cpp" line="575"/>
-        <location filename="../../app/mainwindow.cpp" line="576"/>
-        <location filename="../../app/mainwindow.cpp" line="577"/>
-        <location filename="../../app/mainwindow.cpp" line="732"/>
+        <location filename="../../app/mainwindow.cpp" line="585"/>
+        <location filename="../../app/mainwindow.cpp" line="586"/>
+        <location filename="../../app/mainwindow.cpp" line="587"/>
+        <location filename="../../app/mainwindow.cpp" line="588"/>
+        <location filename="../../app/mainwindow.cpp" line="743"/>
         <source>Show toolbar &quot;%1&quot;</source>
         <translation>Ukázat nástrojový pruh &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="579"/>
+        <location filename="../../app/mainwindow.cpp" line="590"/>
         <source>&amp;Sidebars</source>
         <translation>&amp;Postranní pruhy</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="581"/>
+        <location filename="../../app/mainwindow.cpp" line="592"/>
         <source>Show or hide sidebars</source>
         <translation>Ukázat nebo skrýt postranní pruhy</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="584"/>
-        <location filename="../../app/mainwindow.cpp" line="585"/>
-        <location filename="../../app/mainwindow.cpp" line="723"/>
+        <location filename="../../app/mainwindow.cpp" line="595"/>
+        <location filename="../../app/mainwindow.cpp" line="596"/>
+        <location filename="../../app/mainwindow.cpp" line="734"/>
         <source>Show sidebar &quot;%1&quot;</source>
         <translation>Ukázat postranní pruh &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="598"/>
+        <location filename="../../app/mainwindow.cpp" line="609"/>
         <source>&amp;Help</source>
         <translation>&amp;Nápověda</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="609"/>
+        <location filename="../../app/mainwindow.cpp" line="620"/>
         <source>File</source>
         <translation>Soubor</translation>
     </message>
@@ -1000,30 +1000,30 @@ Nebyl nalezen žádný program, který by uměl otevřít soubor &quot;%1&quot;.
         <translation type="obsolete">&amp;Vložit</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="712"/>
+        <location filename="../../app/mainwindow.cpp" line="723"/>
         <source>Ready</source>
         <translation>Připraven</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="721"/>
+        <location filename="../../app/mainwindow.cpp" line="732"/>
         <source>Hide sidebar &quot;%1&quot;</source>
         <translation>Skrýt postranní pruh &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="730"/>
+        <location filename="../../app/mainwindow.cpp" line="741"/>
         <source>Hide toolbar &quot;%1&quot;</source>
         <translation>Skrýt nástrojový pruh &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="833"/>
+        <location filename="../../app/mainwindow.cpp" line="844"/>
         <source>The document has been modified.
 Do you want to save your changes?</source>
         <translation>Dokument byl změněn.
 Chcete uložit své změny?</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="961"/>
-        <location filename="../../app/mainwindow.cpp" line="963"/>
+        <location filename="../../app/mainwindow.cpp" line="972"/>
+        <location filename="../../app/mainwindow.cpp" line="974"/>
         <source>Preview: x = %1	y = %2</source>
         <comment>@info:status</comment>
         <translation type="unfinished"></translation>
@@ -1044,19 +1044,19 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Chyba při čtení souboru</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="856"/>
+        <location filename="../../app/mainwindow.cpp" line="867"/>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
         <translation>Nelze přečíst soubor &quot;%1&quot;:
 %2.</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="891"/>
+        <location filename="../../app/mainwindow.cpp" line="902"/>
         <source>File loaded</source>
         <translation>Soubor nahrán</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="918"/>
+        <location filename="../../app/mainwindow.cpp" line="929"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Nelze zapsat soubor &quot;%1&quot;:
@@ -1068,7 +1068,7 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Chyba při ukládání souboru</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="903"/>
+        <location filename="../../app/mainwindow.cpp" line="914"/>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
         <translation>Nelze zapsat soubor &quot;%1&quot;:
@@ -1079,18 +1079,18 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Nepodařilo se zkopírovat dočasný soubor &quot;%1&quot; do &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="926"/>
+        <location filename="../../app/mainwindow.cpp" line="937"/>
         <source>File saved</source>
         <comment>@info:status</comment>
         <translation>Soubor uložen</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="940"/>
+        <location filename="../../app/mainwindow.cpp" line="951"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="955"/>
+        <location filename="../../app/mainwindow.cpp" line="966"/>
         <source>Line: %1	Col: %2</source>
         <comment>@info:status</comment>
         <translation>Řádek: %1	Sloupec: %2</translation>
@@ -3823,7 +3823,7 @@ Pokračovat od konce?</translation>
         <translation>Pohled</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="513"/>
+        <location filename="../../common/tikzpreview.cpp" line="515"/>
         <source>Generating image</source>
         <comment>tikz preview status</comment>
         <translation>Vytváří se obrázek</translation>
@@ -4129,7 +4129,7 @@ Pokračovat od konce?</translation>
     </message>
     <message>
         <location filename="../../app/usercommandeditdialog.cpp" line="55"/>
-        <location filename="../../app/usercommandeditdialog.cpp" line="117"/>
+        <location filename="../../app/usercommandeditdialog.cpp" line="118"/>
         <source>Menu item %1</source>
         <translation type="unfinished"></translation>
     </message>

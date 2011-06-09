@@ -26,6 +26,11 @@ Features:
   Section 21
   Section 22
 
+- Add a line number widget to the left of the editor.
+
+- Implement a fancier tikz command insertion mechanism (e.g. like in
+  QtCreator).
+
 - Clicking an item in the TikZ commands dock widget should not insert
   it, but only select it.  Pressing an Insert button would then do the
   actual insertion.  There should also be a Help button which opens the
@@ -44,6 +49,8 @@ Features:
 
 Bugs or shortcomings:
 ---------------------
+
+- Make sure that all strings in the kpart are translated.
 
 - In common/utils/standardaction.cpp a better way of promoting the KActions
   to Action must be found.

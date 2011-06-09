@@ -1179,7 +1179,7 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation type="obsolete">Bild exportieren</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="542"/>
+        <location filename="../../app/mainwindow.cpp" line="553"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
@@ -1188,37 +1188,37 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation type="obsolete">&amp;Anzeigen</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="566"/>
+        <location filename="../../app/mainwindow.cpp" line="577"/>
         <source>&amp;Settings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="567"/>
+        <location filename="../../app/mainwindow.cpp" line="578"/>
         <source>&amp;Toolbars</source>
         <translation>&amp;Symbolleiste</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="569"/>
+        <location filename="../../app/mainwindow.cpp" line="580"/>
         <source>Show or hide toolbars</source>
         <translation>Symbolleiste anzeigen oder verstecken</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="579"/>
+        <location filename="../../app/mainwindow.cpp" line="590"/>
         <source>&amp;Sidebars</source>
         <translation>S&amp;eitenleiste</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="581"/>
+        <location filename="../../app/mainwindow.cpp" line="592"/>
         <source>Show or hide sidebars</source>
         <translation>Seitenleiste anzeigen oder verstecken</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="598"/>
+        <location filename="../../app/mainwindow.cpp" line="609"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="609"/>
+        <location filename="../../app/mainwindow.cpp" line="620"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
@@ -1227,19 +1227,19 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation type="obsolete">Ausführen</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="712"/>
+        <location filename="../../app/mainwindow.cpp" line="723"/>
         <source>Ready</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="721"/>
+        <location filename="../../app/mainwindow.cpp" line="732"/>
         <source>Hide sidebar &quot;%1&quot;</source>
         <translation>Seitenleiste verstecken &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="584"/>
-        <location filename="../../app/mainwindow.cpp" line="585"/>
-        <location filename="../../app/mainwindow.cpp" line="723"/>
+        <location filename="../../app/mainwindow.cpp" line="595"/>
+        <location filename="../../app/mainwindow.cpp" line="596"/>
+        <location filename="../../app/mainwindow.cpp" line="734"/>
         <source>Show sidebar &quot;%1&quot;</source>
         <translation>Seitenleiste anzeigen &quot;%1&quot;</translation>
     </message>
@@ -1383,31 +1383,31 @@ No application is found which can open the file &quot;%1&quot;.</source>
         <translation type="obsolete">E&amp;infügen</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="730"/>
+        <location filename="../../app/mainwindow.cpp" line="741"/>
         <source>Hide toolbar &quot;%1&quot;</source>
         <translation>Symbolleiste verstecken &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="961"/>
-        <location filename="../../app/mainwindow.cpp" line="963"/>
+        <location filename="../../app/mainwindow.cpp" line="972"/>
+        <location filename="../../app/mainwindow.cpp" line="974"/>
         <source>Preview: x = %1	y = %2</source>
         <comment>@info:status</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="856"/>
+        <location filename="../../app/mainwindow.cpp" line="867"/>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="918"/>
+        <location filename="../../app/mainwindow.cpp" line="929"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="903"/>
+        <location filename="../../app/mainwindow.cpp" line="914"/>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
         <translation type="unfinished"></translation>
@@ -1418,23 +1418,23 @@ No application is found which can open the file &quot;%1&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="926"/>
+        <location filename="../../app/mainwindow.cpp" line="937"/>
         <source>File saved</source>
         <comment>@info:status</comment>
         <translation>Datei gespeichert</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="955"/>
+        <location filename="../../app/mainwindow.cpp" line="966"/>
         <source>Line: %1	Col: %2</source>
         <comment>@info:status</comment>
         <translation>Zeile: %1	Spalte: %2</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="574"/>
-        <location filename="../../app/mainwindow.cpp" line="575"/>
-        <location filename="../../app/mainwindow.cpp" line="576"/>
-        <location filename="../../app/mainwindow.cpp" line="577"/>
-        <location filename="../../app/mainwindow.cpp" line="732"/>
+        <location filename="../../app/mainwindow.cpp" line="585"/>
+        <location filename="../../app/mainwindow.cpp" line="586"/>
+        <location filename="../../app/mainwindow.cpp" line="587"/>
+        <location filename="../../app/mainwindow.cpp" line="588"/>
+        <location filename="../../app/mainwindow.cpp" line="743"/>
         <source>Show toolbar &quot;%1&quot;</source>
         <translation>Symbolleiste anzeigen &quot;%1&quot;</translation>
     </message>
@@ -1448,7 +1448,7 @@ No application is found which can open the file &quot;%1&quot;.</source>
         <translation type="unfinished">&amp;Einstellungen %1...</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="833"/>
+        <location filename="../../app/mainwindow.cpp" line="844"/>
         <source>The document has been modified.
 Do you want to save your changes?</source>
         <translation>Das Dokument wurde verändert.
@@ -1461,7 +1461,7 @@ Wollen Sie die Änderungen speichern?</translation>
 %2.</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="891"/>
+        <location filename="../../app/mainwindow.cpp" line="902"/>
         <source>File loaded</source>
         <translation>Datei geladen</translation>
     </message>
@@ -1476,7 +1476,7 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation type="obsolete">Datei gespeichert</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="940"/>
+        <location filename="../../app/mainwindow.cpp" line="951"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
@@ -4237,7 +4237,7 @@ Am Ende des Dokuments weitermachen?</translation>
         <translation>Alt+Rechts</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="513"/>
+        <location filename="../../common/tikzpreview.cpp" line="515"/>
         <source>Generating image</source>
         <comment>tikz preview status</comment>
         <translation type="unfinished"></translation>
@@ -4561,7 +4561,7 @@ Am Ende des Dokuments weitermachen?</translation>
     </message>
     <message>
         <location filename="../../app/usercommandeditdialog.cpp" line="55"/>
-        <location filename="../../app/usercommandeditdialog.cpp" line="117"/>
+        <location filename="../../app/usercommandeditdialog.cpp" line="118"/>
         <source>Menu item %1</source>
         <translation type="unfinished"></translation>
     </message>

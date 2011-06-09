@@ -255,16 +255,18 @@ QString TikzPreview::formatZoomFactor(qreal zoomFactor) const
 {
 #ifdef KTIKZ_USE_KDE
 	QString zoomFactorText = KGlobal::locale()->formatNumber(zoomFactor, 2);
-	zoomFactorText.remove(KGlobal::locale()->decimalSymbol() + "00");
+	const QString decimalSymbol = KGlobal::locale()->decimalSymbol();
+#else
+	QString zoomFactorText = QLocale::system().toString(zoomFactor, 'f', 2);
+	const QString decimalSymbol = QLocale::system().decimalPoint();
+#endif
+	zoomFactorText.remove(decimalSymbol + "00");
 	// remove trailing zero in numbers like 12.30
 	if (zoomFactorText.endsWith('0')
-	        && zoomFactorText.indexOf(KGlobal::locale()->decimalSymbol()) >= 0)
+	        && zoomFactorText.indexOf(decimalSymbol) >= 0)
 		zoomFactorText.chop(1);
 	zoomFactorText += '%';
 	return zoomFactorText;
-#else
-	return QLocale::system().toString(zoomFactor) + '%';
-#endif
 }
 
 void TikzPreview::createZoomFactorList(qreal newZoomFactor)

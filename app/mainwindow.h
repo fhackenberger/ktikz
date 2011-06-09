@@ -129,7 +129,9 @@ private slots:
 
 private:
 	void createActions();
-#ifndef KTIKZ_USE_KDE
+#ifdef KTIKZ_USE_KDE
+	void addActionCloneToCollection(const QString &actionName, QAction *action);
+#else
 	void createMenus();
 	void createToolBars();
 	void setToolBarStyle();
