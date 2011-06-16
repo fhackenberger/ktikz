@@ -32,22 +32,49 @@ Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &d
 #include <QtCore/QCoreApplication>
 
 /*!
- * Parses a KDE-like filter and returns a Qt-like filter
+ * Parses a KDE-like filter and returns a Qt-like filter.  The filter
+ * "All files (*)" is automatically appended in order to cover the case
+ * in which Qt's own file dialog (in which the filter entry cannot be
+ * cleared similarly as in KDE's file dialog) is visible.
  * \param filter a filter in KDE style
  * \return a filter in Qt style
  */
 
 QString FileDialog::getParsedFilter(const QString &filter)
 {
-	const QStringList filterList = filter.split(QLatin1Char('\n'));
 	QString parsedFilter;
-	for (int i = 0; i < filterList.size(); ++i)
+	if (filter.indexOf(QLatin1Char('/')) >= 0) // filter is a string like "text/x-pgf text/x-tex"
 	{
-		const QStringList filterItems = filterList.at(i).split(QLatin1Char('|'));
-		if (i > 0)
-			parsedFilter += ";;";
-		parsedFilter += filterItems.at(1) + " (" + filterItems.at(0) + ')';
+		const QStringList mimeTypeList = filter.split(QLatin1Char(' '));
+		for (int i = 0; i < mimeTypeList.size(); ++i)
+		{
+			if (i > 0)
+				parsedFilter += ";;";
+			if (mimeTypeList.at(i) == "text/x-pgf")
+				parsedFilter += tr("PGF document", "filter") + " (*.pgf *.tikz)";
+			else if (mimeTypeList.at(i) == "image/x-eps")
+				parsedFilter += tr("EPS image", "filter") + " (*.eps)";
+			else if (mimeTypeList.at(i) == "application/pdf")
+				parsedFilter += tr("PDF document", "filter") + " (*.pdf)";
+			else if (mimeTypeList.at(i).startsWith(QLatin1String("image/")))
+			{
+				const QString mimeType = mimeTypeList.at(i).mid(6);
+				parsedFilter += tr("%1 image", "filter").arg(mimeType.toUpper()) + " (*." + mimeType + ')';
+			}
+		}
 	}
+	else // filter is a string like "*.pgf *.tikz|PGF document\n*.tex|TeX document", we assume that in this case '/' doesn't appear in filter
+	{
+		const QStringList filterList = filter.split(QLatin1Char('\n'));
+		for (int i = 0; i < filterList.size(); ++i)
+		{
+			const QStringList filterItems = filterList.at(i).split(QLatin1Char('|'));
+			if (i > 0)
+				parsedFilter += ";;";
+			parsedFilter += filterItems.at(1) + " (" + filterItems.at(0) + ')';
+		}
+	}
+	parsedFilter += ";;" + tr("All files", "filter") + " (*)";
 	return parsedFilter;
 }
 
@@ -60,7 +87,16 @@ QString FileDialog::getParsedFilter(const QString &filter)
  *     Url url = FileDialog::getOpenUrl(this,
  *         tr("Open PGF Source File"),
  *         Url("/home/user/filename.pgf"),
- *         QString("*.pgf *.tikz"|%1\n*|%2").arg(tr("PGF files")).arg(tr("All files")));
+ *         QString("*.pgf *.tikz"|%1\n*.tex|%2").arg(tr("PGF files")).arg(tr("TeX files")));
+ * \endcode
+ *
+ * or, alternatively,
+ *
+ * \code
+ *     Url url = FileDialog::getOpenUrl(this,
+ *         tr("Open PGF Source File"),
+ *         Url("/home/user/filename.pgf"),
+ *         "text/x-pgf text/x-tex");
  * \endcode
  *
  * The function creates a modal dialog with the given \em parent widget.
@@ -73,7 +109,7 @@ QString FileDialog::getParsedFilter(const QString &filter)
  * \param parent the parent widget for which the file dialog will be a modal dialog
  * \param caption the title of the file dialog
  * \param dir starting directory; if dir includes a file name, the file will be selected
- * \param filter a list of filters separated by '\\n'; every filter entry is defined through \c namefilter|text \c to \c display.  If no '|' is found in the expression, just the namefilter is shown.
+ * \param filter a list of filters separated by '\\n'; every filter entry is defined through \c namefilter|text \c to \c display.  If no '|' is found in the expression, just the namefilter is shown.  In the Qt-only version the filter "All files (*)" is automatically appended to cover the case in which the "Filter" entry of the dialog cannot be cleared (as in KDE's file dialog).  Alternatively, a list of mimetypes separated by a space can be given.  For better consistency across applications in a KDE environment, it is recommended to use the latter option.
  * \return an url specifying the file selected by the user in the file dialog
  */
 
@@ -92,9 +128,18 @@ Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &d
  *
  * \code
  *     Url url = FileDialog::getSaveUrl(this,
- *         tr("Open PGF Source File"),
+ *         tr("Save PGF Source File"),
  *         Url("/home/user/filename.pgf"),
- *         QString("*.pgf *.tikz"|%1\n*|%2").arg(tr("PGF files")).arg(tr("All files")));
+ *         QString("*.pgf *.tikz"|%1\n*.tex|%2").arg(tr("PGF files")).arg(tr("TeX files")));
+ * \endcode
+ *
+ * or, alternatively,
+ *
+ * \code
+ *     Url url = FileDialog::getSaveUrl(this,
+ *         tr("Save PGF Source File"),
+ *         Url("/home/user/filename.pgf"),
+ *         "text/x-pgf text/x-tex");
  * \endcode
  *
  * The function creates a modal dialog with the given \em parent widget.
@@ -107,7 +152,7 @@ Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &d
  * \param parent the parent widget for which the file dialog will be a modal dialog
  * \param caption the title of the file dialog
  * \param dir starting directory; if dir includes a file name, the file will be selected
- * \param filter a list of filters separated by '\\n'; every filter entry is defined through \c namefilter|text \c to \c display.  If no '|' is found in the expression, just the namefilter is shown.
+ * \param filter a list of filters separated by '\\n'; every filter entry is defined through \c namefilter|text \c to \c display.  If no '|' is found in the expression, just the namefilter is shown.  In the Qt-only version the filter "All files (*)" is automatically appended to cover the case in which the "Filter" entry of the dialog cannot be cleared (as in KDE's file dialog).  Alternatively, a list of mimetypes separated by a space can be given.  For better consistency across applications in a KDE environment, it is recommended to use the latter option.
  * \return an url specifying the file selected by the user in the file dialog
  */
 

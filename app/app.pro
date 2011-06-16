@@ -43,9 +43,12 @@ FORMS += configappearancewidget.ui \
 #SOURCES += $$formSources($$FORMS) \ # linguist does not use translations in corresponding cpp files if we use this :-(
 SOURCES += ../common/utils/action.cpp \
 	../common/utils/colorbutton.cpp \
+	../common/utils/combobox.cpp \
 	../common/utils/file.cpp \
 	../common/utils/filedialog.cpp \
+	../common/utils/globallocale.cpp \
 	../common/utils/lineedit.cpp \
+	../common/utils/pagedialog.cpp \
 	../common/utils/recentfilesaction.cpp \
 	../common/utils/standardaction.cpp \
 	../common/utils/selectaction.cpp \
@@ -83,9 +86,9 @@ SOURCES += ../common/utils/action.cpp \
 HEADERS += $$headerFiles($$SOURCES) \
 	../common/mainwidget.h \
 	../common/utils/colordialog.h \
-	../common/utils/combobox.h \
 	../common/utils/fontdialog.h \
-	../common/utils/icon.h
+	../common/utils/icon.h \
+	../common/utils/urlcompletion.h
 RESOURCES = qtikz.qrc
 
 ### Output

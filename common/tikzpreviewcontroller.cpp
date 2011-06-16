@@ -220,34 +220,11 @@ void TikzPreviewController::setToolBarStyle(const Qt::ToolButtonStyle &style)
 
 /***************************************************************************/
 
-#ifdef KTIKZ_USE_KDE
-Url TikzPreviewController::getExportUrl(const Url &url, const QString &mimeType) const
-{
-	KMimeType::Ptr mimeTypePtr = KMimeType::mimeType(mimeType);
-	const QString exportUrlExtension = KMimeType::extractKnownExtension(url.path());
-
-	const KUrl exportUrl = KUrl(url.url().left(url.url().length()
-	                            - (exportUrlExtension.isEmpty() ? 0 : exportUrlExtension.length() + 1)) // the extension is empty when the text/x-pgf mimetype is not correctly installed or when the file does not have a correct extension
-	                            + (m_tikzPreview->numberOfPages() > 1 && mimeType != "application/pdf" ? "_" + QString::number(m_tikzPreview->currentPage() + 1) : "")
-	                            + mimeTypePtr->patterns().at(0).mid(1)); // first extension in the list of possible extensions (without *)
-
-	return KFileDialog::getSaveUrl(exportUrl,
-	                               mimeTypePtr->patterns().join(" ") + '|'
-//	                               + mimeTypePtr->comment() + "\n*|" + i18nc("@item:inlistbox filter", "All files"),
-	                               + mimeTypePtr->comment() + "\n*|" + tr("All files"),
-	                               m_parentWidget,
-//	                               i18nc("@title:window", "Export Image"),
-	                               tr("Export Image"),
-	                               KFileDialog::ConfirmOverwrite);
-}
-#else
 Url TikzPreviewController::getExportUrl(const Url &url, const QString &mimeType) const
 {
 	QString currentFile;
 	const QString extension = (mimeType == "image/x-eps") ? "eps"
 	                          : ((mimeType == "application/pdf") ? "pdf" : mimeType.mid(6));
-	const QString mimeTypeName = (mimeType == "image/x-eps") ? tr("EPS image")
-	                             : ((mimeType == "application/pdf") ? tr("PDF document") : tr("%1 image").arg(mimeType.mid(6).toUpper()));
 	if (!url.isEmpty())
 	{
 		QFileInfo currentFileInfo(url.path());
@@ -258,13 +235,8 @@ Url TikzPreviewController::getExportUrl(const Url &url, const QString &mimeType)
 		               + (m_tikzPreview->numberOfPages() > 1 && mimeType != "application/pdf" ? "_" + QString::number(m_tikzPreview->currentPage() + 1) : "")
 		               + '.' + extension;
 	}
-	const QString filter = QString("*.%1|%2\n*|%3")
-	                       .arg(extension)
-	                       .arg(mimeTypeName)
-	                       .arg(tr("All files"));
-	return FileDialog::getSaveUrl(m_parentWidget, tr("Export image"), Url(currentFile), filter);
+	return FileDialog::getSaveUrl(m_parentWidget, tr("Export image"), Url(currentFile), mimeType);
 }
-#endif
 
 void TikzPreviewController::exportImage()
 {

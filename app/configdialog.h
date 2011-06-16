@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009 by Glad Deschrijver                    *
+ *   Copyright (C) 2007, 2008, 2009, 2011 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -19,26 +19,15 @@
 #ifndef KTIKZ_CONFIGDIALOG_H
 #define KTIKZ_CONFIGDIALOG_H
 
-#ifdef KTIKZ_USE_KDE
-#include <KPageDialog>
-#else
-#include <QtGui/QDialog>
-#endif
+#include "../common/utils/pagedialog.h"
 
-class QLabel;
-class QListWidgetItem;
-//class QTabWidget;
 class QTextCharFormat;
 
 class ConfigGeneralWidget;
 class ConfigEditorWidget;
 class ConfigAppearanceWidget;
 
-#ifdef KTIKZ_USE_KDE
-class ConfigDialog : public KPageDialog
-#else
-class ConfigDialog : public QDialog
-#endif
+class ConfigDialog : public PageDialog
 {
 	Q_OBJECT
 
@@ -56,32 +45,13 @@ signals:
 	void settingsChanged();
 
 private:
-#ifndef KTIKZ_USE_KDE
-	QWidget *centerWidget();
-#endif
-	void addPage(QWidget *widget, const QString &title, const QString &iconName = 0);
-	QWidget *generalPage();
-	QWidget *editorPage();
-	QWidget *appearancePage();
-
 	void keyPressEvent(QKeyEvent *event);
 
-//	QTabWidget *m_pagesTabWidget;
-//	QStringList m_pageTitles;
-
-#ifndef KTIKZ_USE_KDE
-	QList<QListWidgetItem*> m_pagesListWidgetItems;
-	QLabel *m_pagesTitleLabel;
-	QList<QWidget*> m_pageWidgets;
-#endif
 	ConfigGeneralWidget *m_configGeneralWidget;
 	ConfigEditorWidget *m_configEditorWidget;
 	ConfigAppearanceWidget *m_configAppearanceWidget;
 
 private slots:
-#ifndef KTIKZ_USE_KDE
-	void setCurrentPage(int page);
-#endif
 	void accept();
 };
 

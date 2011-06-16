@@ -16,30 +16,20 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef KTIKZ_COMBOBOX_H
-#define KTIKZ_COMBOBOX_H
+#include "combobox.h"
+#include "urlcompletion.h"
 
 #ifdef KTIKZ_USE_KDE
-#include <KComboBox>
-
-class ComboBox : public KComboBox
+ComboBox::ComboBox(QWidget *parent) : KComboBox(parent)
 {
-	Q_OBJECT
-public:
-	ComboBox(QWidget *parent = 0);
-};
+}
 #else
-#include <QtGui/QComboBox>
-
-class UrlCompletion;
-
-class ComboBox : public QComboBox
+ComboBox::ComboBox(QWidget *parent) : QComboBox(parent)
 {
-	Q_OBJECT
-public:
-	ComboBox(QWidget *parent = 0);
-	virtual void setCompletionObject(UrlCompletion *urlCompletion);
-};
-#endif
+}
 
+void ComboBox::setCompletionObject(UrlCompletion *urlCompletion)
+{
+	setCompleter(urlCompletion);
+}
 #endif

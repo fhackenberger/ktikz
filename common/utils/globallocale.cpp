@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2011 by Glad Deschrijver                                *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,30 +16,41 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef KTIKZ_COMBOBOX_H
-#define KTIKZ_COMBOBOX_H
+#include "globallocale.h"
 
 #ifdef KTIKZ_USE_KDE
-#include <KComboBox>
+#include <KGlobal>
+#include <KLocale>
 
-class ComboBox : public KComboBox
+QString GlobalLocale::decimalSymbol()
 {
-	Q_OBJECT
-public:
-	ComboBox(QWidget *parent = 0);
-};
+	return KGlobal::locale()->decimalSymbol();
+}
+
+QString GlobalLocale::formatNumber(double num, int precision)
+{
+	return KGlobal::locale()->formatNumber(num, precision);
+}
+
+double GlobalLocale::readNumber(const QString &str)
+{
+	return KGlobal::locale()->readNumber(str);
+}
 #else
-#include <QtGui/QComboBox>
+#include <QtCore/QLocale>
 
-class UrlCompletion;
-
-class ComboBox : public QComboBox
+QString GlobalLocale::decimalSymbol()
 {
-	Q_OBJECT
-public:
-	ComboBox(QWidget *parent = 0);
-	virtual void setCompletionObject(UrlCompletion *urlCompletion);
-};
-#endif
+	return QLocale::system().decimalPoint();
+}
 
+QString GlobalLocale::formatNumber(double num, int precision)
+{
+	return QLocale::system().toString(num, 'f', precision);
+}
+
+double GlobalLocale::readNumber(const QString &str)
+{
+	return str.toDouble();
+}
 #endif

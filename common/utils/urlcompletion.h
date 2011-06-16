@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2011 by Glad Deschrijver                                *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,29 +16,32 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef KTIKZ_COMBOBOX_H
-#define KTIKZ_COMBOBOX_H
+#ifndef KTIKZ_URLCOMPLETION_H
+#define KTIKZ_URLCOMPLETION_H
 
 #ifdef KTIKZ_USE_KDE
-#include <KComboBox>
+#include <KUrlCompletion>
 
-class ComboBox : public KComboBox
+class UrlCompletion : public KUrlCompletion
 {
-	Q_OBJECT
 public:
-	ComboBox(QWidget *parent = 0);
+	UrlCompletion(QObject *parent = 0) : KUrlCompletion()
+	{
+		Q_UNUSED(parent);
+	}
 };
 #else
-#include <QtGui/QComboBox>
+#include <QtGui/QCompleter>
+#include <QtGui/QDirModel>
 
-class UrlCompletion;
-
-class ComboBox : public QComboBox
+class UrlCompletion : public QCompleter
 {
-	Q_OBJECT
 public:
-	ComboBox(QWidget *parent = 0);
-	virtual void setCompletionObject(UrlCompletion *urlCompletion);
+	UrlCompletion(QObject *parent = 0) : QCompleter(parent)
+	{
+		setModel(new QDirModel(this));
+		setCompletionMode(QCompleter::PopupCompletion);
+	}
 };
 #endif
 

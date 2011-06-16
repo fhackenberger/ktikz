@@ -19,12 +19,6 @@
 #include <qmath.h>
 #include "tikzpreview.h"
 
-#ifdef KTIKZ_USE_KDE
-#include <KLocale>
-#else
-#include <QtCore/QLocale>
-#endif
-
 #include <QtGui/QApplication>
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QGraphicsPixmapItem>
@@ -40,6 +34,7 @@
 
 #include "tikzpreviewthread.h"
 #include "utils/action.h"
+#include "utils/globallocale.h"
 #include "utils/icon.h"
 #include "utils/selectaction.h"
 #include "utils/standardaction.h"
@@ -253,18 +248,15 @@ void TikzPreview::paintEvent(QPaintEvent *event)
 
 QString TikzPreview::formatZoomFactor(qreal zoomFactor) const
 {
-#ifdef KTIKZ_USE_KDE
-	QString zoomFactorText = KGlobal::locale()->formatNumber(zoomFactor, 2);
-	const QString decimalSymbol = KGlobal::locale()->decimalSymbol();
-#else
-	QString zoomFactorText = QLocale::system().toString(zoomFactor, 'f', 2);
-	const QString decimalSymbol = QLocale::system().decimalPoint();
-#endif
+	QString zoomFactorText = GlobalLocale::formatNumber(zoomFactor, 2);
+	const QString decimalSymbol = GlobalLocale::decimalSymbol();
+
 	zoomFactorText.remove(decimalSymbol + "00");
 	// remove trailing zero in numbers like 12.30
 	if (zoomFactorText.endsWith('0')
 	        && zoomFactorText.indexOf(decimalSymbol) >= 0)
 		zoomFactorText.chop(1);
+
 	zoomFactorText += '%';
 	return zoomFactorText;
 }
@@ -337,11 +329,7 @@ void TikzPreview::setZoomFactor(qreal zoomFactor)
 
 void TikzPreview::setZoomFactor(const QString &zoomFactorText)
 {
-#ifdef KTIKZ_USE_KDE
-	setZoomFactor(KGlobal::locale()->readNumber(QString(zoomFactorText).remove('&').remove('%')) / 100.0);
-#else
-	setZoomFactor(QString(zoomFactorText).remove(QRegExp(QString("[^\\d\\%1]*").arg(QLocale::system().decimalPoint()))).toDouble() / 100);
-#endif
+	setZoomFactor(GlobalLocale::readNumber(QString(zoomFactorText).remove(QRegExp(QString("[^\\d\\%1]*").arg(GlobalLocale::decimalSymbol())))) / 100.0);
 }
 
 void TikzPreview::zoomIn()

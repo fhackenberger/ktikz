@@ -18,13 +18,7 @@
 
 #include "templatewidget.h"
 
-#ifdef KTIKZ_USE_KDE
-#include <KUrlCompletion>
-#else
-#include <QtGui/QCompleter>
-#endif
 #include <QtGui/QApplication>
-#include <QtGui/QDirModel>
 #include <QtGui/QKeyEvent>
 #include <QtCore/QProcess>
 #include <QtCore/QSettings>
@@ -34,6 +28,7 @@
 #include "utils/icon.h"
 #include "utils/lineedit.h"
 #include "utils/url.h"
+#include "utils/urlcompletion.h"
 
 TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 {
@@ -49,15 +44,8 @@ TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 	ui.templateEditButton->setIcon(Icon("document-edit"));
 #endif
 
-#ifdef KTIKZ_USE_KDE
-	KUrlCompletion *completion = new KUrlCompletion();
+	UrlCompletion *completion = new UrlCompletion(this);
 	ui.templateCombo->setCompletionObject(completion);
-#else
-	QCompleter *completer = new QCompleter(this);
-	completer->setModel(new QDirModel(completer));
-	completer->setCompletionMode(QCompleter::PopupCompletion);
-	ui.templateCombo->setCompleter(completer);
-#endif
 
 	connect(ui.templateChooseButton, SIGNAL(clicked()),
 	        this, SLOT(selectTemplateFile()));

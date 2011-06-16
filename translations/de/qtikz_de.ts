@@ -108,27 +108,23 @@
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="../../app/configdialog.cpp" line="42"/>
-        <location filename="../../app/configdialog.cpp" line="56"/>
+        <location filename="../../app/configdialog.cpp" line="32"/>
         <source>Configure %1</source>
         <oldsource>Configure TikZ editor</oldsource>
         <translation>Konfiguration des %1s</translation>
     </message>
     <message>
-        <location filename="../../app/configdialog.cpp" line="46"/>
-        <location filename="../../app/configdialog.cpp" line="58"/>
+        <location filename="../../app/configdialog.cpp" line="38"/>
         <source>&amp;General</source>
         <translation>All&amp;gemein</translation>
     </message>
     <message>
-        <location filename="../../app/configdialog.cpp" line="47"/>
-        <location filename="../../app/configdialog.cpp" line="59"/>
+        <location filename="../../app/configdialog.cpp" line="39"/>
         <source>&amp;Editor</source>
         <translation>&amp;Editor</translation>
     </message>
     <message>
-        <location filename="../../app/configdialog.cpp" line="48"/>
-        <location filename="../../app/configdialog.cpp" line="60"/>
+        <location filename="../../app/configdialog.cpp" line="40"/>
         <source>&amp;Highlighting</source>
         <translation>&amp;Hervorhebung</translation>
     </message>
@@ -796,6 +792,39 @@
     </message>
 </context>
 <context>
+    <name>FileDialog</name>
+    <message>
+        <location filename="../../common/utils/filedialog.cpp" line="54"/>
+        <source>PGF document</source>
+        <comment>filter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../common/utils/filedialog.cpp" line="56"/>
+        <source>EPS image</source>
+        <comment>filter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../common/utils/filedialog.cpp" line="58"/>
+        <source>PDF document</source>
+        <comment>filter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../common/utils/filedialog.cpp" line="62"/>
+        <source>%1 image</source>
+        <comment>filter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../common/utils/filedialog.cpp" line="77"/>
+        <source>All files</source>
+        <comment>filter</comment>
+        <translation type="unfinished">Alle Dateien</translation>
+    </message>
+</context>
+<context>
     <name>GoToLineWidget</name>
     <message>
         <location filename="../../app/editgotolinewidget.ui" line="6"/>
@@ -969,18 +998,14 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation>PGF Quelldatei öffnen</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="282"/>
-        <location filename="../../app/mainwindow.cpp" line="305"/>
         <source>PGF files</source>
         <comment>filter</comment>
-        <translation>PGF Dateien</translation>
+        <translation type="obsolete">PGF Dateien</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="282"/>
-        <location filename="../../app/mainwindow.cpp" line="305"/>
         <source>All files</source>
         <comment>filter</comment>
-        <translation>Alle Dateien</translation>
+        <translation type="obsolete">Alle Dateien</translation>
     </message>
     <message>
         <location filename="../../app/mainwindow.cpp" line="305"/>
@@ -1734,7 +1759,7 @@ Wollen Sie die Änderungen speichern?</translation>
     <name>TemplateWidget</name>
     <message>
         <location filename="../../common/templatewidget.ui" line="75"/>
-        <location filename="../../common/templatewidget.cpp" line="134"/>
+        <location filename="../../common/templatewidget.cpp" line="122"/>
         <source>&lt;p&gt;Edit this template with an external editor specified in the &quot;Configure&quot; dialog.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Diese Vorlage mit dem im &quot;Konfiguration&quot; Dialag eingestelltem externen Editor bearbeiten.&lt;/p&gt;</translation>
     </message>
@@ -1743,18 +1768,18 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation type="obsolete">&lt;p&gt;Der Text %1 in der Vorlage wird durch TikZ code ersetzt.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/templatewidget.cpp" line="157"/>
+        <location filename="../../common/templatewidget.cpp" line="145"/>
         <source>Select a template file</source>
         <translation>Wählen Sie eine Vorlagedatei</translation>
     </message>
     <message>
-        <location filename="../../common/templatewidget.cpp" line="159"/>
+        <location filename="../../common/templatewidget.cpp" line="147"/>
         <source>%1 template files</source>
         <oldsource>KtikZ template files</oldsource>
         <translation>%1 Vorlagen Dateien</translation>
     </message>
     <message>
-        <location filename="../../common/templatewidget.cpp" line="160"/>
+        <location filename="../../common/templatewidget.cpp" line="148"/>
         <source>All files</source>
         <translation>Alle Dateien</translation>
     </message>
@@ -1766,7 +1791,7 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../../common/templatewidget.ui" line="12"/>
         <location filename="../../common/templatewidget.ui" line="31"/>
-        <location filename="../../common/templatewidget.cpp" line="129"/>
+        <location filename="../../common/templatewidget.cpp" line="117"/>
         <source>&lt;p&gt;Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Geben Sie den Dateinamen der LaTeX Vorlage an. Wenn dieses Feld leer bleibt oder einen ungültigen Pfad enthält wird eine Standardvorlage verwendet.&lt;/p&gt;</translation>
     </message>
@@ -1813,7 +1838,7 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation type="obsolete">&lt;p&gt;Vorlage bearbeiten&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/templatewidget.cpp" line="124"/>
+        <location filename="../../common/templatewidget.cpp" line="112"/>
         <source>&lt;p&gt;The template contains the code of a complete LaTeX document in which the TikZ picture will be included and which will be typesetted to produce the preview image.  The string %1 in the template will be replaced by the TikZ code.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Die Vorlage enhält den code für ein komplettes LaTeX Dokument in das die TikZ Zeichnung inkludiert wird. Das Resultat wird von LaTeX übersetzt um daraus die Vorschau zu erstellen. Die Zeichenkette %1 in der Vorlage wird duch den TikZ code ersetzt.&lt;/p&gt;</translation>
     </message>
@@ -4179,7 +4204,7 @@ Am Ende des Dokuments weitermachen?</translation>
 <context>
     <name>TikzPreview</name>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="58"/>
+        <location filename="../../common/tikzpreview.cpp" line="53"/>
         <source>&lt;p&gt;Here the preview image of your TikZ code is shown.  You can zoom in and out, and you can scroll the image by dragging it.&lt;/p&gt;</source>
         <oldsource>Here the preview image of your TikZ code is shown.  You can zoom in and out, and you can scroll the image by dragging it.</oldsource>
         <translation>&lt;p&gt;Hier wird die Vorschau des TikZ codes angezeigt.  Sie können vergrößern und verkleinern, sowie scrollen indem sie mit der Maus das Bild ziehen.&lt;/p&gt;</translation>
@@ -4189,12 +4214,12 @@ Am Ende des Dokuments weitermachen?</translation>
         <translation type="obsolete">Ver&amp;größern</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="113"/>
+        <location filename="../../common/tikzpreview.cpp" line="108"/>
         <source>Zoom preview in</source>
         <translation>Vorschau vergrößern</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="115"/>
+        <location filename="../../common/tikzpreview.cpp" line="110"/>
         <source>&lt;p&gt;Zoom preview in by a predetermined factor.&lt;/p&gt;</source>
         <oldsource>Zoom preview in by a predetermined factor.</oldsource>
         <translation>&lt;p&gt;Vorschau um einen bestimmten Faktor vergrößern.&lt;/p&gt;</translation>
@@ -4204,84 +4229,84 @@ Am Ende des Dokuments weitermachen?</translation>
         <translation type="obsolete">Ver&amp;kleinern</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="114"/>
+        <location filename="../../common/tikzpreview.cpp" line="109"/>
         <source>Zoom preview out</source>
         <translation>Vorschau verkleinern</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="116"/>
+        <location filename="../../common/tikzpreview.cpp" line="111"/>
         <source>&lt;p&gt;Zoom preview out by a predetermined factor.&lt;/p&gt;</source>
         <oldsource>Zoom preview out by a predetermined factor.</oldsource>
         <translation>&lt;p&gt;Vorschau um einen bestimmten Faktor verkleinern.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="118"/>
+        <location filename="../../common/tikzpreview.cpp" line="113"/>
         <source>&amp;Zoom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="127"/>
+        <location filename="../../common/tikzpreview.cpp" line="122"/>
         <source>&amp;Previous image</source>
         <translation>V&amp;origens Bild</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="128"/>
+        <location filename="../../common/tikzpreview.cpp" line="123"/>
         <source>Alt+Left</source>
         <comment>View|Go to previous page</comment>
         <translation>Alt+Links</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="134"/>
+        <location filename="../../common/tikzpreview.cpp" line="129"/>
         <source>Alt+Right</source>
         <comment>View|Go to next page</comment>
         <translation>Alt+Rechts</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="515"/>
+        <location filename="../../common/tikzpreview.cpp" line="503"/>
         <source>Generating image</source>
         <comment>tikz preview status</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="129"/>
+        <location filename="../../common/tikzpreview.cpp" line="124"/>
         <source>Show previous image in preview</source>
         <translation>Vorheriges Bild in der Vorschau anzeigen</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="130"/>
+        <location filename="../../common/tikzpreview.cpp" line="125"/>
         <source>&lt;p&gt;Show the preview of the previous tikzpicture in the TikZ code.&lt;/p&gt;</source>
         <oldsource>Show the preview of the previous tikzpicture in the TikZ code.</oldsource>
         <translation>&lt;p&gt;Vorschau vom vorangegangenen tikzpicture im TikZ code anzeigen.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="133"/>
+        <location filename="../../common/tikzpreview.cpp" line="128"/>
         <source>&amp;Next image</source>
         <translation>&amp;Nächstes Bild</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="135"/>
+        <location filename="../../common/tikzpreview.cpp" line="130"/>
         <source>Show next image in preview</source>
         <translation>Das nächte Bild in der Vorschau anzeigen</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="136"/>
+        <location filename="../../common/tikzpreview.cpp" line="131"/>
         <source>&lt;p&gt;Show the preview of the next tikzpicture in the TikZ code.&lt;/p&gt;</source>
         <oldsource>Show the preview of the next tikzpicture in the TikZ code.</oldsource>
         <translation>&lt;p&gt;Vorschau vom nächsten tikzpicture im TikZ code anzeigen.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="120"/>
+        <location filename="../../common/tikzpreview.cpp" line="115"/>
         <source>Select or insert zoom factor here</source>
         <translation>Zoom Faktor auswählen oder eingeben</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="121"/>
+        <location filename="../../common/tikzpreview.cpp" line="116"/>
         <source>&lt;p&gt;Select the zoom factor here.  Alternatively, you can also introduce a zoom factor and press Enter.&lt;/p&gt;</source>
         <oldsource>Select the zoom factor here.  Alternatively, you can also introduce a zoom factor and press Enter.</oldsource>
         <translation>&lt;p&gt;Wählen Sie hier den Zoom Faktor aus.  Sie können auch einen Zoom Faktor eingeben und Enter drücken.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="158"/>
+        <location filename="../../common/tikzpreview.cpp" line="153"/>
         <source>View</source>
         <translation>Anzeigen</translation>
     </message>
@@ -4369,7 +4394,7 @@ Am Ende des Dokuments weitermachen?</translation>
     </message>
     <message>
         <location filename="../../common/tikzpreviewcontroller.cpp" line="152"/>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="311"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="283"/>
         <source>Print image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4425,33 +4450,11 @@ Am Ende des Dokuments weitermachen?</translation>
         <translation type="unfinished">Ausführen</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="237"/>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="264"/>
         <source>All files</source>
-        <translation type="unfinished">Alle Dateien</translation>
+        <translation type="obsolete">Alle Dateien</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="240"/>
-        <source>Export Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="249"/>
-        <source>EPS image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="250"/>
-        <source>PDF document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="250"/>
-        <source>%1 image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="265"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="238"/>
         <source>Export image</source>
         <translation type="unfinished">Bild exportieren</translation>
     </message>
@@ -4461,7 +4464,7 @@ Am Ende des Dokuments weitermachen?</translation>
         <translation type="obsolete">Abbre&amp;chen</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="301"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="273"/>
         <source>The image could not be exported to the file &quot;%1&quot;.</source>
         <translation type="unfinished"></translation>
     </message>

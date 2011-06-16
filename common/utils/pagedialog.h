@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2007, 2008, 2009, 2011 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,29 +16,48 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef KTIKZ_COMBOBOX_H
-#define KTIKZ_COMBOBOX_H
+#ifndef KTIKZ_PAGEDIALOG_H
+#define KTIKZ_PAGEDIALOG_H
 
 #ifdef KTIKZ_USE_KDE
-#include <KComboBox>
+#include <KPageDialog>
 
-class ComboBox : public KComboBox
+class PageDialog : public KPageDialog
 {
 	Q_OBJECT
 public:
-	ComboBox(QWidget *parent = 0);
+	PageDialog(QWidget *parent = 0);
+	void addPage(QWidget *widget, const QString &title, const QString &iconName);
 };
 #else
-#include <QtGui/QComboBox>
+#include <QtGui/QDialog>
 
-class UrlCompletion;
+class QLabel;
+class QListWidget;
+class QListWidgetItem;
+class QStackedWidget;
 
-class ComboBox : public QComboBox
+class PageDialog : public QDialog
 {
 	Q_OBJECT
 public:
-	ComboBox(QWidget *parent = 0);
-	virtual void setCompletionObject(UrlCompletion *urlCompletion);
+	PageDialog(QWidget *parent = 0);
+	void setCaption(const QString &caption);
+	void setHelp(const QString &anchor);
+	void addPage(QWidget *widget, const QString &title, const QString &iconName);
+
+private slots:
+	void setCurrentPage(int page);
+
+private:
+	QWidget *centerWidget();
+
+	QListWidget *m_pagesListWidget;
+	QList<QListWidgetItem*> m_pagesListWidgetItems;
+	QList<QWidget*> m_pageWidgets;
+	QLabel *m_pagesTitleLabel;
+	QStackedWidget *m_pagesStackedWidget;
+	int m_iconWidth;
 };
 #endif
 

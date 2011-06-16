@@ -37,9 +37,12 @@ set(ktikz_SRCS
 	../common/tikztemporaryfilecontroller.cpp
 	../common/utils/action.cpp
 	../common/utils/colorbutton.cpp
+	../common/utils/combobox.cpp
 	../common/utils/file.cpp
 	../common/utils/filedialog.cpp
+	../common/utils/globallocale.cpp
 	../common/utils/lineedit.cpp
+	../common/utils/pagedialog.cpp
 	../common/utils/recentfilesaction.cpp
 	../common/utils/selectaction.cpp
 	../common/utils/standardaction.cpp

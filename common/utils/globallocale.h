@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2011 by Glad Deschrijver                                *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,30 +16,17 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef KTIKZ_COMBOBOX_H
-#define KTIKZ_COMBOBOX_H
+#ifndef KTIKZ_GLOBALLOCALE_H
+#define KTIKZ_GLOBALLOCALE_H
 
-#ifdef KTIKZ_USE_KDE
-#include <KComboBox>
+#include <QString>
 
-class ComboBox : public KComboBox
+class GlobalLocale
 {
-	Q_OBJECT
 public:
-	ComboBox(QWidget *parent = 0);
+	static QString decimalSymbol();
+	static QString formatNumber(double num, int precision = -1);
+	static double readNumber(const QString &str);
 };
-#else
-#include <QtGui/QComboBox>
-
-class UrlCompletion;
-
-class ComboBox : public QComboBox
-{
-	Q_OBJECT
-public:
-	ComboBox(QWidget *parent = 0);
-	virtual void setCompletionObject(UrlCompletion *urlCompletion);
-};
-#endif
 
 #endif

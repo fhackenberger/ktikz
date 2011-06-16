@@ -279,7 +279,7 @@ bool MainWindow::closeFile()
 
 void MainWindow::open()
 {
-	const Url openUrl = FileDialog::getOpenUrl(this, tr("Open PGF source file"), m_lastUrl, QString("*.pgf *.tikz *.tex|%1\n*|%2").arg(tr("PGF files", "filter")).arg(tr("All files", "filter")));
+	const Url openUrl = FileDialog::getOpenUrl(this, tr("Open PGF source file"), m_lastUrl, "text/x-pgf");
 	if (openUrl.isValid() && !openUrl.isEmpty())
 		loadUrl(openUrl);
 }
@@ -302,7 +302,7 @@ bool MainWindow::save()
 
 bool MainWindow::saveAs()
 {
-	const Url saveAsUrl = FileDialog::getSaveUrl(this, tr("Save PGF source file"), m_currentUrl, QString("*.pgf *.tikz *.tex|%1\n*|%2").arg(tr("PGF files", "filter")).arg(tr("All files", "filter")));
+	const Url saveAsUrl = FileDialog::getSaveUrl(this, tr("Save PGF source file"), m_currentUrl, "text/x-pgf");
 	if (!saveAsUrl.isValid() || saveAsUrl.isEmpty())
 		return false;
 	return saveUrl(saveAsUrl);
