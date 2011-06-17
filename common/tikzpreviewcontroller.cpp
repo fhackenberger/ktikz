@@ -24,7 +24,6 @@
 #endif
 
 #include <QtGui/QMenu>
-#include <QtGui/QMessageBox>
 #include <QtCore/QPointer>
 #include <QtGui/QPrintDialog>
 #include <QtGui/QPrinter>
@@ -40,6 +39,7 @@
 #include "utils/file.h"
 #include "utils/filedialog.h"
 #include "utils/icon.h"
+#include "utils/messagebox.h"
 #include "utils/standardaction.h"
 #include "utils/toggleaction.h"
 
@@ -269,8 +269,9 @@ void TikzPreviewController::exportImage()
 	}
 
 	if (!File::copy(Url(m_temporaryFileController->baseName() + extension), exportUrl))
-		QMessageBox::critical(m_parentWidget, QCoreApplication::applicationName(),
-		                      tr("The image could not be exported to the file \"%1\".").arg(exportUrl.path()));
+		MessageBox::error(m_parentWidget,
+		                  tr("The image could not be exported to the file \"%1\".").arg(exportUrl.path()),
+		                  QCoreApplication::applicationName());
 }
 
 /***************************************************************************/

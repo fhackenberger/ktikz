@@ -13,7 +13,7 @@ set(ktikzpart_SRCS
 	part.cpp
 	../common/templatewidget.cpp
 	../common/tikzpreview.cpp
-	../common/tikzpreviewthread.cpp
+	../common/tikzpreviewrenderer.cpp
 	../common/tikzpreviewcontroller.cpp
 	../common/tikzpreviewgenerator.cpp
 	../common/tikztemporaryfilecontroller.cpp
@@ -23,6 +23,7 @@ set(ktikzpart_SRCS
 	../common/utils/filedialog.cpp
 	../common/utils/globallocale.cpp
 	../common/utils/lineedit.cpp
+	../common/utils/messagebox.cpp
 	../common/utils/recentfilesaction.cpp
 	../common/utils/selectaction.cpp
 	../common/utils/standardaction.cpp

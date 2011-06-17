@@ -31,7 +31,7 @@ set(ktikz_SRCS
 	usercommandinserter.cpp
 	../common/templatewidget.cpp
 	../common/tikzpreview.cpp
-	../common/tikzpreviewthread.cpp
+	../common/tikzpreviewrenderer.cpp
 	../common/tikzpreviewcontroller.cpp
 	../common/tikzpreviewgenerator.cpp
 	../common/tikztemporaryfilecontroller.cpp
@@ -42,6 +42,7 @@ set(ktikz_SRCS
 	../common/utils/filedialog.cpp
 	../common/utils/globallocale.cpp
 	../common/utils/lineedit.cpp
+	../common/utils/messagebox.cpp
 	../common/utils/pagedialog.cpp
 	../common/utils/recentfilesaction.cpp
 	../common/utils/selectaction.cpp

@@ -21,7 +21,6 @@
 #include <QtGui/QApplication>
 #include <QtGui/QClipboard>
 #include <QtGui/QMenu>
-#include <QtGui/QMessageBox>
 #include <QtCore/QPointer>
 #include <QtCore/QSettings>
 #include <QtGui/QTextCursor>
@@ -35,6 +34,7 @@
 //#include "tikzeditorhighlighter.h"
 #include "../common/utils/action.h"
 #include "../common/utils/icon.h"
+#include "../common/utils/messagebox.h"
 #include "../common/utils/standardaction.h"
 
 TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
@@ -529,12 +529,12 @@ bool TikzEditorView::search(const QString &text, bool isCaseSensitive,
 		const QString msg = (forward) ?
 		                    tr("End of document reached.\n\nContinue from the beginning?")
 		                    : tr("Beginning of document reached.\n\nContinue from the end?");
-		const int ret = QMessageBox::warning(this, "Find", msg,
-		                                     QMessageBox::Yes | QMessageBox::Default, QMessageBox::No | QMessageBox::Escape);
-		if (ret == QMessageBox::Yes)
+		const int result = MessageBox::questionYesNo(this, msg, tr("Find"), tr("Continue"));
+		if (result == MessageBox::Yes)
 			return search(text, isCaseSensitive, findWholeWords, forward, false, true);
 		else
 		{
+			m_replaceWidget->setVisible(false);
 			m_replaceCurrentWidget->setVisible(false);
 			m_tikzEditor->setFocus();
 		}

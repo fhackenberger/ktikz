@@ -16,17 +16,27 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef KTIKZ_GLOBALLOCALE_H
-#define KTIKZ_GLOBALLOCALE_H
+#ifndef KTIKZ_MESSAGEBOX_H
+#define KTIKZ_MESSAGEBOX_H
 
 #include <QtCore/QString>
+class QWidget;
 
-class GlobalLocale
+class MessageBox
 {
 public:
-	static QString decimalSymbol();
-	static QString formatNumber(double num, int precision = -1);
-	static double readNumber(const QString &str);
+	enum ButtonCode
+	{
+		Ok = 1,
+		Cancel = 2,
+		Yes = 3,
+		No = 4,
+		Continue = 5
+	};
+
+	static int questionYesNo(QWidget *parent, const QString &text, const QString &caption = QString(), const QString &yesButtonText = QString(), const QString &noButtonText = QString());
+	static void sorry(QWidget *parent, const QString &text, const QString &caption = QString());
+	static void error(QWidget *parent, const QString &text, const QString &caption = QString());
 };
 
 #endif

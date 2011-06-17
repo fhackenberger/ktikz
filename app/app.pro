@@ -48,6 +48,7 @@ SOURCES += ../common/utils/action.cpp \
 	../common/utils/filedialog.cpp \
 	../common/utils/globallocale.cpp \
 	../common/utils/lineedit.cpp \
+	../common/utils/messagebox.cpp \
 	../common/utils/pagedialog.cpp \
 	../common/utils/recentfilesaction.cpp \
 	../common/utils/standardaction.cpp \
@@ -81,7 +82,7 @@ SOURCES += ../common/utils/action.cpp \
 	../common/tikzpreview.cpp \
 	../common/tikzpreviewcontroller.cpp \
 	../common/tikzpreviewgenerator.cpp \
-	../common/tikzpreviewthread.cpp \
+	../common/tikzpreviewrenderer.cpp \
 	../common/tikztemporaryfilecontroller.cpp
 HEADERS += $$headerFiles($$SOURCES) \
 	../common/mainwidget.h \

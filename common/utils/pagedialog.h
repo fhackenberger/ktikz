@@ -54,7 +54,6 @@ private:
 
 	QListWidget *m_pagesListWidget;
 	QList<QListWidgetItem*> m_pagesListWidgetItems;
-	QList<QWidget*> m_pageWidgets;
 	QLabel *m_pagesTitleLabel;
 	QStackedWidget *m_pagesStackedWidget;
 	int m_iconWidth;

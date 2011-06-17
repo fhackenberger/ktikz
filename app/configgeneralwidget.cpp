@@ -18,16 +18,16 @@
 
 #include "configgeneralwidget.h"
 
-#include <QtGui/QCompleter>
-#include <QtGui/QDirModel>
-#include <QtGui/QFileDialog>
-#include <QtGui/QMessageBox>
 #include <QtCore/QProcess>
 #include <QtCore/QSettings>
 
 #include "ktikzapplication.h"
 #include "tikzdocumentationcontroller.h"
+#include "../common/utils/filedialog.h"
 #include "../common/utils/icon.h"
+#include "../common/utils/messagebox.h"
+#include "../common/utils/urlcompletion.h"
+#include "../common/utils/url.h"
 
 ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent)
 	: QWidget(parent)
@@ -41,13 +41,11 @@ ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent)
 	ui.toolBarStyleComboBox->setVisible(false);
 #endif
 
-	QCompleter *completer = new QCompleter(this);
-	completer->setModel(new QDirModel(completer));
-	completer->setCompletionMode(QCompleter::PopupCompletion);
-	ui.tikzDocEdit->setCompleter(completer);
-	ui.latexEdit->setCompleter(completer);
-	ui.pdftopsEdit->setCompleter(completer);
-	ui.editorEdit->setCompleter(completer);
+	UrlCompletion *completion = new UrlCompletion(this);
+	ui.tikzDocEdit->setCompletionObject(completion);
+	ui.latexEdit->setCompletionObject(completion);
+	ui.pdftopsEdit->setCompletionObject(completion);
+	ui.editorEdit->setCompletionObject(completion);
 
 	ui.tikzDocButton->setIcon(Icon("document-open"));
 	ui.latexButton->setIcon(Icon("document-open"));
@@ -134,8 +132,8 @@ void ConfigGeneralWidget::searchTikzDocumentation()
 {
 	const QString tikzDocFile = TikzDocumentationController::searchTikzDocumentationInTexTree();
 	if (tikzDocFile.isEmpty())
-		QMessageBox::warning(this, KtikzApplication::applicationName(),
-		                     tr("Cannot find TikZ documentation."));
+		MessageBox::sorry(this, tr("Cannot find TikZ documentation."),
+		                  KtikzApplication::applicationName());
 	else
 		ui.tikzDocEdit->setText(tikzDocFile);
 }
@@ -145,18 +143,15 @@ void ConfigGeneralWidget::browseCommand(QLineEdit *lineEdit, bool isProgram)
 	QString location;
 	if (isProgram)
 	{
-		location = QFileDialog::getOpenFileName(this,
-		                                        tr("Browse program"), QDir::rootPath(),
-		                                        QString("%1 (*)").arg(tr("Program")), 0,
-		                                        QFileDialog::DontResolveSymlinks);
+		Url url = FileDialog::getOpenUrl(this, tr("Browse program"), QDir::rootPath());
+		location = url.path();
 	}
 	else
 	{
 		const QString oldLocation = lineEdit->text();
-		location = QFileDialog::getOpenFileName(this,
-		                                        tr("Browse file"),
-		                                        (!oldLocation.isEmpty()) ? oldLocation : QDir::homePath(),
-		                                        QString("%1 (*.*)").arg(tr("All files")));
+		Url url = FileDialog::getOpenUrl(this, tr("Browse file"),
+		                                 (!oldLocation.isEmpty()) ? oldLocation : QDir::homePath());
+		location = url.path();
 	}
 	if (!location.isEmpty())
 	{

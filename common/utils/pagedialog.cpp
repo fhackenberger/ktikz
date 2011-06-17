@@ -54,6 +54,7 @@ PageDialog::PageDialog(QWidget *parent) : QDialog(parent)
 {
 	m_iconWidth = 0;
 
+	// add What's this, OK, Cancel buttons
 	QDialogButtonBox *buttonBox = new QDialogButtonBox;
 	QAction *whatsThisAction = QWhatsThis::createAction(this);
 	whatsThisAction->setIcon(Icon("help-contextual"));
@@ -135,7 +136,6 @@ void PageDialog::addPage(QWidget *widget, const QString &title, const QString &i
 	m_pagesListWidget->setCurrentRow(0);
 
 	m_pagesStackedWidget->addWidget(widget);
-	m_pageWidgets << widget;
 }
 
 void PageDialog::setCurrentPage(int page)

@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (c) 2007 Trolltech ASA <info@trolltech.com>
-** Modified (c) 2009 by Glad Deschrijver <glad.deschrijver@gmail.com>
+** Modified (c) 2009, 2011 by Glad Deschrijver <glad.deschrijver@gmail.com>
 **
 ** Use, modification and distribution is allowed without limitation,
 ** warranty, liability or support of any kind.
@@ -26,6 +26,7 @@ public:
 #include <QtGui/QLineEdit>
 
 class QToolButton;
+class UrlCompletion;
 
 class LineEdit : public QLineEdit
 {
@@ -35,6 +36,7 @@ public:
 	explicit LineEdit(const QString &text, QWidget *parent = 0);
 	LineEdit(QWidget *parent = 0);
 	virtual QSize sizeHint() const;
+	void setCompletionObject(UrlCompletion *urlCompletion);
 
 protected:
 	void resizeEvent(QResizeEvent *event);

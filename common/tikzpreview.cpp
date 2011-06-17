@@ -32,7 +32,7 @@
 
 #include <poppler-qt4.h>
 
-#include "tikzpreviewthread.h"
+#include "tikzpreviewrenderer.h"
 #include "utils/action.h"
 #include "utils/globallocale.h"
 #include "utils/icon.h"
@@ -70,15 +70,16 @@ TikzPreview::TikzPreview(QWidget *parent)
 	createInformationLabel();
 	setZoomFactor(m_zoomFactor);
 
-	m_tikzPreviewThread = new TikzPreviewThread();
-	connect(m_tikzPreviewThread, SIGNAL(showPreview(QImage,qreal)), this, SLOT(showPreview(QImage,qreal)));
+	m_tikzPreviewRenderer = new TikzPreviewRenderer();
+	connect(this, SIGNAL(generatePreview(Poppler::Document*,qreal,int)), m_tikzPreviewRenderer, SLOT(generatePreview(Poppler::Document*,qreal,int)));
+	connect(m_tikzPreviewRenderer, SIGNAL(showPreview(QImage,qreal)), this, SLOT(showPreview(QImage,qreal)));
 }
 
 TikzPreview::~TikzPreview()
 {
 	delete m_tikzPixmapItem;
 	delete m_infoProxyWidget;
-	delete m_tikzPreviewThread;
+	delete m_tikzPreviewRenderer;
 
 	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup("Preview");
@@ -366,7 +367,7 @@ void TikzPreview::showNextPage()
 
 void TikzPreview::showPreview(const QImage &tikzImage, qreal zoomFactor)
 {
-	// this slot is called when TikzPreviewThread has finished rendering
+	// this slot is called when TikzPreviewRenderer has finished rendering
 	// the current pdf page to tikzImage, so before we actually display
 	// the image the old center point must be calculated and multiplied
 	// by the quotient of the new and old zoom factor in order to obtain
@@ -391,7 +392,7 @@ void TikzPreview::showPdfPage()
 		return;
 
 	if (!m_processRunning)
-		m_tikzPreviewThread->generatePreview(m_tikzPdfDoc, m_zoomFactor, m_currentPage);
+		emit generatePreview(m_tikzPdfDoc, m_zoomFactor, m_currentPage);
 }
 
 void TikzPreview::emptyPreview()

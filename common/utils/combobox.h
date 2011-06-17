@@ -38,7 +38,7 @@ class ComboBox : public QComboBox
 	Q_OBJECT
 public:
 	ComboBox(QWidget *parent = 0);
-	virtual void setCompletionObject(UrlCompletion *urlCompletion);
+	void setCompletionObject(UrlCompletion *urlCompletion);
 };
 #endif
 

@@ -16,12 +16,10 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef KTIKZ_TIKZPREVIEWTHREAD_H
-#define KTIKZ_TIKZPREVIEWTHREAD_H
+#ifndef KTIKZ_TIKZPREVIEWRENDERER_H
+#define KTIKZ_TIKZPREVIEWRENDERER_H
 
 #include <QtCore/QThread>
-#include <QtCore/QMutex>
-#include <QtCore/QWaitCondition>
 
 class QImage;
 
@@ -30,31 +28,22 @@ namespace Poppler
 class Document;
 }
 
-class TikzPreviewThread : public QThread
+class TikzPreviewRenderer : public QObject
 {
 	Q_OBJECT
 
 public:
-	TikzPreviewThread(QObject *parent = 0);
-	~TikzPreviewThread();
+	TikzPreviewRenderer();
+	~TikzPreviewRenderer();
 
+public slots:
 	void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor = 1.0, int currentPage = 0);
 
 signals:
 	void showPreview(const QImage &image, qreal zoomFactor = 1.0);
 
-protected:
-	void run();
-
 private:
-	QMutex m_mutex;
-	QWaitCondition m_condition;
-	bool m_restart;
-	bool m_abort;
-
-	Poppler::Document *m_tikzPdfDoc;
-	qreal m_zoomFactor;
-	int m_currentPage;
+	QThread m_thread;
 };
 
 #endif

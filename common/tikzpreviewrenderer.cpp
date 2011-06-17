@@ -16,70 +16,31 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#include "tikzpreviewthread.h"
+#include "tikzpreviewrenderer.h"
 
 #include <QtGui/QImage>
-
 #include <poppler-qt4.h>
 
-TikzPreviewThread::TikzPreviewThread(QObject *parent)
-	: QThread(parent)
+TikzPreviewRenderer::TikzPreviewRenderer()
 {
-	m_restart = false;
-	m_abort = false;
+	moveToThread(&m_thread);
+	m_thread.start();
 }
 
-TikzPreviewThread::~TikzPreviewThread()
+TikzPreviewRenderer::~TikzPreviewRenderer()
 {
-	m_mutex.lock();
-	m_restart = true; // when this thread is destroyed while run() is running, make sure that m_condition.wait() is not called in run() and thus the abortion can succeed
-	m_abort = true;
-	m_condition.wakeAll();
-	m_mutex.unlock();
-
-	wait();
-}
-
-void TikzPreviewThread::generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor, int currentPage)
-{
-	QMutexLocker locker(&m_mutex);
-
-	m_tikzPdfDoc = tikzPdfDoc;
-	m_zoomFactor = zoomFactor;
-	m_currentPage = currentPage;
-
-	if (!isRunning())
+	if (m_thread.isRunning())
 	{
-		start(LowPriority);
-	}
-	else
-	{
-		m_restart = true;
-		m_condition.wakeAll();
+		m_thread.quit();
+		m_thread.wait();
 	}
 }
 
-void TikzPreviewThread::run()
+void TikzPreviewRenderer::generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor, int currentPage)
 {
-	while (true)
-	{
-		if (m_abort)
-			return;
+	Poppler::Page *pdfPage = tikzPdfDoc->page(currentPage);
+	const QImage tikzImage = pdfPage->renderToImage(zoomFactor * 72, zoomFactor * 72);
+	delete pdfPage;
 
-		m_mutex.lock();
-		Poppler::Page *pdfPage = m_tikzPdfDoc->page(m_currentPage);
-		const qreal zoomFactor = m_zoomFactor;
-		m_mutex.unlock();
-		const QImage tikzImage = pdfPage->renderToImage(zoomFactor * 72, zoomFactor * 72);
-		delete pdfPage;
-
-		emit showPreview(tikzImage, zoomFactor); // use zoomFactor and not m_zoomFactor because the latter can already be changed by a new call to generatePreview()
-
-		// sleep
-		m_mutex.lock();
-		if (!m_restart)
-			m_condition.wait(&m_mutex);
-		m_restart = false;
-		m_mutex.unlock();
-	}
+	emit showPreview(tikzImage, zoomFactor);
 }

@@ -17,13 +17,14 @@
  ***************************************************************************/
 
 #include "combobox.h"
-#include "urlcompletion.h"
 
 #ifdef KTIKZ_USE_KDE
 ComboBox::ComboBox(QWidget *parent) : KComboBox(parent)
 {
 }
 #else
+#include "urlcompletion.h"
+
 ComboBox::ComboBox(QWidget *parent) : QComboBox(parent)
 {
 }

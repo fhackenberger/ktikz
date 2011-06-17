@@ -63,7 +63,7 @@ QString FileDialog::getParsedFilter(const QString &filter)
 			}
 		}
 	}
-	else // filter is a string like "*.pgf *.tikz|PGF document\n*.tex|TeX document", we assume that in this case '/' doesn't appear in filter
+	else if (filter.indexOf('|') >= 0) // filter is a string like "*.pgf *.tikz|PGF document\n*.tex|TeX document", we assume that in this case '/' doesn't appear in filter
 	{
 		const QStringList filterList = filter.split(QLatin1Char('\n'));
 		for (int i = 0; i < filterList.size(); ++i)
@@ -74,7 +74,9 @@ QString FileDialog::getParsedFilter(const QString &filter)
 			parsedFilter += filterItems.at(1) + " (" + filterItems.at(0) + ')';
 		}
 	}
-	parsedFilter += ";;" + tr("All files", "filter") + " (*)";
+	if (!parsedFilter.isEmpty())
+		parsedFilter += ";;";
+	parsedFilter += tr("All files", "filter") + " (*)";
 	return parsedFilter;
 }
 

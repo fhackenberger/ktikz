@@ -32,7 +32,7 @@ class Document;
 
 class Action;
 class SelectAction;
-class TikzPreviewThread;
+class TikzPreviewRenderer;
 
 class TikzPreview : public QGraphicsView
 {
@@ -60,6 +60,7 @@ public slots:
 
 signals:
 	void showMouseCoordinates(qreal x, qreal y, int precisionX = 5, int precisionY = 5);
+	void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor, int currentPage);
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
@@ -87,7 +88,7 @@ private:
 
 	QGraphicsScene *m_tikzScene;
 	QGraphicsPixmapItem *m_tikzPixmapItem;
-	TikzPreviewThread *m_tikzPreviewThread;
+	TikzPreviewRenderer *m_tikzPreviewRenderer;
 	bool m_processRunning;
 
 	QAction *m_zoomInAction;

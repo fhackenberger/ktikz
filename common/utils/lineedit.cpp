@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (c) 2007 Trolltech ASA <info@trolltech.com>
-** Modified (c) 2009 by Glad Deschrijver <glad.deschrijver@gmail.com>
+** Modified (c) 2009, 2011 by Glad Deschrijver <glad.deschrijver@gmail.com>
 **
 ** Use, modification and distribution is allowed without limitation,
 ** warranty, liability or support of any kind.
@@ -25,6 +25,7 @@ LineEdit::LineEdit(QWidget *parent)
 #else
 #include <QtGui/QToolButton>
 #include <QtGui/QStyle>
+#include "urlcompletion.h"
 
 LineEdit::LineEdit(const QString &text, QWidget *parent)
 	: QLineEdit(parent)
@@ -78,5 +79,10 @@ void LineEdit::resizeEvent(QResizeEvent *event)
 void LineEdit::updateClearButton(const QString &text)
 {
 	m_clearButton->setVisible(!text.isEmpty());
+}
+
+void LineEdit::setCompletionObject(UrlCompletion *urlCompletion)
+{
+	setCompleter(urlCompletion);
 }
 #endif
