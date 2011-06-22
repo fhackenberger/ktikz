@@ -20,7 +20,6 @@
 
 #ifndef KTIKZ_USE_KDE
 #include <QtGui/QToolBar>
-#include <QtGui/QToolButton>
 #endif
 
 #include <QtGui/QMenu>
@@ -33,7 +32,6 @@
 #include "templatewidget.h"
 #include "tikzpreview.h"
 #include "tikzpreviewgenerator.h"
-#include "tikztemporaryfilecontroller.h"
 #include "mainwidget.h"
 #include "utils/action.h"
 #include "utils/file.h"
@@ -41,6 +39,7 @@
 #include "utils/icon.h"
 #include "utils/messagebox.h"
 #include "utils/standardaction.h"
+#include "utils/tempdir.h"
 #include "utils/toggleaction.h"
 
 static const int s_minUpdateInterval = 1000; // 1 sec
@@ -76,24 +75,30 @@ TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
 	connect(m_regenerateTimer, SIGNAL(timeout()),
 	        this, SLOT(regeneratePreview()));
 
-	m_temporaryFileController = new TikzTemporaryFileController(this);
-	m_tikzPreviewGenerator->setTikzFileBaseName(m_temporaryFileController->baseName());
+	m_tempDir = new TempDir();
+	m_tikzPreviewGenerator->setTikzFileBaseName(tempFileBaseName());
 #ifdef KTIKZ_USE_KDE
 	File::setMainWidget(m_parentWidget);
-	File::setTempDir(m_temporaryFileController->dirName()); // this must happen before any object of type File is constructed
+	File::setTempDir(m_tempDir->name()); // this must happen before any object of type File is constructed
 #endif
 }
 
 TikzPreviewController::~TikzPreviewController()
 {
 	delete m_tikzPreviewGenerator;
+	delete m_tempDir;
 }
 
 /***************************************************************************/
 
 const QString TikzPreviewController::tempDir() const
 {
-	return m_temporaryFileController->dirName();
+	return m_tempDir->name();
+}
+
+const QString TikzPreviewController::tempFileBaseName() const
+{
+	return m_tempDir->name() + "/temptikzcode";
 }
 
 /***************************************************************************/
@@ -199,11 +204,7 @@ QList<QToolBar*> TikzPreviewController::toolBars()
 	QToolBar *toolBar = new QToolBar(tr("Run"), m_parentWidget);
 	toolBar->setObjectName("RunToolBar");
 	toolBar->addAction(m_procStopAction);
-
-	m_shellEscapeButton = new QToolButton(m_parentWidget);
-	m_shellEscapeButton->setDefaultAction(m_shellEscapeAction);
-	m_shellEscapeButton->setCheckable(true);
-	toolBar->addWidget(m_shellEscapeButton);
+	toolBar->addAction(m_shellEscapeAction);
 
 	m_toolBars << m_tikzPreview->toolBar() << toolBar;
 
@@ -214,7 +215,6 @@ void TikzPreviewController::setToolBarStyle(const Qt::ToolButtonStyle &style)
 {
 	for (int i = 0; i < m_toolBars.size(); ++i)
 		m_toolBars.at(i)->setToolButtonStyle(style);
-	m_shellEscapeButton->setToolButtonStyle(style);
 }
 #endif
 
@@ -265,10 +265,10 @@ void TikzPreviewController::exportImage()
 	else
 	{
 		extension = '.' + mimeType.mid(6);
-		tikzImage.save(m_temporaryFileController->baseName() + extension);
+		tikzImage.save(tempFileBaseName() + extension);
 	}
 
-	if (!File::copy(Url(m_temporaryFileController->baseName() + extension), exportUrl))
+	if (!File::copy(Url(tempFileBaseName() + extension), exportUrl))
 		MessageBox::error(m_parentWidget,
 		                  tr("The image could not be exported to the file \"%1\".").arg(exportUrl.path()),
 		                  QCoreApplication::applicationName());
@@ -339,7 +339,7 @@ void TikzPreviewController::generatePreview()
 void TikzPreviewController::generatePreview(bool templateChanged)
 {
 	if (templateChanged) // old aux files may contain commands available in the old template, but not anymore in the new template
-		m_temporaryFileController->cleanUp();
+		m_tempDir->cleanUp();
 
 	// the directory in which the pgf file is located is added to TEXINPUTS before running latex
 	const QString currentFileName = m_mainWidget->url().path();
@@ -428,10 +428,6 @@ void TikzPreviewController::setProcessRunning(bool isRunning)
 
 void TikzPreviewController::toggleShellEscaping(bool useShellEscaping)
 {
-#ifndef KTIKZ_USE_KDE
-	m_shellEscapeButton->setChecked(useShellEscaping);
-#endif
-
 	QSettings settings(ORGNAME, APPNAME);
 	settings.setValue("UseShellEscaping", useShellEscaping);
 

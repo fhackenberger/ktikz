@@ -16,7 +16,6 @@ set(ktikzpart_SRCS
 	../common/tikzpreviewrenderer.cpp
 	../common/tikzpreviewcontroller.cpp
 	../common/tikzpreviewgenerator.cpp
-	../common/tikztemporaryfilecontroller.cpp
 	../common/utils/action.cpp
 	../common/utils/combobox.cpp
 	../common/utils/file.cpp
@@ -27,6 +26,7 @@ set(ktikzpart_SRCS
 	../common/utils/recentfilesaction.cpp
 	../common/utils/selectaction.cpp
 	../common/utils/standardaction.cpp
+	../common/utils/tempdir.cpp
 	../common/utils/toggleaction.cpp
 	../common/utils/url.cpp
 )

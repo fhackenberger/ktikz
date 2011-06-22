@@ -26,7 +26,6 @@
 class QAction;
 class QMenu;
 class QToolBar;
-class QToolButton;
 #endif
 
 class QTimer;
@@ -34,8 +33,8 @@ class MainWidget;
 class TemplateWidget;
 class TikzPreview;
 class TikzPreviewGenerator;
-class TikzTemporaryFileController;
 class Action;
+class TempDir;
 class ToggleAction;
 
 class TikzPreviewController : public QObject
@@ -81,6 +80,7 @@ signals:
 	void showMouseCoordinates(qreal x, qreal y, int precisionX, int precisionY);
 
 private:
+	const QString tempFileBaseName() const;
 	void createActions();
 	void generatePreview(bool templateChanged);
 	bool setTemplateFile(const QString &path);
@@ -96,7 +96,6 @@ private:
 	QTimer *m_regenerateTimer;
 
 #ifndef KTIKZ_USE_KDE
-	QToolButton *m_shellEscapeButton;
 	QList<QToolBar*> m_toolBars;
 #endif
 	Action *m_exportAction;
@@ -104,7 +103,7 @@ private:
 	Action *m_procStopAction;
 	ToggleAction *m_shellEscapeAction;
 
-	TikzTemporaryFileController *m_temporaryFileController;
+	TempDir *m_tempDir;
 };
 
 #endif

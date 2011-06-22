@@ -53,6 +53,7 @@ SOURCES += ../common/utils/action.cpp \
 	../common/utils/recentfilesaction.cpp \
 	../common/utils/standardaction.cpp \
 	../common/utils/selectaction.cpp \
+	../common/utils/tempdir.cpp \
 	../common/utils/toggleaction.cpp \
 	../common/utils/url.cpp \
 	aboutdialog.cpp \
@@ -82,8 +83,7 @@ SOURCES += ../common/utils/action.cpp \
 	../common/tikzpreview.cpp \
 	../common/tikzpreviewcontroller.cpp \
 	../common/tikzpreviewgenerator.cpp \
-	../common/tikzpreviewrenderer.cpp \
-	../common/tikztemporaryfilecontroller.cpp
+	../common/tikzpreviewrenderer.cpp
 HEADERS += $$headerFiles($$SOURCES) \
 	../common/mainwidget.h \
 	../common/utils/colordialog.h \

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,44 +16,41 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef KTIKZ_TIKZTEMPORARYFILECONTROLLER_H
-#define KTIKZ_TIKZTEMPORARYFILECONTROLLER_H
-
-#include <QtCore/QObject>
+#ifndef KTIKZ_TEMPDIR_H
+#define KTIKZ_TEMPDIR_H
 
 #ifdef KTIKZ_USE_KDE
-class KTempDir;
-#endif
+#include <KTempDir>
+
+class TempDir : public KTempDir
+{
+public:
+	TempDir(const QString &directoryPrefix = QString(), int mode = 0700);
+	bool cleanUp();
+};
+#else
+#include <QtCore/QObject>
 
 /*!
- * \brief Creates a temporary directory and a base name for temporary files.
+ * \brief Creates a temporary directory with a unique name.
  *
  * This class creates a temporary directory (as a subdir of the system's
- * temp directory) and a base name for the temporary files in it.  The
- * complete base name, returned by baseName(), is guaranteed to be unique
- * for each TikZ file opened in ktikz.
+ * temp directory).  The directory name, returned by name(), is guaranteed
+ * to be unique.
  */
 
-class TikzTemporaryFileController : public QObject
+class TempDir : public QObject
 {
-	Q_OBJECT
-
 public:
-	TikzTemporaryFileController(QObject *parent = 0);
-	virtual ~TikzTemporaryFileController();
+	TempDir(const QString &directoryPrefix = QString(), int mode = 0700);
+	virtual ~TempDir();
 
-	const QString dirName() const;
-	const QString baseName() const;
+	const QString name() const;
 	bool cleanUp();
 
 private:
-	void createTempDir();
-	void removeTempDir();
-
-#ifdef KTIKZ_USE_KDE
-	KTempDir *m_tempDir;
-#endif
-	QString m_tempTikzFileBaseName;
+	QString m_name;
 };
+#endif
 
 #endif

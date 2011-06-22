@@ -392,7 +392,7 @@ void TikzPreview::showPdfPage()
 		return;
 
 	if (!m_processRunning)
-		emit generatePreview(m_tikzPdfDoc, m_zoomFactor, m_currentPage);
+		emit generatePreview(m_tikzPdfDoc, m_zoomFactor, m_currentPage); // render the current pdf page to a QImage in TikzPreviewRenderer (in a different thread)
 }
 
 void TikzPreview::emptyPreview()
