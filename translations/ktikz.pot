@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2011-06-07 23:31+0200\n"
+"POT-Creation-Date: 2011-06-28 15:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,40 +17,40 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../app/main.cpp:121
+#: ../app/main.cpp:128
 msgid "KtikZ"
 msgstr ""
 
-#: ../app/main.cpp:122
+#: ../app/main.cpp:129
 msgid "A TikZ Editor"
 msgstr ""
 
-#: ../app/main.cpp:124 ../part/part.cpp:121
+#: ../app/main.cpp:131 ../part/part.cpp:121
 msgid "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
 msgstr ""
 
-#: ../app/main.cpp:125
+#: ../app/main.cpp:132
 msgid ""
 "This is a program for creating TikZ (from the LaTeX pgf package) diagrams."
 msgstr ""
 
-#: ../app/main.cpp:127 ../part/part.cpp:124
+#: ../app/main.cpp:134 ../part/part.cpp:124
 msgid "Florian Hackenberger"
 msgstr ""
 
-#: ../app/main.cpp:127 ../part/part.cpp:124
+#: ../app/main.cpp:134 ../part/part.cpp:124
 msgid "Maintainer"
 msgstr ""
 
-#: ../app/main.cpp:128 ../part/part.cpp:125
+#: ../app/main.cpp:135 ../part/part.cpp:125
 msgid "Glad Deschrijver"
 msgstr ""
 
-#: ../app/main.cpp:128 ../part/part.cpp:125
+#: ../app/main.cpp:135 ../part/part.cpp:125
 msgid "Developer"
 msgstr ""
 
-#: ../app/main.cpp:133
+#: ../app/main.cpp:140
 msgid "TikZ document to open"
 msgstr ""
 
@@ -94,41 +94,41 @@ msgctxt "@info:whatsthis"
 msgid "<para>Save the document under a new name.</para>"
 msgstr ""
 
-#: ../part/part.cpp:154
+#: ../part/part.cpp:146
 msgctxt "@action"
 msgid "Configure KtikZ Viewer..."
 msgstr ""
 
-#: ../part/part.cpp:158
+#: ../part/part.cpp:150
 msgid "About KtikZ Viewer"
 msgstr ""
 
-#: ../part/part.cpp:172
+#: ../part/part.cpp:164
 msgctxt "@info"
 msgid "Cannot read file <filename>%1</filename>:<nl/><message>%2</message>"
 msgstr ""
 
-#: ../part/part.cpp:172
+#: ../part/part.cpp:164
 msgctxt "@title:window"
 msgid "File Read Error"
 msgstr ""
 
-#: ../part/part.cpp:202
+#: ../part/part.cpp:194
 msgctxt "@item:inlistbox filter"
 msgid "TikZ files"
 msgstr ""
 
-#: ../part/part.cpp:204
+#: ../part/part.cpp:196
 msgctxt "@item:inlistbox filter"
 msgid "All files"
 msgstr ""
 
-#: ../part/part.cpp:205
+#: ../part/part.cpp:197
 msgctxt "@title:window"
 msgid "Save TikZ Source File As"
 msgstr ""
 
-#: ../part/part.cpp:301
+#: ../part/part.cpp:282
 msgctxt "@info:status"
 msgid "Reloading the document..."
 msgstr ""

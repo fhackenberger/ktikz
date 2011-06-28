@@ -34,6 +34,17 @@
 
 #include "ktikzapplication.h"
 
+// add copyright notice to the *.ts files; this string is not used anywhere else
+static struct { const char *source; const char *comment; } copyrightString = QT_TRANSLATE_NOOP3("__Copyright__",
+	"The original English text is copyrighted by the authors of the source "
+	"files where the strings come from. This file is distributed under the "
+	"same license as the KtikZ package. The translations in this file are "
+	"copyrighted as follows.",
+	"Translators: don't translate this, but put in the \"translation\" "
+	"a copyright notice of the form \"This file was translated by <NAME>. "
+	"Copyright (C) <YEAR> <NAME>.\" in which you fill in the year(s) of "
+	"translation and your name.");
+
 void debugOutput(QtMsgType type, const char *msg)
 {
 	// qDebug() and qWarning() only show messages when in debug mode
@@ -99,6 +110,8 @@ QTranslator *createTranslator(const QString &transName, const QString &transDir)
 
 int main(int argc, char **argv)
 {
+	Q_UNUSED(copyrightString);
+
 	qInstallMsgHandler(debugOutput);
 
 #ifndef KTIKZ_USE_KDE

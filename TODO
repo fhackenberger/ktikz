@@ -20,11 +20,11 @@ Features:
     rotate, 16.3, node halign header, 16.5.3, 16.6, transform shape, 16.10,
     16.13, 16.14)
   Section 17 complete (except between origins, between borders)
-  Section 18
-  Section 19
-  Section 20
-  Section 21
-  Section 22
+  Section 18 not yet
+  Section 19 not yet
+  Section 20 not yet
+  Section 21 not yet
+  Section 22 not yet
 
 - Add a line number widget to the left of the editor.
 

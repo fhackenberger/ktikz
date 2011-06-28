@@ -221,10 +221,6 @@
         <translation>Feuilleter programme</translation>
     </message>
     <message>
-        <source>Program</source>
-        <translation type="obsolete">Programme</translation>
-    </message>
-    <message>
         <location filename="../../app/configgeneralwidget.ui" line="478"/>
         <location filename="../../app/configgeneralwidget.cpp" line="152"/>
         <source>Browse file</source>
@@ -4035,6 +4031,15 @@ Continuer à partir de la fin ?</translation>
         <location filename="../../app/usercommandinserter.cpp" line="84"/>
         <source>&amp;Edit user commands</source>
         <translation>É&amp;diter commandes</translation>
+    </message>
+</context>
+<context>
+    <name>__Copyright__</name>
+    <message>
+        <location filename="../../app/main.cpp" line="38"/>
+        <source>The original English text is copyrighted by the authors of the source files where the strings come from. This file is distributed under the same license as the KtikZ package. The translations in this file are copyrighted as follows.</source>
+        <comment>Translators: don&apos;t translate this, but put in the &quot;translation&quot; a copyright notice of the form &quot;This file was translated by &lt;NAME&gt;. Copyright (C) &lt;YEAR&gt; &lt;NAME&gt;.&quot; in which you fill in the year(s) of translation and your name.</comment>
+        <translation>This file was translated by Glad Deschrijver. Copyright (C) 2007, 2008, 2009, 2010, 2011 Glad Deschrijver.</translation>
     </message>
 </context>
 </TS>

@@ -4597,4 +4597,13 @@ Am Ende des Dokuments weitermachen?</translation>
         <translation>B&amp;enutzerdefinierte Kommandos bearbeiten</translation>
     </message>
 </context>
+<context>
+    <name>__Copyright__</name>
+    <message>
+        <location filename="../../app/main.cpp" line="38"/>
+        <source>The original English text is copyrighted by the authors of the source files where the strings come from. This file is distributed under the same license as the KtikZ package. The translations in this file are copyrighted as follows.</source>
+        <comment>Translators: don&apos;t translate this, but put in the &quot;translation&quot; a copyright notice of the form &quot;This file was translated by &lt;NAME&gt;. Copyright (C) &lt;YEAR&gt; &lt;NAME&gt;.&quot; in which you fill in the year(s) of translation and your name.</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>
