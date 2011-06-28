@@ -453,7 +453,7 @@
     </message>
     <message>
         <location filename="../../app/configgeneralwidget.ui" line="478"/>
-        <location filename="../../app/configgeneralwidget.cpp" line="157"/>
+        <location filename="../../app/configgeneralwidget.cpp" line="152"/>
         <source>Browse file</source>
         <translation>Procházet soubor</translation>
     </message>
@@ -478,24 +478,22 @@
         <translation>&amp;Hledat</translation>
     </message>
     <message>
-        <location filename="../../app/configgeneralwidget.cpp" line="138"/>
+        <location filename="../../app/configgeneralwidget.cpp" line="135"/>
         <source>Cannot find TikZ documentation.</source>
         <translation>Dokumentaci k TikZ nelze najít.</translation>
     </message>
     <message>
-        <location filename="../../app/configgeneralwidget.cpp" line="149"/>
+        <location filename="../../app/configgeneralwidget.cpp" line="146"/>
         <source>Browse program</source>
         <translation>Procházet program</translation>
     </message>
     <message>
-        <location filename="../../app/configgeneralwidget.cpp" line="150"/>
         <source>Program</source>
-        <translation>Program</translation>
+        <translation type="obsolete">Program</translation>
     </message>
     <message>
-        <location filename="../../app/configgeneralwidget.cpp" line="159"/>
         <source>All files</source>
-        <translation>Všechny soubory</translation>
+        <translation type="obsolete">Všechny soubory</translation>
     </message>
 </context>
 <context>
@@ -544,7 +542,7 @@ Chcete jej přepsat?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/utils/filedialog.cpp" line="77"/>
+        <location filename="../../common/utils/filedialog.cpp" line="79"/>
         <source>All files</source>
         <comment>filter</comment>
         <translation type="unfinished">Všechny soubory</translation>
@@ -684,7 +682,7 @@ Chcete uložit své změny?</translation>
 <context>
     <name>LineEdit</name>
     <message>
-        <location filename="../../common/utils/lineedit.cpp" line="50"/>
+        <location filename="../../common/utils/lineedit.cpp" line="51"/>
         <source>Clear input field</source>
         <translation>Vyprázdnit zadávací pole</translation>
     </message>
@@ -3720,6 +3718,16 @@ Chcete uložit své změny?</translation>
         <translation>Upravit</translation>
     </message>
     <message>
+        <location filename="../../app/tikzeditorview.cpp" line="532"/>
+        <source>Find</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="532"/>
+        <source>Continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Indent</source>
         <translation type="obsolete">Odsadit</translation>
     </message>
@@ -3763,89 +3771,89 @@ Pokračovat od konce?</translation>
         <translation>&lt;p&gt;Zde se ukazuje obrázek s náhledem vašeho kódu TikZ. Můžete jej přibližovat a oddalovat, a můžete tento obrázek posunovat jeho táhnutím.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="108"/>
+        <location filename="../../common/tikzpreview.cpp" line="109"/>
         <source>Zoom preview in</source>
         <translation>Přiblížit náhled</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="109"/>
+        <location filename="../../common/tikzpreview.cpp" line="110"/>
         <source>Zoom preview out</source>
         <translation>Oddálit náhled</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="110"/>
+        <location filename="../../common/tikzpreview.cpp" line="111"/>
         <source>&lt;p&gt;Zoom preview in by a predetermined factor.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Přiblížit náhled podle předurčeného násobku.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="111"/>
+        <location filename="../../common/tikzpreview.cpp" line="112"/>
         <source>&lt;p&gt;Zoom preview out by a predetermined factor.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Oddálit náhled podle předurčeného násobku.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="113"/>
+        <location filename="../../common/tikzpreview.cpp" line="114"/>
         <source>&amp;Zoom</source>
         <translation>&amp;Zvětšení</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="115"/>
+        <location filename="../../common/tikzpreview.cpp" line="116"/>
         <source>Select or insert zoom factor here</source>
         <translation>Zde vyberte nebo vložte násobek zvětšení</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="116"/>
+        <location filename="../../common/tikzpreview.cpp" line="117"/>
         <source>&lt;p&gt;Select the zoom factor here.  Alternatively, you can also introduce a zoom factor and press Enter.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Zde vyberte násobek zvětšení. Případně také můžete uvést násobek zvětšení a stisknout klávesu Enter.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="122"/>
+        <location filename="../../common/tikzpreview.cpp" line="123"/>
         <source>&amp;Previous image</source>
         <translation>&amp;Předchozí obrázek</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="123"/>
+        <location filename="../../common/tikzpreview.cpp" line="124"/>
         <source>Alt+Left</source>
         <comment>View|Go to previous page</comment>
         <translation>Alt+Left</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="124"/>
+        <location filename="../../common/tikzpreview.cpp" line="125"/>
         <source>Show previous image in preview</source>
         <translation>Ukázat předchozí obrázek v náhledu</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="125"/>
+        <location filename="../../common/tikzpreview.cpp" line="126"/>
         <source>&lt;p&gt;Show the preview of the previous tikzpicture in the TikZ code.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ukázat náhled předchozího obrázku TikZ (tikzpicture) v kódu TikZ.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="128"/>
+        <location filename="../../common/tikzpreview.cpp" line="129"/>
         <source>&amp;Next image</source>
         <translation>&amp;Další obrázek</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="129"/>
+        <location filename="../../common/tikzpreview.cpp" line="130"/>
         <source>Alt+Right</source>
         <comment>View|Go to next page</comment>
         <translation>Alt+Right</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="130"/>
+        <location filename="../../common/tikzpreview.cpp" line="131"/>
         <source>Show next image in preview</source>
         <translation>Ukázat další obrázek v náhledu</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="131"/>
+        <location filename="../../common/tikzpreview.cpp" line="132"/>
         <source>&lt;p&gt;Show the preview of the next tikzpicture in the TikZ code.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ukázat náhled dalšího obrázku TikZ (tikzpicture) v kódu TikZ.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="153"/>
+        <location filename="../../common/tikzpreview.cpp" line="154"/>
         <source>View</source>
         <translation>Pohled</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="503"/>
+        <location filename="../../common/tikzpreview.cpp" line="504"/>
         <source>Generating image</source>
         <comment>tikz preview status</comment>
         <translation>Vytváří se obrázek</translation>
@@ -3854,47 +3862,47 @@ Pokračovat od konce?</translation>
 <context>
     <name>TikzPreviewController</name>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="116"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="121"/>
         <source>E&amp;xport</source>
         <translation>&amp;Vyvést</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="117"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="122"/>
         <source>Export image to various formats</source>
         <translation>Vyvést obrázek do různých formátů</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="118"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="123"/>
         <source>&lt;p&gt;Export image to various formats.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyvést obrázek do různých formátů.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="122"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="127"/>
         <source>&amp;Encapsulated PostScript (EPS)</source>
         <translation>&amp;Zhuštěný PostScript ((Encapsulated PostScript; EPS)</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="124"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="129"/>
         <source>Export to EPS</source>
         <translation>Vyvést do EPS</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="125"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="130"/>
         <source>&lt;p&gt;Export to EPS.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyvést do EPS.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="129"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="134"/>
         <source>&amp;Portable Document Format (PDF)</source>
         <translation>&amp;Přenositelný dokumentový formát (Portable Document Format; PDF)</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="131"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="136"/>
         <source>Export to PDF</source>
         <translation>Vyvést do PDF</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="132"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="137"/>
         <source>&lt;p&gt;Export to PDF.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyvést do PDF.&lt;/p&gt;</translation>
     </message>
@@ -3911,89 +3919,89 @@ Pokračovat od konce?</translation>
         <translation type="obsolete">&lt;p&gt;Vyvést do PNG.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="139"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
         <source>Portable Network &amp;Graphics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="139"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
         <source>&amp;Joint Photographic Experts Group Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="139"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
         <source>&amp;Tagged Image File Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="139"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
         <source>&amp;Windows Bitmap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="149"/>
         <source>Export to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="145"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="150"/>
         <source>&lt;p&gt;Export to %1.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="152"/>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="283"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="157"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="284"/>
         <source>Print image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="153"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="158"/>
         <source>&lt;p&gt;Print preview image.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="159"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="164"/>
         <source>&amp;Stop Process</source>
         <translation>&amp;Zastavit proces</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="160"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="165"/>
         <source>Escape</source>
         <comment>View|Stop Process</comment>
         <translation>Escape</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="161"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="166"/>
         <source>Abort current process</source>
         <translation>Zrušit nynější proces</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="162"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="167"/>
         <source>&lt;p&gt;Abort the execution of the currently running process.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Zrušit prováděné nyní běžícího procesu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="166"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="171"/>
         <source>S&amp;hell Escape</source>
         <translation>Opustit s&amp;hell</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="167"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="172"/>
         <source>Enable the \write18{shell-command} feature</source>
         <translation>Povolit funkci \write18{shell-command}</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="168"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="173"/>
         <source>&lt;p&gt;Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Warning:&lt;/strong&gt; Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Povolit LaTeXu spouštět shellové příkazy. Je to potřeba, když v TikZ chcete kreslit funkce pomocí programu gnuplot.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Varování:&lt;/strong&gt; Jejich povolením můžete přivodit spuštění záludných programů ve vašem počítači! Prověřte LaTeXový kód, abyste viděl, které příkazy jsou prováděny.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="189"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="194"/>
         <source>&amp;View</source>
         <translation>&amp;Pohled</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="199"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="204"/>
         <source>Run</source>
         <translation>Spustit</translation>
     </message>

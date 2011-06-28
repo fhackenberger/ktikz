@@ -4,7 +4,7 @@
 # Pavel Fric, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: fr\n"
+"Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
 "POT-Creation-Date: 2011-06-07 23:31+0200\n"
 "PO-Revision-Date: 2010-10-24 19:01+0200\n"

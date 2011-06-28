@@ -20,7 +20,7 @@ License
 Copyright (C) 2007-2011 Florian Hackenberger <florian@hackenberger.at>
               2007-2011 Glad Deschrijver <glad.deschrijver@gmail.com>
 Portions are copyrighted also by other people (see app/tikzeditor.cpp,
-common/utils/lineedit.cpp and part/part.cpp).
+common/utils/colorbutton.cpp, common/utils/lineedit.cpp and part/part.cpp).
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software

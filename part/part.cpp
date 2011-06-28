@@ -139,15 +139,7 @@ void Part::createActions()
 	m_saveAsAction = actionCollection()->addAction(KStandardAction::SaveAs, this, SLOT(saveAs()));
 	m_saveAsAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Save the document under a new name.</para>"));
 
-/*
-	KAction *reloadAction = actionCollection()->add<KAction>("file_reload");
-	reloadAction->setText(i18nc("@action", "Reloa&d"));
-	reloadAction->setIcon(KIcon("view-refresh"));
-	reloadAction->setWhatsThis(i18nc("@info:whatsthis", "Reload the current document from disk."));
-	connect(reloadAction, SIGNAL(triggered()), this, SLOT(slotReload()));
-	reloadAction->setShortcut(KStandardShortcut::reload());
-	m_reloadAction = reloadAction;
-*/
+	// Reload: we rely on Konqueror's "Reload" action instead of defining our own
 
 	// Configure
 	KAction *action = KStandardAction::preferences(this, SLOT(configure()), actionCollection());
@@ -240,17 +232,6 @@ void Part::showJobError(KJob *job)
 		ui->showErrorMessage();
 	}
 }
-
-/*
-void Part::slotReload()
-{
-	// stop the dirty handler timer, otherwise we may conflict with the
-	// auto-refresh system
-	m_dirtyHandler->stop();
-
-	slotDoFileDirty();
-}
-*/
 
 QString Part::tikzCode() const
 {

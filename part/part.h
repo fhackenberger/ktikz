@@ -58,7 +58,6 @@ private slots:
 
 	void saveAs();
 	void showJobError(KJob *job);
-//	void slotReload();
 
 	void slotFileDirty(const QString &path);
 	void slotDoFileDirty();
@@ -73,7 +72,6 @@ private:
 	PartConfigDialog *m_configDialog;
 
 	KAction *m_saveAsAction;
-//	KAction *m_reloadAction;
 
 	QString m_tikzCode;
 

@@ -7,7 +7,7 @@ WDIR=`pwd` # working dir
 
 echo "Preparing rc files"
 # we use simple sorting to make sure the lines do not jump around too much from system to system
-# dirty hack: let Qt translate the .ui files instead of KDE
+# dirty hack: let Qt translate the .ui files instead of KDE (see also app/CMakeLists.txt)
 #find ${BASEDIRS} -name '*.rc' -o -name '*.ui' -o -name '*.kcfg' | sort > ${WDIR}/rcfiles.list
 (find ${BASEDIRS} -name '*.rc' -o -name '*.kcfg'; find ${PARTDIR} -name '*.ui') | sort > ${WDIR}/rcfiles.list
 xargs --arg-file=${WDIR}/rcfiles.list extractrc > ${WDIR}/rc.cpp

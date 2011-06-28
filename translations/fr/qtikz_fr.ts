@@ -211,30 +211,28 @@
 <context>
     <name>ConfigGeneralWidget</name>
     <message>
-        <location filename="../../app/configgeneralwidget.cpp" line="138"/>
+        <location filename="../../app/configgeneralwidget.cpp" line="135"/>
         <source>Cannot find TikZ documentation.</source>
         <translation>Documentation TikZ introuvable.</translation>
     </message>
     <message>
-        <location filename="../../app/configgeneralwidget.cpp" line="149"/>
+        <location filename="../../app/configgeneralwidget.cpp" line="146"/>
         <source>Browse program</source>
         <translation>Feuilleter programme</translation>
     </message>
     <message>
-        <location filename="../../app/configgeneralwidget.cpp" line="150"/>
         <source>Program</source>
-        <translation>Programme</translation>
+        <translation type="obsolete">Programme</translation>
     </message>
     <message>
         <location filename="../../app/configgeneralwidget.ui" line="478"/>
-        <location filename="../../app/configgeneralwidget.cpp" line="157"/>
+        <location filename="../../app/configgeneralwidget.cpp" line="152"/>
         <source>Browse file</source>
         <translation>Feuilleter fichier</translation>
     </message>
     <message>
-        <location filename="../../app/configgeneralwidget.cpp" line="159"/>
         <source>All files</source>
-        <translation>Tous les fichiers</translation>
+        <translation type="obsolete">Tous les fichiers</translation>
     </message>
     <message>
         <location filename="../../app/configgeneralwidget.ui" line="6"/>
@@ -538,7 +536,7 @@
         <translation>Image %1</translation>
     </message>
     <message>
-        <location filename="../../common/utils/filedialog.cpp" line="77"/>
+        <location filename="../../common/utils/filedialog.cpp" line="79"/>
         <source>All files</source>
         <comment>filter</comment>
         <translation>Tous les fichiers</translation>
@@ -655,7 +653,7 @@ Voulez-vous enregistrer les modifications ?</translation>
 <context>
     <name>LineEdit</name>
     <message>
-        <location filename="../../common/utils/lineedit.cpp" line="50"/>
+        <location filename="../../common/utils/lineedit.cpp" line="51"/>
         <source>Clear input field</source>
         <translation>Effacer le champ de saisie</translation>
     </message>
@@ -3661,6 +3659,16 @@ Continuer à partir de la fin ?</translation>
         <source>&lt;p&gt;Go to a certain line in the document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Aller à une certaine ligne dans le document.&lt;/p&gt;</translation>
     </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="532"/>
+        <source>Find</source>
+        <translation>Chercher</translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="532"/>
+        <source>Continue</source>
+        <translation>Continuer</translation>
+    </message>
 </context>
 <context>
     <name>TikzHighlighter</name>
@@ -3683,90 +3691,90 @@ Continuer à partir de la fin ?</translation>
         <translation>&lt;p&gt;Ici un aperçu du code TikZ est montré.  Vous pouvez agrandir et rétrécir l&apos;image, et vous pouvez la défiler en « glissant/déposant ».&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="108"/>
+        <location filename="../../common/tikzpreview.cpp" line="109"/>
         <source>Zoom preview in</source>
         <translation>Agrandir l&apos;aperçu</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="110"/>
+        <location filename="../../common/tikzpreview.cpp" line="111"/>
         <source>&lt;p&gt;Zoom preview in by a predetermined factor.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Agrandir l&apos;aperçu avec un facteur prédéterminé.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="109"/>
+        <location filename="../../common/tikzpreview.cpp" line="110"/>
         <source>Zoom preview out</source>
         <translation>Rétrécir l&apos;apercu</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="111"/>
+        <location filename="../../common/tikzpreview.cpp" line="112"/>
         <source>&lt;p&gt;Zoom preview out by a predetermined factor.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Rétrécir l&apos;aperçu avec un facteur prédéterminé.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="113"/>
+        <location filename="../../common/tikzpreview.cpp" line="114"/>
         <source>&amp;Zoom</source>
         <translation>&amp;Zoom</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="122"/>
+        <location filename="../../common/tikzpreview.cpp" line="123"/>
         <source>&amp;Previous image</source>
         <translation>Image &amp;précédente</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="123"/>
+        <location filename="../../common/tikzpreview.cpp" line="124"/>
         <source>Alt+Left</source>
         <comment>View|Go to previous page</comment>
         <translation>Alt+Left</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="124"/>
+        <location filename="../../common/tikzpreview.cpp" line="125"/>
         <source>Show previous image in preview</source>
         <translation>Montrer image précédente dans l&apos;aperçu</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="125"/>
+        <location filename="../../common/tikzpreview.cpp" line="126"/>
         <source>&lt;p&gt;Show the preview of the previous tikzpicture in the TikZ code.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Montrer l&apos;aperçu du tikzpicture précédent dans le code TikZ.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="128"/>
+        <location filename="../../common/tikzpreview.cpp" line="129"/>
         <source>&amp;Next image</source>
         <translation>Image &amp;suivante</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="129"/>
+        <location filename="../../common/tikzpreview.cpp" line="130"/>
         <source>Alt+Right</source>
         <comment>View|Go to next page</comment>
         <translation>Alt+Right</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="130"/>
+        <location filename="../../common/tikzpreview.cpp" line="131"/>
         <source>Show next image in preview</source>
         <translation>Montrer image suivante dans l&apos;aperçu</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="131"/>
+        <location filename="../../common/tikzpreview.cpp" line="132"/>
         <source>&lt;p&gt;Show the preview of the next tikzpicture in the TikZ code.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Montrer l&apos;aperçu du tikzpicture suivant dans le code TikZ.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="503"/>
+        <location filename="../../common/tikzpreview.cpp" line="504"/>
         <source>Generating image</source>
         <comment>tikz preview status</comment>
         <translation>Génération de l&apos;image</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="115"/>
+        <location filename="../../common/tikzpreview.cpp" line="116"/>
         <source>Select or insert zoom factor here</source>
         <translation>Sélectionnez ou introduisez la proportion du zoom ici</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="116"/>
+        <location filename="../../common/tikzpreview.cpp" line="117"/>
         <source>&lt;p&gt;Select the zoom factor here.  Alternatively, you can also introduce a zoom factor and press Enter.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Sélectionnez la proportion du zoom.  Vous pouvez aussi introduire la proportion du zoom et appuyer sur Retour.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="153"/>
+        <location filename="../../common/tikzpreview.cpp" line="154"/>
         <source>View</source>
         <translation>Affichage</translation>
     </message>
@@ -3774,134 +3782,134 @@ Continuer à partir de la fin ?</translation>
 <context>
     <name>TikzPreviewController</name>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="116"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="121"/>
         <source>E&amp;xport</source>
         <translation>E&amp;xporter</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="117"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="122"/>
         <source>Export image to various formats</source>
         <translation>Exporter image en divers formats</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="118"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="123"/>
         <source>&lt;p&gt;Export image to various formats.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Exporter image en divers formats.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="122"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="127"/>
         <source>&amp;Encapsulated PostScript (EPS)</source>
         <translation>&amp;Encapsulated PostScript (EPS)</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="124"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="129"/>
         <source>Export to EPS</source>
         <translation>Exporter en EPS</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="125"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="130"/>
         <source>&lt;p&gt;Export to EPS.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Exporter en EPS.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="129"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="134"/>
         <source>&amp;Portable Document Format (PDF)</source>
         <translation>&amp;Portable Document Format (PDF)</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="131"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="136"/>
         <source>Export to PDF</source>
         <translation>Exporter en PDF</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="132"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="137"/>
         <source>&lt;p&gt;Export to PDF.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Exporter en PDF.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="139"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
         <source>Portable Network &amp;Graphics</source>
         <translation>Portable Network &amp;Graphics</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="139"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
         <source>&amp;Joint Photographic Experts Group Format</source>
         <translation>&amp;Joint Photographic Experts Group Format</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="139"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
         <source>&amp;Tagged Image File Format</source>
         <translation>&amp;Tagged Image File Format</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="139"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
         <source>&amp;Windows Bitmap</source>
         <translation>&amp;Windows Bitmap</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="149"/>
         <source>Export to %1</source>
         <translation>Exporter en %1</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="145"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="150"/>
         <source>&lt;p&gt;Export to %1.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Exporter en %1.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="152"/>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="283"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="157"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="284"/>
         <source>Print image</source>
         <translation>Imprimer image</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="153"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="158"/>
         <source>&lt;p&gt;Print preview image.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Imprimer aperçu de l&apos;image.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="159"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="164"/>
         <source>&amp;Stop Process</source>
         <translation>&amp;Terminer processus</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="160"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="165"/>
         <source>Escape</source>
         <comment>View|Stop Process</comment>
         <translation>Escape</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="161"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="166"/>
         <source>Abort current process</source>
         <translation>Terminer processus de force</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="162"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="167"/>
         <source>&lt;p&gt;Abort the execution of the currently running process.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Terminer de force l&apos;exécution du processus actuellement en exécution.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="166"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="171"/>
         <source>S&amp;hell Escape</source>
         <translation>S&amp;hell escape</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="167"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="172"/>
         <source>Enable the \write18{shell-command} feature</source>
         <translation>Activer l&apos;utilisation de la commande \write18{commande du shell}</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="168"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="173"/>
         <source>&lt;p&gt;Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Warning:&lt;/strong&gt; Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Permettre à LaTeX d&apos;exécuter des programmes, ceci est nécessaire pour pouvoir tracer des fonctions avec gnuplot dans TikZ.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Attention :&lt;/strong&gt; Si cette option est activée, des programmes malveillantes pourraient être exécutés sur votre ordinateur ! Contrôlez le code LaTeX pour voir quels programmes sont exécutés.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="189"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="194"/>
         <source>&amp;View</source>
         <translation>Afficha&amp;ge</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="199"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="204"/>
         <source>Run</source>
         <translation>Exécuter</translation>
     </message>

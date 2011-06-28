@@ -29,10 +29,9 @@ namespace KtikZ
 BrowserExtension::BrowserExtension(KParts::ReadOnlyPart *part, TikzPreviewController *tikzPreviewController)
 	: KParts::BrowserExtension(part)
 {
-	m_part = part;
 	m_tikzPreviewController = tikzPreviewController;
 	emit enableAction("print", true);
-	QString iconPath = KIconLoader::global()->iconPath("image-x-generic", KIconLoader::SizeSmall);
+	QString iconPath = KIconLoader::global()->iconPath("text-x-pgf", KIconLoader::SizeSmall);
 	emit setIconUrl(KUrl::fromPath(iconPath));
 }
 

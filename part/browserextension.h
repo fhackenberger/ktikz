@@ -37,7 +37,6 @@ private Q_SLOTS:
 	void print();
 
 private:
-	KParts::ReadOnlyPart* m_part;
 	TikzPreviewController *m_tikzPreviewController;
 };
 
