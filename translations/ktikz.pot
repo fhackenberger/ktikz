@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2011-06-28 15:24+0200\n"
+"POT-Creation-Date: 2011-06-29 16:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,40 +17,40 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../app/main.cpp:128
+#: ../app/main.cpp:134
 msgid "KtikZ"
 msgstr ""
 
-#: ../app/main.cpp:129
+#: ../app/main.cpp:135
 msgid "A TikZ Editor"
 msgstr ""
 
-#: ../app/main.cpp:131 ../part/part.cpp:121
+#: ../app/main.cpp:137 ../part/part.cpp:121
 msgid "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
 msgstr ""
 
-#: ../app/main.cpp:132
+#: ../app/main.cpp:138
 msgid ""
 "This is a program for creating TikZ (from the LaTeX pgf package) diagrams."
 msgstr ""
 
-#: ../app/main.cpp:134 ../part/part.cpp:124
+#: ../app/main.cpp:140 ../part/part.cpp:124
 msgid "Florian Hackenberger"
 msgstr ""
 
-#: ../app/main.cpp:134 ../part/part.cpp:124
+#: ../app/main.cpp:140 ../part/part.cpp:124
 msgid "Maintainer"
 msgstr ""
 
-#: ../app/main.cpp:135 ../part/part.cpp:125
+#: ../app/main.cpp:141 ../part/part.cpp:125
 msgid "Glad Deschrijver"
 msgstr ""
 
-#: ../app/main.cpp:135 ../part/part.cpp:125
+#: ../app/main.cpp:141 ../part/part.cpp:125
 msgid "Developer"
 msgstr ""
 
-#: ../app/main.cpp:140
+#: ../app/main.cpp:146
 msgid "TikZ document to open"
 msgstr ""
 

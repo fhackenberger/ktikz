@@ -5,6 +5,17 @@ PROJECT="ktikz" # project name
 BUGADDR="http://www.hackenberger.at/" # MSGID-Bugs
 WDIR=`pwd` # working dir
 
+exists () {
+	type "$1" >/dev/null 2>/dev/null
+}
+
+if ! exists extractrc
+then
+	echo "Error: the script 'extractrc' is not found in your \$PATH."
+	echo "Install the kdesdk-scripts (or under Ubuntu the pkg-kde-tools) package. Alternatively, you can get this script at http://websvn.kde.org/trunk/KDE/kdesdk/scripts/extractrc"
+	exit 1
+fi
+
 echo "Preparing rc files"
 # we use simple sorting to make sure the lines do not jump around too much from system to system
 # dirty hack: let Qt translate the .ui files instead of KDE (see also app/CMakeLists.txt)

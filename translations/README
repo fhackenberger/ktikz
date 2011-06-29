@@ -1,0 +1,98 @@
+This file contains notes for developers and translators of qtikz/ktikz.
+
+Adding a new language:
+----------------------
+
+Assume that ktikz is not yet translated to Brazilian Portuguese and you want
+to add translations for this language.  Then you must copy an already existing
+language directory in the translations directory (with its contents) to pt_BR,
+e.g. if you are in the main directory, then you enter:
+  cp -r translations/fr translations/pt_BR
+The file translations/pt_BR/qtikz_<oldlanguagecode>.ts must be renamed to
+translations/pt_BR/qtikz_pt_BR.ts:
+  mv translations/pt_BR/qtikz_fr.ts translations/pt_BR/qtikz_pt_BR.ts
+After this you have to edit translations/translations.pri, search for the line
+  TRANSLATIONS = cs de es fr ...
+and add pt_BR to it, so that the line looks like
+  TRANSLATIONS = cs de es fr pt_BR
+In translations/CMakeLists.txt search for the lines
+  add_subdirectory(cs)
+  add_subdirectory(de)
+  ...
+and add there the line
+  add_subdirectory(pt_BR)
+Finally in translations/pt_BR/CMakeLists.txt replace in the first argument
+of gettext_process_po_files the old language code by the new one, so
+  gettext_process_po_files(fr ...
+must become:
+  gettext_process_po_files(pt_BR ...
+
+After that (and only after all of the above has been done) the translation
+to Brazilian Portuguese can be done (see "How to translate" below).  The
+translations will be compiled and installed when you run (both for the
+Qt-only and the KDE version):
+  make
+  sudo make install
+
+Regenerating the existing translation source files:
+---------------------------------------------------
+
+When you add/change/remove translatable strings in the C++ code, you must
+recreate the translation source files (translations/*/*.ts and
+translations/*/*.po).  First build the application as described in
+INSTALL (but don't do 'make install' yet), and then run
+  make ts
+in the build directory to generate an updated version of the .ts files.  Note
+that running
+  lupdate app.pro -ts ../translations/*/qtikz_*.ts
+in the app directory is only sufficient if you have not changed the file
+app/tikzcommands.xml (if you have changed this file, 'make ts' must be run
+so that the translatable strings in this file are also added to the .ts files).
+
+If you build the KDE version, the above steps must also be accomplished, but
+additionally you must run
+  ./extract_messages.sh
+in the translations directory to get the strings that only appear in the KDE
+version.  Note that this script depends on the extractrc script which is part
+of the kdesdk-scripts (or under Ubuntu the pkg-kde-tools) package.
+
+The translations/*/*.ts files can be edited using Qt Linguist, the
+translations/*/*.po files can be edited using KDE's Lokalize.
+
+After editing the translation source files, they will be compiled and installed
+when you run (both for the Qt-only and the KDE version):
+  make
+  sudo make install
+
+How to translate:
+-----------------
+
+In order to fully translate the Qt-only version, the translations/*/*.ts
+files must be translated and translations must be added to
+data/qtikz.desktop.template.  In order to fully translate the KDE version,
+these translations must also be done, but additionally you must translate
+the translations/*/*.po files and add the necessary translations to
+data/ktikz.desktop.
+
+A full translation consists of the following steps:
+- The file translations/<languagecode>/qtikz_<languagecode>.ts is edited
+  using Qt Linguist.
+- The file translations/<languagecode>/ktikz.po is edited using KDE's
+  Lokalize.
+- In data/qtikz.desktop.template and data/ktikz.desktop (which you can edit
+  in any text editor) the entries GenericName[<languagecode>] and
+  Comment[<languagecode>] must be added for your language.
+Of course <languagecode> must be replaced by the language code of your
+language (e.g. fr for French, or pt_BR for Brazilian Portuguese).  If the
+files for your language don't exist yet, then they must be created (see
+"Adding a new language" above).  For example, to translate ktikz fully to
+Brazilian Portuguese, you have to translate:
+- translations/pt_BR/qtikz_pt_BR.ts
+- translations/pt_BR/ktikz.po
+- data/qtikz.desktop.template
+- data/ktikz.desktop
+
+After editing the translation source files, they will be compiled and installed
+when you run (both for the Qt-only and the KDE version):
+  make
+  sudo make install
