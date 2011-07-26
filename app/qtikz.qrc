@@ -3,10 +3,8 @@
 	<file>tikzcommands.xml</file>
 	<file>icons/qtikz-22.png</file>
 	<file>icons/qtikz-128.png</file>
-	<file>icons/dialog-cancel.png</file>
 	<file>icons/document-edit.png</file>
 	<file>icons/edit-clear-locationbar-rtl.png</file>
-	<file>icons/view-refresh.png</file>
 	<!-- File menu -->
 	<file>icons/document-new.png</file>
 	<file>icons/document-open.png</file>
@@ -14,9 +12,12 @@
 	<file>icons/document-save.png</file>
 	<file>icons/document-save-as.png</file>
 	<file>icons/document-export.png</file>
+	<file>icons/view-refresh.png</file>
 	<file>icons/document-print-preview.png</file>
 	<file>icons/document-print.png</file>
 	<file>icons/application-exit.png</file>
+	<file>icons/zoom-fit-best.png</file>
+	<file>icons/zoom-fit-width.png</file>
 	<!-- Edit menu -->
 	<file>icons/edit-undo.png</file>
 	<file>icons/edit-redo.png</file>
@@ -28,8 +29,9 @@
 	<file>icons/edit-find.png</file>
 	<file>icons/go-up.png</file>
 	<file>icons/go-down.png</file>
-	<file>icons/window-close.png</file>
 	<file>icons/go-jump.png</file>
+	<file>icons/dialog-cancel.png</file>
+	<file>icons/window-close.png</file>
 	<!-- Export -->
 	<file>icons/image-x-eps.png</file>
 	<file>icons/application-pdf.png</file>
