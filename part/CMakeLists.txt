@@ -23,12 +23,15 @@ set(ktikzpart_SRCS
 	../common/utils/globallocale.cpp
 	../common/utils/lineedit.cpp
 	../common/utils/messagebox.cpp
+	../common/utils/printpreviewdialog.cpp
 	../common/utils/recentfilesaction.cpp
 	../common/utils/selectaction.cpp
 	../common/utils/standardaction.cpp
 	../common/utils/tempdir.cpp
 	../common/utils/toggleaction.cpp
+	../common/utils/toolbar.cpp
 	../common/utils/url.cpp
+	../common/utils/zoomaction.cpp
 )
 
 kde4_add_ui_files(ktikzpart_SRCS

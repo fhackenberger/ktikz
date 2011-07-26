@@ -50,12 +50,15 @@ SOURCES += ../common/utils/action.cpp \
 	../common/utils/lineedit.cpp \
 	../common/utils/messagebox.cpp \
 	../common/utils/pagedialog.cpp \
+	../common/utils/printpreviewdialog.cpp \
 	../common/utils/recentfilesaction.cpp \
 	../common/utils/standardaction.cpp \
 	../common/utils/selectaction.cpp \
 	../common/utils/tempdir.cpp \
 	../common/utils/toggleaction.cpp \
+	../common/utils/toolbar.cpp \
 	../common/utils/url.cpp \
+	../common/utils/zoomaction.cpp \
 	aboutdialog.cpp \
 	assistantcontroller.cpp \
 	configappearancewidget.cpp \

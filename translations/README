@@ -4,33 +4,38 @@ Adding a new language:
 ----------------------
 
 Assume that ktikz is not yet translated to Brazilian Portuguese and you want
-to add translations for this language.  Then you must copy an already existing
-language directory in the translations directory (with its contents) to pt_BR,
-e.g. if you are in the main directory, then you enter:
-  cp -r translations/fr translations/pt_BR
-The file translations/pt_BR/qtikz_<oldlanguagecode>.ts must be renamed to
-translations/pt_BR/qtikz_pt_BR.ts:
-  mv translations/pt_BR/qtikz_fr.ts translations/pt_BR/qtikz_pt_BR.ts
-After this you have to edit translations/translations.pri, search for the line
-  TRANSLATIONS = cs de es fr ...
-and add pt_BR to it, so that the line looks like
-  TRANSLATIONS = cs de es fr pt_BR
-In translations/CMakeLists.txt search for the lines
-  add_subdirectory(cs)
-  add_subdirectory(de)
-  ...
-and add there the line
-  add_subdirectory(pt_BR)
-Finally in translations/pt_BR/CMakeLists.txt replace in the first argument
-of gettext_process_po_files the old language code by the new one, so
-  gettext_process_po_files(fr ...
-must become:
-  gettext_process_po_files(pt_BR ...
+to add translations for this language.  Then the following steps must be taken.
 
-After that (and only after all of the above has been done) the translation
-to Brazilian Portuguese can be done (see "How to translate" below).  The
-translations will be compiled and installed when you run (both for the
-Qt-only and the KDE version):
+1. Create directory with useful contents for your language:
+- You must copy an already existing language directory in the translations
+  directory (with its contents) to pt_BR, e.g. if you are in the main
+  directory, then you enter:
+    cp -r translations/fr translations/pt_BR
+- The file translations/pt_BR/qtikz_<oldlanguagecode>.ts must be renamed to
+  translations/pt_BR/qtikz_pt_BR.ts:
+    mv translations/pt_BR/qtikz_fr.ts translations/pt_BR/qtikz_pt_BR.ts
+- In translations/pt_BR/CMakeLists.txt replace in the first argument
+  of gettext_process_po_files the old language code by the new one, so
+    gettext_process_po_files(fr ...
+  must become:
+    gettext_process_po_files(pt_BR ...
+
+2. Let the build system know about your language:
+- You have to edit translations/translations.pri, search for the line
+    TRANSLATIONS = cs de es fr ...
+  and add pt_BR to it, so that the line looks like
+    TRANSLATIONS = cs de es fr pt_BR
+- In translations/CMakeLists.txt search for the lines
+    add_subdirectory(cs)
+    add_subdirectory(de)
+    ...
+  and add there the line
+    add_subdirectory(pt_BR)
+
+After that the translation to Brazilian Portuguese can be done (see "How to
+translate" below).  The translations will be compiled and installed (this will
+only work when items 1 and 2 above are completely done and if 2 is done after
+1) when you run (both for the Qt-only and the KDE version):
   make
   sudo make install
 
@@ -74,7 +79,7 @@ these translations must also be done, but additionally you must translate
 the translations/*/*.po files and add the necessary translations to
 data/ktikz.desktop.
 
-A full translation consists of the following steps:
+A full translation consists therefore of the following steps:
 - The file translations/<languagecode>/qtikz_<languagecode>.ts is edited
   using Qt Linguist.
 - The file translations/<languagecode>/ktikz.po is edited using KDE's

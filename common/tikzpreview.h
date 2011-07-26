@@ -31,7 +31,7 @@ class Document;
 }
 
 class Action;
-class SelectAction;
+class ZoomAction;
 class TikzPreviewRenderer;
 
 class TikzPreview : public QGraphicsView
@@ -70,7 +70,7 @@ protected:
 	void mousePressEvent(QMouseEvent *event);
 
 private slots:
-	void setZoomFactor(const QString &zoomFactorText);
+	void setZoomFactor(qreal zoomFactor);
 	void zoomIn();
 	void zoomOut();
 	void showPreviousPage();
@@ -78,13 +78,10 @@ private slots:
 
 private:
 	void createInformationLabel();
-	void setZoomFactor(qreal zoomFactor);
 	void createActions();
 	void showPdfPage();
 	void centerInfoLabel();
 	void setInfoLabelText(const QString &message, bool isPixmapVisible);
-	QString formatZoomFactor(qreal zoomFactor) const;
-	void createZoomFactorList(qreal newZoomFactor = 0);
 
 	QGraphicsScene *m_tikzScene;
 	QGraphicsPixmapItem *m_tikzPixmapItem;
@@ -93,7 +90,7 @@ private:
 
 	QAction *m_zoomInAction;
 	QAction *m_zoomOutAction;
-	SelectAction *m_zoomToAction;
+	ZoomAction *m_zoomToAction;
 	QAction *m_pageSeparator;
 	Action *m_previousPageAction;
 	Action *m_nextPageAction;

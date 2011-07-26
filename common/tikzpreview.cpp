@@ -16,7 +16,6 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#include <qmath.h>
 #include "tikzpreview.h"
 
 #include <QtGui/QApplication>
@@ -34,13 +33,9 @@
 
 #include "tikzpreviewrenderer.h"
 #include "utils/action.h"
-#include "utils/globallocale.h"
 #include "utils/icon.h"
-#include "utils/selectaction.h"
 #include "utils/standardaction.h"
-
-static const qreal s_minZoomFactor = 0.1;
-static const qreal s_maxZoomFactor = 6;
+#include "utils/zoomaction.h"
 
 TikzPreview::TikzPreview(QWidget *parent)
 	: QGraphicsView(parent)
@@ -68,7 +63,6 @@ TikzPreview::TikzPreview(QWidget *parent)
 
 	createActions();
 	createInformationLabel();
-	setZoomFactor(m_zoomFactor);
 
 	m_tikzPreviewRenderer = new TikzPreviewRenderer();
 	connect(this, SIGNAL(generatePreview(Poppler::Document*,qreal,int)), m_tikzPreviewRenderer, SLOT(generatePreview(Poppler::Document*,qreal,int)));
@@ -111,14 +105,9 @@ void TikzPreview::createActions()
 	m_zoomInAction->setWhatsThis(tr("<p>Zoom preview in by a predetermined factor.</p>"));
 	m_zoomOutAction->setWhatsThis(tr("<p>Zoom preview out by a predetermined factor.</p>"));
 
-	m_zoomToAction = new SelectAction(Icon("zoom-original"), tr("&Zoom"), this, "zoom_to");
-	m_zoomToAction->setEditable(true);
-	m_zoomToAction->setToolTip(tr("Select or insert zoom factor here"));
-	m_zoomToAction->setWhatsThis(tr("<p>Select the zoom factor here.  "
-	                                "Alternatively, you can also introduce a zoom factor and "
-	                                "press Enter.</p>"));
-	connect(m_zoomToAction, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
-//	createZoomFactorList();
+	m_zoomToAction = new ZoomAction(Icon("zoom-original"), tr("&Zoom"), this, "zoom_to");
+	m_zoomToAction->setZoomFactor(m_zoomFactor);
+	connect(m_zoomToAction, SIGNAL(zoomFactorAdded(qreal)), this, SLOT(setZoomFactor(qreal)));
 
 	m_previousPageAction = new Action(Icon("go-previous"), tr("&Previous image"), this, "view_previous_image");
 	m_previousPageAction->setShortcut(tr("Alt+Left", "View|Go to previous page"));
@@ -247,102 +236,28 @@ void TikzPreview::paintEvent(QPaintEvent *event)
 
 /***************************************************************************/
 
-QString TikzPreview::formatZoomFactor(qreal zoomFactor) const
-{
-	QString zoomFactorText = GlobalLocale::formatNumber(zoomFactor, 2);
-	const QString decimalSymbol = GlobalLocale::decimalSymbol();
-
-	zoomFactorText.remove(decimalSymbol + "00");
-	// remove trailing zero in numbers like 12.30
-	if (zoomFactorText.endsWith('0')
-	        && zoomFactorText.indexOf(decimalSymbol) >= 0)
-		zoomFactorText.chop(1);
-
-	zoomFactorText += '%';
-	return zoomFactorText;
-}
-
-void TikzPreview::createZoomFactorList(qreal newZoomFactor)
-{
-	const qreal zoomFactorArray[] = {12.50, 25, 50, 75, 100, 125, 150, 200, 250, 300};
-	const int zoomFactorNumber = 10;
-	QStringList zoomFactorList;
-	int newZoomFactorPosition = -1;
-	bool addNewZoomFactor = true;
-
-	if (newZoomFactor < s_minZoomFactor || newZoomFactor > s_maxZoomFactor)
-		addNewZoomFactor = false;
-
-	newZoomFactor *= 100;
-	for (int i = 0; i < zoomFactorNumber; ++i)
-	{
-		if (addNewZoomFactor && newZoomFactor < zoomFactorArray[i])
-		{
-			zoomFactorList << formatZoomFactor(newZoomFactor);
-			newZoomFactorPosition = i;
-			addNewZoomFactor = false;
-		}
-		else if (newZoomFactor == zoomFactorArray[i])
-		{
-			newZoomFactorPosition = i;
-			addNewZoomFactor = false;
-		}
-		zoomFactorList << formatZoomFactor(zoomFactorArray[i]);
-	}
-	if (addNewZoomFactor)
-	{
-		zoomFactorList << formatZoomFactor(newZoomFactor);
-		newZoomFactorPosition = zoomFactorNumber;
-	}
-
-	disconnect(m_zoomToAction, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
-	m_zoomToAction->removeAllActions();
-	m_zoomToAction->setItems(zoomFactorList);
-	if (newZoomFactorPosition >= 0)
-		m_zoomToAction->setCurrentItem(newZoomFactorPosition);
-	connect(m_zoomToAction, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
-}
-
-/***************************************************************************/
-
 void TikzPreview::setZoomFactor(qreal zoomFactor)
 {
 	m_zoomFactor = zoomFactor;
 	if (m_zoomFactor == m_oldZoomFactor)
 		return;
 
-	// adjust zoom factor
-	m_zoomFactor = qBound(s_minZoomFactor, m_zoomFactor, s_maxZoomFactor);
-
-	// add current zoom factor to the list of zoom factors
-	const QString zoomFactorString = formatZoomFactor(m_zoomFactor * 100);
-	const int zoomFactorIndex = m_zoomToAction->items().indexOf(zoomFactorString);
-	if (zoomFactorIndex >= 0)
-		m_zoomToAction->setCurrentItem(zoomFactorIndex);
-	else
-		createZoomFactorList(m_zoomFactor);
-
-	m_zoomInAction->setEnabled(m_zoomFactor < s_maxZoomFactor);
-	m_zoomOutAction->setEnabled(m_zoomFactor > s_minZoomFactor);
+	m_zoomInAction->setEnabled(m_zoomFactor < m_zoomToAction->maxZoomFactor());
+	m_zoomOutAction->setEnabled(m_zoomFactor > m_zoomToAction->minZoomFactor());
 
 	showPdfPage();
 }
 
-void TikzPreview::setZoomFactor(const QString &zoomFactorText)
-{
-	setZoomFactor(GlobalLocale::readNumber(QString(zoomFactorText).remove(QRegExp(QString("[^\\d\\%1]*").arg(GlobalLocale::decimalSymbol())))) / 100.0);
-}
-
 void TikzPreview::zoomIn()
 {
-	setZoomFactor(m_zoomFactor + ((m_zoomFactor > 0.99) ?
-	                              (m_zoomFactor > 1.99 ? 0.5 : 0.2) : 0.1));
+	m_zoomToAction->setZoomFactor(m_zoomFactor + (m_zoomFactor > 0.99 ?
+	                                             (m_zoomFactor > 1.99 ? 0.5 : 0.2) : 0.1));
 }
 
 void TikzPreview::zoomOut()
 {
-	setZoomFactor(m_zoomFactor - ((m_zoomFactor > 1.01) ?
-	                              (m_zoomFactor > 2.01 ? 0.5 : 0.2) : 0.1));
+	m_zoomToAction->setZoomFactor(m_zoomFactor - (m_zoomFactor > 1.01 ?
+	                                             (m_zoomFactor > 2.01 ? 0.5 : 0.2) : 0.1));
 }
 
 /***************************************************************************/

@@ -43,12 +43,15 @@ set(ktikz_SRCS
 	../common/utils/lineedit.cpp
 	../common/utils/messagebox.cpp
 	../common/utils/pagedialog.cpp
+	../common/utils/printpreviewdialog.cpp
 	../common/utils/recentfilesaction.cpp
 	../common/utils/selectaction.cpp
 	../common/utils/standardaction.cpp
 	../common/utils/tempdir.cpp
 	../common/utils/toggleaction.cpp
+	../common/utils/toolbar.cpp
 	../common/utils/url.cpp
+	../common/utils/zoomaction.cpp
 )
 # dirty hack: use qt4_wrap_ui to let Qt translate the .ui files instead of KDE (to have less duplication in the translation effort)
 #kde4_add_ui_files(ktikz_SRCS

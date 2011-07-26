@@ -38,6 +38,7 @@
 #include "utils/filedialog.h"
 #include "utils/icon.h"
 #include "utils/messagebox.h"
+#include "utils/printpreviewdialog.h"
 #include "utils/standardaction.h"
 #include "utils/tempdir.h"
 #include "utils/toggleaction.h"
@@ -153,9 +154,13 @@ void TikzPreviewController::createActions()
 	}
 
 #ifndef KTIKZ_KPART // don't have two "Print" actions in the kpart
+	m_printPreviewAction = StandardAction::printPreview(this, SLOT(printPreviewImage()), this);
+	m_printPreviewAction->setStatusTip(tr("Print preview image"));
+	m_printPreviewAction->setWhatsThis(tr("<p>Show print preview of the preview image.</p>"));
+
 	m_printAction = StandardAction::print(this, SLOT(printImage()), this);
 	m_printAction->setStatusTip(tr("Print image"));
-	m_printAction->setWhatsThis(tr("<p>Print preview image.</p>"));
+	m_printAction->setWhatsThis(tr("<p>Print the preview image.</p>"));
 #endif
 
 	setExportActionsEnabled(false);
@@ -182,6 +187,11 @@ void TikzPreviewController::createActions()
 QAction *TikzPreviewController::exportAction()
 {
 	return m_exportAction;
+}
+
+QAction *TikzPreviewController::printPreviewAction()
+{
+	return m_printPreviewAction;
 }
 
 QAction *TikzPreviewController::printAction()
@@ -276,10 +286,39 @@ void TikzPreviewController::exportImage()
 
 /***************************************************************************/
 
+void TikzPreviewController::showPreview(QPrinter *printer)
+{
+	QPainter painter;
+	painter.begin(printer);
+	painter.drawPixmap(0, 0, m_tikzPreview->pixmap());
+	painter.end();
+}
+
+void TikzPreviewController::printPreviewImage()
+{
+	QPrinter printer;
+
+	// choose printer
+	QPointer<QPrintDialog> printDialog = new QPrintDialog(&printer, m_parentWidget);
+	printDialog->setWindowTitle(tr("Print preview image"));
+	if (printDialog->exec() != QDialog::Accepted)
+	{
+		delete printDialog;
+		return;
+	}
+	delete printDialog;
+
+	// show print preview
+	PrintPreviewDialog preview(&printer);
+	connect(&preview, SIGNAL(paintRequested(QPrinter*)), this, SLOT(showPreview(QPrinter*)));
+	preview.exec();
+}
+
 void TikzPreviewController::printImage()
 {
 	QPrinter printer;
 
+	// choose printer
 	QPointer<QPrintDialog> printDialog = new QPrintDialog(&printer, m_parentWidget);
 	printDialog->setWindowTitle(tr("Print image"));
 	if (printDialog->exec() != QDialog::Accepted)
@@ -288,7 +327,9 @@ void TikzPreviewController::printImage()
 		return;
 	}
 	delete printDialog;
-	// There does not seem to exist a cross-platform way of printing PDF files directly, so we use the following:
+
+	// print
+	// XXX there does not seem to exist a cross-platform way of printing PDF files directly, so we use the following:
 	QPainter painter;
 	painter.begin(&printer);
 	painter.drawPixmap(0, 0, m_tikzPreview->pixmap());
@@ -412,6 +453,7 @@ void TikzPreviewController::setExportActionsEnabled(bool enabled)
 {
 	m_exportAction->setEnabled(enabled);
 #ifndef KTIKZ_KPART
+	m_printPreviewAction->setEnabled(enabled);
 	m_printAction->setEnabled(enabled);
 #endif
 }

@@ -14,6 +14,7 @@
    <Separator/>
    <Action name="file_reload"/>
    <Separator/>
+   <Action name="file_print_preview"/>
    <Action name="file_print"/>
    <Separator/>
    <Action name="file_close"/>

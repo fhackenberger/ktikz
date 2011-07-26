@@ -28,6 +28,7 @@ class QMenu;
 class QToolBar;
 #endif
 
+class QPrinter;
 class QTimer;
 class MainWidget;
 class TemplateWidget;
@@ -50,6 +51,7 @@ public:
 	TikzPreview *tikzPreview() const;
 #ifndef KTIKZ_USE_KDE
 	QAction *exportAction();
+	QAction *printPreviewAction();
 	QAction *printAction();
 	QMenu *menu();
 	QList<QToolBar*> toolBars();
@@ -61,6 +63,7 @@ public:
 	void applySettings();
 
 public slots:
+	void printPreviewImage();
 	void printImage();
 	void generatePreview();
 	void regeneratePreviewAfterDelay();
@@ -71,6 +74,7 @@ private slots:
 	void regeneratePreview();
 	void abortProcess();
 	void exportImage();
+	void showPreview(QPrinter *printer);
 	void setExportActionsEnabled(bool enabled);
 	void setProcessRunning(bool isRunning);
 	void toggleShellEscaping(bool useShellEscaping);
@@ -99,6 +103,7 @@ private:
 	QList<QToolBar*> m_toolBars;
 #endif
 	Action *m_exportAction;
+	Action *m_printPreviewAction;
 	Action *m_printAction;
 	Action *m_procStopAction;
 	ToggleAction *m_shellEscapeAction;

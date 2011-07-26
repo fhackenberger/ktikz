@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2011-06-29 16:58+0200\n"
+"POT-Creation-Date: 2011-07-26 17:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,14 +142,14 @@ msgctxt "@title:menu"
 msgid "&File"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:24
+#. i18n: file: ../app/ktikzui.rc:25
 #. i18n: ectx: Menu (edit)
 #: rc.cpp:6
 msgctxt "@title:menu"
 msgid "&Edit"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:45
+#. i18n: file: ../app/ktikzui.rc:46
 #. i18n: ectx: Menu (view)
 #. i18n: file: ../part/ktikzpart.rc:8
 #. i18n: ectx: Menu (view)
@@ -158,14 +158,14 @@ msgctxt "@title:menu"
 msgid "&View"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:53
+#. i18n: file: ../app/ktikzui.rc:54
 #. i18n: ectx: Menu (go)
 #: rc.cpp:12
 msgctxt "@title:menu"
 msgid "&Go"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:57
+#. i18n: file: ../app/ktikzui.rc:58
 #. i18n: ectx: Menu (process)
 #. i18n: file: ../part/ktikzpart.rc:15
 #. i18n: ectx: Menu (process)
@@ -174,7 +174,7 @@ msgctxt "@title:menu"
 msgid "&Process"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:67
+#. i18n: file: ../app/ktikzui.rc:68
 #. i18n: ectx: Menu (settings)
 #. i18n: file: ../part/ktikzpart.rc:20
 #. i18n: ectx: Menu (settings)
@@ -183,14 +183,14 @@ msgctxt "@title:menu"
 msgid "&Settings"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:70
+#. i18n: file: ../app/ktikzui.rc:71
 #. i18n: ectx: Menu (sidebars)
 #: rc.cpp:21
 msgctxt "@title:menu"
 msgid "&Sidebars"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:82
+#. i18n: file: ../app/ktikzui.rc:83
 #. i18n: ectx: Menu (help)
 #. i18n: file: ../part/ktikzpart.rc:23
 #. i18n: ectx: Menu (help)
@@ -199,28 +199,28 @@ msgctxt "@title:menu"
 msgid "&Help"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:96
+#. i18n: file: ../app/ktikzui.rc:97
 #. i18n: ectx: ToolBar (mainToolBar)
 #: rc.cpp:27
 msgctxt "@title:menu toolbar title"
 msgid "File Toolbar"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:103
+#. i18n: file: ../app/ktikzui.rc:104
 #. i18n: ectx: ToolBar (editToolBar)
 #: rc.cpp:30
 msgctxt "@title:menu toolbar title"
 msgid "Edit Toolbar"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:108
+#. i18n: file: ../app/ktikzui.rc:109
 #. i18n: ectx: ToolBar (processToolBar)
 #: rc.cpp:33
 msgctxt "@title:menu toolbar title"
 msgid "Process Toolbar"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:115
+#. i18n: file: ../app/ktikzui.rc:116
 #. i18n: ectx: ToolBar (viewToolBar)
 #: rc.cpp:36
 msgctxt "@title:menu toolbar title"

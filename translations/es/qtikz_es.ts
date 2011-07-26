@@ -772,54 +772,54 @@ Do you want to save your changes?</source>
         <translation>&amp;Archivo</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="577"/>
+        <location filename="../../app/mainwindow.cpp" line="578"/>
         <source>&amp;Settings</source>
         <translation>&amp;Preferencias</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="578"/>
+        <location filename="../../app/mainwindow.cpp" line="579"/>
         <source>&amp;Toolbars</source>
         <translation>Barras de &amp;herramientas</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="580"/>
+        <location filename="../../app/mainwindow.cpp" line="581"/>
         <source>Show or hide toolbars</source>
         <translation>Mostrar u ocultar barras de herramientas</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="590"/>
+        <location filename="../../app/mainwindow.cpp" line="591"/>
         <source>&amp;Sidebars</source>
         <translation>Barras &amp;laterales</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="592"/>
+        <location filename="../../app/mainwindow.cpp" line="593"/>
         <source>Show or hide sidebars</source>
         <translation>Mostrar u ocultar barras laterales</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="609"/>
+        <location filename="../../app/mainwindow.cpp" line="610"/>
         <source>&amp;Help</source>
         <translation>A&amp;yuda</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="620"/>
+        <location filename="../../app/mainwindow.cpp" line="621"/>
         <source>File</source>
         <translation>Archivo</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="723"/>
+        <location filename="../../app/mainwindow.cpp" line="724"/>
         <source>Ready</source>
         <translation>Listo</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="732"/>
+        <location filename="../../app/mainwindow.cpp" line="733"/>
         <source>Hide sidebar &quot;%1&quot;</source>
         <translation>Ocultar barra lateral «%1»</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="595"/>
         <location filename="../../app/mainwindow.cpp" line="596"/>
-        <location filename="../../app/mainwindow.cpp" line="734"/>
+        <location filename="../../app/mainwindow.cpp" line="597"/>
+        <location filename="../../app/mainwindow.cpp" line="735"/>
         <source>Show sidebar &quot;%1&quot;</source>
         <translation>Mostrar barra lateral «%1»</translation>
     </message>
@@ -961,13 +961,13 @@ No programa capable de abrir el fichero «%1» ha sido encontrado.</translation>
         <translation>Mostrar la documentación de la aplicación</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="741"/>
+        <location filename="../../app/mainwindow.cpp" line="742"/>
         <source>Hide toolbar &quot;%1&quot;</source>
         <translation>Ocultar barra de herramientas «%1»</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="972"/>
-        <location filename="../../app/mainwindow.cpp" line="974"/>
+        <location filename="../../app/mainwindow.cpp" line="973"/>
+        <location filename="../../app/mainwindow.cpp" line="975"/>
         <source>Preview: x = %1	y = %2</source>
         <comment>@info:status</comment>
         <translation>Vista: x = %1	y = %2</translation>
@@ -978,14 +978,14 @@ No programa capable de abrir el fichero «%1» ha sido encontrado.</translation>
         <translation type="obsolete">Error de lectura de archivo</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="867"/>
+        <location filename="../../app/mainwindow.cpp" line="868"/>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
         <translation>Imposible de cargar el fichero «%1»:
 %2.</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="929"/>
+        <location filename="../../app/mainwindow.cpp" line="930"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Imposible de guardar el fichero «%1»:
@@ -997,30 +997,30 @@ No programa capable de abrir el fichero «%1» ha sido encontrado.</translation>
         <translation type="obsolete">Error guardar archivo</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="914"/>
+        <location filename="../../app/mainwindow.cpp" line="915"/>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
         <translation>Imposible de guardar el fichero «%1»:
 %2.</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="937"/>
+        <location filename="../../app/mainwindow.cpp" line="938"/>
         <source>File saved</source>
         <comment>@info:status</comment>
         <translation>Archivo guardado</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="966"/>
+        <location filename="../../app/mainwindow.cpp" line="967"/>
         <source>Line: %1	Col: %2</source>
         <comment>@info:status</comment>
         <translation>Linea: %1	Col: %2</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="585"/>
         <location filename="../../app/mainwindow.cpp" line="586"/>
         <location filename="../../app/mainwindow.cpp" line="587"/>
         <location filename="../../app/mainwindow.cpp" line="588"/>
-        <location filename="../../app/mainwindow.cpp" line="743"/>
+        <location filename="../../app/mainwindow.cpp" line="589"/>
+        <location filename="../../app/mainwindow.cpp" line="744"/>
         <source>Show toolbar &quot;%1&quot;</source>
         <translation>Mostrar barra de herramientas «%1»</translation>
     </message>
@@ -1030,144 +1030,177 @@ No programa capable de abrir el fichero «%1» ha sido encontrado.</translation>
         <translation>&amp;Configurar %1...</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="844"/>
+        <location filename="../../app/mainwindow.cpp" line="845"/>
         <source>The document has been modified.
 Do you want to save your changes?</source>
         <translation>El documento ha sido modificado.
 ¿Quiere guardar las modificaciones?</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="902"/>
+        <location filename="../../app/mainwindow.cpp" line="903"/>
         <source>File loaded</source>
         <translation>Fichero cargado</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="951"/>
+        <location filename="../../app/mainwindow.cpp" line="952"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
 </context>
 <context>
+    <name>PrintPreviewDialog</name>
+    <message>
+        <location filename="../../common/utils/printpreviewdialog.cpp" line="43"/>
+        <source>Fit &amp;width</source>
+        <translation>Ajustar a la anch&amp;ura</translation>
+    </message>
+    <message>
+        <location filename="../../common/utils/printpreviewdialog.cpp" line="46"/>
+        <source>Fit p&amp;age</source>
+        <translation>Ajustar a la pá&amp;gina</translation>
+    </message>
+    <message>
+        <location filename="../../common/utils/printpreviewdialog.cpp" line="49"/>
+        <source>&amp;Zoom</source>
+        <translation>&amp;Ampliar</translation>
+    </message>
+    <message>
+        <location filename="../../common/utils/printpreviewdialog.cpp" line="54"/>
+        <source>&amp;Print</source>
+        <translation>&amp;Imprimir</translation>
+    </message>
+    <message>
+        <location filename="../../common/utils/printpreviewdialog.cpp" line="57"/>
+        <source>&amp;Close</source>
+        <translation>&amp;Cerrar</translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="171"/>
+        <location filename="../../common/utils/standardaction.cpp" line="175"/>
         <source>&amp;New</source>
         <translation>&amp;Nuevo</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="176"/>
+        <location filename="../../common/utils/standardaction.cpp" line="180"/>
         <source>&amp;Open...</source>
         <translation>&amp;Abrir...</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="181"/>
+        <location filename="../../common/utils/standardaction.cpp" line="185"/>
         <source>&amp;Save</source>
         <translation>&amp;Guardar</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="186"/>
+        <location filename="../../common/utils/standardaction.cpp" line="190"/>
         <source>Save &amp;As...</source>
         <translation>Guardar &amp;como...</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="190"/>
+        <location filename="../../common/utils/standardaction.cpp" line="194"/>
         <source>&amp;Close</source>
         <translation>&amp;Cerrar</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="195"/>
+        <location filename="../../common/utils/standardaction.cpp" line="199"/>
         <source>&amp;Quit</source>
         <translation>&amp;Salir</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="199"/>
+        <location filename="../../common/utils/standardaction.cpp" line="203"/>
         <source>&amp;Undo</source>
         <translation>&amp;Deshacer</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="204"/>
+        <location filename="../../common/utils/standardaction.cpp" line="208"/>
         <source>Re&amp;do</source>
         <translation>R&amp;ehacer</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="209"/>
+        <location filename="../../common/utils/standardaction.cpp" line="213"/>
         <source>Cu&amp;t</source>
         <translation>C&amp;ortar</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="214"/>
+        <location filename="../../common/utils/standardaction.cpp" line="218"/>
         <source>&amp;Copy</source>
         <translation>&amp;Copiar</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="219"/>
+        <location filename="../../common/utils/standardaction.cpp" line="223"/>
         <source>&amp;Paste</source>
         <translation>&amp;Pegar</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="223"/>
+        <location filename="../../common/utils/standardaction.cpp" line="227"/>
         <source>Select &amp;All</source>
         <translation>Seleccionar &amp;todo</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="228"/>
+        <location filename="../../common/utils/standardaction.cpp" line="232"/>
         <source>&amp;Find...</source>
         <translation>&amp;Buscar...</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="233"/>
+        <location filename="../../common/utils/standardaction.cpp" line="237"/>
         <source>Find &amp;Next</source>
         <translation>Buscar &amp;siguiente</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="238"/>
+        <location filename="../../common/utils/standardaction.cpp" line="242"/>
         <source>Find Pre&amp;vious</source>
         <translation>Buscar &amp;anterior</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="242"/>
+        <location filename="../../common/utils/standardaction.cpp" line="246"/>
         <source>&amp;Replace...</source>
         <translation>&amp;Reemplazar...</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="247"/>
+        <location filename="../../common/utils/standardaction.cpp" line="251"/>
         <source>&amp;Go to Line...</source>
         <translation>Ir a &amp;línea...</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="251"/>
+        <location filename="../../common/utils/standardaction.cpp" line="255"/>
         <source>Zoom &amp;In</source>
         <translation>&amp;Ampliar</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="256"/>
+        <location filename="../../common/utils/standardaction.cpp" line="260"/>
         <source>Zoom &amp;Out</source>
         <translation>&amp;Reducir</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="261"/>
+        <location filename="../../common/utils/standardaction.cpp" line="265"/>
         <source>&amp;Configure %1...</source>
         <translation>&amp;Configurar %1...</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="265"/>
+        <location filename="../../common/utils/standardaction.cpp" line="269"/>
+        <source>Print Pre&amp;view...</source>
+        <translation>Pre&amp;visualización antes de imprimir...</translation>
+    </message>
+    <message>
+        <location filename="../../common/utils/standardaction.cpp" line="273"/>
         <source>&amp;Print...</source>
         <translation>&amp;Imprimir...</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="277"/>
+        <location filename="../../common/utils/standardaction.cpp" line="285"/>
         <source>Ctrl+Q</source>
         <comment>File|Quit</comment>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="279"/>
+        <location filename="../../common/utils/standardaction.cpp" line="287"/>
         <source>Ctrl+G</source>
         <comment>Edit|Go to Line</comment>
         <translation>Ctrl+G</translation>
     </message>
     <message>
-        <location filename="../../common/utils/standardaction.cpp" line="295"/>
+        <location filename="../../common/utils/standardaction.cpp" line="303"/>
         <source>&amp;Open Recent</source>
         <translation>Abrir &amp;reciente</translation>
     </message>
@@ -3682,95 +3715,85 @@ Continuar al fin?</translation>
 <context>
     <name>TikzPreview</name>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="53"/>
+        <location filename="../../common/tikzpreview.cpp" line="48"/>
         <source>&lt;p&gt;Here the preview image of your TikZ code is shown.  You can zoom in and out, and you can scroll the image by dragging it.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Aquí se puede ver una previsualización del código TikZ.  Ud. puede ampliar o reducirla.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="109"/>
+        <location filename="../../common/tikzpreview.cpp" line="103"/>
         <source>Zoom preview in</source>
         <translation>Ampliar previsualización</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="111"/>
+        <location filename="../../common/tikzpreview.cpp" line="105"/>
         <source>&lt;p&gt;Zoom preview in by a predetermined factor.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ampliar previsualización con un factor predeterminado.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="110"/>
+        <location filename="../../common/tikzpreview.cpp" line="104"/>
         <source>Zoom preview out</source>
         <translation>Reducir previsualización</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="112"/>
+        <location filename="../../common/tikzpreview.cpp" line="106"/>
         <source>&lt;p&gt;Zoom preview out by a predetermined factor.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Reducir previsualización con un factor predeterminado.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="114"/>
+        <location filename="../../common/tikzpreview.cpp" line="108"/>
         <source>&amp;Zoom</source>
         <translation>&amp;Ampliar</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="123"/>
+        <location filename="../../common/tikzpreview.cpp" line="112"/>
         <source>&amp;Previous image</source>
         <translation>Imagen &amp;anterior</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="124"/>
+        <location filename="../../common/tikzpreview.cpp" line="113"/>
         <source>Alt+Left</source>
         <comment>View|Go to previous page</comment>
         <translation>Alt+Left</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="130"/>
+        <location filename="../../common/tikzpreview.cpp" line="119"/>
         <source>Alt+Right</source>
         <comment>View|Go to next page</comment>
         <translation>Alt+Right</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="504"/>
+        <location filename="../../common/tikzpreview.cpp" line="419"/>
         <source>Generating image</source>
         <comment>tikz preview status</comment>
         <translation>Generación del imagen</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="125"/>
+        <location filename="../../common/tikzpreview.cpp" line="114"/>
         <source>Show previous image in preview</source>
         <translation>Mostrar imagen anterior en la previsualización</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="126"/>
+        <location filename="../../common/tikzpreview.cpp" line="115"/>
         <source>&lt;p&gt;Show the preview of the previous tikzpicture in the TikZ code.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Mostrar la previsualización del imagen anterior en el código TikZ.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="129"/>
+        <location filename="../../common/tikzpreview.cpp" line="118"/>
         <source>&amp;Next image</source>
         <translation>Imagen &amp;siguiente</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="131"/>
+        <location filename="../../common/tikzpreview.cpp" line="120"/>
         <source>Show next image in preview</source>
         <translation>Mostrar imagen siguiente en la previsualización</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="132"/>
+        <location filename="../../common/tikzpreview.cpp" line="121"/>
         <source>&lt;p&gt;Show the preview of the next tikzpicture in the TikZ code.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Mostrar la previsualización del imagen siguiente en el código TikZ.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreview.cpp" line="116"/>
-        <source>Select or insert zoom factor here</source>
-        <translation>Seleccione o introduzca el factor de amplificación aquí</translation>
-    </message>
-    <message>
-        <location filename="../../common/tikzpreview.cpp" line="117"/>
-        <source>&lt;p&gt;Select the zoom factor here.  Alternatively, you can also introduce a zoom factor and press Enter.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Seleccione el factor de amplificación aquí.  También puede introducir el factor de amplificación y pulsar Enter.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location filename="../../common/tikzpreview.cpp" line="154"/>
+        <location filename="../../common/tikzpreview.cpp" line="143"/>
         <source>View</source>
         <translation>Ver</translation>
     </message>
@@ -3778,144 +3801,155 @@ Continuar al fin?</translation>
 <context>
     <name>TikzPreviewController</name>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="121"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="122"/>
         <source>E&amp;xport</source>
         <translation>E&amp;xportar</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="122"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="123"/>
         <source>Export image to various formats</source>
         <translation>Exportar imagen en varios formates</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="123"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="124"/>
         <source>&lt;p&gt;Export image to various formats.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Exportar imagen en varios formates.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="127"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="128"/>
         <source>&amp;Encapsulated PostScript (EPS)</source>
         <translation>&amp;Encapsulated PostScript (EPS)</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="129"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="130"/>
         <source>Export to EPS</source>
         <translation>Exportar como EPS</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="130"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="131"/>
         <source>&lt;p&gt;Export to EPS.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Exportar como EPS.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="134"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="135"/>
         <source>&amp;Portable Document Format (PDF)</source>
         <translation>&amp;Portable Document Format (PDF)</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="136"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="137"/>
         <source>Export to PDF</source>
         <translation>Exportar como PDF</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="137"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="138"/>
         <source>&lt;p&gt;Export to PDF.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Exportar como PDF.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="145"/>
         <source>Portable Network &amp;Graphics</source>
         <translation>Portable Network &amp;Graphics</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="145"/>
         <source>&amp;Joint Photographic Experts Group Format</source>
         <translation>&amp;Joint Photographic Experts Group Format</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="145"/>
         <source>&amp;Tagged Image File Format</source>
         <translation>&amp;Tagged Image File Format</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="144"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="145"/>
         <source>&amp;Windows Bitmap</source>
         <translation>&amp;Windows Bitmap</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="149"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="150"/>
         <source>Export to %1</source>
         <translation>Exportar como %1</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="150"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="151"/>
         <source>&lt;p&gt;Export to %1.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Exportar como %1.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="157"/>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="284"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="158"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="303"/>
+        <source>Print preview image</source>
+        <translation>Previsualización antes de imprimir del imagen</translation>
+    </message>
+    <message>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="159"/>
+        <source>&lt;p&gt;Show print preview of the preview image.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Mostrar previsualización antes de imprimir del imagen.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="162"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="323"/>
         <source>Print image</source>
         <translation>Imprimir imagen</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="158"/>
-        <source>&lt;p&gt;Print preview image.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Imprimir vista del imagen.&lt;/p&gt;</translation>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="163"/>
+        <source>&lt;p&gt;Print the preview image.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Imprimir la vista del imagen.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="164"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="169"/>
         <source>&amp;Stop Process</source>
         <translation>&amp;Abortar proceso</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="165"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="170"/>
         <source>Escape</source>
         <comment>View|Stop Process</comment>
         <translation>Escape</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="166"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="171"/>
         <source>Abort current process</source>
         <translation>Abortar proceso actual</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="167"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="172"/>
         <source>&lt;p&gt;Abort the execution of the currently running process.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Abortar la ejecución del proceso actual.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="171"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="176"/>
         <source>S&amp;hell Escape</source>
         <translation>S&amp;hell Escape</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="172"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="177"/>
         <source>Enable the \write18{shell-command} feature</source>
         <translation>Activar la función \write18{comando de consola}</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="173"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="178"/>
         <source>&lt;p&gt;Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Warning:&lt;/strong&gt; Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Habilitar LaTeX para ejecutar comandos de consola, es necesario si desea trazar funciones con gnuplot en TikZ.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Atención:&lt;/strong&gt; activar esto puede causar que programas maliciosas se ejecuten en su computadora! Compruebe el código LaTeX para ver los comandos que se ejecutan.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="194"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="204"/>
         <source>&amp;View</source>
         <translation>&amp;Ver</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="204"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="214"/>
         <source>Run</source>
         <translation>Executar</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="238"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="248"/>
         <source>Export image</source>
         <translation>Exportar imagen</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="273"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="283"/>
         <source>The image could not be exported to the file &quot;%1&quot;.</source>
         <translation>La imagen no podía ser exportado al fichero «%1».</translation>
     </message>
@@ -4031,6 +4065,19 @@ Continuar al fin?</translation>
         <location filename="../../app/usercommandinserter.cpp" line="84"/>
         <source>&amp;Edit user commands</source>
         <translation>&amp;Editar comandos</translation>
+    </message>
+</context>
+<context>
+    <name>ZoomAction</name>
+    <message>
+        <location filename="../../common/utils/zoomaction.cpp" line="48"/>
+        <source>Select or insert zoom factor here</source>
+        <translation>Seleccione o introduzca el factor de amplificación aquí</translation>
+    </message>
+    <message>
+        <location filename="../../common/utils/zoomaction.cpp" line="49"/>
+        <source>&lt;p&gt;Select the zoom factor here.  Alternatively, you can also introduce a zoom factor and press Enter.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Seleccione el factor de amplificación aquí.  También puede introducir el factor de amplificación y pulsar Enter.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>

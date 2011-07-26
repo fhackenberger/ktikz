@@ -14,6 +14,8 @@
 	<file>icons/document-save.png</file>
 	<file>icons/document-save-as.png</file>
 	<file>icons/document-export.png</file>
+	<file>icons/document-print-preview.png</file>
+	<file>icons/document-print.png</file>
 	<file>icons/application-exit.png</file>
 	<!-- Edit menu -->
 	<file>icons/edit-undo.png</file>
