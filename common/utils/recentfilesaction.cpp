@@ -102,6 +102,8 @@ RecentFilesAction::~RecentFilesAction()
 
 void RecentFilesAction::createMenu()
 {
+	m_numOfRecentFiles = 5; // is set correctly in loadEntries() which must be executed before anything else happens with the menu
+
 	setObjectName("file_open_recent");
 	setText(tr("Open &Recent"));
 	setIcon(Icon("document-open-recent"));
@@ -139,7 +141,7 @@ void RecentFilesAction::createRecentFilesList()
 
 	updateRecentFilesList();
 
-	m_recentMenu->clear();
+	m_recentMenu->clear(); // this also deletes all the QActions in the menu
 	m_recentMenu->addActions(m_recentFileActions);
 }
 

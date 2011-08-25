@@ -52,16 +52,15 @@ void MessageBox::error(QWidget *parent, const QString &text, const QString &capt
 
 int MessageBox::questionYesNo(QWidget *parent, const QString &text, const QString &caption, const QString &yesButtonText, const QString &noButtonText)
 {
-	int result;
+	QMessageBox::StandardButton result;
 	if (!yesButtonText.isEmpty())
 	{
 		QMessageBox msgBox(QMessageBox::Question, caption, text, QMessageBox::NoButton, parent);
 		QPushButton *yesButton = msgBox.addButton(yesButtonText, QMessageBox::YesRole);
-		QPushButton *noButton;
 		if (!noButtonText.isEmpty())
-			noButton = msgBox.addButton(noButtonText, QMessageBox::NoRole);
+			msgBox.addButton(noButtonText, QMessageBox::NoRole);
 		else
-			noButton = msgBox.addButton(QMessageBox::No);
+			msgBox.addButton(QMessageBox::No);
 		msgBox.setDefaultButton(yesButton);
 
 		msgBox.exec();

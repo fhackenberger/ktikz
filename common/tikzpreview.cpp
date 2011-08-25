@@ -394,9 +394,9 @@ void TikzPreview::centerInfoLabel()
 	m_infoWidget->move(posX, posY);
 }
 
-void TikzPreview::setInfoLabelText(const QString &message, bool isPixmapVisible)
+void TikzPreview::setInfoLabelText(const QString &message, PixmapVisibility pixmapVisibility)
 {
-	m_infoPixmapLabel->setVisible(isPixmapVisible);
+	m_infoPixmapLabel->setVisible(pixmapVisibility == PixmapVisible);
 	m_infoLabel->setText(message);
 //	m_infoWidget->setVisible(false);
 //	m_infoWidget->setVisible(true);
@@ -409,14 +409,14 @@ void TikzPreview::setInfoLabelText(const QString &message, bool isPixmapVisible)
 
 void TikzPreview::showErrorMessage(const QString &message)
 {
-	setInfoLabelText(message, true);
+	setInfoLabelText(message, PixmapVisible);
 }
 
 void TikzPreview::setProcessRunning(bool isRunning)
 {
 	m_processRunning = isRunning;
 	if (isRunning)
-		setInfoLabelText(tr("Generating image", "tikz preview status"), false);
+		setInfoLabelText(tr("Generating image", "tikz preview status"), PixmapNotVisible);
 //	else
 //		m_infoWidget->setVisible(false);
 	else if (m_infoProxyWidget->scene() != 0) // only remove if the widget is still attached to m_tikzScene

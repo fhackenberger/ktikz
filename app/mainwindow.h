@@ -90,9 +90,6 @@ public slots:
 	void loadUrl(const Url &url);
 	bool save();
 
-signals:
-	void setSearchFromBegin(bool searchFromBegin);
-
 protected:
 #ifdef KTIKZ_USE_KDE
 	bool queryClose();

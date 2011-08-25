@@ -50,8 +50,8 @@ ReplaceCurrentWidget::ReplaceCurrentWidget(QWidget *parent) : QWidget(parent)
 
 	setFocusProxy(m_replaceButton);
 
-	connect(m_replaceButton, SIGNAL(clicked()), this, SLOT(replace()));
-	connect(replaceAllButton, SIGNAL(clicked()), this, SLOT(replaceAll()));
+	connect(m_replaceButton, SIGNAL(clicked()), this, SIGNAL(replace()));
+	connect(replaceAllButton, SIGNAL(clicked()), this, SIGNAL(replaceAll()));
 	connect(dontReplaceButton, SIGNAL(clicked()), this, SLOT(dontReplace()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(hide()));
 }
@@ -65,34 +65,9 @@ void ReplaceCurrentWidget::setReplacement(const QString &text, const QString &re
 	m_replaceLabel->setText(tr("Replace %1 by %2?").arg(text).arg(replacement));
 }
 
-void ReplaceCurrentWidget::search(const QString &text, const QString &replacement, bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor)
-{
-	m_text = text;
-	m_replacement = replacement;
-	m_isCaseSensitive = isCaseSensitive;
-	m_findWholeWords = findWholeWords;
-	m_forward = forward;
-	m_startAtCursor = startAtCursor;
-	emit search(m_text, m_isCaseSensitive, m_findWholeWords, m_forward, m_startAtCursor);
-}
-
-void ReplaceCurrentWidget::replace()
-{
-	emit replace(m_replacement);
-	emit setSearchFromBegin(false);
-	emit search(m_text, m_isCaseSensitive, m_findWholeWords, m_forward, m_startAtCursor);
-}
-
-void ReplaceCurrentWidget::replaceAll()
-{
-	emit replace(m_replacement);
-	emit replaceAll(m_text, m_replacement, m_isCaseSensitive, m_findWholeWords, m_forward, m_startAtCursor);
-}
-
 void ReplaceCurrentWidget::dontReplace()
 {
-	emit setSearchFromBegin(false);
-	emit search(m_text, m_isCaseSensitive, m_findWholeWords, m_forward, m_startAtCursor);
+	emit search();
 }
 
 void ReplaceCurrentWidget::hide()
@@ -112,6 +87,6 @@ void ReplaceCurrentWidget::keyPressEvent(QKeyEvent *event)
 	if (event->key() == Qt::Key_Escape)
 		hide();
 	else if (event->key() == Qt::Key_Return)
-		replace();
+		emit replace();
 	QWidget::keyPressEvent(event);
 }

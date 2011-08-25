@@ -37,11 +37,17 @@
 
 TikzPreviewGenerator::TikzPreviewGenerator(TikzPreviewController *parent)
 {
+	qRegisterMetaType<TemplateStatus>("TemplateStatus"); // needed for Q_ARG below
+
 	m_parent = parent;
 	m_tikzPdfDoc = 0;
 	m_runFailed = false;
 	m_process = 0;
 	m_firstRun = true;
+	m_checkGnuplotExecutable = 0;
+	m_processAborted = false;
+	m_templateChanged = true; // is set correctly in generatePreviewImpl()
+	m_useShellEscaping = false; // is set in setShellEscaping() at startup
 
 	m_processEnvironment = QProcessEnvironment::systemEnvironment();
 
@@ -297,17 +303,17 @@ bool TikzPreviewGenerator::hasRunFailed()
 	return m_runFailed;
 }
 
-void TikzPreviewGenerator::generatePreview(bool templateChanged)
+void TikzPreviewGenerator::generatePreview(TemplateStatus templateStatus)
 {
 	// dirty hack because calling generatePreviewImpl directly from the main thread runs it in the main thread (only when triggered by a signal, it is run in the new thread)
-	QMetaObject::invokeMethod(this, "generatePreviewImpl", Q_ARG(bool, templateChanged));
+	QMetaObject::invokeMethod(this, "generatePreviewImpl", Q_ARG(TemplateStatus, templateStatus));
 }
 
-void TikzPreviewGenerator::generatePreviewImpl(bool templateChanged)
+void TikzPreviewGenerator::generatePreviewImpl(TemplateStatus templateStatus)
 {
 	m_memberLock.lock();
 	// Each time the tikz code is edited TikzPreviewController->regeneratePreview()
-	// is run, which runs generatePreview(false). This is OK in all cases, except
+	// is run, which runs generatePreview(DontReloadTemplate). This is OK in all cases, except
 	// at startup, because then the template is not yet copied to the temporary
 	// directory, so in order to make this happen, m_templateChanged should be
 	// set to true.
@@ -317,7 +323,7 @@ void TikzPreviewGenerator::generatePreviewImpl(bool templateChanged)
 		m_firstRun = false;
 	}
 	else
-		m_templateChanged = templateChanged;
+		m_templateChanged = (templateStatus == ReloadTemplate);
 	m_tikzCode = m_parent->tikzCode();
 	m_runFailed = false;
 	m_memberLock.unlock();

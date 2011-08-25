@@ -77,11 +77,17 @@ private slots:
 	void showNextPage();
 
 private:
+	enum PixmapVisibility
+	{
+		PixmapNotVisible = 0,
+		PixmapVisible = 1
+	};
+
 	void createInformationLabel();
 	void createActions();
 	void showPdfPage();
 	void centerInfoLabel();
-	void setInfoLabelText(const QString &message, bool isPixmapVisible);
+	void setInfoLabelText(const QString &message, PixmapVisibility pixmapVisibility = PixmapNotVisible);
 
 	QGraphicsScene *m_tikzScene;
 	QGraphicsPixmapItem *m_tikzPixmapItem;

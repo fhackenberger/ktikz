@@ -20,6 +20,7 @@
 #define KTIKZ_TIKZPREVIEWCONTROLLER_H
 
 #include <QtCore/QObject>
+#include "tikzpreviewgenerator.h"
 #include "utils/url.h"
 
 #ifndef KTIKZ_USE_KDE
@@ -33,7 +34,6 @@ class QTimer;
 class MainWidget;
 class TemplateWidget;
 class TikzPreview;
-class TikzPreviewGenerator;
 class Action;
 class TempDir;
 class ToggleAction;
@@ -44,7 +44,7 @@ class TikzPreviewController : public QObject
 
 public:
 	TikzPreviewController(MainWidget *mainWidget);
-	virtual ~TikzPreviewController();
+	~TikzPreviewController();
 
 	const QString tempDir() const;
 	TemplateWidget *templateWidget() const;
@@ -86,7 +86,7 @@ signals:
 private:
 	const QString tempFileBaseName() const;
 	void createActions();
-	void generatePreview(bool templateChanged);
+	void generatePreview(TikzPreviewGenerator::TemplateStatus templateStatus);
 	bool setTemplateFile(const QString &path);
 	Url getExportUrl(const Url &url, const QString &mimeType) const;
 

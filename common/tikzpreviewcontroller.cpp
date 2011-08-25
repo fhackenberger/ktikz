@@ -31,7 +31,6 @@
 
 #include "templatewidget.h"
 #include "tikzpreview.h"
-#include "tikzpreviewgenerator.h"
 #include "mainwidget.h"
 #include "utils/action.h"
 #include "utils/file.h"
@@ -351,13 +350,13 @@ bool TikzPreviewController::setTemplateFile(const QString &path)
 void TikzPreviewController::setTemplateFileAndRegenerate(const QString &path)
 {
 	if (setTemplateFile(path))
-		generatePreview(true);
+		generatePreview(TikzPreviewGenerator::ReloadTemplate);
 }
 
 void TikzPreviewController::setReplaceTextAndRegenerate(const QString &replace)
 {
 	m_tikzPreviewGenerator->setReplaceText(replace);
-	generatePreview(true);
+	generatePreview(TikzPreviewGenerator::ReloadTemplate);
 }
 
 /***************************************************************************/
@@ -374,12 +373,12 @@ QString TikzPreviewController::getLogText()
 
 void TikzPreviewController::generatePreview()
 {
-	generatePreview(true);
+	generatePreview(TikzPreviewGenerator::ReloadTemplate);
 }
 
-void TikzPreviewController::generatePreview(bool templateChanged)
+void TikzPreviewController::generatePreview(TikzPreviewGenerator::TemplateStatus templateStatus)
 {
-	if (templateChanged) // old aux files may contain commands available in the old template, but not anymore in the new template
+	if (templateStatus == TikzPreviewGenerator::ReloadTemplate) // old aux files may contain commands available in the old template, but not anymore in the new template
 		m_tempDir->cleanUp();
 
 	// the directory in which the pgf file is located is added to TEXINPUTS before running latex
@@ -388,12 +387,12 @@ void TikzPreviewController::generatePreview(bool templateChanged)
 		m_tikzPreviewGenerator->addToLatexSearchPath(QFileInfo(currentFileName).absolutePath());
 
 	m_tikzPreviewGenerator->abortProcess(); // abort still running process before starting a new one (without this, if a process hangs, all subsequently started processes are executed one after the other when the user aborts the hanging process)
-	m_tikzPreviewGenerator->generatePreview(templateChanged);
+	m_tikzPreviewGenerator->generatePreview(templateStatus);
 }
 
 void TikzPreviewController::regeneratePreview()
 {
-	generatePreview(false);
+	generatePreview(TikzPreviewGenerator::DontReloadTemplate);
 }
 
 void TikzPreviewController::regeneratePreviewAfterDelay()
@@ -474,5 +473,5 @@ void TikzPreviewController::toggleShellEscaping(bool useShellEscaping)
 	settings.setValue("UseShellEscaping", useShellEscaping);
 
 	m_tikzPreviewGenerator->setShellEscaping(useShellEscaping);
-	generatePreview(false);
+	generatePreview(TikzPreviewGenerator::DontReloadTemplate);
 }

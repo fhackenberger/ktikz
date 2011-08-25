@@ -94,23 +94,21 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	connect(m_tikzEditor, SIGNAL(focusOut()),
 	        this, SIGNAL(focusOut()));
 
-	connect(m_replaceWidget, SIGNAL(search(QString,bool,bool,bool)),
-	        this, SLOT(search(QString,bool,bool,bool)));
-	connect(m_replaceWidget, SIGNAL(replace(QString,QString,bool,bool,bool)),
-	        this, SLOT(replace(QString,QString,bool,bool,bool)));
+	connect(m_replaceWidget, SIGNAL(search(QString,QTextDocument::FindFlags)),
+	        this, SLOT(search(QString,QTextDocument::FindFlags)));
+	connect(m_replaceWidget, SIGNAL(replace(QString,QString,QTextDocument::FindFlags)),
+	        this, SLOT(replace(QString,QString,QTextDocument::FindFlags)));
 	connect(m_replaceWidget, SIGNAL(focusEditor()),
 	        m_tikzEditor, SLOT(setFocus()));
 
 	connect(m_replaceCurrentWidget, SIGNAL(hidden()),
 	        m_tikzEditor, SLOT(setFocus()));
-	connect(m_replaceCurrentWidget, SIGNAL(search(QString,bool,bool,bool,bool)),
-	        this, SLOT(search(QString,bool,bool,bool,bool)));
-	connect(m_replaceCurrentWidget, SIGNAL(replace(QString)),
-	        this, SLOT(replace(QString)));
-	connect(m_replaceCurrentWidget, SIGNAL(replaceAll(QString,QString,bool,bool,bool,bool)),
-	        this, SLOT(replaceAll(QString,QString,bool,bool,bool,bool)));
-	connect(m_replaceCurrentWidget, SIGNAL(setSearchFromBegin(bool)),
-	        this, SIGNAL(setSearchFromBegin(bool)));
+	connect(m_replaceCurrentWidget, SIGNAL(search()),
+	        this, SLOT(search()));
+	connect(m_replaceCurrentWidget, SIGNAL(replace()),
+	        this, SLOT(replace()));
+	connect(m_replaceCurrentWidget, SIGNAL(replaceAll()),
+	        this, SLOT(replaceAll()));
 
 	connect(m_goToLineWidget, SIGNAL(goToLine(int)),
 	        this, SLOT(goToLine(int)));
@@ -500,38 +498,33 @@ void TikzEditorView::editFind()
 		m_replaceWidget->setText(textCursor.selectedText());
 }
 
-bool TikzEditorView::search(const QString &text, bool isCaseSensitive,
-                            bool findWholeWords, bool forward, bool startAtCursor, bool continueFromBeginning)
+bool TikzEditorView::search(const QString &text, QTextDocument::FindFlags flags, bool startAtCursor, bool continueFromBeginning)
 {
 	bool isFound = false;
-
-	QTextDocument::FindFlags flags = 0;
-	if (isCaseSensitive) flags |= QTextDocument::FindCaseSensitively;
-	if (findWholeWords) flags |= QTextDocument::FindWholeWords;
 
 	QTextCursor textCursor = m_tikzEditor->textCursor();
 	if (!startAtCursor)
 	{
-		if (forward) textCursor.movePosition(QTextCursor::Start);
-		else textCursor.movePosition(QTextCursor::End);
+		if (!(flags & QTextDocument::FindBackward))
+			textCursor.movePosition(QTextCursor::Start);
+		else
+			textCursor.movePosition(QTextCursor::End);
 		m_tikzEditor->setTextCursor(textCursor);
 	}
 	else
 		textCursor.setPosition(textCursor.selectionStart());
-	if (!forward)
-		flags |= QTextDocument::FindBackward;
-	else if (!continueFromBeginning)
+	if (!(flags & QTextDocument::FindBackward) && !continueFromBeginning)
 		textCursor.movePosition(QTextCursor::Right);
 	const QTextCursor found = m_tikzEditor->document()->find(text, textCursor, flags);
 
 	if (found.isNull())
 	{
-		const QString msg = (forward) ?
+		const QString msg = !(flags & QTextDocument::FindBackward) ?
 		                    tr("End of document reached.\n\nContinue from the beginning?")
 		                    : tr("Beginning of document reached.\n\nContinue from the end?");
 		const int result = MessageBox::questionYesNo(this, msg, tr("Find"), tr("Continue"));
 		if (result == MessageBox::Yes)
-			return search(text, isCaseSensitive, findWholeWords, forward, false, true);
+			return search(text, flags, /*startAtCursor*/ false, /*continueFromBeginning*/ true);
 		else
 		{
 			m_replaceWidget->setVisible(false);
@@ -542,11 +535,15 @@ bool TikzEditorView::search(const QString &text, bool isCaseSensitive,
 	else
 	{
 		m_tikzEditor->setTextCursor(found);
-		emit setSearchFromBegin(false);
 		isFound = true;
 	}
 	m_tikzEditor->viewport()->repaint();
 	return isFound;
+}
+
+void TikzEditorView::search()
+{
+	search(m_searchText, m_flags, m_startAtCursor);
 }
 
 void TikzEditorView::editFindNext()
@@ -593,24 +590,30 @@ void TikzEditorView::replace(const QString &replacement)
 	}
 }
 
-void TikzEditorView::replace(const QString &text, const QString &replacement,
-                             bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor)
+void TikzEditorView::replace(const QString &text, const QString &replacement, QTextDocument::FindFlags flags, bool startAtCursor)
 {
+	m_searchText = text;
+	m_replaceText = replacement;
+	m_flags = flags;
+	m_startAtCursor = startAtCursor;
+
 	m_replaceWidget->setVisible(false);
 	m_replaceCurrentWidget->setReplacement(text, replacement);
 	m_replaceCurrentWidget->setVisible(true);
-	m_replaceCurrentWidget->search(text, replacement, isCaseSensitive, findWholeWords, forward, startAtCursor);
+	search(text, flags, startAtCursor);
 }
 
-void TikzEditorView::replaceAll(const QString &text, const QString &replacement,
-                                bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor)
+void TikzEditorView::replace()
 {
-	while (search(text, isCaseSensitive, findWholeWords, forward, startAtCursor))
-	{
-		replace(replacement);
-		emit setSearchFromBegin(false);
-	}
-	emit setSearchFromBegin(true);
+	replace(m_replaceText);
+	search(m_searchText, m_flags, m_startAtCursor);
+}
+
+void TikzEditorView::replaceAll()
+{
+	replace(m_replaceText);
+	while (search(m_searchText, m_flags, m_startAtCursor))
+		replace(m_replaceText);
 }
 
 void TikzEditorView::setCompleter(QCompleter *completer)

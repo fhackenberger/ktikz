@@ -146,7 +146,7 @@ MainWindow::MainWindow()
 	m_previewDock->setObjectName("PreviewDock");
 	m_previewDock->setAllowedAreas(Qt::AllDockWidgetAreas);
 	m_previewDock->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
-	m_previewDock->setWindowTitle(tr("&Preview"));
+	m_previewDock->setWindowTitle(tr("Previe&w"));
 	m_previewDock->setWidget(m_tikzPreviewController->tikzPreview());
 	addDockWidget(Qt::RightDockWidgetArea, m_previewDock);
 

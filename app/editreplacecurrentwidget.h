@@ -32,13 +32,11 @@ public:
 	ReplaceCurrentWidget(QWidget *parent = 0);
 	~ReplaceCurrentWidget();
 	void setReplacement(const QString &text, const QString &replacement);
-	void search(const QString &text, const QString &replacement, bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor);
 
 signals:
-	void search(const QString &text, bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor);
-	void replace(const QString &replacement);
-	void replaceAll(const QString &text, const QString &replacement, bool isCaseSensitive, bool findWholeWords, bool forward, bool startAtCursor);
-	void setSearchFromBegin(bool searchFromBegin);
+	void search();
+	void replace();
+	void replaceAll();
 	void hidden();
 
 protected:
@@ -51,12 +49,8 @@ protected slots:
 private:
 	QLabel *m_replaceLabel;
 	QPushButton *m_replaceButton;
-	QString m_text, m_replacement;
-	bool m_isCaseSensitive, m_findWholeWords, m_forward, m_startAtCursor;
 
 private slots:
-	void replace();
-	void replaceAll();
 	void dontReplace();
 };
 

@@ -20,6 +20,7 @@
 #define TIKZEDITORVIEW_H
 
 #include <QtGui/QWidget>
+#include <QtGui/QTextDocument>
 //#include "tikzcommandinserter.h"
 
 class QAction;
@@ -76,10 +77,12 @@ private slots:
 	void editReplace();
 	void tabIndent(bool isUnindenting = false);
 	void indent(QChar insertChar, int numOfInserts, bool isUnindenting = false);
-	bool search(const QString &text, bool isCaseSensitive = false, bool findWholeWords = false, bool forward = true, bool startAtCursor = true, bool continueFromBeginning = false);
+	bool search(const QString &text, QTextDocument::FindFlags flags = 0, bool startAtCursor = true, bool continueFromBeginning = false);
+	void search();
 	void replace(const QString &replacement);
-	void replace(const QString &text, const QString &replacement, bool isCaseSensitive = false, bool findWholeWords = false, bool forward = true, bool startAtCursor = true);
-	void replaceAll(const QString &text, const QString &replacement, bool isCaseSensitive = false, bool findWholeWords = false, bool forward = true, bool startAtCursor = true);
+	void replace(const QString &text, const QString &replacement, QTextDocument::FindFlags flags = 0, bool startAtCursor = true);
+	void replace();
+	void replaceAll();
 
 private:
 	void setFont(const QFont &editorFont);
@@ -92,6 +95,11 @@ private:
 	ReplaceCurrentWidget *m_replaceCurrentWidget;
 	GoToLineWidget *m_goToLineWidget;
 	IndentWidget *m_indentWidget;
+
+	QString m_searchText;
+	QString m_replaceText;
+	QTextDocument::FindFlags m_flags;
+	bool m_startAtCursor;
 
 //	TikzHighlighter *tikzHighlighter;
 

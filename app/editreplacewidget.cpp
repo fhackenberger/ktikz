@@ -81,38 +81,43 @@ void ReplaceWidget::hide()
 	emit focusEditor();
 }
 
-void ReplaceWidget::doFind(bool forward)
+void ReplaceWidget::doFind()
 {
 	const QString currentText = ui.comboBoxFind->currentText();
-	if (currentText.isEmpty()) return;
+	if (currentText.isEmpty())
+		return;
 	if (ui.comboBoxFind->findText(currentText) < 0)
 		ui.comboBoxFind->addItem(currentText);
 
-	emit search(currentText,
-	            ui.checkBoxCaseSensitive->isChecked(),
-	            ui.checkBoxWholeWords->isChecked(), forward);
-}
-
-void ReplaceWidget::doFind()
-{
-	doFind(ui.pushButtonForward->isChecked());
+	QTextDocument::FindFlags flags = 0;
+	if (ui.checkBoxCaseSensitive->isChecked())
+		flags |= QTextDocument::FindCaseSensitively;
+	if (ui.checkBoxWholeWords->isChecked())
+		flags |= QTextDocument::FindWholeWords;
+	if (!ui.pushButtonForward->isChecked())
+		flags |= QTextDocument::FindBackward;
+	emit search(currentText, flags);
 }
 
 void ReplaceWidget::doReplace()
 {
 	const QString currentText = ui.comboBoxFind->currentText();
-	if (currentText.isEmpty()) return;
+	if (currentText.isEmpty())
+		return;
+	const QString replacementText = ui.comboBoxReplace->currentText();
 	if (ui.comboBoxFind->findText(currentText) < 0)
 		ui.comboBoxFind->addItem(currentText);
-	const QString replacementText = ui.comboBoxReplace->currentText();
 	if (ui.comboBoxReplace->findText(replacementText) < 0)
 		ui.comboBoxReplace->addItem(replacementText);
 
-	emit replace(currentText,
-	             replacementText,
-	             ui.checkBoxCaseSensitive->isChecked(),
-	             ui.checkBoxWholeWords->isChecked(),
-	             ui.pushButtonForward->isChecked());
+	QTextDocument::FindFlags flags = 0;
+	if (ui.checkBoxCaseSensitive->isChecked())
+		flags |= QTextDocument::FindCaseSensitively;
+	if (ui.checkBoxWholeWords->isChecked())
+		flags |= QTextDocument::FindWholeWords;
+	if (!ui.pushButtonForward->isChecked())
+		flags |= QTextDocument::FindBackward;
+	emit replace(currentText, replacementText, flags);
 }
 
 void ReplaceWidget::setText(const QString &text)

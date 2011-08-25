@@ -20,6 +20,7 @@
 #define REPLACEWIDGET_H
 
 #include "ui_editreplacewidget.h"
+#include <QtGui/QTextDocument>
 
 class ReplaceWidget : public QWidget
 {
@@ -36,8 +37,8 @@ public slots:
 
 signals:
 	void focusEditor();
-	void search(const QString &text, bool isCaseSensitive, bool findWholeWords, bool forward);
-	void replace(const QString &text, const QString &replacement, bool isCaseSensitive, bool findWholeWords, bool forward);
+	void search(const QString &text, QTextDocument::FindFlags flags);
+	void replace(const QString &text, const QString &replacement, QTextDocument::FindFlags flags);
 
 protected:
 	virtual void showEvent(QShowEvent *event);
@@ -47,8 +48,6 @@ protected slots:
 	void hide();
 
 private:
-	void doFind(bool forward);
-
 	Ui::ReplaceWidget ui;
 
 private slots:

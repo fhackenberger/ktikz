@@ -698,7 +698,7 @@ Que voulez-vous faire ?</translation>
         <source>Cannot open TikZ documentation.
 No application is found which can open the file &quot;%1&quot;.</source>
         <translation>Impossible d&apos;ouvrir la documentation TikZ.
-Aucun programme capable d&apos;ouvrir le fichier « %1 » n&apos;est trouvé.</translation>
+Aucun programme capable d&apos;ouvrir le fichier « %1 » n&apos;a été trouvé.</translation>
     </message>
     <message>
         <location filename="../../app/mainwindow.cpp" line="465"/>

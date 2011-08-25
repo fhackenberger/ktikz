@@ -47,6 +47,12 @@ class TikzPreviewGenerator : public QObject
 	Q_OBJECT
 
 public:
+	enum TemplateStatus
+	{
+		DontReloadTemplate = 0,
+		ReloadTemplate = 1
+	};
+
 	TikzPreviewGenerator(TikzPreviewController *parent);
 	~TikzPreviewGenerator();
 
@@ -63,7 +69,7 @@ public:
 public slots:
 	void setTemplateFile(const QString &fileName);
 	void setReplaceText(const QString &replace);
-	void generatePreview(bool templateChanged);
+	void generatePreview(TemplateStatus templateStatus = DontReloadTemplate);
 	void abortProcess();
 
 signals:
@@ -77,7 +83,7 @@ signals:
 private slots:
 	void displayGnuplotNotExecutable();
 	void checkGnuplotExecutableFinished(int exitCode, QProcess::ExitStatus exitStatus);
-	void generatePreviewImpl(bool templateChanged);
+	void generatePreviewImpl(TemplateStatus templateStatus = DontReloadTemplate);
 
 protected:
 	QString getParsedLogText(QTextStream *logStream) const;

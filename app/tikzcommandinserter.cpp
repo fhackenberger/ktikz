@@ -25,7 +25,6 @@
 #include <QtGui/QLabel>
 #include <QtGui/QListWidget>
 #include <QtGui/QMenu>
-#include <QtGui/QMessageBox>
 #include <QtGui/QPlainTextEdit>
 #include <QtGui/QStackedWidget>
 #include <QtGui/QTextCursor>
@@ -61,10 +60,8 @@ void TikzCommandInserter::getCommands()
 		else
 			xml.raiseError(tr("Cannot parse the TikZ commands file."));
 	}
-	if (xml.error())
-		QMessageBox::information(m_parentWidget, tr("TikZ Commands"),
-		                         tr("Parse error in TikZ commands file at line %1, column %2:\n%3")
-		                         .arg(xml.lineNumber()).arg(xml.columnNumber()).arg(xml.errorString()));
+	if (xml.error()) // this should never happen in a final release because tikzcommands.xml is built in the binary
+		qCritical("Parse error in TikZ commands file at line %d, column %d:\n%s", (int)xml.lineNumber(), (int)xml.columnNumber(), qPrintable(xml.errorString()));
 	QApplication::restoreOverrideCursor();
 }
 
