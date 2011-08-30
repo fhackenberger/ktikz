@@ -82,10 +82,14 @@ void KtikzApplication::init()
 		{
 			settings.setArrayIndex(i);
 			const QString fileName = settings.value("CurrentFile").toString();
+			const int lineNumber = settings.value("LineNumber", 1).toInt();
 			MainWindow *mainWindow = new MainWindow;
 			mainWindow->show();
 			if (!fileName.isEmpty())
+			{
 				mainWindow->loadUrl(QUrl(fileName));
+				mainWindow->setLineNumber(lineNumber);
+			}
 		}
 		settings.endArray();
 		settings.remove("");
@@ -118,13 +122,12 @@ void KtikzApplication::commitData(QSessionManager &manager)
 		{
 			if (mainWindowList.at(i)->isDocumentModified())
 			{
-				const int ret = QMessageBox::warning(mainWindowList.at(i),
+				const QMessageBox::StandardButton ret = QMessageBox::warning(mainWindowList.at(i),
 				                                     applicationName(),
 				                                     tr("The document \"%1\" has been modified.\n"
 				                                        "Do you want to save your changes?").arg(mainWindowList.at(i)->url().fileName()),
-				                                     QMessageBox::Save | QMessageBox::Default,
-				                                     QMessageBox::Discard,
-				                                     QMessageBox::Cancel | QMessageBox::Escape);
+				                                     QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
+				                                     QMessageBox::Save);
 				if (ret == QMessageBox::Save)
 					saveDocuments << i; // store the number of the document that has to be saved
 				else if (ret == QMessageBox::Cancel)
@@ -166,6 +169,7 @@ void KtikzApplication::saveState(QSessionManager &manager)
 	{
 		settings.setArrayIndex(i);
 		settings.setValue("CurrentFile", mainWindowList.at(i)->url().path());
+		settings.setValue("LineNumber", mainWindowList.at(i)->lineNumber());
 	}
 	settings.endArray();
 	settings.endGroup();

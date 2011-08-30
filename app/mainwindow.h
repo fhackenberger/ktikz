@@ -80,6 +80,8 @@ public:
 	bool isDocumentModified() const;
 	QString tikzCode() const;
 	Url url() const;
+	void setLineNumber(int lineNumber);
+	int lineNumber() const;
 
 	static QList<MainWindow*> mainWindowList()
 	{

@@ -49,6 +49,7 @@ public:
 	QToolBar *toolBar();
 	void applySettings();
 	void setLine(const QString &line);
+	int lineNumber() const;
 	void setCompleter(QCompleter *completer);
 
 public slots:

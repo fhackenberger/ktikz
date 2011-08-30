@@ -342,7 +342,7 @@ void TikzEditor::goToLine(int line)
 
 void TikzEditor::setCursorPosition(int row, int col)
 {
-	const int pos = document()->findBlockByLineNumber(row).position() + col;
+	const int pos = document()->findBlockByNumber(row).position() + col;
 	QTextCursor cursor = textCursor();
 	cursor.setPosition(pos, QTextCursor::MoveAnchor);
 	setTextCursor(cursor);

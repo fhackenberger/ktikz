@@ -297,7 +297,8 @@ void TikzEditorView::setLine(const QString &line)
 {
 	bool ok;
 	const int lineNumber = line.toInt(&ok, 10);
-	if (ok) setLine(lineNumber);
+	if (ok)
+		setLine(lineNumber);
 }
 
 
@@ -321,11 +322,16 @@ void TikzEditorView::goToLine(int lineNumber)
 
 void TikzEditorView::editGoToLine()
 {
-	int lineNumber;
-	lineNumber = m_tikzEditor->textCursor().blockNumber() + 1;
+	int lineNumber = m_tikzEditor->textCursor().blockNumber() + 1;
 	if (lineNumber < 1)
 		lineNumber = 1;
 	setLine(lineNumber);
+}
+
+int TikzEditorView::lineNumber() const
+{
+	int lineNumber = m_tikzEditor->textCursor().blockNumber() + 1;
+	return lineNumber < 1 ? 1 : lineNumber;
 }
 
 /***************************************************************************/

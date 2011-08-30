@@ -962,6 +962,18 @@ QString MainWindow::strippedName(const Url &url) const
 
 /***************************************************************************/
 
+void MainWindow::setLineNumber(int lineNumber)
+{
+	m_tikzEditorView->goToLine(lineNumber - 1);
+}
+
+int MainWindow::lineNumber() const
+{
+	return m_tikzEditorView->lineNumber();
+}
+
+/***************************************************************************/
+
 void MainWindow::showCursorPosition(int row, int col)
 {
 	m_positionLabel->setText(tr("Line: %1\tCol: %2", "@info:status").arg(QString::number(row)).arg(QString::number(col)));
