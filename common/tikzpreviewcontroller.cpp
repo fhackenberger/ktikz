@@ -22,10 +22,12 @@
 #include <QtGui/QToolBar>
 #endif
 
+#include <QtGui/QDialogButtonBox>
 #include <QtGui/QMenu>
 #include <QtCore/QPointer>
 #include <QtGui/QPrintDialog>
 #include <QtGui/QPrinter>
+#include <QtGui/QPushButton>
 #include <QtCore/QSettings>
 #include <QtCore/QTimer>
 
@@ -299,7 +301,10 @@ void TikzPreviewController::printPreviewImage()
 
 	// choose printer
 	QPointer<QPrintDialog> printDialog = new QPrintDialog(&printer, m_parentWidget);
-	printDialog->setWindowTitle(tr("Print preview image"));
+	printDialog->setWindowTitle(tr("Print preview of image"));
+	QList<QDialogButtonBox*> dialogButtonBoxes = printDialog->findChildren<QDialogButtonBox*>();
+	QPushButton *printButton = dialogButtonBoxes.at(0)->button(QDialogButtonBox::Ok);
+	printButton->setText(tr("Print &preview"));
 	if (printDialog->exec() != QDialog::Accepted)
 	{
 		delete printDialog;

@@ -18,8 +18,8 @@
 
 #include "configdialog.h"
 
-#include <QCheckBox>
-#include <QSettings>
+#include <QtGui/QCheckBox>
+#include <QtCore/QSettings>
 
 #include "configgeneralwidget.h"
 

@@ -37,8 +37,15 @@ Url::Url() : QUrl()
 {
 }
 
-Url::Url(const QString &fileName) : QUrl(fileName)
+//Url::Url(const QString &fileName) : QUrl(fileName)
+//{
+//}
+Url::Url(const QString &fileName) : QUrl()
 {
+	if (fileName.startsWith("file://"))
+		setUrl(fileName);
+	else
+		setPath(fileName);
 }
 
 Url::Url(const QUrl &url) : QUrl(url)

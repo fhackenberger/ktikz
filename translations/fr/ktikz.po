@@ -2,13 +2,14 @@
 # This file is distributed under the same license as the KtikZ package.
 #
 # Glad Deschrijver <glad.deschrijver@gmail.com>, 2009, 2010, 2011.
+# Glad Deschrijver <Glad.Deschrijver@UGent.be>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2011-07-26 17:39+0200\n"
-"PO-Revision-Date: 2011-02-08 20:12+0100\n"
-"Last-Translator: Glad Deschrijver <glad.deschrijver@gmail.com>\n"
+"POT-Creation-Date: 2011-09-20 17:46+0200\n"
+"PO-Revision-Date: 2011-09-20 16:33+0200\n"
+"Last-Translator: Glad Deschrijver <Glad.Deschrijver@UGent.be>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +26,7 @@ msgstr "KtikZ"
 msgid "A TikZ Editor"
 msgstr "Un éditeur TikZ"
 
-#: ../app/main.cpp:137 ../part/part.cpp:121
+#: ../app/main.cpp:137 ../part/part.cpp:125
 msgid "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
 msgstr "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
 
@@ -35,19 +36,19 @@ msgid ""
 msgstr ""
 "Ceci est un programme pour créer des diagrammes TikZ (du paquet LaTeX pgf)."
 
-#: ../app/main.cpp:140 ../part/part.cpp:124
+#: ../app/main.cpp:140 ../part/part.cpp:128
 msgid "Florian Hackenberger"
 msgstr "Florian Hackenberger"
 
-#: ../app/main.cpp:140 ../part/part.cpp:124
+#: ../app/main.cpp:140 ../part/part.cpp:128
 msgid "Maintainer"
 msgstr "Mainteneur"
 
-#: ../app/main.cpp:141 ../part/part.cpp:125
+#: ../app/main.cpp:141 ../part/part.cpp:129
 msgid "Glad Deschrijver"
 msgstr "Glad Deschrijver"
 
-#: ../app/main.cpp:141 ../part/part.cpp:125
+#: ../app/main.cpp:141 ../part/part.cpp:129
 msgid "Developer"
 msgstr "Développeur"
 
@@ -79,62 +80,62 @@ msgstr ""
 "<para>Lorsque cette option est cochée, l'image TikZ est rechargé chaque fois "
 "que le fichier est modifié par un autre programme.</para>"
 
-#: ../part/part.cpp:63 ../part/part.cpp:118
+#: ../part/part.cpp:64 ../part/part.cpp:122
 msgid "KtikZ Viewer"
 msgstr "Visionneuse KtikZ"
 
-#: ../part/part.cpp:119
+#: ../part/part.cpp:123
 msgid "A TikZ Viewer"
 msgstr "Une visionneuse d'images TikZ"
 
-#: ../part/part.cpp:122
+#: ../part/part.cpp:126
 msgid ""
 "This is a plugin for viewing TikZ (from the LaTeX pgf package) diagrams."
 msgstr ""
 "Ceci est un plugin pour visionner des diagrammes TikZ (du paquet LaTeX pgf)."
 
-#: ../part/part.cpp:140
+#: ../part/part.cpp:144
 msgctxt "@info:whatsthis"
 msgid "<para>Save the document under a new name.</para>"
 msgstr "<para>Enregistrer le document sous un nouveau nom.</para>"
 
-#: ../part/part.cpp:146
+#: ../part/part.cpp:150
 msgctxt "@action"
 msgid "Configure KtikZ Viewer..."
 msgstr "Configurer la visionneuse KtikZ..."
 
-#: ../part/part.cpp:150
+#: ../part/part.cpp:154
 msgid "About KtikZ Viewer"
 msgstr "À propos de la visionneuse KtikZ"
 
-#: ../part/part.cpp:164
+#: ../part/part.cpp:168
 msgctxt "@info"
 msgid "Cannot read file <filename>%1</filename>:<nl/><message>%2</message>"
 msgstr ""
 "Impossible de lire le fichier <filename>%1</filename> :<nl/><message>%2</"
 "message>"
 
-#: ../part/part.cpp:164
+#: ../part/part.cpp:168
 msgctxt "@title:window"
 msgid "File Read Error"
 msgstr "Erreur de lecture du fichier"
 
-#: ../part/part.cpp:194
+#: ../part/part.cpp:198
 msgctxt "@item:inlistbox filter"
 msgid "TikZ files"
 msgstr "Fichiers TikZ"
 
-#: ../part/part.cpp:196
+#: ../part/part.cpp:200
 msgctxt "@item:inlistbox filter"
 msgid "All files"
 msgstr "Tous les fichiers"
 
-#: ../part/part.cpp:197
+#: ../part/part.cpp:201
 msgctxt "@title:window"
 msgid "Save TikZ Source File As"
 msgstr "Enregistrer fichier source TikZ sous"
 
-#: ../part/part.cpp:282
+#: ../part/part.cpp:286
 msgctxt "@info:status"
 msgid "Reloading the document..."
 msgstr "Rechargeant le document..."
@@ -143,7 +144,7 @@ msgstr "Rechargeant le document..."
 #. i18n: ectx: Menu (file)
 #. i18n: file: ../part/ktikzpart.rc:4
 #. i18n: ectx: Menu (file)
-#: rc.cpp:3 rc.cpp:126
+#: rc.cpp:3 rc.cpp:147
 msgctxt "@title:menu"
 msgid "&File"
 msgstr "&Fichier"
@@ -159,7 +160,7 @@ msgstr "&Édition"
 #. i18n: ectx: Menu (view)
 #. i18n: file: ../part/ktikzpart.rc:8
 #. i18n: ectx: Menu (view)
-#: rc.cpp:9 rc.cpp:129
+#: rc.cpp:9 rc.cpp:150
 msgctxt "@title:menu"
 msgid "&View"
 msgstr "Afficha&ge"
@@ -175,7 +176,7 @@ msgstr "&Aller"
 #. i18n: ectx: Menu (process)
 #. i18n: file: ../part/ktikzpart.rc:15
 #. i18n: ectx: Menu (process)
-#: rc.cpp:15 rc.cpp:132
+#: rc.cpp:15 rc.cpp:153
 msgctxt "@title:menu"
 msgid "&Process"
 msgstr "&Processus"
@@ -184,7 +185,7 @@ msgstr "&Processus"
 #. i18n: ectx: Menu (settings)
 #. i18n: file: ../part/ktikzpart.rc:20
 #. i18n: ectx: Menu (settings)
-#: rc.cpp:18 rc.cpp:135
+#: rc.cpp:18 rc.cpp:156
 msgctxt "@title:menu"
 msgid "&Settings"
 msgstr "&Options"
@@ -200,7 +201,7 @@ msgstr "Barres &latérales"
 #. i18n: ectx: Menu (help)
 #. i18n: file: ../part/ktikzpart.rc:23
 #. i18n: ectx: Menu (help)
-#: rc.cpp:24 rc.cpp:138
+#: rc.cpp:24 rc.cpp:159
 msgctxt "@title:menu"
 msgid "&Help"
 msgstr "&Aide"
@@ -386,32 +387,46 @@ msgid "Commands"
 msgstr "Commandes"
 
 #. i18n: file: ../part/configgeneralwidget.ui:18
+#. i18n: ectx: property (whatsThis), widget (QLabel, latexLabel)
+#. i18n: file: ../part/configgeneralwidget.ui:34
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, latexUrlRequester)
+#: rc.cpp:108 rc.cpp:114
+msgid "<para>Enter the path to the LaTeX executable here.</para>"
+msgstr ""
+"<para>Introduisez le chemin d'accès du fichier exécutable de LaTeX.</para>"
+
+#. i18n: file: ../part/configgeneralwidget.ui:21
 #. i18n: ectx: property (text), widget (QLabel, latexLabel)
-#: rc.cpp:108
+#: rc.cpp:111
 msgid "PDF&LaTeX command:"
 msgstr "Commande PDF&LaTeX :"
 
-#. i18n: file: ../part/configgeneralwidget.ui:34
+#. i18n: file: ../part/configgeneralwidget.ui:41
+#. i18n: ectx: property (whatsThis), widget (QLabel, pdftopsLabel)
+#. i18n: file: ../part/configgeneralwidget.ui:57
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, pdftopsUrlRequester)
+#: rc.cpp:117 rc.cpp:123
+msgid "<para>Enter the path to the pdftops executable here.</para>"
+msgstr ""
+"<para>Introduisez le chemin d'accès du fichier exécutable de pdftops.</para>"
+
+#. i18n: file: ../part/configgeneralwidget.ui:44
 #. i18n: ectx: property (text), widget (QLabel, pdftopsLabel)
-#: rc.cpp:111
+#: rc.cpp:120
 msgid "&Pdftops command:"
 msgstr "Commande &pdftops :"
 
-#. i18n: file: ../part/configgeneralwidget.ui:53
+#. i18n: file: ../part/configgeneralwidget.ui:67
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: rc.cpp:114
+#: rc.cpp:126
 msgid "Templates"
 msgstr "Fichiers de &base"
 
-#. i18n: file: ../part/configgeneralwidget.ui:59
-#. i18n: ectx: property (text), widget (QLabel, replaceLabel)
-#: rc.cpp:117
-msgid "&Replace text:"
-msgstr "Texte &remplacé :"
-
-#. i18n: file: ../part/configgeneralwidget.ui:75
+#. i18n: file: ../part/configgeneralwidget.ui:73
+#. i18n: ectx: property (whatsThis), widget (QLabel, replaceLabel)
+#. i18n: file: ../part/configgeneralwidget.ui:89
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, replaceEdit)
-#: rc.cpp:120
+#: rc.cpp:129 rc.cpp:135
 msgid ""
 "<para>Enter the text which will be replaced by the TikZ code in the template "
 "here.</para>"
@@ -419,25 +434,40 @@ msgstr ""
 "Le texte dans le fichier de base qui est remplacé par le code TikZ avant de "
 "compiler."
 
-#. i18n: file: ../part/configgeneralwidget.ui:82
+#. i18n: file: ../part/configgeneralwidget.ui:76
+#. i18n: ectx: property (text), widget (QLabel, replaceLabel)
+#: rc.cpp:132
+msgid "&Replace text:"
+msgstr "Texte &remplacé :"
+
+#. i18n: file: ../part/configgeneralwidget.ui:99
+#. i18n: ectx: property (whatsThis), widget (QLabel, editorLabel)
+#. i18n: file: ../part/configgeneralwidget.ui:115
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, editorUrlRequester)
+#: rc.cpp:138 rc.cpp:144
+msgid "<para>Enter the path to the text editor for the template here.</para>"
+msgstr ""
+"<para>Introduisez le chemin d'accès de l'éditeur du fichier de base.</para>"
+
+#. i18n: file: ../part/configgeneralwidget.ui:102
 #. i18n: ectx: property (text), widget (QLabel, editorLabel)
-#: rc.cpp:123
+#: rc.cpp:141
 msgid "&Editor command:"
 msgstr "Commande de l'&éditeur :"
 
 #. i18n: file: ../part/ktikzpart.rc:27
 #. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:141
+#: rc.cpp:162
 msgctxt "@title:menu toolbar title"
 msgid "Main Toolbar"
 msgstr "Barre principale"
 
-#: rc.cpp:142
+#: rc.cpp:163
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Glad Deschrijver"
 
-#: rc.cpp:143
+#: rc.cpp:164
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "glad.deschrijver@gmail.com"

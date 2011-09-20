@@ -512,7 +512,6 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 	{
 		// still running or starting
 		if (m_process->bytesAvailable())
-//			log << m_process->readLine(m_process->bytesAvailable()); // XXX I don't know why this doesn't work anymore since Qt 4.6
 			log << m_process->readLine();
 		else
 			m_process->waitForFinished(100 /*msec*/);

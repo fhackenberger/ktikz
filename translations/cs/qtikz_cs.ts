@@ -672,7 +672,7 @@ Chcete jej přepsat?</translation>
 <context>
     <name>KtikzApplication</name>
     <message>
-        <location filename="../../app/ktikzapplication.cpp" line="123"/>
+        <location filename="../../app/ktikzapplication.cpp" line="127"/>
         <source>The document &quot;%1&quot; has been modified.
 Do you want to save your changes?</source>
         <translation>Dokument &quot;%1&quot; byl změněn.
@@ -708,11 +708,6 @@ Chcete uložit své změny?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="149"/>
-        <source>&amp;Preview</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../app/mainwindow.cpp" line="282"/>
         <source>Open PGF source file</source>
         <translation>Otevřít zdrojový soubor PGF</translation>
@@ -726,6 +721,11 @@ Chcete uložit své změny?</translation>
         <source>All files</source>
         <comment>filter</comment>
         <translation type="obsolete">Všechny soubory</translation>
+    </message>
+    <message>
+        <location filename="../../app/mainwindow.cpp" line="149"/>
+        <source>Previe&amp;w</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../app/mainwindow.cpp" line="305"/>
@@ -1042,8 +1042,8 @@ Do you want to save your changes?</source>
 Chcete uložit své změny?</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="973"/>
-        <location filename="../../app/mainwindow.cpp" line="975"/>
+        <location filename="../../app/mainwindow.cpp" line="985"/>
+        <location filename="../../app/mainwindow.cpp" line="987"/>
         <source>Preview: x = %1	y = %2</source>
         <comment>@info:status</comment>
         <translation type="unfinished"></translation>
@@ -1110,7 +1110,7 @@ Chcete uložit své změny?</translation>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="967"/>
+        <location filename="../../app/mainwindow.cpp" line="979"/>
         <source>Line: %1	Col: %2</source>
         <comment>@info:status</comment>
         <translation>Řádek: %1	Sloupec: %2</translation>
@@ -1287,7 +1287,7 @@ Chcete uložit své změny?</translation>
 <context>
     <name>RecentFilesAction</name>
     <message>
-        <location filename="../../common/utils/recentfilesaction.cpp" line="106"/>
+        <location filename="../../common/utils/recentfilesaction.cpp" line="108"/>
         <source>Open &amp;Recent</source>
         <translation>Otevřít &amp;nedávný</translation>
     </message>
@@ -1400,17 +1400,19 @@ Chcete uložit své změny?</translation>
     <message>
         <location filename="../../common/templatewidget.ui" line="12"/>
         <location filename="../../common/templatewidget.ui" line="31"/>
-        <location filename="../../common/templatewidget.cpp" line="117"/>
+        <location filename="../../common/templatewidget.cpp" line="116"/>
         <source>&lt;p&gt;Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Udejte název souboru LaTeXové předlohy. Pokud je toto zadávací pole prázdné nebo obsahuje neplatný souborový název, použije se vnitřní výchozí předloha.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../../common/templatewidget.ui" line="15"/>
+        <location filename="../../common/templatewidget.cpp" line="126"/>
         <source>&amp;Template:</source>
         <translation>&amp;Předloha:</translation>
     </message>
     <message>
         <location filename="../../common/templatewidget.ui" line="38"/>
+        <location filename="../../common/templatewidget.cpp" line="128"/>
         <source>Select template file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1421,6 +1423,7 @@ Chcete uložit své změny?</translation>
     </message>
     <message>
         <location filename="../../common/templatewidget.ui" line="72"/>
+        <location filename="../../common/templatewidget.cpp" line="129"/>
         <source>Edit template file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1430,6 +1433,7 @@ Chcete uložit své změny?</translation>
     </message>
     <message>
         <location filename="../../common/templatewidget.ui" line="41"/>
+        <location filename="../../common/templatewidget.cpp" line="127"/>
         <source>&lt;p&gt;Browse to an existing template file.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Procházejte ke stávajícímu souboru s předlohou.&lt;/p&gt;</translation>
     </message>
@@ -1448,7 +1452,7 @@ Chcete uložit své změny?</translation>
     </message>
     <message>
         <location filename="../../common/templatewidget.ui" line="75"/>
-        <location filename="../../common/templatewidget.cpp" line="122"/>
+        <location filename="../../common/templatewidget.cpp" line="121"/>
         <source>&lt;p&gt;Edit this template with an external editor specified in the &quot;Configure&quot; dialog.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Upravte tuto předlohu ve vnějším editoru, který je stanoven v dialogu pro nastavení.&lt;/p&gt;</translation>
     </message>
@@ -1457,22 +1461,22 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Upravit</translation>
     </message>
     <message>
-        <location filename="../../common/templatewidget.cpp" line="112"/>
+        <location filename="../../common/templatewidget.cpp" line="111"/>
         <source>&lt;p&gt;The template contains the code of a complete LaTeX document in which the TikZ picture will be included and which will be typesetted to produce the preview image.  The string %1 in the template will be replaced by the TikZ code.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Předloha obsahuje kód úplného LaTeXového dokumentu, do něhož bude obrázek TikZ začleněn a který bude vysázen, aby vytvořil obrázek s náhledem. Řetězec %1 v předloze bude nahrazen kódem TikZ.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/templatewidget.cpp" line="145"/>
+        <location filename="../../common/templatewidget.cpp" line="151"/>
         <source>Select a template file</source>
         <translation>Vybrat soubor s předlohou</translation>
     </message>
     <message>
-        <location filename="../../common/templatewidget.cpp" line="147"/>
+        <location filename="../../common/templatewidget.cpp" line="153"/>
         <source>%1 template files</source>
         <translation>%1 soubory s předlohou</translation>
     </message>
     <message>
-        <location filename="../../common/templatewidget.cpp" line="148"/>
+        <location filename="../../common/templatewidget.cpp" line="154"/>
         <source>All files</source>
         <translation>Všechny soubory</translation>
     </message>
@@ -1480,9 +1484,8 @@ Chcete uložit své změny?</translation>
 <context>
     <name>TikzCommandInserter</name>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="65"/>
         <source>TikZ Commands</source>
-        <translation>Příkazy TikZ</translation>
+        <translation type="obsolete">Příkazy TikZ</translation>
     </message>
     <message>
         <source>Parse error at line %1, column %2:
@@ -1491,48 +1494,42 @@ Chcete uložit své změny?</translation>
 %3</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="62"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="61"/>
         <source>Cannot parse the TikZ commands file.</source>
         <translation>Nelze zpracovat soubor s příkazy TikZ.</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="66"/>
-        <source>Parse error in TikZ commands file at line %1, column %2:
-%3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="359"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="356"/>
         <source>&lt;p&gt;This is a list of TikZ commands.  You can insert these commands in your code by clicking on them.  You can obtain more commands by changing the category in the combo box.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Toto je seznam příkazů TikZ. Můžete tyto příkazy vložit do svého kódu klepnutím na ně. Více příkazů obdržíte změnou skupiny ve smíšeném okénku.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="365"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="362"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="369"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="366"/>
         <source>Category:</source>
         <translation>Skupina:</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="382"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="379"/>
         <source>General</source>
         <translation>Obecné</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="477"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="474"/>
         <source>Commands</source>
         <translation>Příkazy</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="477"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="474"/>
         <source>Draw to</source>
         <translation>Vytáhnout do</translation>
     </message>
     <message>
-        <location filename="../../app/tikzcommandinserter.cpp" line="477"/>
+        <location filename="../../app/tikzcommandinserter.cpp" line="474"/>
         <source>Options</source>
         <translation>Volby</translation>
     </message>
@@ -3547,216 +3544,216 @@ Chcete uložit své změny?</translation>
         <translation>&lt;p&gt;Zde zadejte svůj kód TikZ. Kód má začínat \begin{tikzpicture} a končit \end{tikzpicture}.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="150"/>
+        <location filename="../../app/tikzeditorview.cpp" line="148"/>
         <source>Undo the previous action</source>
         <translation>Zpět předchozí krok</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="151"/>
+        <location filename="../../app/tikzeditorview.cpp" line="149"/>
         <source>Redo the previous undone action</source>
         <translation>Znovu předchozí krok Zpět</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="152"/>
+        <location filename="../../app/tikzeditorview.cpp" line="150"/>
         <source>Cut the current selection&apos;s contents to the clipboard</source>
         <translation>Vyjmout obsah nynějšího výběru do schránky</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="153"/>
+        <location filename="../../app/tikzeditorview.cpp" line="151"/>
         <source>Copy the current selection&apos;s contents to the clipboard</source>
         <translation>Kopírovat obsah nynějšího výběru do schránky</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="154"/>
+        <location filename="../../app/tikzeditorview.cpp" line="152"/>
         <source>Paste the clipboard&apos;s contents into the current selection</source>
         <translation>Vložit obsah schránky do nynějšího výběru</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="155"/>
+        <location filename="../../app/tikzeditorview.cpp" line="153"/>
         <source>Select all the content</source>
         <translation>Vybrat veškerý obsah</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="156"/>
+        <location filename="../../app/tikzeditorview.cpp" line="154"/>
         <source>&lt;p&gt;Undo the previous action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Zpět předchozí krok.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="157"/>
+        <location filename="../../app/tikzeditorview.cpp" line="155"/>
         <source>&lt;p&gt;Redo the previous undone action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Znovu předchozí krok Zpět.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="158"/>
+        <location filename="../../app/tikzeditorview.cpp" line="156"/>
         <source>&lt;p&gt;Cut the current selection&apos;s contents to the clipboard.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyjmout obsah schránky do nynějšího výběru.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="159"/>
+        <location filename="../../app/tikzeditorview.cpp" line="157"/>
         <source>&lt;p&gt;Copy the current selection&apos;s contents to the clipboard.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Kopírovat obsah nynějšího výběru do schránky.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="160"/>
+        <location filename="../../app/tikzeditorview.cpp" line="158"/>
         <source>&lt;p&gt;Paste the clipboard&apos;s contents into the current selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vložit obsah schránky do nynějšího výběru.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="161"/>
+        <location filename="../../app/tikzeditorview.cpp" line="159"/>
         <source>&lt;p&gt;Select all the content.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vybrat veškerý obsah.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="164"/>
+        <location filename="../../app/tikzeditorview.cpp" line="162"/>
         <source>&amp;Indent...</source>
         <translation>&amp;Odsadit...</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="165"/>
+        <location filename="../../app/tikzeditorview.cpp" line="163"/>
         <source>Ctrl+I</source>
         <comment>Edit|Indent</comment>
         <translation>Ctrl+I</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="166"/>
+        <location filename="../../app/tikzeditorview.cpp" line="164"/>
         <source>Indent the current line or selection</source>
         <translation>Odsadit nynější řádek nebo výběr</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="167"/>
+        <location filename="../../app/tikzeditorview.cpp" line="165"/>
         <source>&lt;p&gt;Indent the current line or selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Odsadit nynější řádek nebo výběr.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="171"/>
+        <location filename="../../app/tikzeditorview.cpp" line="169"/>
         <source>Unind&amp;ent...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="172"/>
+        <location filename="../../app/tikzeditorview.cpp" line="170"/>
         <source>Ctrl+Shift+I</source>
         <comment>Edit|Unindent</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="173"/>
+        <location filename="../../app/tikzeditorview.cpp" line="171"/>
         <source>Unindent the current line or selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="174"/>
+        <location filename="../../app/tikzeditorview.cpp" line="172"/>
         <source>&lt;p&gt;Unindent the current line or selection.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="178"/>
+        <location filename="../../app/tikzeditorview.cpp" line="176"/>
         <source>C&amp;omment</source>
         <translation>&amp;Poznámka</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="179"/>
+        <location filename="../../app/tikzeditorview.cpp" line="177"/>
         <source>Ctrl+D</source>
         <comment>Edit|Comment</comment>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="180"/>
+        <location filename="../../app/tikzeditorview.cpp" line="178"/>
         <source>Comment the current line or selection</source>
         <translation>Opatřit nynější řádek nebo výběr poznámkou</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="181"/>
+        <location filename="../../app/tikzeditorview.cpp" line="179"/>
         <source>&lt;p&gt;Comment the current line or selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Opatřit nynější řádek nebo výběr poznámkou.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="185"/>
+        <location filename="../../app/tikzeditorview.cpp" line="183"/>
         <source>Unco&amp;mment</source>
         <translation>&amp;Odebrat poznámku</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="186"/>
+        <location filename="../../app/tikzeditorview.cpp" line="184"/>
         <source>Ctrl+Shift+D</source>
         <comment>Edit|Uncomment</comment>
         <translation>Ctrl+Shift+D</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="187"/>
+        <location filename="../../app/tikzeditorview.cpp" line="185"/>
         <source>Uncomment the current line or selection</source>
         <translation>Zrušit poznámku pro nynější řádek nebo výběr</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="188"/>
+        <location filename="../../app/tikzeditorview.cpp" line="186"/>
         <source>&lt;p&gt;Uncomment the current line or selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Zrušit poznámku pro nynější řádek nebo výběr.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="201"/>
+        <location filename="../../app/tikzeditorview.cpp" line="199"/>
         <source>Look up a piece of text in the document</source>
         <translation>Vyhledat kus textu v dokumentu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="202"/>
+        <location filename="../../app/tikzeditorview.cpp" line="200"/>
         <source>Search the next occurrence of a text</source>
         <translation>Hledat další výskyt textu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="203"/>
+        <location filename="../../app/tikzeditorview.cpp" line="201"/>
         <source>Search the previous occurrence of a text</source>
         <translation>Hledat předchozí výskyt textu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="204"/>
+        <location filename="../../app/tikzeditorview.cpp" line="202"/>
         <source>Search and replace a piece of text in the document</source>
         <translation>Hledat a nahradit kus textu v dokumentu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="205"/>
+        <location filename="../../app/tikzeditorview.cpp" line="203"/>
         <source>Go to a certain line in the document</source>
         <translation>Jít na určitý řádek v dokumentu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="206"/>
+        <location filename="../../app/tikzeditorview.cpp" line="204"/>
         <source>&lt;p&gt;Look up a piece of text in the document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyhledat kus textu v dokumentu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="207"/>
+        <location filename="../../app/tikzeditorview.cpp" line="205"/>
         <source>&lt;p&gt;Search the next occurrence of a text.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Hledat další výskyt textu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="208"/>
+        <location filename="../../app/tikzeditorview.cpp" line="206"/>
         <source>&lt;p&gt;Search the previous occurrence of a text.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Hledat předchozí výskyt textu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="209"/>
+        <location filename="../../app/tikzeditorview.cpp" line="207"/>
         <source>&lt;p&gt;Search and replace a piece of text in the document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Hledat a nahradit kus textu v dokumentu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="210"/>
+        <location filename="../../app/tikzeditorview.cpp" line="208"/>
         <source>&lt;p&gt;Go to a certain line in the document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Jít na určitý řádek v dokumentu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="232"/>
+        <location filename="../../app/tikzeditorview.cpp" line="230"/>
         <source>&amp;Edit</source>
         <translation>&amp;Upravit</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="248"/>
+        <location filename="../../app/tikzeditorview.cpp" line="246"/>
         <source>Edit</source>
         <translation>Upravit</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="532"/>
+        <location filename="../../app/tikzeditorview.cpp" line="531"/>
         <source>Find</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="532"/>
+        <location filename="../../app/tikzeditorview.cpp" line="531"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3765,7 +3762,7 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Odsadit</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="530"/>
+        <location filename="../../app/tikzeditorview.cpp" line="529"/>
         <source>End of document reached.
 
 Continue from the beginning?</source>
@@ -3774,7 +3771,7 @@ Continue from the beginning?</source>
 Pokračovat od začátku?</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="531"/>
+        <location filename="../../app/tikzeditorview.cpp" line="530"/>
         <source>Beginning of document reached.
 
 Continue from the end?</source>
@@ -3893,52 +3890,52 @@ Pokračovat od konce?</translation>
 <context>
     <name>TikzPreviewController</name>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="122"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="123"/>
         <source>E&amp;xport</source>
         <translation>&amp;Vyvést</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="123"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="124"/>
         <source>Export image to various formats</source>
         <translation>Vyvést obrázek do různých formátů</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="124"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="125"/>
         <source>&lt;p&gt;Export image to various formats.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyvést obrázek do různých formátů.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="128"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="129"/>
         <source>&amp;Encapsulated PostScript (EPS)</source>
         <translation>&amp;Zhuštěný PostScript ((Encapsulated PostScript; EPS)</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="130"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="131"/>
         <source>Export to EPS</source>
         <translation>Vyvést do EPS</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="131"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="132"/>
         <source>&lt;p&gt;Export to EPS.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyvést do EPS.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="135"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="136"/>
         <source>&amp;Portable Document Format (PDF)</source>
         <translation>&amp;Přenositelný dokumentový formát (Portable Document Format; PDF)</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="137"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="138"/>
         <source>Export to PDF</source>
         <translation>Vyvést do PDF</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="138"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="139"/>
         <source>&lt;p&gt;Export to PDF.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyvést do PDF.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="163"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="164"/>
         <source>&lt;p&gt;Print the preview image.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3955,97 +3952,106 @@ Pokračovat od konce?</translation>
         <translation type="obsolete">&lt;p&gt;Vyvést do PNG.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="145"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="146"/>
         <source>Portable Network &amp;Graphics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="145"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="146"/>
         <source>&amp;Joint Photographic Experts Group Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="145"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="146"/>
         <source>&amp;Tagged Image File Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="145"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="146"/>
         <source>&amp;Windows Bitmap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="150"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="151"/>
         <source>Export to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="151"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="152"/>
         <source>&lt;p&gt;Export to %1.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="158"/>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="303"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="159"/>
         <source>Print preview image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="159"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="160"/>
         <source>&lt;p&gt;Show print preview of the preview image.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="162"/>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="323"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="163"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="327"/>
         <source>Print image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="169"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="170"/>
         <source>&amp;Stop Process</source>
         <translation>&amp;Zastavit proces</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="170"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="171"/>
         <source>Escape</source>
         <comment>View|Stop Process</comment>
         <translation>Escape</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="171"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="172"/>
         <source>Abort current process</source>
         <translation>Zrušit nynější proces</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="172"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="173"/>
         <source>&lt;p&gt;Abort the execution of the currently running process.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Zrušit prováděné nyní běžícího procesu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="176"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="177"/>
         <source>S&amp;hell Escape</source>
         <translation>Opustit s&amp;hell</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="177"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="178"/>
         <source>Enable the \write18{shell-command} feature</source>
         <translation>Povolit funkci \write18{shell-command}</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="178"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="179"/>
         <source>&lt;p&gt;Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Warning:&lt;/strong&gt; Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Povolit LaTeXu spouštět shellové příkazy. Je to potřeba, když v TikZ chcete kreslit funkce pomocí programu gnuplot.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Varování:&lt;/strong&gt; Jejich povolením můžete přivodit spuštění záludných programů ve vašem počítači! Prověřte LaTeXový kód, abyste viděl, které příkazy jsou prováděny.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="204"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="205"/>
         <source>&amp;View</source>
         <translation>&amp;Pohled</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="214"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="215"/>
         <source>Run</source>
         <translation>Spustit</translation>
+    </message>
+    <message>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="304"/>
+        <source>Print preview of image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="307"/>
+        <source>Print &amp;preview</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All files</source>
@@ -4068,7 +4074,7 @@ Pokračovat od konce?</translation>
         <translation type="obsolete">Obrázek PNG</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="248"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="249"/>
         <source>Export image</source>
         <translation>Vyvést obrázek</translation>
     </message>
@@ -4091,7 +4097,7 @@ Pokračovat od konce?</translation>
         <translation type="obsolete">Soubor &quot;%1&quot; se nepodařilo přepsat.</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="283"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="284"/>
         <source>The image could not be exported to the file &quot;%1&quot;.</source>
         <translation>Obrázek se nepodařilo vyvést do souboru &quot;%1&quot;.</translation>
     </message>
@@ -4103,46 +4109,46 @@ Pokračovat od konce?</translation>
 <context>
     <name>TikzPreviewGenerator</name>
     <message>
-        <location filename="../../common/tikzpreviewgenerator.cpp" line="99"/>
+        <location filename="../../common/tikzpreviewgenerator.cpp" line="105"/>
         <source>Gnuplot cannot be executed.  Either Gnuplot is not installed or it is not available in the system PATH or you may have insufficient permissions to invoke the program.</source>
         <translation>Gnuplot nelze spustit. Buď není Gnuplot nainstalován, nebo není dostupný v systémové CESTĚ, nebo je možné, že pro vyvolání programu nemáte dostatečná oprávnění.</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewgenerator.cpp" line="213"/>
+        <location filename="../../common/tikzpreviewgenerator.cpp" line="219"/>
         <source>Warning: could not load LaTeX logfile.</source>
         <translation>Varování: Nepodařilo se nahrát soubor se zápisem pro LaTeX.</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewgenerator.cpp" line="227"/>
-        <location filename="../../common/tikzpreviewgenerator.cpp" line="522"/>
+        <location filename="../../common/tikzpreviewgenerator.cpp" line="233"/>
+        <location filename="../../common/tikzpreviewgenerator.cpp" line="527"/>
         <source>Process aborted.</source>
         <translation>Proces zrušen.</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewgenerator.cpp" line="277"/>
-        <location filename="../../common/tikzpreviewgenerator.cpp" line="533"/>
+        <location filename="../../common/tikzpreviewgenerator.cpp" line="283"/>
+        <location filename="../../common/tikzpreviewgenerator.cpp" line="538"/>
         <source>Process finished successfully.</source>
         <translation>Proces úspěšně dokončen.</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewgenerator.cpp" line="283"/>
+        <location filename="../../common/tikzpreviewgenerator.cpp" line="289"/>
         <source>Error: loading PDF failed, the file is probably corrupted.</source>
         <translation>Chyba: Nahrání PDF se nezdařilo. Soubor je pravděpodobně poškozen.</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewgenerator.cpp" line="528"/>
+        <location filename="../../common/tikzpreviewgenerator.cpp" line="533"/>
         <source>Error: the process could not be started</source>
         <comment>info process</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewgenerator.cpp" line="538"/>
+        <location filename="../../common/tikzpreviewgenerator.cpp" line="543"/>
         <source>Error: run failed.</source>
         <comment>info process</comment>
         <translation>Chyba: Spuštění se nezdařilo.</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewgenerator.cpp" line="610"/>
+        <location filename="../../common/tikzpreviewgenerator.cpp" line="615"/>
         <source>Running...</source>
         <translation>Běží...</translation>
     </message>

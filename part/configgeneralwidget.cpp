@@ -18,7 +18,7 @@
 
 #include "configgeneralwidget.h"
 
-#include <QSettings>
+#include <QtCore/QSettings>
 
 namespace KtikZ
 {

@@ -38,11 +38,10 @@ TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 	ui.templateChooseButton->setIcon(Icon("document-open"));
 #ifdef KTIKZ_KPART
 	ui.templateReloadButton->setVisible(false);
-	ui.templateEditButton->setVisible(false);
 #else
 	ui.templateReloadButton->setIcon(Icon("view-refresh"));
-	ui.templateEditButton->setIcon(Icon("document-edit"));
 #endif
+	ui.templateEditButton->setIcon(Icon("document-edit"));
 
 	UrlCompletion *completion = new UrlCompletion(this);
 	ui.templateCombo->setCompletionObject(completion);
@@ -122,6 +121,13 @@ void TemplateWidget::setReplaceText(const QString &replace)
 	ui.templateEditButton->setWhatsThis(tr("<p>Edit this template with "
 	                                       "an external editor specified in the \"Configure\" dialog.</p>")
 	                                    + templateDescription);
+#ifdef KTIKZ_KPART
+	// dirty hack: make the following strings translated in the kpart:
+	ui.templateLabel->setText(tr("&Template:"));
+	ui.templateChooseButton->setWhatsThis(tr("<p>Browse to an existing template file.</p>"));
+	ui.templateChooseButton->setToolTip(tr("Select template file"));
+	ui.templateEditButton->setToolTip(tr("Edit template file"));
+#endif
 }
 
 void TemplateWidget::setEditor(const QString &editor)

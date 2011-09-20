@@ -56,7 +56,3 @@ Bugs or shortcomings:
   to Action must be found.
 
 - In common/tikzpreviewcontroller.cpp find a better way to print the image.
-
-- If common/utils/file.cpp is going to be used more generally, then it should
-  create s_tempDir itself instead of relying that it has already been done
-  elsewhere in the program.

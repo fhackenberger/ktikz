@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2011-07-26 17:39+0200\n"
+"POT-Creation-Date: 2011-09-20 17:46+0200\n"
 "PO-Revision-Date: 2010-10-24 19:01+0200\n"
 "Last-Translator: Pavel Fric\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -25,7 +25,7 @@ msgstr "KtikZ"
 msgid "A TikZ Editor"
 msgstr "Editor TikZ"
 
-#: ../app/main.cpp:137 ../part/part.cpp:121
+#: ../app/main.cpp:137 ../part/part.cpp:125
 msgid "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
 msgstr "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
 
@@ -34,19 +34,19 @@ msgid ""
 "This is a program for creating TikZ (from the LaTeX pgf package) diagrams."
 msgstr "Toto je program pro vytváření nákresů TikZ (z balíčku LaTeX pgf)."
 
-#: ../app/main.cpp:140 ../part/part.cpp:124
+#: ../app/main.cpp:140 ../part/part.cpp:128
 msgid "Florian Hackenberger"
 msgstr "Florian Hackenberger"
 
-#: ../app/main.cpp:140 ../part/part.cpp:124
+#: ../app/main.cpp:140 ../part/part.cpp:128
 msgid "Maintainer"
 msgstr "Správce"
 
-#: ../app/main.cpp:141 ../part/part.cpp:125
+#: ../app/main.cpp:141 ../part/part.cpp:129
 msgid "Glad Deschrijver"
 msgstr "Glad Deschrijver"
 
-#: ../app/main.cpp:141 ../part/part.cpp:125
+#: ../app/main.cpp:141 ../part/part.cpp:129
 msgid "Developer"
 msgstr "Vývojář"
 
@@ -78,63 +78,63 @@ msgstr ""
 "<para>Když je zaškrtnuta tato volba, obrázek TikZ bude nahrán znovu vždy, "
 "když je soubor změněn jiným programem.</para>"
 
-#: ../part/part.cpp:63 ../part/part.cpp:118
+#: ../part/part.cpp:64 ../part/part.cpp:122
 #, fuzzy
 msgid "KtikZ Viewer"
 msgstr "Prohlížeč obrázků TikZ"
 
-#: ../part/part.cpp:119
+#: ../part/part.cpp:123
 msgid "A TikZ Viewer"
 msgstr "Prohlížeč obrázků TikZ"
 
-#: ../part/part.cpp:122
+#: ../part/part.cpp:126
 msgid ""
 "This is a plugin for viewing TikZ (from the LaTeX pgf package) diagrams."
 msgstr ""
 "Toto je přídavný modul pro prohlížení nákresů TikZ (z balíčku LaTeX pgf)."
 
-#: ../part/part.cpp:140
+#: ../part/part.cpp:144
 msgctxt "@info:whatsthis"
 msgid "<para>Save the document under a new name.</para>"
 msgstr "<para>Uložit dokument pod novým názvem.</para>"
 
-#: ../part/part.cpp:146
+#: ../part/part.cpp:150
 msgctxt "@action"
 msgid "Configure KtikZ Viewer..."
 msgstr "Nastavit prohlížeč KtikZ..."
 
-#: ../part/part.cpp:150
+#: ../part/part.cpp:154
 #, fuzzy
 msgid "About KtikZ Viewer"
 msgstr "Prohlížeč obrázků TikZ"
 
-#: ../part/part.cpp:164
+#: ../part/part.cpp:168
 msgctxt "@info"
 msgid "Cannot read file <filename>%1</filename>:<nl/><message>%2</message>"
 msgstr ""
 "Nelze přečíst soubor <filename>%1</filename> :<nl/><message>%2</message>"
 
-#: ../part/part.cpp:164
+#: ../part/part.cpp:168
 msgctxt "@title:window"
 msgid "File Read Error"
 msgstr "Chyba při čtení souboru"
 
-#: ../part/part.cpp:194
+#: ../part/part.cpp:198
 msgctxt "@item:inlistbox filter"
 msgid "TikZ files"
 msgstr "Soubory TikZ"
 
-#: ../part/part.cpp:196
+#: ../part/part.cpp:200
 msgctxt "@item:inlistbox filter"
 msgid "All files"
 msgstr "Všechny soubory"
 
-#: ../part/part.cpp:197
+#: ../part/part.cpp:201
 msgctxt "@title:window"
 msgid "Save TikZ Source File As"
 msgstr "Uložit zdrojový soubor TikZ jako"
 
-#: ../part/part.cpp:282
+#: ../part/part.cpp:286
 msgctxt "@info:status"
 msgid "Reloading the document..."
 msgstr "Dokument se nahrává znovu..."
@@ -143,7 +143,7 @@ msgstr "Dokument se nahrává znovu..."
 #. i18n: ectx: Menu (file)
 #. i18n: file: ../part/ktikzpart.rc:4
 #. i18n: ectx: Menu (file)
-#: rc.cpp:3 rc.cpp:126
+#: rc.cpp:3 rc.cpp:147
 msgctxt "@title:menu"
 msgid "&File"
 msgstr "&Soubor"
@@ -159,7 +159,7 @@ msgstr "&Úpravy"
 #. i18n: ectx: Menu (view)
 #. i18n: file: ../part/ktikzpart.rc:8
 #. i18n: ectx: Menu (view)
-#: rc.cpp:9 rc.cpp:129
+#: rc.cpp:9 rc.cpp:150
 msgctxt "@title:menu"
 msgid "&View"
 msgstr "&Pohled"
@@ -175,7 +175,7 @@ msgstr "&Jít na"
 #. i18n: ectx: Menu (process)
 #. i18n: file: ../part/ktikzpart.rc:15
 #. i18n: ectx: Menu (process)
-#: rc.cpp:15 rc.cpp:132
+#: rc.cpp:15 rc.cpp:153
 msgctxt "@title:menu"
 msgid "&Process"
 msgstr "&Proces"
@@ -184,7 +184,7 @@ msgstr "&Proces"
 #. i18n: ectx: Menu (settings)
 #. i18n: file: ../part/ktikzpart.rc:20
 #. i18n: ectx: Menu (settings)
-#: rc.cpp:18 rc.cpp:135
+#: rc.cpp:18 rc.cpp:156
 msgctxt "@title:menu"
 msgid "&Settings"
 msgstr "&Nastavení"
@@ -200,7 +200,7 @@ msgstr "&Postranní pruhy"
 #. i18n: ectx: Menu (help)
 #. i18n: file: ../part/ktikzpart.rc:23
 #. i18n: ectx: Menu (help)
-#: rc.cpp:24 rc.cpp:138
+#: rc.cpp:24 rc.cpp:159
 msgctxt "@title:menu"
 msgid "&Help"
 msgstr "&Nápověda"
@@ -385,57 +385,87 @@ msgid "Commands"
 msgstr "Příkazy"
 
 #. i18n: file: ../part/configgeneralwidget.ui:18
+#. i18n: ectx: property (whatsThis), widget (QLabel, latexLabel)
+#. i18n: file: ../part/configgeneralwidget.ui:34
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, latexUrlRequester)
+#: rc.cpp:108 rc.cpp:114
+#, fuzzy
+msgid "<para>Enter the path to the LaTeX executable here.</para>"
+msgstr ""
+"<para>Zde zadejte text, který bude nahrazen kódem TikZ v předloze.</para>"
+
+#. i18n: file: ../part/configgeneralwidget.ui:21
 #. i18n: ectx: property (text), widget (QLabel, latexLabel)
-#: rc.cpp:108
+#: rc.cpp:111
 msgid "PDF&LaTeX command:"
 msgstr "Program PDF&LaTeX:"
 
-#. i18n: file: ../part/configgeneralwidget.ui:34
+#. i18n: file: ../part/configgeneralwidget.ui:41
+#. i18n: ectx: property (whatsThis), widget (QLabel, pdftopsLabel)
+#. i18n: file: ../part/configgeneralwidget.ui:57
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, pdftopsUrlRequester)
+#: rc.cpp:117 rc.cpp:123
+msgid "<para>Enter the path to the pdftops executable here.</para>"
+msgstr ""
+
+#. i18n: file: ../part/configgeneralwidget.ui:44
 #. i18n: ectx: property (text), widget (QLabel, pdftopsLabel)
-#: rc.cpp:111
+#: rc.cpp:120
 msgid "&Pdftops command:"
 msgstr "Program &pdftops:"
 
-#. i18n: file: ../part/configgeneralwidget.ui:53
+#. i18n: file: ../part/configgeneralwidget.ui:67
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: rc.cpp:114
+#: rc.cpp:126
 msgid "Templates"
 msgstr "Předlohy"
 
-#. i18n: file: ../part/configgeneralwidget.ui:59
-#. i18n: ectx: property (text), widget (QLabel, replaceLabel)
-#: rc.cpp:117
-msgid "&Replace text:"
-msgstr "&Nahradit text:"
-
-#. i18n: file: ../part/configgeneralwidget.ui:75
+#. i18n: file: ../part/configgeneralwidget.ui:73
+#. i18n: ectx: property (whatsThis), widget (QLabel, replaceLabel)
+#. i18n: file: ../part/configgeneralwidget.ui:89
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, replaceEdit)
-#: rc.cpp:120
+#: rc.cpp:129 rc.cpp:135
 msgid ""
 "<para>Enter the text which will be replaced by the TikZ code in the template "
 "here.</para>"
 msgstr ""
 "<para>Zde zadejte text, který bude nahrazen kódem TikZ v předloze.</para>"
 
-#. i18n: file: ../part/configgeneralwidget.ui:82
+#. i18n: file: ../part/configgeneralwidget.ui:76
+#. i18n: ectx: property (text), widget (QLabel, replaceLabel)
+#: rc.cpp:132
+msgid "&Replace text:"
+msgstr "&Nahradit text:"
+
+#. i18n: file: ../part/configgeneralwidget.ui:99
+#. i18n: ectx: property (whatsThis), widget (QLabel, editorLabel)
+#. i18n: file: ../part/configgeneralwidget.ui:115
+#. i18n: ectx: property (whatsThis), widget (KUrlRequester, editorUrlRequester)
+#: rc.cpp:138 rc.cpp:144
+#, fuzzy
+msgid "<para>Enter the path to the text editor for the template here.</para>"
+msgstr ""
+"<para>Zde zadejte text, který bude nahrazen kódem TikZ v předloze.</para>"
+
+#. i18n: file: ../part/configgeneralwidget.ui:102
 #. i18n: ectx: property (text), widget (QLabel, editorLabel)
-#: rc.cpp:123
+#: rc.cpp:141
 msgid "&Editor command:"
 msgstr "&Příkaz pro editor:"
 
 #. i18n: file: ../part/ktikzpart.rc:27
 #. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:141
+#: rc.cpp:162
 msgctxt "@title:menu toolbar title"
 msgid "Main Toolbar"
 msgstr "Hlavní nástrojový pruh"
 
-#: rc.cpp:142
+#: rc.cpp:163
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: rc.cpp:143
+#: rc.cpp:164
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"

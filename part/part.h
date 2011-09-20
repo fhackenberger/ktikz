@@ -25,6 +25,7 @@
 class KAboutData;
 class KAction;
 class KDirWatch;
+class QTranslator;
 
 class TikzPreviewController;
 
@@ -67,6 +68,8 @@ private slots:
 
 private:
 	void createActions();
+	bool findTranslator(QTranslator *translator, const QString &transName, const QString &transDir);
+	QTranslator *createTranslator(const QString &transName);
 
 	TikzPreviewController *m_tikzPreviewController;
 	PartConfigDialog *m_configDialog;

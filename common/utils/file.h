@@ -39,6 +39,17 @@ class Url;
  * This class also handles opening and saving remote files using KIO
  * transparently.
  *
+ * \section Initialization
+ * Before any File object is created, the main widget to which the dialogs
+ * created by File must be modal and the temporary directory in which File
+ * will put temporary files must be specified:
+ * \code
+ *     File::setMainWidget(mainWindow);
+ *     File::setTempDir("/path/to/existing/directory");
+ * \endcode
+ * This must be done only once during the execution of the application,
+ * before any File object is created.
+ *
  * \section File-reading-files Reading files
  * The following example shows how to read a text file:
  * \code
@@ -46,7 +57,7 @@ class Url;
  *     if (!f.open(QFile::Text))
  *         qDebug() << "Cannot read file filename.txt: " + f.errorString();
  *     QTextStream ts(f.file());
- *     qDebug() << ts.readAll();
+ *     QString fileContents = ts.readAll();
  *     if (!f.close())
  *         qDebug() << "Cannot close file filename.txt: " + f.errorString();
  * \endcode

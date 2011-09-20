@@ -48,8 +48,9 @@
 #include <KIO/JobUiDelegate>
 #include <KIO/NetAccess>
 #include <KParts/GenericFactory>
-#include <QSettings>
-#include <QTimer>
+#include <QtCore/QSettings>
+#include <QtCore/QTimer>
+#include <QtCore/QTranslator>
 
 #include "configdialog.h"
 #include "settings.h"
@@ -69,6 +70,10 @@ Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
 	: KParts::ReadOnlyPart(parent)
 {
 	Q_UNUSED(args);
+
+	// dirty hack: make sure that the "Export" menu and the "Template" widget are translated
+	QTranslator *translator = createTranslator("qtikz");
+	qApp->installTranslator(translator);
 
 	setComponentData(ktikzPartFactory::componentData()); // make sure that the actions of this kpart go in a separate section labeled "KtikZ Viewer" (as defined in K_EXPORT_PLUGIN above) in the "Configure Shortcuts" dialog
 
@@ -317,6 +322,32 @@ void Part::configure()
 	}
 	m_configDialog->readSettings();
 	m_configDialog->show();
+}
+
+/***************************************************************************/
+/* The following are only used to translate the "Export" menu and "Template" widget */
+
+bool Part::findTranslator(QTranslator *translator, const QString &transName, const QString &transDir)
+{
+	const QString qmFile = transName + ".qm";
+	if (QFileInfo(QDir(transDir), qmFile).exists())
+		return translator->load(qmFile, transDir);
+	return false;
+}
+
+QTranslator *Part::createTranslator(const QString &transName)
+{
+	const QString locale = KGlobal::locale()->language();
+	const QString localeShort = locale.left(2).toLower();
+
+	QTranslator *translator = new QTranslator(0);
+#ifdef KTIKZ_TRANSLATIONS_INSTALL_DIR
+	const QDir qmPath(KTIKZ_TRANSLATIONS_INSTALL_DIR);
+	bool foundTranslator = findTranslator(translator, transName + '_' + locale, qmPath.absolutePath());
+	if (!foundTranslator)
+		findTranslator(translator, transName + '_' + localeShort, qmPath.absolutePath());
+#endif
+	return translator;
 }
 
 } // namespace KtikZ

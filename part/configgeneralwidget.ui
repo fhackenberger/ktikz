@@ -14,6 +14,9 @@
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="latexLabel">
+        <property name="whatsThis">
+         <string>&lt;para&gt;Enter the path to the LaTeX executable here.&lt;/para&gt;</string>
+        </property>
         <property name="text">
          <string>PDF&amp;LaTeX command:</string>
         </property>
@@ -26,10 +29,17 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="KUrlRequester" name="latexUrlRequester"/>
+       <widget class="KUrlRequester" name="latexUrlRequester">
+        <property name="whatsThis">
+         <string>&lt;para&gt;Enter the path to the LaTeX executable here.&lt;/para&gt;</string>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="pdftopsLabel">
+        <property name="whatsThis">
+         <string>&lt;para&gt;Enter the path to the pdftops executable here.&lt;/para&gt;</string>
+        </property>
         <property name="text">
          <string>&amp;Pdftops command:</string>
         </property>
@@ -42,7 +52,11 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="KUrlRequester" name="pdftopsUrlRequester"/>
+       <widget class="KUrlRequester" name="pdftopsUrlRequester">
+        <property name="whatsThis">
+         <string>&lt;para&gt;Enter the path to the pdftops executable here.&lt;/para&gt;</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -55,6 +69,9 @@
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
        <widget class="QLabel" name="replaceLabel">
+        <property name="whatsThis">
+         <string>&lt;para&gt;Enter the text which will be replaced by the TikZ code in the template here.&lt;/para&gt;</string>
+        </property>
         <property name="text">
          <string>&amp;Replace text:</string>
         </property>
@@ -68,16 +85,19 @@
       </item>
       <item row="0" column="1">
        <widget class="KLineEdit" name="replaceEdit">
-        <property name="showClearButton" stdset="0">
-         <bool>true</bool>
-        </property>
         <property name="whatsThis">
          <string>&lt;para&gt;Enter the text which will be replaced by the TikZ code in the template here.&lt;/para&gt;</string>
+        </property>
+        <property name="showClearButton" stdset="0">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="editorLabel">
+        <property name="whatsThis">
+         <string>&lt;para&gt;Enter the path to the text editor for the template here.&lt;/para&gt;</string>
+        </property>
         <property name="text">
          <string>&amp;Editor command:</string>
         </property>
@@ -90,7 +110,11 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="KUrlRequester" name="editorUrlRequester"/>
+       <widget class="KUrlRequester" name="editorUrlRequester">
+        <property name="whatsThis">
+         <string>&lt;para&gt;Enter the path to the text editor for the template here.&lt;/para&gt;</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
