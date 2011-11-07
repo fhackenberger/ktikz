@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2011-09-20 17:46+0200\n"
+"POT-Creation-Date: 2011-11-07 23:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "A TikZ Editor"
 msgstr ""
 
-#: ../app/main.cpp:137 ../part/part.cpp:125
+#: ../app/main.cpp:137 ../part/part.cpp:126
 msgid "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
 msgstr ""
 
@@ -32,19 +32,19 @@ msgid ""
 "This is a program for creating TikZ (from the LaTeX pgf package) diagrams."
 msgstr ""
 
-#: ../app/main.cpp:140 ../part/part.cpp:128
+#: ../app/main.cpp:140 ../part/part.cpp:129
 msgid "Florian Hackenberger"
 msgstr ""
 
-#: ../app/main.cpp:140 ../part/part.cpp:128
+#: ../app/main.cpp:140 ../part/part.cpp:129
 msgid "Maintainer"
 msgstr ""
 
-#: ../app/main.cpp:141 ../part/part.cpp:129
+#: ../app/main.cpp:141 ../part/part.cpp:130
 msgid "Glad Deschrijver"
 msgstr ""
 
-#: ../app/main.cpp:141 ../part/part.cpp:129
+#: ../app/main.cpp:141 ../part/part.cpp:130
 msgid "Developer"
 msgstr ""
 
@@ -74,59 +74,59 @@ msgid ""
 "that the file is modified by another program.</para>"
 msgstr ""
 
-#: ../part/part.cpp:64 ../part/part.cpp:122
+#: ../part/part.cpp:64 ../part/part.cpp:123
 msgid "KtikZ Viewer"
 msgstr ""
 
-#: ../part/part.cpp:123
+#: ../part/part.cpp:124
 msgid "A TikZ Viewer"
 msgstr ""
 
-#: ../part/part.cpp:126
+#: ../part/part.cpp:127
 msgid ""
 "This is a plugin for viewing TikZ (from the LaTeX pgf package) diagrams."
 msgstr ""
 
-#: ../part/part.cpp:144
+#: ../part/part.cpp:145
 msgctxt "@info:whatsthis"
 msgid "<para>Save the document under a new name.</para>"
 msgstr ""
 
-#: ../part/part.cpp:150
+#: ../part/part.cpp:151
 msgctxt "@action"
 msgid "Configure KtikZ Viewer..."
 msgstr ""
 
-#: ../part/part.cpp:154
+#: ../part/part.cpp:155
 msgid "About KtikZ Viewer"
 msgstr ""
 
-#: ../part/part.cpp:168
+#: ../part/part.cpp:169
 msgctxt "@info"
 msgid "Cannot read file <filename>%1</filename>:<nl/><message>%2</message>"
 msgstr ""
 
-#: ../part/part.cpp:168
+#: ../part/part.cpp:169
 msgctxt "@title:window"
 msgid "File Read Error"
 msgstr ""
 
-#: ../part/part.cpp:198
+#: ../part/part.cpp:199
 msgctxt "@item:inlistbox filter"
 msgid "TikZ files"
 msgstr ""
 
-#: ../part/part.cpp:200
+#: ../part/part.cpp:201
 msgctxt "@item:inlistbox filter"
 msgid "All files"
 msgstr ""
 
-#: ../part/part.cpp:201
+#: ../part/part.cpp:202
 msgctxt "@title:window"
 msgid "Save TikZ Source File As"
 msgstr ""
 
-#: ../part/part.cpp:286
+#: ../part/part.cpp:287
 msgctxt "@info:status"
 msgid "Reloading the document..."
 msgstr ""
@@ -135,7 +135,7 @@ msgstr ""
 #. i18n: ectx: Menu (file)
 #. i18n: file: ../part/ktikzpart.rc:4
 #. i18n: ectx: Menu (file)
-#: rc.cpp:3 rc.cpp:147
+#: rc.cpp:3 rc.cpp:150
 msgctxt "@title:menu"
 msgid "&File"
 msgstr ""
@@ -148,86 +148,93 @@ msgid "&Edit"
 msgstr ""
 
 #. i18n: file: ../app/ktikzui.rc:46
+#. i18n: ectx: Menu (bookmarks)
+#: rc.cpp:9
+msgctxt "@title:menu"
+msgid "&Bookmarks"
+msgstr ""
+
+#. i18n: file: ../app/ktikzui.rc:52
 #. i18n: ectx: Menu (view)
 #. i18n: file: ../part/ktikzpart.rc:8
 #. i18n: ectx: Menu (view)
-#: rc.cpp:9 rc.cpp:150
+#: rc.cpp:12 rc.cpp:153
 msgctxt "@title:menu"
 msgid "&View"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:54
+#. i18n: file: ../app/ktikzui.rc:60
 #. i18n: ectx: Menu (go)
-#: rc.cpp:12
+#: rc.cpp:15
 msgctxt "@title:menu"
 msgid "&Go"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:58
+#. i18n: file: ../app/ktikzui.rc:64
 #. i18n: ectx: Menu (process)
 #. i18n: file: ../part/ktikzpart.rc:15
 #. i18n: ectx: Menu (process)
-#: rc.cpp:15 rc.cpp:153
+#: rc.cpp:18 rc.cpp:156
 msgctxt "@title:menu"
 msgid "&Process"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:68
+#. i18n: file: ../app/ktikzui.rc:74
 #. i18n: ectx: Menu (settings)
 #. i18n: file: ../part/ktikzpart.rc:20
 #. i18n: ectx: Menu (settings)
-#: rc.cpp:18 rc.cpp:156
+#: rc.cpp:21 rc.cpp:159
 msgctxt "@title:menu"
 msgid "&Settings"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:71
+#. i18n: file: ../app/ktikzui.rc:77
 #. i18n: ectx: Menu (sidebars)
-#: rc.cpp:21
+#: rc.cpp:24
 msgctxt "@title:menu"
 msgid "&Sidebars"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:83
+#. i18n: file: ../app/ktikzui.rc:89
 #. i18n: ectx: Menu (help)
 #. i18n: file: ../part/ktikzpart.rc:23
 #. i18n: ectx: Menu (help)
-#: rc.cpp:24 rc.cpp:159
+#: rc.cpp:27 rc.cpp:162
 msgctxt "@title:menu"
 msgid "&Help"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:97
+#. i18n: file: ../app/ktikzui.rc:103
 #. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:27
+#: rc.cpp:30
 msgctxt "@title:menu toolbar title"
 msgid "File Toolbar"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:104
+#. i18n: file: ../app/ktikzui.rc:110
 #. i18n: ectx: ToolBar (editToolBar)
-#: rc.cpp:30
+#: rc.cpp:33
 msgctxt "@title:menu toolbar title"
 msgid "Edit Toolbar"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:109
+#. i18n: file: ../app/ktikzui.rc:115
 #. i18n: ectx: ToolBar (processToolBar)
-#: rc.cpp:33
+#: rc.cpp:36
 msgctxt "@title:menu toolbar title"
 msgid "Process Toolbar"
 msgstr ""
 
-#. i18n: file: ../app/ktikzui.rc:116
+#. i18n: file: ../app/ktikzui.rc:122
 #. i18n: ectx: ToolBar (viewToolBar)
-#: rc.cpp:36
+#: rc.cpp:39
 msgctxt "@title:menu toolbar title"
 msgid "View Toolbar"
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:11
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:39
+#: rc.cpp:42
 msgid ""
 "Whether the TikZ commands should be listed in a dock widget instead of in a "
 "menu."
@@ -235,7 +242,7 @@ msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:15
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:42
+#: rc.cpp:45
 msgid ""
 "Whether the preview is generated automatically while editing instead of only "
 "when pressing a button."
@@ -243,7 +250,7 @@ msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:19
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:45
+#: rc.cpp:48
 msgid ""
 "Whether to reload the TikZ image each time that the file is modified by "
 "another program."
@@ -251,43 +258,43 @@ msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:23
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:48
+#: rc.cpp:51
 msgid "The path to the pdflatex command."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:27
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:51
+#: rc.cpp:54
 msgid "The path to the pdftops command."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:31
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:54
+#: rc.cpp:57
 msgid "The path to the TikZ documentation file."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:35
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:57
+#: rc.cpp:60
 msgid "Whether to run pdflatex with the --shell-escape option."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:38
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:60
+#: rc.cpp:63
 msgid "The file name of the currently used template."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:41
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:63
+#: rc.cpp:66
 msgid "The list of file names of the previously used templates."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:45
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:66
+#: rc.cpp:69
 msgid ""
 "The text in the template file which is replaced by the TikZ code before "
 "typesetting."
@@ -295,79 +302,79 @@ msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:49
 #. i18n: ectx: label, entry, group (General Options)
-#: rc.cpp:69
+#: rc.cpp:72
 msgid "The path to the editor command used for editing templates."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:55
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:72
+#: rc.cpp:75
 msgid "The font of the main text in the editor."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:59
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:75
+#: rc.cpp:78
 msgid "Whether to show white spaces."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:63
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:78
+#: rc.cpp:81
 msgid "Whether to show tabulators."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:67
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:81
+#: rc.cpp:84
 msgid "Whether to highlight matching brackets."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:71
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:84
+#: rc.cpp:87
 msgid "The color used to highlight white spaces."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:75
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:87
+#: rc.cpp:90
 msgid "The color used to highlight tabulators."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:79
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:90
+#: rc.cpp:93
 msgid "The color used to highlight matching brackets."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:83
 #. i18n: ectx: label, entry, group (Editor)
-#: rc.cpp:93
+#: rc.cpp:96
 msgid "Whether to use TikZ code completion."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:93
 #. i18n: ectx: label, entry, group (Highlighting)
-#: rc.cpp:96
+#: rc.cpp:99
 msgid "The type of syntax highlighting."
 msgstr ""
 
 #. i18n: file: ../common/ktikz.kcfg:101
 #. i18n: ectx: label, entry, group (Preview)
-#: rc.cpp:99
+#: rc.cpp:102
 msgid "The factor by which the preview is zoomed."
 msgstr ""
 
 #. i18n: file: ../part/configgeneralwidget.ui:6
 #. i18n: ectx: property (windowTitle), widget (QWidget, PartConfigGeneralWidget)
-#: rc.cpp:102
+#: rc.cpp:105
 msgid "Configure KtikZ Viewer"
 msgstr ""
 
 #. i18n: file: ../part/configgeneralwidget.ui:12
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: rc.cpp:105
+#: rc.cpp:108
 msgid "Commands"
 msgstr ""
 
@@ -375,13 +382,13 @@ msgstr ""
 #. i18n: ectx: property (whatsThis), widget (QLabel, latexLabel)
 #. i18n: file: ../part/configgeneralwidget.ui:34
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, latexUrlRequester)
-#: rc.cpp:108 rc.cpp:114
+#: rc.cpp:111 rc.cpp:117
 msgid "<para>Enter the path to the LaTeX executable here.</para>"
 msgstr ""
 
 #. i18n: file: ../part/configgeneralwidget.ui:21
 #. i18n: ectx: property (text), widget (QLabel, latexLabel)
-#: rc.cpp:111
+#: rc.cpp:114
 msgid "PDF&LaTeX command:"
 msgstr ""
 
@@ -389,19 +396,19 @@ msgstr ""
 #. i18n: ectx: property (whatsThis), widget (QLabel, pdftopsLabel)
 #. i18n: file: ../part/configgeneralwidget.ui:57
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, pdftopsUrlRequester)
-#: rc.cpp:117 rc.cpp:123
+#: rc.cpp:120 rc.cpp:126
 msgid "<para>Enter the path to the pdftops executable here.</para>"
 msgstr ""
 
 #. i18n: file: ../part/configgeneralwidget.ui:44
 #. i18n: ectx: property (text), widget (QLabel, pdftopsLabel)
-#: rc.cpp:120
+#: rc.cpp:123
 msgid "&Pdftops command:"
 msgstr ""
 
 #. i18n: file: ../part/configgeneralwidget.ui:67
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: rc.cpp:126
+#: rc.cpp:129
 msgid "Templates"
 msgstr ""
 
@@ -409,7 +416,7 @@ msgstr ""
 #. i18n: ectx: property (whatsThis), widget (QLabel, replaceLabel)
 #. i18n: file: ../part/configgeneralwidget.ui:89
 #. i18n: ectx: property (whatsThis), widget (KLineEdit, replaceEdit)
-#: rc.cpp:129 rc.cpp:135
+#: rc.cpp:132 rc.cpp:138
 msgid ""
 "<para>Enter the text which will be replaced by the TikZ code in the template "
 "here.</para>"
@@ -417,7 +424,7 @@ msgstr ""
 
 #. i18n: file: ../part/configgeneralwidget.ui:76
 #. i18n: ectx: property (text), widget (QLabel, replaceLabel)
-#: rc.cpp:132
+#: rc.cpp:135
 msgid "&Replace text:"
 msgstr ""
 
@@ -425,29 +432,29 @@ msgstr ""
 #. i18n: ectx: property (whatsThis), widget (QLabel, editorLabel)
 #. i18n: file: ../part/configgeneralwidget.ui:115
 #. i18n: ectx: property (whatsThis), widget (KUrlRequester, editorUrlRequester)
-#: rc.cpp:138 rc.cpp:144
+#: rc.cpp:141 rc.cpp:147
 msgid "<para>Enter the path to the text editor for the template here.</para>"
 msgstr ""
 
 #. i18n: file: ../part/configgeneralwidget.ui:102
 #. i18n: ectx: property (text), widget (QLabel, editorLabel)
-#: rc.cpp:141
+#: rc.cpp:144
 msgid "&Editor command:"
 msgstr ""
 
 #. i18n: file: ../part/ktikzpart.rc:27
 #. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:162
+#: rc.cpp:165
 msgctxt "@title:menu toolbar title"
 msgid "Main Toolbar"
 msgstr ""
 
-#: rc.cpp:163
+#: rc.cpp:166
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: rc.cpp:164
+#: rc.cpp:167
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""

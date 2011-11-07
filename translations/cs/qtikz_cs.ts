@@ -688,6 +688,14 @@ Chcete uložit své změny?</translation>
     </message>
 </context>
 <context>
+    <name>LineNumberWidget</name>
+    <message>
+        <location filename="../../app/linenumberwidget.cpp" line="46"/>
+        <source>Click to add or remove a bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <source>Messages</source>
@@ -965,53 +973,53 @@ Nebyl nalezen žádný program, který by uměl otevřít soubor &quot;%1&quot;.
         <translation>&amp;Soubor</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="578"/>
+        <location filename="../../app/mainwindow.cpp" line="579"/>
         <source>&amp;Settings</source>
         <translation>&amp;Nastavení</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="579"/>
+        <location filename="../../app/mainwindow.cpp" line="580"/>
         <source>&amp;Toolbars</source>
         <translation>&amp;Nástrojové pruhy</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="581"/>
+        <location filename="../../app/mainwindow.cpp" line="582"/>
         <source>Show or hide toolbars</source>
         <translation>Ukázat nebo skrýt nástrojové pruhy</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="586"/>
         <location filename="../../app/mainwindow.cpp" line="587"/>
         <location filename="../../app/mainwindow.cpp" line="588"/>
         <location filename="../../app/mainwindow.cpp" line="589"/>
-        <location filename="../../app/mainwindow.cpp" line="744"/>
+        <location filename="../../app/mainwindow.cpp" line="590"/>
+        <location filename="../../app/mainwindow.cpp" line="745"/>
         <source>Show toolbar &quot;%1&quot;</source>
         <translation>Ukázat nástrojový pruh &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="591"/>
+        <location filename="../../app/mainwindow.cpp" line="592"/>
         <source>&amp;Sidebars</source>
         <translation>&amp;Postranní pruhy</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="593"/>
+        <location filename="../../app/mainwindow.cpp" line="594"/>
         <source>Show or hide sidebars</source>
         <translation>Ukázat nebo skrýt postranní pruhy</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="596"/>
         <location filename="../../app/mainwindow.cpp" line="597"/>
-        <location filename="../../app/mainwindow.cpp" line="735"/>
+        <location filename="../../app/mainwindow.cpp" line="598"/>
+        <location filename="../../app/mainwindow.cpp" line="736"/>
         <source>Show sidebar &quot;%1&quot;</source>
         <translation>Ukázat postranní pruh &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="610"/>
+        <location filename="../../app/mainwindow.cpp" line="611"/>
         <source>&amp;Help</source>
         <translation>&amp;Nápověda</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="621"/>
+        <location filename="../../app/mainwindow.cpp" line="622"/>
         <source>File</source>
         <translation>Soubor</translation>
     </message>
@@ -1020,30 +1028,30 @@ Nebyl nalezen žádný program, který by uměl otevřít soubor &quot;%1&quot;.
         <translation type="obsolete">&amp;Vložit</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="724"/>
+        <location filename="../../app/mainwindow.cpp" line="725"/>
         <source>Ready</source>
         <translation>Připraven</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="733"/>
+        <location filename="../../app/mainwindow.cpp" line="734"/>
         <source>Hide sidebar &quot;%1&quot;</source>
         <translation>Skrýt postranní pruh &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="742"/>
+        <location filename="../../app/mainwindow.cpp" line="743"/>
         <source>Hide toolbar &quot;%1&quot;</source>
         <translation>Skrýt nástrojový pruh &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="845"/>
+        <location filename="../../app/mainwindow.cpp" line="846"/>
         <source>The document has been modified.
 Do you want to save your changes?</source>
         <translation>Dokument byl změněn.
 Chcete uložit své změny?</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="985"/>
-        <location filename="../../app/mainwindow.cpp" line="987"/>
+        <location filename="../../app/mainwindow.cpp" line="986"/>
+        <location filename="../../app/mainwindow.cpp" line="988"/>
         <source>Preview: x = %1	y = %2</source>
         <comment>@info:status</comment>
         <translation type="unfinished"></translation>
@@ -1064,19 +1072,19 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Chyba při čtení souboru</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="868"/>
+        <location filename="../../app/mainwindow.cpp" line="869"/>
         <source>Cannot read file &quot;%1&quot;:
 %2.</source>
         <translation>Nelze přečíst soubor &quot;%1&quot;:
 %2.</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="903"/>
+        <location filename="../../app/mainwindow.cpp" line="904"/>
         <source>File loaded</source>
         <translation>Soubor nahrán</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="930"/>
+        <location filename="../../app/mainwindow.cpp" line="931"/>
         <source>Cannot write file &quot;%1&quot;:
 %2</source>
         <translation>Nelze zapsat soubor &quot;%1&quot;:
@@ -1088,7 +1096,7 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Chyba při ukládání souboru</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="915"/>
+        <location filename="../../app/mainwindow.cpp" line="916"/>
         <source>Cannot write file &quot;%1&quot;:
 %2.</source>
         <translation>Nelze zapsat soubor &quot;%1&quot;:
@@ -1099,18 +1107,18 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Nepodařilo se zkopírovat dočasný soubor &quot;%1&quot; do &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="938"/>
+        <location filename="../../app/mainwindow.cpp" line="939"/>
         <source>File saved</source>
         <comment>@info:status</comment>
         <translation>Soubor uložen</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="952"/>
+        <location filename="../../app/mainwindow.cpp" line="953"/>
         <source>%1[*] - %2</source>
         <translation>%1[*] - %2</translation>
     </message>
     <message>
-        <location filename="../../app/mainwindow.cpp" line="979"/>
+        <location filename="../../app/mainwindow.cpp" line="980"/>
         <source>Line: %1	Col: %2</source>
         <comment>@info:status</comment>
         <translation>Řádek: %1	Sloupec: %2</translation>
@@ -1400,19 +1408,19 @@ Chcete uložit své změny?</translation>
     <message>
         <location filename="../../common/templatewidget.ui" line="12"/>
         <location filename="../../common/templatewidget.ui" line="31"/>
-        <location filename="../../common/templatewidget.cpp" line="116"/>
+        <location filename="../../common/templatewidget.cpp" line="113"/>
         <source>&lt;p&gt;Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Udejte název souboru LaTeXové předlohy. Pokud je toto zadávací pole prázdné nebo obsahuje neplatný souborový název, použije se vnitřní výchozí předloha.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../../common/templatewidget.ui" line="15"/>
-        <location filename="../../common/templatewidget.cpp" line="126"/>
+        <location filename="../../common/templatewidget.cpp" line="123"/>
         <source>&amp;Template:</source>
         <translation>&amp;Předloha:</translation>
     </message>
     <message>
         <location filename="../../common/templatewidget.ui" line="38"/>
-        <location filename="../../common/templatewidget.cpp" line="128"/>
+        <location filename="../../common/templatewidget.cpp" line="125"/>
         <source>Select template file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1423,7 +1431,7 @@ Chcete uložit své změny?</translation>
     </message>
     <message>
         <location filename="../../common/templatewidget.ui" line="72"/>
-        <location filename="../../common/templatewidget.cpp" line="129"/>
+        <location filename="../../common/templatewidget.cpp" line="126"/>
         <source>Edit template file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1433,7 +1441,7 @@ Chcete uložit své změny?</translation>
     </message>
     <message>
         <location filename="../../common/templatewidget.ui" line="41"/>
-        <location filename="../../common/templatewidget.cpp" line="127"/>
+        <location filename="../../common/templatewidget.cpp" line="124"/>
         <source>&lt;p&gt;Browse to an existing template file.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Procházejte ke stávajícímu souboru s předlohou.&lt;/p&gt;</translation>
     </message>
@@ -1452,7 +1460,7 @@ Chcete uložit své změny?</translation>
     </message>
     <message>
         <location filename="../../common/templatewidget.ui" line="75"/>
-        <location filename="../../common/templatewidget.cpp" line="121"/>
+        <location filename="../../common/templatewidget.cpp" line="118"/>
         <source>&lt;p&gt;Edit this template with an external editor specified in the &quot;Configure&quot; dialog.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Upravte tuto předlohu ve vnějším editoru, který je stanoven v dialogu pro nastavení.&lt;/p&gt;</translation>
     </message>
@@ -1461,22 +1469,22 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Upravit</translation>
     </message>
     <message>
-        <location filename="../../common/templatewidget.cpp" line="111"/>
+        <location filename="../../common/templatewidget.cpp" line="108"/>
         <source>&lt;p&gt;The template contains the code of a complete LaTeX document in which the TikZ picture will be included and which will be typesetted to produce the preview image.  The string %1 in the template will be replaced by the TikZ code.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Předloha obsahuje kód úplného LaTeXového dokumentu, do něhož bude obrázek TikZ začleněn a který bude vysázen, aby vytvořil obrázek s náhledem. Řetězec %1 v předloze bude nahrazen kódem TikZ.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../common/templatewidget.cpp" line="151"/>
+        <location filename="../../common/templatewidget.cpp" line="148"/>
         <source>Select a template file</source>
         <translation>Vybrat soubor s předlohou</translation>
     </message>
     <message>
-        <location filename="../../common/templatewidget.cpp" line="153"/>
+        <location filename="../../common/templatewidget.cpp" line="150"/>
         <source>%1 template files</source>
         <translation>%1 soubory s předlohou</translation>
     </message>
     <message>
-        <location filename="../../common/templatewidget.cpp" line="154"/>
+        <location filename="../../common/templatewidget.cpp" line="151"/>
         <source>All files</source>
         <translation>Všechny soubory</translation>
     </message>
@@ -3544,216 +3552,284 @@ Chcete uložit své změny?</translation>
         <translation>&lt;p&gt;Zde zadejte svůj kód TikZ. Kód má začínat \begin{tikzpicture} a končit \end{tikzpicture}.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="148"/>
+        <location filename="../../app/tikzeditorview.cpp" line="144"/>
         <source>Undo the previous action</source>
         <translation>Zpět předchozí krok</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="149"/>
+        <location filename="../../app/tikzeditorview.cpp" line="145"/>
         <source>Redo the previous undone action</source>
         <translation>Znovu předchozí krok Zpět</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="150"/>
+        <location filename="../../app/tikzeditorview.cpp" line="146"/>
         <source>Cut the current selection&apos;s contents to the clipboard</source>
         <translation>Vyjmout obsah nynějšího výběru do schránky</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="151"/>
+        <location filename="../../app/tikzeditorview.cpp" line="147"/>
         <source>Copy the current selection&apos;s contents to the clipboard</source>
         <translation>Kopírovat obsah nynějšího výběru do schránky</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="152"/>
+        <location filename="../../app/tikzeditorview.cpp" line="148"/>
         <source>Paste the clipboard&apos;s contents into the current selection</source>
         <translation>Vložit obsah schránky do nynějšího výběru</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="153"/>
+        <location filename="../../app/tikzeditorview.cpp" line="149"/>
         <source>Select all the content</source>
         <translation>Vybrat veškerý obsah</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="154"/>
+        <location filename="../../app/tikzeditorview.cpp" line="150"/>
         <source>&lt;p&gt;Undo the previous action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Zpět předchozí krok.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="155"/>
+        <location filename="../../app/tikzeditorview.cpp" line="151"/>
         <source>&lt;p&gt;Redo the previous undone action.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Znovu předchozí krok Zpět.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="156"/>
+        <location filename="../../app/tikzeditorview.cpp" line="152"/>
         <source>&lt;p&gt;Cut the current selection&apos;s contents to the clipboard.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyjmout obsah schránky do nynějšího výběru.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="157"/>
+        <location filename="../../app/tikzeditorview.cpp" line="153"/>
         <source>&lt;p&gt;Copy the current selection&apos;s contents to the clipboard.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Kopírovat obsah nynějšího výběru do schránky.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="158"/>
+        <location filename="../../app/tikzeditorview.cpp" line="154"/>
         <source>&lt;p&gt;Paste the clipboard&apos;s contents into the current selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vložit obsah schránky do nynějšího výběru.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="159"/>
+        <location filename="../../app/tikzeditorview.cpp" line="155"/>
         <source>&lt;p&gt;Select all the content.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vybrat veškerý obsah.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="162"/>
+        <location filename="../../app/tikzeditorview.cpp" line="158"/>
         <source>&amp;Indent...</source>
         <translation>&amp;Odsadit...</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="163"/>
+        <location filename="../../app/tikzeditorview.cpp" line="159"/>
         <source>Ctrl+I</source>
         <comment>Edit|Indent</comment>
         <translation>Ctrl+I</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="164"/>
+        <location filename="../../app/tikzeditorview.cpp" line="160"/>
         <source>Indent the current line or selection</source>
         <translation>Odsadit nynější řádek nebo výběr</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="165"/>
+        <location filename="../../app/tikzeditorview.cpp" line="161"/>
         <source>&lt;p&gt;Indent the current line or selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Odsadit nynější řádek nebo výběr.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="169"/>
+        <location filename="../../app/tikzeditorview.cpp" line="165"/>
         <source>Unind&amp;ent...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="170"/>
+        <location filename="../../app/tikzeditorview.cpp" line="166"/>
         <source>Ctrl+Shift+I</source>
         <comment>Edit|Unindent</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="171"/>
+        <location filename="../../app/tikzeditorview.cpp" line="167"/>
         <source>Unindent the current line or selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="172"/>
+        <location filename="../../app/tikzeditorview.cpp" line="168"/>
         <source>&lt;p&gt;Unindent the current line or selection.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="176"/>
+        <location filename="../../app/tikzeditorview.cpp" line="172"/>
         <source>C&amp;omment</source>
         <translation>&amp;Poznámka</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="177"/>
+        <location filename="../../app/tikzeditorview.cpp" line="173"/>
         <source>Ctrl+D</source>
         <comment>Edit|Comment</comment>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="178"/>
+        <location filename="../../app/tikzeditorview.cpp" line="174"/>
         <source>Comment the current line or selection</source>
         <translation>Opatřit nynější řádek nebo výběr poznámkou</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="179"/>
+        <location filename="../../app/tikzeditorview.cpp" line="175"/>
         <source>&lt;p&gt;Comment the current line or selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Opatřit nynější řádek nebo výběr poznámkou.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="183"/>
+        <location filename="../../app/tikzeditorview.cpp" line="179"/>
         <source>Unco&amp;mment</source>
         <translation>&amp;Odebrat poznámku</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="184"/>
+        <location filename="../../app/tikzeditorview.cpp" line="180"/>
         <source>Ctrl+Shift+D</source>
         <comment>Edit|Uncomment</comment>
         <translation>Ctrl+Shift+D</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="185"/>
+        <location filename="../../app/tikzeditorview.cpp" line="181"/>
         <source>Uncomment the current line or selection</source>
         <translation>Zrušit poznámku pro nynější řádek nebo výběr</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="186"/>
+        <location filename="../../app/tikzeditorview.cpp" line="182"/>
         <source>&lt;p&gt;Uncomment the current line or selection.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Zrušit poznámku pro nynější řádek nebo výběr.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="199"/>
+        <location filename="../../app/tikzeditorview.cpp" line="195"/>
         <source>Look up a piece of text in the document</source>
         <translation>Vyhledat kus textu v dokumentu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="200"/>
+        <location filename="../../app/tikzeditorview.cpp" line="196"/>
         <source>Search the next occurrence of a text</source>
         <translation>Hledat další výskyt textu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="201"/>
+        <location filename="../../app/tikzeditorview.cpp" line="197"/>
         <source>Search the previous occurrence of a text</source>
         <translation>Hledat předchozí výskyt textu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="202"/>
+        <location filename="../../app/tikzeditorview.cpp" line="198"/>
         <source>Search and replace a piece of text in the document</source>
         <translation>Hledat a nahradit kus textu v dokumentu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="203"/>
+        <location filename="../../app/tikzeditorview.cpp" line="199"/>
         <source>Go to a certain line in the document</source>
         <translation>Jít na určitý řádek v dokumentu</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="204"/>
+        <location filename="../../app/tikzeditorview.cpp" line="200"/>
         <source>&lt;p&gt;Look up a piece of text in the document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyhledat kus textu v dokumentu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="205"/>
+        <location filename="../../app/tikzeditorview.cpp" line="201"/>
         <source>&lt;p&gt;Search the next occurrence of a text.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Hledat další výskyt textu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="206"/>
+        <location filename="../../app/tikzeditorview.cpp" line="202"/>
         <source>&lt;p&gt;Search the previous occurrence of a text.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Hledat předchozí výskyt textu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="207"/>
+        <location filename="../../app/tikzeditorview.cpp" line="203"/>
         <source>&lt;p&gt;Search and replace a piece of text in the document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Hledat a nahradit kus textu v dokumentu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="208"/>
+        <location filename="../../app/tikzeditorview.cpp" line="204"/>
         <source>&lt;p&gt;Go to a certain line in the document.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Jít na určitý řádek v dokumentu.&lt;/p&gt;</translation>
     </message>
     <message>
+        <location filename="../../app/tikzeditorview.cpp" line="223"/>
+        <source>Set &amp;Bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="224"/>
+        <source>Ctrl+B</source>
+        <comment>Bookmarks|Set</comment>
+        <translation type="unfinished">Ctrl+B</translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="225"/>
+        <source>Set or unset a bookmark at the current line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="226"/>
+        <source>&lt;p&gt;Set or unset a bookmark at the current line.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="229"/>
+        <source>&amp;Previous Bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../app/tikzeditorview.cpp" line="230"/>
+        <source>Alt+Up</source>
+        <comment>Bookmarks|Previous</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="231"/>
+        <source>Go to the previous bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="232"/>
+        <source>&lt;p&gt;Go to the previous bookmark.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="235"/>
+        <source>&amp;Next Bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="236"/>
+        <source>Alt+Down</source>
+        <comment>Bookmarks|Next</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="237"/>
+        <source>Go to the next bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="238"/>
+        <source>&lt;p&gt;Go to the next bookmark.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="245"/>
         <source>&amp;Edit</source>
         <translation>&amp;Upravit</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="246"/>
+        <location filename="../../app/tikzeditorview.cpp" line="261"/>
+        <source>&amp;Bookmarks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/tikzeditorview.cpp" line="270"/>
         <source>Edit</source>
         <translation>Upravit</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="531"/>
+        <location filename="../../app/tikzeditorview.cpp" line="556"/>
         <source>Find</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="531"/>
+        <location filename="../../app/tikzeditorview.cpp" line="556"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3762,7 +3838,7 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Odsadit</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="529"/>
+        <location filename="../../app/tikzeditorview.cpp" line="554"/>
         <source>End of document reached.
 
 Continue from the beginning?</source>
@@ -3771,7 +3847,7 @@ Continue from the beginning?</source>
 Pokračovat od začátku?</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="530"/>
+        <location filename="../../app/tikzeditorview.cpp" line="555"/>
         <source>Beginning of document reached.
 
 Continue from the end?</source>
@@ -3993,7 +4069,7 @@ Pokračovat od konce?</translation>
     </message>
     <message>
         <location filename="../../common/tikzpreviewcontroller.cpp" line="163"/>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="327"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="334"/>
         <source>Print image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4044,12 +4120,18 @@ Pokračovat od konce?</translation>
         <translation>Spustit</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="304"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="274"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="284"/>
+        <source>Export failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="311"/>
         <source>Print preview of image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="307"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="314"/>
         <source>Print &amp;preview</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4097,7 +4179,7 @@ Pokračovat od konce?</translation>
         <translation type="obsolete">Soubor &quot;%1&quot; se nepodařilo přepsat.</translation>
     </message>
     <message>
-        <location filename="../../common/tikzpreviewcontroller.cpp" line="284"/>
+        <location filename="../../common/tikzpreviewcontroller.cpp" line="291"/>
         <source>The image could not be exported to the file &quot;%1&quot;.</source>
         <translation>Obrázek se nepodařilo vyvést do souboru &quot;%1&quot;.</translation>
     </message>
