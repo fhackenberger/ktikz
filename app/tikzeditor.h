@@ -43,8 +43,18 @@ public:
 	int numOfLines() const;
 	void setCompleter(QCompleter *completer);
 
+	void toggleUserBookmark(int lineNumber);
+	int userBookmark(int which) const;
+	QList<int> userBookmarks() const;
+	void setUserBookmarks(const QList<int> &bookmarks);
+
+	friend class LineNumberWidget;
+
 public slots:
 	void showCursorPosition();
+	void toggleUserBookmark();
+	void previousUserBookmark();
+	void nextUserBookmark();
 
 signals:
 	void cursorPositionChanged(int row, int col);
@@ -58,6 +68,16 @@ protected:
 	void keyPressEvent(QKeyEvent *event);
 	void focusInEvent(QFocusEvent *event);
 	void focusOutEvent(QFocusEvent *event);
+	int lineNumberAreaWidth();
+	void resizeEvent(QResizeEvent *event);
+
+private slots:
+	void highlightCurrentLine();
+	void matchBrackets();
+	void insertCompletion(const QString &completion);
+	void recalculateBookmarks(int position);
+	void updateLineNumberAreaWidth();
+	void updateLineNumberArea(const QRect &rect, int dy);
 
 private:
 	void showMatchingBrackets();
@@ -82,10 +102,10 @@ private:
 
 	QCompleter *m_completer;
 
-private slots:
-	void highlightCurrentLine();
-	void matchBrackets();
-	void insertCompletion(const QString &completion);
+	QList<int> m_userBookmarks;
+	int m_oldNumOfLines;
+
+	QWidget *m_lineNumberArea;
 };
 
 #endif

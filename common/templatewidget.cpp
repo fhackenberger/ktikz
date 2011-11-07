@@ -22,6 +22,7 @@
 #include <QtGui/QKeyEvent>
 #include <QtCore/QProcess>
 #include <QtCore/QSettings>
+#include <QtGui/QTextDocument>
 
 #include "utils/combobox.h"
 #include "utils/filedialog.h"
@@ -104,15 +105,11 @@ void TemplateWidget::setFileName(const QString &fileName)
 
 void TemplateWidget::setReplaceText(const QString &replace)
 {
-	QString replaceText = replace;
-	replaceText.replace('&', QLatin1String("&amp;"));
-	replaceText.replace('<', QLatin1String("&lt;"));
-	replaceText.replace('>', QLatin1String("&gt;"));
 	const QString templateDescription(tr("<p>The template contains the code "
 	                                     "of a complete LaTeX document in which the TikZ picture will be "
 	                                     "included and which will be typesetted to produce the preview "
 	                                     "image.  The string %1 in the template will be replaced by the "
-	                                     "TikZ code.</p>").arg(replaceText));
+	                                     "TikZ code.</p>").arg(Qt::escape(replace)));
 	ui.templateCombo->setWhatsThis(tr("<p>Give the file name of the LaTeX "
 	                                  "template.  If this input field is empty or contains an invalid "
 	                                  "file name, an internal default template will be used.</p>")

@@ -568,7 +568,8 @@ void MainWindow::createMenus()
 	fileMenu->addSeparator();
 	fileMenu->addAction(m_exitAction);
 
-	menuBar()->addMenu(m_tikzEditorView->menu());
+	menuBar()->addMenu(m_tikzEditorView->editMenu());
+	menuBar()->addMenu(m_tikzEditorView->bookmarksMenu());
 
 	QMenu *viewMenu = m_tikzPreviewController->menu();
 	viewMenu->insertAction(viewMenu->actions().at(viewMenu->actions().size() - 2), m_buildAction);

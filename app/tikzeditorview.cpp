@@ -63,10 +63,6 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	m_indentWidget = new IndentWidget(this);
 	m_indentWidget->setVisible(false);
 
-//	QFrame *mainWidget = new QFrame;
-//	mainWidget->setLineWidth(1);
-//	mainWidget->setFrameShape(QFrame::StyledPanel);
-//	mainWidget->setFrameShadow(QFrame::Sunken);
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 	mainLayout->setSpacing(0);
 	mainLayout->setMargin(0);
@@ -223,9 +219,28 @@ void TikzEditorView::createActions()
 	        m_copyAction, SLOT(setEnabled(bool)));
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()),
 	        this, SLOT(setPasteEnabled()));
+
+	m_setBookmarkAction = new Action(Icon("bookmark-new"), tr("Set &Bookmark"), this, "bookmarks_set");
+	m_setBookmarkAction->setShortcut(tr("Ctrl+B", "Bookmarks|Set"));
+	m_setBookmarkAction->setStatusTip(tr("Set or unset a bookmark at the current line"));
+	m_setBookmarkAction->setWhatsThis(tr("<p>Set or unset a bookmark at the current line.</p>"));
+	connect(m_setBookmarkAction, SIGNAL(triggered()), m_tikzEditor, SLOT(toggleUserBookmark()));
+
+	m_previousBookmarkAction = new Action(tr("&Previous Bookmark"), this, "bookmarks_prev");
+	m_previousBookmarkAction->setShortcut(tr("Alt+Up", "Bookmarks|Previous"));
+	m_previousBookmarkAction->setStatusTip(tr("Go to the previous bookmark"));
+	m_previousBookmarkAction->setWhatsThis(tr("<p>Go to the previous bookmark.</p>"));
+	connect(m_previousBookmarkAction, SIGNAL(triggered()), m_tikzEditor, SLOT(previousUserBookmark()));
+
+	m_nextBookmarkAction = new Action(tr("&Next Bookmark"), this, "bookmarks_next");
+	m_nextBookmarkAction->setShortcut(tr("Alt+Down", "Bookmarks|Next"));
+	m_nextBookmarkAction->setStatusTip(tr("Go to the next bookmark"));
+	m_nextBookmarkAction->setWhatsThis(tr("<p>Go to the next bookmark.</p>"));
+	connect(m_nextBookmarkAction, SIGNAL(triggered()), m_tikzEditor, SLOT(nextUserBookmark()));
 }
 
-QMenu *TikzEditorView::menu()
+#ifndef KTIKZ_USE_KDE
+QMenu *TikzEditorView::editMenu()
 {
 	QMenu *editMenu = new QMenu(tr("&Edit"), m_parentWidget);
 	editMenu->addAction(m_undoAction);
@@ -241,6 +256,15 @@ QMenu *TikzEditorView::menu()
 	return editMenu;
 }
 
+QMenu *TikzEditorView::bookmarksMenu()
+{
+	QMenu *bookmarksMenu = new QMenu(tr("&Bookmarks"), m_parentWidget);
+	bookmarksMenu->addAction(m_setBookmarkAction);
+	bookmarksMenu->addAction(m_previousBookmarkAction);
+	bookmarksMenu->addAction(m_nextBookmarkAction);
+	return bookmarksMenu;
+}
+
 QToolBar *TikzEditorView::toolBar()
 {
 	QToolBar *editToolBar = new QToolBar(tr("Edit"), m_parentWidget);
@@ -252,6 +276,7 @@ QToolBar *TikzEditorView::toolBar()
 //	editToolBar->addAction(m_pasteAction);
 	return editToolBar;
 }
+#endif
 
 void TikzEditorView::setPasteEnabled()
 {

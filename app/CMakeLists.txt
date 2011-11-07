@@ -17,6 +17,7 @@ set(ktikz_SRCS
 	editreplacewidget.cpp
 	editreplacecurrentwidget.cpp
 	ktikzapplication.cpp
+	linenumberwidget.cpp
 	loghighlighter.cpp
 	logtextedit.cpp
 	main.cpp

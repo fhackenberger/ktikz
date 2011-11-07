@@ -45,6 +45,8 @@
 #include <QtGui/QTextBlock>
 #include <QtGui/QTextLayout>
 
+#include "linenumberwidget.h"
+
 static const QString s_completionPlaceHolder(0x2022);
 
 TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
@@ -58,8 +60,8 @@ TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
 
 	m_completer = 0;
 
-//	setLineWidth(0);
-//	setFrameShape(QFrame::NoFrame);
+	m_lineNumberArea = new LineNumberWidget(this);
+	updateLineNumberAreaWidth();
 
 	const QColor lineColor(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::Base));
 	const QColor altLineColor(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::AlternateBase));
@@ -72,6 +74,10 @@ TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
 
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(matchBrackets()));
+	connect(document(), SIGNAL(contentsChange(int,int,int)), this, SLOT(recalculateBookmarks(int)));
+
+	connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth()));
+	connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumberArea(QRect,int)));
 }
 
 TikzEditor::~TikzEditor()
@@ -207,12 +213,12 @@ void TikzEditor::showMatchingBrackets()
 			if (block.position() + i == m_matchingBegin || block.position() + i == m_matchingEnd)
 			{
 				QList<QTextEdit::ExtraSelection> extraSelectionList = extraSelections();
-				QTextEdit::ExtraSelection selection;
-				selection.format.setBackground(m_matchingColor);
-				selection.cursor = textCursor();
-				selection.cursor.setPosition(block.position() + i, QTextCursor::MoveAnchor);
-				selection.cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
-				extraSelectionList.append(selection);
+					QTextEdit::ExtraSelection selection;
+					selection.format.setBackground(m_matchingColor);
+					selection.cursor = textCursor();
+					selection.cursor.setPosition(block.position() + i, QTextCursor::MoveAnchor);
+					selection.cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+					extraSelectionList.append(selection);
 				setExtraSelections(extraSelectionList);
 			}
 		}
@@ -585,4 +591,146 @@ void TikzEditor::insertCompletion(const QString &completion)
 	else if (offset > 0)
 		cursor.setPosition(pos + offset + 1, QTextCursor::MoveAnchor);
 	setTextCursor(cursor);
+}
+
+/***************************************************************************/
+
+/*!
+ * This function inserts lineNumber in the list of bookmarks in such a way
+ * that the list is sorted from small to large.  If lineNumber is already
+ * in the list, then it is removed from the list.
+ */
+void TikzEditor::toggleUserBookmark(int lineNumber)
+{
+	if (lineNumber <= 0 || lineNumber > document()->blockCount())
+		return;
+	for (int i = 0; i < m_userBookmarks.length(); ++i)
+	{
+		if (m_userBookmarks.at(i) == lineNumber)
+		{
+			m_userBookmarks.removeAt(i);
+			return;
+		}
+		else if (m_userBookmarks.at(i) > lineNumber)
+		{
+			m_userBookmarks.insert(i, lineNumber);
+			return;
+		}
+	}
+	m_userBookmarks.append(lineNumber); // if lineNumber is larger than any number already in the list, then we insert lineNumber at the end of the list
+}
+
+void TikzEditor::toggleUserBookmark()
+{
+	const int lineNumber = textCursor().blockNumber() + 1;
+	toggleUserBookmark(lineNumber);
+}
+
+/*!
+ * This functions returns the line number of the bookmark with index
+ * which if which is a valid index, and returns -1 otherwise.
+ */
+
+int TikzEditor::userBookmark(int which) const
+{
+	return which >= 0 && which < m_userBookmarks.length() ? m_userBookmarks.at(which) : -1;
+}
+
+void TikzEditor::previousUserBookmark()
+{
+	const int lineNumber = textCursor().blockNumber() + 1;
+	for (int i = m_userBookmarks.length() - 1; i >= 0; --i)
+	{
+		if (lineNumber > m_userBookmarks.at(i))
+		{
+			goToLine(m_userBookmarks.at(i) - 1);
+			return;
+		}
+	}
+}
+
+void TikzEditor::nextUserBookmark()
+{
+	const int lineNumber = textCursor().blockNumber() + 1;
+	for (int i = 0; i < m_userBookmarks.length(); ++i)
+	{
+		if (lineNumber < m_userBookmarks.at(i))
+		{
+			goToLine(m_userBookmarks.at(i) - 1);
+			return;
+		}
+	}
+}
+
+void TikzEditor::recalculateBookmarks(int position)
+{
+	const int addedLines = numOfLines() - m_oldNumOfLines;
+	const int lineNumber = document()->findBlock(position).blockNumber() + 1;
+	if (addedLines != 0)
+	{
+		for (int i = 0; i < m_userBookmarks.length(); ++i)
+		{
+			// if a line containing a bookmark is removed, then the bookmark itself must also be removed
+			if (addedLines < 0 && lineNumber <= m_userBookmarks.at(i)
+			    && lineNumber - addedLines > m_userBookmarks.at(i))
+			{
+				m_userBookmarks.removeAt(i);
+				--i;
+			}
+			else if (lineNumber <= m_userBookmarks.at(i)) // shift all bookmarks that come after the insertion or deletion of lines
+				m_userBookmarks[i] += addedLines;
+		}
+	}
+	m_oldNumOfLines = numOfLines();
+}
+
+QList<int> TikzEditor::userBookmarks() const
+{
+	return m_userBookmarks;
+}
+
+void TikzEditor::setUserBookmarks(const QList<int> &bookmarks)
+{
+	m_userBookmarks.clear();
+	for (int i = 0; i < bookmarks.length(); ++i)
+	{
+		if (bookmarks.at(i) > 0 && bookmarks.at(i) <= numOfLines())
+			toggleUserBookmark(bookmarks.at(i));
+	}
+}
+
+/***************************************************************************/
+
+int TikzEditor::lineNumberAreaWidth()
+{
+	int digits = 1;
+	for (int max = qMax(1, blockCount()); max >= 10; max /= 10)
+		++digits;
+	digits = qMax(5, digits) + 1;
+
+	return 3 + fontMetrics().width(QLatin1Char('9')) * digits;
+}
+
+void TikzEditor::updateLineNumberAreaWidth()
+{
+	setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
+}
+
+void TikzEditor::updateLineNumberArea(const QRect &rect, int dy)
+{
+	if (dy)
+		m_lineNumberArea->scroll(0, dy);
+	else
+		m_lineNumberArea->update(0, rect.y(), m_lineNumberArea->width(), rect.height());
+
+	if (rect.contains(viewport()->rect()))
+		updateLineNumberAreaWidth();
+}
+
+void TikzEditor::resizeEvent(QResizeEvent *event)
+{
+	QPlainTextEdit::resizeEvent(event);
+
+	QRect rect = contentsRect();
+	m_lineNumberArea->setGeometry(QRect(rect.left(), rect.top(), lineNumberAreaWidth(), rect.height()));
 }

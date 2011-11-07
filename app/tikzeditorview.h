@@ -45,8 +45,11 @@ public:
 	virtual ~TikzEditorView();
 
 	QPlainTextEdit *editor();
-	QMenu *menu();
+#ifndef KTIKZ_USE_KDE
+	QMenu *editMenu();
+	QMenu *bookmarksMenu();
 	QToolBar *toolBar();
+#endif
 	void applySettings();
 	void setLine(const QString &line);
 	int lineNumber() const;
@@ -92,10 +95,10 @@ private:
 
 	QWidget *m_parentWidget;
 	TikzEditor *m_tikzEditor;
-	ReplaceWidget *m_replaceWidget;
-	ReplaceCurrentWidget *m_replaceCurrentWidget;
 	GoToLineWidget *m_goToLineWidget;
 	IndentWidget *m_indentWidget;
+	ReplaceWidget *m_replaceWidget;
+	ReplaceCurrentWidget *m_replaceCurrentWidget;
 
 	QString m_searchText;
 	QString m_replaceText;
@@ -113,6 +116,9 @@ private:
 	QAction *m_pasteAction;
 	QAction *m_selectAllAction;
 	QList<QAction*> m_editActions;
+	QAction *m_setBookmarkAction;
+	QAction *m_previousBookmarkAction;
+	QAction *m_nextBookmarkAction;
 
 //	int customHighlighting;
 };

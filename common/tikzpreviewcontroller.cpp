@@ -270,13 +270,20 @@ void TikzPreviewController::exportImage()
 	else if (mimeType == "image/x-eps")
 	{
 		if (!m_tikzPreviewGenerator->generateEpsFile(m_tikzPreview->currentPage()))
+		{
+			MessageBox::error(m_parentWidget, tr("Export failed."), QCoreApplication::applicationName());
 			return;
+		}
 		extension = ".eps";
 	}
 	else
 	{
 		extension = '.' + mimeType.mid(6);
-		tikzImage.save(tempFileBaseName() + extension);
+		if (!tikzImage.save(tempFileBaseName() + extension))
+		{
+			MessageBox::error(m_parentWidget, tr("Export failed."), QCoreApplication::applicationName());
+			return;
+		}
 	}
 
 	if (!File::copy(Url(tempFileBaseName() + extension), exportUrl))

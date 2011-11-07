@@ -70,6 +70,7 @@ SOURCES += ../common/utils/action.cpp \
 	editreplacewidget.cpp \
 	editreplacecurrentwidget.cpp \
 	ktikzapplication.cpp \
+	linenumberwidget.cpp \
 	loghighlighter.cpp \
 	logtextedit.cpp \
 	main.cpp \

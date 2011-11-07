@@ -42,6 +42,12 @@
    <Action name="edit_find_prev"/>
    <Action name="edit_replace"/>
   </Menu>
+  <Menu noMerge="1" name="bookmarks">
+   <text context="@title:menu">&amp;Bookmarks</text>
+   <Action name="bookmarks_set"/>
+   <Action name="bookmarks_prev"/>
+   <Action name="bookmarks_next"/>
+  </Menu>
   <Menu noMerge="1" name="view">
    <text context="@title:menu">&amp;View</text>
    <Action name="view_zoom_in"/>
