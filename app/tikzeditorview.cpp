@@ -288,6 +288,7 @@ void TikzEditorView::applySettings()
 	QSettings settings(ORGNAME, APPNAME);
 
 	settings.beginGroup("Editor");
+	m_tikzEditor->setShowLineNumberArea(settings.value("ShowLineNumberArea", true).toBool());
 	QFont editorFont;
 	editorFont.fromString(settings.value("Font", qApp->font().toString()).toString());
 	setFont(editorFont);

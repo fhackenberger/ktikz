@@ -390,18 +390,19 @@
     </message>
     <message>
         <location filename="../../app/configeditorwidget.ui" line="12"/>
+        <location filename="../../app/configeditorwidget.ui" line="34"/>
         <source>Editor</source>
         <translation>Editor</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="20"/>
-        <location filename="../../app/configeditorwidget.ui" line="39"/>
-        <location filename="../../app/configeditorwidget.ui" line="49"/>
+        <location filename="../../app/configeditorwidget.ui" line="42"/>
+        <location filename="../../app/configeditorwidget.ui" line="61"/>
+        <location filename="../../app/configeditorwidget.ui" line="71"/>
         <source>&lt;p&gt;Select the font of the main text.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Wählen die die Schrift für den Haupttext aus.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="23"/>
+        <location filename="../../app/configeditorwidget.ui" line="45"/>
         <source>Text &amp;font:</source>
         <translation>Text Schri&amp;ft:</translation>
     </message>
@@ -410,80 +411,90 @@
         <translation type="obsolete">Auswählen</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="52"/>
+        <location filename="../../app/configeditorwidget.ui" line="18"/>
+        <source>&lt;p&gt;Show the line numbers on the left hand side of the editor.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/configeditorwidget.ui" line="21"/>
+        <source>Show &amp;line numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/configeditorwidget.ui" line="74"/>
         <source>Choose...</source>
         <translation>Auswählen...</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="63"/>
+        <location filename="../../app/configeditorwidget.ui" line="85"/>
         <source>&lt;p&gt;Show white spaces in the text by replacing them with special symbols.  These symbols will not be saved on disk.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Leerzeichen im text durch Symbole ersetzen.  Diese Symbole werden nicht gespeichert.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="66"/>
+        <location filename="../../app/configeditorwidget.ui" line="88"/>
         <source>Show &amp;white spaces</source>
         <translation>&amp;Leerzeichen anzeigen</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="76"/>
-        <location filename="../../app/configeditorwidget.ui" line="95"/>
+        <location filename="../../app/configeditorwidget.ui" line="98"/>
+        <location filename="../../app/configeditorwidget.ui" line="117"/>
         <source>&lt;p&gt;Select the color in which the spaces will be shown.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Farbe für Leerzeichen.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="79"/>
+        <location filename="../../app/configeditorwidget.ui" line="101"/>
         <source>&amp;Use color:</source>
         <translation>&amp;Farbe:</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="102"/>
+        <location filename="../../app/configeditorwidget.ui" line="124"/>
         <source>&lt;p&gt;Show tabulators in the text by replacing them with special symbols.  These symbols will not be saved on disk.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Tabulatoren im text durch Symbole ersetzen.  Diese Symbole werden nicht gespeichert.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="105"/>
+        <location filename="../../app/configeditorwidget.ui" line="127"/>
         <source>Show &amp;tabulators</source>
         <translation>T&amp;abulatoren anzeigen</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="115"/>
-        <location filename="../../app/configeditorwidget.ui" line="134"/>
+        <location filename="../../app/configeditorwidget.ui" line="137"/>
+        <location filename="../../app/configeditorwidget.ui" line="156"/>
         <source>&lt;p&gt;Select the color in which the tabulators will be shown.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Farbe für Tabulatoren.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="118"/>
+        <location filename="../../app/configeditorwidget.ui" line="140"/>
         <source>U&amp;se color:</source>
         <translation>F&amp;arbe:</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="141"/>
+        <location filename="../../app/configeditorwidget.ui" line="163"/>
         <source>&lt;p&gt;If the cursor is on a bracket ({[]}), then the corresponding opening/closing bracket will be highlighted.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Wenn sich der Cursor auf einer Klammer ({[]}) befindet, wird die entsprechende öffnende/schließende Klammer hervorgehoben.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="144"/>
+        <location filename="../../app/configeditorwidget.ui" line="166"/>
         <source>Show matching &amp;brackets</source>
         <translation>Klammerpaare hervorhe&amp;ben</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="154"/>
-        <location filename="../../app/configeditorwidget.ui" line="173"/>
+        <location filename="../../app/configeditorwidget.ui" line="176"/>
+        <location filename="../../app/configeditorwidget.ui" line="195"/>
         <source>&lt;p&gt;Select the color in which the highlighted brackets will be shown.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Wählen Sie die Farbe in der hervorgehobene Klammern angezeigt werden sollen.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="157"/>
+        <location filename="../../app/configeditorwidget.ui" line="179"/>
         <source>Use c&amp;olor:</source>
         <translation>Fa&amp;rbe:</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="182"/>
+        <location filename="../../app/configeditorwidget.ui" line="204"/>
         <source>&lt;p&gt;When the first letters of a TikZ command are typed in the text, a list of possible completions will be shown.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Nachdem die ersten Zeichen eines TiKZ Kommandos getippt wurden, wird eine Liste mit Vervollständigungen angezeigt.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="185"/>
+        <location filename="../../app/configeditorwidget.ui" line="207"/>
         <source>Use command &amp;completion</source>
         <translation>Kommando &amp;Vervollständigung</translation>
     </message>
@@ -4174,12 +4185,12 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="556"/>
+        <location filename="../../app/tikzeditorview.cpp" line="557"/>
         <source>Find</source>
         <translation>Suchen</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="556"/>
+        <location filename="../../app/tikzeditorview.cpp" line="557"/>
         <source>Continue</source>
         <translation>Weiter</translation>
     </message>
@@ -4296,7 +4307,7 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation type="obsolete">Einrücken</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="554"/>
+        <location filename="../../app/tikzeditorview.cpp" line="555"/>
         <source>End of document reached.
 
 Continue from the beginning?</source>
@@ -4305,7 +4316,7 @@ Continue from the beginning?</source>
 Am Anfang des Dokuments weitermachen?</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="555"/>
+        <location filename="../../app/tikzeditorview.cpp" line="556"/>
         <source>Beginning of document reached.
 
 Continue from the end?</source>

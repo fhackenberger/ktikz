@@ -29,6 +29,7 @@ class QMenu;
 //class QSyntaxHighlighter;
 class QPlainTextEdit;
 class QToolBar;
+class Action;
 class GoToLineWidget;
 class IndentWidget;
 class ReplaceWidget;
@@ -116,9 +117,9 @@ private:
 	QAction *m_pasteAction;
 	QAction *m_selectAllAction;
 	QList<QAction*> m_editActions;
-	QAction *m_setBookmarkAction;
-	QAction *m_previousBookmarkAction;
-	QAction *m_nextBookmarkAction;
+	Action *m_setBookmarkAction;
+	Action *m_previousBookmarkAction;
+	Action *m_nextBookmarkAction;
 
 //	int customHighlighting;
 };

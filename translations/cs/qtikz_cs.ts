@@ -114,96 +114,107 @@
     </message>
     <message>
         <location filename="../../app/configeditorwidget.ui" line="12"/>
+        <location filename="../../app/configeditorwidget.ui" line="34"/>
         <source>Editor</source>
         <translation>Editor</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="20"/>
-        <location filename="../../app/configeditorwidget.ui" line="39"/>
-        <location filename="../../app/configeditorwidget.ui" line="49"/>
+        <location filename="../../app/configeditorwidget.ui" line="18"/>
+        <source>&lt;p&gt;Show the line numbers on the left hand side of the editor.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/configeditorwidget.ui" line="21"/>
+        <source>Show &amp;line numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../app/configeditorwidget.ui" line="42"/>
+        <location filename="../../app/configeditorwidget.ui" line="61"/>
+        <location filename="../../app/configeditorwidget.ui" line="71"/>
         <source>&lt;p&gt;Select the font of the main text.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyberte písmo hlavního textu.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="23"/>
+        <location filename="../../app/configeditorwidget.ui" line="45"/>
         <source>Text &amp;font:</source>
         <translation>&amp;Písmo textu:</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="52"/>
+        <location filename="../../app/configeditorwidget.ui" line="74"/>
         <source>Choose...</source>
         <translation>Vybrat...</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="63"/>
+        <location filename="../../app/configeditorwidget.ui" line="85"/>
         <source>&lt;p&gt;Show white spaces in the text by replacing them with special symbols.  These symbols will not be saved on disk.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ukázat prázdná místa v textu jejich nahrazením zvláštními symboly. Tyto symboly nebudou uloženy na disk.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="66"/>
+        <location filename="../../app/configeditorwidget.ui" line="88"/>
         <source>Show &amp;white spaces</source>
         <translation>Ukázat &amp;prázdná místa</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="76"/>
-        <location filename="../../app/configeditorwidget.ui" line="95"/>
+        <location filename="../../app/configeditorwidget.ui" line="98"/>
+        <location filename="../../app/configeditorwidget.ui" line="117"/>
         <source>&lt;p&gt;Select the color in which the spaces will be shown.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyberte barvu, ve které se mezery budou ukazovat.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="79"/>
+        <location filename="../../app/configeditorwidget.ui" line="101"/>
         <source>&amp;Use color:</source>
         <translation>&amp;Použít barvu:</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="102"/>
+        <location filename="../../app/configeditorwidget.ui" line="124"/>
         <source>&lt;p&gt;Show tabulators in the text by replacing them with special symbols.  These symbols will not be saved on disk.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Ukázat zarážky v textu jejich nahrazením zvláštními symboly. Tyto symboly nebudou uloženy na disk.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="105"/>
+        <location filename="../../app/configeditorwidget.ui" line="127"/>
         <source>Show &amp;tabulators</source>
         <translation>Ukázat &amp;zarážky</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="115"/>
-        <location filename="../../app/configeditorwidget.ui" line="134"/>
+        <location filename="../../app/configeditorwidget.ui" line="137"/>
+        <location filename="../../app/configeditorwidget.ui" line="156"/>
         <source>&lt;p&gt;Select the color in which the tabulators will be shown.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyberte barvu, ve které se zarážky budou ukazovat.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="118"/>
+        <location filename="../../app/configeditorwidget.ui" line="140"/>
         <source>U&amp;se color:</source>
         <translation>Po&amp;užít barvu:</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="141"/>
+        <location filename="../../app/configeditorwidget.ui" line="163"/>
         <source>&lt;p&gt;If the cursor is on a bracket ({[]}), then the corresponding opening/closing bracket will be highlighted.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Je-li ukazovátko na závorce ({[]}), bude zvýrazněna odpovídající otevírající/uzavírající závorka.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="144"/>
+        <location filename="../../app/configeditorwidget.ui" line="166"/>
         <source>Show matching &amp;brackets</source>
         <translation>Ukázat dvojice &amp;závorek</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="154"/>
-        <location filename="../../app/configeditorwidget.ui" line="173"/>
+        <location filename="../../app/configeditorwidget.ui" line="176"/>
+        <location filename="../../app/configeditorwidget.ui" line="195"/>
         <source>&lt;p&gt;Select the color in which the highlighted brackets will be shown.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vyberte barvu, ve které se zvýrazněné závorky budou ukazovat.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="157"/>
+        <location filename="../../app/configeditorwidget.ui" line="179"/>
         <source>Use c&amp;olor:</source>
         <translation>Použít &amp;barvu:</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="182"/>
+        <location filename="../../app/configeditorwidget.ui" line="204"/>
         <source>&lt;p&gt;When the first letters of a TikZ command are typed in the text, a list of possible completions will be shown.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Když jsou první písmena příkazu TikZ zapisována v textu, bude ukázán seznam možných doplnění.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../../app/configeditorwidget.ui" line="185"/>
+        <location filename="../../app/configeditorwidget.ui" line="207"/>
         <source>Use command &amp;completion</source>
         <translation>použít &amp;doplnění příkazu</translation>
     </message>
@@ -3824,12 +3835,12 @@ Chcete uložit své změny?</translation>
         <translation>Upravit</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="556"/>
+        <location filename="../../app/tikzeditorview.cpp" line="557"/>
         <source>Find</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="556"/>
+        <location filename="../../app/tikzeditorview.cpp" line="557"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3838,7 +3849,7 @@ Chcete uložit své změny?</translation>
         <translation type="obsolete">Odsadit</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="554"/>
+        <location filename="../../app/tikzeditorview.cpp" line="555"/>
         <source>End of document reached.
 
 Continue from the beginning?</source>
@@ -3847,7 +3858,7 @@ Continue from the beginning?</source>
 Pokračovat od začátku?</translation>
     </message>
     <message>
-        <location filename="../../app/tikzeditorview.cpp" line="555"/>
+        <location filename="../../app/tikzeditorview.cpp" line="556"/>
         <source>Beginning of document reached.
 
 Continue from the end?</source>

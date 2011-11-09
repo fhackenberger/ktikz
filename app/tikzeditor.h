@@ -33,9 +33,9 @@ class TikzEditor : public QPlainTextEdit
 public:
 	TikzEditor(QWidget *parent = 0);
 	~TikzEditor();
-	void setShowWhiteSpaces(bool show);
-	void setShowTabulators(bool show);
-	void setShowMatchingBrackets(bool show);
+	void setShowWhiteSpaces(bool visible);
+	void setShowTabulators(bool visible);
+	void setShowMatchingBrackets(bool visible);
 	void setWhiteSpacesColor(const QColor &color);
 	void setTabulatorsColor(const QColor &color);
 	void setMatchingColor(const QColor &color);
@@ -48,6 +48,7 @@ public:
 	QList<int> userBookmarks() const;
 	void setUserBookmarks(const QList<int> &bookmarks);
 
+	void setShowLineNumberArea(bool visible);
 	friend class LineNumberWidget;
 
 public slots:
@@ -106,6 +107,7 @@ private:
 	int m_oldNumOfLines;
 
 	QWidget *m_lineNumberArea;
+	bool m_showLineNumberArea;
 };
 
 #endif

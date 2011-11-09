@@ -7,6 +7,28 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QGroupBox" name="lineNumberGroupBox">
+     <property name="title">
+      <string>Editor</string>
+     </property>
+     <layout class="QVBoxLayout" name="lineNumberVerticalLayout">
+      <item>
+       <widget class="QCheckBox" name="showLineNumberAreaCheck">
+        <property name="whatsThis">
+         <string>&lt;p&gt;Show the line numbers on the left hand side of the editor.&lt;/p&gt;</string>
+        </property>
+        <property name="text">
+         <string>Show &amp;line numbers</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="editorGroupBox">
      <property name="title">
       <string>Editor</string>

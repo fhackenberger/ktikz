@@ -225,19 +225,19 @@ void TikzEditor::showMatchingBrackets()
 	}
 }
 
-void TikzEditor::setShowWhiteSpaces(bool show)
+void TikzEditor::setShowWhiteSpaces(bool visible)
 {
-	m_showWhiteSpaces = show;
+	m_showWhiteSpaces = visible;
 }
 
-void TikzEditor::setShowTabulators(bool show)
+void TikzEditor::setShowTabulators(bool visible)
 {
-	m_showTabulators = show;
+	m_showTabulators = visible;
 }
 
-void TikzEditor::setShowMatchingBrackets(bool show)
+void TikzEditor::setShowMatchingBrackets(bool visible)
 {
-	m_showMatchingBrackets = show;
+	m_showMatchingBrackets = visible;
 }
 
 void TikzEditor::setWhiteSpacesColor(const QColor &color)
@@ -618,6 +618,7 @@ void TikzEditor::toggleUserBookmark(int lineNumber)
 		}
 	}
 	m_userBookmarks.append(lineNumber); // if lineNumber is larger than any number already in the list, then we insert lineNumber at the end of the list
+	m_lineNumberArea->update();
 }
 
 void TikzEditor::toggleUserBookmark()
@@ -706,9 +707,9 @@ int TikzEditor::lineNumberAreaWidth()
 	int digits = 1;
 	for (int max = qMax(1, blockCount()); max >= 10; max /= 10)
 		++digits;
-	digits = qMax(5, digits) + 1;
+	digits = qMax(4, digits) + 1;
 
-	return 3 + fontMetrics().width(QLatin1Char('9')) * digits;
+	return m_showLineNumberArea ? 3 + fontMetrics().width(QLatin1Char('9')) * digits : 0;
 }
 
 void TikzEditor::updateLineNumberAreaWidth()
@@ -733,4 +734,11 @@ void TikzEditor::resizeEvent(QResizeEvent *event)
 
 	QRect rect = contentsRect();
 	m_lineNumberArea->setGeometry(QRect(rect.left(), rect.top(), lineNumberAreaWidth(), rect.height()));
+}
+
+void TikzEditor::setShowLineNumberArea(bool visible)
+{
+	m_showLineNumberArea = visible;
+	m_lineNumberArea->setVisible(visible);
+	updateLineNumberAreaWidth();
 }

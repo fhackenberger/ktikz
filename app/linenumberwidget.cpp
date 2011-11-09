@@ -84,10 +84,11 @@ void LineNumberWidget::paintEvent(QPaintEvent *event)
 					painter.setPen(m_highlightedTextPen);
 					painter.drawText(4, top, width() - 4, lineHeight, Qt::AlignLeft | Qt::AlignTop, QLatin1String("B"));
 					painter.setPen(m_highlightPen);
+					update(0, top, width(), lineHeight); // make sure the bookmark is visible even when the line is wrapped
+					break;
 				}
 			}
-			const QString lineNumberText = QString::number(lineNumber);
-			painter.drawText(0, top, width() - 4, lineHeight, Qt::AlignRight | Qt::AlignTop, lineNumberText);
+			painter.drawText(0, top, width() - 4, lineHeight, Qt::AlignRight | Qt::AlignTop, QString::number(lineNumber));
 		}
 
 		top += lineHeight * block.lineCount();
@@ -116,6 +117,7 @@ void LineNumberWidget::paintEvent(QPaintEvent *event)
 					painter.drawText(4, top, width() - 4, lineHeight, Qt::AlignLeft | Qt::AlignTop, QLatin1String("B"));
 					painter.setPen(m_highlightPen);
 					update(0, top, width(), lineHeight); // make sure the bookmark is visible even when the line is wrapped
+					break;
 				}
 			}
 			painter.drawText(0, top, width() - 4, lineHeight, Qt::AlignRight | Qt::AlignTop, QString::number(lineNumber));
@@ -124,7 +126,7 @@ void LineNumberWidget::paintEvent(QPaintEvent *event)
 		block = block.next();
 		top = bottom;
 //		bottom = top + (int) m_editor->blockBoundingRect(block).height(); // slow
-		bottom = top + lineHeight * block.lineCount();
+		bottom += lineHeight * block.lineCount();
 		++lineNumber;
 	}
 	painter.end();

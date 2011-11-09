@@ -26,8 +26,6 @@ Features:
   Section 21 not yet
   Section 22 not yet
 
-- Add a line number widget to the left of the editor.
-
 - Implement a fancier tikz command insertion mechanism (e.g. like in
   QtCreator).
 

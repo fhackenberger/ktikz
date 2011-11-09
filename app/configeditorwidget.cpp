@@ -33,6 +33,7 @@ void ConfigEditorWidget::readSettings(const QString &settingsGroup)
 {
 	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup(settingsGroup);
+	ui.showLineNumberAreaCheck->setChecked(settings.value("ShowLineNumberArea", true).toBool());
 	m_generalFont.fromString(settings.value("Font", qApp->font().toString()).toString());
 	ui.generalFontEdit->setText(m_generalFont.family() + ' ' + QString::number(m_generalFont.pointSize()));
 	ui.generalFontEdit->setFont(m_generalFont);
@@ -50,6 +51,7 @@ void ConfigEditorWidget::writeSettings(const QString &settingsGroup)
 {
 	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup(settingsGroup);
+	settings.setValue("ShowLineNumberArea", ui.showLineNumberAreaCheck->isChecked());
 	settings.setValue("Font", m_generalFont.toString());
 	settings.setValue("ShowWhiteSpaces", ui.showWhiteSpacesCheck->isChecked());
 	settings.setValue("ShowTabulators", ui.showTabulatorsCheck->isChecked());
