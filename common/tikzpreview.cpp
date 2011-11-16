@@ -166,6 +166,8 @@ void TikzPreview::createInformationLabel()
 	m_infoPixmapLabel->setPixmap(infoPixmap);
 
 	m_infoLabel = new QLabel;
+	m_infoLabel->setWordWrap(true);
+	m_infoLabel->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
 
 	m_infoWidget = new QFrame;
 	m_infoWidget->setObjectName("infoWidget");
@@ -219,7 +221,17 @@ void TikzPreview::paintEvent(QPaintEvent *event)
 	// is beyond my understanding :-(
 	if (m_infoWidgetAdded && m_infoWidget->isVisible())
 	{
-		m_infoWidget->resize(0, 0);
+		if (m_infoPixmapLabel->isVisible())
+		{
+			m_infoWidget->resize(m_infoPixmapLabel->sizeHint().width()
+			    + m_infoLabel->sizeHint().width() + 35,
+			    qMax(m_infoPixmapLabel->sizeHint().height(), m_infoLabel->sizeHint().height()) + 25);
+		}
+		else
+		{
+			m_infoWidget->resize(m_infoLabel->sizeHint().width() + 25,
+			    m_infoLabel->sizeHint().height() + 25);
+		}
 		centerInfoLabel();
 		m_infoWidgetAdded = false;
 	}

@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -105,7 +105,8 @@ void TikzPreviewGenerator::displayGnuplotNotExecutable()
 	emit showErrorMessage(tr("Gnuplot cannot be executed.  Either Gnuplot is not installed "
 	                         "or it is not available in the system PATH or you may have insufficient "
 	                         "permissions to invoke the program."));
-	delete m_checkGnuplotExecutable;
+	const QMutexLocker lock(&m_memberLock);
+	m_checkGnuplotExecutable->deleteLater();
 	m_checkGnuplotExecutable = 0;
 }
 
@@ -113,7 +114,8 @@ void TikzPreviewGenerator::checkGnuplotExecutableFinished(int exitCode, QProcess
 {
 	Q_UNUSED(exitCode)
 	Q_UNUSED(exitStatus)
-	delete m_checkGnuplotExecutable;
+	const QMutexLocker lock(&m_memberLock);
+	m_checkGnuplotExecutable->deleteLater();
 	m_checkGnuplotExecutable = 0;
 }
 
@@ -198,7 +200,7 @@ QString TikzPreviewGenerator::getParsedLogText(QTextStream *logStream) const
 				{
 					logText += logLine + '\n';
 					logText += logStream->readLine() + '\n';
-					logText += logStream->readLine() + '\n';
+					logText += logStream->readLine() + '\n'; // we assume that the error message is not displayed on more than 3 lines in the log, so we stop here
 					break;
 				}
 			}
@@ -210,20 +212,24 @@ QString TikzPreviewGenerator::getParsedLogText(QTextStream *logStream) const
 
 void TikzPreviewGenerator::parseLogFile()
 {
+	QString longLogText;
 	const QFileInfo latexLogFileInfo = QFileInfo(m_tikzFileBaseName + ".log");
 	QFile latexLogFile(latexLogFileInfo.absoluteFilePath());
 	if (!latexLogFile.open(QFile::ReadOnly | QIODevice::Text))
 	{
 		if (!m_tikzCode.isEmpty())
 		{
-			m_shortLogText += "\n[LaTeX] " + tr("Warning: could not load LaTeX logfile.");
+			longLogText = "\n[LaTeX] " + tr("Warning: could not load LaTeX log file.", "info process");
+			m_shortLogText += longLogText;
+			longLogText += tr("\nLog file: %1", "info process").arg(latexLogFileInfo.absoluteFilePath());
 			emit showErrorMessage(m_shortLogText);
-			qWarning() << "Warning: could not load latex logfile:" << qPrintable(latexLogFileInfo.absoluteFilePath());
+			emit appendLog(longLogText, m_runFailed);
 		}
 		else
 		{
 			m_shortLogText = "";
 			m_logText = "";
+			emit updateLog("", m_runFailed);
 		}
 	}
 	else
@@ -231,14 +237,15 @@ void TikzPreviewGenerator::parseLogFile()
 		m_memberLock.lock();
 		QTextStream latexLog(&latexLogFile);
 		if (m_runFailed && !m_shortLogText.contains(tr("Process aborted.")))
-			m_shortLogText = getParsedLogText(&latexLog);
+		{
+			longLogText = getParsedLogText(&latexLog);
+			emit updateLog(longLogText, m_runFailed);
+		}
 		latexLog.seek(0);
 		m_logText += latexLog.readAll();
 		latexLogFile.close();
 		m_memberLock.unlock();
 	}
-	emit shortLogUpdated(m_shortLogText, m_runFailed);
-//	emit logUpdated(m_runFailed);
 }
 
 /***************************************************************************/
@@ -271,7 +278,7 @@ void TikzPreviewGenerator::createPreview()
 	{
 		const QFileInfo tikzPdfFileInfo(m_tikzFileBaseName + ".pdf");
 		if (!tikzPdfFileInfo.exists())
-			qWarning() << "Error:" << qPrintable(tikzPdfFileInfo.absoluteFilePath()) << "does not exists";
+			qWarning() << "Error:" << qPrintable(tikzPdfFileInfo.absoluteFilePath()) << "does not exist";
 		else
 		{
 			// Update widget
@@ -280,15 +287,15 @@ void TikzPreviewGenerator::createPreview()
 			m_tikzPdfDoc = Poppler::Document::load(tikzPdfFileInfo.absoluteFilePath());
 			if (m_tikzPdfDoc)
 			{
-				m_shortLogText = "[LaTeX] " + tr("Process finished successfully.");
+				m_shortLogText = "[LaTeX] " + tr("Process finished successfully.", "info process");
 				emit pixmapUpdated(m_tikzPdfDoc, tikzCoordinates());
 				emit setExportActionsEnabled(true);
 			}
 			else
 			{
-				m_shortLogText = "[LaTeX] " + tr("Error: loading PDF failed, the file is probably corrupted.");
+				m_shortLogText = "[LaTeX] " + tr("Error: loading PDF failed, the file is probably corrupted.", "info process");
 				emit showErrorMessage(m_shortLogText);
-				qWarning() << "Error: loading PDF failed, the file is probably corrupted:" << qPrintable(tikzPdfFileInfo.absoluteFilePath());
+				emit updateLog(m_shortLogText + tr("\nPDF file: %1").arg(tikzPdfFileInfo.absoluteFilePath()), m_runFailed);
 			}
 		}
 	}
@@ -305,7 +312,9 @@ bool TikzPreviewGenerator::hasRunFailed()
 
 void TikzPreviewGenerator::generatePreview(TemplateStatus templateStatus)
 {
-	// dirty hack because calling generatePreviewImpl directly from the main thread runs it in the main thread (only when triggered by a signal, it is run in the new thread)
+	// dirty hack because calling generatePreviewImpl directly from the main
+	// thread runs it in the main thread (only when triggered by a signal,
+	// it is run in the new thread)
 	QMetaObject::invokeMethod(this, "generatePreviewImpl", Q_ARG(TemplateStatus, templateStatus));
 }
 
@@ -313,10 +322,10 @@ void TikzPreviewGenerator::generatePreviewImpl(TemplateStatus templateStatus)
 {
 	m_memberLock.lock();
 	// Each time the tikz code is edited TikzPreviewController->regeneratePreview()
-	// is run, which runs generatePreview(DontReloadTemplate). This is OK in all cases, except
-	// at startup, because then the template is not yet copied to the temporary
-	// directory, so in order to make this happen, m_templateChanged should be
-	// set to true.
+	// is run, which runs generatePreview(DontReloadTemplate). This is OK
+	// in all cases, except at startup, because then the template is not yet
+	// copied to the temporary directory, so in order to make this happen,
+	// m_templateChanged should be set to true.
 	if (m_firstRun)
 	{
 		m_templateChanged = true;
@@ -491,6 +500,7 @@ void TikzPreviewGenerator::removeFromLatexSearchPath(const QString &path)
 bool TikzPreviewGenerator::runProcess(const QString &name, const QString &command,
                                       const QStringList &arguments, const QString &workingDir)
 {
+	QString longLogText;
 	m_memberLock.lock();
 	m_process = new QProcess;
 	m_processAborted = false;
@@ -504,7 +514,7 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 	emit processRunning(true);
 	if (!m_process->waitForStarted(1000))
 		m_runFailed = true;
-	qDebug() << "starting" << command + ' ' + arguments.join(" ");
+	qDebug() << "starting" << command + ' ' + arguments.join(QLatin1String(" "));
 
 	QByteArray buffer;
 	QTextStream log(&buffer);
@@ -524,23 +534,27 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 
 	if (m_processAborted)
 	{
-		m_shortLogText = '[' + name + "] " + tr("Process aborted.");
+		m_shortLogText = '[' + name + "] " + tr("Process aborted.", "info process");
+		longLogText = m_shortLogText;
 		emit showErrorMessage(m_shortLogText);
 		m_runFailed = true;
 	}
 	else if (m_runFailed) // if the process could not be started
 	{
-		m_shortLogText = '[' + name + "] " + tr("Error: the process could not be started", "info process");
+		m_shortLogText = '[' + name + "] " + tr("Error: the process could not be started.", "info process");
+		longLogText = m_shortLogText + tr("\nCommand: %1", "info process").arg(command + ' ' + arguments.join(QLatin1String(" ")));
 		emit showErrorMessage(m_shortLogText);
 	}
 	else if (m_process->exitCode() == 0)
 	{
-		m_shortLogText = '[' + name + "] " + tr("Process finished successfully.");
+		m_shortLogText = '[' + name + "] " + tr("Process finished successfully.", "info process");
+		longLogText = m_shortLogText;
 		m_runFailed = false;
 	}
 	else
 	{
 		m_shortLogText = '[' + name + "] " + tr("Error: run failed.", "info process");
+		longLogText = m_shortLogText + tr("\nCommand: %1", "info process").arg(command + ' ' + arguments.join(QLatin1String(" ")));
 		emit showErrorMessage(m_shortLogText);
 		qWarning() << "Error:" << qPrintable(command) << "run failed with exit code:" << m_process->exitCode();
 		m_memberLock.lock();
@@ -550,7 +564,7 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 	}
 	delete m_process;
 	m_process = 0;
-	emit shortLogUpdated(m_shortLogText, m_runFailed);
+	emit updateLog(longLogText, m_runFailed);
 	return !m_runFailed;
 }
 
@@ -612,7 +626,7 @@ bool TikzPreviewGenerator::generatePdfFile()
 	               << QFileInfo(m_tikzFileBaseName + ".tex").absolutePath()
 	               << m_tikzFileBaseName + ".tex";
 
-	m_shortLogText = "[LaTeX] " + tr("Running...");
-	emit shortLogUpdated(m_shortLogText, m_runFailed);
+	m_shortLogText = "[LaTeX] " + tr("Running...", "info process");
+	emit updateLog(m_shortLogText, m_runFailed);
 	return runProcess("LaTeX", m_latexCommand, latexArguments, QFileInfo(m_tikzFileBaseName).absolutePath());
 }

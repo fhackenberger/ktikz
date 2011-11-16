@@ -9,7 +9,7 @@
    <item>
     <widget class="QGroupBox" name="lineNumberGroupBox">
      <property name="title">
-      <string>Editor</string>
+      <string>Line numbers</string>
      </property>
      <layout class="QVBoxLayout" name="lineNumberVerticalLayout">
       <item>

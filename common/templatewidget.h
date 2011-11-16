@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008 by Glad Deschrijver                                *
+ *   Copyright (C) 2008, 2010, 2011 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -20,6 +20,8 @@
 #define TEMPLATEWIDGET_H
 
 #include "ui_templatewidget.h"
+
+class UrlCompletion;
 
 class TemplateWidget : public QWidget
 {
@@ -51,6 +53,7 @@ private:
 	void saveRecentTemplates();
 
 	Ui::TemplateWidget ui;
+	UrlCompletion *m_urlCompletion;
 
 	QString m_editor;
 };

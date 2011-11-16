@@ -33,6 +33,7 @@ UserCommandInserter::UserCommandInserter(QWidget *parent)
 {
 	m_parentWidget = parent;
 	m_mainTextEdit = 0;
+	m_userMenu = 0;
 	readSettings();
 }
 

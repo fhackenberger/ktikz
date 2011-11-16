@@ -61,6 +61,8 @@ TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
 	m_completer = 0;
 
 	m_lineNumberArea = new LineNumberWidget(this);
+	m_showLineNumberArea = true;
+	m_oldNumOfLines = 0;
 	updateLineNumberAreaWidth();
 
 	const QColor lineColor(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::Base));

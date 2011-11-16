@@ -41,11 +41,11 @@ ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent)
 	ui.toolBarStyleComboBox->setVisible(false);
 #endif
 
-	UrlCompletion *completion = new UrlCompletion(this);
-	ui.tikzDocEdit->setCompletionObject(completion);
-	ui.latexEdit->setCompletionObject(completion);
-	ui.pdftopsEdit->setCompletionObject(completion);
-	ui.editorEdit->setCompletionObject(completion);
+	m_urlCompletion = new UrlCompletion(this);
+	ui.tikzDocEdit->setCompletionObject(m_urlCompletion);
+	ui.latexEdit->setCompletionObject(m_urlCompletion);
+	ui.pdftopsEdit->setCompletionObject(m_urlCompletion);
+	ui.editorEdit->setCompletionObject(m_urlCompletion);
 
 	ui.tikzDocButton->setIcon(Icon("document-open"));
 	ui.latexButton->setIcon(Icon("document-open"));
@@ -57,6 +57,11 @@ ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent)
 	connect(ui.latexButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
 	connect(ui.pdftopsButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
 	connect(ui.editorButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
+}
+
+ConfigGeneralWidget::~ConfigGeneralWidget()
+{
+	delete m_urlCompletion;
 }
 
 void ConfigGeneralWidget::readSettings(const QString &settingsGroup)

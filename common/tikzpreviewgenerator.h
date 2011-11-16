@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -76,8 +76,8 @@ signals:
 	void pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
 	void setExportActionsEnabled(bool enabled);
 	void showErrorMessage(const QString &message);
-	void shortLogUpdated(const QString &logText, bool runFailed);
-//	void logUpdated(bool runFailed);
+	void updateLog(const QString &logText, bool runFailed);
+	void appendLog(const QString &logText, bool runFailed);
 	void processRunning(bool isRunning);
 
 private slots:

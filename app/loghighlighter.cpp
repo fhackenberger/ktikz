@@ -32,7 +32,9 @@ LogHighlighter::LogHighlighter(QTextDocument *parent)
 	keywordPatterns << "\\S*:\\d+:.*$" << "Undefined control sequence"
 	                << "LaTeX Warning:" << "LaTeX Error:" << "Runaway argument?"
 	                << "Missing character: .*!" << "Error:"
-	                << "^\\[.*\\] Line \\d+: .*"; // error msg created by TikzPngPreviewer::getParsedLogText()
+	                << tr("Error:") << tr("Warning:") // error msg created by TikzPreviewGenerator
+	                << "^\\[.*\\] Line \\d+: .*" // error msg created by TikzPreviewGenerator::getParsedLogText()
+	                << tr("This program will not work!");
 	foreach (const QString &pattern, keywordPatterns)
 	{
 		rule.pattern = QRegExp(pattern);

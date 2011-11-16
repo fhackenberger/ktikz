@@ -183,8 +183,10 @@ MainWindow::MainWindow()
 	connect(m_tikzEditorView, SIGNAL(focusOut()),
 	        this, SLOT(saveLastInternalModifiedDateTime()));
 
-	connect(m_tikzPreviewController, SIGNAL(logUpdated(QString,bool)),
-	        m_logTextEdit, SLOT(logUpdated(QString,bool)));
+	connect(m_tikzPreviewController, SIGNAL(updateLog(QString,bool)),
+	        m_logTextEdit, SLOT(updateLog(QString,bool)));
+	connect(m_tikzPreviewController, SIGNAL(appendLog(QString,bool)),
+	        m_logTextEdit, SLOT(appendLog(QString,bool)));
 	connect(m_tikzPreviewController, SIGNAL(showMouseCoordinates(qreal,qreal,int,int)),
 	        this, SLOT(showMouseCoordinates(qreal,qreal,int,int)));
 
@@ -197,6 +199,9 @@ MainWindow::MainWindow()
 	if (m_buildAutomatically)
 		connect(m_tikzEditorView, SIGNAL(contentsChanged()),
 		        m_tikzPreviewController, SLOT(regeneratePreviewAfterDelay()));
+
+	if (m_tikzPreviewController->tempDir().isEmpty()) // then the temporary directory could not be created
+		m_logTextEdit->updateLog(tr("Error: unable to create a temporary directory in \"%1\". This program will not work!").arg(m_tikzPreviewController->tempDirLocation()), true);
 
 	setCurrentUrl(Url());
 	setDocumentModified(false);
@@ -270,7 +275,7 @@ bool MainWindow::closeFile()
 		        m_tikzPreviewController, SLOT(regeneratePreviewAfterDelay()));
 		setCurrentUrl(Url());
 		m_tikzPreviewController->emptyPreview(); // abort still running processes
-		m_logTextEdit->logUpdated("", false); // clear log window
+		m_logTextEdit->updateLog("", false); // clear log window
 		m_mouseCoordinatesLabel->setText("");
 		return true;
 	}
@@ -436,10 +441,10 @@ void MainWindow::setDocumentModified(bool isModified)
 	m_saveAsAction->setEnabled(m_currentUrl.isValid() && !m_currentUrl.isEmpty());
 }
 
-void MainWindow::logUpdated()
+void MainWindow::updateLog()
 {
-	m_logTextEdit->logUpdated(m_tikzPreviewController->getLogText());
-//	m_logTextEdit->logUpdated(m_tikzController->getLogText(), m_tikzController->hasRunFailed());
+	m_logTextEdit->updateLog(m_tikzPreviewController->getLogText());
+//	m_logTextEdit->updateLog(m_tikzController->getLogText(), m_tikzController->hasRunFailed());
 }
 
 /***************************************************************************/
@@ -496,7 +501,7 @@ void MainWindow::createActions()
 	m_viewLogAction = new Action(Icon("run-build-file"), tr("View &Log"), this, "view_log");
 	m_viewLogAction->setStatusTip(tr("View log messages produced by the last executed process"));
 	m_viewLogAction->setWhatsThis(tr("<p>Show the log messages produced by the last executed process in the Messages box.</p>"));
-	connect(m_viewLogAction, SIGNAL(triggered()), this, SLOT(logUpdated()));
+	connect(m_viewLogAction, SIGNAL(triggered()), this, SLOT(updateLog()));
 
 	// Configure
 	m_configureAction = StandardAction::preferences(this, SLOT(configure()), this);

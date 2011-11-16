@@ -21,12 +21,15 @@
 
 #include "ui_configgeneralwidget.h"
 
+class UrlCompletion;
+
 class ConfigGeneralWidget : public QWidget
 {
 	Q_OBJECT
 
 public:
 	ConfigGeneralWidget(QWidget *parent = 0);
+	~ConfigGeneralWidget();
 
 	void readSettings(const QString &settingsGroup);
 	void writeSettings(const QString &settingsGroup);
@@ -40,6 +43,8 @@ private slots:
 
 private:
 	void browseCommand(QLineEdit *lineEdit, bool isProgram = true);
+
+	UrlCompletion *m_urlCompletion;
 };
 
 #endif

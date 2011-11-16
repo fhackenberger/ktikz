@@ -47,6 +47,7 @@ public:
 	~TikzPreviewController();
 
 	const QString tempDir() const;
+	const QString tempDirLocation() const;
 	TemplateWidget *templateWidget() const;
 	TikzPreview *tikzPreview() const;
 #ifndef KTIKZ_USE_KDE
@@ -80,7 +81,8 @@ private slots:
 	void toggleShellEscaping(bool useShellEscaping);
 
 signals:
-	void logUpdated(const QString &logText, bool runFailed);
+	void updateLog(const QString &logText, bool runFailed);
+	void appendLog(const QString &logText, bool runFailed);
 	void showMouseCoordinates(qreal x, qreal y, int precisionX, int precisionY);
 
 private:

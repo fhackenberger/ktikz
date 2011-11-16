@@ -65,8 +65,10 @@ TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
 	        m_tikzPreview, SLOT(showErrorMessage(QString)));
 	connect(m_tikzPreviewGenerator, SIGNAL(setExportActionsEnabled(bool)),
 	        this, SLOT(setExportActionsEnabled(bool)));
-	connect(m_tikzPreviewGenerator, SIGNAL(shortLogUpdated(QString,bool)),
-	        this, SIGNAL(logUpdated(QString,bool)));
+	connect(m_tikzPreviewGenerator, SIGNAL(updateLog(QString,bool)),
+	        this, SIGNAL(updateLog(QString,bool)));
+	connect(m_tikzPreviewGenerator, SIGNAL(appendLog(QString,bool)),
+	        this, SIGNAL(appendLog(QString,bool)));
 	connect(m_templateWidget, SIGNAL(fileNameChanged(QString)),
 	        this, SLOT(setTemplateFileAndRegenerate(QString)));
 	connect(m_tikzPreview, SIGNAL(showMouseCoordinates(qreal,qreal,int,int)),
@@ -101,6 +103,11 @@ const QString TikzPreviewController::tempDir() const
 const QString TikzPreviewController::tempFileBaseName() const
 {
 	return m_tempDir->name() + "/temptikzcode";
+}
+
+const QString TikzPreviewController::tempDirLocation() const
+{
+	return m_tempDir->location();
 }
 
 /***************************************************************************/

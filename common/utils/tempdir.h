@@ -26,6 +26,8 @@ class TempDir : public KTempDir
 {
 public:
 	TempDir(const QString &directoryPrefix = QString(), int mode = 0700);
+
+	const QString location() const;
 	bool cleanUp();
 };
 #else
@@ -45,6 +47,7 @@ public:
 	TempDir(const QString &directoryPrefix = QString(), int mode = 0700);
 	virtual ~TempDir();
 
+	const QString location() const;
 	const QString name() const;
 	bool cleanUp();
 

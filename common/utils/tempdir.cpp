@@ -21,12 +21,21 @@
 #include <QtCore/QDir>
 
 #ifdef KTIKZ_USE_KDE
+#include <KComponentData>
+#include <KStandardDirs>
 #include <KTempDir>
 
 TempDir::TempDir(const QString &directoryPrefix, int mode)
 	: KTempDir(directoryPrefix, mode)
 {
 	setAutoRemove(true);
+}
+
+const QString TempDir::location() const
+{
+	const QString tempDirBase = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().componentName());
+	const int end = tempDirBase.lastIndexOf(QLatin1Char('/'));
+	return tempDirBase.mid(0, end);
 }
 #else
 #include <QtCore/QFileInfo>
@@ -95,8 +104,24 @@ TempDir::~TempDir()
 }
 
 /*!
+ * This function returns the path of the directory in which the temporary
+ * directory of this program is (attempted to be) created.  Usually this is
+ * the system's temporary directory.  If the creation of the temporary
+ * directory of this application fails, the function name() will return an
+ * empty QString(), so this function can be used to inform
+ * the user about the location in which the temporary directory should have
+ * been created.
+ * \return the name of the system's temporary directory
+ */
+
+const QString TempDir::location() const
+{
+	return QDir::tempPath();
+}
+
+/*!
  * This function returns the full path and name of the temporary directory.
- * \return the name of the temporary directory
+ * \return the name of the temporary directory, or QString() if creating the directory has failed
  */
 
 const QString TempDir::name() const

@@ -36,14 +36,25 @@ QSize LogTextEdit::sizeHint() const
 	return QSize(300, 90);
 }
 
-void LogTextEdit::logUpdated(const QString &logText)
+void LogTextEdit::updateLog(const QString &logText)
 {
 	setPlainText(logText);
 }
 
-void LogTextEdit::logUpdated(const QString &logText, bool runFailed)
+void LogTextEdit::updateLog(const QString &logText, bool runFailed)
 {
 	setPlainText(logText);
+	setLogPalette(runFailed);
+}
+
+void LogTextEdit::appendLog(const QString &logText)
+{
+	setPlainText(toPlainText() + logText);
+}
+
+void LogTextEdit::appendLog(const QString &logText, bool runFailed)
+{
+	setPlainText(toPlainText() + logText);
 	setLogPalette(runFailed);
 }
 

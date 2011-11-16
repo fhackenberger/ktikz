@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008 by Glad Deschrijver                                *
+ *   Copyright (C) 2008, 2010, 2011 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -44,8 +44,8 @@ TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 #endif
 	ui.templateEditButton->setIcon(Icon("document-edit"));
 
-	UrlCompletion *completion = new UrlCompletion(this);
-	ui.templateCombo->setCompletionObject(completion);
+	m_urlCompletion = new UrlCompletion(this);
+	ui.templateCombo->setCompletionObject(m_urlCompletion);
 
 	connect(ui.templateChooseButton, SIGNAL(clicked()),
 	        this, SLOT(selectTemplateFile()));
@@ -62,6 +62,7 @@ TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 TemplateWidget::~TemplateWidget()
 {
 	saveRecentTemplates();
+	delete m_urlCompletion;
 }
 
 QWidget *TemplateWidget::lastTabOrderWidget()
@@ -76,7 +77,7 @@ void TemplateWidget::readRecentTemplates()
 	const QStringList templateRecentList = settings.value("TemplateRecent").toStringList();
 	ui.templateCombo->addItems(templateRecentList);
 	const int index = templateRecentList.indexOf(settings.value("TemplateFile").toString());
-	ui.templateCombo->setCurrentIndex((index >= 0) ? index : 0);
+	ui.templateCombo->setCurrentIndex(index >= 0 ? index : 0);
 }
 
 void TemplateWidget::saveRecentTemplates()

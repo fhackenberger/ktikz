@@ -118,7 +118,7 @@ private slots:
 	void configure();
 	void applySettings();
 	void setDocumentModified(bool isModified);
-	void logUpdated();
+	void updateLog();
 #ifdef KTIKZ_USE_KDE
 	void toggleWhatsThisMode();
 #endif
