@@ -171,22 +171,22 @@ void TikzPreview::createInformationLabel()
 
 	m_infoWidget = new QFrame;
 	m_infoWidget->setObjectName("infoWidget");
-/*
-	m_infoWidget->setStyleSheet(
-	    "#infoWidget {"
-	    "  background-color: palette(window);"
-	    "  border: 1px solid palette(dark);"
-	    "  padding: 6px;"
-	    "}"
-	);
-*/
 	m_infoWidget->setFrameShape(QFrame::Box);
-	m_infoWidget->setAutoFillBackground(true);
+/*
+	m_infoWidget->setStyleSheet(QString(
+	    ".QFrame {"
+//	    "  background-color: palette(window);"
+	    "  border-radius: 5px;"
+	    "  border: 1px solid palette(dark);"
+	    "}"
+	    ".QLabel { color: palette(windowText); }"
+	));
+*/
 
 	QPalette palette = qApp->palette();
 	QColor backgroundColor = palette.window().color();
 	QColor foregroundColor = palette.color(QPalette::Dark);
-	backgroundColor.setAlpha(150);
+	backgroundColor.setAlpha(220);
 	foregroundColor.setAlpha(150);
 	palette.setBrush(QPalette::Window, backgroundColor);
 	palette.setBrush(QPalette::WindowText, foregroundColor);

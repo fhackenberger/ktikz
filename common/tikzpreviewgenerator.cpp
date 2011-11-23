@@ -272,7 +272,10 @@ QList<qreal> TikzPreviewGenerator::tikzCoordinates()
 void TikzPreviewGenerator::createPreview()
 {
 	emit setExportActionsEnabled(false);
-	createTempTikzFile();
+
+	if (!createTempTikzFile())
+		return;
+
 	m_logText = "";
 	if (generatePdfFile())
 	{
@@ -341,7 +344,14 @@ void TikzPreviewGenerator::generatePreviewImpl(TemplateStatus templateStatus)
 
 /***************************************************************************/
 
-void TikzPreviewGenerator::createTempLatexFile()
+void TikzPreviewGenerator::showFileWriteError(const QString &fileName, const QString &errorMessage)
+{
+	const QString error = tr("Cannot write file %1:\n%2").arg(fileName).arg(errorMessage);
+	emit showErrorMessage(error);
+	emit updateLog(error, true);
+}
+
+bool TikzPreviewGenerator::createTempLatexFile()
 {
 	const QString inputTikzCode = "\\makeatletter\n"
 		"\\ifdefined\\endtikzpicture%\n"
@@ -378,9 +388,8 @@ void TikzPreviewGenerator::createTempLatexFile()
 	File tikzTexFile(m_tikzFileBaseName + ".tex", File::WriteOnly);
 	if (!tikzTexFile.open())
 	{
-//		KMessageBox::error(this, i18nc("@info", "Cannot write file <filename>%1</filename>:<nl/><message>%2</message>", fileName, file.errorString()), i18nc("@title:window", "File Save Error"));
-		qDebug() << "Cannot write file " + m_tikzFileBaseName + ".tex (" + qPrintable(QFileInfo(*tikzTexFile.file()).absoluteFilePath()) + "):\n" + tikzTexFile.errorString();
-		return;
+		showFileWriteError(m_tikzFileBaseName + ".tex", tikzTexFile.errorString());
+		return false;
 	}
 
 	QTextStream tikzStream(tikzTexFile.file());
@@ -417,8 +426,8 @@ void TikzPreviewGenerator::createTempLatexFile()
 		              "\\PreviewEnvironment[]{tikzpicture}\n"
 		              "\\PreviewEnvironment[]{pgfpicture}\n"
 		              "\\begin{document}\n"
-		              + inputTikzCode + "\n"
-		              "\\end{document}\n";
+		           << inputTikzCode << '\n'
+		           << "\\end{document}\n";
 //		m_templateStartLineNumber = 7;
 	}
 
@@ -426,17 +435,18 @@ void TikzPreviewGenerator::createTempLatexFile()
 
 	if (!tikzTexFile.close())
 	{
-//		KMessageBox::error(this, i18nc("@info", "Cannot write file <filename>%1</filename>:<nl/><message>%2</message>", fileName, file.errorString()), i18nc("@title:window", "File Save Error"));
-		qDebug() << "Cannot write file " + m_tikzFileBaseName + ".tex (" + qPrintable(QFileInfo(*tikzTexFile.file()).absoluteFilePath()) + "):\n" + tikzTexFile.errorString();
+		showFileWriteError(m_tikzFileBaseName + ".tex", tikzTexFile.errorString());
+		return false;
 	}
 
 	qDebug() << "latex code written to:" << m_tikzFileBaseName + ".tex";
+	return true;
 }
 
-void TikzPreviewGenerator::createTempTikzFile()
+bool TikzPreviewGenerator::createTempTikzFile()
 {
 	if (m_tikzCode.isEmpty()) // avoid that the previous picture is still displayed
-		return;
+		return false;
 
 	if (m_templateChanged)
 	{
@@ -447,9 +457,8 @@ void TikzPreviewGenerator::createTempTikzFile()
 	File tikzFile(m_tikzFileBaseName + ".pgf", File::WriteOnly);
 	if (!tikzFile.open())
 	{
-//		KMessageBox::error(this, i18nc("@info", "Cannot write file <filename>%1</filename>:<nl/><message>%2</message>", fileName, file.errorString()), i18nc("@title:window", "File Save Error"));
-		qDebug() << "Cannot write file " + m_tikzFileBaseName + ".pgf (" + qPrintable(QFileInfo(*tikzFile.file()).absoluteFilePath()) + "):\n" + tikzFile.errorString();
-		return;
+		showFileWriteError(m_tikzFileBaseName + ".pgf", tikzFile.errorString());
+		return false;
 	}
 
 	QTextStream tikzStream(tikzFile.file());
@@ -458,11 +467,12 @@ void TikzPreviewGenerator::createTempTikzFile()
 
 	if (!tikzFile.close())
 	{
-//		KMessageBox::error(this, i18nc("@info", "Cannot write file <filename>%1</filename>:<nl/><message>%2</message>", fileName, file.errorString()), i18nc("@title:window", "File Save Error"));
-		qDebug() << "Cannot write file " + m_tikzFileBaseName + ".pgf (" + qPrintable(QFileInfo(*tikzFile.file()).absoluteFilePath()) + "):\n" + tikzFile.errorString();
+		showFileWriteError(m_tikzFileBaseName + ".pgf", tikzFile.errorString());
+		return false;
 	}
 
 	qDebug() << "tikz code written to:" << m_tikzFileBaseName + ".pgf";
+	return true;
 }
 
 /***************************************************************************/

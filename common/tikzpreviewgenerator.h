@@ -90,8 +90,9 @@ protected:
 	void parseLogFile();
 	QList<qreal> tikzCoordinates();
 	void createPreview();
-	void createTempLatexFile();
-	void createTempTikzFile();
+	void showFileWriteError(const QString &fileName, const QString &errorMessage);
+	bool createTempLatexFile();
+	bool createTempTikzFile();
 	bool runProcess(const QString &name, const QString &command, const QStringList &arguments, const QString &workingDir = 0);
 	bool generatePdfFile();
 

@@ -93,6 +93,27 @@
 		The following are a number of tips to enhance the experience of using &ktikz;.
 	</para>
 
+	<sect2 id="sect2-using-ktikz-tips-using-utf8-characters">
+		<title>Allow to insert UTF8 characters in the TikZ code</title>
+
+		<para>
+			When writing TikZ code with Russian or Greek text (or other languages with a non-Latin script), it would be nice to be able to insert those characters directly in the editor and have &ktikz; compile this code correctly.  This can be achieved by using a template in which the necessary LaTeX packages are loaded.  The following example (by Alexander Kudrevatykh) shows a template file which can be used for this purpose.
+			<example id="ex-using-ktikz-templatefile-insert-utf8">
+				<title>Example template file which allows to insert UTF8 characters</title>
+				<programlisting>\documentclass[12pt]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment[]{pgfpicture}
+\PreviewEnvironment[]{tikzpicture}
+\begin{document}
+&lt;&gt;
+\end{document}</programlisting>
+			</example>
+		</para>
+	</sect2>
+
 	<sect2 id="sect2-using-ktikz-tips-using-beamer-uncover">
 		<title>Using the beamer commands \uncover and \only in PGF pictures</title>
 
