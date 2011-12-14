@@ -41,7 +41,7 @@ public:
 	void setMatchingColor(const QColor &color);
 	void goToLine(int line);
 	int numOfLines() const;
-	void setCompleter(QCompleter *completer);
+	void updateCompleter(bool useCompletion, const QStringList &words);
 
 	void toggleUserBookmark(int lineNumber);
 	int userBookmark(int which) const;

@@ -63,6 +63,7 @@ void UserCommandEditDialog::readSettings()
 		ui.comboBoxItem->setCurrentIndex(0);
 		ui.lineEditName->setText(m_names.at(0));
 		ui.textEditContent->setPlainText(m_commands.at(0));
+		m_oldIndex = 0;
 	}
 	else
 		setEditingEnabled(false);

@@ -486,9 +486,9 @@ void TikzPreview::mouseMoveEvent(QMouseEvent *event)
 				invUnitY *= 10;
 		}
 
-		qreal cursorX = event->x() + horizontalScrollBar()->value() - qMax(0.0, viewport()->width() - m_tikzPixmapItem->boundingRect().width()) / 2;
+		qreal cursorX = event->x() + horizontalScrollBar()->value() - qMax(qreal(0.0), viewport()->width() - m_tikzPixmapItem->boundingRect().width()) / 2;
 		cursorX /= m_zoomFactor;
-		qreal cursorY = event->y() + verticalScrollBar()->value() - qMax(0.0, viewport()->height() - m_tikzPixmapItem->boundingRect().height()) / 2;
+		qreal cursorY = event->y() + verticalScrollBar()->value() - qMax(qreal(0.0), viewport()->height() - m_tikzPixmapItem->boundingRect().height()) / 2;
 		cursorY /= m_zoomFactor;
 		const qreal coordX = cursorX + minX;
 		const qreal coordY = maxY - cursorY;

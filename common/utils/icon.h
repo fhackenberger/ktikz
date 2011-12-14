@@ -36,6 +36,7 @@ class Icon : public QIcon
 {
 public:
 	Icon(const QString &iconName) : QIcon(QIcon::fromTheme(iconName, QIcon(":/icons/" + iconName + ".png"))) {}
+//	Icon(const QString &iconName) : QIcon(":/icons/" + iconName + ".png") {} // faster than the above
 	Icon(const QIcon &copy) : QIcon(copy) {}
 	Icon() : QIcon() {}
 };

@@ -8,9 +8,6 @@
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QLabel" name="templateLabel">
-     <property name="whatsThis">
-      <string>&lt;p&gt;Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p&gt;</string>
-     </property>
      <property name="text">
       <string>&amp;Template:</string>
      </property>
@@ -27,9 +24,6 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="whatsThis">
-      <string>&lt;p&gt;Give the file name of the LaTeX template.  If this input field is empty or contains an invalid file name, an internal default template will be used.&lt;/p&gt;</string>
-     </property>
     </widget>
    </item>
    <item>
@@ -39,13 +33,6 @@
      </property>
      <property name="whatsThis">
       <string>&lt;p&gt;Browse to an existing template file.&lt;/p&gt;</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="../app/qtikz.qrc">
-       <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
      </property>
     </widget>
    </item>
@@ -57,26 +44,12 @@
      <property name="whatsThis">
       <string>&lt;p&gt;Reload current template file.&lt;/p&gt;</string>
      </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="../app/qtikz.qrc">
-       <normaloff>:/icons/view-refresh.png</normaloff>:/icons/view-refresh.png</iconset>
-     </property>
     </widget>
    </item>
    <item>
     <widget class="QToolButton" name="templateEditButton">
      <property name="toolTip">
       <string>Edit template file</string>
-     </property>
-     <property name="whatsThis">
-      <string>&lt;p&gt;Edit this template with an external editor specified in the &quot;Configure&quot; dialog.&lt;/p&gt;</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../app/qtikz.qrc">
-       <normaloff>:/icons/document-edit.png</normaloff>:/icons/document-edit.png</iconset>
      </property>
     </widget>
    </item>
@@ -89,8 +62,5 @@
    <header>../common/utils/combobox.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../app/qtikz.qrc"/>
- </resources>
  <connections/>
 </ui>

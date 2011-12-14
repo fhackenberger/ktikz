@@ -34,7 +34,6 @@ class AssistantController;
 
 class QAction;
 class QCloseEvent;
-class QCompleter;
 class QDockWidget;
 class QLabel;
 class QMenu;
@@ -149,7 +148,6 @@ private:
 
 	TikzEditorView *m_tikzEditorView;
 	TikzHighlighter *m_tikzHighlighter;
-	QCompleter *m_completer;
 	bool m_useCompletion;
 
 	TikzPreviewController *m_tikzPreviewController;

@@ -42,6 +42,7 @@
 #include <QtGui/QPainter>
 #include <QtGui/QPalette>
 #include <QtGui/QScrollBar>
+#include <QtGui/QStringListModel>
 #include <QtGui/QTextBlock>
 #include <QtGui/QTextLayout>
 
@@ -261,7 +262,7 @@ void TikzEditor::paintTabstop(QPainter &painter, qreal x, qreal y, int spaceWidt
 {
 	QPen penBackup(painter.pen());
 	QPen pen(m_tabulatorsColor);
-	pen.setWidthF(qMax(0.5, spaceWidth * .1));
+	pen.setWidthF(qMax(qreal(0.5), spaceWidth * .1));
 	pen.setCapStyle(Qt::RoundCap);
 	painter.setPen(pen);
 
@@ -552,19 +553,32 @@ void TikzEditor::focusOutEvent(QFocusEvent *event)
 	QPlainTextEdit::focusOutEvent(event);
 }
 
-void TikzEditor::setCompleter(QCompleter *completer)
+/***************************************************************************/
+
+void TikzEditor::updateCompleter(bool useCompletion, const QStringList &words)
 {
-	if (m_completer)
-		disconnect(m_completer, 0, this, 0);
-
-	m_completer = completer;
-	if (!m_completer)
+	if (!useCompletion)
+	{
+		if (m_completer)
+			disconnect(m_completer, 0, this, 0);
+		delete m_completer;
+		m_completer = 0;
 		return;
+	}
 
-	m_completer->setWidget(this);
-	m_completer->setCompletionMode(QCompleter::PopupCompletion);
-	m_completer->setCaseSensitivity(Qt::CaseInsensitive);
-	connect(m_completer, SIGNAL(activated(QString)), this, SLOT(insertCompletion(QString)));
+	if (!m_completer)
+	{
+		m_completer = new QCompleter(this);
+		m_completer->setWidget(this);
+		m_completer->setCompletionMode(QCompleter::PopupCompletion);
+		m_completer->setCaseSensitivity(Qt::CaseInsensitive);
+		m_completer->setWrapAround(false);
+		connect(m_completer, SIGNAL(activated(QString)), this, SLOT(insertCompletion(QString)));
+	}
+
+	QStringListModel *model = new QStringListModel(words, m_completer);
+	m_completer->setModel(model);
+	m_completer->setModelSorting(QCompleter::CaseSensitivelySortedModel);
 }
 
 void TikzEditor::insertCompletion(const QString &completion)

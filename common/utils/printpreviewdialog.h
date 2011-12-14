@@ -29,7 +29,7 @@ class PrintPreviewDialog : public QDialog
 {
 	Q_OBJECT
 public:
-	PrintPreviewDialog(QPrinter *printer, QWidget *parent = 0);
+	explicit PrintPreviewDialog(QPrinter *printer, QWidget *parent = 0);
 
 	void setVisible(bool visible);
 

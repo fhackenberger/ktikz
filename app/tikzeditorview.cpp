@@ -39,8 +39,6 @@
 
 TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 {
-	m_parentWidget = parent;
-
 	m_tikzEditor = new TikzEditor;
 	m_tikzEditor->setWhatsThis(tr("<p>Enter your TikZ code here.  "
 	                              "The code should begin with \\begin{tikzpicture} and end with "
@@ -52,25 +50,16 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	tikzController = new TikzPngPreviewer(textEdit);
 */
 
-	m_replaceWidget = new ReplaceWidget(this);
-	m_replaceWidget->setVisible(false);
-	m_replaceCurrentWidget = new ReplaceCurrentWidget(this);
-	m_replaceCurrentWidget->setVisible(false);
-
-	m_goToLineWidget = new GoToLineWidget(this);
-	m_goToLineWidget->setVisible(false);
-
-	m_indentWidget = new IndentWidget(this);
-	m_indentWidget->setVisible(false);
+	// delay creating the following until they are actually needed
+	m_replaceWidget = 0;
+	m_replaceCurrentWidget = 0;
+	m_goToLineWidget = 0;
+	m_indentWidget = 0;
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 	mainLayout->setSpacing(0);
 	mainLayout->setMargin(0);
 	mainLayout->addWidget(m_tikzEditor);
-	mainLayout->addWidget(m_replaceWidget);
-	mainLayout->addWidget(m_replaceCurrentWidget);
-	mainLayout->addWidget(m_goToLineWidget);
-	mainLayout->addWidget(m_indentWidget);
 
 	createActions();
 
@@ -89,32 +78,6 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	        this, SIGNAL(focusIn()));
 	connect(m_tikzEditor, SIGNAL(focusOut()),
 	        this, SIGNAL(focusOut()));
-
-	connect(m_replaceWidget, SIGNAL(search(QString,QTextDocument::FindFlags)),
-	        this, SLOT(search(QString,QTextDocument::FindFlags)));
-	connect(m_replaceWidget, SIGNAL(replace(QString,QString,QTextDocument::FindFlags)),
-	        this, SLOT(replace(QString,QString,QTextDocument::FindFlags)));
-	connect(m_replaceWidget, SIGNAL(focusEditor()),
-	        m_tikzEditor, SLOT(setFocus()));
-
-	connect(m_replaceCurrentWidget, SIGNAL(hidden()),
-	        m_tikzEditor, SLOT(setFocus()));
-	connect(m_replaceCurrentWidget, SIGNAL(search()),
-	        this, SLOT(search()));
-	connect(m_replaceCurrentWidget, SIGNAL(replace()),
-	        this, SLOT(replace()));
-	connect(m_replaceCurrentWidget, SIGNAL(replaceAll()),
-	        this, SLOT(replaceAll()));
-
-	connect(m_goToLineWidget, SIGNAL(goToLine(int)),
-	        this, SLOT(goToLine(int)));
-	connect(m_goToLineWidget, SIGNAL(focusEditor()),
-	        m_tikzEditor, SLOT(setFocus()));
-
-	connect(m_indentWidget, SIGNAL(hidden()),
-	        m_tikzEditor, SLOT(setFocus()));
-	connect(m_indentWidget, SIGNAL(indent(QChar,int,bool)),
-	        this, SLOT(indent(QChar,int,bool)));
 }
 
 TikzEditorView::~TikzEditorView()
@@ -242,7 +205,7 @@ void TikzEditorView::createActions()
 #ifndef KTIKZ_USE_KDE
 QMenu *TikzEditorView::editMenu()
 {
-	QMenu *editMenu = new QMenu(tr("&Edit"), m_parentWidget);
+	QMenu *editMenu = new QMenu(tr("&Edit"), parentWidget());
 	editMenu->addAction(m_undoAction);
 	editMenu->addAction(m_redoAction);
 	editMenu->addSeparator();
@@ -258,7 +221,7 @@ QMenu *TikzEditorView::editMenu()
 
 QMenu *TikzEditorView::bookmarksMenu()
 {
-	QMenu *bookmarksMenu = new QMenu(tr("&Bookmarks"), m_parentWidget);
+	QMenu *bookmarksMenu = new QMenu(tr("&Bookmarks"), parentWidget());
 	bookmarksMenu->addAction(m_setBookmarkAction);
 	bookmarksMenu->addAction(m_previousBookmarkAction);
 	bookmarksMenu->addAction(m_nextBookmarkAction);
@@ -267,7 +230,7 @@ QMenu *TikzEditorView::bookmarksMenu()
 
 QToolBar *TikzEditorView::toolBar()
 {
-	QToolBar *editToolBar = new QToolBar(tr("Edit"), m_parentWidget);
+	QToolBar *editToolBar = new QToolBar(tr("Edit"), parentWidget());
 	editToolBar->setObjectName("EditToolBar");
 	editToolBar->addAction(m_undoAction);
 	editToolBar->addAction(m_redoAction);
@@ -288,10 +251,13 @@ void TikzEditorView::applySettings()
 	QSettings settings(ORGNAME, APPNAME);
 
 	settings.beginGroup("Editor");
+	// set editor font
 	m_tikzEditor->setShowLineNumberArea(settings.value("ShowLineNumberArea", true).toBool());
 	QFont editorFont;
 	editorFont.fromString(settings.value("Font", qApp->font().toString()).toString());
 	setFont(editorFont);
+
+	// set colors
 	m_tikzEditor->setShowWhiteSpaces(settings.value("ShowWhiteSpaces", false).toBool());
 	m_tikzEditor->setShowTabulators(settings.value("ShowTabulators", false).toBool());
 	m_tikzEditor->setShowMatchingBrackets(settings.value("ShowMatchingBrackets", true).toBool());
@@ -319,6 +285,17 @@ void TikzEditorView::showCursorPosition()
 /***************************************************************************/
 /* Go to line */
 
+void TikzEditorView::initGoToLineWidget()
+{
+	m_goToLineWidget = new GoToLineWidget(this);
+	layout()->addWidget(m_goToLineWidget);
+
+	connect(m_goToLineWidget, SIGNAL(goToLine(int)),
+	        this, SLOT(goToLine(int)));
+	connect(m_goToLineWidget, SIGNAL(focusEditor()),
+	        m_tikzEditor, SLOT(setFocus()));
+}
+
 void TikzEditorView::setLine(const QString &line)
 {
 	bool ok;
@@ -330,13 +307,19 @@ void TikzEditorView::setLine(const QString &line)
 
 void TikzEditorView::setLine(int lineNumber)
 {
-	m_indentWidget->setVisible(false);
-	m_replaceWidget->setVisible(false);
-	m_replaceCurrentWidget->setVisible(false);
-	m_goToLineWidget->setVisible(true);
-	m_goToLineWidget->setFocus();
+	if (m_indentWidget)
+		m_indentWidget->setVisible(false);
+	if (m_replaceWidget)
+	{
+		m_replaceWidget->setVisible(false);
+		m_replaceCurrentWidget->setVisible(false);
+	}
+	if (!m_goToLineWidget)
+		initGoToLineWidget();
 	m_goToLineWidget->setMaximumValue(m_tikzEditor->numOfLines());
 	m_goToLineWidget->setValue(lineNumber);
+	m_goToLineWidget->setVisible(true);
+	m_goToLineWidget->setFocus();
 }
 
 void TikzEditorView::goToLine(int lineNumber)
@@ -362,24 +345,42 @@ int TikzEditorView::lineNumber() const
 
 /***************************************************************************/
 
-void TikzEditorView::editIndent()
+void TikzEditorView::initIndentWidget()
 {
-	m_replaceWidget->setVisible(false);
-	m_replaceCurrentWidget->setVisible(false);
-	m_goToLineWidget->setVisible(false);
-	m_indentWidget->setUnindenting(false);
+	m_indentWidget = new IndentWidget(this);
+	layout()->addWidget(m_indentWidget);
+
+	connect(m_indentWidget, SIGNAL(hidden()),
+	        m_tikzEditor, SLOT(setFocus()));
+	connect(m_indentWidget, SIGNAL(indent(QChar,int,bool)),
+	        this, SLOT(indent(QChar,int,bool)));
+}
+
+void TikzEditorView::openIndentWidget()
+{
+	if (m_replaceWidget)
+	{
+		m_replaceWidget->setVisible(false);
+		m_replaceCurrentWidget->setVisible(false);
+	}
+	if (m_goToLineWidget)
+		m_goToLineWidget->setVisible(false);
+	if (!m_indentWidget)
+		initIndentWidget();
 	m_indentWidget->setVisible(true);
 	m_indentWidget->setFocus();
 }
 
+void TikzEditorView::editIndent()
+{
+	openIndentWidget();
+	m_indentWidget->setUnindenting(false);
+}
+
 void TikzEditorView::editUnindent()
 {
-	m_replaceWidget->setVisible(false);
-	m_replaceCurrentWidget->setVisible(false);
-	m_goToLineWidget->setVisible(false);
+	openIndentWidget();
 	m_indentWidget->setUnindenting(true);
-	m_indentWidget->setVisible(true);
-	m_indentWidget->setFocus();
 }
 
 void TikzEditorView::tabIndent(bool isUnindenting)
@@ -518,13 +519,48 @@ void TikzEditorView::editUncomment()
 
 /***************************************************************************/
 
-void TikzEditorView::editFind()
+void TikzEditorView::initReplaceWidgets()
 {
-	m_goToLineWidget->setVisible(false);
-	m_indentWidget->setVisible(false);
+	m_replaceWidget = new ReplaceWidget(this);
+	m_replaceCurrentWidget = new ReplaceCurrentWidget(this);
+	m_replaceCurrentWidget->setVisible(false);
+
+	layout()->addWidget(m_replaceWidget);
+	layout()->addWidget(m_replaceCurrentWidget);
+
+	connect(m_replaceWidget, SIGNAL(search(QString,QTextDocument::FindFlags)),
+	        this, SLOT(search(QString,QTextDocument::FindFlags)));
+	connect(m_replaceWidget, SIGNAL(replace(QString,QString,QTextDocument::FindFlags)),
+	        this, SLOT(replace(QString,QString,QTextDocument::FindFlags)));
+	connect(m_replaceWidget, SIGNAL(focusEditor()),
+	        m_tikzEditor, SLOT(setFocus()));
+
+	connect(m_replaceCurrentWidget, SIGNAL(hidden()),
+	        m_tikzEditor, SLOT(setFocus()));
+	connect(m_replaceCurrentWidget, SIGNAL(search()),
+	        this, SLOT(search()));
+	connect(m_replaceCurrentWidget, SIGNAL(replace()),
+	        this, SLOT(replace()));
+	connect(m_replaceCurrentWidget, SIGNAL(replaceAll()),
+	        this, SLOT(replaceAll()));
+}
+
+void TikzEditorView::openReplaceWidget()
+{
+	if (m_goToLineWidget)
+		m_goToLineWidget->setVisible(false);
+	if (m_indentWidget)
+		m_indentWidget->setVisible(false);
+	if (!m_replaceWidget)
+		initReplaceWidgets();
 	m_replaceCurrentWidget->setVisible(false);
 	m_replaceWidget->setVisible(true);
 	m_replaceWidget->setFocus();
+}
+
+void TikzEditorView::editFind()
+{
+	openReplaceWidget();
 	const QTextCursor textCursor = m_tikzEditor->textCursor();
 	if (textCursor.hasSelection())
 		m_replaceWidget->setText(textCursor.selectedText());
@@ -580,22 +616,14 @@ void TikzEditorView::search()
 
 void TikzEditorView::editFindNext()
 {
-	m_goToLineWidget->setVisible(false);
-	m_indentWidget->setVisible(false);
-	m_replaceCurrentWidget->setVisible(false);
-	m_replaceWidget->setVisible(true);
-	m_replaceWidget->setFocus();
+	openReplaceWidget();
 	m_replaceWidget->setForward(true);
 	m_replaceWidget->doFind();
 }
 
 void TikzEditorView::editFindPrevious()
 {
-	m_goToLineWidget->setVisible(false);
-	m_indentWidget->setVisible(false);
-	m_replaceCurrentWidget->setVisible(false);
-	m_replaceWidget->setVisible(true);
-	m_replaceWidget->setFocus();
+	openReplaceWidget();
 	m_replaceWidget->setForward(false);
 	m_replaceWidget->doFind();
 }
@@ -648,7 +676,7 @@ void TikzEditorView::replaceAll()
 		replace(m_replaceText);
 }
 
-void TikzEditorView::setCompleter(QCompleter *completer)
+void TikzEditorView::updateCompleter(bool useCompletion, const QStringList &words)
 {
-	m_tikzEditor->setCompleter(completer);
+	m_tikzEditor->updateCompleter(useCompletion, words);
 }

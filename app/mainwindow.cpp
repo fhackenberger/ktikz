@@ -39,7 +39,6 @@
 #endif
 
 #include <QtGui/QCloseEvent>
-#include <QtGui/QCompleter>
 #include <QtGui/QDesktopServices>
 #include <QtGui/QDockWidget>
 #include <QtGui/QLabel>
@@ -48,7 +47,6 @@
 #include <QtCore/QProcess>
 #include <QtGui/QPushButton>
 #include <QtCore/QSettings>
-#include <QtGui/QStringListModel>
 #include <QtCore/QTextStream>
 #include <QtGui/QToolBar>
 #include <QtGui/QToolButton>
@@ -84,7 +82,6 @@ MainWindow::MainWindow()
 	m_assistantController = new AssistantController;
 #endif
 	m_configDialog = 0;
-	m_completer = 0;
 	m_isModifiedExternally = false;
 
 	s_mainWindowList.append(this);
@@ -788,19 +785,7 @@ void MainWindow::applySettings()
 
 	settings.beginGroup("Editor");
 	m_useCompletion = settings.value("UseCompletion", true).toBool();
-	if (m_useCompletion)
-	{
-		if (!m_completer)
-			m_completer = new QCompleter(this);
-		updateCompleter();
-		m_tikzEditorView->setCompleter(m_completer);
-	}
-	else if (m_completer)
-	{
-		m_tikzEditorView->setCompleter(0); // do this before deleting m_completer because a signal is disconnected from m_completer
-		delete m_completer;
-		m_completer = 0;
-	}
+	updateCompleter();
 	settings.endGroup();
 
 	m_tikzHighlighter->applySettings();
@@ -1009,9 +994,5 @@ void MainWindow::updateCompleter()
 	words << m_userCommandInserter->getCommandWords();
 	words.sort();
 	words.removeDuplicates();
-	QStringListModel *model = new QStringListModel(words, m_completer);
-	m_completer->setModel(model);
-	m_completer->setModelSorting(QCompleter::CaseSensitivelySortedModel);
-	m_completer->setCaseSensitivity(Qt::CaseSensitive);
-	m_completer->setWrapAround(false);
+	m_tikzEditorView->updateCompleter(m_useCompletion, words);
 }

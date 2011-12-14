@@ -42,7 +42,7 @@ Url::Url() : QUrl()
 //}
 Url::Url(const QString &fileName) : QUrl()
 {
-	if (fileName.startsWith("file://"))
+	if (fileName.startsWith(QLatin1String("file://")))
 		setUrl(fileName);
 	else
 		setPath(fileName);

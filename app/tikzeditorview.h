@@ -24,7 +24,6 @@
 //#include "tikzcommandinserter.h"
 
 class QAction;
-class QCompleter;
 class QMenu;
 //class QSyntaxHighlighter;
 class QPlainTextEdit;
@@ -54,7 +53,7 @@ public:
 	void applySettings();
 	void setLine(const QString &line);
 	int lineNumber() const;
-	void setCompleter(QCompleter *completer);
+	void updateCompleter(bool useCompletion, const QStringList &words);
 
 public slots:
 	void goToLine(int lineNumber);
@@ -92,9 +91,13 @@ private slots:
 private:
 	void setFont(const QFont &editorFont);
 	void createActions();
+	void initGoToLineWidget();
 	void setLine(int lineNumber);
+	void initIndentWidget();
+	void openIndentWidget();
+	void initReplaceWidgets();
+	void openReplaceWidget();
 
-	QWidget *m_parentWidget;
 	TikzEditor *m_tikzEditor;
 	GoToLineWidget *m_goToLineWidget;
 	IndentWidget *m_indentWidget;

@@ -52,7 +52,7 @@ File::File(const Url &url, const OpenMode &mode)
 
 void File::load()
 {
-	m_errorString = QString();
+	m_errorString.clear();
 
 	if (!m_url.isValid())
 	{
@@ -95,7 +95,7 @@ bool File::open(const QFile::OpenMode &mode)
 {
 	if (m_openMode == WriteOnly)
 	{
-		m_errorString = QString();
+		m_errorString.clear();
 		return dynamic_cast<KSaveFile*>(m_file)->open(); // XXX cannot use qobject_cast because KSaveFile doesn't have the Q_OBJECT macro
 	}
 	else if (m_openMode == ReadOnly)
@@ -109,7 +109,7 @@ bool File::open(const QFile::OpenMode &mode)
 
 bool File::close()
 {
-	m_errorString = QString();
+	m_errorString.clear();
 
 	if (m_openMode == WriteOnly)
 	{
