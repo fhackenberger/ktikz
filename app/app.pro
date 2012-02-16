@@ -87,6 +87,7 @@ SOURCES += ../common/utils/action.cpp \
 	../common/tikzpreview.cpp \
 	../common/tikzpreviewcontroller.cpp \
 	../common/tikzpreviewgenerator.cpp \
+	../common/tikzpreviewmessagewidget.cpp \
 	../common/tikzpreviewrenderer.cpp
 HEADERS += $$headerFiles($$SOURCES) \
 	../common/mainwidget.h \

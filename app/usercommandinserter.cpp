@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Glad Deschrijver                                *
+ *   Copyright (C) 2011, 2012 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -19,11 +19,10 @@
 #include "usercommandinserter.h"
 
 #include <QtGui/QMenu>
-#include <QtGui/QPlainTextEdit>
 #include <QtCore/QPointer>
 #include <QtCore/QSettings>
-#include <QtGui/QTextCursor>
 
+#include "tikzcommandinserter.h"
 #include "usercommandeditdialog.h"
 
 static const QString s_completionPlaceHolder(0x2022);
@@ -31,8 +30,6 @@ static const QString s_completionPlaceHolder(0x2022);
 UserCommandInserter::UserCommandInserter(QWidget *parent)
 	: QObject(parent)
 {
-	m_parentWidget = parent;
-	m_mainTextEdit = 0;
 	m_userMenu = 0;
 	readSettings();
 }
@@ -41,7 +38,7 @@ void UserCommandInserter::readSettings()
 {
 	m_names.clear();
 	m_commands.clear();
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	const int size = settings.beginReadArray("UserCommands");
 	for (int i = 0; i < size; ++i)
 	{
@@ -55,14 +52,9 @@ void UserCommandInserter::readSettings()
 		updateMenu();
 }
 
-void UserCommandInserter::setEditor(QPlainTextEdit *textEdit)
-{
-	m_mainTextEdit = textEdit;
-}
-
 QMenu *UserCommandInserter::getMenu()
 {
-	m_userMenu = new QMenu(tr("&User snippets"), m_parentWidget);
+	m_userMenu = new QMenu(tr("&User snippets"), qobject_cast<QWidget*>(parent()));
 	updateMenu();
 	return m_userMenu;
 }
@@ -102,31 +94,15 @@ QStringList UserCommandInserter::getCommandWords()
 
 void UserCommandInserter::insertTag()
 {
-	Q_ASSERT_X(m_mainTextEdit, "insertTag", "define m_mainTextEdit using UserCommandInserter::setEditor()");
-
 	QAction *action = qobject_cast<QAction*>(sender());
 	if (!action)
 		return;
-
-	const QString command = m_commands.at(action->data().toInt());
-	QTextCursor textCursor = m_mainTextEdit->textCursor();
-	const int position = textCursor.position();
-
-	m_mainTextEdit->insertPlainText(command);
-
-	textCursor.setPosition(position, QTextCursor::MoveAnchor);
-	if (command.contains(s_completionPlaceHolder))
-	{
-		textCursor = m_mainTextEdit->document()->find(s_completionPlaceHolder, textCursor);
-		m_mainTextEdit->setTextCursor(textCursor);
-	}
-
-	m_mainTextEdit->setFocus();
+	emit insertTag(m_commands.at(action->data().toInt()));
 }
 
 void UserCommandInserter::editCommands()
 {
-	QPointer<UserCommandEditDialog> editDialog = new UserCommandEditDialog(m_parentWidget);
+	QPointer<UserCommandEditDialog> editDialog = new UserCommandEditDialog(qobject_cast<QWidget*>(parent()));
 	if (editDialog->exec())
 	{
 		readSettings();

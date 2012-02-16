@@ -7,6 +7,7 @@ TEMPLATE = subdirs
 CONFIG += warn_on \
           qt \
           thread
+#DEFINES += -Wold-style-cast -Wfloat-equal -Woverloaded-virtual -Wshadow -Wundef -Weffc++ -Wdouble-promotion
 
 include(qtikzconfig.pri)
 include(qtikzdefaults.pri)

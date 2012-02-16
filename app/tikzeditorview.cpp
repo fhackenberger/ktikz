@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -248,7 +248,7 @@ void TikzEditorView::setPasteEnabled()
 
 void TikzEditorView::applySettings()
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 
 	settings.beginGroup("Editor");
 	// set editor font
@@ -385,6 +385,8 @@ void TikzEditorView::editUnindent()
 
 void TikzEditorView::tabIndent(bool isUnindenting)
 {
+	if (!m_indentWidget) // make sure m_indentWidget exists before we use its members
+		initIndentWidget();
 	indent(m_indentWidget->insertChar(), m_indentWidget->numOfInserts(), isUnindenting);
 }
 

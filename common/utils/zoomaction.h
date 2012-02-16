@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2009, 2011, 2012 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -45,7 +45,6 @@ private slots:
 
 private:
 	void init();
-	QString formatZoomFactor(qreal zoomFactor) const;
 	void setCurrentZoomFactor(qreal newZoomFactor = 1);
 };
 

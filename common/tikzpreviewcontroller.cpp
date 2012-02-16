@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -400,8 +400,11 @@ void TikzPreviewController::generatePreview(TikzPreviewGenerator::TemplateStatus
 	if (templateStatus == TikzPreviewGenerator::ReloadTemplate) // old aux files may contain commands available in the old template, but not anymore in the new template
 		m_tempDir->cleanUp();
 
-	// the directory in which the pgf file is located is added to TEXINPUTS before running latex
+	// the directory in which the pgf file is located is added to TEXINPUTS (and the directory of the old pgf file is removed) before running latex
 	const QString currentFileName = m_mainWidget->url().path();
+	if (!m_currentFileName.isEmpty() && currentFileName != m_currentFileName)
+		m_tikzPreviewGenerator->removeFromLatexSearchPath(QFileInfo(m_currentFileName).absolutePath());
+	m_currentFileName = currentFileName;
 	if (!currentFileName.isEmpty())
 		m_tikzPreviewGenerator->addToLatexSearchPath(QFileInfo(currentFileName).absolutePath());
 
@@ -416,6 +419,11 @@ void TikzPreviewController::regeneratePreview()
 
 void TikzPreviewController::regeneratePreviewAfterDelay()
 {
+	if (tikzCode().isEmpty())
+	{
+		m_tikzPreview->pixmapUpdated(0); // clean up error messages in preview
+		emit updateLog("", false); // clean up error messages in log panel
+	}
 	// Each start cancels the previous one, this means that timeout() is only
 	// fired when there have been no changes in the text editor for the last
 	// s_minUpdateInterval msecs. This ensures that the preview is not
@@ -445,7 +453,7 @@ void TikzPreviewController::abortProcess()
 
 void TikzPreviewController::applySettings()
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	m_tikzPreviewGenerator->setLatexCommand(settings.value("LatexCommand", "pdflatex").toString());
 	m_tikzPreviewGenerator->setPdftopsCommand(settings.value("PdftopsCommand", "pdftops").toString());
 	const bool useShellEscaping = settings.value("UseShellEscaping", false).toBool();
@@ -488,7 +496,7 @@ void TikzPreviewController::setProcessRunning(bool isRunning)
 
 void TikzPreviewController::toggleShellEscaping(bool useShellEscaping)
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.setValue("UseShellEscaping", useShellEscaping);
 
 	m_tikzPreviewGenerator->setShellEscaping(useShellEscaping);

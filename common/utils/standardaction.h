@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Glad Deschrijver                                *
+ *   Copyright (C) 2009, 2012 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -19,16 +19,12 @@
 #ifndef KTIKZ_STANDARDACTION_H
 #define KTIKZ_STANDARDACTION_H
 
-#include "action.h"
-#include "recentfilesaction.h"
+class Action;
+class RecentFilesAction;
+class QObject;
 
 namespace StandardAction
 {
-#ifdef KTIKZ_USE_KDE
-Action *copyAction(KAction *action, const QObject *recvr, const char *slot);
-#else
-Action *createAction(int which, const QObject *recvr, const char *slot, QObject *parent);
-#endif
 Action *openNew(const QObject *recvr, const char *slot, QObject *parent);
 Action *open(const QObject *recvr, const char *slot, QObject *parent);
 RecentFilesAction *openRecent(const QObject *recvr, const char *slot, QObject *parent);

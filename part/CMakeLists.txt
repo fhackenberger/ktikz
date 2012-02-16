@@ -16,6 +16,7 @@ set(ktikzpart_SRCS
 	part.cpp
 	../common/templatewidget.cpp
 	../common/tikzpreview.cpp
+	../common/tikzpreviewmessagewidget.cpp
 	../common/tikzpreviewrenderer.cpp
 	../common/tikzpreviewcontroller.cpp
 	../common/tikzpreviewgenerator.cpp

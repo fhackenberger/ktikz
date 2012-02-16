@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2009, 2010, 2012 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -23,7 +23,7 @@
 
 QString TikzDocumentationController::tikzDocumentationPath()
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	QString tikzDocFile = settings.value("TikzDocumentation").toString();
 	const bool tikzDocFileInSettingsEmpty = tikzDocFile.isEmpty();
 
@@ -43,7 +43,7 @@ QString TikzDocumentationController::tikzDocumentationPath()
 
 void TikzDocumentationController::storeTikzDocumentationPath(const QString &path)
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.setValue("TikzDocumentation", path);
 }
 

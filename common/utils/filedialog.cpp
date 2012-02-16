@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009, 2010 by Glad Deschrijver                          *
+ *   Copyright (C) 2009, 2010, 2012 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -40,7 +40,7 @@ Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &d
  * \return a filter in Qt style
  */
 
-QString FileDialog::getParsedFilter(const QString &filter)
+static QString getParsedFilter(const QString &filter)
 {
 	QString parsedFilter;
 	if (filter.indexOf(QLatin1Char('/')) >= 0) // filter is a string like "text/x-pgf text/x-tex"
@@ -51,15 +51,15 @@ QString FileDialog::getParsedFilter(const QString &filter)
 			if (i > 0)
 				parsedFilter += ";;";
 			if (mimeTypeList.at(i) == "text/x-pgf")
-				parsedFilter += tr("PGF document", "filter") + " (*.pgf *.tikz)";
+				parsedFilter += QObject::tr("PGF document", "filter") + " (*.pgf *.tikz)";
 			else if (mimeTypeList.at(i) == "image/x-eps")
-				parsedFilter += tr("EPS image", "filter") + " (*.eps)";
+				parsedFilter += QObject::tr("EPS image", "filter") + " (*.eps)";
 			else if (mimeTypeList.at(i) == "application/pdf")
-				parsedFilter += tr("PDF document", "filter") + " (*.pdf)";
+				parsedFilter += QObject::tr("PDF document", "filter") + " (*.pdf)";
 			else if (mimeTypeList.at(i).startsWith(QLatin1String("image/")))
 			{
 				const QString mimeType = mimeTypeList.at(i).mid(6);
-				parsedFilter += tr("%1 image", "filter").arg(mimeType.toUpper()) + " (*." + mimeType + ')';
+				parsedFilter += QObject::tr("%1 image", "filter").arg(mimeType.toUpper()) + " (*." + mimeType + ')';
 			}
 		}
 	}
@@ -76,7 +76,7 @@ QString FileDialog::getParsedFilter(const QString &filter)
 	}
 	if (!parsedFilter.isEmpty())
 		parsedFilter += ";;";
-	parsedFilter += tr("All files", "filter") + " (*)";
+	parsedFilter += QObject::tr("All files", "filter") + " (*)";
 	return parsedFilter;
 }
 

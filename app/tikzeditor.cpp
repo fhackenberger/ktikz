@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   Bracket matching and white space showing code originally from         *
@@ -66,8 +66,9 @@ TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
 	m_oldNumOfLines = 0;
 	updateLineNumberAreaWidth();
 
-	const QColor lineColor(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::Base));
-	const QColor altLineColor(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::AlternateBase));
+	const QPalette standardPalette(QApplication::style()->standardPalette());
+	const QColor lineColor(standardPalette.color(QPalette::Normal, QPalette::Base));
+	const QColor altLineColor(standardPalette.color(QPalette::Normal, QPalette::AlternateBase));
 	if (lineColor == altLineColor)
 		m_highlightCurrentLineColor = lineColor.darker(105);
 	else
@@ -121,6 +122,8 @@ void TikzEditor::highlightCurrentLine()
 	m_previousHighlightedLine = rect;
 	m_oldVerticalScrollBarValue = verticalScrollBar()->value();
 }
+
+/***************************************************************************/
 
 void TikzEditor::matchBrackets()
 {
@@ -228,6 +231,8 @@ void TikzEditor::showMatchingBrackets()
 	}
 }
 
+/***************************************************************************/
+
 void TikzEditor::setShowWhiteSpaces(bool visible)
 {
 	m_showWhiteSpaces = visible;
@@ -260,14 +265,8 @@ void TikzEditor::setMatchingColor(const QColor &color)
 
 void TikzEditor::paintTabstop(QPainter &painter, qreal x, qreal y, int spaceWidth)
 {
-	QPen penBackup(painter.pen());
-	QPen pen(m_tabulatorsColor);
-	pen.setWidthF(qMax(qreal(0.5), spaceWidth * .1));
-	pen.setCapStyle(Qt::RoundCap);
-	painter.setPen(pen);
-
-	// FIXME: optimize for speed!
 	qreal dist = spaceWidth * 0.3;
+/*
 	QPointF points[8];
 	points[0] = QPointF(x - dist, y - dist);
 	points[1] = QPointF(x, y);
@@ -279,19 +278,22 @@ void TikzEditor::paintTabstop(QPainter &painter, qreal x, qreal y, int spaceWidt
 	points[6] = QPointF(x, y);
 	points[7] = QPointF(x - dist, y + dist);
 	painter.drawLines(points, 4);
-	painter.setPen(penBackup);
+*/
+	QPainterPath tabStopPath;
+	tabStopPath.moveTo(x - dist, y - dist);
+	tabStopPath.lineTo(x, y);
+	tabStopPath.lineTo(x - dist, y + dist);
+	x += spaceWidth / 3.0;
+	tabStopPath.moveTo(x - dist, y - dist);
+	tabStopPath.lineTo(x, y);
+	tabStopPath.lineTo(x - dist, y + dist);
+	painter.drawPath(tabStopPath);
 }
 
 void TikzEditor::paintSpace(QPainter &painter, qreal x, qreal y, int spaceWidth)
 {
-	QPen penBackup(painter.pen());
-	QPen pen(m_whiteSpacesColor);
-	pen.setWidthF(spaceWidth / 3.5);
-	pen.setCapStyle(Qt::RoundCap);
-	painter.setPen(pen);
-
+	Q_UNUSED(spaceWidth);
 	painter.drawPoint(QPointF(x, y));
-	painter.setPen(penBackup);
 }
 
 void TikzEditor::printWhiteSpaces(QPainter &painter)
@@ -301,9 +303,18 @@ void TikzEditor::printWhiteSpaces(QPainter &painter)
 	const int fontHeight = fontMetrics.height();
 	QTextCursor cursor = textCursor();
 
+	QPen backupPen(painter.pen());
+	QPen tabulatorsPen(m_tabulatorsColor);
+	tabulatorsPen.setWidthF(qMax(qreal(0.5), spaceWidth * .1));
+	tabulatorsPen.setCapStyle(Qt::RoundCap);
+	tabulatorsPen.setJoinStyle(Qt::RoundJoin);
+	QPen whiteSpacesPen(m_whiteSpacesColor);
+	whiteSpacesPen.setWidthF(spaceWidth / 3.5);
+	whiteSpacesPen.setCapStyle(Qt::RoundCap);
+
 	for (QTextBlock block = firstVisibleBlock(); block.isValid(); block = block.next())
 	{
-		if (blockBoundingGeometry(block).top() > viewport()->height())
+		if (blockBoundingGeometry(block).top() > viewport()->height()) // only paint white spaces in the visible part of the text
 			break;
 
 		const QString text = block.text();
@@ -317,12 +328,23 @@ void TikzEditor::printWhiteSpaces(QPainter &painter)
 //			const QFontMetrics fontMetrics = QFontMetrics(cursor.charFormat().font());
 
 			if (m_showWhiteSpaces && text.at(i) == ' ')
+			{
+				if (painter.pen() != whiteSpacesPen)
+					painter.setPen(whiteSpacesPen);
 				paintSpace(painter, rect.x() + spaceWidth / 2.0, rect.y() + fontHeight / 2.0, spaceWidth);
+			}
 			else if (m_showTabulators && text.at(i) == '\t')
+			{
+				if (painter.pen() != tabulatorsPen)
+					painter.setPen(tabulatorsPen);
 				paintTabstop(painter, rect.x() + spaceWidth / 2.0, rect.y() + fontHeight / 2.0, spaceWidth);
+			}
 		}
 	}
+	painter.setPen(backupPen);
 }
+
+/***************************************************************************/
 
 void TikzEditor::paintEvent(QPaintEvent *event)
 {
@@ -526,7 +548,7 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 //				cursor.movePosition(QTextCursor::StartOfWord);
 				cursor.movePosition(QTextCursor::Left, QTextCursor::MoveAnchor, m_completer->completionPrefix().length());
 				QRect rect = cursorRect(cursor);
-				rect.translate(5, 5);
+				rect.translate(5 + m_lineNumberArea->width(), 5); // reposition popup
 				rect.setWidth(m_completer->popup()->sizeHintForColumn(0)
 				              + m_completer->popup()->verticalScrollBar()->sizeHint().width());
 				m_completer->complete(rect); // show popup
@@ -625,11 +647,13 @@ void TikzEditor::toggleUserBookmark(int lineNumber)
 		if (m_userBookmarks.at(i) == lineNumber)
 		{
 			m_userBookmarks.removeAt(i);
+			m_lineNumberArea->update();
 			return;
 		}
 		else if (m_userBookmarks.at(i) > lineNumber)
 		{
 			m_userBookmarks.insert(i, lineNumber);
+			m_lineNumberArea->update();
 			return;
 		}
 	}
@@ -645,7 +669,7 @@ void TikzEditor::toggleUserBookmark()
 
 /*!
  * This functions returns the line number of the bookmark with index
- * which if which is a valid index, and returns -1 otherwise.
+ * 'which' if 'which' is a valid index, and returns -1 otherwise.
  */
 
 int TikzEditor::userBookmark(int which) const
@@ -678,6 +702,13 @@ void TikzEditor::nextUserBookmark()
 		}
 	}
 }
+
+/*!
+ * When lines are added or removed in the editor, this functions allows
+ * to recalculate the line numbers of the bookmarks and remove the bookmarks
+ * which were on removed lines. The line numbers of the remaining bookmarks
+ * are recalculated so that they still point to the correct text.
+ */
 
 void TikzEditor::recalculateBookmarks(int position)
 {

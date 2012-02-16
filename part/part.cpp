@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   Document watcher and reloader code copied from Okular KPart code      *
@@ -302,7 +302,7 @@ void Part::applySettings()
 	m_tikzPreviewController->applySettings();
 
 	// Watch File
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	bool watchFile = settings.value("WatchFile", true).toBool();
 	if (watchFile && m_watcher->isStopped())
 		m_watcher->startScan();

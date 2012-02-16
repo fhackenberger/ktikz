@@ -44,6 +44,7 @@
 	<file>icons/process-stop.png</file>
 	<file>icons/run-build.png</file>
 	<file>icons/application-x-executable.png</file>
+	<file>icons/dialog-error.png</file>
 	<!-- Configure -->
 	<file>icons/configure-toolbars.png</file>
 	<file>icons/configure.png</file>

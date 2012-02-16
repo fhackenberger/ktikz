@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009 by Glad Deschrijver                    *
+ *   Copyright (C) 2007, 2008, 2009, 2012 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -59,7 +59,7 @@ ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent)
 void ConfigAppearanceWidget::readSettings(const QString &settingsGroup)
 {
 	int num;
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup(settingsGroup);
 	m_custom = settings.value("Customize", true).toBool();
 	const int numOfRules = settings.value("Number", 0).toInt();
@@ -83,7 +83,7 @@ void ConfigAppearanceWidget::writeSettings(const QString &settingsGroup)
 {
 	m_custom = getCustomizationType();
 
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup(settingsGroup);
 	settings.setValue("Customize", m_custom);
 	if (m_custom)

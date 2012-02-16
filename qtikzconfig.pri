@@ -17,6 +17,9 @@ PREFIX = /usr
 # install data files (translation files, icons, example files) here:
 #RESOURCES_INSTALL_DIR = $${PREFIX}/share/qtikz
 
+# use icons from desktop theme in application if under KDE or Gnome (note: this leads to a slower startup)
+#DEFINES += KTIKZ_USE_DESKTOP_ICONS
+
 # install desktop file here (*nix only):
 #DESKTOP_INSTALL_DIR = $$(HOME)/.local/share/applications
 DESKTOP_INSTALL_DIR = $${PREFIX}/share/applications

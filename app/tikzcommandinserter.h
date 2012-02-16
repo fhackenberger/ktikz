@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2010, 2011 by Glad Deschrijver        *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver  *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -21,7 +21,6 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
-#include <QtCore/QXmlStreamReader>
 
 class QDockWidget;
 class QListWidget;
@@ -57,14 +56,17 @@ class TikzCommandInserter : public QObject
 public:
 	TikzCommandInserter(QWidget *parent = 0);
 
-	QStringList getCommandWords();
+	static void loadCommands();
+	static QStringList getCommandWords();
 	QMenu *getMenu();
 	QDockWidget *getDockWidget(QWidget *parent = 0);
+	static QMap<QString, QTextCharFormat> getDefaultHighlightFormats();
+	static QStringList getTranslatedHighlightTypeNames();
+	static QStringList getHighlightTypeNames();
+	static QVector<HighlightingRule> getHighlightingRules();
 	void setEditor(QPlainTextEdit *textEdit);
-	QMap<QString, QTextCharFormat> getDefaultHighlightFormats();
-	QStringList getTranslatedHighlightTypeNames();
-	QStringList getHighlightTypeNames();
-	QVector<HighlightingRule> getHighlightingRules();
+
+public slots:
 	void insertTag(const QString &tag, int dx = 0, int dy = 0);
 
 signals:
@@ -76,27 +78,21 @@ signals:
 	 */
 	void showStatusMessage(const QString &message, int timeout = 0);
 
-private:
-	void getCommands();
-	TikzCommandList getChildCommands();
-	QMenu *getMenu(const TikzCommandList &commandList);
-	void addListWidgetItems(QListWidget *listWidget, const TikzCommandList &commandList, bool addChildren = true);
-	TikzCommand newCommand(const QString &name, const QString &command, int dx, int dy, int type = 0);
-	TikzCommand newCommand(const QString &name, const QString &description, const QString &command, const QString &highlightString, int dx, int dy, int type = 0);
-
-	QPlainTextEdit *m_mainEdit;
-	QWidget *m_parentWidget;
-	QXmlStreamReader xml;
-	TikzCommandList m_tikzSections;
-	QList<TikzCommand> m_tikzCommandsList;
-
-	QStringList highlightTypeNames;
-
 private slots:
 	void updateDescriptionMenuItem();
 	void setListStatusTip(QListWidgetItem *item);
 	void insertTag();
 	void insertTag(QListWidgetItem *item);
+
+private:
+	QMenu *getMenu(const TikzCommandList &commandList, QWidget *parent);
+	void addListWidgetItems(QListWidget *listWidget, const TikzCommandList &commandList, bool addChildren = true);
+
+	QPlainTextEdit *m_mainEdit;
+	static TikzCommandList m_tikzSections;
+	static QList<TikzCommand> m_tikzCommandsList;
+
+//	QStringList m_highlightTypeNames;
 };
 
 #endif

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009 by Glad Deschrijver                          *
+ *   Copyright (C) 2008, 2009, 2012 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -31,7 +31,7 @@ ConfigEditorWidget::ConfigEditorWidget(QWidget *parent)
 
 void ConfigEditorWidget::readSettings(const QString &settingsGroup)
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup(settingsGroup);
 	ui.showLineNumberAreaCheck->setChecked(settings.value("ShowLineNumberArea", true).toBool());
 	m_generalFont.fromString(settings.value("Font", qApp->font().toString()).toString());
@@ -49,7 +49,7 @@ void ConfigEditorWidget::readSettings(const QString &settingsGroup)
 
 void ConfigEditorWidget::writeSettings(const QString &settingsGroup)
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup(settingsGroup);
 	settings.setValue("ShowLineNumberArea", ui.showLineNumberAreaCheck->isChecked());
 	settings.setValue("Font", m_generalFont.toString());

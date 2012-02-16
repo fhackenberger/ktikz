@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2010, 2011 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2010, 2011, 2012 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -72,7 +72,7 @@ QWidget *TemplateWidget::lastTabOrderWidget()
 
 void TemplateWidget::readRecentTemplates()
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	ui.templateCombo->setMaxCount(settings.value("TemplateRecentNumber", 10).toInt());
 	const QStringList templateRecentList = settings.value("TemplateRecent").toStringList();
 	ui.templateCombo->addItems(templateRecentList);
@@ -82,7 +82,7 @@ void TemplateWidget::readRecentTemplates()
 
 void TemplateWidget::saveRecentTemplates()
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	QStringList recentTemplates;
 	for (int i = 0; i < ui.templateCombo->count(); ++i)
 		recentTemplates << ui.templateCombo->itemText(i);
@@ -148,7 +148,7 @@ void TemplateWidget::selectTemplateFile()
 	const Url url = FileDialog::getOpenUrl(this,
 	                                       tr("Select a template file"), Url(currentFileName),
 	                                       QString("*.pgs *.tex|%1\n*|%2")
-	                                       .arg(tr("%1 template files").arg(APPNAME))
+	                                       .arg(tr("%1 template files").arg(QCoreApplication::applicationName()))
 	                                       .arg(tr("All files")));
 	if (url.isValid())
 		setFileName(url.pathOrUrl());

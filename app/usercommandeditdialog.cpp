@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Glad Deschrijver                                *
+ *   Copyright (C) 2011, 2012 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -43,7 +43,7 @@ UserCommandEditDialog::UserCommandEditDialog(QWidget *parent)
 void UserCommandEditDialog::readSettings()
 {
 	disconnect(ui.comboBoxItem, SIGNAL(currentIndexChanged(int)), this, SLOT(changeItem(int)));
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	int size = settings.beginReadArray("UserCommands");
 	ui.comboBoxItem->clear();
 	for (int i = 0; i < size; ++i)
@@ -77,7 +77,7 @@ void UserCommandEditDialog::writeSettings()
 		m_commands[m_oldIndex] = ui.textEditContent->toPlainText();
 	}
 
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginWriteArray("UserCommands");
 	settings.remove(""); // remove old entries (especially useful when the number of entries decreases)
 	for (int i = 0; i < m_names.size(); ++i)

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -66,7 +66,7 @@ ConfigGeneralWidget::~ConfigGeneralWidget()
 
 void ConfigGeneralWidget::readSettings(const QString &settingsGroup)
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup(settingsGroup);
 #ifndef KTIKZ_USE_KDE
 	ui.historyLengthSpinBox->setValue(settings.value("RecentFilesNumber", 10).toInt());
@@ -104,7 +104,7 @@ void ConfigGeneralWidget::readSettings(const QString &settingsGroup)
 
 void ConfigGeneralWidget::writeSettings(const QString &settingsGroup)
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup(settingsGroup);
 #ifndef KTIKZ_USE_KDE
 	settings.setValue("RecentFilesNumber", ui.historyLengthSpinBox->value());

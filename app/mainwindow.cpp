@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2012 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -48,6 +48,7 @@
 #include <QtGui/QPushButton>
 #include <QtCore/QSettings>
 #include <QtCore/QTextStream>
+#include <QtCore/QTimer>
 #include <QtGui/QToolBar>
 #include <QtGui/QToolButton>
 #include <QtGui/QVBoxLayout>
@@ -77,9 +78,10 @@ QList<MainWindow*> MainWindow::s_mainWindowList;
 
 MainWindow::MainWindow()
 {
+QTime t = QTime::currentTime();
 #ifndef KTIKZ_USE_KDE
 	m_aboutDialog = 0;
-	m_assistantController = new AssistantController;
+	m_assistantController = 0;
 #endif
 	m_configDialog = 0;
 	m_isModifiedExternally = false;
@@ -109,14 +111,10 @@ MainWindow::MainWindow()
 	setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
 	m_tikzPreviewController = new TikzPreviewController(this);
-
 	m_tikzEditorView = new TikzEditorView(this);
 	m_commandInserter = new TikzCommandInserter(this);
-	m_commandInserter->setEditor(m_tikzEditorView->editor());
-	m_tikzHighlighter = new TikzHighlighter(m_commandInserter, m_tikzEditorView->editor()->document());
-	m_tikzHighlighter->rehighlight(); // avoid that textEdit emits the signal contentsChanged() when it is still empty
+	m_tikzHighlighter = new TikzHighlighter(m_tikzEditorView->editor()->document());
 	m_userCommandInserter = new UserCommandInserter(this);
-	m_userCommandInserter->setEditor(m_tikzEditorView->editor());
 
 	QWidget *mainWidget = new QWidget(this);
 	QVBoxLayout *mainLayout = new QVBoxLayout(mainWidget);
@@ -192,18 +190,14 @@ MainWindow::MainWindow()
 
 	readSettings(); // must be run after defining tikzController and tikzHighlighter, and after creating the toolbars, and after the connects
 
-	// the following connects must happen after readSettings() because otherwise in that function the following signals would be unnecessarily triggered
-	if (m_buildAutomatically)
-		connect(m_tikzEditorView, SIGNAL(contentsChanged()),
-		        m_tikzPreviewController, SLOT(regeneratePreviewAfterDelay()));
-
-	if (m_tikzPreviewController->tempDir().isEmpty()) // then the temporary directory could not be created
-		m_logTextEdit->updateLog(tr("Error: unable to create a temporary directory in \"%1\". This program will not work!").arg(m_tikzPreviewController->tempDirLocation()), true);
-
 	setCurrentUrl(Url());
 	setDocumentModified(false);
 	saveLastInternalModifiedDateTime();
 	m_tikzEditorView->editor()->setFocus();
+
+	// delayed initialization
+	QTimer::singleShot(0, this, SLOT(init()));
+qCritical() << t.msecsTo(QTime::currentTime());
 }
 
 MainWindow::~MainWindow()
@@ -213,11 +207,39 @@ MainWindow::~MainWindow()
 	writeSettings();
 
 #ifndef KTIKZ_USE_KDE
-	delete m_assistantController;
+	if (m_aboutDialog)
+		delete m_aboutDialog;
+	if (m_assistantController)
+		delete m_assistantController;
 #endif
 
 	delete m_tikzPreviewController;
 	m_tikzHighlighter->deleteLater();
+}
+
+void MainWindow::init()
+{
+QTime t = QTime::currentTime();
+	TikzCommandInserter::loadCommands();
+	m_commandInserter->setEditor(m_tikzEditorView->editor());
+	m_insertAction->setMenu(m_commandInserter->getMenu());
+	m_tikzHighlighter->setHighlightingRules(m_commandInserter->getHighlightingRules());
+//	m_tikzHighlighter->rehighlight(); // avoid that textEdit emits the signal contentsChanged() when it is still empty
+	connect(m_userCommandInserter, SIGNAL(insertTag(QString)), m_commandInserter, SLOT(insertTag(QString)));
+
+	// the following disconnect ensures that the following signal is not unnecessarily triggered twice when a file is loaded in a new window
+	disconnect(m_tikzEditorView, SIGNAL(contentsChanged()),
+	           m_tikzPreviewController, SLOT(regeneratePreviewAfterDelay()));
+
+	applySettings(); // must do this in order to load the command completions
+
+	if (m_buildAutomatically)
+		connect(m_tikzEditorView, SIGNAL(contentsChanged()),
+		        m_tikzPreviewController, SLOT(regeneratePreviewAfterDelay()));
+
+	if (m_tikzPreviewController->tempDir().isEmpty()) // then the temporary directory could not be created
+		m_logTextEdit->updateLog(tr("Error: unable to create a temporary directory in \"%1\". This program will not work!").arg(m_tikzPreviewController->tempDirLocation()), true);
+qCritical() << t.msecsTo(QTime::currentTime());
 }
 
 QWidget *MainWindow::widget()
@@ -420,6 +442,8 @@ void MainWindow::about()
 
 void MainWindow::showDocumentation()
 {
+	if (!m_assistantController)
+		m_assistantController = new AssistantController;
 	m_assistantController->showDocumentation();
 }
 #endif
@@ -644,7 +668,7 @@ void MainWindow::createToolBars()
 
 void MainWindow::setToolBarStyle()
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup("MainWindow");
 
 	int toolBarStyleNumber = settings.value("ToolBarStyle", 0).toInt();
@@ -676,7 +700,7 @@ void MainWindow::setToolBarStyle()
 void MainWindow::createCommandInsertWidget()
 {
 	// insert global commands widget
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	bool commandsInDock = settings.value("CommandsInDock", false).toBool();
 
 	if (commandsInDock)
@@ -693,12 +717,9 @@ void MainWindow::createCommandInsertWidget()
 	}
 	else
 	{
-#ifdef KTIKZ_USE_KDE
-		QMenu *insertMenu = m_commandInserter->getMenu();
-		KAction *insertAction = new Action(insertMenu->title(), this, "insert");
-		insertAction->setMenu(insertMenu);
-#else
-		menuBar()->insertMenu(m_settingsMenu->menuAction(), m_commandInserter->getMenu());
+		m_insertAction = new Action(tr("&Insert"), this, "insert");
+#ifndef KTIKZ_USE_KDE
+		menuBar()->insertAction(m_settingsMenu->menuAction(), m_insertAction);
 #endif
 	}
 
@@ -754,9 +775,9 @@ void MainWindow::configure()
 	if (!m_configDialog)
 	{
 		m_configDialog = new ConfigDialog(this);
-		m_configDialog->setTranslatedHighlightTypeNames(m_tikzHighlighter->getTranslatedHighlightTypeNames());
-		m_configDialog->setHighlightTypeNames(m_tikzHighlighter->getHighlightTypeNames());
-		m_configDialog->setDefaultHighlightFormats(m_tikzHighlighter->getDefaultHighlightFormats());
+		m_configDialog->setTranslatedHighlightTypeNames(TikzHighlighter::getTranslatedHighlightTypeNames());
+		m_configDialog->setHighlightTypeNames(TikzHighlighter::getHighlightTypeNames());
+		m_configDialog->setDefaultHighlightFormats(TikzHighlighter::getDefaultHighlightFormats());
 		connect(m_configDialog, SIGNAL(settingsChanged()), this, SLOT(applySettings()));
 	}
 	disconnect(m_tikzEditorView, SIGNAL(contentsChanged()),
@@ -770,7 +791,7 @@ void MainWindow::configure()
 
 void MainWindow::applySettings()
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 
 	m_tikzEditorView->applySettings();
 	m_tikzPreviewController->applySettings();
@@ -801,21 +822,27 @@ void MainWindow::readSettings()
 {
 	m_openRecentAction->loadEntries();
 
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup("MainWindow");
 	QSize size = settings.value("size", QSize(800, 600)).toSize();
 	resize(size);
 	restoreState(settings.value("MainWindowState").toByteArray());
 	settings.endGroup();
 
-	applySettings();
+	// still do the following (see applySettings()) here in order to avoid flicker in the toolbar
+	m_buildAutomatically = settings.value("BuildAutomatically", true).toBool();
+	m_buildAction->setVisible(!m_buildAutomatically);
+	// still do the following here in order to avoid a crash when a file is opened in a new window
+	m_openRecentAction->createRecentFilesList();
+	// still do this here, otherwise the compilation fails when a file is loaded in a new window
+	m_tikzPreviewController->applySettings();
 }
 
 void MainWindow::writeSettings()
 {
 	m_openRecentAction->saveEntries();
 
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup("MainWindow");
 	settings.setValue("size", size());
 	settings.setValue("MainWindowState", QMainWindow::saveState());

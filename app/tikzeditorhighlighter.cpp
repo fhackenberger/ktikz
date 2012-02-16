@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2007, 2011, 2012 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -25,83 +25,84 @@
 
 #include "tikzcommandinserter.h"
 
-TikzHighlighter::TikzHighlighter(TikzCommandInserter *commandInserter, QTextDocument *parent)
+TikzHighlighter::TikzHighlighter(QTextDocument *parent)
 	: QSyntaxHighlighter(parent)
 {
-	m_commandInserter = commandInserter;
-
-	if (commandInserter)
-	{
-		m_highlightingRules << commandInserter->getHighlightingRules();
-		m_highlightTypeNames << commandInserter->getHighlightTypeNames();
-	}
-
-	// add highlighting for environments and comments
-	HighlightingRule rule;
-	const int currentIndex = m_highlightTypeNames.size();
-	m_highlightTypeNames << "Environments" << "Comments";
-	// environments
-	QStringList keywordPatterns;
-	keywordPatterns << "\\\\begin\\{[^\\}]*\\}" << "\\\\end\\{[^\\}]*\\}";
-	foreach (const QString &pattern, keywordPatterns)
-	{
-		rule.type = m_highlightTypeNames.at(currentIndex);
-		rule.pattern = QRegExp(pattern);
-		m_highlightingRules.append(rule);
-	}
-	// comments
-	rule.type = m_highlightTypeNames.at(currentIndex + 1);
-	rule.pattern = QRegExp("%[^\n]*");
-	m_highlightingRules.append(rule);
-
-	m_formatList = getDefaultHighlightFormats();
 }
 
 TikzHighlighter::~TikzHighlighter()
 {
 }
 
+void TikzHighlighter::setHighlightingRules(const QVector<HighlightingRule> &highlightingRules)
+{
+	m_highlightingRules << highlightingRules;
+
+	// add highlighting for environments and comments
+	HighlightingRule rule;
+	QStringList highlightTypeNames = getHighlightTypeNames();
+	const int currentIndex = highlightTypeNames.size() - 2;
+	// environments
+	QStringList keywordPatterns;
+	keywordPatterns << "\\\\begin\\{[^\\}]*\\}" << "\\\\end\\{[^\\}]*\\}";
+	foreach (const QString &pattern, keywordPatterns)
+	{
+		rule.type = highlightTypeNames.at(currentIndex);
+		rule.pattern = QRegExp(pattern);
+		m_highlightingRules.append(rule);
+	}
+	// comments
+	rule.type = highlightTypeNames.at(currentIndex + 1);
+	rule.pattern = QRegExp("%[^\n]*");
+	m_highlightingRules.append(rule);
+
+//	m_formatList = getDefaultHighlightFormats();
+}
+
+/***************************************************************************/
+
 QMap<QString, QTextCharFormat> TikzHighlighter::getDefaultHighlightFormats()
 {
-	QMap<QString, QTextCharFormat> formatList;
-	if (m_commandInserter)
-		formatList = m_commandInserter->getDefaultHighlightFormats();
-	const int currentIndex = m_highlightTypeNames.size() - 2;
+	QMap<QString, QTextCharFormat> formatList = TikzCommandInserter::getDefaultHighlightFormats();
+	QStringList highlightTypeNames = getHighlightTypeNames();
+	const int currentIndex = highlightTypeNames.size() - 2;
 
 	// format for environments
 	QTextCharFormat keywordFormat;
 	keywordFormat.setForeground(Qt::darkBlue);
 	keywordFormat.setFont(qApp->font());
 	keywordFormat.setFontWeight(QFont::Bold);
-	formatList[m_highlightTypeNames.at(currentIndex)] = keywordFormat;
+	formatList[highlightTypeNames.at(currentIndex)] = keywordFormat;
 
 	// format for comments
 	QTextCharFormat commentFormat;
 	commentFormat.setForeground(Qt::gray);
 	commentFormat.setFont(qApp->font());
 	commentFormat.setFontWeight(QFont::Normal);
-	formatList[m_highlightTypeNames.at(currentIndex + 1)] = commentFormat;
+	formatList[highlightTypeNames.at(currentIndex + 1)] = commentFormat;
 
 	return formatList;
 }
 
 QStringList TikzHighlighter::getTranslatedHighlightTypeNames()
 {
-	QStringList translatedHighlightTypeNames;
-	if (m_commandInserter)
-		translatedHighlightTypeNames = m_commandInserter->getTranslatedHighlightTypeNames();
+	QStringList translatedHighlightTypeNames = TikzCommandInserter::getTranslatedHighlightTypeNames();
 	translatedHighlightTypeNames << tr("Environments") << tr("Comments");
 	return translatedHighlightTypeNames;
 }
 
 QStringList TikzHighlighter::getHighlightTypeNames()
 {
-	return m_highlightTypeNames;
+	QStringList highlightTypeNames = TikzCommandInserter::getHighlightTypeNames();
+	highlightTypeNames << "Environments" << "Comments";
+	return highlightTypeNames;
 }
+
+/***************************************************************************/
 
 void TikzHighlighter::applySettings()
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup("Highlighting");
 	const bool customHighlighting = settings.value("Customize", true).toBool();
 

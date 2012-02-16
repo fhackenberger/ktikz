@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Glad Deschrijver                                *
+ *   Copyright (C) 2009, 2012 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -35,8 +35,11 @@ public:
 class Icon : public QIcon
 {
 public:
+#ifdef KTIKZ_USE_DESKTOP_ICONS
 	Icon(const QString &iconName) : QIcon(QIcon::fromTheme(iconName, QIcon(":/icons/" + iconName + ".png"))) {}
-//	Icon(const QString &iconName) : QIcon(":/icons/" + iconName + ".png") {} // faster than the above
+#else
+	Icon(const QString &iconName) : QIcon(":/icons/" + iconName + ".png") {} // faster than the above
+#endif
 	Icon(const QIcon &copy) : QIcon(copy) {}
 	Icon() : QIcon() {}
 };

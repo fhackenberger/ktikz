@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010, 2011 by Glad Deschrijver              *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -111,6 +111,7 @@ private:
 	ToggleAction *m_shellEscapeAction;
 
 	TempDir *m_tempDir;
+	QString m_currentFileName;
 };
 
 #endif

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009, 2010, 2011 by Glad Deschrijver                    *
+ *   Copyright (C) 2009, 2010, 2011, 2012 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -73,7 +73,7 @@ void KtikzApplication::init()
 {
 	if (isSessionRestored())
 	{
-		QSettings settings(ORGNAME, APPNAME);
+		QSettings settings;
 		settings.beginGroup("Session" + sessionId());
 		const int size = settings.beginReadArray("MainWindowList");
 		for (int i = 0; i < size; ++i)
@@ -160,7 +160,7 @@ void KtikzApplication::saveState(QSessionManager &manager)
 	discard << QLatin1String("--discard") << sessionId();
 	manager.setDiscardCommand(discard); // this lets xsm hang, but it works in real session management in KDE Plasma
 
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup("Session" + sessionId());
 	settings.beginWriteArray("MainWindowList");
 	for (int i = 0; i < mainWindowList.size(); ++i)

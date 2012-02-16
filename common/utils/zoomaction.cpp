@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2009, 2011, 2012 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -67,7 +67,7 @@ qreal ZoomAction::maxZoomFactor() const
 	return s_maxZoomFactor;
 }
 
-QString ZoomAction::formatZoomFactor(qreal zoomFactor) const
+static QString formatZoomFactor(qreal zoomFactor)
 {
 	QString zoomFactorText = GlobalLocale::formatNumber(zoomFactor, 2);
 	const QString decimalSymbol = GlobalLocale::decimalSymbol();

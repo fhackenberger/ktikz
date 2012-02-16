@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Glad Deschrijver                                *
+ *   Copyright (C) 2011, 2012 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -23,7 +23,6 @@
 #include <QtCore/QStringList>
 
 class QMenu;
-class QPlainTextEdit;
 
 class UserCommandInserter : public QObject
 {
@@ -33,12 +32,12 @@ public:
 	UserCommandInserter(QWidget *parent = 0);
 
 	void readSettings();
-	void setEditor(QPlainTextEdit *textEdit);
 	QMenu *getMenu();
 	QStringList getCommandWords();
 
 signals:
 	void updateCompleter();
+	void insertTag(const QString &tag);
 
 private slots:
 	void insertTag();
@@ -47,9 +46,7 @@ private slots:
 private:
 	void updateMenu();
 
-	QWidget *m_parentWidget;
 	QMenu *m_userMenu;
-	QPlainTextEdit *m_mainTextEdit;
 	QStringList m_names;
 	QStringList m_commands;
 };

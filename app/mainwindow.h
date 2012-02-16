@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007, 2008, 2009, 2010 by Glad Deschrijver              *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2012 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -100,6 +100,7 @@ protected:
 	void closeEvent(QCloseEvent *event);
 
 private slots:
+	void init();
 	void checkForFileChanges(const FileCheckMoment &moment = FocusIn);
 	void saveLastInternalModifiedDateTime();
 	void setDockWidgetStatusTip(bool enabled);
@@ -185,6 +186,7 @@ private:
 	QAction *m_exitAction;
 	QAction *m_procStopAction;
 	Action *m_buildAction;
+	Action *m_insertAction;
 	QAction *m_viewLogAction;
 	QAction *m_shellEscapeAction;
 	QAction *m_configureAction;

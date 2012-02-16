@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2010, 2011 by Glad Deschrijver        *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver  *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -28,6 +28,7 @@
 #include <QtGui/QPlainTextEdit>
 #include <QtGui/QStackedWidget>
 #include <QtGui/QTextCursor>
+#include <QtCore/QXmlStreamReader>
 
 #include "tikzeditorhighlighter.h"
 #include "tikzcommandwidget.h"
@@ -35,42 +36,43 @@
 
 static const QString s_completionPlaceHolder(0x2022);
 
+TikzCommandList TikzCommandInserter::m_tikzSections;
+QList<TikzCommand> TikzCommandInserter::m_tikzCommandsList;
+
 TikzCommandInserter::TikzCommandInserter(QWidget *parent)
 	: QObject(parent)
 {
-	m_parentWidget = parent;
-
-	getCommands();
-
-	highlightTypeNames << "Commands" << "Draw to" << "Options";
 }
 
-void TikzCommandInserter::getCommands()
+/***************************************************************************/
+
+static TikzCommand newCommand(const QString &name,
+        const QString &description, const QString &command,
+        const QString &highlightString, int dx, int dy, int type)
 {
-	QFile tagsFile(":/tikzcommands.xml");
-	if (!tagsFile.open(QFile::ReadOnly))
-		return;
+	// type:
+	//   0: plain text
+	//   1: command
+	//   2: draw to next point
+	//   3: option
+	TikzCommand tikzCommand;
+	tikzCommand.name = name;
+	tikzCommand.description = description;
+	tikzCommand.command = command;
+	tikzCommand.highlightString = highlightString;
+	tikzCommand.dx = dx;
+	tikzCommand.dy = dy;
+	tikzCommand.type = type;
 
-	QApplication::setOverrideCursor(Qt::WaitCursor);
-	xml.setDevice(&tagsFile);
-	if (xml.readNextStartElement())
-	{
-		if (xml.name() == "tikzcommands")
-			m_tikzSections = getChildCommands();
-		else
-			xml.raiseError(tr("Cannot parse the TikZ commands file."));
-	}
-	if (xml.error()) // this should never happen in a final release because tikzcommands.xml is built in the binary
-		qCritical("Parse error in TikZ commands file at line %d, column %d:\n%s", (int)xml.lineNumber(), (int)xml.columnNumber(), qPrintable(xml.errorString()));
-	QApplication::restoreOverrideCursor();
+	return tikzCommand;
 }
 
-TikzCommandList TikzCommandInserter::getChildCommands()
+static TikzCommandList getChildCommands(QXmlStreamReader *xml, QList<TikzCommand> *tikzCommandsList)
 {
 	TikzCommandList commandList;
 	QList<TikzCommand> commands;
 
-	commandList.title = tr(xml.attributes().value("title").toString().toLatin1().data());
+	commandList.title = QObject::tr(xml->attributes().value("title").toString().toLatin1().data());
 
 	QString name;
 	QString description;
@@ -80,15 +82,15 @@ TikzCommandList TikzCommandInserter::getChildCommands()
 	QRegExp newLineRegExp("([^\\\\])\\\\n"); // newlines are the "\n" not preceded by a backslash as in "\\node"
 	QRegExp descriptionRegExp("<([^<>]*)>"); // descriptions are between < and >
 
-	while (xml.readNextStartElement())
+	while (xml->readNextStartElement())
 	{
-		if (xml.name() == "item")
+		if (xml->name() == "item")
 		{
-			name = tr(xml.attributes().value("name").toString().toLatin1().data());
-			description = xml.attributes().value("description").toString();
-			insertion = xml.attributes().value("insert").toString();
-			highlightString = xml.attributes().value("highlight").toString();
-			type = xml.attributes().value("type").toString();
+			name = QObject::tr(xml->attributes().value("name").toString().toLatin1().data());
+			description = xml->attributes().value("description").toString();
+			insertion = xml->attributes().value("insert").toString();
+			highlightString = xml->attributes().value("highlight").toString();
+			type = xml->attributes().value("type").toString();
 
 			if (description.contains(QLatin1String("\\n"))) // minimize the number of uses of QRegExp
 			{
@@ -105,7 +107,7 @@ TikzCommandList TikzCommandInserter::getChildCommands()
 				tempDescription += description.midRef(oldPos, pos - oldPos + 1);
 				if (pos >= 0)
 				{
-					tempDescription += tr(descriptionRegExp.cap(1).toLatin1().data());
+					tempDescription += QObject::tr(descriptionRegExp.cap(1).toLatin1().data());
 					pos += descriptionRegExp.matchedLength() - 1;
 				}
 			}
@@ -131,26 +133,63 @@ TikzCommandList TikzCommandInserter::getChildCommands()
 			if (type.isEmpty())
 				type = '0';
 
-			commands << newCommand(name, description, insertion, highlightString, xml.attributes().value("dx").toString().toInt(), xml.attributes().value("dy").toString().toInt(), type.toInt());
-			xml.skipCurrentElement(); // allow to read the next start element on the same level: this skips reading the current end element which would cause xml.readNextStartElement() to evaluate to false
+			TikzCommand tikzCommand = newCommand(name, description, insertion, highlightString, xml->attributes().value("dx").toString().toInt(), xml->attributes().value("dy").toString().toInt(), type.toInt());
+			tikzCommand.number = tikzCommandsList->size();
+			tikzCommandsList->append(tikzCommand);
+			commands << tikzCommand;
+			xml->skipCurrentElement(); // allow to read the next start element on the same level: this skips reading the current end element which would cause xml.readNextStartElement() to evaluate to false
 		}
-		else if (xml.name() == "separator")
+		else if (xml->name() == "separator")
 		{
 			commands << newCommand("", "", "", "", 0, 0, 0);
-			xml.skipCurrentElement(); // same as above
+			xml->skipCurrentElement(); // same as above
 		}
-		else if (xml.name() == "section")
+		else if (xml->name() == "section")
 		{
 			commands << newCommand("", "", "", "", 0, 0, -1); // the i-th command with type == -1 corresponds to the i-th submenu (assumed in getMenu())
-			commandList.children << getChildCommands();
+			commandList.children << getChildCommands(xml, tikzCommandsList);
 		}
 		else
-			xml.skipCurrentElement();
+			xml->skipCurrentElement();
 	}
 	commandList.commands = commands;
 
 	return commandList;
 }
+
+static TikzCommandList getCommands(QXmlStreamReader *xml, QList<TikzCommand> *tikzCommandsList)
+{
+	TikzCommandList commandList;
+
+	QFile tagsFile(":/tikzcommands.xml");
+	if (!tagsFile.open(QFile::ReadOnly))
+		return commandList;
+
+	xml->setDevice(&tagsFile);
+	if (xml->readNextStartElement())
+	{
+		if (xml->name() == "tikzcommands")
+			commandList = getChildCommands(xml, tikzCommandsList);
+		else
+			xml->raiseError(QObject::tr("Cannot parse the TikZ commands file."));
+	}
+	if (xml->error()) // this should never happen in a final release because tikzcommands.xml is built in the binary
+		qCritical("Parse error in TikZ commands file at line %d, column %d:\n%s", (int)xml->lineNumber(), (int)xml->columnNumber(), qPrintable(xml->errorString()));
+	return commandList;
+}
+
+void TikzCommandInserter::loadCommands()
+{
+	if (!m_tikzSections.commands.isEmpty())
+		return; // don't load the commands again when opening a second window
+
+	QApplication::setOverrideCursor(Qt::WaitCursor);
+	QXmlStreamReader xml;
+	m_tikzSections = getCommands(&xml, &m_tikzCommandsList);
+	QApplication::restoreOverrideCursor();
+}
+
+/***************************************************************************/
 
 QStringList TikzCommandInserter::getCommandWords()
 {
@@ -208,14 +247,15 @@ void TikzCommandInserter::updateDescriptionMenuItem()
 	}
 }
 
-QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList)
+QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList, QWidget *parent)
 {
-	QMenu *menu = new QMenu(commandList.title, m_parentWidget);
+	QMenu *menu = new QMenu(commandList.title, parent);
 	const int numOfCommands = commandList.commands.size();
-	QAction *action = new QAction("test", menu);
+	QAction *action;
 	int whichSection = 0;
 
 	// get left margin of the menu (to be added to the minimum width of the menu)
+	action = new QAction("test", menu);
 	menu->addAction(action);
 	QFont actionFont = action->font();
 	actionFont.setPointSize(actionFont.pointSize() - 1);
@@ -237,7 +277,7 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList)
 			}
 			else // type == -1, so add submenu; this assumes that the i-th command with type == -1 corresponds with the i-th submenu (see getCommands())
 			{
-				menu->addMenu(getMenu(commandList.children.at(whichSection)));
+				menu->addMenu(getMenu(commandList.children.at(whichSection), parent));
 				++whichSection;
 			}
 		}
@@ -258,11 +298,11 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList)
 	// highlighted menu item
 	if (whichSection < menu->actions().size())
 	{
-		action = new QAction(this);
+		action = new QAction(menu);
 		action->setSeparator(true);
 		menu->addAction(action);
 
-		action = new QAction(this);
+		action = new QAction(menu);
 		QFont actionFont = action->font();
 		actionFont.setPointSize(actionFont.pointSize() - 1);
 		action->setFont(actionFont);
@@ -285,7 +325,7 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList)
 
 QMenu *TikzCommandInserter::getMenu()
 {
-	return getMenu(m_tikzSections);
+	return getMenu(m_tikzSections, qobject_cast<QWidget*>(parent()));
 }
 
 //@}
@@ -408,11 +448,6 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
 	return tikzDock;
 }
 
-void TikzCommandInserter::setEditor(QPlainTextEdit *textEdit)
-{
-	m_mainEdit = textEdit;
-}
-
 void TikzCommandInserter::setListStatusTip(QListWidgetItem *item)
 {
 	if (item && !item->font().bold() && !item->text().isEmpty())
@@ -437,6 +472,7 @@ void TikzCommandInserter::setListStatusTip(QListWidgetItem *item)
 QMap<QString, QTextCharFormat> TikzCommandInserter::getDefaultHighlightFormats()
 {
 	QMap<QString, QTextCharFormat> formatList;
+	QStringList highlightTypeNames = getHighlightTypeNames();
 
 	QTextCharFormat commandFormat;
 	commandFormat.setForeground(QColor("#004080"));
@@ -485,6 +521,8 @@ QStringList TikzCommandInserter::getTranslatedHighlightTypeNames()
 
 QStringList TikzCommandInserter::getHighlightTypeNames()
 {
+	QStringList highlightTypeNames;
+	highlightTypeNames << "Commands" << "Draw to" << "Options";
 	return highlightTypeNames;
 }
 
@@ -499,6 +537,7 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
 {
 	QVector<HighlightingRule> highlightingRules;
 	HighlightingRule rule;
+	QStringList highlightTypeNames = getHighlightTypeNames();
 
 	for (int i = 0; i < m_tikzCommandsList.size(); ++i)
 	{
@@ -560,35 +599,6 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
 	return highlightingRules;
 }
 
-TikzCommand TikzCommandInserter::newCommand(const QString &name,
-        const QString &command, int dx, int dy, int type)
-{
-	return newCommand(name, "", command, "", dx, dy, type);
-}
-
-TikzCommand TikzCommandInserter::newCommand(const QString &name,
-        const QString &description, const QString &command,
-        const QString &highlightString, int dx, int dy, int type)
-{
-	/* type:
-	 * 0: plain text
-	 * 1: command
-	 * 2: draw to next point
-	 * 3: option */
-	TikzCommand tikzCommand;
-	tikzCommand.name = name;
-	tikzCommand.description = description;
-	tikzCommand.command = command;
-	tikzCommand.highlightString = highlightString;
-	tikzCommand.dx = dx;
-	tikzCommand.dy = dy;
-	tikzCommand.type = type;
-	tikzCommand.number = m_tikzCommandsList.size();
-	m_tikzCommandsList << tikzCommand;
-
-	return tikzCommand;
-}
-
 void TikzCommandInserter::insertTag()
 {
 	QAction *action = qobject_cast<QAction*>(sender());
@@ -610,6 +620,11 @@ void TikzCommandInserter::insertTag(QListWidgetItem *item)
 		emit showStatusMessage(cmd.description, 0);
 		insertTag(cmd.command, cmd.dx, cmd.dy);
 	}
+}
+
+void TikzCommandInserter::setEditor(QPlainTextEdit *textEdit)
+{
+	m_mainEdit = textEdit;
 }
 
 /*!

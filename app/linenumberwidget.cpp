@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2011 by Glad Deschrijver                    *
+ *   Copyright (C) 2007, 2008, 2011, 2012 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -33,15 +33,16 @@ LineNumberWidget::LineNumberWidget(TikzEditor *editor)
 	setAutoFillBackground(true);
 
 	QPalette p(palette());
-	const QColor windowColor(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::Window));
+	const QPalette standardPalette(QApplication::style()->standardPalette());
+	const QColor windowColor(standardPalette.color(QPalette::Normal, QPalette::Window));
 	p.setColor(backgroundRole(), windowColor.lighter(102));
 	setPalette(p);
 
-	m_highlightColor = QColor(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::Highlight));
+	m_highlightColor = QColor(standardPalette.color(QPalette::Normal, QPalette::Highlight));
 	m_highlightBrush = QBrush(m_highlightColor);
 	m_highlightPen = QPen(m_highlightColor);
 	m_highlightPen.setStyle(Qt::SolidLine);
-	m_highlightedTextPen = QPen(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::HighlightedText));
+	m_highlightedTextPen = QPen(standardPalette.color(QPalette::Normal, QPalette::HighlightedText));
 
 	setToolTip(tr("Click to add or remove a bookmark"));
 }

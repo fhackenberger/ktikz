@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2009, 2010, 2012 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -77,14 +77,14 @@ void PartConfigDialog::readSettings()
 {
 	m_configGeneralWidget->readSettings();
 
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	m_watchFileCheckBox->setChecked(settings.value("WatchFile", true).toBool());
 }
 
 void PartConfigDialog::setModified()
 {
 	QWidget *sendingWidget = qobject_cast<QWidget*>(sender());
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	if (sendingWidget->objectName() == QLatin1String("watchFileCheckBox"))
 		enableButtonApply(m_watchFileCheckBox->isChecked() != settings.value("WatchFile", true).toBool());
 }
@@ -93,7 +93,7 @@ void PartConfigDialog::writeSettings()
 {
 	m_configGeneralWidget->writeSettings();
 
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.setValue("WatchFile", m_watchFileCheckBox->isChecked());
 
 	enableButtonApply(false);

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2010, 2011 by Glad Deschrijver        *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver  *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -18,12 +18,7 @@
 
 #include "tikzpreview.h"
 
-#include <QtGui/QApplication>
-#include <QtGui/QContextMenuEvent>
-#include <QtGui/QGraphicsPixmapItem>
 #include <QtGui/QGraphicsProxyWidget>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QLabel>
 #include <QtGui/QMenu>
 #include <QtGui/QScrollBar>
 #include <QtCore/QSettings>
@@ -53,8 +48,9 @@ TikzPreview::TikzPreview(QWidget *parent)
 	m_currentPage = 0;
 	m_processRunning = false;
 	m_pageSeparator = 0;
+	m_infoWidget = 0;
 
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup("Preview");
 	m_zoomFactor = settings.value("ZoomFactor", 1).toDouble();
 	settings.endGroup();
@@ -62,7 +58,6 @@ TikzPreview::TikzPreview(QWidget *parent)
 	m_hasZoomed = false;
 
 	createActions();
-	createInformationLabel();
 
 	m_tikzPreviewRenderer = new TikzPreviewRenderer();
 	connect(this, SIGNAL(generatePreview(Poppler::Document*,qreal,int)), m_tikzPreviewRenderer, SLOT(generatePreview(Poppler::Document*,qreal,int)));
@@ -72,10 +67,10 @@ TikzPreview::TikzPreview(QWidget *parent)
 TikzPreview::~TikzPreview()
 {
 	delete m_tikzPixmapItem;
-	delete m_infoProxyWidget;
+	delete m_infoWidget;
 	delete m_tikzPreviewRenderer;
 
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup("Preview");
 	settings.setValue("ZoomFactor", m_zoomFactor);
 	settings.endGroup();
@@ -154,93 +149,12 @@ QToolBar *TikzPreview::toolBar()
 
 /***************************************************************************/
 
-void TikzPreview::createInformationLabel()
-{
-#ifdef KTIKZ_USE_KDE
-	const QPixmap infoPixmap = KIconLoader::global()->loadIcon("dialog-error",
-	                           KIconLoader::Dialog, KIconLoader::SizeMedium);
-#else
-	const QPixmap infoPixmap = Icon("dialog-error").pixmap(QSize(32, 32));
-#endif
-	m_infoPixmapLabel = new QLabel;
-	m_infoPixmapLabel->setPixmap(infoPixmap);
-
-	m_infoLabel = new QLabel;
-	m_infoLabel->setWordWrap(true);
-	m_infoLabel->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
-
-	m_infoWidget = new QFrame;
-	m_infoWidget->setObjectName("infoWidget");
-	m_infoWidget->setFrameShape(QFrame::Box);
-/*
-	m_infoWidget->setStyleSheet(QString(
-	    ".QFrame {"
-//	    "  background-color: palette(window);"
-	    "  border-radius: 5px;"
-	    "  border: 1px solid palette(dark);"
-	    "}"
-	    ".QLabel { color: palette(windowText); }"
-	));
-*/
-
-	QPalette palette = qApp->palette();
-	QColor backgroundColor = palette.window().color();
-	QColor foregroundColor = palette.color(QPalette::Dark);
-	backgroundColor.setAlpha(220);
-	foregroundColor.setAlpha(150);
-	palette.setBrush(QPalette::Window, backgroundColor);
-	palette.setBrush(QPalette::WindowText, foregroundColor);
-	m_infoWidget->setPalette(palette);
-
-	palette = m_infoLabel->palette();
-	foregroundColor = palette.windowText().color();
-	palette.setBrush(QPalette::WindowText, foregroundColor);
-	m_infoLabel->setPalette(palette);
-
-	QHBoxLayout *infoLayout = new QHBoxLayout(m_infoWidget);
-	infoLayout->setMargin(10);
-	infoLayout->addWidget(m_infoPixmapLabel);
-	infoLayout->addWidget(m_infoLabel);
-
-	m_infoProxyWidget = m_tikzScene->addWidget(m_infoWidget);
-	m_infoProxyWidget->setZValue(1);
-//	m_infoProxyWidget->setVisible(false);
-	m_tikzScene->removeItem(m_infoProxyWidget);
-	m_infoWidgetAdded = false;
-
-	m_infoPixmapLabel->setVisible(false);
-}
-
-/***************************************************************************/
-
 void TikzPreview::paintEvent(QPaintEvent *event)
 {
-	// when m_infoWidget is visible, then it must be resized and
-	// repositioned, this must be done here to do it successfully;
-	// why m_infoWidget->resize() doesn't work in setInfoLabelText()
-	// is beyond my understanding :-(
-	if (m_infoWidgetAdded && m_infoWidget->isVisible())
-	{
-		if (m_infoPixmapLabel->isVisible())
-		{
-			m_infoWidget->resize(m_infoPixmapLabel->sizeHint().width()
-			    + m_infoLabel->sizeHint().width() + 35,
-			    qMax(m_infoPixmapLabel->sizeHint().height(), m_infoLabel->sizeHint().height()) + 25);
-		}
-		else
-		{
-			m_infoWidget->resize(m_infoLabel->sizeHint().width() + 25,
-			    m_infoLabel->sizeHint().height() + 25);
-		}
-		centerInfoLabel();
-		m_infoWidgetAdded = false;
-	}
-
 	if (m_hasZoomed)
 	{
 		setSceneRect(m_tikzScene->itemsBoundingRect()); // make sure that the scroll area is not bigger than the actual image
 		m_hasZoomed = false;
-		m_infoWidgetAdded = true; // dirty hack to force m_infoWidget to be recentered also when zooming
 	}
 
 	QGraphicsView::paintEvent(event);
@@ -328,9 +242,8 @@ void TikzPreview::emptyPreview()
 	m_tikzCoordinates.clear();
 	m_tikzPixmapItem->setPixmap(QPixmap());
 	m_tikzPixmapItem->update();
-//	m_infoWidget->setVisible(false);
-	if (m_infoProxyWidget->scene() != 0) // remove error messages from view
-		m_tikzScene->removeItem(m_infoProxyWidget);
+	if (m_infoWidget)
+		m_infoWidget->setVisible(false); // remove error messages from view
 	m_tikzScene->setSceneRect(0, 0, 1, 1); // remove scrollbars from view
 	if (m_pageSeparator)
 		m_pageSeparator->setVisible(false);
@@ -390,49 +303,42 @@ int TikzPreview::numberOfPages() const
 
 /***************************************************************************/
 
+void TikzPreview::createInformationLabel()
+{
+	m_infoWidget = new TikzPreviewMessageWidget(this);
+	QGraphicsItem *infoProxyWidget = m_tikzScene->addWidget(m_infoWidget);
+	infoProxyWidget->setZValue(1);
+	m_infoWidget->setVisible(false);
+}
+
 void TikzPreview::centerInfoLabel()
 {
-	qreal posX;
-	qreal posY;
-	if (sceneRect().width() > viewport()->width())
-		posX = horizontalScrollBar()->value() + (viewport()->width() - m_infoWidget->width()) * 0.5;
-	else
-		posX = (sceneRect().width() - m_infoWidget->width()) * 0.5;
-	if (sceneRect().height() > viewport()->height())
-		posY = verticalScrollBar()->value() + (viewport()->height() - m_infoWidget->height()) * 0.5;
-	else
-		posY = (sceneRect().height() - m_infoWidget->height()) * 0.5;
-
+	const qreal posX = (viewport()->width() - m_infoWidget->width()) * 0.5;
+	const qreal posY = (viewport()->height() - m_infoWidget->height()) * 0.5;
 	m_infoWidget->move(posX, posY);
 }
 
-void TikzPreview::setInfoLabelText(const QString &message, PixmapVisibility pixmapVisibility)
+void TikzPreview::setInfoLabelText(const QString &message, TikzPreviewMessageWidget::PixmapVisibility pixmapVisibility)
 {
-	m_infoPixmapLabel->setVisible(pixmapVisibility == PixmapVisible);
-	m_infoLabel->setText(message);
-//	m_infoWidget->setVisible(false);
-//	m_infoWidget->setVisible(true);
-	if (m_infoProxyWidget->scene() != 0) // only remove if the widget is still attached to m_tikzScene
-		m_tikzScene->removeItem(m_infoProxyWidget); // make sure that any previous messages are not visible anymore
-	m_tikzScene->addItem(m_infoProxyWidget);
+	if (!m_infoWidget)
+		createInformationLabel();
+	m_infoWidget->setText(message, pixmapVisibility);
+	m_infoWidget->setVisible(true);
 	centerInfoLabel(); // must be run here so that the label is always centered
-	m_infoWidgetAdded = true;
 }
 
 void TikzPreview::showErrorMessage(const QString &message)
 {
-	setInfoLabelText(message, PixmapVisible);
+	setInfoLabelText(message, TikzPreviewMessageWidget::PixmapVisible);
 }
 
 void TikzPreview::setProcessRunning(bool isRunning)
 {
 	m_processRunning = isRunning;
 	if (isRunning)
-		setInfoLabelText(tr("Generating image", "tikz preview status"), PixmapNotVisible);
-//	else
-//		m_infoWidget->setVisible(false);
-	else if (m_infoProxyWidget->scene() != 0) // only remove if the widget is still attached to m_tikzScene
-		m_tikzScene->removeItem(m_infoProxyWidget);
+		setInfoLabelText(tr("Generating image", "tikz preview status"), TikzPreviewMessageWidget::PixmapNotVisible);
+	else
+		m_infoWidget->setVisible(false);
 }
 
 /***************************************************************************/
@@ -467,31 +373,28 @@ void TikzPreview::mouseMoveEvent(QMouseEvent *event)
 	const int offset = 6 * m_currentPage;
 	if (m_showCoordinates && m_tikzCoordinates.length() >= offset + 6)
 	{
-		const qreal unitX = m_tikzCoordinates.at(offset);
-		const qreal unitY = m_tikzCoordinates.at(1 + offset);
-		const qreal minX = m_tikzCoordinates.at(2 + offset);
-		const qreal maxX = m_tikzCoordinates.at(3 + offset);
-		const qreal minY = m_tikzCoordinates.at(4 + offset);
-		const qreal maxY = m_tikzCoordinates.at(5 + offset);
+		const qreal unitX = m_tikzCoordinates.at(offset); // unit length in x-direction in points
+		const qreal unitY = m_tikzCoordinates.at(1 + offset); // unit length in y-direction in points
+		const qreal minX = m_tikzCoordinates.at(2 + offset); // minimum x-coordinate on the figure in points
+		const qreal maxX = m_tikzCoordinates.at(3 + offset); // maximum x-coordinate on the figure in points
+		const qreal minY = m_tikzCoordinates.at(4 + offset); // minimum y-coordinate on the figure in points
+		const qreal maxY = m_tikzCoordinates.at(5 + offset); // maximum y-coordinate on the figure in points
 
-		int precisionX = m_precision;
-		int precisionY = m_precision;
-		if (m_precision < 0)
+		int precisionX = m_precision; // the number of decimals used to display the x-coordinate of the mouse pointer
+		int precisionY = m_precision; // idem for the y-coordinate
+		if (m_precision < 0) // in app/configgeneralwidget.cpp the precision is set to -1 if the user chooses "Best precision", which we calculate now
 		{
 			qreal invUnitX = 1 / unitX;
 			qreal invUnitY = 1 / unitY;
-			for (precisionX = 0; invUnitX < 1; ++precisionX)
+			for (precisionX = 0; invUnitX < 1; ++precisionX) // make sure that some significant decimals are displayed (and not numbers like 0.00)
 				invUnitX *= 10;
-			for (precisionY = 0; invUnitY < 1; ++precisionY)
+			for (precisionY = 0; invUnitY < 1; ++precisionY) // idem
 				invUnitY *= 10;
 		}
 
-		qreal cursorX = event->x() + horizontalScrollBar()->value() - qMax(qreal(0.0), viewport()->width() - m_tikzPixmapItem->boundingRect().width()) / 2;
-		cursorX /= m_zoomFactor;
-		qreal cursorY = event->y() + verticalScrollBar()->value() - qMax(qreal(0.0), viewport()->height() - m_tikzPixmapItem->boundingRect().height()) / 2;
-		cursorY /= m_zoomFactor;
-		const qreal coordX = cursorX + minX;
-		const qreal coordY = maxY - cursorY;
+		const QPointF mouseSceneCoords = mapToScene(event->pos()) / m_zoomFactor;
+		const qreal coordX = mouseSceneCoords.x() + minX;
+		const qreal coordY = maxY - mouseSceneCoords.y();
 		if (coordX >= minX && coordX <= maxX && coordY >= minY && coordY <= maxY)
 			emit showMouseCoordinates(coordX / unitX, coordY / unitY, precisionX, precisionY);
 	}

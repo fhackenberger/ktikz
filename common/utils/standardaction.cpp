@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Glad Deschrijver                                *
+ *   Copyright (C) 2009, 2012 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -25,13 +25,16 @@
 #else
 #include <QtCore/QCoreApplication>
 #endif
+
 #include "icon.h"
+#include "action.h"
+#include "recentfilesaction.h"
 
 namespace StandardAction
 {
 #ifdef KTIKZ_USE_KDE
 // XXX the following is an ugly hack, but I don't know how to promote a KAction to an Action
-Action *copyAction(KAction *action, const QObject *recvr, const char *slot)
+static Action *copyAction(KAction *action, const QObject *recvr, const char *slot)
 {
 	Action *newAction = new Action(action->icon(), action->text(), action->parent());
 	newAction->setShortcut(action->shortcut());
@@ -162,7 +165,7 @@ Action *print(const QObject *recvr, const char *slot, QObject *parent)
 	return copyAction(KStandardAction::print(recvr, slot, parent), recvr, slot);
 }
 #else
-Action *createAction(int which, const QObject *recvr, const char *slot, QObject *parent)
+static Action *createAction(int which, const QObject *recvr, const char *slot, QObject *parent)
 {
 	QString iconName;
 	QString text;

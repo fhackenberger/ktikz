@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2010, 2011 by Glad Deschrijver        *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver  *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -20,9 +20,8 @@
 #define KTIKZ_TIKZPREVIEW_H
 
 #include <QtGui/QGraphicsView>
+#include "tikzpreviewmessagewidget.h"
 
-class QImage;
-class QLabel;
 class QToolBar;
 
 namespace Poppler
@@ -32,6 +31,7 @@ class Document;
 
 class Action;
 class ZoomAction;
+class TikzPreviewMessageWidget;
 class TikzPreviewRenderer;
 
 class TikzPreview : public QGraphicsView
@@ -77,17 +77,11 @@ private slots:
 	void showNextPage();
 
 private:
-	enum PixmapVisibility
-	{
-		PixmapNotVisible = 0,
-		PixmapVisible = 1
-	};
-
 	void createInformationLabel();
 	void createActions();
 	void showPdfPage();
 	void centerInfoLabel();
-	void setInfoLabelText(const QString &message, PixmapVisibility pixmapVisibility = PixmapNotVisible);
+	void setInfoLabelText(const QString &message, TikzPreviewMessageWidget::PixmapVisibility pixmapVisibility = TikzPreviewMessageWidget::PixmapNotVisible);
 
 	QGraphicsScene *m_tikzScene;
 	QGraphicsPixmapItem *m_tikzPixmapItem;
@@ -101,11 +95,7 @@ private:
 	Action *m_previousPageAction;
 	Action *m_nextPageAction;
 
-	QFrame *m_infoWidget;
-	QGraphicsItem *m_infoProxyWidget;
-	QLabel *m_infoPixmapLabel;
-	QLabel *m_infoLabel;
-	bool m_infoWidgetAdded;
+	TikzPreviewMessageWidget *m_infoWidget;
 
 	Poppler::Document *m_tikzPdfDoc;
 	int m_currentPage;

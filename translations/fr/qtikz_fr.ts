@@ -5,8 +5,8 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="36"/>
-        <source>Copyright 2007-2011 Florian Hackenberger and Glad Deschrijver</source>
-        <translation>Copyright 2007-2011 Florian Hackenberger et Glad Deschrijver</translation>
+        <source>Copyright 2007-2012 Florian Hackenberger and Glad Deschrijver</source>
+        <translation>Copyright 2007-2012 Florian Hackenberger et Glad Deschrijver</translation>
     </message>
     <message>
         <location filename="../../app/aboutdialog.cpp" line="37"/>

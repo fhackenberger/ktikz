@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007, 2008, 2009, 2010, 2011 by Glad Deschrijver        *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver  *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -86,15 +86,12 @@ private slots:
 	void generatePreviewImpl(TemplateStatus templateStatus = DontReloadTemplate);
 
 protected:
-	QString getParsedLogText(QTextStream *logStream) const;
 	void parseLogFile();
-	QList<qreal> tikzCoordinates();
 	void createPreview();
 	void showFileWriteError(const QString &fileName, const QString &errorMessage);
-	bool createTempLatexFile();
-	bool createTempTikzFile();
 	bool runProcess(const QString &name, const QString &command, const QStringList &arguments, const QString &workingDir = 0);
-	bool generatePdfFile();
+//	bool generatePdfFile();
+	bool generatePdfFile(const QString &tikzFileBaseName, const QString &latexCommand, bool useShellEscaping);
 
 	TikzPreviewController *m_parent;
 	Poppler::Document *m_tikzPdfDoc;
@@ -112,7 +109,6 @@ protected:
 	QString m_tikzFileBaseName;
 	QString m_templateFileName;
 	QString m_tikzReplaceText;
-//	int m_templateStartLineNumber;
 	bool m_templateChanged;
 
 	QString m_latexCommand;

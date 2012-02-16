@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2007, 2011, 2012 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -23,8 +23,6 @@
 
 #include <QtGui/QSyntaxHighlighter>
 
-class TikzCommandInserter;
-
 struct HighlightingRule
 {
 	QString type; /// The name of the formatting type
@@ -40,12 +38,13 @@ class TikzHighlighter : public QSyntaxHighlighter
 	Q_OBJECT
 
 public:
-	explicit TikzHighlighter(TikzCommandInserter *commandInserter = 0, QTextDocument *parent = 0);
+	explicit TikzHighlighter(QTextDocument *parent = 0);
 	virtual ~TikzHighlighter();
 
-	QMap<QString, QTextCharFormat> getDefaultHighlightFormats();
-	QStringList getTranslatedHighlightTypeNames();
-	QStringList getHighlightTypeNames();
+	void setHighlightingRules(const QVector<HighlightingRule> &highlightingRules);
+	static QMap<QString, QTextCharFormat> getDefaultHighlightFormats();
+	static QStringList getTranslatedHighlightTypeNames();
+	static QStringList getHighlightTypeNames();
 	void applySettings();
 
 protected:
@@ -58,7 +57,6 @@ private:
 	/// All highlighting rules with their formatting for easy iteration
 	QVector<HighlightingRule> m_highlightingRules;
 
-	TikzCommandInserter *m_commandInserter;
 	QMap<QString, QTextCharFormat> m_formatList;
 	QStringList m_highlightTypeNames;
 };

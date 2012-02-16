@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Glad Deschrijver                                *
+ *   Copyright (C) 2009, 2012 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -94,7 +94,7 @@ void SelectAction::setEditable(bool editable)
 
 void SelectAction::setCurrentItem()
 {
-	const QString text = m_selectCombo->lineEdit()->text();
+	const QString text = m_selectCombo->currentText();
 	emit triggered(text);
 }
 
@@ -112,7 +112,8 @@ void SelectAction::setItems(const QStringList &items)
 void SelectAction::setCurrentItem(int index)
 {
 	m_selectCombo->setCurrentIndex(index);
-	m_selectCombo->lineEdit()->setText(m_selectCombo->currentText());
+	if (m_selectCombo->isEditable())
+		m_selectCombo->lineEdit()->setText(m_selectCombo->currentText());
 }
 
 QStringList SelectAction::items() const

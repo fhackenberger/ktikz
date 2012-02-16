@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2007, 2011, 2012 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -40,7 +40,7 @@ IndentWidget::~IndentWidget()
 
 void IndentWidget::readSettings()
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup("Editor");
 	ui.radioButtonSpaces->setChecked(settings.value("Indent/InsertChar", '\t').toChar() == ' ');
 	ui.radioButtonTabs->setChecked(settings.value("Indent/InsertChar", '\t').toChar() != ' ');
@@ -51,7 +51,7 @@ void IndentWidget::readSettings()
 
 void IndentWidget::writeSettings()
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings;
 	settings.beginGroup("Editor");
 	settings.setValue("Indent/InsertChar", ui.radioButtonSpaces->isChecked() ? QVariant::fromValue(' ') : QVariant::fromValue('\t'));
 	settings.setValue("Indent/NumberOfSpaces", ui.spinBoxSpaces->value());
