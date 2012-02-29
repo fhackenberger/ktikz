@@ -500,6 +500,51 @@
 	<para>This menu contains the list of user-defined TikZ commands.  By selecting them, you can insert them in the text at the cursor's current position.  The entries of this menu can be edited by selecting <guimenuitem>Edit user commands</guimenuitem>.</para>
 </sect1>
 
+<sect1 id="sect1-commands-bookmarks-menu">
+	<title>The <guimenu>Bookmarks</guimenu> Menu</title>
+
+	<variablelist>
+	<varlistentry>
+		<term id="term-commands-set-bookmark">
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Ctrl;<keycap>B</keycap></keycombo></shortcut>
+				<guimenu>Bookmarks</guimenu>
+				<guimenuitem>Set Bookmark</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Set or unset a bookmark for the current line in the text editor.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term id="term-commands-previous-bookmark">
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Alt;<keycap>Up</keycap></keycombo></shortcut>
+				<guimenu>Bookmarks</guimenu>
+				<guimenuitem>Previous Bookmark</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Go to the line in the text editor which has the previous bookmark.</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term id="term-commands-next-bookmark">
+			<menuchoice>
+				<shortcut><keycombo action="simul">&Alt;<keycap>Down</keycap></keycombo></shortcut>
+				<guimenu>Bookmarks</guimenu>
+				<guimenuitem>Next Bookmark</guimenuitem>
+			</menuchoice>
+		</term>
+		<listitem>
+			<para>Go to the line in the text editor which has the next bookmark.</para>
+		</listitem>
+	</varlistentry>
+	</variablelist>
+</sect1>
+
 <sect1 id="sect1-commands-settings-menu">
 	<title>The <guimenu>Settings</guimenu> Menu</title>
 
