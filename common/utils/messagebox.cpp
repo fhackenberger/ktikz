@@ -67,7 +67,6 @@ int MessageBox::questionYesNo(QWidget *parent, const QString &text, const QStrin
 		return (msgBox.clickedButton() == yesButton) ? Yes : No;
 	}
 	else
-//		result = QMessageBox::question(parent, caption, text, QMessageBox::Yes | QMessageBox::Default, QMessageBox::No | QMessageBox::Escape);
 		result = QMessageBox::question(parent, caption, text, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 
 	return (result == QMessageBox::Yes) ? Yes : No;

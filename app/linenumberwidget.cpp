@@ -21,7 +21,6 @@
 #include <QtGui/QApplication>
 #include <QtGui/QMouseEvent>
 #include <QtGui/QPainter>
-//#include <QtGui/QScrollBar>
 #include <QtGui/QStyle>
 #include <QtGui/QTextBlock>
 
@@ -64,49 +63,14 @@ void LineNumberWidget::paintEvent(QPaintEvent *event)
 	painter.setPen(m_highlightPen);
 	painter.drawLine(width() - 2, 0, width() - 2, height());
 
-/*
-	QTextBlock block = m_editor->firstVisibleBlock();
-	int top = (int) m_editor->blockBoundingGeometry(block).translated(m_editor->contentOffset()).top(); // slow
-	int minimumLineNumber = m_editor->verticalScrollBar()->value();
-	int maximumLineNumber = minimumLineNumber + m_editor->verticalScrollBar()->pageStep();
-	int lineNumber = block.blockNumber() + 1;
-
-	QList<int> userBookmarks = m_editor->userBookmarks();
-
-	while (block.isValid() && block.firstLineNumber() <= maximumLineNumber)
-	{
-		if (block.firstLineNumber() >= minimumLineNumber)
-		{
-			for (int i = 0; i < userBookmarks.length(); ++i)
-			{
-				if (userBookmarks.at(i) == lineNumber)
-				{
-					painter.fillRect(2, top, fm.width(QLatin1Char('B')) + 4, lineHeight, m_highlightBrush);
-					painter.setPen(m_highlightedTextPen);
-					painter.drawText(4, top, width() - 4, lineHeight, Qt::AlignLeft | Qt::AlignTop, QLatin1String("B"));
-					painter.setPen(m_highlightPen);
-					update(0, top, width(), lineHeight); // make sure the bookmark is visible even when the line is wrapped
-					break;
-				}
-			}
-			painter.drawText(0, top, width() - 4, lineHeight, Qt::AlignRight | Qt::AlignTop, QString::number(lineNumber));
-		}
-
-		top += lineHeight * block.lineCount();
-		block = block.next();
-		++lineNumber;
-	}
-*/
 	QTextBlock block = m_editor->firstVisibleBlock();
 	int lineNumber = block.blockNumber() + 1;
 	int top = (int) m_editor->blockBoundingGeometry(block).translated(m_editor->contentOffset()).top(); // slow
-//	int bottom = top + (int) m_editor->blockBoundingRect(block).height(); // slow
 	int bottom = top + lineHeight * block.lineCount();
 
 	QList<int> userBookmarks = m_editor->userBookmarks();
 	while (block.isValid() && top <= event->rect().bottom())
 	{
-//		if (block.isVisible() && bottom >= event->rect().top())
 		if (bottom >= event->rect().top())
 		{
 			for (int i = 0; i < userBookmarks.length(); ++i)
@@ -126,7 +90,6 @@ void LineNumberWidget::paintEvent(QPaintEvent *event)
 
 		block = block.next();
 		top = bottom;
-//		bottom = top + (int) m_editor->blockBoundingRect(block).height(); // slow
 		bottom += lineHeight * block.lineCount();
 		++lineNumber;
 	}

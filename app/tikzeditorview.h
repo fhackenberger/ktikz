@@ -56,6 +56,7 @@ public:
 	void updateCompleter(bool useCompletion, const QStringList &words);
 
 public slots:
+	void setPasteEnabled();
 	void goToLine(int lineNumber);
 
 signals:
@@ -68,7 +69,6 @@ signals:
 	void focusOut();
 
 private slots:
-	void setPasteEnabled();
 //	void showCursorPosition();
 	void editGoToLine();
 	void editIndent();

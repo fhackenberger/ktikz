@@ -77,14 +77,14 @@ void PartConfigDialog::readSettings()
 {
 	m_configGeneralWidget->readSettings();
 
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	m_watchFileCheckBox->setChecked(settings.value("WatchFile", true).toBool());
 }
 
 void PartConfigDialog::setModified()
 {
 	QWidget *sendingWidget = qobject_cast<QWidget*>(sender());
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	if (sendingWidget->objectName() == QLatin1String("watchFileCheckBox"))
 		enableButtonApply(m_watchFileCheckBox->isChecked() != settings.value("WatchFile", true).toBool());
 }
@@ -93,7 +93,7 @@ void PartConfigDialog::writeSettings()
 {
 	m_configGeneralWidget->writeSettings();
 
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.setValue("WatchFile", m_watchFileCheckBox->isChecked());
 
 	enableButtonApply(false);

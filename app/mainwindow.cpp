@@ -78,7 +78,7 @@ QList<MainWindow*> MainWindow::s_mainWindowList;
 
 MainWindow::MainWindow()
 {
-QTime t = QTime::currentTime();
+//QTime t = QTime::currentTime();
 #ifndef KTIKZ_USE_KDE
 	m_aboutDialog = 0;
 	m_assistantController = 0;
@@ -196,8 +196,9 @@ QTime t = QTime::currentTime();
 	m_tikzEditorView->editor()->setFocus();
 
 	// delayed initialization
-	QTimer::singleShot(0, this, SLOT(init()));
-qCritical() << t.msecsTo(QTime::currentTime());
+//	QTimer::singleShot(0, this, SLOT(init())); // this causes flicker at startup and init() is not executed in a separate thread anyway :(
+	init();
+//qCritical() << t.msecsTo(QTime::currentTime());
 }
 
 MainWindow::~MainWindow()
@@ -219,7 +220,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::init()
 {
-QTime t = QTime::currentTime();
+//QTime t = QTime::currentTime();
+	m_tikzEditorView->setPasteEnabled();
+
 	TikzCommandInserter::loadCommands();
 	m_commandInserter->setEditor(m_tikzEditorView->editor());
 	m_insertAction->setMenu(m_commandInserter->getMenu());
@@ -239,7 +242,7 @@ QTime t = QTime::currentTime();
 
 	if (m_tikzPreviewController->tempDir().isEmpty()) // then the temporary directory could not be created
 		m_logTextEdit->updateLog(tr("Error: unable to create a temporary directory in \"%1\". This program will not work!").arg(m_tikzPreviewController->tempDirLocation()), true);
-qCritical() << t.msecsTo(QTime::currentTime());
+//qCritical() << t.msecsTo(QTime::currentTime());
 }
 
 QWidget *MainWindow::widget()
@@ -930,7 +933,7 @@ bool MainWindow::saveUrl(const Url &url)
 	if (!file.open(QFile::Text))
 	{
 		QMessageBox::warning(this, KtikzApplication::applicationName(),
-		                     tr("Cannot write file \"%1\":\n%2.")
+		                     tr("Cannot write file \"%1\":\n%2")
 		                     .arg(url.path())
 		                     .arg(file.errorString()));
 		return false;
@@ -945,7 +948,9 @@ bool MainWindow::saveUrl(const Url &url)
 	if (!file.close())
 	{
 		QMessageBox::warning(this, KtikzApplication::applicationName(),
-		                     tr("Cannot write file \"%1\":\n%2").arg(url.path()).arg(file.errorString()));
+		                     tr("Cannot write file \"%1\":\n%2")
+		                     .arg(url.path())
+		                     .arg(file.errorString()));
 		return false;
 	}
 

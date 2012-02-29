@@ -72,7 +72,7 @@ QWidget *TemplateWidget::lastTabOrderWidget()
 
 void TemplateWidget::readRecentTemplates()
 {
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	ui.templateCombo->setMaxCount(settings.value("TemplateRecentNumber", 10).toInt());
 	const QStringList templateRecentList = settings.value("TemplateRecent").toStringList();
 	ui.templateCombo->addItems(templateRecentList);
@@ -82,7 +82,7 @@ void TemplateWidget::readRecentTemplates()
 
 void TemplateWidget::saveRecentTemplates()
 {
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	QStringList recentTemplates;
 	for (int i = 0; i < ui.templateCombo->count(); ++i)
 		recentTemplates << ui.templateCombo->itemText(i);
@@ -165,8 +165,6 @@ void TemplateWidget::editTemplateFile()
 	process.startDetached(m_editor, editorArguments);
 
 	QApplication::restoreOverrideCursor();
-
-//	reloadTemplateFile();
 }
 
 void TemplateWidget::reloadTemplateFile()

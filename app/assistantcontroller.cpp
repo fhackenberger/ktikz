@@ -59,7 +59,7 @@ bool AssistantController::startAssistant()
 		if (!QFileInfo(ktikzDocFile).isReadable())
 		{
 			QMessageBox::critical(0, KtikzApplication::applicationName(),
-			                      QObject::tr("Unable to open the help file (%1)").arg(ktikzDocFile));
+			                      QCoreApplication::translate("AssistantController", "Unable to open the help file (%1)").arg(ktikzDocFile));
 			return false;
 		}
 
@@ -73,7 +73,7 @@ bool AssistantController::startAssistant()
 		if (!m_process->waitForStarted())
 		{
 			QMessageBox::critical(0, KtikzApplication::applicationName(),
-			                      QObject::tr("Unable to launch Qt Assistant (%1)").arg(app));
+			                      QCoreApplication::translate("AssistantController", "Unable to launch Qt Assistant (%1)").arg(app));
 			return false;
 		}
 	}

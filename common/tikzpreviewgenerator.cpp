@@ -393,7 +393,7 @@ void TikzPreviewGenerator::generatePreviewImpl(TemplateStatus templateStatus)
 
 void TikzPreviewGenerator::showFileWriteError(const QString &fileName, const QString &errorMessage)
 {
-	const QString error = tr("Cannot write file %1:\n%2").arg(fileName).arg(errorMessage);
+	const QString error = tr("Cannot write file \"%1\":\n%2").arg(fileName).arg(errorMessage);
 	emit showErrorMessage(error);
 	emit updateLog(error, true);
 }

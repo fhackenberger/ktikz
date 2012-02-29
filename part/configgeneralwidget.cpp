@@ -40,7 +40,7 @@ void PartConfigGeneralWidget::setDefaults()
 
 void PartConfigGeneralWidget::readSettings(const QString &settingsGroup)
 {
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup(settingsGroup);
 	ui.latexUrlRequester->setText(settings.value("LatexCommand", "pdflatex").toString());
 	ui.pdftopsUrlRequester->setText(settings.value("PdftopsCommand", "pdftops").toString());
@@ -57,7 +57,7 @@ void PartConfigGeneralWidget::readSettings(const QString &settingsGroup)
 void PartConfigGeneralWidget::setModified()
 {
 	QWidget *sendingWidget = qobject_cast<QWidget*>(sender());
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	if (sendingWidget->objectName() == QLatin1String("latexUrlRequester"))
 		emit changed(ui.latexUrlRequester->text() != settings.value("LatexCommand", "pdflatex").toString());
 	else if (sendingWidget->objectName() == QLatin1String("pdftopsUrlRequester"))
@@ -70,7 +70,7 @@ void PartConfigGeneralWidget::setModified()
 
 void PartConfigGeneralWidget::writeSettings(const QString &settingsGroup)
 {
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup(settingsGroup);
 	settings.setValue("LatexCommand", ui.latexUrlRequester->text());
 	settings.setValue("PdftopsCommand", ui.pdftopsUrlRequester->text());

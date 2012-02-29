@@ -20,7 +20,7 @@
 
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QLabel>
-#include <QtGui/QTextEdit>
+#include <QtGui/QTextBrowser>
 #include <QtGui/QVBoxLayout>
 
 #include "ktikzapplication.h"
@@ -43,16 +43,18 @@ AboutDialog::AboutDialog(QWidget *parent)
 	topLayout->addWidget(label);
 	topWidget->setLayout(topLayout);
 
-	QTextEdit *textEdit = new QTextEdit(tr("<p>This program is free "
-	                                       "software; you can redistribute it and/or modify it under the "
-	                                       "terms of the GNU General Public License as published by the "
-	                                       "Free Software Foundation; either version 2 of the License, "
-	                                       "or (at your option) any later version.</p>"
-	                                       "<p>This program is distributed in the hope that it will "
-	                                       "be useful, but WITHOUT ANY WARRANTY; without even the implied "
-	                                       "warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  "
-	                                       "See the GNU General Public License for more details.</p>"));
+	QTextBrowser *textEdit = new QTextBrowser;
+	textEdit->setHtml(tr("<p>This program is free "
+	                     "software; you can redistribute it and/or modify it under the "
+	                     "terms of the GNU General Public License as published by the "
+	                     "Free Software Foundation; either version 2 of the License, "
+	                     "or (at your option) any later version.</p>"
+	                     "<p>This program is distributed in the hope that it will "
+	                     "be useful, but WITHOUT ANY WARRANTY; without even the implied "
+	                     "warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  "
+	                     "See the <a href=\"http://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU General Public License</a> for more details.</p>"));
 	textEdit->setReadOnly(true);
+	textEdit->setOpenExternalLinks(true);
 	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
 	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 

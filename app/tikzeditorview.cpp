@@ -92,7 +92,38 @@ QPlainTextEdit *TikzEditorView::editor()
 
 void TikzEditorView::setFont(const QFont &editorFont)
 {
-	m_tikzEditor->setFont(editorFont);
+//	m_tikzEditor->setFont(editorFont);
+	// Setting a stylesheet is faster than using QPlainTextEdit::setFont(), so here we go:
+	QString fontStyle;
+	QString fontWeight;
+	QString fontDecoration;
+	switch (editorFont.style())
+	{
+		case QFont::StyleItalic: fontStyle = "italic;"; break;
+		case QFont::StyleOblique: fontStyle = "oblique;"; break;
+		default: fontStyle = "normal;"; break;
+	}
+	switch (editorFont.weight())
+	{
+		case QFont::Light: fontWeight = "250;"; break;
+		case QFont::Normal: fontWeight = "normal;"; break; // 400 according to http://www.w3.org/TR/CSS2/fonts.html#propdef-font-weight
+		case QFont::DemiBold: fontWeight = "550;"; break;
+		case QFont::Bold: fontWeight = "bold;"; break; // 700
+		case QFont::Black: fontWeight = "850;"; break;
+		default: fontWeight = "normal;"; break;
+	}
+	if (editorFont.underline())
+		fontDecoration = "underline";
+	else if (editorFont.strikeOut())
+		fontDecoration = "line-through";
+	else
+		fontDecoration = "none";
+	m_tikzEditor->setStyleSheet(QString("QPlainTextEdit { font-family: %1; font-size: %2; font-style: %3; font-weight: %4; text-decoration: %5; }")
+	    .arg(editorFont.family())
+	    .arg(editorFont.pointSize())
+	    .arg(fontStyle)
+	    .arg(fontWeight)
+	    .arg(fontDecoration));
 	m_tikzEditor->setTabStopWidth(m_tikzEditor->fontMetrics().width("    "));
 }
 
@@ -170,7 +201,7 @@ void TikzEditorView::createActions()
 	m_redoAction->setEnabled(false);
 	m_cutAction->setEnabled(false);
 	m_copyAction->setEnabled(false);
-	m_pasteAction->setEnabled(m_tikzEditor->canPaste());
+	// don't do m_pasteAction->setEnabled(m_tikzEditor->canPaste()); here, because m_tikzEditor->canPaste() is slow if the clipboard contains any text
 
 	connect(m_tikzEditor, SIGNAL(undoAvailable(bool)),
 	        m_undoAction, SLOT(setEnabled(bool)));

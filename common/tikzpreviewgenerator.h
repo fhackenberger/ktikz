@@ -90,7 +90,6 @@ protected:
 	void createPreview();
 	void showFileWriteError(const QString &fileName, const QString &errorMessage);
 	bool runProcess(const QString &name, const QString &command, const QStringList &arguments, const QString &workingDir = 0);
-//	bool generatePdfFile();
 	bool generatePdfFile(const QString &tikzFileBaseName, const QString &latexCommand, bool useShellEscaping);
 
 	TikzPreviewController *m_parent;

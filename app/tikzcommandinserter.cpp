@@ -67,69 +67,78 @@ static TikzCommand newCommand(const QString &name,
 	return tikzCommand;
 }
 
+static QString translateOptions(const QString &text)
+{
+	QString translatedText;
+	for (int pos = 0, oldPos = 0; pos >= 0;)
+	{
+		oldPos = pos;
+		pos = text.indexOf(QLatin1Char('<'), pos); // option is between < and >
+		translatedText += text.midRef(oldPos, pos - oldPos + 1); // add text between the current option and the previous option; this also adds the end of the original string, except when there are no options
+		if (pos >= 0)
+		{
+			oldPos = pos;
+			pos = text.indexOf(QLatin1Char('>'), pos); // option is between < and >
+			translatedText += QCoreApplication::translate("TikzCommandInserter", text.mid(oldPos+1, pos - oldPos - 1).toLatin1().data());
+		}
+	}
+	if (!translatedText.isEmpty()) // when there are no options, translatedText is empty
+		return translatedText;
+	return text;
+}
+
+static QString restoreNewLines(const QString &text)
+{
+	QString newText = text;
+	// replace all "\n" not preceded by a backslash (as in "\\node") by a newline character
+	for (int pos = 0; ; ++pos)
+	{
+		pos = newText.indexOf(QLatin1String("\\n"), pos);
+		if (pos < 0)
+			break;
+		if (pos == 0 || newText.at(pos-1) != QLatin1Char('\\'))
+			newText.replace(pos, 2, QLatin1Char('\n'));
+	}
+	return newText;
+}
+
 static TikzCommandList getChildCommands(QXmlStreamReader *xml, QList<TikzCommand> *tikzCommandsList)
 {
 	TikzCommandList commandList;
 	QList<TikzCommand> commands;
 
-	commandList.title = QObject::tr(xml->attributes().value("title").toString().toLatin1().data());
+	commandList.title = QApplication::translate("TikzCommandInserter", xml->attributes().value("title").toString().toLatin1().data());
 
 	QString name;
 	QString description;
 	QString insertion;
 	QString highlightString;
 	QString type;
-	QRegExp newLineRegExp("([^\\\\])\\\\n"); // newlines are the "\n" not preceded by a backslash as in "\\node"
-	QRegExp descriptionRegExp("<([^<>]*)>"); // descriptions are between < and >
 
 	while (xml->readNextStartElement())
 	{
 		if (xml->name() == "item")
 		{
-			name = QObject::tr(xml->attributes().value("name").toString().toLatin1().data());
+			name = QApplication::translate("TikzCommandInserter", xml->attributes().value("name").toString().toLatin1().data());
 			description = xml->attributes().value("description").toString();
 			insertion = xml->attributes().value("insert").toString();
 			highlightString = xml->attributes().value("highlight").toString();
 			type = xml->attributes().value("type").toString();
 
-			if (description.contains(QLatin1String("\\n"))) // minimize the number of uses of QRegExp
-			{
-				description.replace(newLineRegExp, QLatin1String("\\1\n")); // replace newlines, these are the "\n" not preceded by a backslash as in "\\node"
-				description.replace(newLineRegExp, QLatin1String("\\1\n")); // do this twice to replace all newlines
-			}
+			// currently description contains no newlines, otherwise add code to replace all "\n" not preceded by a backslash (as in "\\node") by a newline character
 			description.replace(QLatin1String("\\\\"), QLatin1String("\\"));
-			// translate options in the description:
-			QString tempDescription;
-			for (int pos = 0, oldPos = 0; pos >= 0;)
-			{
-				oldPos = pos;
-				pos = descriptionRegExp.indexIn(description, pos);
-				tempDescription += description.midRef(oldPos, pos - oldPos + 1);
-				if (pos >= 0)
-				{
-					tempDescription += QObject::tr(descriptionRegExp.cap(1).toLatin1().data());
-					pos += descriptionRegExp.matchedLength() - 1;
-				}
-			}
-			if (!tempDescription.isEmpty())
-				description = tempDescription;
+			description = translateOptions(description);
 
-			if (insertion.contains(QLatin1String("\\n"))) // minimize the number of uses of QRegExp
-			{
-				insertion.replace(newLineRegExp, QLatin1String("\\1\n")); // replace newlines, these are the "\n" not preceded by a backslash as in "\\node"
-				insertion.replace(newLineRegExp, QLatin1String("\\1\n")); // do this twice to replace all newlines
-			}
+			insertion = restoreNewLines(insertion); // this must be done before the next line
 			insertion.replace(QLatin1String("\\\\"), QLatin1String("\\"));
 
+			if (description.isEmpty()) // if both name and description are empty, setting the description first ensures that name is also set to insertion
+				description = insertion;
 			if (name.isEmpty())
 			{
 				name = description;
 				description.remove('&'); // we assume that if name.isEmpty() then an accelerator is defined in description
-				if (name.isEmpty())
-					name = insertion;
 			}
-			if (description.isEmpty())
-				description = insertion;
 			if (type.isEmpty())
 				type = '0';
 
@@ -171,7 +180,7 @@ static TikzCommandList getCommands(QXmlStreamReader *xml, QList<TikzCommand> *ti
 		if (xml->name() == "tikzcommands")
 			commandList = getChildCommands(xml, tikzCommandsList);
 		else
-			xml->raiseError(QObject::tr("Cannot parse the TikZ commands file."));
+			xml->raiseError(QApplication::translate("TikzCommandInserter", "Cannot parse the TikZ commands file."));
 	}
 	if (xml->error()) // this should never happen in a final release because tikzcommands.xml is built in the binary
 		qCritical("Parse error in TikZ commands file at line %d, column %d:\n%s", (int)xml->lineNumber(), (int)xml->columnNumber(), qPrintable(xml->errorString()));
@@ -183,10 +192,8 @@ void TikzCommandInserter::loadCommands()
 	if (!m_tikzSections.commands.isEmpty())
 		return; // don't load the commands again when opening a second window
 
-	QApplication::setOverrideCursor(Qt::WaitCursor);
 	QXmlStreamReader xml;
 	m_tikzSections = getCommands(&xml, &m_tikzCommandsList);
-	QApplication::restoreOverrideCursor();
 }
 
 /***************************************************************************/
@@ -253,16 +260,7 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList, QWidget 
 	const int numOfCommands = commandList.commands.size();
 	QAction *action;
 	int whichSection = 0;
-
-	// get left margin of the menu (to be added to the minimum width of the menu)
-	action = new QAction("test", menu);
-	menu->addAction(action);
-	QFont actionFont = action->font();
-	actionFont.setPointSize(actionFont.pointSize() - 1);
-	QFontMetrics actionFontMetrics(actionFont);
-	int menuLeftMargin = menu->width() - actionFontMetrics.boundingRect(action->text()).width();
-	menu->removeAction(action);
-	int menuMinimumWidth = 0;
+	QString longestDescription;
 
 	for (int i = 0; i < numOfCommands; ++i)
 	{
@@ -286,7 +284,8 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList, QWidget 
 			action = new QAction(name, menu);
 			action->setData(commandList.commands.at(i).number); // link to the corresponding item in m_tikzCommandsList
 			action->setStatusTip(commandList.commands.at(i).description);
-			menuMinimumWidth = qMax(menuMinimumWidth, actionFontMetrics.boundingRect(commandList.commands.at(i).description).width());
+			if (commandList.commands.at(i).description.size() > longestDescription.size())
+				longestDescription = commandList.commands.at(i).description;
 			connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));
 			connect(action, SIGNAL(hovered()), this, SLOT(updateDescriptionMenuItem()));
 			menu->addAction(action);
@@ -311,7 +310,11 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList, QWidget 
 
 		// make sure that the menu width does not change when the content
 		// of the above menu item changes
-		menu->setMinimumWidth(menuMinimumWidth + menuLeftMargin);
+		menu->setMinimumWidth(menu->width() + QFontMetrics(actionFont).boundingRect(longestDescription).width());
+//		menu->setMinimumWidth(menu->width() + QFontMetrics(QFont()).boundingRect(longestDescription).width()); // faster than the above, but less accurate :(
+//		action->setText(longestDescription);
+//		menu->setMinimumWidth(menu->sizeHint().width()); // very accurate, but so slow :(
+//		action->setText("");
 	}
 
 	return menu;

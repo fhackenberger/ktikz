@@ -51,15 +51,15 @@ static QString getParsedFilter(const QString &filter)
 			if (i > 0)
 				parsedFilter += ";;";
 			if (mimeTypeList.at(i) == "text/x-pgf")
-				parsedFilter += QObject::tr("PGF document", "filter") + " (*.pgf *.tikz)";
+				parsedFilter += QCoreApplication::translate("FileDialog", "PGF document", "filter") + " (*.pgf *.tikz)";
 			else if (mimeTypeList.at(i) == "image/x-eps")
-				parsedFilter += QObject::tr("EPS image", "filter") + " (*.eps)";
+				parsedFilter += QCoreApplication::translate("FileDialog", "EPS image", "filter") + " (*.eps)";
 			else if (mimeTypeList.at(i) == "application/pdf")
-				parsedFilter += QObject::tr("PDF document", "filter") + " (*.pdf)";
+				parsedFilter += QCoreApplication::translate("FileDialog", "PDF document", "filter") + " (*.pdf)";
 			else if (mimeTypeList.at(i).startsWith(QLatin1String("image/")))
 			{
 				const QString mimeType = mimeTypeList.at(i).mid(6);
-				parsedFilter += QObject::tr("%1 image", "filter").arg(mimeType.toUpper()) + " (*." + mimeType + ')';
+				parsedFilter += QCoreApplication::translate("FileDialog", "%1 image", "filter").arg(mimeType.toUpper()) + " (*." + mimeType + ')';
 			}
 		}
 	}
@@ -76,7 +76,7 @@ static QString getParsedFilter(const QString &filter)
 	}
 	if (!parsedFilter.isEmpty())
 		parsedFilter += ";;";
-	parsedFilter += QObject::tr("All files", "filter") + " (*)";
+	parsedFilter += QCoreApplication::translate("FileDialog", "All files", "filter") + " (*)";
 	return parsedFilter;
 }
 

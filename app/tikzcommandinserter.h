@@ -91,8 +91,6 @@ private:
 	QPlainTextEdit *m_mainEdit;
 	static TikzCommandList m_tikzSections;
 	static QList<TikzCommand> m_tikzCommandsList;
-
-//	QStringList m_highlightTypeNames;
 };
 
 #endif

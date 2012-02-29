@@ -453,7 +453,7 @@ void TikzPreviewController::abortProcess()
 
 void TikzPreviewController::applySettings()
 {
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	m_tikzPreviewGenerator->setLatexCommand(settings.value("LatexCommand", "pdflatex").toString());
 	m_tikzPreviewGenerator->setPdftopsCommand(settings.value("PdftopsCommand", "pdftops").toString());
 	const bool useShellEscaping = settings.value("UseShellEscaping", false).toBool();
@@ -496,7 +496,7 @@ void TikzPreviewController::setProcessRunning(bool isRunning)
 
 void TikzPreviewController::toggleShellEscaping(bool useShellEscaping)
 {
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.setValue("UseShellEscaping", useShellEscaping);
 
 	m_tikzPreviewGenerator->setShellEscaping(useShellEscaping);

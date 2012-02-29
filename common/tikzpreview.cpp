@@ -50,7 +50,7 @@ TikzPreview::TikzPreview(QWidget *parent)
 	m_pageSeparator = 0;
 	m_infoWidget = 0;
 
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup("Preview");
 	m_zoomFactor = settings.value("ZoomFactor", 1).toDouble();
 	settings.endGroup();
@@ -70,7 +70,7 @@ TikzPreview::~TikzPreview()
 	delete m_infoWidget;
 	delete m_tikzPreviewRenderer;
 
-	QSettings settings;
+	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup("Preview");
 	settings.setValue("ZoomFactor", m_zoomFactor);
 	settings.endGroup();

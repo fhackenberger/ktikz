@@ -37,9 +37,6 @@ Url::Url() : QUrl()
 {
 }
 
-//Url::Url(const QString &fileName) : QUrl(fileName)
-//{
-//}
 Url::Url(const QString &fileName) : QUrl()
 {
 	if (fileName.startsWith(QLatin1String("file://")))
