@@ -364,6 +364,21 @@ ps2pdf14 $texfilebasename.ps $texfilebasename.pdf</programlisting>
 -->
 
 		<row>
+			<entry><para><keycombo action="simul">&Ctrl;<keycap>B</keycap></keycombo></para></entry>
+			<entry><para>Set or unset a bookmark for the current line in the text editor.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Alt;<keycap>Up</keycap></keycombo></para></entry>
+			<entry><para>Go to the previous bookmark.</para></entry>
+		</row>
+
+		<row>
+			<entry><para><keycombo action="simul">&Alt;<keycap>Down</keycap></keycombo></para></entry>
+			<entry><para>Go to the next bookmark.</para></entry>
+		</row>
+
+		<row>
 			<entry><para><keycombo action="simul">&Ctrl;<keycap>C</keycap></keycombo></para></entry>
 			<entry><para>Copy the marked text to the clipboard.</para></entry>
 		</row>

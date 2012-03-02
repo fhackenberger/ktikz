@@ -69,7 +69,7 @@ TikzPreviewGenerator::~TikzPreviewGenerator()
 		m_thread.quit();
 		m_thread.wait();
 	}
-	emit processRunning(false);
+//	emit processRunning(false); // this causes a segmentation fault on exit on Arch Linux
 
 	if (m_tikzPdfDoc)
 		delete m_tikzPdfDoc;
