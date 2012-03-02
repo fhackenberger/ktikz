@@ -26,8 +26,11 @@ class QDockWidget;
 class QListWidget;
 class QListWidgetItem;
 class QMenu;
+class QPalette;
 class QPlainTextEdit;
+class QStackedWidget;
 class QTextCharFormat;
+class ComboBox;
 class HighlightingRule;
 
 struct TikzCommand
@@ -59,6 +62,7 @@ public:
 	static void loadCommands();
 	static QStringList getCommandWords();
 	QMenu *getMenu();
+	void showItemsInDockWidget();
 	QDockWidget *getDockWidget(QWidget *parent = 0);
 	static QMap<QString, QTextCharFormat> getDefaultHighlightFormats();
 	static QStringList getTranslatedHighlightTypeNames();
@@ -86,11 +90,14 @@ private slots:
 
 private:
 	QMenu *getMenu(const TikzCommandList &commandList, QWidget *parent);
-	void addListWidgetItems(QListWidget *listWidget, const TikzCommandList &commandList, bool addChildren = true);
+	void addListWidgetItems(QListWidget *listWidget, const QPalette &standardPalette, const TikzCommandList &commandList, bool addChildren = true);
 
 	QPlainTextEdit *m_mainEdit;
 	static TikzCommandList m_tikzSections;
 	static QList<TikzCommand> m_tikzCommandsList;
+
+	ComboBox *m_commandsCombo;
+	QStackedWidget *m_commandsStack;
 };
 
 #endif

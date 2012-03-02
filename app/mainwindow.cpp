@@ -86,6 +86,7 @@ MainWindow::MainWindow()
 #endif
 	m_configDialog = 0;
 	m_isModifiedExternally = false;
+	m_insertAction = 0;
 
 	s_mainWindowList.append(this);
 
@@ -226,7 +227,10 @@ void MainWindow::init()
 
 	TikzCommandInserter::loadCommands();
 	m_commandInserter->setEditor(m_tikzEditorView->editor());
-	m_insertAction->setMenu(m_commandInserter->getMenu());
+	if (m_insertAction)
+		m_insertAction->setMenu(m_commandInserter->getMenu());
+	else
+		m_commandInserter->showItemsInDockWidget();
 	m_tikzHighlighter->setHighlightingRules(m_commandInserter->getHighlightingRules());
 //	m_tikzHighlighter->rehighlight(); // avoid that textEdit emits the signal contentsChanged() when it is still empty
 	connect(m_userCommandInserter, SIGNAL(insertTag(QString)), m_commandInserter, SLOT(insertTag(QString)));
@@ -721,13 +725,14 @@ void MainWindow::createCommandInsertWidget()
 	}
 	else
 	{
+		// add commands action (menu will be added later in init())
 		m_insertAction = new Action(tr("&Insert"), this, "insert");
 #ifndef KTIKZ_USE_KDE
 		menuBar()->insertAction(m_settingsMenu->menuAction(), m_insertAction);
 #endif
 	}
 
-	// insert user commands menu
+	// add user commands menu
 #ifdef KTIKZ_USE_KDE
 	QMenu *userMenu = m_userCommandInserter->getMenu();
 	KAction *userInsertAction = new Action(userMenu->title(), this, "user_insert");

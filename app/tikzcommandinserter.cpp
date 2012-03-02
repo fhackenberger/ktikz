@@ -338,31 +338,33 @@ QMenu *TikzCommandInserter::getMenu()
  */
 //@{
 
-void TikzCommandInserter::addListWidgetItems(QListWidget *listWidget, const TikzCommandList &commandList, bool addChildren)
+void TikzCommandInserter::addListWidgetItems(QListWidget *listWidget, const QPalette &standardPalette, const TikzCommandList &commandList, bool addChildren)
 {
 	QFont titleFont = qApp->font();
 	titleFont.setBold(true);
-//	QColor titleBg(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::Highlight));
+//	QColor titleBg(standardPalette.color(QPalette::Normal, QPalette::Highlight));
 //	titleBg = titleBg.lighter(120);
-	QColor titleBg(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::Window));
+	QColor titleBg(standardPalette.color(QPalette::Normal, QPalette::Window));
 	titleBg = titleBg.darker(200);
-	QColor titleFg(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::HighlightedText));
-	QColor separatorBg(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::AlternateBase));
-	if (separatorBg == QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::Base))
-		separatorBg = separatorBg.darker(110);
+	QColor titleFg(standardPalette.color(QPalette::Normal, QPalette::HighlightedText));
+//	QColor separatorBg(standardPalette.color(QPalette::Normal, QPalette::AlternateBase));
+//	if (separatorBg == standardPalette.color(QPalette::Normal, QPalette::Base))
+//		separatorBg = separatorBg.darker(110);
 
 	for (int i = 0; i < commandList.commands.size(); ++i)
 	{
 		if (commandList.commands.at(i).type == -1) // if we have an empty command corresponding to a submenu, then don't add the command, the submenus will be added later
 			continue;
+		QString itemText = commandList.commands.at(i).name;
+		if (itemText.isEmpty())
+			continue;
 
 		QListWidgetItem *item = new QListWidgetItem(listWidget);
-		QString itemText = commandList.commands.at(i).name;
 		item->setText(itemText.remove('&'));
 
-		if (itemText.isEmpty())
-			item->setBackgroundColor(separatorBg);
-		else
+//		if (itemText.isEmpty())
+//			item->setBackgroundColor(separatorBg);
+//		else
 			item->setData(Qt::UserRole, commandList.commands.at(i).number); // link to the corresponding item in m_tikzCommandsList
 	}
 
@@ -378,7 +380,29 @@ void TikzCommandInserter::addListWidgetItems(QListWidget *listWidget, const Tikz
 		item->setTextColor(titleFg);
 		item->setFont(titleFont);
 
-		addListWidgetItems(listWidget, commandList.children.at(i));
+		addListWidgetItems(listWidget, standardPalette, commandList.children.at(i));
+	}
+}
+
+void TikzCommandInserter::showItemsInDockWidget()
+{
+	QListWidget *tikzListWidget = qobject_cast<QListWidget*>(m_commandsStack->widget(0));
+	QPalette standardPalette = QApplication::style()->standardPalette();
+	addListWidgetItems(tikzListWidget, standardPalette, m_tikzSections, false); // don't add children
+
+	for (int i = 0; i < m_tikzSections.children.size(); ++i)
+	{
+		QListWidget *tikzListWidget = new QListWidget;
+		addListWidgetItems(tikzListWidget, standardPalette, m_tikzSections.children.at(i));
+		tikzListWidget->setMouseTracking(true);
+		connect(tikzListWidget, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
+		connect(tikzListWidget, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
+		connect(tikzListWidget, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
+//		connect(tikzListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
+
+		QString comboItemText = m_tikzSections.children.at(i).title;
+		m_commandsCombo->addItem(comboItemText.remove('&'));
+		m_commandsStack->addWidget(tikzListWidget);
 	}
 }
 
@@ -407,46 +431,30 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
 	connect(focusTikzDockAction, SIGNAL(triggered()), tikzDock, SLOT(setFocus()));
 
 	QLabel *commandsComboLabel = new QLabel(tr("Category:"));
-	ComboBox *commandsCombo = new ComboBox;
-	commandsCombo->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-	QStackedWidget *commandsStack = new QStackedWidget;
-	connect(commandsCombo, SIGNAL(currentIndexChanged(int)), commandsStack, SLOT(setCurrentIndex(int)));
+	m_commandsCombo = new ComboBox;
+	m_commandsCombo->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+	m_commandsStack = new QStackedWidget;
+	connect(m_commandsCombo, SIGNAL(currentIndexChanged(int)), m_commandsStack, SLOT(setCurrentIndex(int)));
 
 	QListWidget *tikzListWidget = new QListWidget;
-	addListWidgetItems(tikzListWidget, m_tikzSections, false); // don't add children
 	tikzListWidget->setMouseTracking(true);
 	connect(tikzListWidget, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
 	connect(tikzListWidget, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
 	connect(tikzListWidget, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
 //	connect(tikzListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
-	commandsCombo->addItem(tr("General"));
-	commandsStack->addWidget(tikzListWidget);
-
-	for (int i = 0; i < m_tikzSections.children.size(); ++i)
-	{
-		QListWidget *tikzListWidget = new QListWidget;
-		addListWidgetItems(tikzListWidget, m_tikzSections.children.at(i));
-		tikzListWidget->setMouseTracking(true);
-		connect(tikzListWidget, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
-		connect(tikzListWidget, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(setListStatusTip(QListWidgetItem*)));
-		connect(tikzListWidget, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
-//		connect(tikzListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(insertTag(QListWidgetItem*)));
-
-		QString comboItemText = m_tikzSections.children.at(i).title;
-		commandsCombo->addItem(comboItemText.remove('&'));
-		commandsStack->addWidget(tikzListWidget);
-	}
+	m_commandsCombo->addItem(tr("General"));
+	m_commandsStack->addWidget(tikzListWidget);
 
 	QGridLayout *tikzLayout = new QGridLayout;
 	tikzLayout->addWidget(commandsComboLabel, 0, 0);
-	tikzLayout->addWidget(commandsCombo, 0, 1);
-	tikzLayout->addWidget(commandsStack, 1, 0, 1, 2);
+	tikzLayout->addWidget(m_commandsCombo, 0, 1);
+	tikzLayout->addWidget(m_commandsStack, 1, 0, 1, 2);
 	tikzLayout->setMargin(5);
 
 	TikzCommandWidget *tikzWidget = new TikzCommandWidget;
 	tikzWidget->setLayout(tikzLayout);
 	tikzDock->setWidget(tikzWidget);
-	tikzDock->setFocusProxy(commandsCombo);
+	tikzDock->setFocusProxy(m_commandsCombo);
 
 	return tikzDock;
 }
