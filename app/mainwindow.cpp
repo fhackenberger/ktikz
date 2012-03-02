@@ -18,7 +18,7 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#include <QDebug>
+//#include <QDebug>
 #include "mainwindow.h"
 
 #ifdef KTIKZ_USE_KDE
@@ -40,6 +40,7 @@
 
 #include <QtGui/QCloseEvent>
 #include <QtGui/QDesktopServices>
+#include <QtGui/QDesktopWidget>
 #include <QtGui/QDockWidget>
 #include <QtGui/QLabel>
 #include <QtGui/QMessageBox>
@@ -827,7 +828,14 @@ void MainWindow::readSettings()
 
 	QSettings settings;
 	settings.beginGroup("MainWindow");
-	QSize size = settings.value("size", QSize(800, 600)).toSize();
+	const int screenWidth = QApplication::desktop()->availableGeometry().width();
+	QSize size;
+	if (screenWidth > 1200)
+		size = settings.value("size", QSize(1200, 600)).toSize();
+	else if (screenWidth > 1024)
+		size = settings.value("size", QSize(1024, 600)).toSize();
+	else
+		size = settings.value("size", QSize(800, 600)).toSize();
 	resize(size);
 	restoreState(settings.value("MainWindowState").toByteArray());
 	settings.endGroup();

@@ -124,6 +124,12 @@ void TikzEditorView::setFont(const QFont &editorFont)
 	    .arg(fontStyle)
 	    .arg(fontWeight)
 	    .arg(fontDecoration));
+
+	// XXX dirty hack: make sure the correct font size is set, the stylesheet seems to ignore font sizes :(
+	QTextCharFormat fm = m_tikzEditor->currentCharFormat();
+	fm.setFontPointSize(editorFont.pointSize());
+	m_tikzEditor->setCurrentCharFormat(fm);
+
 	m_tikzEditor->setTabStopWidth(m_tikzEditor->fontMetrics().width("    "));
 }
 

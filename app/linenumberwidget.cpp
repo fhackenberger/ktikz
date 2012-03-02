@@ -57,7 +57,6 @@ void LineNumberWidget::paintEvent(QPaintEvent *event)
 	QPainter painter(this);
 
 	const QFontMetrics fm = m_editor->fontMetrics();
-	int lineHeight = fm.height();
 
 	// draw separator between line number area and text editor
 	painter.setPen(m_highlightPen);
@@ -65,8 +64,9 @@ void LineNumberWidget::paintEvent(QPaintEvent *event)
 
 	QTextBlock block = m_editor->firstVisibleBlock();
 	int lineNumber = block.blockNumber() + 1;
-	int top = (int) m_editor->blockBoundingGeometry(block).translated(m_editor->contentOffset()).top(); // slow
-	int bottom = top + lineHeight * block.lineCount();
+	int top = (int) m_editor->blockBoundingGeometry(block).translated(m_editor->contentOffset()).top();
+	int lineHeight = m_editor->blockBoundingRect(block).height();
+	int bottom = top + lineHeight;
 
 	QList<int> userBookmarks = m_editor->userBookmarks();
 	while (block.isValid() && top <= event->rect().bottom())
@@ -90,7 +90,8 @@ void LineNumberWidget::paintEvent(QPaintEvent *event)
 
 		block = block.next();
 		top = bottom;
-		bottom += lineHeight * block.lineCount();
+		lineHeight = m_editor->blockBoundingRect(block).height();
+		bottom += lineHeight;
 		++lineNumber;
 	}
 	painter.end();

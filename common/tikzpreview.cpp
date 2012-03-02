@@ -18,6 +18,8 @@
 
 #include "tikzpreview.h"
 
+#include <QtGui/QApplication>
+#include <QtGui/QDesktopWidget>
 #include <QtGui/QGraphicsProxyWidget>
 #include <QtGui/QMenu>
 #include <QtGui/QScrollBar>
@@ -86,7 +88,13 @@ void TikzPreview::contextMenuEvent(QContextMenuEvent *event)
 
 QSize TikzPreview::sizeHint() const
 {
-	return QSize(250, 200);
+	const int screenWidth = QApplication::desktop()->availableGeometry().width();
+	if (screenWidth > 1200)
+		return QSize(500, 400);
+	else if (screenWidth > 1024)
+		return QSize(400, 400);
+	else
+		return QSize(250, 200);
 }
 
 /***************************************************************************/

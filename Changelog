@@ -77,6 +77,8 @@ version 0.11:
 - add line number area to the left of the editor
 - add bookmark functionality
 - display error message when export to EPS, JPEG, ... fails
+- have more sensible sizes for the main window and the preview panel on
+  first run (for screens larger than 1024x768)
 version 0.10 (2010-08-26):
 - KDE integration (the possibility to compile Qt-only still exists)
 - template files on remote machines can be used using KIO (only in the KDE
