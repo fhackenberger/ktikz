@@ -12,7 +12,8 @@ win32 {
 	INSTALLS += icon
 
 	dlls.path = $${PREFIX}
-	dlls.files += $${PWD}/../win32/poppler/*.dll
+	dlls.files += $${PWD}/../win32/poppler/*.dll \
+		$${PWD}/../win32/poppler/pdftops.exe
 	debug {
 		dlls.files += $$[QT_INSTALL_BINS]/QtCored4.dll \
 			$$[QT_INSTALL_BINS]/QtGuid4.dll \

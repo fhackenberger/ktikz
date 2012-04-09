@@ -1,0 +1,122 @@
+The following instructions describe how I (Glad Deschrijver) managed to
+compile QtikZ under Windows.
+
+Initialization:
+---------------
+
+0. Get TortoiseSVN at http://tortoisesvn.net/downloads.html and install it.
+Create a folder named "ktikz" wherever you want to have to source of ktikz,
+right-click on the new folder and select "TortoiseSVN" -> "Checkout". Enter
+the URL of the checkout:
+svn://hackenberger.at/svnroot/ktikz/trunk
+and click on "OK".
+Get the Qt SDK at http://qt.nokia.com/downloads/ and install it.
+Get NSIS at http://nsis.sourceforge.net/Download and install it.
+
+Install dependencies:
+---------------------
+
+1. Download from http://www.gtk.org/download/win32.php the following
+packages (run-time version and developer version):
+- zlib
+- cairo
+- libpng
+- freetype
+- fontconfig
+
+2. Download the openjpeg-*-win32-x86.zip file from
+http://code.google.com/p/openjpeg/
+
+3. Download tiff*-bin.zip and tiff*-lib.zip from
+http://sourceforge.net/projects/gnuwin32/files/tiff/ or
+http://gnuwin32.sourceforge.net/packages/tiff.htm
+
+4. Download jpeg*-bin.zip and jpeg*-lib.zip from
+http://gnuwin32.sourceforge.net/packages/jpeg.htm
+
+5. Extract all these packages.
+
+6. Download the poppler source from http://poppler.freedesktop.org/
+
+7. Get the win32 installer of cmake from
+http://cmake.org/cmake/resources/software.html
+
+8. Create directory named "build" (without the quotes) inside the
+extracted poppler source and go to it on the command line.
+
+9. Add the following to the main CMakeLists.txt file (in the poppler source)
+at the top (change DEP_BASE_DIR to the directory in which you have extracted
+all the above packages; also update all version numbers below):
+
+set(DEP_BASE_DIR C:/Users/glad/Downloads/)
+set(FREETYPE_INCLUDE_DIR_freetype2 ${DEP_BASE_DIR}/freetype-dev_2.4.2-1_win32/include/freetype2)
+set(FREETYPE_INCLUDE_DIR_ft2build ${DEP_BASE_DIR}/freetype-dev_2.4.2-1_win32/include)
+set(FREETYPE_LIBRARY ${DEP_BASE_DIR}/freetype-dev_2.4.2-1_win32/lib/freetype.lib)
+set(CAIRO_INCLUDE_DIR ${DEP_BASE_DIR}/cairo-dev_1.10.2-2_win32/include/cairo)
+set(CAIRO_LIBRARY ${DEP_BASE_DIR}/cairo-dev_1.10.2-2_win32/lib/cairo.lib)
+set(LIBOPENJPEG_INCLUDE_DIR ${DEP_BASE_DIR}/openjpeg-1.5.0-win32-x86/include/openjpeg-1.5/)
+set(LIBOPENJPEG_LIBRARIES ${DEP_BASE_DIR}/openjpeg-1.5.0-win32-x86/lib/openjpeg.lib)
+set(PNG_PNG_INCLUDE_DIR ${DEP_BASE_DIR}/libpng-dev_1.4.3-1_win32/include)
+set(PNG_LIBRARY ${DEP_BASE_DIR}/libpng-dev_1.4.3-1_win32/lib/libpng.lib)
+set(JPEG_INCLUDE_DIR ${DEP_BASE_DIR}/jpeg-6b-4-lib/include)
+set(JPEG_LIBRARY ${DEP_BASE_DIR}/jpeg-6b-4-lib/lib/jpeg.lib)
+set(TIFF_INCLUDE_DIR ${DEP_BASE_DIR}/tiff-3.8.2-1-lib/include)
+set(TIFF_LIBRARY ${DEP_BASE_DIR}/tiff-3.8.2-1-lib/lib/libtiff.lib)
+set(ZLIB_INCLUDE_DIR ${DEP_BASE_DIR}/zlib-dev_1.2.5-2_win32/include)
+set(ZLIB_LIBRARY ${DEP_BASE_DIR}/zlib-dev_1.2.5-2_win32/lib/zdll.lib)
+include_directories(${DEP_BASE_DIR}/fontconfig-dev_2.8.0-2_win32/include/)
+
+10. Run on the command line (remember that in step 8 you have already
+gone into the build directory of poppler):
+"C:\Program Files\CMake 2.8\bin\cmake.exe" -G "MinGW Makefiles" ..
+
+11. Run on the command line:
+mingw32-make
+(this hopefully gets as far as it needs to have poppler, pdftops and
+poppler-qt4)
+
+12. Copy from the binary zip files downloaded above the following files
+to the win32/poppler directory in the ktikz source:
+  freetype6.dll
+  jpeg62.dll
+  libfontconfig-1.dll
+  libpng14-14.dll
+  libpoppler.dll (this is the compiled version from steps 8-9)
+  libpoppler-qt4.dll (idem)
+  libtiff3.dll
+  openjpeg.dll
+  zlib1.dll
+  pdftops.exe (compiled in steps 8-9)
+  poppler-annotation.h
+  poppler-export.h
+  poppler-link.h
+  poppler-optcontent.h
+  poppler-page-transition.h
+  poppler-qt4.h
+
+Compile QtikZ:
+--------------
+
+13. Open Qt Creator, in the menu select "File" -> "Open File or
+Project". Select qtikz.pro in the main directory of the qtikz source.
+
+14. In the Qt Creator main window select "Projects". Make sure that the
+correct Qt version is set. In the "Build Steps" click on "Add build
+step" -> "Make" and change the "Make arguments" to "install" (without
+the quotes).
+
+15. Press the "Build All" button to install qtikz. You will find the
+qtikz.exe executable in the directory specified in the PREFIX variable
+in qtikzdefaults.pri (in the win32 section of that file) or in
+qtikzconfig.pri. Likely this directory is "C:\QtikZ".
+
+16. Copy all the files mentioned in step 12 to this directory (if they
+are not already there). Double-click on qtikz.exe to test whether it
+runs.
+
+Create installer:
+-----------------
+
+17. Copy win32/qtikz-0.11.nsi to the directory mentioned in step 15 (if
+it is not already there), right-click on the copied file and select
+"Compile NSIS Script". This should create the installer.

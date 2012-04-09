@@ -9,7 +9,7 @@
 
 # installation prefix:
 #PREFIX = $$(HOME)/Applications
-PREFIX = /usr
+#PREFIX = /usr
 
 # install binary here:
 #BIN_INSTALL_DIR = $${PREFIX}/bin
@@ -22,7 +22,7 @@ PREFIX = /usr
 
 # install desktop file here (*nix only):
 #DESKTOP_INSTALL_DIR = $$(HOME)/.local/share/applications
-DESKTOP_INSTALL_DIR = $${PREFIX}/share/applications
+#DESKTOP_INSTALL_DIR = $${PREFIX}/share/applications
 
 # install mimetype here:
 #MIME_INSTALL_DIR = /usr/share/mime/packages
@@ -40,9 +40,9 @@ CONFIG -= debug
 CONFIG += release
 
 # qmake command:
-QMAKECOMMAND = qmake-qt4
+#QMAKECOMMAND = qmake-qt4
 # lrelease command:
-LRELEASECOMMAND = lrelease-qt4
+#LRELEASECOMMAND = lrelease-qt4
 # qcollectiongenerator command:
 #QCOLLECTIONGENERATORCOMMAND = qcollectiongenerator
 

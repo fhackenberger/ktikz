@@ -14,21 +14,13 @@ isEmpty(QCOLLECTIONGENERATORCOMMAND) {
 
 unix:!macx {
 	isEmpty(PREFIX) {
-		debug {
-			PREFIX = $$(HOME)
-		} else {
-			PREFIX = /usr/local
-		}
+		PREFIX = /usr
 	}
 	isEmpty(BIN_INSTALL_DIR) {
 		BIN_INSTALL_DIR = $${PREFIX}/bin
 	}
 	isEmpty(DESKTOP_INSTALL_DIR) {
-		debug {
-			DESKTOP_INSTALL_DIR = $$(HOME)/.local/share/applications
-		} else {
-			DESKTOP_INSTALL_DIR = /usr/share/applications
-		}
+		DESKTOP_INSTALL_DIR = /usr/share/applications
 	}
 	isEmpty(MIME_INSTALL_DIR) {
 		MIME_INSTALL_DIR = /usr/share/mime/packages
