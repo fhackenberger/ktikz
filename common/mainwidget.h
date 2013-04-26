@@ -20,7 +20,11 @@
 #define KTIKZ_MAIN_WIDGET_H
 
 #include <QtCore/QString>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QWidget>
+#else
 #include <QtGui/QWidget>
+#endif
 
 #include "utils/url.h"
 

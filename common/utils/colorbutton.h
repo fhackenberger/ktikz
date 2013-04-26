@@ -31,7 +31,12 @@ public:
 	explicit ColorButton(const QColor &color, QWidget *parent = 0) : KColorButton(color, parent) {}
 };
 #else
+#include <QtCore/QtGlobal>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QToolButton>
+#else
 #include <QtGui/QToolButton>
+#endif
 
 class ColorButton : public QToolButton
 {

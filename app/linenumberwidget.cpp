@@ -18,11 +18,16 @@
 
 #include "linenumberwidget.h"
 
-#include <QtGui/QApplication>
 #include <QtGui/QMouseEvent>
 #include <QtGui/QPainter>
-#include <QtGui/QStyle>
 #include <QtGui/QTextBlock>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QStyle>
+#else
+#include <QtGui/QApplication>
+#include <QtGui/QStyle>
+#endif
 
 #include "tikzeditor.h"
 
@@ -53,7 +58,6 @@ QSize LineNumberWidget::sizeHint() const
 
 void LineNumberWidget::paintEvent(QPaintEvent *event)
 {
-	Q_UNUSED(event);
 	QPainter painter(this);
 
 	const QFontMetrics fm = m_editor->fontMetrics();

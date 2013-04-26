@@ -34,7 +34,12 @@ public:
 	ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = 0);
 };
 #else
+#include <QtCore/QtGlobal>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QAction>
+#else
 #include <QtGui/QAction>
+#endif
 
 class ToggleAction : public QAction
 {

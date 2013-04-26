@@ -19,8 +19,12 @@
 #ifndef TIKZEDITORVIEW_H
 #define TIKZEDITORVIEW_H
 
-#include <QtGui/QWidget>
 #include <QtGui/QTextDocument>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QWidget>
+#else
+#include <QtGui/QWidget>
+#endif
 //#include "tikzcommandinserter.h"
 
 class QAction;

@@ -18,8 +18,13 @@
 
 #include "tikzpreviewmessagewidget.h"
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
+#else
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
+#endif
 #ifdef KTIKZ_USE_KDE
 #include <KIconLoader>
 #endif

@@ -39,6 +39,17 @@ void PageDialog::addPage(QWidget *widget, const QString &title, const QString &i
 	KPageDialog::addPage(page);
 }
 #else
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QListWidget>
+#include <QtWidgets/QStackedWidget>
+#include <QtWidgets/QToolButton>
+#include <QtWidgets/QWhatsThis>
+#else
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QDialogButtonBox>
@@ -48,6 +59,7 @@ void PageDialog::addPage(QWidget *widget, const QString &title, const QString &i
 #include <QtGui/QStackedWidget>
 #include <QtGui/QToolButton>
 #include <QtGui/QWhatsThis>
+#endif
 #include "icon.h"
 
 PageDialog::PageDialog(QWidget *parent) : QDialog(parent)

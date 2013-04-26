@@ -32,28 +32,46 @@
 #include <KXMLGUIFactory>
 #else
 #include <QtCore/QLocale>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QStatusBar>
+#else
 #include <QtGui/QMenuBar>
 #include <QtGui/QStatusBar>
+#endif
 #include "aboutdialog.h"
 #include "assistantcontroller.h"
 #endif
 
+#include <QtCore/QProcess>
+#include <QtCore/QSettings>
+#include <QtCore/QTextStream>
+#include <QtCore/QTimer>
 #include <QtGui/QCloseEvent>
 #include <QtGui/QDesktopServices>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QDockWidget>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QPlainTextEdit>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QToolBar>
+#include <QtWidgets/QToolButton>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWhatsThis>
+#else
 #include <QtGui/QDesktopWidget>
 #include <QtGui/QDockWidget>
 #include <QtGui/QLabel>
 #include <QtGui/QMessageBox>
 #include <QtGui/QPlainTextEdit>
-#include <QtCore/QProcess>
 #include <QtGui/QPushButton>
-#include <QtCore/QSettings>
-#include <QtCore/QTextStream>
-#include <QtCore/QTimer>
 #include <QtGui/QToolBar>
 #include <QtGui/QToolButton>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWhatsThis>
+#endif
 
 #include "configdialog.h"
 #include "ktikzapplication.h"
@@ -136,7 +154,6 @@ MainWindow::MainWindow()
 	                               "LaTeX are shown here.  If your TikZ code contains errors, "
 	                               "then a red border will appear and the errors will be "
 	                               "highlighted.</p>"));
-	m_logTextEdit->setReadOnly(true);
 	m_logDock->setWidget(m_logTextEdit);
 
 	m_previewDock = new QDockWidget(this);
@@ -226,6 +243,7 @@ void MainWindow::init()
 	m_tikzEditorView->setPasteEnabled();
 
 	TikzCommandInserter::loadCommands();
+//qCritical() << t.msecsTo(QTime::currentTime());
 	m_commandInserter->setEditor(m_tikzEditorView->editor());
 	if (m_insertAction)
 		m_insertAction->setMenu(m_commandInserter->getMenu());
@@ -554,6 +572,7 @@ void MainWindow::createActions()
 #else
 	m_helpAction = new QAction(Icon("help-contents"), tr("%1 &Handbook").arg(KtikzApplication::applicationName()), this);
 	m_helpAction->setStatusTip(tr("Show the application's documentation"));
+	m_helpAction->setShortcut(QKeySequence::HelpContents);
 	connect(m_helpAction, SIGNAL(triggered()), this, SLOT(showDocumentation()));
 
 	m_whatsThisAction = QWhatsThis::createAction(this);

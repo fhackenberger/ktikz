@@ -40,9 +40,9 @@ void ConfigEditorWidget::readSettings(const QString &settingsGroup)
 	ui.showWhiteSpacesCheck->setChecked(settings.value("ShowWhiteSpaces", false).toBool());
 	ui.showTabulatorsCheck->setChecked(settings.value("ShowTabulators", false).toBool());
 	ui.showMatchingBracketsCheck->setChecked(settings.value("ShowMatchingBrackets", true).toBool());
-	ui.whiteSpacesColorButton->setColor(settings.value("ColorWhiteSpaces", Qt::gray).value<QColor>());
-	ui.tabulatorsColorButton->setColor(settings.value("ColorTabulators", Qt::gray).value<QColor>());
-	ui.matchingBracketsColorButton->setColor(settings.value("ColorMatchingBrackets", Qt::yellow).value<QColor>());
+	ui.whiteSpacesColorButton->setColor(settings.value("ColorWhiteSpaces", QColor(Qt::gray)).value<QColor>());
+	ui.tabulatorsColorButton->setColor(settings.value("ColorTabulators", QColor(Qt::gray)).value<QColor>());
+	ui.matchingBracketsColorButton->setColor(settings.value("ColorMatchingBrackets", QColor(Qt::yellow)).value<QColor>());
 	ui.useCompletionCheck->setChecked(settings.value("UseCompletion", true).toBool());
 	settings.endGroup();
 }

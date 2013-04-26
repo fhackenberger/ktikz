@@ -60,9 +60,13 @@ QString KtikzApplication::applicationName()
 #else
 #include <QtCore/QFileInfo>
 #include <QtCore/QUrl>
-#include <QtGui/QMessageBox>
-#include <QtGui/QSessionManager>
 #include <QtCore/QSettings>
+#include <QtGui/QSessionManager>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QMessageBox>
+#else
+#include <QtGui/QMessageBox>
+#endif
 
 KtikzApplication::KtikzApplication(int &argc, char **argv)
 	: QApplication(argc, argv)

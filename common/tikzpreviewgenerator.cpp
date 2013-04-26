@@ -25,10 +25,14 @@
 #endif
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
-#include <QtGui/QPixmap>
 #include <QtCore/QProcess>
-#include <QtGui/QPlainTextEdit>
 #include <QtCore/QTextStream>
+#include <QtGui/QPixmap>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QPlainTextEdit>
+#else
+#include <QtGui/QPlainTextEdit>
+#endif
 
 #include <poppler-qt4.h>
 

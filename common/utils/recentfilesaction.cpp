@@ -74,8 +74,12 @@ void RecentFilesAction::removeUrl(const Url &url)
 	KRecentFilesAction::removeUrl(url);
 }
 #else
-#include <QtGui/QMenu>
 #include <QtCore/QSettings>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QMenu>
+#else
+#include <QtGui/QMenu>
+#endif
 
 RecentFilesAction::RecentFilesAction(QObject *parent)
 	: Action(parent)

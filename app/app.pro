@@ -7,6 +7,8 @@ CONFIG += warn_on \
 	thread \
 	qt
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 win32:INCLUDEPATH += $${_PRO_FILE_PWD_} $${_PRO_FILE_PWD_}/../win32/poppler
 win32:LIBS += -L$${_PRO_FILE_PWD_}/../win32/poppler/
 LIBS += -lpoppler-qt4

@@ -18,13 +18,22 @@
 
 #include "tikzpreview.h"
 
+#include <QtCore/QSettings>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QGraphicsProxyWidget>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QScrollBar>
+#include <QtWidgets/QToolBar>
+#else
 #include <QtGui/QApplication>
 #include <QtGui/QDesktopWidget>
 #include <QtGui/QGraphicsProxyWidget>
 #include <QtGui/QMenu>
 #include <QtGui/QScrollBar>
-#include <QtCore/QSettings>
 #include <QtGui/QToolBar>
+#endif
 
 #include <poppler-qt4.h>
 
@@ -388,23 +397,26 @@ void TikzPreview::mouseMoveEvent(QMouseEvent *event)
 		const qreal minY = m_tikzCoordinates.at(4 + offset); // minimum y-coordinate on the figure in points
 		const qreal maxY = m_tikzCoordinates.at(5 + offset); // maximum y-coordinate on the figure in points
 
-		int precisionX = m_precision; // the number of decimals used to display the x-coordinate of the mouse pointer
-		int precisionY = m_precision; // idem for the y-coordinate
-		if (m_precision < 0) // in app/configgeneralwidget.cpp the precision is set to -1 if the user chooses "Best precision", which we calculate now
+		if (unitX > 0 && unitY > 0) // this is not the case for 3D plots
 		{
-			qreal invUnitX = 1 / unitX;
-			qreal invUnitY = 1 / unitY;
-			for (precisionX = 0; invUnitX < 1; ++precisionX) // make sure that some significant decimals are displayed (and not numbers like 0.00)
-				invUnitX *= 10;
-			for (precisionY = 0; invUnitY < 1; ++precisionY) // idem
-				invUnitY *= 10;
-		}
+			int precisionX = m_precision; // the number of decimals used to display the x-coordinate of the mouse pointer
+			int precisionY = m_precision; // idem for the y-coordinate
+			if (m_precision < 0) // in app/configgeneralwidget.cpp the precision is set to -1 if the user chooses "Best precision", which we calculate now
+			{
+				qreal invUnitX = 1 / unitX;
+				qreal invUnitY = 1 / unitY;
+				for (precisionX = 0; invUnitX < 1; ++precisionX) // make sure that some significant decimals are displayed (and not numbers like 0.00)
+					invUnitX *= 10;
+				for (precisionY = 0; invUnitY < 1; ++precisionY) // idem
+					invUnitY *= 10;
+			}
 
-		const QPointF mouseSceneCoords = mapToScene(event->pos()) / m_zoomFactor;
-		const qreal coordX = mouseSceneCoords.x() + minX;
-		const qreal coordY = maxY - mouseSceneCoords.y();
-		if (coordX >= minX && coordX <= maxX && coordY >= minY && coordY <= maxY)
-			emit showMouseCoordinates(coordX / unitX, coordY / unitY, precisionX, precisionY);
+			const QPointF mouseSceneCoords = mapToScene(event->pos()) / m_zoomFactor;
+			const qreal coordX = mouseSceneCoords.x() + minX;
+			const qreal coordY = maxY - mouseSceneCoords.y();
+			if (coordX >= minX && coordX <= maxX && coordY >= minY && coordY <= maxY)
+				emit showMouseCoordinates(coordX / unitX, coordY / unitY, precisionX, precisionY);
+		}
 	}
 	QGraphicsView::mouseMoveEvent(event);
 }

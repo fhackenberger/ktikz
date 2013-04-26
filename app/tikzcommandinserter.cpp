@@ -18,17 +18,28 @@
 
 #include "tikzcommandinserter.h"
 
+#include <QtCore/QFile>
+#include <QtCore/QXmlStreamReader>
+#include <QtGui/QTextCursor>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QDockWidget>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QListWidget>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QPlainTextEdit>
+#include <QtWidgets/QStackedWidget>
+#else
 #include <QtGui/QApplication>
 #include <QtGui/QDockWidget>
-#include <QtCore/QFile>
 #include <QtGui/QGridLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QListWidget>
 #include <QtGui/QMenu>
 #include <QtGui/QPlainTextEdit>
 #include <QtGui/QStackedWidget>
-#include <QtGui/QTextCursor>
-#include <QtCore/QXmlStreamReader>
+#endif
 
 #include "tikzeditorhighlighter.h"
 #include "tikzcommandwidget.h"
@@ -387,7 +398,7 @@ void TikzCommandInserter::addListWidgetItems(QListWidget *listWidget, const QPal
 void TikzCommandInserter::showItemsInDockWidget()
 {
 	QListWidget *tikzListWidget = qobject_cast<QListWidget*>(m_commandsStack->widget(0));
-	QPalette standardPalette = QApplication::style()->standardPalette();
+	QPalette standardPalette = QApplication::style()->standardPalette(); // this is slow, so we call this only once here and pass this as argument to addListWidgetItems instead of calling this each time in addListWidgetItems
 	addListWidgetItems(tikzListWidget, standardPalette, m_tikzSections, false); // don't add children
 
 	for (int i = 0; i < m_tikzSections.children.size(); ++i)

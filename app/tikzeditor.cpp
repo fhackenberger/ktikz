@@ -36,15 +36,23 @@
 
 #include "tikzeditor.h"
 
+#include <QtGui/QPainter>
+#include <QtGui/QPalette>
+#include <QtGui/QTextBlock>
+#include <QtGui/QTextLayout>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QAbstractItemView>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QCompleter>
+#include <QtWidgets/QScrollBar>
+#include <QtCore/QStringListModel>
+#else
 #include <QtGui/QAbstractItemView>
 #include <QtGui/QApplication>
 #include <QtGui/QCompleter>
-#include <QtGui/QPainter>
-#include <QtGui/QPalette>
 #include <QtGui/QScrollBar>
 #include <QtGui/QStringListModel>
-#include <QtGui/QTextBlock>
-#include <QtGui/QTextLayout>
+#endif
 
 #include "linenumberwidget.h"
 
@@ -219,12 +227,12 @@ void TikzEditor::showMatchingBrackets()
 			if (block.position() + i == m_matchingBegin || block.position() + i == m_matchingEnd)
 			{
 				QList<QTextEdit::ExtraSelection> extraSelectionList = extraSelections();
-					QTextEdit::ExtraSelection selection;
-					selection.format.setBackground(m_matchingColor);
-					selection.cursor = textCursor();
-					selection.cursor.setPosition(block.position() + i, QTextCursor::MoveAnchor);
-					selection.cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
-					extraSelectionList.append(selection);
+				QTextEdit::ExtraSelection selection;
+				selection.format.setBackground(m_matchingColor);
+				selection.cursor = textCursor();
+				selection.cursor.setPosition(block.position() + i, QTextCursor::MoveAnchor);
+				selection.cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+				extraSelectionList.append(selection);
 				setExtraSelections(extraSelectionList);
 			}
 		}

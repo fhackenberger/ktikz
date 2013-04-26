@@ -18,6 +18,7 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
+//#include <QDebug>
 #ifdef KTIKZ_USE_KDE
 #include <KAboutData>
 #include <KCmdLineArgs>
@@ -30,7 +31,11 @@
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QLocale>
 #include <QtCore/QTranslator>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QWidget> // needed for abort() below
+#else
 #include <QtGui/QWidget> // needed for abort() below
+#endif
 
 #include "ktikzapplication.h"
 
@@ -45,6 +50,28 @@ static struct { const char *source; const char *comment; } copyrightString = QT_
 	"Copyright (C) <YEAR> <NAME>.\" in which you fill in the year(s) of "
 	"translation and your name.");
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+void debugOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+	// qDebug() and qWarning() only show messages when in debug mode
+	QByteArray localMsg = msg.toLocal8Bit();
+	switch (type)
+	{
+		case QtDebugMsg:
+		case QtWarningMsg:
+#ifndef QT_NO_DEBUG
+			fprintf(stderr, "%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+#endif
+			break;
+		case QtCriticalMsg:
+			fprintf(stderr, "Critical: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+			break;
+		case QtFatalMsg:
+			fprintf(stderr, "Fatal: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
+			abort();
+	}
+}
+#else
 void debugOutput(QtMsgType type, const char *msg)
 {
 	// qDebug() and qWarning() only show messages when in debug mode
@@ -64,6 +91,7 @@ void debugOutput(QtMsgType type, const char *msg)
 			abort();
 	}
 }
+#endif
 
 bool findTranslator(QTranslator *translator, const QString &transName, const QString &transDir)
 {
@@ -100,9 +128,14 @@ void createTranslator(QTranslator *translator, const QString &transName, const Q
 
 int main(int argc, char **argv)
 {
+//QTime t = QTime::currentTime();
 	Q_UNUSED(copyrightString);
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	qInstallMessageHandler(debugOutput);
+#else
 	qInstallMsgHandler(debugOutput);
+#endif
 
 #ifndef KTIKZ_USE_KDE
 	// discard session (X11 calls QApplication::saveState() also when the app
@@ -156,5 +189,6 @@ int main(int argc, char **argv)
 	app.installTranslator(&qtikzTranslator);
 
 	app.init();
+//qCritical() << t.msecsTo(QTime::currentTime());
 	return app.exec();
 }

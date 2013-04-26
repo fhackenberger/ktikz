@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2011 by Glad Deschrijver                    *
+ *   Copyright (C) 2007, 2008, 2011, 2013 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -18,12 +18,17 @@
 
 #include "logtextedit.h"
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QApplication>
+#else
 #include <QtGui/QApplication>
+#endif
 #include "loghighlighter.h"
 
 LogTextEdit::LogTextEdit(QWidget *parent) : QTextEdit(parent)
 {
 	m_logHighlighter = new LogHighlighter(document());
+	setReadOnly(true);
 }
 
 LogTextEdit::~LogTextEdit()

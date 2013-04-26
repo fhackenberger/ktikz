@@ -18,13 +18,19 @@
 
 #include "tikzeditorview.h"
 
-#include <QtGui/QApplication>
 #include <QtGui/QClipboard>
-#include <QtGui/QMenu>
 #include <QtCore/QPointer>
 #include <QtCore/QSettings>
 #include <QtGui/QTextCursor>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QToolBar>
+#else
+#include <QtGui/QApplication>
+#include <QtGui/QMenu>
 #include <QtGui/QToolBar>
+#endif
 
 #include "editgotolinewidget.h"
 #include "editindentwidget.h"
@@ -298,9 +304,9 @@ void TikzEditorView::applySettings()
 	m_tikzEditor->setShowWhiteSpaces(settings.value("ShowWhiteSpaces", false).toBool());
 	m_tikzEditor->setShowTabulators(settings.value("ShowTabulators", false).toBool());
 	m_tikzEditor->setShowMatchingBrackets(settings.value("ShowMatchingBrackets", true).toBool());
-	m_tikzEditor->setWhiteSpacesColor(settings.value("ColorWhiteSpaces", Qt::gray).value<QColor>());
-	m_tikzEditor->setTabulatorsColor(settings.value("ColorTabulators", Qt::gray).value<QColor>());
-	m_tikzEditor->setMatchingColor(settings.value("ColorMatchingBrackets", Qt::yellow).value<QColor>());
+	m_tikzEditor->setWhiteSpacesColor(settings.value("ColorWhiteSpaces", QColor(Qt::gray)).value<QColor>());
+	m_tikzEditor->setTabulatorsColor(settings.value("ColorTabulators", QColor(Qt::gray)).value<QColor>());
+	m_tikzEditor->setMatchingColor(settings.value("ColorMatchingBrackets", QColor(Qt::yellow)).value<QColor>());
 	settings.endGroup();
 
 /*

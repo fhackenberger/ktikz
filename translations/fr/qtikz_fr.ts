@@ -3715,7 +3715,7 @@ Continuer à partir de la fin ?</translation>
         <location filename="../../app/tikzeditorview.cpp" line="224"/>
         <source>Alt+Up</source>
         <comment>Bookmarks|Previous</comment>
-        <translation>Alt+Up</translation>
+        <translation>Alt+Haut</translation>
     </message>
     <message>
         <location filename="../../app/tikzeditorview.cpp" line="225"/>
@@ -3736,7 +3736,7 @@ Continuer à partir de la fin ?</translation>
         <location filename="../../app/tikzeditorview.cpp" line="230"/>
         <source>Alt+Down</source>
         <comment>Bookmarks|Next</comment>
-        <translation>Alt+Down</translation>
+        <translation>Alt+Bas</translation>
     </message>
     <message>
         <location filename="../../app/tikzeditorview.cpp" line="231"/>

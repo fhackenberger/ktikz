@@ -18,11 +18,18 @@
 
 #include "editreplacecurrentwidget.h"
 
+#include <QtGui/QKeyEvent>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QVBoxLayout>
+#else
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
-#include <QtGui/QKeyEvent>
 #include <QtGui/QPushButton>
 #include <QtGui/QVBoxLayout>
+#endif
 
 #include "../common/utils/icon.h"
 

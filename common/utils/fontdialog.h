@@ -37,7 +37,11 @@ public:
 	}
 };
 #else
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QFontDialog>
+#else
 #include <QtGui/QFontDialog>
+#endif
 
 class FontDialog : public QFontDialog
 {

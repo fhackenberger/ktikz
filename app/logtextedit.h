@@ -19,7 +19,12 @@
 #ifndef LOGTEXTEDIT_H
 #define LOGTEXTEDIT_H
 
+#include <QtCore/QtGlobal>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QTextEdit>
+#else
 #include <QtGui/QTextEdit>
+#endif
 
 class QSyntaxHighlighter;
 

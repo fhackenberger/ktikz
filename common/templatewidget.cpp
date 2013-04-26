@@ -18,11 +18,15 @@
 
 #include "templatewidget.h"
 
-#include <QtGui/QApplication>
-#include <QtGui/QKeyEvent>
 #include <QtCore/QProcess>
 #include <QtCore/QSettings>
+#include <QtGui/QKeyEvent>
 #include <QtGui/QTextDocument>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QApplication>
+#else
+#include <QtGui/QApplication>
+#endif
 
 #include "utils/combobox.h"
 #include "utils/filedialog.h"
@@ -110,7 +114,12 @@ void TemplateWidget::setReplaceText(const QString &replace)
 	                                     "of a complete LaTeX document in which the TikZ picture will be "
 	                                     "included and which will be typesetted to produce the preview "
 	                                     "image.  The string %1 in the template will be replaced by the "
-	                                     "TikZ code.</p>").arg(Qt::escape(replace)));
+	                                     "TikZ code.</p>")
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	                                     .arg(replace.toHtmlEscaped()));
+#else
+	                                     .arg(Qt::escape(replace)));
+#endif
 	ui.templateCombo->setWhatsThis(tr("<p>Give the file name of the LaTeX "
 	                                  "template.  If this input field is empty or contains an invalid "
 	                                  "file name, an internal default template will be used.</p>")

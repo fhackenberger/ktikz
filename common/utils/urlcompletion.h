@@ -31,15 +31,22 @@ public:
 	}
 };
 #else
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QCompleter>
+#include <QtWidgets/QFileSystemModel>
+#else
 #include <QtGui/QCompleter>
-#include <QtGui/QDirModel>
+#include <QtGui/QFileSystemModel>
+#endif
 
 class UrlCompletion : public QCompleter
 {
 public:
 	UrlCompletion(QObject *parent = 0) : QCompleter(parent)
 	{
-		setModel(new QDirModel(this));
+		QFileSystemModel *fileSystemModel = new QFileSystemModel(this);
+		fileSystemModel->setRootPath(QDir::rootPath());
+		setModel(fileSystemModel);
 		setCompletionMode(QCompleter::PopupCompletion);
 	}
 };

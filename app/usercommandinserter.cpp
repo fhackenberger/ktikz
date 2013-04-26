@@ -18,9 +18,13 @@
 
 #include "usercommandinserter.h"
 
-#include <QtGui/QMenu>
 #include <QtCore/QPointer>
 #include <QtCore/QSettings>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QMenu>
+#else
+#include <QtGui/QMenu>
+#endif
 
 #include "tikzcommandinserter.h"
 #include "usercommandeditdialog.h"

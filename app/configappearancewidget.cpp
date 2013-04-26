@@ -18,10 +18,15 @@
 
 #include "configappearancewidget.h"
 
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
 #include <QtCore/QSettings>
 #include <QtGui/QTextCharFormat>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#else
+#include <QtGui/QApplication>
+#include <QtGui/QButtonGroup>
+#endif
 
 #include "../common/utils/colordialog.h"
 #include "../common/utils/fontdialog.h"

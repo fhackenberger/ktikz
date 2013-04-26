@@ -34,7 +34,12 @@ public:
 	SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = 0);
 };
 #else
+#include <QtCore/QtGlobal>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QWidgetAction>
+#else
 #include <QtGui/QWidgetAction>
+#endif
 
 class QComboBox;
 
