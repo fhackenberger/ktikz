@@ -110,6 +110,7 @@ Section "Main Section" SecMain
 SectionEnd
 
 Section "Poppler Section" SecPoppler
+
 	SectionIn RO
 
 	; Set output path to the installation directory
@@ -130,6 +131,7 @@ Section "Poppler Section" SecPoppler
 SectionEnd
 
 Section "Qt4 Section" SecQt4
+
 	SectionIn RO
 
 	; Set output path to the installation directory

@@ -18,6 +18,7 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
+#include <QDebug>
 #include "tikzeditorhighlighter.h"
 
 #include <QtCore/QSettings>
@@ -134,30 +135,31 @@ void TikzHighlighter::applySettings()
 
 void TikzHighlighter::highlightBlock(const QString &text)
 {
-	// Try each highlighting pattern and apply formatting if it matches
-	foreach (const HighlightingRule &rule, m_highlightingRules)
+	int skip = 1;
+	for (int i = 0; i < text.length(); i += skip)
 	{
-		if (rule.pattern.isEmpty()) // match the insertion string
+		skip = 1;
+		foreach (const HighlightingRule &rule, m_highlightingRules)
 		{
-			int index = text.indexOf(rule.matchString);
-			while (index >= 0)
+			if (rule.pattern.isEmpty()) // match the insertion string
 			{
 				const int length = rule.matchString.length();
-				if (index == 0 || text.at(index - 1) != '\\') // avoid matching e.g. "node" as an option if in reality "\node" as a command is written
-					setFormat(index, length, m_formatList[rule.type]);
-				index = text.indexOf(rule.matchString, index + length);
+				if (text.mid(i, length) == rule.matchString && length > skip) // the latter inequality holds when \filldraw is met after \fill
+				{
+					setFormat(i, length, m_formatList[rule.type]);
+					skip = length;
+				}
 			}
-		}
-		else // match the pattern
-		{
-			QRegExp expression(rule.pattern);
-			int index = expression.indexIn(text);
-			while (index >= 0)
+			else if (skip <= 1) // match the pattern; assume there is only one pattern that matches
 			{
-				const int length = expression.matchedLength();
-				if (index == 0 || text.at(index-1) != '\\')
+				QRegExp expression(rule.pattern);
+				int index = expression.indexIn(text, i);
+				if (index == i)
+				{
+					const int length = expression.matchedLength();
 					setFormat(index, length, m_formatList[rule.type]);
-				index = expression.indexIn(text, index + length);
+					skip = length;
+				}
 			}
 		}
 	}
