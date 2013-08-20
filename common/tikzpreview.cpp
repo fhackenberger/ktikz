@@ -26,6 +26,7 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QScrollBar>
 #include <QtWidgets/QToolBar>
+#include <poppler-qt5.h>
 #else
 #include <QtGui/QApplication>
 #include <QtGui/QDesktopWidget>
@@ -33,9 +34,8 @@
 #include <QtGui/QMenu>
 #include <QtGui/QScrollBar>
 #include <QtGui/QToolBar>
-#endif
-
 #include <poppler-qt4.h>
+#endif
 
 #include "tikzpreviewrenderer.h"
 #include "utils/action.h"

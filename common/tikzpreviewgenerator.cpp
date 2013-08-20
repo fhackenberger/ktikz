@@ -30,11 +30,11 @@
 #include <QtGui/QPixmap>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QPlainTextEdit>
+#include <poppler-qt5.h>
 #else
 #include <QtGui/QPlainTextEdit>
-#endif
-
 #include <poppler-qt4.h>
+#endif
 
 #include "tikzpreviewcontroller.h"
 #include "utils/file.h"
