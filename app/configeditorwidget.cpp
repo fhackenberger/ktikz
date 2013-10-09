@@ -1,6 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009, 2012 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2013 by João Carreira <jfmcarreira@gmail.com>           *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -42,7 +43,10 @@ void ConfigEditorWidget::readSettings(const QString &settingsGroup)
 	ui.showMatchingBracketsCheck->setChecked(settings.value("ShowMatchingBrackets", true).toBool());
 	ui.whiteSpacesColorButton->setColor(settings.value("ColorWhiteSpaces", QColor(Qt::gray)).value<QColor>());
 	ui.tabulatorsColorButton->setColor(settings.value("ColorTabulators", QColor(Qt::gray)).value<QColor>());
-	ui.matchingBracketsColorButton->setColor(settings.value("ColorMatchingBrackets", QColor(Qt::yellow)).value<QColor>());
+	ui.matchingBracketsColorButton->setColor(settings.value("ColorMatchingBrackets", QColor(Qt::darkGreen)).value<QColor>());
+	ui.highlightCurrentLineCheck->setChecked(settings.value("ShowHighlightCurrentLine", true).toBool());
+	ui.highlightCurrentLineColorButton->setColor(settings.value("ColorHighlightCurrentLine", QColor(Qt::yellow)).value<QColor>());
+
 	ui.useCompletionCheck->setChecked(settings.value("UseCompletion", true).toBool());
 	settings.endGroup();
 }
@@ -59,6 +63,8 @@ void ConfigEditorWidget::writeSettings(const QString &settingsGroup)
 	settings.setValue("ColorWhiteSpaces", ui.whiteSpacesColorButton->color());
 	settings.setValue("ColorTabulators", ui.tabulatorsColorButton->color());
 	settings.setValue("ColorMatchingBrackets", ui.matchingBracketsColorButton->color());
+	settings.setValue("ShowHighlightCurrentLine", ui.highlightCurrentLineCheck->isChecked());
+	settings.setValue("ColorHighlightCurrentLine", ui.highlightCurrentLineColorButton->color());
 	settings.setValue("UseCompletion", ui.useCompletionCheck->isChecked());
 	settings.endGroup();
 }

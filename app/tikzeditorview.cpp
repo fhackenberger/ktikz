@@ -1,6 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2013 by João Carreira <jfmcarreira@gmail.com>           *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -306,7 +307,9 @@ void TikzEditorView::applySettings()
 	m_tikzEditor->setShowMatchingBrackets(settings.value("ShowMatchingBrackets", true).toBool());
 	m_tikzEditor->setWhiteSpacesColor(settings.value("ColorWhiteSpaces", QColor(Qt::gray)).value<QColor>());
 	m_tikzEditor->setTabulatorsColor(settings.value("ColorTabulators", QColor(Qt::gray)).value<QColor>());
-	m_tikzEditor->setMatchingColor(settings.value("ColorMatchingBrackets", QColor(Qt::yellow)).value<QColor>());
+	m_tikzEditor->setMatchingColor(settings.value("ColorMatchingBrackets", QColor(Qt::darkGreen)).value<QColor>());
+	m_tikzEditor->setHighlightCurrentLine(settings.value("ShowHighlightCurrentLine", true).toBool());
+	m_tikzEditor->setHighlightCurrentLineColor(settings.value("ColorHighlightCurrentLine", QColor(Qt::yellow)).value<QColor>());
 	settings.endGroup();
 
 /*

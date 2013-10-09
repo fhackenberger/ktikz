@@ -1,6 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013 by Glad Deschrijver  *
  *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2013 by João Carreira <jfmcarreira@gmail.com>           *
  *                                                                         *
  *   Bracket matching and white space showing code originally from         *
  *     qdevelop: Copyright (C) 2006 Jean-Luc Biord <jlbiord@gmail.com>     *
@@ -65,7 +66,8 @@ TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
 	m_showMatchingBrackets = true;
 	m_whiteSpacesColor = Qt::gray;
 	m_tabulatorsColor = Qt::gray;
-	m_matchingColor = Qt::yellow;
+	m_matchingColor = Qt::darkGreen;
+	m_highlightCurrentLineColor = Qt::yellow;
 
 	m_completer = 0;
 
@@ -74,13 +76,6 @@ TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
 	m_oldNumOfLines = 0;
 	updateLineNumberAreaWidth();
 
-	const QPalette standardPalette(palette()); // const QPalette standardPalette(QApplication::style()->standardPalette()); is slow, since we are in the constructor palette() == QApplication::palette()
-	const QColor lineColor(standardPalette.color(QPalette::Normal, QPalette::Base));
-	const QColor altLineColor(standardPalette.color(QPalette::Normal, QPalette::AlternateBase));
-	if (lineColor == altLineColor)
-		m_highlightCurrentLineColor = lineColor.darker(105);
-	else
-		m_highlightCurrentLineColor = altLineColor;
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
 	highlightCurrentLine();
 
@@ -149,7 +144,8 @@ void TikzEditor::matchBrackets()
 	// find current matching brackets
 	m_matchingBegin = -1;
 	m_matchingEnd = -1;
-	if (!m_showMatchingBrackets) return;
+	if (!m_showMatchingBrackets)
+		return;
 
 	m_plainText = toPlainText();
 // 	QString matchText = simplifiedText(plainText);
@@ -256,6 +252,11 @@ void TikzEditor::setShowMatchingBrackets(bool visible)
 	m_showMatchingBrackets = visible;
 }
 
+void TikzEditor::setHighlightCurrentLine(bool visible)
+{
+	m_highlightCurrentLine = visible;
+}
+
 void TikzEditor::setWhiteSpacesColor(const QColor &color)
 {
 	m_whiteSpacesColor = color;
@@ -269,6 +270,11 @@ void TikzEditor::setTabulatorsColor(const QColor &color)
 void TikzEditor::setMatchingColor(const QColor &color)
 {
 	m_matchingColor = color;
+}
+
+void TikzEditor::setHighlightCurrentLineColor(const QColor &color)
+{
+	m_highlightCurrentLineColor = color;
 }
 
 void TikzEditor::paintTabstop(QPainter &painter, qreal x, qreal y, int spaceWidth)
@@ -358,12 +364,14 @@ void TikzEditor::paintEvent(QPaintEvent *event)
 {
 	QPainter painter(viewport());
 
-	// highlight current line
-	QRect rect = cursorRect();
-	rect.setX(0);
-	rect.setWidth(viewport()->width());
-	painter.fillRect(rect, QBrush(m_highlightCurrentLineColor));
-
+	if (m_highlightCurrentLine)
+	{
+		// highlight current line
+		QRect rect = cursorRect();
+		rect.setX(0);
+		rect.setWidth(viewport()->width());
+		painter.fillRect(rect, QBrush(m_highlightCurrentLineColor));
+	}
 	// show white spaces and tabulators
 	if (m_showWhiteSpaces || m_showTabulators)
 		printWhiteSpaces(painter);

@@ -1,6 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2013 by João Carreira <jfmcarreira@gmail.com>           *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -41,9 +42,11 @@ public:
 	void setShowWhiteSpaces(bool visible);
 	void setShowTabulators(bool visible);
 	void setShowMatchingBrackets(bool visible);
+	void setHighlightCurrentLine(bool visible);
 	void setWhiteSpacesColor(const QColor &color);
 	void setTabulatorsColor(const QColor &color);
 	void setMatchingColor(const QColor &color);
+	void setHighlightCurrentLineColor(const QColor &color);
 	void goToLine(int line);
 	int numOfLines() const;
 	void updateCompleter(bool useCompletion, const QStringList &words);
@@ -93,6 +96,7 @@ private:
 	QString textUnderCursor() const;
 	void setCursorPosition(int row, int col);
 
+	bool m_highlightCurrentLine;
 	QColor m_highlightCurrentLineColor;
 	QRect m_previousHighlightedLine;
 	int m_oldVerticalScrollBarValue;

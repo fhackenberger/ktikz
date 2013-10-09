@@ -176,7 +176,7 @@
            <string>&lt;p&gt;Select the color in which the highlighted brackets will be shown.&lt;/p&gt;</string>
           </property>
           <property name="text">
-           <string>Use c&amp;olor:</string>
+           <string>Us&amp;e color:</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -193,6 +193,45 @@
           </property>
           <property name="whatsThis">
            <string>&lt;p&gt;Select the color in which the highlighted brackets will be shown.&lt;/p&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QCheckBox" name="highlightCurrentLineCheck">
+          <property name="whatsThis">
+           <string>&lt;p&gt;Highlight the line on which the text cursor is currently located.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>Highlight cu&amp;rrent line</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="highlightCurrentLineLabel">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Select the color with which the current line will be highlighted.&lt;/p&gt;</string>
+          </property>
+          <property name="text">
+           <string>Use c&amp;olor:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+          <property name="buddy">
+           <cstring>highlightCurrentLineColorButton</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="ColorButton" name="highlightCurrentLineColorButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;p&gt;Select the color with which the current line will be highlighted.&lt;/p&gt;</string>
           </property>
          </widget>
         </item>
@@ -328,6 +367,38 @@
     <hint type="destinationlabel">
      <x>251</x>
      <y>131</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>highlightCurrentLineCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>highlightCurrentLineLabel</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>95</x>
+     <y>218</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>212</x>
+     <y>218</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>highlightCurrentLineCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>highlightCurrentLineColorButton</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>95</x>
+     <y>218</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>260</x>
+     <y>218</y>
     </hint>
    </hints>
   </connection>
