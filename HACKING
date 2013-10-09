@@ -36,3 +36,23 @@ the file as PNG.  The Windows qtikz.ico version is obtained by converting
 qtikz.svg online at http://www.convertico.com (the free png2ico does not give
 a result of similar quality).  The other icons (except qt-logo-22.png which is
 obtained from Qt) are obtained from KDE's Oxygen icon set.
+
+Performance:
+------------
+
+- Use the QWidget's palette() function to obtain the current palette (which
+is the default palette if the QWidget's palette has not yet been changed) or
+QApplication::palette() instead of QApplication::style()->standardPalette()
+which is significantly slower.
+
+- In order to measure the execution speed, put
+  #include <QDebug>
+  #include <QTime>
+and use
+  QTime t = QTime::currentTime();
+and
+  qCritical() << t.msecsTo(QTime::currentTime());
+to calculate the time spent between these two commands. Running
+  valgrind --tool=callgrind qtikz
+on the command line and using kcachegrind to visualize the output generated
+by valgrind also shows where time is spent during execution of the program.

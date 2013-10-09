@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013 by Glad Deschrijver  *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   Bracket matching and white space showing code originally from         *
@@ -74,7 +74,7 @@ TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
 	m_oldNumOfLines = 0;
 	updateLineNumberAreaWidth();
 
-	const QPalette standardPalette(QApplication::style()->standardPalette());
+	const QPalette standardPalette(palette()); // const QPalette standardPalette(QApplication::style()->standardPalette()); is slow, since we are in the constructor palette() == QApplication::palette()
 	const QColor lineColor(standardPalette.color(QPalette::Normal, QPalette::Base));
 	const QColor altLineColor(standardPalette.color(QPalette::Normal, QPalette::AlternateBase));
 	if (lineColor == altLineColor)

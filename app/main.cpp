@@ -172,7 +172,7 @@ int main(int argc, char **argv)
 	Q_INIT_RESOURCE(qtikz);
 #endif
 
-	KtikzApplication app(argc, argv);
+	KtikzApplication app(argc, argv); // slow
 	QCoreApplication::setOrganizationName(ORGNAME);
 
 #ifndef KTIKZ_USE_KDE

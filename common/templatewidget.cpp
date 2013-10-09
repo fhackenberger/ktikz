@@ -38,7 +38,7 @@
 TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
-	ui.templateCombo->setLineEdit(new LineEdit(this));
+	ui.templateCombo->setLineEdit(new LineEdit(this)); // slow
 	ui.templateCombo->setMinimumContentsLength(20);
 	ui.templateChooseButton->setIcon(Icon("document-open"));
 #ifdef KTIKZ_KPART

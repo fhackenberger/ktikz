@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver  *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013                *
+ *   by Glad Deschrijver <glad.deschrijver@gmail.com>                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -130,11 +130,12 @@ static TikzCommandList getChildCommands(QXmlStreamReader *xml, QList<TikzCommand
 	{
 		if (xml->name() == "item")
 		{
-			name = QApplication::translate("TikzCommandInserter", xml->attributes().value("name").toString().toLatin1().data());
-			description = xml->attributes().value("description").toString();
-			insertion = xml->attributes().value("insert").toString();
-			highlightString = xml->attributes().value("highlight").toString();
-			type = xml->attributes().value("type").toString();
+			QXmlStreamAttributes xmlAttributes = xml->attributes();
+			name = QApplication::translate("TikzCommandInserter", xmlAttributes.value("name").toString().toLatin1().data());
+			description = xmlAttributes.value("description").toString();
+			insertion = xmlAttributes.value("insert").toString();
+			highlightString = xmlAttributes.value("highlight").toString();
+			type = xmlAttributes.value("type").toString();
 
 			// currently description contains no newlines, otherwise add code to replace all "\n" not preceded by a backslash (as in "\\node") by a newline character
 			description.replace(QLatin1String("\\\\"), QLatin1String("\\"));
@@ -153,7 +154,7 @@ static TikzCommandList getChildCommands(QXmlStreamReader *xml, QList<TikzCommand
 			if (type.isEmpty())
 				type = '0';
 
-			TikzCommand tikzCommand = newCommand(name, description, insertion, highlightString, xml->attributes().value("dx").toString().toInt(), xml->attributes().value("dy").toString().toInt(), type.toInt());
+			TikzCommand tikzCommand = newCommand(name, description, insertion, highlightString, xmlAttributes.value("dx").toString().toInt(), xmlAttributes.value("dy").toString().toInt(), type.toInt());
 			tikzCommand.number = tikzCommandsList->size();
 			tikzCommandsList->append(tikzCommand);
 			commands << tikzCommand;

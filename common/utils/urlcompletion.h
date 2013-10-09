@@ -45,7 +45,7 @@ public:
 	UrlCompletion(QObject *parent = 0) : QCompleter(parent)
 	{
 		QFileSystemModel *fileSystemModel = new QFileSystemModel(this);
-		fileSystemModel->setRootPath(QDir::rootPath());
+		fileSystemModel->setRootPath(QDir::rootPath()); // slow
 		setModel(fileSystemModel);
 		setCompletionMode(QCompleter::PopupCompletion);
 	}

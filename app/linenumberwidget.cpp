@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2011, 2012 by Glad Deschrijver              *
+ *   Copyright (C) 2007, 2008, 2011, 2012, 2013 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -21,13 +21,6 @@
 #include <QtGui/QMouseEvent>
 #include <QtGui/QPainter>
 #include <QtGui/QTextBlock>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QStyle>
-#else
-#include <QtGui/QApplication>
-#include <QtGui/QStyle>
-#endif
 
 #include "tikzeditor.h"
 
@@ -37,7 +30,7 @@ LineNumberWidget::LineNumberWidget(TikzEditor *editor)
 	setAutoFillBackground(true);
 
 	QPalette p(palette());
-	const QPalette standardPalette(QApplication::style()->standardPalette());
+	const QPalette standardPalette(p); // const QPalette standardPalette(QApplication::style()->standardPalette()); is slow, since we are in the constructor palette() == QApplication::palette()
 	const QColor windowColor(standardPalette.color(QPalette::Normal, QPalette::Window));
 	p.setColor(backgroundRole(), windowColor.lighter(102));
 	setPalette(p);

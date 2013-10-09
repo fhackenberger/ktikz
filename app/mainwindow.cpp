@@ -130,8 +130,11 @@ MainWindow::MainWindow()
 	setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
 	setCorner(Qt::BottomRightCorner, Qt::RightDockWidgetArea);
 
+//qCritical() << t.msecsTo(QTime::currentTime());
 	m_tikzPreviewController = new TikzPreviewController(this);
+//qCritical() << "TikzPreviewController" << t.msecsTo(QTime::currentTime());
 	m_tikzEditorView = new TikzEditorView(this);
+//qCritical() << "TikzEditorView" << t.msecsTo(QTime::currentTime());
 	m_commandInserter = new TikzCommandInserter(this);
 	m_tikzHighlighter = new TikzHighlighter(m_tikzEditorView->editor()->document());
 	m_userCommandInserter = new UserCommandInserter(this);
@@ -171,6 +174,7 @@ MainWindow::MainWindow()
 	createToolBars(); // run first in order to be able to add file/editToolBar->toggleViewAction() to the menu
 	createMenus();
 #endif
+//qCritical() << "createMenus" << t.msecsTo(QTime::currentTime());
 	createCommandInsertWidget(); // must happen after createMenus and before readSettings
 	createStatusBar();
 
@@ -208,6 +212,7 @@ MainWindow::MainWindow()
 	        this, SLOT(updateCompleter()));
 
 	readSettings(); // must be run after defining tikzController and tikzHighlighter, and after creating the toolbars, and after the connects
+//qCritical() << "readSettings()" << t.msecsTo(QTime::currentTime());
 
 	setCurrentUrl(Url());
 	setDocumentModified(false);
@@ -217,7 +222,7 @@ MainWindow::MainWindow()
 	// delayed initialization
 //	QTimer::singleShot(0, this, SLOT(init())); // this causes flicker at startup and init() is not executed in a separate thread anyway :(
 	init();
-//qCritical() << t.msecsTo(QTime::currentTime());
+//qCritical() << "mainwindow" << t.msecsTo(QTime::currentTime());
 }
 
 MainWindow::~MainWindow()
@@ -243,13 +248,15 @@ void MainWindow::init()
 	m_tikzEditorView->setPasteEnabled();
 
 	TikzCommandInserter::loadCommands();
-//qCritical() << t.msecsTo(QTime::currentTime());
+//qCritical() << "TikzCommandInserter::loadCommands()" << t.msecsTo(QTime::currentTime());
 	m_commandInserter->setEditor(m_tikzEditorView->editor());
 	if (m_insertAction)
 		m_insertAction->setMenu(m_commandInserter->getMenu());
 	else
 		m_commandInserter->showItemsInDockWidget();
+//qCritical() << "setMenu()" << t.msecsTo(QTime::currentTime());
 	m_tikzHighlighter->setHighlightingRules(m_commandInserter->getHighlightingRules());
+//qCritical() << "setHighlightingRules()" << t.msecsTo(QTime::currentTime());
 //	m_tikzHighlighter->rehighlight(); // avoid that textEdit emits the signal contentsChanged() when it is still empty
 	connect(m_userCommandInserter, SIGNAL(insertTag(QString)), m_commandInserter, SLOT(insertTag(QString)));
 
@@ -258,6 +265,7 @@ void MainWindow::init()
 	           m_tikzPreviewController, SLOT(regeneratePreviewAfterDelay()));
 
 	applySettings(); // must do this in order to load the command completions
+//qCritical() << "applySettings()" << t.msecsTo(QTime::currentTime());
 
 	if (m_buildAutomatically)
 		connect(m_tikzEditorView, SIGNAL(contentsChanged()),
@@ -265,7 +273,7 @@ void MainWindow::init()
 
 	if (m_tikzPreviewController->tempDir().isEmpty()) // then the temporary directory could not be created
 		m_logTextEdit->updateLog(tr("Error: unable to create a temporary directory in \"%1\". This program will not work!").arg(m_tikzPreviewController->tempDirLocation()), true);
-//qCritical() << t.msecsTo(QTime::currentTime());
+//qCritical() << "init()" << t.msecsTo(QTime::currentTime());
 }
 
 QWidget *MainWindow::widget()
