@@ -61,6 +61,7 @@ static const QString s_completionPlaceHolder(0x2022);
 
 TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
+	// the following defaults are overwritten by TikzEditorView::applySettings()
 	m_showWhiteSpaces = true;
 	m_showTabulators = true;
 	m_showMatchingBrackets = true;

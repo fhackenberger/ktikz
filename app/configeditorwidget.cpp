@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2012 by Glad Deschrijver                    *
+ *   Copyright (C) 2008, 2009, 2012, 2013 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *   Copyright (C) 2013 by João Carreira <jfmcarreira@gmail.com>           *
  *                                                                         *
@@ -20,6 +20,12 @@
 #include "configeditorwidget.h"
 
 #include <QtCore/QSettings>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QApplication>
+#else
+#include <QtGui/QApplication>
+#endif
+
 #include "../common/utils/fontdialog.h"
 
 ConfigEditorWidget::ConfigEditorWidget(QWidget *parent)
@@ -30,24 +36,54 @@ ConfigEditorWidget::ConfigEditorWidget(QWidget *parent)
 	connect(ui.generalFontButton, SIGNAL(clicked()), this, SLOT(selectFont()));
 }
 
+QVariant ConfigEditorWidget::defaultSetting(const QString &key)
+{
+	if (key == "ShowLineNumberArea")
+		return true;
+	else if (key == "Font")
+		return qApp->font().toString();
+	else if (key == "ShowWhiteSpaces")
+		return false;
+	else if (key == "ShowTabulators")
+		return false;
+	else if (key == "ShowMatchingBrackets")
+		return true;
+	else if (key == "ColorWhiteSpaces")
+		return QColor(Qt::gray);
+	else if (key == "ColorTabulators")
+		return QColor(Qt::gray);
+	else if (key == "ColorMatchingBrackets")
+		return QColor(Qt::darkGreen);
+	else if (key == "ShowHighlightCurrentLine")
+		return true;
+	else if (key == "ColorHighlightCurrentLine")
+	{
+		const QColor lineColor(QApplication::palette().color(QPalette::Normal, QPalette::Base));
+		return lineColor.darker(105);
+	}
+	else if (key == "UseCompletion")
+		return true;
+	return QVariant();
+}
+
 void ConfigEditorWidget::readSettings(const QString &settingsGroup)
 {
 	QSettings settings;
 	settings.beginGroup(settingsGroup);
-	ui.showLineNumberAreaCheck->setChecked(settings.value("ShowLineNumberArea", true).toBool());
-	m_generalFont.fromString(settings.value("Font", qApp->font().toString()).toString());
+	ui.showLineNumberAreaCheck->setChecked(settings.value("ShowLineNumberArea", defaultSetting("ShowLineNumberArea")).toBool());
+	m_generalFont.fromString(settings.value("Font", defaultSetting("Font")).toString());
 	ui.generalFontEdit->setText(m_generalFont.family() + ' ' + QString::number(m_generalFont.pointSize()));
 	ui.generalFontEdit->setFont(m_generalFont);
-	ui.showWhiteSpacesCheck->setChecked(settings.value("ShowWhiteSpaces", false).toBool());
-	ui.showTabulatorsCheck->setChecked(settings.value("ShowTabulators", false).toBool());
-	ui.showMatchingBracketsCheck->setChecked(settings.value("ShowMatchingBrackets", true).toBool());
-	ui.whiteSpacesColorButton->setColor(settings.value("ColorWhiteSpaces", QColor(Qt::gray)).value<QColor>());
-	ui.tabulatorsColorButton->setColor(settings.value("ColorTabulators", QColor(Qt::gray)).value<QColor>());
-	ui.matchingBracketsColorButton->setColor(settings.value("ColorMatchingBrackets", QColor(Qt::darkGreen)).value<QColor>());
-	ui.highlightCurrentLineCheck->setChecked(settings.value("ShowHighlightCurrentLine", true).toBool());
-	ui.highlightCurrentLineColorButton->setColor(settings.value("ColorHighlightCurrentLine", QColor(Qt::yellow)).value<QColor>());
+	ui.showWhiteSpacesCheck->setChecked(settings.value("ShowWhiteSpaces", defaultSetting("ShowWhiteSpaces")).toBool());
+	ui.showTabulatorsCheck->setChecked(settings.value("ShowTabulators", defaultSetting("ShowTabulators")).toBool());
+	ui.showMatchingBracketsCheck->setChecked(settings.value("ShowMatchingBrackets", defaultSetting("ShowMatchingBrackets")).toBool());
+	ui.whiteSpacesColorButton->setColor(settings.value("ColorWhiteSpaces", defaultSetting("ColorWhiteSpaces")).value<QColor>());
+	ui.tabulatorsColorButton->setColor(settings.value("ColorTabulators", defaultSetting("ColorTabulators")).value<QColor>());
+	ui.matchingBracketsColorButton->setColor(settings.value("ColorMatchingBrackets", defaultSetting("ColorMatchingBrackets")).value<QColor>());
+	ui.highlightCurrentLineCheck->setChecked(settings.value("ShowHighlightCurrentLine", defaultSetting("ShowHighlightCurrentLine")).toBool());
+	ui.highlightCurrentLineColorButton->setColor(settings.value("ColorHighlightCurrentLine", defaultSetting("ColorHighlightCurrentLine")).value<QColor>());
 
-	ui.useCompletionCheck->setChecked(settings.value("UseCompletion", true).toBool());
+	ui.useCompletionCheck->setChecked(settings.value("UseCompletion", defaultSetting("UseCompletion")).toBool());
 	settings.endGroup();
 }
 

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009 by Glad Deschrijver                          *
+ *   Copyright (C) 2008, 2009, 2013 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -27,6 +27,8 @@ class ConfigEditorWidget : public QWidget
 
 public:
 	ConfigEditorWidget(QWidget *parent = 0);
+
+	static QVariant defaultSetting(const QString &key);
 
 	void readSettings(const QString &settingsGroup);
 	void writeSettings(const QString &settingsGroup);

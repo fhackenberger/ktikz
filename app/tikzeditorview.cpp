@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013 by Glad Deschrijver  *
  *     <glad.deschrijver@gmail.com>                                        *
  *   Copyright (C) 2013 by João Carreira <jfmcarreira@gmail.com>           *
  *                                                                         *
@@ -33,6 +33,7 @@
 #include <QtGui/QToolBar>
 #endif
 
+#include "configeditorwidget.h"
 #include "editgotolinewidget.h"
 #include "editindentwidget.h"
 #include "editreplacewidget.h"
@@ -296,20 +297,20 @@ void TikzEditorView::applySettings()
 
 	settings.beginGroup("Editor");
 	// set editor font
-	m_tikzEditor->setShowLineNumberArea(settings.value("ShowLineNumberArea", true).toBool());
+	m_tikzEditor->setShowLineNumberArea(settings.value("ShowLineNumberArea", ConfigEditorWidget::defaultSetting("ShowLineNumberArea")).toBool());
 	QFont editorFont;
-	editorFont.fromString(settings.value("Font", qApp->font().toString()).toString());
+	editorFont.fromString(settings.value("Font", ConfigEditorWidget::defaultSetting("Font")).toString());
 	setFont(editorFont);
 
 	// set colors
-	m_tikzEditor->setShowWhiteSpaces(settings.value("ShowWhiteSpaces", false).toBool());
-	m_tikzEditor->setShowTabulators(settings.value("ShowTabulators", false).toBool());
-	m_tikzEditor->setShowMatchingBrackets(settings.value("ShowMatchingBrackets", true).toBool());
-	m_tikzEditor->setWhiteSpacesColor(settings.value("ColorWhiteSpaces", QColor(Qt::gray)).value<QColor>());
-	m_tikzEditor->setTabulatorsColor(settings.value("ColorTabulators", QColor(Qt::gray)).value<QColor>());
-	m_tikzEditor->setMatchingColor(settings.value("ColorMatchingBrackets", QColor(Qt::darkGreen)).value<QColor>());
-	m_tikzEditor->setHighlightCurrentLine(settings.value("ShowHighlightCurrentLine", true).toBool());
-	m_tikzEditor->setHighlightCurrentLineColor(settings.value("ColorHighlightCurrentLine", QColor(Qt::yellow)).value<QColor>());
+	m_tikzEditor->setShowWhiteSpaces(settings.value("ShowWhiteSpaces", ConfigEditorWidget::defaultSetting("ShowWhiteSpaces")).toBool());
+	m_tikzEditor->setShowTabulators(settings.value("ShowTabulators", ConfigEditorWidget::defaultSetting("ShowTabulators")).toBool());
+	m_tikzEditor->setShowMatchingBrackets(settings.value("ShowMatchingBrackets", ConfigEditorWidget::defaultSetting("ShowMatchingBrackets")).toBool());
+	m_tikzEditor->setWhiteSpacesColor(settings.value("ColorWhiteSpaces", ConfigEditorWidget::defaultSetting("ColorWhiteSpaces")).value<QColor>());
+	m_tikzEditor->setTabulatorsColor(settings.value("ColorTabulators", ConfigEditorWidget::defaultSetting("ColorTabulators")).value<QColor>());
+	m_tikzEditor->setMatchingColor(settings.value("ColorMatchingBrackets", ConfigEditorWidget::defaultSetting("ColorMatchingBrackets")).value<QColor>());
+	m_tikzEditor->setHighlightCurrentLine(settings.value("ShowHighlightCurrentLine", ConfigEditorWidget::defaultSetting("ShowHighlightCurrentLine")).toBool());
+	m_tikzEditor->setHighlightCurrentLineColor(settings.value("ColorHighlightCurrentLine", ConfigEditorWidget::defaultSetting("ColorHighlightCurrentLine")).value<QColor>());
 	settings.endGroup();
 
 /*

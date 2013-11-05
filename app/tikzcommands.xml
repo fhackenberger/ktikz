@@ -13,9 +13,9 @@ type: the highlighting color/font/style depends on the type
 -->
 <tikzcommands title="&amp;Insert">
 	<item description="\\begin{tikzpicture}[&lt;options&gt;]" insert="\\begin{tikzpicture}\n\n\\end{tikzpicture}" dx="0" dy="1" type="0"/>
-	<item description="\\end{tikzpicture}" insert="\\end{tikzpicture}" type="1"/>
+	<item description="\\end{tikzpicture}" insert="\\end{tikzpicture}" type="0"/>
 	<item description="\\begin{scope}[&lt;options&gt;]" insert="\\begin{scope}\n\n\\end{scope}" dx="0" dy="1" type="0"/>
-	<item description="\\end{scope}" insert="\\end{scope}" type="1"/>
+	<item description="\\end{scope}" insert="\\end{scope}" type="0"/>
 	<section title="&amp;Loops">
 		<item description="\\foreach &lt;variable&gt; in {&lt;list&gt;}" insert="\\foreach &#8226; in {&#8226;}" type="1"/>
 		<item name="\foreach with iteration" description="\\foreach \\x in {&lt;first&gt;,&lt;first+step&gt;,...,&lt;last&gt;}" insert="\\foreach \\x in {&#8226;,&#8226;,...,&#8226;}" type="1"/>
