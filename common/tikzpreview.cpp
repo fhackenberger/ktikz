@@ -261,7 +261,7 @@ void TikzPreview::emptyPreview()
 	m_tikzPixmapItem->update();
 	if (m_infoWidget)
 		m_infoWidget->setVisible(false); // remove error messages from view
-	m_tikzScene->setSceneRect(0, 0, 1, 1); // remove scrollbars from view
+	setSceneRect(m_tikzScene->itemsBoundingRect()); // remove scrollbars from view
 	if (m_pageSeparator)
 		m_pageSeparator->setVisible(false);
 	m_previousPageAction->setVisible(false);
