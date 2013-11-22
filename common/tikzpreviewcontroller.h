@@ -75,7 +75,7 @@ private slots:
 	void regeneratePreview();
 	void abortProcess();
 	void exportImage();
-	void showPreview(QPrinter *printer);
+	void printImage(QPrinter *printer);
 	void setExportActionsEnabled(bool enabled);
 	void setProcessRunning(bool isRunning);
 	void toggleShellEscaping(bool useShellEscaping);

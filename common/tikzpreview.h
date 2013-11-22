@@ -50,6 +50,7 @@ public:
 	virtual QSize sizeHint() const;
 	QList<QAction*> actions();
 	QToolBar *toolBar();
+	QImage renderToImage(double xres, double yres, int pageNumber);
 	QPixmap pixmap() const;
 	int currentPage() const;
 	int numberOfPages() const;

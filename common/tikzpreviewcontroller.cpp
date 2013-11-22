@@ -313,11 +313,41 @@ void TikzPreviewController::exportImage()
 
 /***************************************************************************/
 
-void TikzPreviewController::showPreview(QPrinter *printer)
+void TikzPreviewController::printImage(QPrinter *printer)
 {
+	// get page range
+	int startPage, endPage;
+	if (printer->printRange() == QPrinter::PageRange)
+	{
+		startPage = printer->fromPage() - 1;
+		endPage = printer->toPage() - 1;
+	}
+	else if (printer->printRange() == QPrinter::CurrentPage)
+	{
+		startPage = m_tikzPreview->currentPage();
+		endPage = m_tikzPreview->currentPage();
+	}
+	else
+	{
+		startPage = 0;
+		endPage = m_tikzPreview->numberOfPages() - 1;
+	}
+
+	// print
 	QPainter painter;
 	painter.begin(printer);
-	painter.drawPixmap(0, 0, m_tikzPreview->pixmap());
+//	painter.drawPixmap(0, 0, m_tikzPreview->pixmap());
+	for (int i = startPage; i <= endPage; ++i)
+	{
+		if (i != startPage)
+			printer->newPage();
+		const QImage image = m_tikzPreview->renderToImage(printer->physicalDpiX(), printer->physicalDpiY(), i);
+		if (!image.isNull())
+		{
+			const double scaleFactor = qMin(double(painter.window().width()) / image.width(), double(painter.window().height()) / image.height());
+			painter.drawImage(QRect(0, 0, image.width() * scaleFactor, image.height() * scaleFactor), image, image.rect());
+		}
+	}
 	painter.end();
 }
 
@@ -328,6 +358,8 @@ void TikzPreviewController::printPreviewImage()
 	// choose printer
 	QPointer<QPrintDialog> printDialog = new QPrintDialog(&printer, m_parentWidget);
 	printDialog->setWindowTitle(tr("Print preview of image"));
+	printDialog->setOptions(printDialog->options() | QAbstractPrintDialog::PrintPageRange | QAbstractPrintDialog::PrintCurrentPage);
+	printDialog->setMinMax(0, m_tikzPreview->numberOfPages());
 	QList<QDialogButtonBox*> dialogButtonBoxes = printDialog->findChildren<QDialogButtonBox*>();
 	QPushButton *printButton = dialogButtonBoxes.at(0)->button(QDialogButtonBox::Ok);
 	printButton->setText(tr("Print &preview"));
@@ -340,17 +372,19 @@ void TikzPreviewController::printPreviewImage()
 
 	// show print preview
 	PrintPreviewDialog preview(&printer);
-	connect(&preview, SIGNAL(paintRequested(QPrinter*)), this, SLOT(showPreview(QPrinter*)));
+	connect(&preview, SIGNAL(paintRequested(QPrinter*)), this, SLOT(printImage(QPrinter*)));
 	preview.exec();
 }
 
 void TikzPreviewController::printImage()
 {
-	QPrinter printer;
+	QPrinter printer(QPrinter::PrinterResolution);
 
 	// choose printer
 	QPointer<QPrintDialog> printDialog = new QPrintDialog(&printer, m_parentWidget);
 	printDialog->setWindowTitle(tr("Print image"));
+	printDialog->setOptions(printDialog->options() | QAbstractPrintDialog::PrintPageRange | QAbstractPrintDialog::PrintCurrentPage);
+	printDialog->setMinMax(0, m_tikzPreview->numberOfPages());
 	if (printDialog->exec() != QDialog::Accepted)
 	{
 		delete printDialog;
@@ -358,12 +392,7 @@ void TikzPreviewController::printImage()
 	}
 	delete printDialog;
 
-	// print
-	// XXX there does not seem to exist a cross-platform way of printing PDF files directly, so we use the following:
-	QPainter painter;
-	painter.begin(&printer);
-	painter.drawPixmap(0, 0, m_tikzPreview->pixmap());
-	painter.end();
+	printImage(&printer);
 }
 
 /***************************************************************************/

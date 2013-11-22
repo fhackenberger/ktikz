@@ -303,6 +303,18 @@ void TikzPreview::pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal
 
 /***************************************************************************/
 
+QImage TikzPreview::renderToImage(double xres, double yres, int pageNumber)
+{
+	Poppler::Page *page = m_tikzPdfDoc->page(pageNumber);
+//	const QSizeF pageSize = page->pageSizeF();
+//	const QImage image = pageSize.height() >= pageSize.width()
+//		? page->renderToImage(xres, yres)
+//		: page->renderToImage(xres, yres, -1, -1, -1, -1, Poppler::Page::Rotate270); // slow
+	const QImage image = page->renderToImage(xres, yres); // slow
+	delete page;
+	return image;
+}
+
 QPixmap TikzPreview::pixmap() const
 {
 	return m_tikzPixmapItem->pixmap();
