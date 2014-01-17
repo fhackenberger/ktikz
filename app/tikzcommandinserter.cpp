@@ -567,7 +567,8 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
 		QString command = m_tikzCommandsList.at(i).command;
 		const int type = m_tikzCommandsList.at(i).type;
 		int end;
-		rule.pattern = QRegExp(m_tikzCommandsList.at(i).highlightString);
+		if (!m_tikzCommandsList.at(i).highlightString.isEmpty())
+			rule.pattern = QRegExp(m_tikzCommandsList.at(i).highlightString);
 		switch (type)
 		{
 			case 1:
