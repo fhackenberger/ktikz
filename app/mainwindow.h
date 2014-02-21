@@ -1,8 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007, 2008, 2009, 2010, 2012 by Glad Deschrijver        *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2012, 2014                      *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -92,7 +92,7 @@ public:
 		return s_mainWindowList;
 	}
 
-public slots:
+public Q_SLOTS:
 	void loadUrl(const Url &url);
 	bool save();
 
@@ -104,7 +104,7 @@ protected:
 #endif
 	void closeEvent(QCloseEvent *event);
 
-private slots:
+private Q_SLOTS:
 	void init();
 	void checkForFileChanges(const FileCheckMoment &moment = FocusIn);
 	void saveLastInternalModifiedDateTime();

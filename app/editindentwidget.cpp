@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2011, 2012 by Glad Deschrijver                    *
+ *   Copyright (C) 2007, 2011, 2012, 2014 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -80,14 +80,14 @@ void IndentWidget::indent()
 {
 	const QChar insertChar = ui.radioButtonSpaces->isChecked() ? ' ' : '\t';
 	const int numOfInserts = ui.radioButtonSpaces->isChecked() ? ui.spinBoxSpaces->value() : ui.spinBoxTabs->value();
-	emit indent(insertChar, numOfInserts, m_isUnindenting);
+	Q_EMIT indent(insertChar, numOfInserts, m_isUnindenting);
 	writeSettings();
 }
 
 void IndentWidget::hide()
 {
 	setVisible(false);
-	emit hidden();
+	Q_EMIT hidden();
 	readSettings();
 }
 

@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2009, 2011, 2012 by Glad Deschrijver                    *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2009, 2011, 2012, 2014                                  *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -136,7 +136,7 @@ void ZoomAction::setZoomFactor(qreal zoomFactor)
 	else
 		setCurrentZoomFactor(zoomFactor);
 
-	emit zoomFactorAdded(zoomFactor);
+	Q_EMIT zoomFactorAdded(zoomFactor);
 }
 
 void ZoomAction::setZoomFactor(const QString &zoomFactorText)

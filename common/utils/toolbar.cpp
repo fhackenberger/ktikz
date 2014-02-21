@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011, 2012 by Glad Deschrijver                          *
+ *   Copyright (C) 2011, 2012, 2014 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -38,7 +38,7 @@ void ToolBar::setToolBarStyle()
 	QSettings settings;
 	settings.beginGroup("MainWindow");
 
-	int toolBarStyleNumber = settings.value("ToolBarStyle", 0).toInt();
+	const int toolBarStyleNumber = settings.value("ToolBarStyle", 0).toInt();
 	Qt::ToolButtonStyle toolBarStyle = Qt::ToolButtonIconOnly;
 	switch (toolBarStyleNumber)
 	{

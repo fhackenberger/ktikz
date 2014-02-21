@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2008, 2011, 2014 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -18,6 +18,10 @@
 
 #include "editreplacewidget.h"
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
+#include <QtWidgets/QLineEdit>
+#endif
+
 #ifdef KTIKZ_USE_KDE
 #include <KCompletion>
 #endif
@@ -29,8 +33,15 @@
 ReplaceWidget::ReplaceWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
+	ui.comboBoxFind->setEditable(true);
+	ui.comboBoxReplace->setEditable(true);
+	ui.comboBoxFind->lineEdit()->setClearButtonEnabled(true);
+	ui.comboBoxReplace->lineEdit()->setClearButtonEnabled(true);
+#else
 	ui.comboBoxFind->setLineEdit(new LineEdit(this));
 	ui.comboBoxReplace->setLineEdit(new LineEdit(this));
+#endif
 	ui.pushButtonClose->setIcon(Icon("dialog-cancel"));
 	ui.pushButtonBackward->setIcon(Icon("go-up"));
 	ui.pushButtonForward->setIcon(Icon("go-down"));
@@ -78,7 +89,7 @@ void ReplaceWidget::setForward(bool forward)
 void ReplaceWidget::hide()
 {
 	setVisible(false);
-	emit focusEditor();
+	Q_EMIT focusEditor();
 }
 
 void ReplaceWidget::doFind()
@@ -96,7 +107,7 @@ void ReplaceWidget::doFind()
 		flags |= QTextDocument::FindWholeWords;
 	if (!ui.pushButtonForward->isChecked())
 		flags |= QTextDocument::FindBackward;
-	emit search(currentText, flags);
+	Q_EMIT search(currentText, flags);
 }
 
 void ReplaceWidget::doReplace()
@@ -117,7 +128,7 @@ void ReplaceWidget::doReplace()
 		flags |= QTextDocument::FindWholeWords;
 	if (!ui.pushButtonForward->isChecked())
 		flags |= QTextDocument::FindBackward;
-	emit replace(currentText, replacementText, flags);
+	Q_EMIT replace(currentText, replacementText, flags);
 }
 
 void ReplaceWidget::setText(const QString &text)

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2011 by Glad Deschrijver              *
+ *   Copyright (C) 2007, 2008, 2009, 2011, 2014 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -46,5 +46,5 @@ void TikzPreviewRenderer::generatePreview(Poppler::Document *tikzPdfDoc, qreal z
 	const QImage tikzImage = pdfPage->renderToImage(zoomFactor * 72, zoomFactor * 72);
 	delete pdfPage;
 
-	emit showPreview(tikzImage, zoomFactor);
+	Q_EMIT showPreview(tikzImage, zoomFactor);
 }

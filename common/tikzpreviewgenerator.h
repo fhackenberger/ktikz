@@ -1,8 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver  *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2014                *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -66,13 +66,13 @@ public:
 	void removeFromLatexSearchPath(const QString &path);
 	bool generateEpsFile(int page);
 
-public slots:
+public Q_SLOTS:
 	void setTemplateFile(const QString &fileName);
 	void setReplaceText(const QString &replace);
 	void generatePreview(TemplateStatus templateStatus = DontReloadTemplate);
 	void abortProcess();
 
-signals:
+Q_SIGNALS:
 	void pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
 	void setExportActionsEnabled(bool enabled);
 	void showErrorMessage(const QString &message);
@@ -80,7 +80,7 @@ signals:
 	void appendLog(const QString &logText, bool runFailed);
 	void processRunning(bool isRunning);
 
-private slots:
+private Q_SLOTS:
 	void displayGnuplotNotExecutable();
 	void checkGnuplotExecutableFinished(int exitCode, QProcess::ExitStatus exitStatus);
 	void generatePreviewImpl(TemplateStatus templateStatus = DontReloadTemplate);
@@ -89,7 +89,7 @@ protected:
 	void parseLogFile();
 	void createPreview();
 	void showFileWriteError(const QString &fileName, const QString &errorMessage);
-	bool runProcess(const QString &name, const QString &command, const QStringList &arguments, const QString &workingDir = 0);
+	bool runProcess(const QString &name, const QString &command, const QStringList &arguments, const QString &workingDir = QString());
 	bool generatePdfFile(const QString &tikzFileBaseName, const QString &latexCommand, bool useShellEscaping);
 
 	TikzPreviewController *m_parent;

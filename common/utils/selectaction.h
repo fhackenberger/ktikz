@@ -29,9 +29,9 @@ class SelectAction : public KSelectAction
 	Q_OBJECT
 
 public:
-	explicit SelectAction(QObject *parent, const QString &name = 0);
-	SelectAction(const QString &text, QObject *parent, const QString &name = 0);
-	SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = 0);
+	explicit SelectAction(QObject *parent, const QString &name = QString());
+	SelectAction(const QString &text, QObject *parent, const QString &name = QString());
+	SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
 };
 #else
 #include <QtCore/QtGlobal>
@@ -48,9 +48,9 @@ class SelectAction : public QWidgetAction
 	Q_OBJECT
 
 public:
-	explicit SelectAction(QObject *parent, const QString &name = 0);
-	SelectAction(const QString &text, QObject *parent, const QString &name = 0);
-	SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = 0);
+	explicit SelectAction(QObject *parent, const QString &name = QString());
+	SelectAction(const QString &text, QObject *parent, const QString &name = QString());
+	SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
 	~SelectAction();
 
 	void setEditable(bool editable);
@@ -59,10 +59,10 @@ public:
 	void setCurrentItem(int index);
 	QStringList items() const;
 
-signals:
+Q_SIGNALS:
 	void triggered(const QString &text);
 
-private slots:
+private Q_SLOTS:
 	void setCurrentItem();
 
 private:

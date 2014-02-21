@@ -46,7 +46,7 @@ public:
 protected:
 	void resizeEvent(QResizeEvent *event);
 
-private slots:
+private Q_SLOTS:
 	void updateClearButton(const QString &text);
 
 private:

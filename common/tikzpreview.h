@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver  *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2014                *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -59,12 +59,12 @@ public:
 	void setShowCoordinates(bool show);
 	void setCoordinatePrecision(int precision);
 
-public slots:
+public Q_SLOTS:
 	void showPreview(const QImage &tikzImage, qreal zoomFactor = 1.0);
 	void pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
 	void showErrorMessage(const QString &message);
 
-signals:
+Q_SIGNALS:
 	void showMouseCoordinates(qreal x, qreal y, int precisionX = 5, int precisionY = 5);
 	void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor, int currentPage);
 
@@ -75,7 +75,7 @@ protected:
 	void mouseMoveEvent(QMouseEvent *event);
 	void mousePressEvent(QMouseEvent *event);
 
-private slots:
+private Q_SLOTS:
 	void setZoomFactor(qreal zoomFactor);
 	void zoomIn();
 	void zoomOut();

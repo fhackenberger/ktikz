@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2007, 2011, 2014 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -35,7 +35,7 @@ LogHighlighter::LogHighlighter(QTextDocument *parent)
 	                << tr("Error:") << tr("Warning:") // error msg created by TikzPreviewGenerator
 	                << "^\\[.*\\] Line \\d+: .*" // error msg created by TikzPreviewGenerator::getParsedLogText()
 	                << tr("This program will not work!");
-	foreach (const QString &pattern, keywordPatterns)
+	Q_FOREACH (const QString &pattern, keywordPatterns)
 	{
 		rule.pattern = QRegExp(pattern);
 		rule.format = keywordFormat;
@@ -61,7 +61,7 @@ LogHighlighter::~LogHighlighter()
 void LogHighlighter::highlightBlock(const QString &text)
 {
 	// Try each highlighting pattern and apply formatting if it matches
-	foreach (const LogHighlightingRule &rule, m_highlightingRules)
+	Q_FOREACH (const LogHighlightingRule &rule, m_highlightingRules)
 	{
 //		const QRegExp expression(rule.pattern);
 //		int index = text.indexOf(expression);

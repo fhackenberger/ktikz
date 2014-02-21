@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2008, 2011, 2014 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -74,13 +74,13 @@ void ReplaceCurrentWidget::setReplacement(const QString &text, const QString &re
 
 void ReplaceCurrentWidget::dontReplace()
 {
-	emit search();
+	Q_EMIT search();
 }
 
 void ReplaceCurrentWidget::hide()
 {
 	setVisible(false);
-	emit hidden();
+	Q_EMIT hidden();
 }
 
 void ReplaceCurrentWidget::showEvent(QShowEvent *event)
@@ -94,6 +94,6 @@ void ReplaceCurrentWidget::keyPressEvent(QKeyEvent *event)
 	if (event->key() == Qt::Key_Escape)
 		hide();
 	else if (event->key() == Qt::Key_Return)
-		emit replace();
+		Q_EMIT replace();
 	QWidget::keyPressEvent(event);
 }

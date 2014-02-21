@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Glad Deschrijver                                *
+ *   Copyright (C) 2011, 2014 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -32,10 +32,10 @@ public:
 
 	Ui::UserCommandEditDialog ui;
 
-public slots:
+public Q_SLOTS:
 	void accept();
 
-private slots:
+private Q_SLOTS:
 	void readSettings();
 	void writeSettings();
 	void setEditingEnabled(bool enabled);

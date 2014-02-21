@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007 by Glad Deschrijver                                *
+ *   Copyright (C) 2007, 2014 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -50,17 +50,17 @@ public:
 	QColor color() const;
 	void setColor(const QColor &color);
 
-signals:
-	void colorChanged();
+Q_SIGNALS:
+	void colorChanged(const QColor &newColor);
 
 protected:
 	void paintEvent(QPaintEvent*);
 
+private Q_SLOTS:
+	void showColorDialog();
+
 private:
 	QColor m_color;
-
-private slots:
-	void showColorDialog();
 };
 #endif
 

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010 by Glad Deschrijver                                *
+ *   Copyright (C) 2010, 2014 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -29,7 +29,7 @@ public:
 	AssistantController();
 	~AssistantController();
 
-	void showDocumentation(const QString &page = 0);
+	void showDocumentation(const QString &page = QString());
 
 private:
 	bool startAssistant();

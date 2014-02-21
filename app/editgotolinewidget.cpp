@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2008, 2011, 2014 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -39,7 +39,7 @@ GoToLineWidget::~GoToLineWidget()
 
 void GoToLineWidget::goToLine()
 {
-	emit goToLine(ui.spinBoxGo->value() - 1);
+	Q_EMIT goToLine(ui.spinBoxGo->value() - 1);
 }
 
 void GoToLineWidget::setMaximumValue(int maximumValue)
@@ -57,7 +57,7 @@ void GoToLineWidget::setValue(int value)
 void GoToLineWidget::hide()
 {
 	setVisible(false);
-	emit focusEditor();
+	Q_EMIT focusEditor();
 }
 
 void GoToLineWidget::keyPressEvent(QKeyEvent *event)

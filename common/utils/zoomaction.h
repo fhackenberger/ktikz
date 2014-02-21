@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2009, 2011, 2012 by Glad Deschrijver                    *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2009, 2011, 2012, 2014                                  *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -28,19 +28,19 @@ class ZoomAction : public SelectAction
 	Q_OBJECT
 
 public:
-	explicit ZoomAction(QObject *parent, const QString &name = 0);
-	ZoomAction(const QString &text, QObject *parent, const QString &name = 0);
-	ZoomAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = 0);
+	explicit ZoomAction(QObject *parent, const QString &name = QString());
+	ZoomAction(const QString &text, QObject *parent, const QString &name = QString());
+	ZoomAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
 	~ZoomAction();
 
 	qreal minZoomFactor() const;
 	qreal maxZoomFactor() const;
 	void setZoomFactor(qreal zoomFactor);
 
-signals:
+Q_SIGNALS:
 	void zoomFactorAdded(qreal zoomFactor);
 
-private slots:
+private Q_SLOTS:
 	void setZoomFactor(const QString &zoomFactorText);
 
 private:

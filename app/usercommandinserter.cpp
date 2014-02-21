@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011, 2012 by Glad Deschrijver                          *
+ *   Copyright (C) 2011, 2012, 2014 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -101,7 +101,7 @@ void UserCommandInserter::insertTag()
 	QAction *action = qobject_cast<QAction*>(sender());
 	if (!action)
 		return;
-	emit insertTag(m_commands.at(action->data().toInt()));
+	Q_EMIT insertTag(m_commands.at(action->data().toInt()));
 }
 
 void UserCommandInserter::editCommands()
@@ -110,7 +110,7 @@ void UserCommandInserter::editCommands()
 	if (editDialog->exec())
 	{
 		readSettings();
-		emit updateCompleter();
+		Q_EMIT updateCompleter();
 	}
 	delete editDialog;
 }

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2011 by Glad Deschrijver                    *
+ *   Copyright (C) 2007, 2008, 2011, 2014 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -37,7 +37,7 @@ public:
 	~LogTextEdit();
 	virtual QSize sizeHint() const;
 
-public slots:
+public Q_SLOTS:
 	void updateLog(const QString &logText);
 	void updateLog(const QString &logText, bool runFailed);
 	void appendLog(const QString &logText);

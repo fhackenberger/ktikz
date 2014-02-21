@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2010, 2011 by Glad Deschrijver                    *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2008, 2010, 2011, 2014                                  *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -36,14 +36,14 @@ public:
 	void setEditor(const QString &editor);
 	QString fileName() const;
 
-signals:
+Q_SIGNALS:
 	void fileNameChanged(const QString &fileName);
 	void focusEditor();
 
 protected:
 	void keyPressEvent(QKeyEvent *event);
 
-private slots:
+private Q_SLOTS:
 	void selectTemplateFile();
 	void editTemplateFile();
 	void reloadTemplateFile();

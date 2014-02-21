@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013                *
- *   by Glad Deschrijver <glad.deschrijver@gmail.com>                      *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014          *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -250,7 +250,7 @@ void TikzPreview::showPdfPage()
 		return;
 
 	if (!m_processRunning)
-		emit generatePreview(m_tikzPdfDoc, m_zoomFactor, m_currentPage); // render the current pdf page to a QImage in TikzPreviewRenderer (in a different thread)
+		Q_EMIT generatePreview(m_tikzPdfDoc, m_zoomFactor, m_currentPage); // render the current pdf page to a QImage in TikzPreviewRenderer (in a different thread)
 }
 
 void TikzPreview::emptyPreview()
@@ -427,7 +427,7 @@ void TikzPreview::mouseMoveEvent(QMouseEvent *event)
 			const qreal coordX = mouseSceneCoords.x() + minX;
 			const qreal coordY = maxY - mouseSceneCoords.y();
 			if (coordX >= minX && coordX <= maxX && coordY >= minY && coordY <= maxY)
-				emit showMouseCoordinates(coordX / unitX, coordY / unitY, precisionX, precisionY);
+				Q_EMIT showMouseCoordinates(coordX / unitX, coordY / unitY, precisionX, precisionY);
 		}
 	}
 	QGraphicsView::mouseMoveEvent(event);

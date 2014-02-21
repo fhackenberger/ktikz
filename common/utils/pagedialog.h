@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2011 by Glad Deschrijver              *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2007, 2008, 2009, 2011, 2014                            *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -51,7 +51,7 @@ public:
 	void setHelp(const QString &anchor);
 	void addPage(QWidget *widget, const QString &title, const QString &iconName);
 
-private slots:
+private Q_SLOTS:
 	void setCurrentPage(int page);
 
 private:

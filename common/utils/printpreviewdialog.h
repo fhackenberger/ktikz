@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2011 by Glad Deschrijver                                *
+ *   Copyright (C) 2011, 2014 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -38,10 +38,10 @@ public:
 
 	void setVisible(bool visible);
 
-signals:
+Q_SIGNALS:
 	void paintRequested(QPrinter *printer);
 
-private slots:
+private Q_SLOTS:
 	void setZoomFactor(qreal zoomFactor);
 	void updateZoomFactor();
 	void zoomIn();

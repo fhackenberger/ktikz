@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013 by Glad Deschrijver  *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013, 2014                *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *   Copyright (C) 2013 by João Carreira <jfmcarreira@gmail.com>           *
  *                                                                         *
  *   Bracket matching and white space showing code originally from         *
@@ -218,16 +218,17 @@ void TikzEditor::showMatchingBrackets()
 
 		const QString text = block.text();
 		const int textLength = text.length();
+		const int blockPosition = block.position();
 
 		for (int i = 0; i < textLength; ++i)
 		{
-			if (block.position() + i == m_matchingBegin || block.position() + i == m_matchingEnd)
+			if (blockPosition + i == m_matchingBegin || blockPosition + i == m_matchingEnd)
 			{
 				QList<QTextEdit::ExtraSelection> extraSelectionList = extraSelections();
 				QTextEdit::ExtraSelection selection;
 				selection.format.setBackground(m_matchingColor);
 				selection.cursor = textCursor();
-				selection.cursor.setPosition(block.position() + i, QTextCursor::MoveAnchor);
+				selection.cursor.setPosition(blockPosition + i, QTextCursor::MoveAnchor);
 				selection.cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
 				extraSelectionList.append(selection);
 				setExtraSelections(extraSelectionList);
@@ -334,10 +335,11 @@ void TikzEditor::printWhiteSpaces(QPainter &painter)
 
 		const QString text = block.text();
 		const int textLength = text.length();
+		const int blockPosition = block.position();
 
 		for (int i = 0; i < textLength; ++i)
 		{
-			cursor.setPosition(block.position() + i, QTextCursor::MoveAnchor);
+			cursor.setPosition(blockPosition + i, QTextCursor::MoveAnchor);
 			const QRect rect = cursorRect(cursor);
 
 //			const QFontMetrics fontMetrics = QFontMetrics(cursor.charFormat().font());
@@ -408,7 +410,7 @@ int TikzEditor::numOfLines() const
 void TikzEditor::showCursorPosition()
 {
 	QTextCursor cursor = textCursor();
-	emit cursorPositionChanged(cursor.blockNumber() + 1, cursor.position() - cursor.block().position() + 1);
+	Q_EMIT cursorPositionChanged(cursor.blockNumber() + 1, cursor.position() - cursor.block().position() + 1);
 }
 
 /**
@@ -515,7 +517,7 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 			flags = QTextDocument::FindBackward;
 		if (cursor.hasSelection() && cursor.selectedText().contains(QChar::ParagraphSeparator))
 		{
-			emit tabIndent(event->key() == Qt::Key_Backtab);
+			Q_EMIT tabIndent(event->key() == Qt::Key_Backtab);
 			return;
 		}
 		else if (block.isValid() && block.text().contains(s_completionPlaceHolder))
@@ -531,7 +533,7 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 		cursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
 		QString selectedText = cursor.selectedText();
 		if (selectedText.remove(' ').remove('\t').isEmpty() || event->key() == Qt::Key_Backtab)
-			emit tabIndent(event->key() == Qt::Key_Backtab);
+			Q_EMIT tabIndent(event->key() == Qt::Key_Backtab);
 		else
 			QPlainTextEdit::keyPressEvent(event);
 		return;
@@ -581,14 +583,14 @@ void TikzEditor::focusInEvent(QFocusEvent *event)
 	if (m_completer)
 		m_completer->setWidget(this);
 
-	emit focusIn();
+	Q_EMIT focusIn();
 
 	QPlainTextEdit::focusInEvent(event);
 }
 
 void TikzEditor::focusOutEvent(QFocusEvent *event)
 {
-	emit focusOut();
+	Q_EMIT focusOut();
 	QPlainTextEdit::focusOutEvent(event);
 }
 
@@ -625,7 +627,7 @@ void TikzEditor::insertCompletion(const QString &completion)
 	if (!m_completer || m_completer->widget() != this)
 		return;
 
-	emit showStatusMessage(completion, 0);
+	Q_EMIT showStatusMessage(completion, 0);
 
 	QTextCursor cursor = textCursor();
 	const int extra = completion.length() - m_completer->completionPrefix().length();

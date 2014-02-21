@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Glad Deschrijver                                *
+ *   Copyright (C) 2009, 2014 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -42,10 +42,10 @@ public:
 	void addUrl(const Url &url, const QString &name = QString());
 	void removeUrl(const Url &url);
 
-signals:
+Q_SIGNALS:
 	void urlSelected(const Url &url);
 
-private slots:
+private Q_SLOTS:
 	void selectUrl(const KUrl &url);
 };
 #else
@@ -67,10 +67,10 @@ public:
 	void addUrl(const Url &url, const QString &name = QString());
 	void removeUrl(const Url &url);
 
-signals:
+Q_SIGNALS:
 	void urlSelected(const Url &url);
 
-private slots:
+private Q_SLOTS:
 	void openRecentFile();
 
 private:

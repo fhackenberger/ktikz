@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2008, 2011, 2014 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -38,7 +38,7 @@ public:
 	~ReplaceCurrentWidget();
 	void setReplacement(const QString &text, const QString &replacement);
 
-signals:
+Q_SIGNALS:
 	void search();
 	void replace();
 	void replaceAll();
@@ -48,15 +48,15 @@ protected:
 	virtual void showEvent(QShowEvent *event);
 	virtual void keyPressEvent(QKeyEvent *event);
 
-protected slots:
+protected Q_SLOTS:
 	void hide();
+
+private Q_SLOTS:
+	void dontReplace();
 
 private:
 	QLabel *m_replaceLabel;
 	QPushButton *m_replaceButton;
-
-private slots:
-	void dontReplace();
 };
 
 #endif

@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2010, 2011, 2012 by Glad Deschrijver              *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2008, 2010, 2011, 2012, 2014                            *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -24,6 +24,7 @@
 #include <QtGui/QTextDocument>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLineEdit>
 #else
 #include <QtGui/QApplication>
 #endif
@@ -38,7 +39,12 @@
 TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
+	ui.templateCombo->setEditable(true);
+	ui.templateCombo->lineEdit()->setClearButtonEnabled(true);
+#else
 	ui.templateCombo->setLineEdit(new LineEdit(this)); // slow
+#endif
 	ui.templateCombo->setMinimumContentsLength(20);
 	ui.templateChooseButton->setIcon(Icon("document-open"));
 #ifdef KTIKZ_KPART
@@ -102,7 +108,7 @@ void TemplateWidget::setFileName(const QString &fileName)
 	if (index >= 0) // then remove item in order to re-add it at the top
 		ui.templateCombo->removeItem(index);
 	ui.templateCombo->insertItem(0, fileName);
-	ui.templateCombo->lineEdit()->setText("");
+	ui.templateCombo->lineEdit()->setText(QString());
 	connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)),
 	        this, SIGNAL(fileNameChanged(QString)));
 	ui.templateCombo->setCurrentIndex(0);
@@ -186,6 +192,6 @@ void TemplateWidget::keyPressEvent(QKeyEvent *event)
 	if (event->key() == Qt::Key_Return)
 		setFileName(ui.templateCombo->currentText());
 	if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Return)
-		emit focusEditor();
+		Q_EMIT focusEditor();
 	QWidget::keyPressEvent(event);
 }

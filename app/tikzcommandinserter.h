@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver  *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2014                *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -70,10 +70,10 @@ public:
 	static QVector<HighlightingRule> getHighlightingRules();
 	void setEditor(QPlainTextEdit *textEdit);
 
-public slots:
+public Q_SLOTS:
 	void insertTag(const QString &tag, int dx = 0, int dy = 0);
 
-signals:
+Q_SIGNALS:
 	/*!
 	 * This signal is emitted whenever a message should be shown in
 	 * the statusbar.
@@ -82,7 +82,7 @@ signals:
 	 */
 	void showStatusMessage(const QString &message, int timeout = 0);
 
-private slots:
+private Q_SLOTS:
 	void updateDescriptionMenuItem();
 	void setListStatusTip(QListWidgetItem *item);
 	void insertTag();

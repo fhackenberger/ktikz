@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007 by Glad Deschrijver                                *
+ *   Copyright (C) 2007, 2014 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   Original code from SpeedCrunch:                                       *
@@ -28,11 +28,9 @@
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QColorDialog>
-#include <QtWidgets/QStyle>
 #else
 #include <QtGui/QApplication>
 #include <QtGui/QColorDialog>
-#include <QtGui/QStyle>
 #endif
 
 ColorButton::ColorButton(QWidget *parent) : QToolButton(parent)
@@ -61,20 +59,20 @@ QColor ColorButton::color() const
 void ColorButton::setColor(const QColor &color)
 {
 	m_color = color;
-	emit colorChanged();
+	Q_EMIT colorChanged(color);
 	update();
 }
 
-void ColorButton::paintEvent(QPaintEvent *e)
+void ColorButton::paintEvent(QPaintEvent *event)
 {
-	QToolButton::paintEvent(e);
+	QToolButton::paintEvent(event);
 	if (!isEnabled())
 		return;
 
 	QRect r = rect();
 	r.adjust(5, 5, -5, -5);
 	QPainter painter(this);
-	const QColor borderColor(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::Dark));
+	const QColor borderColor(QApplication::palette().color(QPalette::Normal, QPalette::Dark));
 	painter.setPen(borderColor);
 	painter.drawRect(r);
 	r.adjust(1, 1, 0, 0);

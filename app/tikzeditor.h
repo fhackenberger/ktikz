@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2012, 2014                      *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *   Copyright (C) 2013 by João Carreira <jfmcarreira@gmail.com>           *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -59,13 +59,13 @@ public:
 	void setShowLineNumberArea(bool visible);
 	friend class LineNumberWidget;
 
-public slots:
+public Q_SLOTS:
 	void showCursorPosition();
 	void toggleUserBookmark();
 	void previousUserBookmark();
 	void nextUserBookmark();
 
-signals:
+Q_SIGNALS:
 	void cursorPositionChanged(int row, int col);
 	void showStatusMessage(const QString &message, int timeout = 3000);
 	void focusIn();
@@ -80,7 +80,7 @@ protected:
 	int lineNumberAreaWidth();
 	void resizeEvent(QResizeEvent *event);
 
-private slots:
+private Q_SLOTS:
 	void highlightCurrentLine();
 	void matchBrackets();
 	void insertCompletion(const QString &completion);

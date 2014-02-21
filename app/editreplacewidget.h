@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2008, 2011, 2014 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -32,10 +32,10 @@ public:
 	void setForward(bool forward);
 	void setText(const QString &text);
 
-public slots:
+public Q_SLOTS:
 	void doFind();
 
-signals:
+Q_SIGNALS:
 	void focusEditor();
 	void search(const QString &text, QTextDocument::FindFlags flags);
 	void replace(const QString &text, const QString &replacement, QTextDocument::FindFlags flags);
@@ -44,16 +44,16 @@ protected:
 	virtual void showEvent(QShowEvent *event);
 	virtual void keyPressEvent(QKeyEvent *event);
 
-protected slots:
+protected Q_SLOTS:
 	void hide();
 
-private:
-	Ui::ReplaceWidget ui;
-
-private slots:
+private Q_SLOTS:
 	void setBackward();
 	void setForward();
 	void doReplace();
+
+private:
+	Ui::ReplaceWidget ui;
 };
 
 #endif

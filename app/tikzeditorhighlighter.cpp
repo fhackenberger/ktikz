@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007, 2011, 2012 by Glad Deschrijver                    *
+ *   Copyright (C) 2007, 2011, 2012, 2014 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -50,7 +50,7 @@ void TikzHighlighter::setHighlightingRules(const QVector<HighlightingRule> &high
 	// environments
 	QStringList keywordPatterns;
 	keywordPatterns << "\\\\begin\\{[^\\}]*\\}" << "\\\\end\\{[^\\}]*\\}";
-	foreach (const QString &pattern, keywordPatterns)
+	Q_FOREACH (const QString &pattern, keywordPatterns)
 	{
 		rule.type = highlightTypeNames.at(currentIndex);
 		rule.pattern = QRegExp(pattern);
@@ -139,7 +139,7 @@ void TikzHighlighter::highlightBlock(const QString &text)
 	for (int i = 0; i < text.length(); i += skip)
 	{
 		skip = 1;
-		foreach (const HighlightingRule &rule, m_highlightingRules)
+		Q_FOREACH (const HighlightingRule &rule, m_highlightingRules)
 		{
 			if (rule.pattern.isEmpty()) // match the insertion string
 			{

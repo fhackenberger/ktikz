@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Glad Deschrijver                                *
+ *   Copyright (C) 2009, 2014 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -52,7 +52,7 @@ public:
 
 	static QColor getColor(bool *ok, const QColor &color, QWidget *parent)
 	{
-		QColor newColor = QColorDialog::getColor(color, parent);
+		const QColor newColor = QColorDialog::getColor(color, parent);
 		*ok = newColor.isValid();
 		return newColor;
 	}

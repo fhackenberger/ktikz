@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2012, 2014                      *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -145,14 +145,14 @@ void TikzPreviewController::createActions()
 	QMenu *exportMenu = new QMenu(m_parentWidget);
 	m_exportAction->setMenu(exportMenu);
 
-	Action *exportEpsAction = new Action(Icon("image-x-eps"), tr("&Encapsulated PostScript (EPS)"), m_parentWidget, "file_export_eps");
+	Action *exportEpsAction = new Action(Icon("image-x-eps"), tr("&Encapsulated PostScript (EPS)"), exportMenu, "file_export_eps");
 	exportEpsAction->setData("image/x-eps");
 	exportEpsAction->setStatusTip(tr("Export to EPS"));
 	exportEpsAction->setWhatsThis(tr("<p>Export to EPS.</p>"));
 	connect(exportEpsAction, SIGNAL(triggered()), this, SLOT(exportImage()));
 	exportMenu->addAction(exportEpsAction);
 
-	Action *exportPdfAction = new Action(Icon("application-pdf"), tr("&Portable Document Format (PDF)"), m_parentWidget, "file_export_pdf");
+	Action *exportPdfAction = new Action(Icon("application-pdf"), tr("&Portable Document Format (PDF)"), exportMenu, "file_export_pdf");
 	exportPdfAction->setData("application/pdf");
 	exportPdfAction->setStatusTip(tr("Export to PDF"));
 	exportPdfAction->setWhatsThis(tr("<p>Export to PDF.</p>"));
@@ -165,7 +165,7 @@ void TikzPreviewController::createActions()
 	mimeTypeNames << tr("Portable Network &Graphics") << tr("&Joint Photographic Experts Group Format") << tr("&Tagged Image File Format") << tr("&Windows Bitmap");
 	for (int i = 0; i < mimeTypes.size(); ++i)
 	{
-		Action *exportImageAction = new Action(Icon("image-" + mimeTypes.at(i)), mimeTypeNames.at(i) + " (" + mimeTypes.at(i).toUpper() + ')', m_parentWidget, "file_export_" + mimeTypes.at(i));
+		Action *exportImageAction = new Action(Icon("image-" + mimeTypes.at(i)), mimeTypeNames.at(i) + " (" + mimeTypes.at(i).toUpper() + ')', exportMenu, "file_export_" + mimeTypes.at(i));
 		exportImageAction->setData("image/" + mimeTypes.at(i));
 		exportImageAction->setStatusTip(tr("Export to %1").arg(mimeTypes.at(i).toUpper()));
 		exportImageAction->setWhatsThis(tr("<p>Export to %1.</p>").arg(mimeTypes.at(i).toUpper()));
@@ -257,12 +257,12 @@ Url TikzPreviewController::getExportUrl(const Url &url, const QString &mimeType)
 	                          : ((mimeType == "application/pdf") ? "pdf" : mimeType.mid(6));
 	if (!url.isEmpty())
 	{
-		QFileInfo currentFileInfo(url.path());
+		const QFileInfo currentFileInfo(url.path());
 		currentFile = currentFileInfo.absolutePath();
 		if (!currentFile.endsWith('/'))
 			currentFile += '/';
 		currentFile += currentFileInfo.completeBaseName()
-		               + (m_tikzPreview->numberOfPages() > 1 && mimeType != "application/pdf" ? "_" + QString::number(m_tikzPreview->currentPage() + 1) : "")
+		               + (m_tikzPreview->numberOfPages() > 1 && mimeType != "application/pdf" ? "_" + QString::number(m_tikzPreview->currentPage() + 1) : QString())
 		               + '.' + extension;
 	}
 	return FileDialog::getSaveUrl(m_parentWidget, tr("Export image"), Url(currentFile), mimeType);
@@ -463,7 +463,7 @@ void TikzPreviewController::regeneratePreviewAfterDelay()
 	if (tikzCode().isEmpty())
 	{
 		m_tikzPreview->pixmapUpdated(0); // clean up error messages in preview
-		emit updateLog("", false); // clean up error messages in log panel
+		Q_EMIT updateLog(QString(), false); // clean up error messages in log panel
 	}
 	// Each start cancels the previous one, this means that timeout() is only
 	// fired when there have been no changes in the text editor for the last

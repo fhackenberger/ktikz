@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2012, 2014                      *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -63,13 +63,13 @@ public:
 	void emptyPreview();
 	void applySettings();
 
-public slots:
+public Q_SLOTS:
 	void printPreviewImage();
 	void printImage();
 	void generatePreview();
 	void regeneratePreviewAfterDelay();
 
-private slots:
+private Q_SLOTS:
 	void setTemplateFileAndRegenerate(const QString &path);
 	void setReplaceTextAndRegenerate(const QString &replace);
 	void regeneratePreview();
@@ -80,7 +80,7 @@ private slots:
 	void setProcessRunning(bool isRunning);
 	void toggleShellEscaping(bool useShellEscaping);
 
-signals:
+Q_SIGNALS:
 	void updateLog(const QString &logText, bool runFailed);
 	void appendLog(const QString &logText, bool runFailed);
 	void showMouseCoordinates(qreal x, qreal y, int precisionX, int precisionY);

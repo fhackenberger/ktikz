@@ -56,7 +56,7 @@ public:
 protected:
 	Ui::ConfigAppearanceWidget ui;
 
-private slots:
+private Q_SLOTS:
 	void setItemHighlighted(QTableWidgetItem *item);
 	void toggleCustom();
 	void showFontDialog();

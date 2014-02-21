@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013                *
- *   by Glad Deschrijver <glad.deschrijver@gmail.com>                      *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014          *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -162,12 +162,12 @@ static TikzCommandList getChildCommands(QXmlStreamReader *xml, QList<TikzCommand
 		}
 		else if (xml->name() == "separator")
 		{
-			commands << newCommand("", "", "", "", 0, 0, 0);
+			commands << newCommand(QString(), QString(), QString(), QString(), 0, 0, 0);
 			xml->skipCurrentElement(); // same as above
 		}
 		else if (xml->name() == "section")
 		{
-			commands << newCommand("", "", "", "", 0, 0, -1); // the i-th command with type == -1 corresponds to the i-th submenu (assumed in getMenu())
+			commands << newCommand(QString(), QString(), QString(), QString(), 0, 0, -1); // the i-th command with type == -1 corresponds to the i-th submenu (assumed in getMenu())
 			commandList.children << getChildCommands(xml, tikzCommandsList);
 		}
 		else
@@ -476,10 +476,10 @@ void TikzCommandInserter::setListStatusTip(QListWidgetItem *item)
 	if (item && !item->font().bold() && !item->text().isEmpty())
 	{
 		const int num = item->data(Qt::UserRole).toInt();
-		emit showStatusMessage(m_tikzCommandsList.at(num).description, 10000);
+		Q_EMIT showStatusMessage(m_tikzCommandsList.at(num).description, 10000);
 	}
 	else
-		emit showStatusMessage("");
+		Q_EMIT showStatusMessage(QString());
 }
 
 //@}
@@ -630,7 +630,7 @@ void TikzCommandInserter::insertTag()
 	{
 		const int num = action->data().toInt();
 		const TikzCommand cmd = m_tikzCommandsList.at(num);
-		emit showStatusMessage(cmd.description, 0);
+		Q_EMIT showStatusMessage(cmd.description, 0);
 		insertTag(cmd.command, cmd.dx, cmd.dy);
 	}
 }
@@ -641,7 +641,7 @@ void TikzCommandInserter::insertTag(QListWidgetItem *item)
 	{
 		const int num = item->data(Qt::UserRole).toInt();
 		const TikzCommand cmd = m_tikzCommandsList.at(num);
-		emit showStatusMessage(cmd.description, 0);
+		Q_EMIT showStatusMessage(cmd.description, 0);
 		insertTag(cmd.command, cmd.dx, cmd.dy);
 	}
 }

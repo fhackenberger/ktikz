@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2011 by Glad Deschrijver              *
+ *   Copyright (C) 2007, 2008, 2009, 2011, 2014 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -41,8 +41,11 @@ public:
 	void setHighlightTypeNames(const QStringList &typeNames);
 	void setDefaultHighlightFormats(const QMap<QString, QTextCharFormat> &defaultFormatList);
 
-signals:
+Q_SIGNALS:
 	void settingsChanged();
+
+private Q_SLOTS:
+	void accept();
 
 private:
 	void keyPressEvent(QKeyEvent *event);
@@ -50,9 +53,6 @@ private:
 	ConfigGeneralWidget *m_configGeneralWidget;
 	ConfigEditorWidget *m_configEditorWidget;
 	ConfigAppearanceWidget *m_configAppearanceWidget;
-
-private slots:
-	void accept();
 };
 
 #endif

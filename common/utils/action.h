@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Glad Deschrijver                                *
+ *   Copyright (C) 2009, 2014 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -31,9 +31,9 @@ class Action : public KAction
 	Q_OBJECT
 
 public:
-	explicit Action(QObject *parent, const QString &name = 0);
-	Action(const QString &text, QObject *parent, const QString &name = 0);
-	Action(const Icon &icon, const QString &text, QObject *parent, const QString &name = 0);
+	explicit Action(QObject *parent, const QString &name = QString());
+	Action(const QString &text, QObject *parent, const QString &name = QString());
+	Action(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
 
 	static KActionCollection *actionCollection();
 	static void setActionCollection(KActionCollection *actionCollection);
@@ -54,9 +54,9 @@ class Action : public QAction
 	Q_OBJECT
 
 public:
-	explicit Action(QObject *parent, const QString &name = 0);
-	Action(const QString &text, QObject *parent, const QString &name = 0);
-	Action(const Icon &icon, const QString &text, QObject *parent, const QString &name = 0);
+	explicit Action(QObject *parent, const QString &name = QString());
+	Action(const QString &text, QObject *parent, const QString &name = QString());
+	Action(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
 };
 #endif
 

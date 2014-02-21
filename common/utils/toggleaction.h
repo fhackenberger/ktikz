@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Glad Deschrijver                                *
+ *   Copyright (C) 2009, 2014 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -29,9 +29,9 @@ class ToggleAction : public KToggleAction
 	Q_OBJECT
 
 public:
-	explicit ToggleAction(QObject *parent, const QString &name = 0);
-	ToggleAction(const QString &text, QObject *parent, const QString &name = 0);
-	ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = 0);
+	explicit ToggleAction(QObject *parent, const QString &name = QString());
+	ToggleAction(const QString &text, QObject *parent, const QString &name = QString());
+	ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
 };
 #else
 #include <QtCore/QtGlobal>
@@ -46,9 +46,9 @@ class ToggleAction : public QAction
 	Q_OBJECT
 
 public:
-	explicit ToggleAction(QObject *parent, const QString &name = 0);
-	ToggleAction(const QString &text, QObject *parent, const QString &name = 0);
-	ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = 0);
+	explicit ToggleAction(QObject *parent, const QString &name = QString());
+	ToggleAction(const QString &text, QObject *parent, const QString &name = QString());
+	ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
 
 private:
 	void init(const QString &name);

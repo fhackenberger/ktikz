@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2009 by Glad Deschrijver                                *
+ *   Copyright (C) 2009, 2014 by Glad Deschrijver                          *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -61,7 +61,7 @@ void RecentFilesAction::saveEntries()
 
 void RecentFilesAction::selectUrl(const KUrl &url)
 {
-	emit urlSelected(Url(url));
+	Q_EMIT urlSelected(Url(url));
 }
 
 void RecentFilesAction::addUrl(const Url &url, const QString &name)
@@ -121,9 +121,9 @@ void RecentFilesAction::openRecentFile()
 	QAction *action = qobject_cast<QAction*>(sender());
 	if (action)
 #ifdef Q_OS_WIN32
-		emit urlSelected(Url(action->data().toString()));
+		Q_EMIT urlSelected(Url(action->data().toString()));
 #else
-		emit urlSelected(Url("file://" + action->data().toString()));
+		Q_EMIT urlSelected(Url("file://" + action->data().toString()));
 #endif
 }
 

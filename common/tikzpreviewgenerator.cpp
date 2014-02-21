@@ -1,8 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2007 by Florian Hackenberger                            *
  *     <florian@hackenberger.at>                                           *
- *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver  *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2014                *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -73,7 +73,7 @@ TikzPreviewGenerator::~TikzPreviewGenerator()
 		m_thread.quit();
 		m_thread.wait();
 	}
-//	emit processRunning(false); // this causes a segmentation fault on exit on Arch Linux
+//	Q_EMIT processRunning(false); // this causes a segmentation fault on exit on Arch Linux
 
 	if (m_tikzPdfDoc)
 		delete m_tikzPdfDoc;
@@ -117,9 +117,9 @@ void TikzPreviewGenerator::setShellEscaping(bool useShellEscaping)
 
 void TikzPreviewGenerator::displayGnuplotNotExecutable()
 {
-	emit showErrorMessage(tr("Gnuplot cannot be executed.  Either Gnuplot is not installed "
-	                         "or it is not available in the system PATH or you may have insufficient "
-	                         "permissions to invoke the program."));
+	Q_EMIT showErrorMessage(tr("Gnuplot cannot be executed.  Either Gnuplot is not installed "
+	                           "or it is not available in the system PATH or you may have insufficient "
+	                           "permissions to invoke the program."));
 	const QMutexLocker lock(&m_memberLock);
 	m_checkGnuplotExecutable->deleteLater();
 	m_checkGnuplotExecutable = 0;
@@ -235,15 +235,15 @@ void TikzPreviewGenerator::parseLogFile()
 			longLogText = "\n[LaTeX] " + tr("Warning: could not load LaTeX log file.", "info process");
 			m_shortLogText += longLogText;
 			longLogText += tr("\nLog file: %1", "info process").arg(latexLogFilePath);
-			emit showErrorMessage(m_shortLogText);
-			emit appendLog(longLogText, m_runFailed);
+			Q_EMIT showErrorMessage(m_shortLogText);
+			Q_EMIT appendLog(longLogText, m_runFailed);
 		}
 		else
 		{
 qCritical("does that ever happen?");
-			m_shortLogText = "";
-			m_logText = "";
-			emit updateLog("", m_runFailed);
+			m_shortLogText.clear();
+			m_logText.clear();
+			Q_EMIT updateLog(QString(), m_runFailed);
 		}
 	}
 	else
@@ -252,7 +252,7 @@ qCritical("does that ever happen?");
 		if (m_runFailed && !m_shortLogText.contains(tr("Process aborted.")))
 		{
 			longLogText = getParsedLogText(&latexLog);
-			emit updateLog(longLogText, m_runFailed);
+			Q_EMIT updateLog(longLogText, m_runFailed);
 		}
 		latexLog.seek(0);
 		m_logText += latexLog.readAll();
@@ -287,7 +287,7 @@ static QString createTempTikzFile(const QString &tikzFileBaseName, const QString
 void TikzPreviewGenerator::createPreview()
 {
 	// avoid that the user can export to a file while the preview is being generated
-	emit setExportActionsEnabled(false);
+	Q_EMIT setExportActionsEnabled(false);
 
 	// avoid that the previous picture is still displayed
 	m_memberLock.lock();
@@ -337,14 +337,14 @@ void TikzPreviewGenerator::createPreview()
 			if (m_tikzPdfDoc)
 			{
 				m_shortLogText = "[LaTeX] " + tr("Process finished successfully.", "info process");
-				emit pixmapUpdated(m_tikzPdfDoc, tikzCoordinates(m_tikzFileBaseName));
-				emit setExportActionsEnabled(true);
+				Q_EMIT pixmapUpdated(m_tikzPdfDoc, tikzCoordinates(m_tikzFileBaseName));
+				Q_EMIT setExportActionsEnabled(true);
 			}
 			else
 			{
 				m_shortLogText = "[LaTeX] " + tr("Error: loading PDF failed, the file is probably corrupted.", "info process");
-				emit showErrorMessage(m_shortLogText);
-				emit updateLog(m_shortLogText + tr("\nPDF file: %1").arg(tikzPdfFileInfo.absoluteFilePath()), m_runFailed);
+				Q_EMIT showErrorMessage(m_shortLogText);
+				Q_EMIT updateLog(m_shortLogText + tr("\nPDF file: %1").arg(tikzPdfFileInfo.absoluteFilePath()), m_runFailed);
 			}
 		}
 		m_memberLock.unlock();
@@ -398,8 +398,8 @@ void TikzPreviewGenerator::generatePreviewImpl(TemplateStatus templateStatus)
 void TikzPreviewGenerator::showFileWriteError(const QString &fileName, const QString &errorMessage)
 {
 	const QString error = tr("Cannot write file \"%1\":\n%2").arg(fileName).arg(errorMessage);
-	emit showErrorMessage(error);
-	emit updateLog(error, true);
+	Q_EMIT showErrorMessage(error);
+	Q_EMIT updateLog(error, true);
 }
 
 static QString createTempLatexFile(const QString &tikzFileBaseName, const QString &templateFileName, const QString &tikzReplaceText)
@@ -539,7 +539,7 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 	// Start process
 	m_process->start(command, arguments);
 	m_memberLock.unlock(); // the following must not be protected by the mutex because we must be able to kill m_process
-	emit processRunning(true);
+	Q_EMIT processRunning(true);
 	if (!m_process->waitForStarted(1000))
 		runFailed = true;
 	qDebug() << "starting" << command + ' ' + arguments.join(QLatin1String(" "));
@@ -556,7 +556,7 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 			m_process->waitForFinished(100 /*msec*/);
 	}
 	// Process finished
-	emit processRunning(false);
+	Q_EMIT processRunning(false);
 	if (m_process->bytesAvailable())
 		log << m_process->readLine(m_process->bytesAvailable());
 	log.seek(0);
@@ -595,8 +595,8 @@ bool TikzPreviewGenerator::runProcess(const QString &name, const QString &comman
 	m_memberLock.unlock();
 
 	if (runFailed)
-		emit showErrorMessage(shortLogText);
-	emit updateLog(longLogText, runFailed);
+		Q_EMIT showErrorMessage(shortLogText);
+	Q_EMIT updateLog(longLogText, runFailed);
 
 	return !runFailed;
 }
@@ -649,6 +649,6 @@ bool TikzPreviewGenerator::generatePdfFile(const QString &tikzFileBaseName, cons
 	               << QFileInfo(tikzFileBaseName + ".tex").absolutePath()
 	               << tikzFileBaseName + ".tex";
 
-	emit updateLog("[LaTeX] " + tr("Running...", "info process"), false); // runFailed = false
+	Q_EMIT updateLog("[LaTeX] " + tr("Running...", "info process"), false); // runFailed = false
 	return runProcess("LaTeX", latexCommand, latexArguments, QFileInfo(tikzFileBaseName).absolutePath());
 }

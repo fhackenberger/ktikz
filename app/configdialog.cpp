@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2011 by Glad Deschrijver              *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2007, 2008, 2009, 2011, 2014                            *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -46,22 +46,22 @@ ConfigDialog::ConfigDialog(QWidget *parent) : PageDialog(parent)
 
 void ConfigDialog::readSettings()
 {
-	m_configGeneralWidget->readSettings("");
+	m_configGeneralWidget->readSettings(QString());
 	m_configEditorWidget->readSettings("Editor");
 	m_configAppearanceWidget->readSettings("Highlighting");
 }
 
 void ConfigDialog::writeSettings()
 {
-	m_configGeneralWidget->writeSettings("");
+	m_configGeneralWidget->writeSettings(QString());
 	m_configEditorWidget->writeSettings("Editor");
 	m_configAppearanceWidget->writeSettings("Highlighting");
 }
 
 void ConfigDialog::setTranslatedHighlightTypeNames(const QStringList &typeNames)
 {
-	for (int i = 0; i < typeNames.size(); ++i)
-		m_configAppearanceWidget->addItem(typeNames.at(i));
+	Q_FOREACH (const QString &typeName, typeNames)
+		m_configAppearanceWidget->addItem(typeName);
 }
 
 void ConfigDialog::setHighlightTypeNames(const QStringList &typeNames)
@@ -77,7 +77,7 @@ void ConfigDialog::setDefaultHighlightFormats(const QMap<QString, QTextCharForma
 void ConfigDialog::accept()
 {
 	writeSettings();
-	emit settingsChanged();
+	Q_EMIT settingsChanged();
 	QDialog::accept();
 }
 

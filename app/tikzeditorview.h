@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009, 2010, 2011, 2012 by Glad Deschrijver        *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2012, 2014                      *
+ *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -59,11 +59,11 @@ public:
 	int lineNumber() const;
 	void updateCompleter(bool useCompletion, const QStringList &words);
 
-public slots:
+public Q_SLOTS:
 	void setPasteEnabled();
 	void goToLine(int lineNumber);
 
-signals:
+Q_SIGNALS:
 	void modificationChanged(bool changed);
 	void contentsChanged();
 	void cursorPositionChanged(int row, int col);
@@ -72,7 +72,7 @@ signals:
 	void focusIn();
 	void focusOut();
 
-private slots:
+private Q_SLOTS:
 //	void showCursorPosition();
 	void editGoToLine();
 	void editIndent();

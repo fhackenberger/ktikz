@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2011 by Glad Deschrijver                          *
+ *   Copyright (C) 2007, 2011, 2014 by Glad Deschrijver                    *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -33,7 +33,7 @@ public:
 	QChar insertChar() const;
 	int numOfInserts() const;
 
-signals:
+Q_SIGNALS:
 	void indent(QChar insertChar, int numOfInserts, bool isUnindenting);
 	void hidden();
 
@@ -41,7 +41,7 @@ protected:
 	virtual void showEvent(QShowEvent *event);
 	virtual void keyPressEvent(QKeyEvent *event);
 
-private slots:
+private Q_SLOTS:
 	void indent();
 	void hide();
 
