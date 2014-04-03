@@ -28,6 +28,7 @@ struct HighlightingRule
 	QString type; /// The name of the formatting type
 	QString matchString; /// The string to match for formatting; only used when pattern is empty
 	QRegExp pattern; /// The pattern to match for formatting; overrides usage of matchString
+	bool isRegExp;
 };
 
 /** A simple highlighter for the TikZ graphics programming language

@@ -30,6 +30,7 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QStackedWidget>
+#include <QtWidgets/QToolTip>
 #else
 #include <QtGui/QApplication>
 #include <QtGui/QDockWidget>
@@ -39,6 +40,7 @@
 #include <QtGui/QMenu>
 #include <QtGui/QPlainTextEdit>
 #include <QtGui/QStackedWidget>
+#include <QtGui/QToolTip>
 #endif
 
 #include "tikzeditorhighlighter.h"
@@ -258,11 +260,19 @@ void TikzCommandInserter::updateDescriptionMenuItem()
 	{
 		const int num = action->data().toInt();
 		const TikzCommand cmd = m_tikzCommandsList.at(num);
-		QList<QAction*> menuActions = qobject_cast<QMenu*>(action->parentWidget())->actions();
 		QString description = cmd.description;
-		description.replace(QLatin1Char('&'), QLatin1String("&&")); // don't use ampersands in the description to create a keyboard accelerator
-		menuActions[menuActions.size()-1]->setText(description);
-		menuActions[menuActions.size()-1]->setData(cmd.number);
+		description.replace(QLatin1Char('&'), QLatin1String("&amp;"));
+		description.replace(QLatin1Char('<'), QLatin1String("&lt;"));
+		description.replace(QLatin1Char('>'), QLatin1String("&gt;"));
+		QMenu *menu = qobject_cast<QMenu*>(action->parentWidget());
+		const QRect rect = menu->actionGeometry(action);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
+//		QToolTip::showText(menu->mapToGlobal(rect.topRight()), QLatin1String("<p>") + description + QLatin1String("</p>"), menu, rect, 5000);
+		QToolTip::showText(menu->mapToGlobal(QPoint(rect.x() + rect.width(), rect.y() - rect.height() / 2)), QLatin1String("<p>") + description + QLatin1String("</p>"), menu, rect, 5000);
+#else
+//		QToolTip::showText(menu->mapToGlobal(rect.topRight()), QLatin1String("<p>") + description + QLatin1String("</p>"), menu, rect);
+		QToolTip::showText(menu->mapToGlobal(QPoint(rect.x() + rect.width(), rect.y() - rect.height() / 2)), QLatin1String("<p>") + description + QLatin1String("</p>"), menu, rect);
+#endif
 	}
 }
 
@@ -270,9 +280,7 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList, QWidget 
 {
 	QMenu *menu = new QMenu(commandList.title, parent);
 	const int numOfCommands = commandList.commands.size();
-	QAction *action;
 	int whichSection = 0;
-	QString longestDescription;
 
 	for (int i = 0; i < numOfCommands; ++i)
 	{
@@ -281,9 +289,7 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList, QWidget 
 		{
 			if (commandList.commands.at(i).type == 0)
 			{
-				action = new QAction(menu);
-				action->setSeparator(true);
-				menu->addAction(action);
+				menu->addSeparator();
 			}
 			else // type == -1, so add submenu; this assumes that the i-th command with type == -1 corresponds with the i-th submenu (see getCommands())
 			{
@@ -293,40 +299,12 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList, QWidget 
 		}
 		else // add command
 		{
-			action = new QAction(name, menu);
+			QAction *action = menu->addAction(name);
 			action->setData(commandList.commands.at(i).number); // link to the corresponding item in m_tikzCommandsList
 			action->setStatusTip(commandList.commands.at(i).description);
-			if (commandList.commands.at(i).description.size() > longestDescription.size())
-				longestDescription = commandList.commands.at(i).description;
 			connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));
 			connect(action, SIGNAL(hovered()), this, SLOT(updateDescriptionMenuItem()));
-			menu->addAction(action);
 		}
-	}
-
-	// if the menu does not only contain submenus, then we add a menu item
-	// at the bottom of the menu which shows the description of the currently
-	// highlighted menu item
-	if (whichSection < menu->actions().size())
-	{
-		action = new QAction(menu);
-		action->setSeparator(true);
-		menu->addAction(action);
-
-		action = new QAction(menu);
-		QFont actionFont = action->font();
-		actionFont.setPointSize(actionFont.pointSize() - 1);
-		action->setFont(actionFont);
-		connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));
-		menu->addAction(action);
-
-		// make sure that the menu width does not change when the content
-		// of the above menu item changes
-		menu->setMinimumWidth(menu->width() + QFontMetrics(actionFont).boundingRect(longestDescription).width());
-//		menu->setMinimumWidth(menu->width() + QFontMetrics(QFont()).boundingRect(longestDescription).width()); // faster than the above, but less accurate :(
-//		action->setText(longestDescription);
-//		menu->setMinimumWidth(menu->sizeHint().width()); // very accurate, but so slow :(
-//		action->setText("");
 	}
 
 	return menu;
@@ -567,8 +545,12 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
 		QString command = m_tikzCommandsList.at(i).command;
 		const int type = m_tikzCommandsList.at(i).type;
 		int end;
+		rule.isRegExp = false;
 		if (!m_tikzCommandsList.at(i).highlightString.isEmpty())
+		{
 			rule.pattern = QRegExp(m_tikzCommandsList.at(i).highlightString);
+			rule.isRegExp = true;
+		}
 		switch (type)
 		{
 			case 1:

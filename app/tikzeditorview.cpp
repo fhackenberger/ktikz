@@ -45,9 +45,14 @@
 #include "../common/utils/messagebox.h"
 #include "../common/utils/standardaction.h"
 
-TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
+TikzEditorView::TikzEditorView(QWidget *parent)
+	: QWidget(parent)
+	, m_goToLineWidget(0)
+	, m_indentWidget(0)
+	, m_replaceWidget(0)
+	, m_replaceCurrentWidget(0)
 {
-	m_tikzEditor = new TikzEditor;
+	m_tikzEditor = new TikzEditor(this);
 	m_tikzEditor->setWhatsThis(tr("<p>Enter your TikZ code here.  "
 	                              "The code should begin with \\begin{tikzpicture} and end with "
 	                              "\\end{tikzpicture}.</p>"));
@@ -57,12 +62,6 @@ TikzEditorView::TikzEditorView(QWidget *parent) : QWidget(parent)
 	tikzHighlighter->rehighlight(); // avoid that textEdit emits the signal contentsChanged() when it is still empty
 	tikzController = new TikzPngPreviewer(textEdit);
 */
-
-	// delay creating the following until they are actually needed
-	m_replaceWidget = 0;
-	m_replaceCurrentWidget = 0;
-	m_goToLineWidget = 0;
-	m_indentWidget = 0;
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 	mainLayout->setSpacing(0);
@@ -101,7 +100,7 @@ QPlainTextEdit *TikzEditorView::editor()
 void TikzEditorView::setFont(const QFont &editorFont)
 {
 //	m_tikzEditor->setFont(editorFont);
-	// Setting a stylesheet is faster than using QPlainTextEdit::setFont(), so here we go:
+	// Setting a stylesheet is faster than using QPlainTextEdit::setFont() (according to valgrind), so here we go:
 	QString fontStyle;
 	QString fontWeight;
 	QString fontDecoration;

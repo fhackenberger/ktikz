@@ -59,22 +59,22 @@
 
 static const QString s_completionPlaceHolder(0x2022);
 
-TikzEditor::TikzEditor(QWidget *parent) : QPlainTextEdit(parent)
+TikzEditor::TikzEditor(QWidget *parent)
+	: QPlainTextEdit(parent)
+	, m_highlightCurrentLineColor(Qt::yellow)
+	, m_highlightCurrentLine(true)
+	, m_oldVerticalScrollBarValue(0)
+	, m_whiteSpacesColor(Qt::gray)
+	, m_tabulatorsColor(Qt::gray)
+	, m_matchingColor(Qt::darkGreen)
+	, m_showWhiteSpaces(true)
+	, m_showTabulators(true)
+	, m_showMatchingBrackets(true)
+	, m_completer(0)
+	, m_oldNumOfLines(0)
+	, m_showLineNumberArea(true)
 {
-	// the following defaults are overwritten by TikzEditorView::applySettings()
-	m_showWhiteSpaces = true;
-	m_showTabulators = true;
-	m_showMatchingBrackets = true;
-	m_whiteSpacesColor = Qt::gray;
-	m_tabulatorsColor = Qt::gray;
-	m_matchingColor = Qt::darkGreen;
-	m_highlightCurrentLineColor = Qt::yellow;
-
-	m_completer = 0;
-
 	m_lineNumberArea = new LineNumberWidget(this);
-	m_showLineNumberArea = true;
-	m_oldNumOfLines = 0;
 	updateLineNumberAreaWidth();
 
 	connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
@@ -129,6 +129,16 @@ void TikzEditor::highlightCurrentLine()
 
 /***************************************************************************/
 
+namespace {
+
+bool isBracket(const QChar &c)
+{
+	return c == QLatin1Char('(') || c == QLatin1Char('{') || c == QLatin1Char('[')
+		|| c == QLatin1Char(')') || c == QLatin1Char('}') || c == QLatin1Char(']');
+}
+
+} // anonymous namespace
+
 void TikzEditor::matchBrackets()
 {
 	// clear previous bracket highlighting
@@ -142,71 +152,61 @@ void TikzEditor::matchBrackets()
 		setExtraSelections(extraSelections);
 	}
 
-	// find current matching brackets
-	m_matchingBegin = -1;
-	m_matchingEnd = -1;
 	if (!m_showMatchingBrackets)
 		return;
 
-	m_plainText = toPlainText();
-// 	QString matchText = simplifiedText(plainText);
-	const QString matchText = m_plainText;
+	// find current matching brackets
 	const QTextCursor cursor = textCursor();
+	const QTextDocument *document = this->document();
 	int pos = cursor.position();
-	if (pos == -1)
+	if (!isBracket(document->characterAt(pos)) && (pos <= 0 || !isBracket(document->characterAt(--pos)))) // we do --pos because we want to match the bracket at both sides of the cursor
 		return;
-	else if (cursor.atEnd() || !QString("({[]})").contains(m_plainText.at(pos))) // if the cursor is not next to a bracket, then there is nothing to match, so return
-	{
-		if (pos <= 0 || !QString("({[]})").contains(m_plainText.at(--pos)))
-			return;
-	}
 
 	// get corresponding opening/closing bracket and search direction
-	QChar car = (!cursor.atEnd()) ? matchText.at(pos) : matchText.at(pos - 1);
+	const QChar car = document->characterAt(pos);
 	QChar matchCar;
-	long inc = 1;
-	if (car == '(') matchCar = ')';
-	else if (car == '{') matchCar = '}';
-	else if (car == '[') matchCar = ']';
+	int inc = 1;
+	if (car == QLatin1Char('(')) matchCar = QLatin1Char(')');
+	else if (car == QLatin1Char('{')) matchCar = QLatin1Char('}');
+	else if (car == QLatin1Char('[')) matchCar = QLatin1Char(']');
 	else
 	{
 		inc = -1;
-		if (car == ')') matchCar = '(';
-		else if (car == '}') matchCar = '{';
-		else if (car == ']') matchCar = '[';
+		if (car == QLatin1Char(')')) matchCar = QLatin1Char('(');
+		else if (car == QLatin1Char('}')) matchCar = QLatin1Char('{');
+		else if (car == QLatin1Char(']')) matchCar = QLatin1Char('[');
 		else
 			return;
 	}
 
 	// find location of the corresponding bracket
-	m_matchingBegin = pos;
+	int matchingBegin = pos;
+	int matchingEnd = -1;
 	int numOfMatchCharsToSkip = 0;
-	do
+	for (; pos >= 0 && pos < document->characterCount(); pos += inc)
 	{
-		if (matchText.at(pos) == car)
+		if (document->characterAt(pos) == car) // if the brackets are nested, then don't match the closing bracket of the nested open bracket, e.g. in (()), don't match the first ) with the first (
 			numOfMatchCharsToSkip++;
-		else if (matchText.at(pos) == matchCar)
+		else if (document->characterAt(pos) == matchCar)
 		{
 			numOfMatchCharsToSkip--;
 			if (numOfMatchCharsToSkip == 0)
 			{
-				m_matchingEnd = pos;
+				matchingEnd = pos;
 				break;
 			}
 		}
-		pos += inc;
 	}
-	while (pos >= 0 && pos < matchText.length());
 
-	if (m_matchingBegin > m_matchingEnd)
-		qSwap(m_matchingBegin, m_matchingEnd);
+	if (matchingBegin > matchingEnd)
+		qSwap(matchingBegin, matchingEnd);
 
 	// if there is a match, then show it
-	if (m_matchingBegin != -1)
-		showMatchingBrackets();
+	if (matchingBegin != -1)
+		showMatchingBrackets(matchingBegin, matchingEnd);
 }
 
-void TikzEditor::showMatchingBrackets()
+void TikzEditor::showMatchingBrackets(int matchingBegin, int matchingEnd)
 {
 	if (isReadOnly())
 		return;
@@ -216,13 +216,11 @@ void TikzEditor::showMatchingBrackets()
 		if (blockBoundingGeometry(block).top() > viewport()->height())
 			break;
 
-		const QString text = block.text();
-		const int textLength = text.length();
+		const int textLength = block.text().length();
 		const int blockPosition = block.position();
-
 		for (int i = 0; i < textLength; ++i)
 		{
-			if (blockPosition + i == m_matchingBegin || blockPosition + i == m_matchingEnd)
+			if (blockPosition + i == matchingBegin || blockPosition + i == matchingEnd)
 			{
 				QList<QTextEdit::ExtraSelection> extraSelectionList = extraSelections();
 				QTextEdit::ExtraSelection selection;
@@ -315,7 +313,7 @@ void TikzEditor::paintSpace(QPainter &painter, qreal x, qreal y, int spaceWidth)
 void TikzEditor::printWhiteSpaces(QPainter &painter)
 {
 	const QFontMetrics fontMetrics = QFontMetrics(document()->defaultFont());
-	const int spaceWidth = fontMetrics.width(' ');
+	const int spaceWidth = fontMetrics.width(QLatin1Char(' '));
 	const int fontHeight = fontMetrics.height();
 	QTextCursor cursor = textCursor();
 
@@ -336,7 +334,6 @@ void TikzEditor::printWhiteSpaces(QPainter &painter)
 		const QString text = block.text();
 		const int textLength = text.length();
 		const int blockPosition = block.position();
-
 		for (int i = 0; i < textLength; ++i)
 		{
 			cursor.setPosition(blockPosition + i, QTextCursor::MoveAnchor);
@@ -344,13 +341,13 @@ void TikzEditor::printWhiteSpaces(QPainter &painter)
 
 //			const QFontMetrics fontMetrics = QFontMetrics(cursor.charFormat().font());
 
-			if (m_showWhiteSpaces && text.at(i) == ' ')
+			if (m_showWhiteSpaces && text.at(i) == QLatin1Char(' '))
 			{
 				if (painter.pen() != whiteSpacesPen)
 					painter.setPen(whiteSpacesPen);
 				paintSpace(painter, rect.x() + spaceWidth / 2.0, rect.y() + fontHeight / 2.0, spaceWidth);
 			}
-			else if (m_showTabulators && text.at(i) == '\t')
+			else if (m_showTabulators && text.at(i) == QLatin1Char('\t'))
 			{
 				if (painter.pen() != tabulatorsPen)
 					painter.setPen(tabulatorsPen);
@@ -367,14 +364,15 @@ void TikzEditor::paintEvent(QPaintEvent *event)
 {
 	QPainter painter(viewport());
 
+	// highlight current line
 	if (m_highlightCurrentLine)
 	{
-		// highlight current line
 		QRect rect = cursorRect();
 		rect.setX(0);
 		rect.setWidth(viewport()->width());
 		painter.fillRect(rect, QBrush(m_highlightCurrentLineColor));
 	}
+
 	// show white spaces and tabulators
 	if (m_showWhiteSpaces || m_showTabulators)
 		printWhiteSpaces(painter);
@@ -428,12 +426,12 @@ QString TikzEditor::textUnderCursor() const
 	{
 		const QChar character = document->characterAt(position);
 		if (character.isSpace() // if the current char is a whitespace, then we have reached the beginning of the word
-		    || character == '[' || character == ',') // these characters also delimit the beginning of the word (the beginning of a TikZ option)
+		    || character == QLatin1Char('[') || character == QLatin1Char(',')) // these characters also delimit the beginning of the word (the beginning of a TikZ option)
 		{
 			++position;
 			break;
 		}
-		else if (character == '\\' || position == startOfLine) // these characters also delimit the beginning of the word (the beginning of a TikZ command)
+		else if (character == QLatin1Char('\\') || position == startOfLine) // these characters also delimit the beginning of the word (the beginning of a TikZ command)
 		{
 			break;
 		}
@@ -532,7 +530,7 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 		// the following is done when there is no multiline selection and no s_completionPlaceHolder can be found
 		cursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
 		QString selectedText = cursor.selectedText();
-		if (selectedText.remove(' ').remove('\t').isEmpty() || event->key() == Qt::Key_Backtab)
+		if (selectedText.remove(QLatin1Char(' ')).remove(QLatin1Char('\t')).isEmpty() || event->key() == Qt::Key_Backtab)
 			Q_EMIT tabIndent(event->key() == Qt::Key_Backtab);
 		else
 			QPlainTextEdit::keyPressEvent(event);
@@ -635,7 +633,7 @@ void TikzEditor::insertCompletion(const QString &completion)
 
 	// remove all options (between <...>) and put cursor at the first option
 	QString insertWord = completion.right(extra);
-	const QRegExp rx("<[^<>]*>");
+	const QRegExp rx(QLatin1String("<[^<>]*>"));
 	const int offset = rx.indexIn(insertWord) - 1; // put cursor at the first option
 	insertWord.replace(rx, s_completionPlaceHolder);
 

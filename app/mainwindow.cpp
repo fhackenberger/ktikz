@@ -918,6 +918,7 @@ bool MainWindow::maybeSave()
 
 void MainWindow::loadUrl(const Url &url)
 {
+//QTime t = QTime::currentTime();
 	// check whether the file can be opened
 	if (!url.isValid() || url.isEmpty())
 		return;
@@ -948,20 +949,25 @@ void MainWindow::loadUrl(const Url &url)
 	setCurrentUrl(url);
 
 	// load the file and generate preview
+//qCritical() << "loadUrl" << t.msecsTo(QTime::currentTime());
 	disconnect(m_tikzEditorView, SIGNAL(contentsChanged()),
 	           m_tikzPreviewController, SLOT(regeneratePreviewAfterDelay()));
 	QTextStream in(file.file());
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	m_tikzEditorView->editor()->setPlainText(in.readAll());
 	QApplication::restoreOverrideCursor();
+//qCritical() << "loadUrl" << t.msecsTo(QTime::currentTime());
 	m_tikzPreviewController->generatePreview();
+//qCritical() << "loadUrl" << t.msecsTo(QTime::currentTime());
 	if (m_buildAutomatically)
 		connect(m_tikzEditorView, SIGNAL(contentsChanged()),
 		        m_tikzPreviewController, SLOT(regeneratePreviewAfterDelay()));
 
 	m_lastUrl = url;
 	m_openRecentAction->addUrl(url);
-	statusBar()->showMessage(tr("File loaded"), 2000);
+//qCritical() << "loadUrl" << t.msecsTo(QTime::currentTime());
+//	statusBar()->showMessage(tr("File loaded"), 2000); // this is slow
+//qCritical() << "loadUrl" << t.msecsTo(QTime::currentTime());
 }
 
 bool MainWindow::saveUrl(const Url &url)

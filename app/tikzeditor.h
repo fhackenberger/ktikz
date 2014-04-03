@@ -89,23 +89,22 @@ private Q_SLOTS:
 	void updateLineNumberArea(const QRect &rect, int dy);
 
 private:
-	void showMatchingBrackets();
+	void showMatchingBrackets(int matchingBegin, int matchingEnd);
 	void paintTabstop(QPainter &painter, qreal x, qreal y, int spaceWidth);
 	void paintSpace(QPainter &painter, qreal x, qreal y, int spaceWidth);
 	void printWhiteSpaces(QPainter &painter);
 	QString textUnderCursor() const;
 	void setCursorPosition(int row, int col);
 
-	bool m_highlightCurrentLine;
 	QColor m_highlightCurrentLineColor;
 	QRect m_previousHighlightedLine;
+	bool m_highlightCurrentLine;
 	int m_oldVerticalScrollBarValue;
 
 	QString m_plainText;
 	QColor m_whiteSpacesColor;
 	QColor m_tabulatorsColor;
 	QColor m_matchingColor;
-	long m_matchingBegin, m_matchingEnd;
 	bool m_showWhiteSpaces;
 	bool m_showTabulators;
 	bool m_showMatchingBrackets;

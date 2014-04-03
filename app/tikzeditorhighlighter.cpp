@@ -133,33 +133,56 @@ void TikzHighlighter::applySettings()
 	settings.endGroup();
 }
 
+namespace {
+
+int indexOf(const QString &text, const QString &tag, int startPos = 0)
+{
+	// valgrind --tool=callgrind --zero-before="MainWindow::loadUrl(Url const&)" gives a small win for this function over "text.indexOf(tag, startPos);"
+	const int textLength = text.length();
+	const int tagLength = tag.length();
+	for (int i = startPos, j = 0; i < textLength && j < tagLength; ++i, ++j)
+	{
+		if (text.at(i) != tag.at(j))
+		{
+			j = -1;
+			continue;
+		}
+		if (j == tagLength - 1)
+			return i - tagLength + 1;
+	}
+	return -1;
+}
+
+} // anonymous namespace
+
 void TikzHighlighter::highlightBlock(const QString &text)
 {
-	int skip = 1;
-	for (int i = 0; i < text.length(); i += skip)
+	// Try each highlighting pattern and apply formatting if it matches
+	// Having the outer loop loop over the highlighting rules and the inner loop over the text is much faster than conversely
+	Q_FOREACH (const HighlightingRule &rule, m_highlightingRules)
 	{
-		skip = 1;
-		Q_FOREACH (const HighlightingRule &rule, m_highlightingRules)
+		if (!rule.isRegExp) // match the insertion string
 		{
-			if (rule.pattern.isEmpty()) // match the insertion string
+			const int length = rule.matchString.length();
+//			int index = text.indexOf(rule.matchString);
+			int index = indexOf(text, rule.matchString);
+			while (index >= 0)
 			{
-				const int length = rule.matchString.length();
-				if (text.mid(i, length) == rule.matchString && length > skip) // the latter inequality holds when \filldraw is met after \fill
-				{
-					setFormat(i, length, m_formatList[rule.type]);
-					skip = length;
-				}
-			}
-			else if (skip <= 1) // match the pattern; assume there is only one pattern that matches
-			{
-				QRegExp expression(rule.pattern);
-				int index = expression.indexIn(text, i);
-				if (index == i)
-				{
-					const int length = expression.matchedLength();
+				if (index == 0 || text.at(index - 1) != QLatin1Char('\\')) // avoid matching e.g. "node" as an option if in reality "\node" as a command is written
 					setFormat(index, length, m_formatList[rule.type]);
-					skip = length;
-				}
+//				index = text.indexOf(rule.matchString, index + length);
+				index = indexOf(text, rule.matchString, index + length);
+			}
+		}
+		else // match the pattern
+		{
+			int index = rule.pattern.indexIn(text);
+			while (index >= 0)
+			{
+				const int length = rule.pattern.matchedLength();
+				if (index == 0 || text.at(index-1) != QLatin1Char('\\'))
+					setFormat(index, length, m_formatList[rule.type]);
+				index = rule.pattern.indexIn(text, index + length);
 			}
 		}
 	}
