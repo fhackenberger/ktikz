@@ -199,16 +199,16 @@ void TikzEditorView::createActions()
 	m_editActions.append(StandardAction::findPrev(this, SLOT(editFindPrevious()), this));
 	m_editActions.append(StandardAction::replace(this, SLOT(editReplace()), this));
 	m_editActions.append(StandardAction::gotoLine(this, SLOT(editGoToLine()), this));
-	m_editActions.at(4)->setStatusTip(tr("Look up a piece of text in the document"));
-	m_editActions.at(5)->setStatusTip(tr("Search the next occurrence of a text"));
-	m_editActions.at(6)->setStatusTip(tr("Search the previous occurrence of a text"));
-	m_editActions.at(7)->setStatusTip(tr("Search and replace a piece of text in the document"));
-	m_editActions.at(8)->setStatusTip(tr("Go to a certain line in the document"));
-	m_editActions.at(4)->setWhatsThis(tr("<p>Look up a piece of text in the document.</p>"));
-	m_editActions.at(5)->setWhatsThis(tr("<p>Search the next occurrence of a text.</p>"));
-	m_editActions.at(6)->setWhatsThis(tr("<p>Search the previous occurrence of a text.</p>"));
-	m_editActions.at(7)->setWhatsThis(tr("<p>Search and replace a piece of text in the document.</p>"));
-	m_editActions.at(8)->setWhatsThis(tr("<p>Go to a certain line in the document.</p>"));
+	m_editActions.at(5)->setStatusTip(tr("Look up a piece of text in the document"));
+	m_editActions.at(6)->setStatusTip(tr("Search the next occurrence of a text"));
+	m_editActions.at(7)->setStatusTip(tr("Search the previous occurrence of a text"));
+	m_editActions.at(8)->setStatusTip(tr("Search and replace a piece of text in the document"));
+	m_editActions.at(9)->setStatusTip(tr("Go to a certain line in the document"));
+	m_editActions.at(5)->setWhatsThis(tr("<p>Look up a piece of text in the document.</p>"));
+	m_editActions.at(6)->setWhatsThis(tr("<p>Search the next occurrence of a text.</p>"));
+	m_editActions.at(7)->setWhatsThis(tr("<p>Search the previous occurrence of a text.</p>"));
+	m_editActions.at(8)->setWhatsThis(tr("<p>Search and replace a piece of text in the document.</p>"));
+	m_editActions.at(9)->setWhatsThis(tr("<p>Go to a certain line in the document.</p>"));
 
 	m_undoAction->setEnabled(false);
 	m_redoAction->setEnabled(false);

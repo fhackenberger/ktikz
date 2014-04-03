@@ -93,7 +93,6 @@ QWidget *PageDialog::centerWidget()
 	m_pagesListWidget->setMovement(QListView::Static);
 	m_pagesListWidget->setFlow(QListView::TopToBottom);
 	m_pagesListWidget->setWordWrap(true);
-	m_pagesListWidget->setUniformItemSizes(true);
 	m_pagesListWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
 
 	// create title
@@ -146,6 +145,13 @@ void PageDialog::addPage(QWidget *widget, const QString &title, const QString &i
 	m_iconWidth = qMax(m_iconWidth, m_pagesListWidget->visualItemRect(item).width() + 6);
 	m_pagesListWidget->setFixedWidth(m_iconWidth);
 	m_pagesListWidget->setCurrentRow(0);
+
+	// center all labels and icons
+	for (int i = 0; i < m_pagesListWidget->count(); ++i)
+	{
+		QListWidgetItem *item = m_pagesListWidget->item(i);
+		item->setSizeHint(QSize(m_pagesListWidget->sizeHintForColumn(0), m_pagesListWidget->visualItemRect(item).height()));
+	}
 
 	m_pagesStackedWidget->addWidget(widget);
 }

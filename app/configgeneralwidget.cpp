@@ -18,7 +18,6 @@
 
 #include "configgeneralwidget.h"
 
-#include <QtCore/QProcess>
 #include <QtCore/QSettings>
 
 #include "ktikzapplication.h"
@@ -72,27 +71,11 @@ void ConfigGeneralWidget::readSettings(const QString &settingsGroup)
 	ui.historyLengthSpinBox->setValue(settings.value("RecentFilesNumber", 10).toInt());
 #endif
 	ui.commandsInDockCheck->setChecked(settings.value("CommandsInDock", false).toBool());
-	if (settings.value("BuildAutomatically", true).toBool())
-		ui.buildAutomaticallyRadio->setChecked(true);
-	else
-		ui.buildManuallyRadio->setChecked(true);
 	ui.tikzDocEdit->setText(TikzDocumentationController::tikzDocumentationPath());
 	ui.latexEdit->setText(settings.value("LatexCommand", "pdflatex").toString());
 	ui.pdftopsEdit->setText(settings.value("PdftopsCommand", "pdftops").toString());
 	ui.editorEdit->setText(settings.value("TemplateEditor", KTIKZ_TEMPLATE_EDITOR_DEFAULT).toString());
 	ui.replaceEdit->setText(settings.value("TemplateReplaceText", "<>").toString());
-	settings.endGroup();
-
-	settings.beginGroup("Preview");
-	ui.showCoordinatesCheck->setChecked(settings.value("ShowCoordinates", true).toBool());
-	const int precision = settings.value("ShowCoordinatesPrecision", -1).toInt();
-	if (precision < 0)
-		ui.bestPrecisionRadio->setChecked(true);
-	else
-	{
-		ui.specifyPrecisionRadio->setChecked(true);
-		ui.specifyPrecisionSpinBox->setValue(precision);
-	}
 	settings.endGroup();
 
 #ifndef KTIKZ_USE_KDE
@@ -110,20 +93,11 @@ void ConfigGeneralWidget::writeSettings(const QString &settingsGroup)
 	settings.setValue("RecentFilesNumber", ui.historyLengthSpinBox->value());
 #endif
 	settings.setValue("CommandsInDock", ui.commandsInDockCheck->isChecked());
-	settings.setValue("BuildAutomatically", ui.buildAutomaticallyRadio->isChecked());
 	TikzDocumentationController::storeTikzDocumentationPath(ui.tikzDocEdit->text());
 	settings.setValue("LatexCommand", ui.latexEdit->text());
 	settings.setValue("PdftopsCommand", ui.pdftopsEdit->text());
 	settings.setValue("TemplateEditor", ui.editorEdit->text());
 	settings.setValue("TemplateReplaceText", ui.replaceEdit->text());
-	settings.endGroup();
-
-	settings.beginGroup("Preview");
-	settings.setValue("ShowCoordinates", ui.showCoordinatesCheck->isChecked());
-	if (ui.bestPrecisionRadio->isChecked())
-		settings.setValue("ShowCoordinatesPrecision", -1);
-	else
-		settings.setValue("ShowCoordinatesPrecision", ui.specifyPrecisionSpinBox->value());
 	settings.endGroup();
 
 #ifndef KTIKZ_USE_KDE

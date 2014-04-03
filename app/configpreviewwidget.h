@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2007, 2008, 2009, 2011, 2014 by Glad Deschrijver        *
+ *   Copyright (C) 2008, 2009, 2010, 2011, 2014 by Glad Deschrijver        *
  *     <glad.deschrijver@gmail.com>                                        *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,45 +16,24 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef KTIKZ_CONFIGDIALOG_H
-#define KTIKZ_CONFIGDIALOG_H
+#ifndef KTIKZ_CONFIGPREVIEWWIDGET_H
+#define KTIKZ_CONFIGPREVIEWWIDGET_H
 
-#include "../common/utils/pagedialog.h"
+#include "ui_configpreviewwidget.h"
 
-class QTextCharFormat;
-
-class ConfigAppearanceWidget;
-class ConfigEditorWidget;
-class ConfigGeneralWidget;
-class ConfigPreviewWidget;
-
-class ConfigDialog : public PageDialog
+class ConfigPreviewWidget : public QWidget
 {
 	Q_OBJECT
 
 public:
-	ConfigDialog(QWidget *parent = 0);
+	ConfigPreviewWidget(QWidget *parent = 0);
+	~ConfigPreviewWidget();
 
-	void readSettings();
-	void writeSettings();
+	void readSettings(const QString &settingsGroup);
+	void writeSettings(const QString &settingsGroup);
 
-	void setTranslatedHighlightTypeNames(const QStringList &typeNames);
-	void setHighlightTypeNames(const QStringList &typeNames);
-	void setDefaultHighlightFormats(const QMap<QString, QTextCharFormat> &defaultFormatList);
-
-Q_SIGNALS:
-	void settingsChanged();
-
-private Q_SLOTS:
-	void accept();
-
-private:
-	void keyPressEvent(QKeyEvent *event);
-
-	ConfigAppearanceWidget *m_configAppearanceWidget;
-	ConfigEditorWidget *m_configEditorWidget;
-	ConfigGeneralWidget *m_configGeneralWidget;
-	ConfigPreviewWidget *m_configPreviewWidget;
+protected:
+	Ui::ConfigPreviewWidget ui;
 };
 
-#endif
+#endif // KTIKZ_CONFIGPREVIEWWIDGET_H

@@ -25,9 +25,10 @@
 #include <QtGui/QWhatsThis>
 #endif
 
-#include "configgeneralwidget.h"
-#include "configeditorwidget.h"
 #include "configappearancewidget.h"
+#include "configeditorwidget.h"
+#include "configgeneralwidget.h"
+#include "configpreviewwidget.h"
 #include "ktikzapplication.h"
 #include "../common/utils/icon.h"
 
@@ -39,9 +40,11 @@ ConfigDialog::ConfigDialog(QWidget *parent) : PageDialog(parent)
 	m_configGeneralWidget = new ConfigGeneralWidget(this);
 	m_configEditorWidget = new ConfigEditorWidget(this);
 	m_configAppearanceWidget = new ConfigAppearanceWidget(this);
+	m_configPreviewWidget = new ConfigPreviewWidget(this);
 	addPage(m_configGeneralWidget, tr("&General"), "preferences-desktop-theme");
 	addPage(m_configEditorWidget, tr("&Editor"), "accessories-text-editor");
 	addPage(m_configAppearanceWidget, tr("&Highlighting"), "preferences-desktop-color");
+	addPage(m_configPreviewWidget, tr("&Preview"), "preferences-desktop-theme");
 }
 
 void ConfigDialog::readSettings()
@@ -49,6 +52,7 @@ void ConfigDialog::readSettings()
 	m_configGeneralWidget->readSettings(QString());
 	m_configEditorWidget->readSettings("Editor");
 	m_configAppearanceWidget->readSettings("Highlighting");
+	m_configPreviewWidget->readSettings("Preview");
 }
 
 void ConfigDialog::writeSettings()
@@ -56,6 +60,7 @@ void ConfigDialog::writeSettings()
 	m_configGeneralWidget->writeSettings(QString());
 	m_configEditorWidget->writeSettings("Editor");
 	m_configAppearanceWidget->writeSettings("Highlighting");
+	m_configPreviewWidget->writeSettings("Preview");
 }
 
 void ConfigDialog::setTranslatedHighlightTypeNames(const QStringList &typeNames)

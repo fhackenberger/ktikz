@@ -41,6 +41,7 @@ UI_DIR = ui
 FORMS += configappearancewidget.ui \
 	configeditorwidget.ui \
 	configgeneralwidget.ui \
+	configpreviewwidget.ui \
 	editgotolinewidget.ui \
 	editindentwidget.ui \
 	editreplacewidget.ui \
@@ -71,6 +72,7 @@ SOURCES += ../common/utils/action.cpp \
 	configdialog.cpp \
 	configeditorwidget.cpp \
 	configgeneralwidget.cpp \
+	configpreviewwidget.cpp \
 	editgotolinewidget.cpp \
 	editindentwidget.cpp \
 	editreplacewidget.cpp \

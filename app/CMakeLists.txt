@@ -11,6 +11,7 @@ set(ktikz_SRCS
 	configappearancewidget.cpp
 	configeditorwidget.cpp
 	configgeneralwidget.cpp
+	configpreviewwidget.cpp
 	configdialog.cpp
 	editgotolinewidget.cpp
 	editindentwidget.cpp
@@ -61,6 +62,7 @@ qt4_wrap_ui(ktikz_UI_FILES
 	configappearancewidget.ui
 	configeditorwidget.ui
 	configgeneralwidget.ui
+	configpreviewwidget.ui
 	editgotolinewidget.ui
 	editindentwidget.ui
 	editreplacewidget.ui

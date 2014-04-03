@@ -832,12 +832,11 @@ void MainWindow::applySettings()
 	m_tikzEditorView->applySettings();
 	m_tikzPreviewController->applySettings();
 
+	settings.beginGroup("Preview");
 	m_buildAutomatically = settings.value("BuildAutomatically", true).toBool();
 	m_buildAction->setVisible(!m_buildAutomatically);
-
-	settings.beginGroup("Preview");
 	if (!settings.value("ShowCoordinates", true).toBool())
-		m_mouseCoordinatesLabel->setText("");
+		m_mouseCoordinatesLabel->setText(QString());
 	settings.endGroup();
 
 	settings.beginGroup("Editor");
@@ -873,8 +872,10 @@ void MainWindow::readSettings()
 	settings.endGroup();
 
 	// still do the following (see applySettings()) here in order to avoid flicker in the toolbar
+	settings.beginGroup("Preview");
 	m_buildAutomatically = settings.value("BuildAutomatically", true).toBool();
 	m_buildAction->setVisible(!m_buildAutomatically);
+	settings.endGroup();
 	// still do the following here in order to avoid a crash when a file is opened in a new window
 	m_openRecentAction->createRecentFilesList();
 	// still do this here, otherwise the compilation fails when a file is loaded in a new window
