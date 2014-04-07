@@ -45,6 +45,13 @@
 
 TikzPreview::TikzPreview(QWidget *parent)
 	: QGraphicsView(parent)
+	, m_processRunning(false)
+	, m_pageSeparator(0)
+	, m_infoWidget(0)
+	, m_tikzPdfDoc(0)
+	, m_currentPage(0)
+	, m_oldZoomFactor(-1)
+	, m_hasZoomed(false)
 {
 	m_tikzScene = new QGraphicsScene(this);
 	m_tikzPixmapItem = m_tikzScene->addPixmap(QPixmap());
@@ -55,18 +62,10 @@ TikzPreview::TikzPreview(QWidget *parent)
 	                "your TikZ code is shown.  You can zoom in and out, and you "
 	                "can scroll the image by dragging it.</p>"));
 
-	m_tikzPdfDoc = 0;
-	m_currentPage = 0;
-	m_processRunning = false;
-	m_pageSeparator = 0;
-	m_infoWidget = 0;
-
 	QSettings settings(ORGNAME, APPNAME);
 	settings.beginGroup("Preview");
 	m_zoomFactor = settings.value("ZoomFactor", 1).toDouble();
 	settings.endGroup();
-	m_oldZoomFactor = -1;
-	m_hasZoomed = false;
 
 	createActions();
 

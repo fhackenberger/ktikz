@@ -46,18 +46,17 @@ static const char s_pathSeparator = ':';
 #endif
 
 TikzPreviewGenerator::TikzPreviewGenerator(TikzPreviewController *parent)
+	: m_parent(parent)
+	, m_tikzPdfDoc(0)
+	, m_process(0)
+	, m_processAborted(false)
+	, m_runFailed(false)
+	, m_firstRun(true)
+	, m_templateChanged(true) // is set correctly in generatePreviewImpl()
+	, m_useShellEscaping(false) // is set in setShellEscaping() at startup
+	, m_checkGnuplotExecutable(0)
 {
 	qRegisterMetaType<TemplateStatus>("TemplateStatus"); // needed for Q_ARG below
-
-	m_parent = parent;
-	m_tikzPdfDoc = 0;
-	m_runFailed = false;
-	m_process = 0;
-	m_firstRun = true;
-	m_checkGnuplotExecutable = 0;
-	m_processAborted = false;
-	m_templateChanged = true; // is set correctly in generatePreviewImpl()
-	m_useShellEscaping = false; // is set in setShellEscaping() at startup
 
 	m_processEnvironment = QProcessEnvironment::systemEnvironment();
 
@@ -75,8 +74,7 @@ TikzPreviewGenerator::~TikzPreviewGenerator()
 	}
 //	Q_EMIT processRunning(false); // this causes a segmentation fault on exit on Arch Linux
 
-	if (m_tikzPdfDoc)
-		delete m_tikzPdfDoc;
+	delete m_tikzPdfDoc;
 }
 
 /***************************************************************************/
@@ -109,7 +107,7 @@ void TikzPreviewGenerator::setShellEscaping(bool useShellEscaping)
 	{
 		m_checkGnuplotExecutable = new QProcess;
 		m_checkGnuplotExecutable->start("gnuplot", QStringList() << "--version");
-		m_checkGnuplotExecutable->moveToThread(&m_thread);
+//		m_checkGnuplotExecutable->moveToThread(&m_thread);
 		connect(m_checkGnuplotExecutable, SIGNAL(error(QProcess::ProcessError)), this, SLOT(displayGnuplotNotExecutable()));
 		connect(m_checkGnuplotExecutable, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(checkGnuplotExecutableFinished(int,QProcess::ExitStatus)));
 	}
@@ -122,7 +120,7 @@ void TikzPreviewGenerator::displayGnuplotNotExecutable()
 	                           "permissions to invoke the program."));
 	const QMutexLocker lock(&m_memberLock);
 	m_checkGnuplotExecutable->deleteLater();
-	m_checkGnuplotExecutable = 0;
+//	m_checkGnuplotExecutable = 0;
 }
 
 void TikzPreviewGenerator::checkGnuplotExecutableFinished(int exitCode, QProcess::ExitStatus exitStatus)
@@ -131,7 +129,7 @@ void TikzPreviewGenerator::checkGnuplotExecutableFinished(int exitCode, QProcess
 	Q_UNUSED(exitStatus)
 	const QMutexLocker lock(&m_memberLock);
 	m_checkGnuplotExecutable->deleteLater();
-	m_checkGnuplotExecutable = 0;
+//	m_checkGnuplotExecutable = 0;
 }
 
 void TikzPreviewGenerator::setTemplateFile(const QString &fileName)
@@ -270,12 +268,11 @@ static QList<qreal> tikzCoordinates(const QString &tikzFileBaseName)
 	if (tikzAuxFile.open(QFile::ReadOnly | QIODevice::Text))
 	{
 		QTextStream tikzAuxFileStream(&tikzAuxFile);
-		QStringList tikzAuxLine;
-		for (int i = 0; !tikzAuxFileStream.atEnd(); ++i)
+		while (!tikzAuxFileStream.atEnd())
 		{
-			tikzAuxLine = tikzAuxFileStream.readLine().split(QLatin1Char(';'));
-			for (int j = 0; j < tikzAuxLine.length(); ++j)
-				tikzCoordinateList << tikzAuxLine.at(j).toDouble();
+			QStringList tikzCoordinateStringList = tikzAuxFileStream.readLine().split(QLatin1Char(';'));
+			Q_FOREACH (const QString &tikzCoordinateString, tikzCoordinateStringList)
+				tikzCoordinateList << tikzCoordinateString.toDouble();
 		}
 	}
 	return tikzCoordinateList;
@@ -453,10 +450,9 @@ static QString createTempLatexFile(const QString &tikzFileBaseName, const QStrin
 	        && !tikzReplaceText.isEmpty())
 	{
 		QTextStream templateFileStream(&templateFile);
-		QString templateLine;
-		for (int i = 1; !templateFileStream.atEnd(); ++i)
+		while (!templateFileStream.atEnd())
 		{
-			templateLine = templateFileStream.readLine();
+			QString templateLine = templateFileStream.readLine();
 			if (templateLine.indexOf(tikzReplaceText) >= 0)
 				templateLine.replace(tikzReplaceText, inputTikzCode);
 			tikzStream << templateLine << '\n';
