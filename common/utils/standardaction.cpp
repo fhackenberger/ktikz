@@ -174,55 +174,55 @@ static Action *createAction(int which, const QObject *recvr, const char *slot, Q
 	switch (which)
 	{
 		case 0:
-			iconName = "document-new";
+			iconName = QLatin1String("document-new");
 			text = QCoreApplication::translate("StandardAction", "&New");
 			key = QKeySequence::New;
 			break;
 		case 1:
-			iconName = "document-open";
+			iconName = QLatin1String("document-open");
 			text = QCoreApplication::translate("StandardAction", "&Open...");
 			key = QKeySequence::Open;
 			break;
 		case 2:
-			iconName = "document-save";
+			iconName = QLatin1String("document-save");
 			text = QCoreApplication::translate("StandardAction", "&Save");
 			key = QKeySequence::Save;
 			break;
 		case 3:
-			iconName = "document-save-as";
+			iconName = QLatin1String("document-save-as");
 			text = QCoreApplication::translate("StandardAction", "Save &As...");
 			break;
 		case 4:
-			iconName = "window-close";
+			iconName = QLatin1String("window-close");
 			text = QCoreApplication::translate("StandardAction", "&Close");
 			key = QKeySequence::Close;
 			break;
 		case 5:
-			iconName = "application-exit";
+			iconName = QLatin1String("application-exit");
 			text = QCoreApplication::translate("StandardAction", "&Quit");
 			break;
 		case 6:
-			iconName = "edit-undo";
+			iconName = QLatin1String("edit-undo");
 			text = QCoreApplication::translate("StandardAction", "&Undo");
 			key = QKeySequence::Undo;
 			break;
 		case 7:
-			iconName = "edit-redo";
+			iconName = QLatin1String("edit-redo");
 			text = QCoreApplication::translate("StandardAction", "Re&do");
 			key = QKeySequence::Redo;
 			break;
 		case 8:
-			iconName = "edit-cut";
+			iconName = QLatin1String("edit-cut");
 			text = QCoreApplication::translate("StandardAction", "Cu&t");
 			key = QKeySequence::Cut;
 			break;
 		case 9:
-			iconName = "edit-copy";
+			iconName = QLatin1String("edit-copy");
 			text = QCoreApplication::translate("StandardAction", "&Copy");
 			key = QKeySequence::Copy;
 			break;
 		case 10:
-			iconName = "edit-paste";
+			iconName = QLatin1String("edit-paste");
 			text = QCoreApplication::translate("StandardAction", "&Paste");
 			key = QKeySequence::Paste;
 			break;
@@ -231,48 +231,49 @@ static Action *createAction(int which, const QObject *recvr, const char *slot, Q
 			key = QKeySequence::SelectAll;
 			break;
 		case 12:
-			iconName = "edit-find";
+			iconName = QLatin1String("edit-find");
 			text = QCoreApplication::translate("StandardAction", "&Find...");
 			key = QKeySequence::Find;
 			break;
 		case 13:
-			iconName = "go-down";
+			iconName = QLatin1String("go-down");
 			text = QCoreApplication::translate("StandardAction", "Find &Next");
 			key = QKeySequence::FindNext;
 			break;
 		case 14:
-			iconName = "go-up";
+			iconName = QLatin1String("go-up");
 			text = QCoreApplication::translate("StandardAction", "Find Pre&vious");
 			key = QKeySequence::FindPrevious;
 			break;
 		case 15:
+			iconName = QLatin1String("edit-find-replace");
 			text = QCoreApplication::translate("StandardAction", "&Replace...");
 			key = QKeySequence::Replace;
 			break;
 		case 16:
-			iconName = "go-jump";
+			iconName = QLatin1String("go-jump");
 			text = QCoreApplication::translate("StandardAction", "&Go to Line...");
 			break;
 		case 17:
-			iconName = "zoom-in";
+			iconName = QLatin1String("zoom-in");
 			text = QCoreApplication::translate("StandardAction", "Zoom &In");
 			key = QKeySequence::ZoomIn;
 			break;
 		case 18:
-			iconName = "zoom-out";
+			iconName = QLatin1String("zoom-out");
 			text = QCoreApplication::translate("StandardAction", "Zoom &Out");
 			key = QKeySequence::ZoomOut;
 			break;
 		case 19:
-			iconName = "configure";
+			iconName = QLatin1String("configure");
 			text = QCoreApplication::translate("StandardAction", "&Configure %1...").arg(QCoreApplication::applicationName());
 			break;
 		case 20:
-			iconName = "document-print-preview";
+			iconName = QLatin1String("document-print-preview");
 			text = QCoreApplication::translate("StandardAction", "Print Pre&view...");
 			break;
 		case 21:
-			iconName = "document-print";
+			iconName = QLatin1String("document-print");
 			text = QCoreApplication::translate("StandardAction", "&Print...");
 			key = QKeySequence::Print;
 			break;
@@ -303,7 +304,7 @@ Action *open(const QObject *recvr, const char *slot, QObject *parent)
 }
 RecentFilesAction *openRecent(const QObject *recvr, const char *slot, QObject *parent)
 {
-	RecentFilesAction *action = new RecentFilesAction(Icon("document-open-recent"), QCoreApplication::translate("StandardAction", "&Open Recent"), parent);
+	RecentFilesAction *action = new RecentFilesAction(Icon(QLatin1String("document-open-recent")), QCoreApplication::translate("StandardAction", "&Open Recent"), parent);
 	QObject::connect(action, SIGNAL(urlSelected(Url)), recvr, slot);
 	return action;
 }

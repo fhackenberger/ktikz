@@ -35,32 +35,32 @@
 ConfigDialog::ConfigDialog(QWidget *parent) : PageDialog(parent)
 {
 	setCaption(tr("Configure %1").arg(KtikzApplication::applicationName()));
-	setHelp("chap-configuration");
+	setHelp(QLatin1String("chap-configuration"));
 
 	m_configGeneralWidget = new ConfigGeneralWidget(this);
 	m_configEditorWidget = new ConfigEditorWidget(this);
 	m_configAppearanceWidget = new ConfigAppearanceWidget(this);
 	m_configPreviewWidget = new ConfigPreviewWidget(this);
-	addPage(m_configGeneralWidget, tr("&General"), "preferences-desktop-theme");
-	addPage(m_configEditorWidget, tr("&Editor"), "accessories-text-editor");
-	addPage(m_configAppearanceWidget, tr("&Highlighting"), "preferences-desktop-color");
-	addPage(m_configPreviewWidget, tr("&Preview"), "preferences-desktop-theme");
+	addPage(m_configGeneralWidget, tr("&General"), QLatin1String("preferences-desktop-theme"));
+	addPage(m_configEditorWidget, tr("&Editor"), QLatin1String("accessories-text-editor"));
+	addPage(m_configAppearanceWidget, tr("&Highlighting"), QLatin1String("preferences-desktop-color"));
+	addPage(m_configPreviewWidget, tr("&Preview"), QLatin1String("preferences-desktop-theme"));
 }
 
 void ConfigDialog::readSettings()
 {
 	m_configGeneralWidget->readSettings(QString());
-	m_configEditorWidget->readSettings("Editor");
-	m_configAppearanceWidget->readSettings("Highlighting");
-	m_configPreviewWidget->readSettings("Preview");
+	m_configEditorWidget->readSettings(QLatin1String("Editor"));
+	m_configAppearanceWidget->readSettings(QLatin1String("Highlighting"));
+	m_configPreviewWidget->readSettings(QLatin1String("Preview"));
 }
 
 void ConfigDialog::writeSettings()
 {
 	m_configGeneralWidget->writeSettings(QString());
-	m_configEditorWidget->writeSettings("Editor");
-	m_configAppearanceWidget->writeSettings("Highlighting");
-	m_configPreviewWidget->writeSettings("Preview");
+	m_configEditorWidget->writeSettings(QLatin1String("Editor"));
+	m_configAppearanceWidget->writeSettings(QLatin1String("Highlighting"));
+	m_configPreviewWidget->writeSettings(QLatin1String("Preview"));
 }
 
 void ConfigDialog::setTranslatedHighlightTypeNames(const QStringList &typeNames)

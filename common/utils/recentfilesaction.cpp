@@ -29,33 +29,33 @@
 RecentFilesAction::RecentFilesAction(QObject *parent)
 	: KRecentFilesAction(parent)
 {
-	Action::actionCollection()->addAction("file_open_recent", this);
+	Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
 	connect(this, SIGNAL(urlSelected(KUrl)), this, SLOT(selectUrl(KUrl)));
 }
 
 RecentFilesAction::RecentFilesAction(const QString &text, QObject *parent)
 	: KRecentFilesAction(text, parent)
 {
-	Action::actionCollection()->addAction("file_open_recent", this);
+	Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
 	connect(this, SIGNAL(urlSelected(KUrl)), this, SLOT(selectUrl(KUrl)));
 }
 
 RecentFilesAction::RecentFilesAction(const Icon &icon, const QString &text, QObject *parent)
 	: KRecentFilesAction(icon, text, parent)
 {
-	Action::actionCollection()->addAction("file_open_recent", this);
+	Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
 	connect(this, SIGNAL(urlSelected(KUrl)), this, SLOT(selectUrl(KUrl)));
 }
 
 void RecentFilesAction::loadEntries()
 {
-	KRecentFilesAction::loadEntries(KGlobal::config()->group("Recent Files"));
+	KRecentFilesAction::loadEntries(KGlobal::config()->group(QLatin1String("Recent Files")));
 	setEnabled(true);
 }
 
 void RecentFilesAction::saveEntries()
 {
-	KRecentFilesAction::saveEntries(KGlobal::config()->group("Recent Files"));
+	KRecentFilesAction::saveEntries(KGlobal::config()->group(QLatin1String("Recent Files")));
 	KGlobal::config()->sync();
 }
 
@@ -108,9 +108,9 @@ void RecentFilesAction::createMenu()
 {
 	m_numOfRecentFiles = 5; // is set correctly in loadEntries() which must be executed before anything else happens with the menu
 
-	setObjectName("file_open_recent");
+	setObjectName(QLatin1String("file_open_recent"));
 	setText(tr("Open &Recent"));
-	setIcon(Icon("document-open-recent"));
+	setIcon(Icon(QLatin1String("document-open-recent")));
 
 	m_recentMenu = new QMenu();
 	setMenu(m_recentMenu);
@@ -123,7 +123,7 @@ void RecentFilesAction::openRecentFile()
 #ifdef Q_OS_WIN32
 		Q_EMIT urlSelected(Url(action->data().toString()));
 #else
-		Q_EMIT urlSelected(Url("file://" + action->data().toString()));
+		Q_EMIT urlSelected(Url(QLatin1String("file://") + action->data().toString()));
 #endif
 }
 
@@ -152,9 +152,9 @@ void RecentFilesAction::createRecentFilesList()
 void RecentFilesAction::loadEntries()
 {
 	QSettings settings;
-	m_numOfRecentFiles = settings.value("RecentFilesNumber", 5).toInt();
+	m_numOfRecentFiles = settings.value(QLatin1String("RecentFilesNumber"), 5).toInt();
 
-	m_recentFilesList = settings.value("RecentFiles").toStringList();
+	m_recentFilesList = settings.value(QLatin1String("RecentFiles")).toStringList();
 	setEnabled(true);
 }
 
@@ -162,7 +162,7 @@ void RecentFilesAction::saveEntries()
 {
 	QSettings settings;
 	if (m_recentFilesList.size() > 0)
-		settings.setValue("RecentFiles", m_recentFilesList);
+		settings.setValue(QLatin1String("RecentFiles"), m_recentFilesList);
 }
 
 void RecentFilesAction::updateRecentFilesList()

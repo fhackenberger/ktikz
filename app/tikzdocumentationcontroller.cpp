@@ -24,7 +24,7 @@
 QString TikzDocumentationController::tikzDocumentationPath()
 {
 	QSettings settings;
-	QString tikzDocFile = settings.value("TikzDocumentation").toString();
+	QString tikzDocFile = settings.value(QLatin1String("TikzDocumentation")).toString();
 	const bool tikzDocFileInSettingsEmpty = tikzDocFile.isEmpty();
 
 	if (tikzDocFileInSettingsEmpty)
@@ -32,7 +32,7 @@ QString TikzDocumentationController::tikzDocumentationPath()
 
 #ifdef KTIKZ_TIKZ_DOCUMENTATION_DEFAULT
 	if (tikzDocFile.isEmpty())
-		tikzDocFile = KTIKZ_TIKZ_DOCUMENTATION_DEFAULT;
+		tikzDocFile = QString::fromLocal8Bit(KTIKZ_TIKZ_DOCUMENTATION_DEFAULT);
 #endif
 
 	if (tikzDocFileInSettingsEmpty && !tikzDocFile.isEmpty())
@@ -44,14 +44,14 @@ QString TikzDocumentationController::tikzDocumentationPath()
 void TikzDocumentationController::storeTikzDocumentationPath(const QString &path)
 {
 	QSettings settings;
-	settings.setValue("TikzDocumentation", path);
+	settings.setValue(QLatin1String("TikzDocumentation"), path);
 }
 
 QString TikzDocumentationController::searchTikzDocumentationInTexTree()
 {
-	const QString kpsewhichCommand = "kpsewhich";
+	const QString kpsewhichCommand = QLatin1String("kpsewhich");
 	QStringList kpsewhichArguments;
-	kpsewhichArguments << "--format" << "TeX system documentation" << "pgfmanual.pdf" << "pgfmanual.pdf.gz" << "pgfmanual.ps" << "pgfmanual.ps.gz";
+	kpsewhichArguments << QLatin1String("--format") << QLatin1String("TeX system documentation") << QLatin1String("pgfmanual.pdf") << QLatin1String("pgfmanual.pdf.gz") << QLatin1String("pgfmanual.ps") << QLatin1String("pgfmanual.ps.gz");
 
 	QProcess process;
 	process.start(kpsewhichCommand, kpsewhichArguments);
@@ -59,8 +59,8 @@ QString TikzDocumentationController::searchTikzDocumentationInTexTree()
 	while (process.state() != QProcess::NotRunning)
 		process.waitForFinished(100 /*msec*/);
 
-	QString tikzDocFile = process.readAllStandardOutput();
-	int newLinePosition = tikzDocFile.indexOf('\n');
+	QString tikzDocFile = QString::fromLocal8Bit(process.readAllStandardOutput().constData());
+	int newLinePosition = tikzDocFile.indexOf(QLatin1Char('\n'));
 	if (newLinePosition >= 0)
 		tikzDocFile.remove(newLinePosition, tikzDocFile.length());
 	return tikzDocFile.trimmed();

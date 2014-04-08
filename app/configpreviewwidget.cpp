@@ -34,13 +34,13 @@ void ConfigPreviewWidget::readSettings(const QString &settingsGroup)
 {
 	QSettings settings;
 	settings.beginGroup(settingsGroup);
-	if (settings.value("BuildAutomatically", true).toBool())
+	if (settings.value(QLatin1String("BuildAutomatically"), true).toBool())
 		ui.buildAutomaticallyRadio->setChecked(true);
 	else
 		ui.buildManuallyRadio->setChecked(true);
 
-	ui.showCoordinatesCheck->setChecked(settings.value("ShowCoordinates", true).toBool());
-	const int precision = settings.value("ShowCoordinatesPrecision", -1).toInt();
+	ui.showCoordinatesCheck->setChecked(settings.value(QLatin1String("ShowCoordinates"), true).toBool());
+	const int precision = settings.value(QLatin1String("ShowCoordinatesPrecision"), -1).toInt();
 	if (precision < 0)
 	{
 		ui.bestPrecisionRadio->setChecked(true);
@@ -57,11 +57,11 @@ void ConfigPreviewWidget::writeSettings(const QString &settingsGroup)
 {
 	QSettings settings;
 	settings.beginGroup(settingsGroup);
-	settings.setValue("BuildAutomatically", ui.buildAutomaticallyRadio->isChecked());
-	settings.setValue("ShowCoordinates", ui.showCoordinatesCheck->isChecked());
+	settings.setValue(QLatin1String("BuildAutomatically"), ui.buildAutomaticallyRadio->isChecked());
+	settings.setValue(QLatin1String("ShowCoordinates"), ui.showCoordinatesCheck->isChecked());
 	if (ui.bestPrecisionRadio->isChecked())
-		settings.setValue("ShowCoordinatesPrecision", -1);
+		settings.setValue(QLatin1String("ShowCoordinatesPrecision"), -1);
 	else
-		settings.setValue("ShowCoordinatesPrecision", ui.specifyPrecisionSpinBox->value());
+		settings.setValue(QLatin1String("ShowCoordinatesPrecision"), ui.specifyPrecisionSpinBox->value());
 	settings.endGroup();
 }

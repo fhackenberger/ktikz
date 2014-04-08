@@ -72,13 +72,13 @@ static QString formatZoomFactor(qreal zoomFactor)
 	QString zoomFactorText = GlobalLocale::formatNumber(zoomFactor, 2);
 	const QString decimalSymbol = GlobalLocale::decimalSymbol();
 
-	zoomFactorText.remove(decimalSymbol + "00");
+	zoomFactorText.remove(decimalSymbol + QLatin1String("00"));
 	// remove trailing zero in numbers like 12.30
-	if (zoomFactorText.endsWith('0')
+	if (zoomFactorText.endsWith(QLatin1Char('0'))
 	        && zoomFactorText.indexOf(decimalSymbol) >= 0)
 		zoomFactorText.chop(1);
 
-	zoomFactorText += '%';
+	zoomFactorText += QLatin1Char('%');
 	return zoomFactorText;
 }
 
@@ -141,5 +141,5 @@ void ZoomAction::setZoomFactor(qreal zoomFactor)
 
 void ZoomAction::setZoomFactor(const QString &zoomFactorText)
 {
-	setZoomFactor(GlobalLocale::readNumber(QString(zoomFactorText).remove(QRegExp(QString("[^\\d\\%1]*").arg(GlobalLocale::decimalSymbol())))) / 100.0);
+	setZoomFactor(GlobalLocale::readNumber(QString(zoomFactorText).remove(QRegExp(QString(QLatin1String("[^\\d\\%1]*")).arg(GlobalLocale::decimalSymbol())))) / 100.0);
 }

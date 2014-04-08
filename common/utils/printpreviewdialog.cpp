@@ -44,22 +44,22 @@ PrintPreviewDialog::PrintPreviewDialog(QPrinter *printer, QWidget *parent)
 	connect(m_printPreviewWidget, SIGNAL(paintRequested(QPrinter*)), this, SIGNAL(paintRequested(QPrinter*)));
 	connect(m_printPreviewWidget, SIGNAL(previewChanged()), this, SLOT(updateZoomFactor()));
 
-	ToolBar *toolBar = new ToolBar("printpreview_toolbar", this);
-	Action *action = new Action(Icon("zoom-fit-width"), tr("Fit &width"), this, "printpreview_fit_width");
+	ToolBar *toolBar = new ToolBar(QLatin1String("printpreview_toolbar"), this);
+	Action *action = new Action(Icon(QLatin1String("zoom-fit-width")), tr("Fit &width"), this, QLatin1String("printpreview_fit_width"));
 	connect(action, SIGNAL(triggered()), m_printPreviewWidget, SLOT(fitToWidth()));
 	toolBar->addAction(action);
-	action = new Action(Icon("zoom-fit-best"), tr("Fit p&age"), this, "printpreview_fit_page");
+	action = new Action(Icon(QLatin1String("zoom-fit-best")), tr("Fit p&age"), this, QLatin1String("printpreview_fit_page"));
 	connect(action, SIGNAL(triggered()), m_printPreviewWidget, SLOT(fitInView()));
 	toolBar->addAction(action);
-	m_zoomToAction = new ZoomAction(Icon("zoom-original"), tr("&Zoom"), this, "printpreview_zoom_to");
+	m_zoomToAction = new ZoomAction(Icon(QLatin1String("zoom-original")), tr("&Zoom"), this, QLatin1String("printpreview_zoom_to"));
 	connect(m_zoomToAction, SIGNAL(zoomFactorAdded(qreal)), this, SLOT(setZoomFactor(qreal)));
 	toolBar->addAction(m_zoomToAction);
 	toolBar->addAction(StandardAction::zoomIn(this, SLOT(zoomIn()), this));
 	toolBar->addAction(StandardAction::zoomOut(this, SLOT(zoomOut()), this));
-	action = new Action(Icon("document-print"), tr("&Print"), this, "printpreview_print");
+	action = new Action(Icon(QLatin1String("document-print")), tr("&Print"), this, QLatin1String("printpreview_print"));
 	connect(action, SIGNAL(triggered()), this, SLOT(print()));
 	toolBar->addAction(action);
-	action = new Action(Icon("window-close"), tr("&Close"), this, "printpreview_close");
+	action = new Action(Icon(QLatin1String("window-close")), tr("&Close"), this, QLatin1String("printpreview_close"));
 	connect(action, SIGNAL(triggered()), this, SLOT(reject()));
 	toolBar->addAction(action);
 

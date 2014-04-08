@@ -2,15 +2,20 @@ lessThan(QT_VERSION, 4.6) {
 	error("QtikZ requires Qt version 4.6 or higher.")
 }
 
-SUBDIRS += app
-TEMPLATE = subdirs 
-CONFIG += warn_on \
-          qt \
-          thread
-#DEFINES += -Wold-style-cast -Wfloat-equal -Woverloaded-virtual -Wshadow -Wundef -Weffc++ -Wdouble-promotion
+ORGNAME = "Florian_Hackenberger"
+APPNAME = qtikz
+APPEXENAME = qtikz
+APPVERSION = 0.11
 
-include(qtikzconfig.pri)
-include(qtikzdefaults.pri)
+include(qmake/qtikzconfig.pri)
+include(qmake/qtikzdefaults.pri)
+include(qmake/qtikzmacros.pri)
+
+include(app/app.pri)
+include(translations/translations.pri)
+include(doc/doc.pri)
+include(data/data.pri)
+include(win32/win32.pri)
 
 message(*** QtikZ v$${APPVERSION} ***)
 message(Qt version: $$[QT_VERSION])
@@ -32,10 +37,6 @@ message()
 message("If you would like to change these paths,")
 message("please adjust qtikzconfig.pri to your needs and rerun qmake.")
 
-ts.target = ts
-ts.CONFIG = recursive
-QMAKE_EXTRA_TARGETS += ts
-
 license.path = $${RESOURCES_INSTALL_DIR}
 license.files += LICENSE.GPL2
 INSTALLS += license
@@ -50,9 +51,7 @@ KtikzCPackOptions.cmake \
 Doxyfile \
 INSTALL \
 qtikz.pro \
-qtikzconf.pri \
-qtikzdefaults.pri \
-qtikzmacros.pri \
+qmake \
 TODO \
 app/CMakeLists.txt \
 app/*.h \
@@ -60,7 +59,7 @@ app/*.cpp \
 app/*.ts \
 app/*.qrc \
 app/*.desktop.template \
-app/*.pro \
+app/*.pri \
 app/*.rc \
 app/*.ui \
 app/*.xml \

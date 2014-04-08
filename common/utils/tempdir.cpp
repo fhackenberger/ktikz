@@ -64,12 +64,12 @@ TempDir::TempDir(const QString &directoryPrefix, int mode)
 	Q_UNUSED(mode);
 
 	// use QTemporaryFile to obtain a unique name
-	const QString dirPrefix = (directoryPrefix.isEmpty() ? QDir::tempPath() + "/qtikz" : directoryPrefix);
-	QTemporaryFile *tempFile = new QTemporaryFile(dirPrefix + "XXXXXX");
+	const QString dirPrefix = (directoryPrefix.isEmpty() ? QDir::tempPath() + QLatin1String("/qtikz") : directoryPrefix);
+	QTemporaryFile *tempFile = new QTemporaryFile(dirPrefix + QLatin1String("XXXXXX"));
 	if (tempFile->open())
 	{
 		const QFileInfo tempFileInfo = QFileInfo(*tempFile);
-		m_name = tempFileInfo.absolutePath() + '/' + tempFileInfo.completeBaseName();
+		m_name = tempFileInfo.absolutePath() + QLatin1Char('/') + tempFileInfo.completeBaseName();
 	}
 	else
 		qCritical("Error: could not create temporary directory");

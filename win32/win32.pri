@@ -1,19 +1,14 @@
-# included by ../app/app.pro
-
-include(../qtikzconfig.pri)
-include(../qtikzdefaults.pri)
-
 ### Install icon and dll files
 
 win32 {
-	RC_FILE = $${PWD}/../win32/qtikz.rc
-	icon.files = icon/qtikz.ico
+	RC_FILE = $${PWD}/qtikz.rc
+	icon.files = $${PWD}/qtikz.ico
 	icon.path = $${PREFIX}
 	INSTALLS += icon
 
 	dlls.path = $${PREFIX}
-	dlls.files += $${PWD}/../win32/poppler/*.dll \
-		$${PWD}/../win32/poppler/pdftops.exe
+	dlls.files += $${PWD}/poppler/*.dll \
+		$${PWD}/poppler/pdftops.exe
 	debug {
 		dlls.files += $$[QT_INSTALL_BINS]/QtCored4.dll \
 			$$[QT_INSTALL_BINS]/QtGuid4.dll \

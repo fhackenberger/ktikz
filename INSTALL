@@ -24,7 +24,7 @@ In Ubuntu you would obtain those by installing the following packages:
 Install the Qt-only (qtikz) application (using qmake):
 ------------------------------------------------------
 
-1. Edit the paths in qtikzconfig.pri
+1. Edit the paths in qmake/qtikzconfig.pri
 2. Run the following commands (this will create an executable named qtikz):
   mkdir buildqt
   cd buildqt
@@ -35,8 +35,8 @@ Install the Qt-only (qtikz) application (using qmake):
 
 Note that qmake will tell you where the files will be installed. If
 you don't like the installation directories, you can change them in
-the file qtikzconfig.pri before running make.  Make sure to make the
-changes in qtikzconfig.pri before running make.
+the file qmake/qtikzconfig.pri before running make.  Make sure to make
+the changes in qmake/qtikzconfig.pri before running make.
 
 In order to uninstall qtikz run the following commands in the build directory:
   sudo make uninstall

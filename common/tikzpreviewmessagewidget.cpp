@@ -35,10 +35,10 @@ TikzPreviewMessageWidget::TikzPreviewMessageWidget(QWidget *parent)
 	: QFrame(parent)
 {
 #ifdef KTIKZ_USE_KDE
-	const QPixmap infoPixmap = KIconLoader::global()->loadIcon("dialog-error",
+	const QPixmap infoPixmap = KIconLoader::global()->loadIcon(QLatin1String("dialog-error"),
 	                           KIconLoader::Dialog, KIconLoader::SizeMedium);
 #else
-	const QPixmap infoPixmap = Icon("dialog-error").pixmap(QSize(32, 32));
+	const QPixmap infoPixmap = Icon(QLatin1String("dialog-error")).pixmap(QSize(32, 32));
 #endif
 	m_infoPixmapLabel = new QLabel;
 	m_infoPixmapLabel->setPixmap(infoPixmap);
@@ -47,10 +47,10 @@ TikzPreviewMessageWidget::TikzPreviewMessageWidget(QWidget *parent)
 	m_infoLabel->setWordWrap(true);
 	m_infoLabel->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
 
-	setObjectName("PreviewMessageWidget");
+	setObjectName(QLatin1String("PreviewMessageWidget"));
 	setFrameShape(QFrame::Box);
 
-	setStyleSheet(QString(
+	setStyleSheet(QString(QLatin1String(
 	    "QFrame {"
 	    "  background-color: palette(midlight);"
 	    "  border-radius: 5px;"
@@ -60,7 +60,7 @@ TikzPreviewMessageWidget::TikzPreviewMessageWidget(QWidget *parent)
 	    "  border: none;"
 	    "  color: palette(windowText);"
 	    "}"
-	));
+	)));
 
 	QHBoxLayout *infoLayout = new QHBoxLayout(this);
 	infoLayout->setMargin(10);

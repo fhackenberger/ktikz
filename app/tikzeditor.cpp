@@ -542,7 +542,7 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
 	// completer
 	if (m_completer)
 	{
-//		const QString endOfWord("~!@#$%^&*()_+{}|:\"<>?,./;'[]-= ");
+//		const QString endOfWord(QLatin1String("~!@#$%^&*()_+{}|:\"<>?,./;'[]-= "));
 		const QString completionPrefix = textUnderCursor();
 		if ((event->modifiers() & (Qt::ControlModifier | Qt::AltModifier))
 		        || (event->text().isEmpty() && event->key() != Qt::Key_AltGr)

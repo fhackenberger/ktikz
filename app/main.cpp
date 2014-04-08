@@ -51,7 +51,7 @@ static struct { const char *source; const char *comment; } copyrightString = QT_
 	"translation and your name.");
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-void debugOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+static void debugOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
 	// qDebug() and qWarning() only show messages when in debug mode
 	QByteArray localMsg = msg.toLocal8Bit();
@@ -72,7 +72,7 @@ void debugOutput(QtMsgType type, const QMessageLogContext &context, const QStrin
 	}
 }
 #else
-void debugOutput(QtMsgType type, const char *msg)
+static void debugOutput(QtMsgType type, const char *msg)
 {
 	// qDebug() and qWarning() only show messages when in debug mode
 	switch (type)
@@ -93,16 +93,16 @@ void debugOutput(QtMsgType type, const char *msg)
 }
 #endif
 
-bool findTranslator(QTranslator *translator, const QString &transName, const QString &transDir)
+static bool findTranslator(QTranslator *translator, const QString &transName, const QString &transDir)
 {
-	const QString qmFile = transName + ".qm";
+	const QString qmFile = transName + QLatin1String(".qm");
 	const QFileInfo fi(QDir(transDir), qmFile);
 	if (fi.exists())
 		return translator->load(qmFile, transDir);
 	return false;
 }
 
-void createTranslator(QTranslator *translator, const QString &transName, const QString &transDir)
+static void createTranslator(QTranslator *translator, const QString &transName, const QString &transDir)
 {
 #ifdef KTIKZ_USE_KDE
 	const QString locale = KGlobal::locale()->language();
@@ -144,7 +144,7 @@ int main(int argc, char **argv)
 	// information)
 	if (argc == 3 && !strcmp(argv[1], "--discard"))
 	{
-		QSettings settings(ORGNAME, APPNAME);
+		QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME));
 		settings.remove(QLatin1String("Session") + QLatin1String(argv[2])); // argv[2] contains the session id
 		settings.sync();
 		return 0;
@@ -173,18 +173,18 @@ int main(int argc, char **argv)
 #endif
 
 	KtikzApplication app(argc, argv); // slow
-	QCoreApplication::setOrganizationName(ORGNAME);
+	QCoreApplication::setOrganizationName(QString::fromLocal8Bit(ORGNAME));
 
 #ifndef KTIKZ_USE_KDE
-	QCoreApplication::setApplicationName(APPNAME);
-	QCoreApplication::setApplicationVersion(APPVERSION);
+	QCoreApplication::setApplicationName(QString::fromLocal8Bit(APPNAME));
+	QCoreApplication::setApplicationVersion(QString::fromLocal8Bit(APPVERSION));
 #endif
 
-	const QString translationsDirPath = QString::fromLocal8Bit(qgetenv("KTIKZ_TRANSLATIONS_DIR"));
+	const QString translationsDirPath = QString::fromLocal8Bit(qgetenv("KTIKZ_TRANSLATIONS_DIR").constData());
 	QTranslator qtTranslator;
 	QTranslator qtikzTranslator;
-	createTranslator(&qtTranslator, "qt", QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-	createTranslator(&qtikzTranslator, "qtikz", translationsDirPath);
+	createTranslator(&qtTranslator, QLatin1String("qt"), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+	createTranslator(&qtikzTranslator, QLatin1String("qtikz"), translationsDirPath);
 	app.installTranslator(&qtTranslator);
 	app.installTranslator(&qtikzTranslator);
 

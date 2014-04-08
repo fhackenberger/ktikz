@@ -31,7 +31,7 @@ PageDialog::PageDialog(QWidget *parent) : KPageDialog(parent)
 void PageDialog::addPage(QWidget *widget, const QString &title, const QString &iconName)
 {
 	QString titleString = title;
-	titleString.remove('&');
+	titleString.remove(QLatin1Char('&'));
 
 	KPageWidgetItem *page = new KPageWidgetItem(widget, titleString);
 	page->setHeader(titleString);
@@ -69,7 +69,7 @@ PageDialog::PageDialog(QWidget *parent) : QDialog(parent)
 	// add What's this, OK, Cancel buttons
 	QDialogButtonBox *buttonBox = new QDialogButtonBox;
 	QAction *whatsThisAction = QWhatsThis::createAction(this);
-	whatsThisAction->setIcon(Icon("help-contextual"));
+	whatsThisAction->setIcon(Icon(QLatin1String("help-contextual")));
 	QToolButton *whatsThisButton = new QToolButton(this);
 	whatsThisButton->setDefaultAction(whatsThisAction);
 	whatsThisButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Ignored);
@@ -99,7 +99,7 @@ QWidget *PageDialog::centerWidget()
 	QFrame *titleFrame = new QFrame(this);
 	titleFrame->setFrameShape(QFrame::Box);
 	m_pagesTitleLabel = new QLabel(titleFrame);
-	m_pagesTitleLabel->setStyleSheet("QLabel { font-weight: bold; }");
+	m_pagesTitleLabel->setStyleSheet(QLatin1String("QLabel { font-weight: bold; }"));
 	QGridLayout *titleLayout = new QGridLayout(titleFrame);
 	titleLayout->setColumnStretch(0, 1);
 	titleLayout->setMargin(6);
@@ -134,7 +134,7 @@ void PageDialog::setHelp(const QString &anchor)
 void PageDialog::addPage(QWidget *widget, const QString &title, const QString &iconName)
 {
 	QString titleString = title;
-	titleString.remove('&');
+	titleString.remove(QLatin1Char('&'));
 
 	QListWidgetItem *item = new QListWidgetItem(Icon(iconName), titleString);
 	item->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);

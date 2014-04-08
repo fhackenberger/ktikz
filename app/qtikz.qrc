@@ -29,6 +29,7 @@
 	<file>icons/edit-find.png</file>
 	<file>icons/go-up.png</file>
 	<file>icons/go-down.png</file>
+	<file>icons/edit-find-replace.png</file>
 	<file>icons/go-jump.png</file>
 	<file>icons/dialog-cancel.png</file>
 	<file>icons/window-close.png</file>

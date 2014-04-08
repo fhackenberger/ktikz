@@ -46,10 +46,10 @@ ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent)
 	ui.pdftopsEdit->setCompletionObject(m_urlCompletion);
 	ui.editorEdit->setCompletionObject(m_urlCompletion);
 
-	ui.tikzDocButton->setIcon(Icon("document-open"));
-	ui.latexButton->setIcon(Icon("document-open"));
-	ui.pdftopsButton->setIcon(Icon("document-open"));
-	ui.editorButton->setIcon(Icon("document-open"));
+	ui.tikzDocButton->setIcon(Icon(QLatin1String("document-open")));
+	ui.latexButton->setIcon(Icon(QLatin1String("document-open")));
+	ui.pdftopsButton->setIcon(Icon(QLatin1String("document-open")));
+	ui.editorButton->setIcon(Icon(QLatin1String("document-open")));
 
 	connect(ui.tikzDocButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
 	connect(ui.tikzDocSearchButton, SIGNAL(clicked()), this, SLOT(searchTikzDocumentation()));
@@ -68,19 +68,19 @@ void ConfigGeneralWidget::readSettings(const QString &settingsGroup)
 	QSettings settings;
 	settings.beginGroup(settingsGroup);
 #ifndef KTIKZ_USE_KDE
-	ui.historyLengthSpinBox->setValue(settings.value("RecentFilesNumber", 10).toInt());
+	ui.historyLengthSpinBox->setValue(settings.value(QLatin1String("RecentFilesNumber"), 10).toInt());
 #endif
-	ui.commandsInDockCheck->setChecked(settings.value("CommandsInDock", false).toBool());
+	ui.commandsInDockCheck->setChecked(settings.value(QLatin1String("CommandsInDock"), false).toBool());
 	ui.tikzDocEdit->setText(TikzDocumentationController::tikzDocumentationPath());
-	ui.latexEdit->setText(settings.value("LatexCommand", "pdflatex").toString());
-	ui.pdftopsEdit->setText(settings.value("PdftopsCommand", "pdftops").toString());
-	ui.editorEdit->setText(settings.value("TemplateEditor", KTIKZ_TEMPLATE_EDITOR_DEFAULT).toString());
-	ui.replaceEdit->setText(settings.value("TemplateReplaceText", "<>").toString());
+	ui.latexEdit->setText(settings.value(QLatin1String("LatexCommand"), QLatin1String("pdflatex")).toString());
+	ui.pdftopsEdit->setText(settings.value(QLatin1String("PdftopsCommand"), QLatin1String("pdftops")).toString());
+	ui.editorEdit->setText(settings.value(QLatin1String("TemplateEditor"), QString::fromLocal8Bit(KTIKZ_TEMPLATE_EDITOR_DEFAULT)).toString());
+	ui.replaceEdit->setText(settings.value(QLatin1String("TemplateReplaceText"), QLatin1String("<>")).toString());
 	settings.endGroup();
 
 #ifndef KTIKZ_USE_KDE
-	settings.beginGroup("MainWindow");
-	ui.toolBarStyleComboBox->setCurrentIndex(settings.value("ToolBarStyle", 0).toInt());
+	settings.beginGroup(QLatin1String("MainWindow"));
+	ui.toolBarStyleComboBox->setCurrentIndex(settings.value(QLatin1String("ToolBarStyle"), 0).toInt());
 	settings.endGroup();
 #endif
 }
@@ -90,19 +90,19 @@ void ConfigGeneralWidget::writeSettings(const QString &settingsGroup)
 	QSettings settings;
 	settings.beginGroup(settingsGroup);
 #ifndef KTIKZ_USE_KDE
-	settings.setValue("RecentFilesNumber", ui.historyLengthSpinBox->value());
+	settings.setValue(QLatin1String("RecentFilesNumber"), ui.historyLengthSpinBox->value());
 #endif
-	settings.setValue("CommandsInDock", ui.commandsInDockCheck->isChecked());
+	settings.setValue(QLatin1String("CommandsInDock"), ui.commandsInDockCheck->isChecked());
 	TikzDocumentationController::storeTikzDocumentationPath(ui.tikzDocEdit->text());
-	settings.setValue("LatexCommand", ui.latexEdit->text());
-	settings.setValue("PdftopsCommand", ui.pdftopsEdit->text());
-	settings.setValue("TemplateEditor", ui.editorEdit->text());
-	settings.setValue("TemplateReplaceText", ui.replaceEdit->text());
+	settings.setValue(QLatin1String("LatexCommand"), ui.latexEdit->text());
+	settings.setValue(QLatin1String("PdftopsCommand"), ui.pdftopsEdit->text());
+	settings.setValue(QLatin1String("TemplateEditor"), ui.editorEdit->text());
+	settings.setValue(QLatin1String("TemplateReplaceText"), ui.replaceEdit->text());
 	settings.endGroup();
 
 #ifndef KTIKZ_USE_KDE
-	settings.beginGroup("MainWindow");
-	settings.setValue("ToolBarStyle", ui.toolBarStyleComboBox->currentIndex());
+	settings.beginGroup(QLatin1String("MainWindow"));
+	settings.setValue(QLatin1String("ToolBarStyle"), ui.toolBarStyleComboBox->currentIndex());
 	settings.endGroup();
 #endif
 }
@@ -134,7 +134,7 @@ void ConfigGeneralWidget::browseCommand(QLineEdit *lineEdit, bool isProgram)
 	}
 	if (!location.isEmpty())
 	{
-		location.replace('\\', '/');
+		location.replace(QLatin1Char('\\'), QLatin1Char('/'));
 		lineEdit->setText(location);
 	}
 }

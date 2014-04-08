@@ -1,11 +1,3 @@
-# included by ../app/app.pro
-
-include(../qtikzconfig.pri)
-include(../qtikzdefaults.pri)
-include(../qtikzmacros.pri)
-
-#TEMPLATESUBDIR = templates
-
 ### Desktop file
 
 unix:!macx {
@@ -24,13 +16,14 @@ unix:!macx {
 	desktop.CONFIG += no_check_exist
 	INSTALLS += desktop
 
-	resources.files += icons/qtikz-128.png
+	resources.files += $${_PRO_FILE_PWD_}/app/icons/qtikz-128.png
 }
 
 ### Templates
 
-templates.path = $${RESOURCES_INSTALL_DIR}/$${TEMPLATESUBDIR}
-templates.files += examples/template_example.pgs \
+templates.path = $${TEMPLATES_INSTALL_DIR}
+templates.files += \
+	examples/template_example.pgs \
 	examples/template_example2.pgs \
 	examples/beamer-example-template.pgs
 templates.files = $$addPrefix("$${PWD}/" $${templates.files})

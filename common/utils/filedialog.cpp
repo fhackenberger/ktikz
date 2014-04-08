@@ -49,34 +49,34 @@ static QString getParsedFilter(const QString &filter)
 		for (int i = 0; i < mimeTypeList.size(); ++i)
 		{
 			if (i > 0)
-				parsedFilter += ";;";
-			if (mimeTypeList.at(i) == "text/x-pgf")
-				parsedFilter += QCoreApplication::translate("FileDialog", "PGF document", "filter") + " (*.pgf *.tikz)";
-			else if (mimeTypeList.at(i) == "image/x-eps")
-				parsedFilter += QCoreApplication::translate("FileDialog", "EPS image", "filter") + " (*.eps)";
-			else if (mimeTypeList.at(i) == "application/pdf")
-				parsedFilter += QCoreApplication::translate("FileDialog", "PDF document", "filter") + " (*.pdf)";
+				parsedFilter += QLatin1String(";;");
+			if (mimeTypeList.at(i) == QLatin1String("text/x-pgf"))
+				parsedFilter += QCoreApplication::translate("FileDialog", "PGF document", "filter") + QLatin1String(" (*.pgf *.tikz)");
+			else if (mimeTypeList.at(i) == QLatin1String("image/x-eps"))
+				parsedFilter += QCoreApplication::translate("FileDialog", "EPS image", "filter") + QLatin1String(" (*.eps)");
+			else if (mimeTypeList.at(i) == QLatin1String("application/pdf"))
+				parsedFilter += QCoreApplication::translate("FileDialog", "PDF document", "filter") + QLatin1String(" (*.pdf)");
 			else if (mimeTypeList.at(i).startsWith(QLatin1String("image/")))
 			{
 				const QString mimeType = mimeTypeList.at(i).mid(6);
-				parsedFilter += QCoreApplication::translate("FileDialog", "%1 image", "filter").arg(mimeType.toUpper()) + " (*." + mimeType + ')';
+				parsedFilter += QCoreApplication::translate("FileDialog", "%1 image", "filter").arg(mimeType.toUpper()) + QLatin1String(" (*.") + mimeType + QLatin1Char(')');
 			}
 		}
 	}
-	else if (filter.indexOf('|') >= 0) // filter is a string like "*.pgf *.tikz|PGF document\n*.tex|TeX document", we assume that in this case '/' doesn't appear in filter
+	else if (filter.indexOf(QLatin1Char('|')) >= 0) // filter is a string like "*.pgf *.tikz|PGF document\n*.tex|TeX document", we assume that in this case '/' doesn't appear in filter
 	{
 		const QStringList filterList = filter.split(QLatin1Char('\n'));
 		for (int i = 0; i < filterList.size(); ++i)
 		{
 			const QStringList filterItems = filterList.at(i).split(QLatin1Char('|'));
 			if (i > 0)
-				parsedFilter += ";;";
-			parsedFilter += filterItems.at(1) + " (" + filterItems.at(0) + ')';
+				parsedFilter += QLatin1String(";;");
+			parsedFilter += filterItems.at(1) + QLatin1String(" (") + filterItems.at(0) + QLatin1Char(')');
 		}
 	}
 	if (!parsedFilter.isEmpty())
-		parsedFilter += ";;";
-	parsedFilter += QCoreApplication::translate("FileDialog", "All files", "filter") + " (*)";
+		parsedFilter += QLatin1String(";;");
+	parsedFilter += QCoreApplication::translate("FileDialog", "All files", "filter") + QLatin1String(" (*)");
 	return parsedFilter;
 }
 

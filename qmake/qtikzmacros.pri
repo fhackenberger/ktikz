@@ -16,6 +16,17 @@ unix:!macx {
 
 # Functions
 
+defineTest(QtVersionGreaterThan) {
+	isEqual(QT_MAJOR_VERSION, $$1)|greaterThan(QT_MAJOR_VERSION, $$1) {
+		isEqual(QT_MINOR_VERSION, $$2)|greaterThan(QT_MINOR_VERSION, $$2) {
+			isEqual(QT_PATCH_VERSION, $$3)|greaterThan(QT_PATCH_VERSION, $$3) {
+				return(true)
+			}
+		}
+	}
+	return(false)
+}
+
 defineReplace(formSources) {
 	names = $$ARGS
 	sourceNames =
@@ -56,8 +67,8 @@ defineReplace(replaceArgs) {
 }
 
 defineReplace(tsFilesInDir) {
-	dir = $$member(ARGS, 0)
-	languages = $$replace(ARGS, $${dir}, "")
+	dir = $$1
+	languages = $$2
 	tsfiles =
 
 	for(lang, languages) {
@@ -70,13 +81,14 @@ defineReplace(tsFilesInDir) {
 }
 
 defineReplace(qmFiles) {
-	names = $$ARGS
+	dir = $$1
+	names = $$2
 	qmfiles =
 
 	for(name, names) {
 		baseName = $$replace(name, "\\.ts", "")
 		baseName = $$replace(baseName, ".*\\/", "")
-		qmName = $${OUT_PWD}/$${LOCALEDIR}$${baseName}.qm
+		qmName = $${dir}/$${baseName}.qm
 		qmfiles += $$qmName
 	}
 	return($$qmfiles)

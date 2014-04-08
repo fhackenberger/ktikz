@@ -43,12 +43,12 @@ void UserCommandInserter::readSettings()
 	m_names.clear();
 	m_commands.clear();
 	QSettings settings;
-	const int size = settings.beginReadArray("UserCommands");
+	const int size = settings.beginReadArray(QLatin1String("UserCommands"));
 	for (int i = 0; i < size; ++i)
 	{
 		settings.setArrayIndex(i);
-		m_names.append(settings.value("Name").toString());
-		m_commands.append(settings.value("Command").toString());
+		m_names.append(settings.value(QLatin1String("Name")).toString());
+		m_commands.append(settings.value(QLatin1String("Command")).toString());
 	}
 	settings.endArray();
 

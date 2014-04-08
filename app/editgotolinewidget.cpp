@@ -25,7 +25,7 @@ GoToLineWidget::GoToLineWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
 	ui.spinBoxGo->setMinimum(1);
-	ui.pushButtonClose->setIcon(Icon("dialog-cancel"));
+	ui.pushButtonClose->setIcon(Icon(QLatin1String("dialog-cancel")));
 
 	setFocusProxy(ui.spinBoxGo);
 

@@ -30,6 +30,12 @@
 #install documentation here:
 #DOCUMENTATION_INSTALL_DIR=$${RESOURCES_INSTALL_DIR}/documentation
 
+#install templates here:
+#TEMPLATES_INSTALL_DIR=$${RESOURCES_INSTALL_DIR}/templates
+
+#install translations here:
+#TRANSLATIONS_INSTALL_DIR=$${RESOURCES_INSTALL_DIR}/locale
+
 # install man page in the man tree located here:
 #MAN_INSTALL_DIR = $${PREFIX}/share/man
 

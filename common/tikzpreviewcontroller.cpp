@@ -114,7 +114,7 @@ const QString TikzPreviewController::tempDir() const
 
 const QString TikzPreviewController::tempFileBaseName() const
 {
-	return m_tempDir->name() + "/temptikzcode";
+	return m_tempDir->name() + QLatin1String("/temptikzcode");
 }
 
 const QString TikzPreviewController::tempDirLocation() const
@@ -139,21 +139,21 @@ TikzPreview *TikzPreviewController::tikzPreview() const
 void TikzPreviewController::createActions()
 {
 	// File
-	m_exportAction = new Action(Icon("document-export"), tr("E&xport"), m_parentWidget, "file_export_as");
+	m_exportAction = new Action(Icon(QLatin1String("document-export")), tr("E&xport"), m_parentWidget, QLatin1String("file_export_as"));
 	m_exportAction->setStatusTip(tr("Export image to various formats"));
 	m_exportAction->setWhatsThis(tr("<p>Export image to various formats.</p>"));
 	QMenu *exportMenu = new QMenu(m_parentWidget);
 	m_exportAction->setMenu(exportMenu);
 
-	Action *exportEpsAction = new Action(Icon("image-x-eps"), tr("&Encapsulated PostScript (EPS)"), exportMenu, "file_export_eps");
-	exportEpsAction->setData("image/x-eps");
+	Action *exportEpsAction = new Action(Icon(QLatin1String("image-x-eps")), tr("&Encapsulated PostScript (EPS)"), exportMenu, QLatin1String("file_export_eps"));
+	exportEpsAction->setData(QLatin1String("image/x-eps"));
 	exportEpsAction->setStatusTip(tr("Export to EPS"));
 	exportEpsAction->setWhatsThis(tr("<p>Export to EPS.</p>"));
 	connect(exportEpsAction, SIGNAL(triggered()), this, SLOT(exportImage()));
 	exportMenu->addAction(exportEpsAction);
 
-	Action *exportPdfAction = new Action(Icon("application-pdf"), tr("&Portable Document Format (PDF)"), exportMenu, "file_export_pdf");
-	exportPdfAction->setData("application/pdf");
+	Action *exportPdfAction = new Action(Icon(QLatin1String("application-pdf")), tr("&Portable Document Format (PDF)"), exportMenu, QLatin1String("file_export_pdf"));
+	exportPdfAction->setData(QLatin1String("application/pdf"));
 	exportPdfAction->setStatusTip(tr("Export to PDF"));
 	exportPdfAction->setWhatsThis(tr("<p>Export to PDF.</p>"));
 	connect(exportPdfAction, SIGNAL(triggered()), this, SLOT(exportImage()));
@@ -161,12 +161,12 @@ void TikzPreviewController::createActions()
 
 	QStringList mimeTypes;
 	QStringList mimeTypeNames;
-	mimeTypes << "png" << "jpeg" << "tiff" << "bmp";
+	mimeTypes << QLatin1String("png") << QLatin1String("jpeg") << QLatin1String("tiff") << QLatin1String("bmp");
 	mimeTypeNames << tr("Portable Network &Graphics") << tr("&Joint Photographic Experts Group Format") << tr("&Tagged Image File Format") << tr("&Windows Bitmap");
 	for (int i = 0; i < mimeTypes.size(); ++i)
 	{
-		Action *exportImageAction = new Action(Icon("image-" + mimeTypes.at(i)), mimeTypeNames.at(i) + " (" + mimeTypes.at(i).toUpper() + ')', exportMenu, "file_export_" + mimeTypes.at(i));
-		exportImageAction->setData("image/" + mimeTypes.at(i));
+		Action *exportImageAction = new Action(Icon(QLatin1String("image-") + mimeTypes.at(i)), mimeTypeNames.at(i) + QLatin1String(" (") + mimeTypes.at(i).toUpper() + QLatin1Char(')'), exportMenu, QLatin1String("file_export_") + mimeTypes.at(i));
+		exportImageAction->setData(QLatin1String("image/") + mimeTypes.at(i));
 		exportImageAction->setStatusTip(tr("Export to %1").arg(mimeTypes.at(i).toUpper()));
 		exportImageAction->setWhatsThis(tr("<p>Export to %1.</p>").arg(mimeTypes.at(i).toUpper()));
 		connect(exportImageAction, SIGNAL(triggered()), this, SLOT(exportImage()));
@@ -186,14 +186,14 @@ void TikzPreviewController::createActions()
 	setExportActionsEnabled(false);
 
 	// View
-	m_procStopAction = new Action(Icon("process-stop"), tr("&Stop Process"), m_parentWidget, "stop_process");
+	m_procStopAction = new Action(Icon(QLatin1String("process-stop")), tr("&Stop Process"), m_parentWidget, QLatin1String("stop_process"));
 	m_procStopAction->setShortcut(tr("Escape", "View|Stop Process"));
 	m_procStopAction->setStatusTip(tr("Abort current process"));
 	m_procStopAction->setWhatsThis(tr("<p>Abort the execution of the currently running process.</p>"));
 	m_procStopAction->setEnabled(false);
 	connect(m_procStopAction, SIGNAL(triggered()), this, SLOT(abortProcess()));
 
-	m_shellEscapeAction = new ToggleAction(Icon("application-x-executable"), tr("S&hell Escape"), m_parentWidget, "shell_escape");
+	m_shellEscapeAction = new ToggleAction(Icon(QLatin1String("application-x-executable")), tr("S&hell Escape"), m_parentWidget, QLatin1String("shell_escape"));
 	m_shellEscapeAction->setStatusTip(tr("Enable the \\write18{shell-command} feature"));
 	m_shellEscapeAction->setWhatsThis(tr("<p>Enable LaTeX to run shell commands, this is needed when you want to plot functions using gnuplot within TikZ."
 	                                     "</p><p><strong>Warning:</strong> Enabling this may cause malicious software to be run on your computer! Check the LaTeX code to see which commands are executed.</p>"));
@@ -232,7 +232,7 @@ QMenu *TikzPreviewController::menu()
 QList<QToolBar*> TikzPreviewController::toolBars()
 {
 	QToolBar *toolBar = new QToolBar(tr("Run"), m_parentWidget);
-	toolBar->setObjectName("RunToolBar");
+	toolBar->setObjectName(QLatin1String("RunToolBar"));
 	toolBar->addAction(m_procStopAction);
 	toolBar->addAction(m_shellEscapeAction);
 
@@ -253,17 +253,17 @@ void TikzPreviewController::setToolBarStyle(const Qt::ToolButtonStyle &style)
 Url TikzPreviewController::getExportUrl(const Url &url, const QString &mimeType) const
 {
 	QString currentFile;
-	const QString extension = (mimeType == "image/x-eps") ? "eps"
-	                          : ((mimeType == "application/pdf") ? "pdf" : mimeType.mid(6));
+	const QString extension = mimeType == QLatin1String("image/x-eps") ? QLatin1String("eps")
+	                          : (mimeType == QLatin1String("application/pdf") ? QLatin1String("pdf") : mimeType.mid(6));
 	if (!url.isEmpty())
 	{
 		const QFileInfo currentFileInfo(url.path());
 		currentFile = currentFileInfo.absolutePath();
-		if (!currentFile.endsWith('/'))
-			currentFile += '/';
+		if (!currentFile.endsWith(QLatin1Char('/')))
+			currentFile += QLatin1Char('/');
 		currentFile += currentFileInfo.completeBaseName()
-		               + (m_tikzPreview->numberOfPages() > 1 && mimeType != "application/pdf" ? "_" + QString::number(m_tikzPreview->currentPage() + 1) : QString())
-		               + '.' + extension;
+		               + (m_tikzPreview->numberOfPages() > 1 && mimeType != QLatin1String("application/pdf") ? QLatin1String("_") + QString::number(m_tikzPreview->currentPage() + 1) : QString())
+		               + QLatin1Char('.') + extension;
 	}
 	return FileDialog::getSaveUrl(m_parentWidget, tr("Export image"), Url(currentFile), mimeType);
 }
@@ -282,22 +282,22 @@ void TikzPreviewController::exportImage()
 		return;
 
 	QString extension;
-	if (mimeType == "application/pdf")
+	if (mimeType == QLatin1String("application/pdf"))
 	{
-		extension = ".pdf";
+		extension = QLatin1String(".pdf");
 	}
-	else if (mimeType == "image/x-eps")
+	else if (mimeType == QLatin1String("image/x-eps"))
 	{
 		if (!m_tikzPreviewGenerator->generateEpsFile(m_tikzPreview->currentPage()))
 		{
 			MessageBox::error(m_parentWidget, tr("Export failed."), QCoreApplication::applicationName());
 			return;
 		}
-		extension = ".eps";
+		extension = QLatin1String(".eps");
 	}
 	else
 	{
-		extension = '.' + mimeType.mid(6);
+		extension = QLatin1Char('.') + mimeType.mid(6);
 		if (!tikzImage.save(tempFileBaseName() + extension))
 		{
 			MessageBox::error(m_parentWidget, tr("Export failed."), QCoreApplication::applicationName());
@@ -494,25 +494,25 @@ void TikzPreviewController::abortProcess()
 
 void TikzPreviewController::applySettings()
 {
-	QSettings settings(ORGNAME, APPNAME);
-	m_tikzPreviewGenerator->setLatexCommand(settings.value("LatexCommand", "pdflatex").toString());
-	m_tikzPreviewGenerator->setPdftopsCommand(settings.value("PdftopsCommand", "pdftops").toString());
-	const bool useShellEscaping = settings.value("UseShellEscaping", false).toBool();
+	QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME));
+	m_tikzPreviewGenerator->setLatexCommand(settings.value(QLatin1String("LatexCommand"), QLatin1String("pdflatex")).toString());
+	m_tikzPreviewGenerator->setPdftopsCommand(settings.value(QLatin1String("PdftopsCommand"), QLatin1String("pdftops")).toString());
+	const bool useShellEscaping = settings.value(QLatin1String("UseShellEscaping"), false).toBool();
 
 	disconnect(m_shellEscapeAction, SIGNAL(toggled(bool)), this, SLOT(toggleShellEscaping(bool)));
 	m_shellEscapeAction->setChecked(useShellEscaping);
 	m_tikzPreviewGenerator->setShellEscaping(useShellEscaping);
 	connect(m_shellEscapeAction, SIGNAL(toggled(bool)), this, SLOT(toggleShellEscaping(bool)));
 
-	setTemplateFile(settings.value("TemplateFile").toString());
-	const QString replaceText = settings.value("TemplateReplaceText", "<>").toString();
+	setTemplateFile(settings.value(QLatin1String("TemplateFile")).toString());
+	const QString replaceText = settings.value(QLatin1String("TemplateReplaceText"), QLatin1String("<>")).toString();
 	m_tikzPreviewGenerator->setReplaceText(replaceText);
 	m_templateWidget->setReplaceText(replaceText);
-	m_templateWidget->setEditor(settings.value("TemplateEditor", KTIKZ_TEMPLATE_EDITOR_DEFAULT).toString());
+	m_templateWidget->setEditor(settings.value(QLatin1String("TemplateEditor"), QString::fromLocal8Bit(KTIKZ_TEMPLATE_EDITOR_DEFAULT)).toString());
 
-	settings.beginGroup("Preview");
-	m_tikzPreview->setShowCoordinates(settings.value("ShowCoordinates", true).toBool());
-	m_tikzPreview->setCoordinatePrecision(settings.value("ShowCoordinatesPrecision", -1).toInt());
+	settings.beginGroup(QLatin1String("Preview"));
+	m_tikzPreview->setShowCoordinates(settings.value(QLatin1String("ShowCoordinates"), true).toBool());
+	m_tikzPreview->setCoordinatePrecision(settings.value(QLatin1String("ShowCoordinatesPrecision"), -1).toInt());
 	settings.endGroup();
 }
 
@@ -537,8 +537,8 @@ void TikzPreviewController::setProcessRunning(bool isRunning)
 
 void TikzPreviewController::toggleShellEscaping(bool useShellEscaping)
 {
-	QSettings settings(ORGNAME, APPNAME);
-	settings.setValue("UseShellEscaping", useShellEscaping);
+	QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME));
+	settings.setValue(QLatin1String("UseShellEscaping"), useShellEscaping);
 
 	m_tikzPreviewGenerator->setShellEscaping(useShellEscaping);
 	generatePreview(TikzPreviewGenerator::DontReloadTemplate);

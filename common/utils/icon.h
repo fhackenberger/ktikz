@@ -36,9 +36,9 @@ class Icon : public QIcon
 {
 public:
 #ifdef KTIKZ_USE_DESKTOP_ICONS
-	Icon(const QString &iconName) : QIcon(QIcon::fromTheme(iconName, QIcon(":/icons/" + iconName + ".png"))) {}
+	Icon(const QString &iconName) : QIcon(QIcon::fromTheme(iconName, QIcon(QLatin1String(":/icons/") + iconName + QLatin1String(".png")))) {}
 #else
-	Icon(const QString &iconName) : QIcon(":/icons/" + iconName + ".png") {} // faster than the above
+	Icon(const QString &iconName) : QIcon(QLatin1String(":/icons/") + iconName + QLatin1String(".png")) {} // faster than the above
 #endif
 	Icon(const QIcon &copy) : QIcon(copy) {}
 	Icon() : QIcon() {}

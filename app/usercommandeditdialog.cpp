@@ -44,13 +44,13 @@ void UserCommandEditDialog::readSettings()
 {
 	disconnect(ui.comboBoxItem, SIGNAL(currentIndexChanged(int)), this, SLOT(changeItem(int)));
 	QSettings settings;
-	int size = settings.beginReadArray("UserCommands");
+	int size = settings.beginReadArray(QLatin1String("UserCommands"));
 	ui.comboBoxItem->clear();
 	for (int i = 0; i < size; ++i)
 	{
 		settings.setArrayIndex(i);
-		m_names.append(settings.value("Name").toString());
-		m_commands.append(settings.value("Command").toString());
+		m_names.append(settings.value(QLatin1String("Name")).toString());
+		m_commands.append(settings.value(QLatin1String("Command")).toString());
 
 		ui.comboBoxItem->insertItem(i, QString(tr("Menu item %1").arg(QString::number(i+1))));
 	}
@@ -78,13 +78,13 @@ void UserCommandEditDialog::writeSettings()
 	}
 
 	QSettings settings;
-	settings.beginWriteArray("UserCommands");
-	settings.remove(""); // remove old entries (especially useful when the number of entries decreases)
+	settings.beginWriteArray(QLatin1String("UserCommands"));
+	settings.remove(QString()); // remove old entries (especially useful when the number of entries decreases)
 	for (int i = 0; i < m_names.size(); ++i)
 	{
 		settings.setArrayIndex(i);
-		settings.setValue("Name", m_names.at(i));
-		settings.setValue("Command", m_commands.at(i));
+		settings.setValue(QLatin1String("Name"), m_names.at(i));
+		settings.setValue(QLatin1String("Command"), m_commands.at(i));
 	}
 	settings.endArray();
 }

@@ -106,26 +106,26 @@ void TikzEditorView::setFont(const QFont &editorFont)
 	QString fontDecoration;
 	switch (editorFont.style())
 	{
-		case QFont::StyleItalic: fontStyle = "italic;"; break;
-		case QFont::StyleOblique: fontStyle = "oblique;"; break;
-		default: fontStyle = "normal;"; break;
+		case QFont::StyleItalic: fontStyle = QLatin1String("italic;"); break;
+		case QFont::StyleOblique: fontStyle = QLatin1String("oblique;"); break;
+		default: fontStyle = QLatin1String("normal;"); break;
 	}
 	switch (editorFont.weight())
 	{
-		case QFont::Light: fontWeight = "250;"; break;
-		case QFont::Normal: fontWeight = "normal;"; break; // 400 according to http://www.w3.org/TR/CSS2/fonts.html#propdef-font-weight
-		case QFont::DemiBold: fontWeight = "550;"; break;
-		case QFont::Bold: fontWeight = "bold;"; break; // 700
-		case QFont::Black: fontWeight = "850;"; break;
-		default: fontWeight = "normal;"; break;
+		case QFont::Light: fontWeight = QLatin1String("250;"); break;
+		case QFont::Normal: fontWeight = QLatin1String("normal;"); break; // 400 according to http://www.w3.org/TR/CSS2/fonts.html#propdef-font-weight
+		case QFont::DemiBold: fontWeight = QLatin1String("550;"); break;
+		case QFont::Bold: fontWeight = QLatin1String("bold;"); break; // 700
+		case QFont::Black: fontWeight = QLatin1String("850;"); break;
+		default: fontWeight = QLatin1String("normal;"); break;
 	}
 	if (editorFont.underline())
-		fontDecoration = "underline";
+		fontDecoration = QLatin1String("underline");
 	else if (editorFont.strikeOut())
-		fontDecoration = "line-through";
+		fontDecoration = QLatin1String("line-through");
 	else
-		fontDecoration = "none";
-	m_tikzEditor->setStyleSheet(QString("QPlainTextEdit { font-family: %1; font-size: %2; font-style: %3; font-weight: %4; text-decoration: %5; }")
+		fontDecoration = QLatin1String("none");
+	m_tikzEditor->setStyleSheet(QString(QLatin1String("QPlainTextEdit { font-family: %1; font-size: %2; font-style: %3; font-weight: %4; text-decoration: %5; }"))
 	    .arg(editorFont.family())
 	    .arg(editorFont.pointSize())
 	    .arg(fontStyle)
@@ -137,7 +137,7 @@ void TikzEditorView::setFont(const QFont &editorFont)
 	fm.setFontPointSize(editorFont.pointSize());
 	m_tikzEditor->setCurrentCharFormat(fm);
 
-	m_tikzEditor->setTabStopWidth(m_tikzEditor->fontMetrics().width("    "));
+	m_tikzEditor->setTabStopWidth(m_tikzEditor->fontMetrics().width(QLatin1String("    ")));
 }
 
 void TikzEditorView::createActions()
@@ -162,28 +162,28 @@ void TikzEditorView::createActions()
 	m_selectAllAction->setWhatsThis(tr("<p>Select all the content.</p>"));
 
 	Action *action;
-	action = new Action(Icon("format-indent-more"), tr("&Indent..."), this, "edit_indent");
+	action = new Action(Icon(QLatin1String("format-indent-more")), tr("&Indent..."), this, QLatin1String("edit_indent"));
 	action->setShortcut(tr("Ctrl+I", "Edit|Indent"));
 	action->setStatusTip(tr("Indent the current line or selection"));
 	action->setWhatsThis(tr("<p>Indent the current line or selection.</p>"));
 	connect(action, SIGNAL(triggered()), this, SLOT(editIndent()));
 	m_editActions.append(action);
 
-	action = new Action(Icon("format-indent-less"), tr("Unind&ent..."), this, "edit_unindent");
+	action = new Action(Icon(QLatin1String("format-indent-less")), tr("Unind&ent..."), this, QLatin1String("edit_unindent"));
 	action->setShortcut(tr("Ctrl+Shift+I", "Edit|Unindent"));
 	action->setStatusTip(tr("Unindent the current line or selection"));
 	action->setWhatsThis(tr("<p>Unindent the current line or selection.</p>"));
 	connect(action, SIGNAL(triggered()), this, SLOT(editUnindent()));
 	m_editActions.append(action);
 
-	action = new Action(tr("C&omment"), this, "edit_comment");
+	action = new Action(tr("C&omment"), this, QLatin1String("edit_comment"));
 	action->setShortcut(tr("Ctrl+D", "Edit|Comment"));
 	action->setStatusTip(tr("Comment the current line or selection"));
 	action->setWhatsThis(tr("<p>Comment the current line or selection.</p>"));
 	connect(action, SIGNAL(triggered()), this, SLOT(editComment()));
 	m_editActions.append(action);
 
-	action = new Action(tr("Unco&mment"), this, "edit_uncomment");
+	action = new Action(tr("Unco&mment"), this, QLatin1String("edit_uncomment"));
 	action->setShortcut(tr("Ctrl+Shift+D", "Edit|Uncomment"));
 	action->setStatusTip(tr("Uncomment the current line or selection"));
 	action->setWhatsThis(tr("<p>Uncomment the current line or selection.</p>"));
@@ -227,19 +227,19 @@ void TikzEditorView::createActions()
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()),
 	        this, SLOT(setPasteEnabled()));
 
-	m_setBookmarkAction = new Action(Icon("bookmark-new"), tr("Set &Bookmark"), this, "bookmarks_set");
+	m_setBookmarkAction = new Action(Icon(QLatin1String("bookmark-new")), tr("Set &Bookmark"), this, QLatin1String("bookmarks_set"));
 	m_setBookmarkAction->setShortcut(tr("Ctrl+B", "Bookmarks|Set"));
 	m_setBookmarkAction->setStatusTip(tr("Set or unset a bookmark at the current line"));
 	m_setBookmarkAction->setWhatsThis(tr("<p>Set or unset a bookmark at the current line.</p>"));
 	connect(m_setBookmarkAction, SIGNAL(triggered()), m_tikzEditor, SLOT(toggleUserBookmark()));
 
-	m_previousBookmarkAction = new Action(tr("&Previous Bookmark"), this, "bookmarks_prev");
+	m_previousBookmarkAction = new Action(tr("&Previous Bookmark"), this, QLatin1String("bookmarks_prev"));
 	m_previousBookmarkAction->setShortcut(tr("Alt+Up", "Bookmarks|Previous"));
 	m_previousBookmarkAction->setStatusTip(tr("Go to the previous bookmark"));
 	m_previousBookmarkAction->setWhatsThis(tr("<p>Go to the previous bookmark.</p>"));
 	connect(m_previousBookmarkAction, SIGNAL(triggered()), m_tikzEditor, SLOT(previousUserBookmark()));
 
-	m_nextBookmarkAction = new Action(tr("&Next Bookmark"), this, "bookmarks_next");
+	m_nextBookmarkAction = new Action(tr("&Next Bookmark"), this, QLatin1String("bookmarks_next"));
 	m_nextBookmarkAction->setShortcut(tr("Alt+Down", "Bookmarks|Next"));
 	m_nextBookmarkAction->setStatusTip(tr("Go to the next bookmark"));
 	m_nextBookmarkAction->setWhatsThis(tr("<p>Go to the next bookmark.</p>"));
@@ -275,7 +275,7 @@ QMenu *TikzEditorView::bookmarksMenu()
 QToolBar *TikzEditorView::toolBar()
 {
 	QToolBar *editToolBar = new QToolBar(tr("Edit"), parentWidget());
-	editToolBar->setObjectName("EditToolBar");
+	editToolBar->setObjectName(QLatin1String("EditToolBar"));
 	editToolBar->addAction(m_undoAction);
 	editToolBar->addAction(m_redoAction);
 //	editToolBar->addAction(m_cutAction);
@@ -294,22 +294,22 @@ void TikzEditorView::applySettings()
 {
 	QSettings settings;
 
-	settings.beginGroup("Editor");
+	settings.beginGroup(QLatin1String("Editor"));
 	// set editor font
-	m_tikzEditor->setShowLineNumberArea(settings.value("ShowLineNumberArea", ConfigEditorWidget::defaultSetting("ShowLineNumberArea")).toBool());
+	m_tikzEditor->setShowLineNumberArea(settings.value(QLatin1String("ShowLineNumberArea"), ConfigEditorWidget::defaultSetting(QLatin1String("ShowLineNumberArea"))).toBool());
 	QFont editorFont;
-	editorFont.fromString(settings.value("Font", ConfigEditorWidget::defaultSetting("Font")).toString());
+	editorFont.fromString(settings.value(QLatin1String("Font"), ConfigEditorWidget::defaultSetting(QLatin1String("Font"))).toString());
 	setFont(editorFont);
 
 	// set colors
-	m_tikzEditor->setShowWhiteSpaces(settings.value("ShowWhiteSpaces", ConfigEditorWidget::defaultSetting("ShowWhiteSpaces")).toBool());
-	m_tikzEditor->setShowTabulators(settings.value("ShowTabulators", ConfigEditorWidget::defaultSetting("ShowTabulators")).toBool());
-	m_tikzEditor->setShowMatchingBrackets(settings.value("ShowMatchingBrackets", ConfigEditorWidget::defaultSetting("ShowMatchingBrackets")).toBool());
-	m_tikzEditor->setWhiteSpacesColor(settings.value("ColorWhiteSpaces", ConfigEditorWidget::defaultSetting("ColorWhiteSpaces")).value<QColor>());
-	m_tikzEditor->setTabulatorsColor(settings.value("ColorTabulators", ConfigEditorWidget::defaultSetting("ColorTabulators")).value<QColor>());
-	m_tikzEditor->setMatchingColor(settings.value("ColorMatchingBrackets", ConfigEditorWidget::defaultSetting("ColorMatchingBrackets")).value<QColor>());
-	m_tikzEditor->setHighlightCurrentLine(settings.value("ShowHighlightCurrentLine", ConfigEditorWidget::defaultSetting("ShowHighlightCurrentLine")).toBool());
-	m_tikzEditor->setHighlightCurrentLineColor(settings.value("ColorHighlightCurrentLine", ConfigEditorWidget::defaultSetting("ColorHighlightCurrentLine")).value<QColor>());
+	m_tikzEditor->setShowWhiteSpaces(settings.value(QLatin1String("ShowWhiteSpaces"), ConfigEditorWidget::defaultSetting(QLatin1String("ShowWhiteSpaces"))).toBool());
+	m_tikzEditor->setShowTabulators(settings.value(QLatin1String("ShowTabulators"), ConfigEditorWidget::defaultSetting(QLatin1String("ShowTabulators"))).toBool());
+	m_tikzEditor->setShowMatchingBrackets(settings.value(QLatin1String("ShowMatchingBrackets"), ConfigEditorWidget::defaultSetting(QLatin1String("ShowMatchingBrackets"))).toBool());
+	m_tikzEditor->setWhiteSpacesColor(settings.value(QLatin1String("ColorWhiteSpaces"), ConfigEditorWidget::defaultSetting(QLatin1String("ColorWhiteSpaces"))).value<QColor>());
+	m_tikzEditor->setTabulatorsColor(settings.value(QLatin1String("ColorTabulators"), ConfigEditorWidget::defaultSetting(QLatin1String("ColorTabulators"))).value<QColor>());
+	m_tikzEditor->setMatchingColor(settings.value(QLatin1String("ColorMatchingBrackets"), ConfigEditorWidget::defaultSetting(QLatin1String("ColorMatchingBrackets"))).value<QColor>());
+	m_tikzEditor->setHighlightCurrentLine(settings.value(QLatin1String("ShowHighlightCurrentLine"), ConfigEditorWidget::defaultSetting(QLatin1String("ShowHighlightCurrentLine"))).toBool());
+	m_tikzEditor->setHighlightCurrentLineColor(settings.value(QLatin1String("ColorHighlightCurrentLine"), ConfigEditorWidget::defaultSetting(QLatin1String("ColorHighlightCurrentLine"))).value<QColor>());
 	settings.endGroup();
 
 /*
@@ -519,7 +519,7 @@ void TikzEditorView::editComment()
 		textCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
 		while (textCursor.position() < end && go)
 		{
-			textCursor.insertText("% ");
+			textCursor.insertText(QLatin1String("% "));
 			++end;
 			++end;
 			go = textCursor.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor);
@@ -529,7 +529,7 @@ void TikzEditorView::editComment()
 	else
 	{
 		textCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
-		textCursor.insertText("% ");
+		textCursor.insertText(QLatin1String("% "));
 	}
 }
 

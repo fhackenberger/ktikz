@@ -1,11 +1,4 @@
-# included by ../app/app.pro
-
-include(../qtikzconfig.pri)
-include(../qtikzdefaults.pri)
-include(../qtikzmacros.pri)
-
-DOCUMENTATION_SOURCE_DIR = $${_PRO_FILE_PWD_}/../doc
-#DOCUMENTATION_INSTALL_DIR = $${RESOURCES_INSTALL_DIR}/documentation
+DOCUMENTATION_SOURCE_DIR = $${PWD}
 
 ### Generate and install qhc file
 

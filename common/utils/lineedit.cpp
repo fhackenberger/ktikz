@@ -48,11 +48,11 @@ LineEdit::LineEdit(QWidget *parent)
 void LineEdit::init()
 {
 	m_clearButton = new QToolButton(this);
-	const QPixmap pixmap(":/icons/edit-clear-locationbar-rtl.png");
+	const QPixmap pixmap(QLatin1String(":/icons/edit-clear-locationbar-rtl.png"));
 	m_clearButton->setIcon(QIcon(pixmap));
 	m_clearButton->setIconSize(pixmap.size());
 	m_clearButton->setCursor(Qt::ArrowCursor);
-	m_clearButton->setStyleSheet("QToolButton { border: none; padding: 0px; }");
+	m_clearButton->setStyleSheet(QLatin1String("QToolButton { border: none; padding: 0px; }"));
 	m_clearButton->setToolTip(tr("Clear input field"));
 	m_clearButton->hide();
 	connect(m_clearButton, SIGNAL(clicked()), this, SLOT(clear()));
@@ -62,7 +62,7 @@ void LineEdit::init()
 //	              .arg(m_clearButton->sizeHint().width() + frameWidth + 1)
 //	              .arg(sizeHint().width())
 //	              .arg(sizeHint().height()));
-	setStyleSheet(QString("QLineEdit { padding-right: %1px; }")
+	setStyleSheet(QString(QLatin1String("QLineEdit { padding-right: %1px; }"))
 	              .arg(m_clearButton->sizeHint().width() + style()->pixelMetric(QStyle::PM_DefaultFrameWidth) + 1));
 }
 

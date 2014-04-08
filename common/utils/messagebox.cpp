@@ -27,9 +27,9 @@ int MessageBox::questionYesNo(QWidget *parent, const QString &text, const QStrin
 	if (!yesButtonText.isEmpty())
 	{
 		if (!noButtonText.isEmpty())
-			result = KMessageBox::questionYesNo(parent, text, caption, KGuiItem(yesButtonText, "dialog-ok"), KGuiItem(noButtonText, "process-stop"));
+			result = KMessageBox::questionYesNo(parent, text, caption, KGuiItem(yesButtonText, QLatin1String("dialog-ok")), KGuiItem(noButtonText, QLatin1String("process-stop")));
 		else
-			result = KMessageBox::questionYesNo(parent, text, caption, KGuiItem(yesButtonText, "dialog-ok"));
+			result = KMessageBox::questionYesNo(parent, text, caption, KGuiItem(yesButtonText, QLatin1String("dialog-ok")));
 	}
 	else
 		result = KMessageBox::questionYesNo(parent, text, caption);

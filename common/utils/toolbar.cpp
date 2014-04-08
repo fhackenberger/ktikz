@@ -36,9 +36,9 @@ ToolBar::ToolBar(const QString &objectName, QWidget *parent)
 void ToolBar::setToolBarStyle()
 {
 	QSettings settings;
-	settings.beginGroup("MainWindow");
+	settings.beginGroup(QLatin1String("MainWindow"));
 
-	const int toolBarStyleNumber = settings.value("ToolBarStyle", 0).toInt();
+	const int toolBarStyleNumber = settings.value(QLatin1String("ToolBarStyle"), 0).toInt();
 	Qt::ToolButtonStyle toolBarStyle = Qt::ToolButtonIconOnly;
 	switch (toolBarStyleNumber)
 	{

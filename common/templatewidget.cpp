@@ -46,13 +46,13 @@ TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 	ui.templateCombo->setLineEdit(new LineEdit(this)); // slow
 #endif
 	ui.templateCombo->setMinimumContentsLength(20);
-	ui.templateChooseButton->setIcon(Icon("document-open"));
+	ui.templateChooseButton->setIcon(Icon(QLatin1String("document-open")));
 #ifdef KTIKZ_KPART
 	ui.templateReloadButton->setVisible(false);
 #else
-	ui.templateReloadButton->setIcon(Icon("view-refresh"));
+	ui.templateReloadButton->setIcon(Icon(QLatin1String("view-refresh")));
 #endif
-	ui.templateEditButton->setIcon(Icon("document-edit"));
+	ui.templateEditButton->setIcon(Icon(QLatin1String("document-edit")));
 
 	m_urlCompletion = new UrlCompletion(this);
 	ui.templateCombo->setCompletionObject(m_urlCompletion);
@@ -82,22 +82,22 @@ QWidget *TemplateWidget::lastTabOrderWidget()
 
 void TemplateWidget::readRecentTemplates()
 {
-	QSettings settings(ORGNAME, APPNAME);
-	ui.templateCombo->setMaxCount(settings.value("TemplateRecentNumber", 10).toInt());
-	const QStringList templateRecentList = settings.value("TemplateRecent").toStringList();
+	QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME));
+	ui.templateCombo->setMaxCount(settings.value(QLatin1String("TemplateRecentNumber"), 10).toInt());
+	const QStringList templateRecentList = settings.value(QLatin1String("TemplateRecent")).toStringList();
 	ui.templateCombo->addItems(templateRecentList);
-	const int index = templateRecentList.indexOf(settings.value("TemplateFile").toString());
+	const int index = templateRecentList.indexOf(settings.value(QLatin1String("TemplateFile")).toString());
 	ui.templateCombo->setCurrentIndex(index >= 0 ? index : 0);
 }
 
 void TemplateWidget::saveRecentTemplates()
 {
-	QSettings settings(ORGNAME, APPNAME);
+	QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME));
 	QStringList recentTemplates;
 	for (int i = 0; i < ui.templateCombo->count(); ++i)
 		recentTemplates << ui.templateCombo->itemText(i);
-	settings.setValue("TemplateRecent", recentTemplates);
-	settings.setValue("TemplateFile", ui.templateCombo->lineEdit()->text());
+	settings.setValue(QLatin1String("TemplateRecent"), recentTemplates);
+	settings.setValue(QLatin1String("TemplateFile"), ui.templateCombo->lineEdit()->text());
 }
 
 void TemplateWidget::setFileName(const QString &fileName)
@@ -157,12 +157,12 @@ void TemplateWidget::selectTemplateFile()
 {
 	QString currentFileName = ui.templateCombo->currentText();
 #ifdef KTIKZ_TEMPLATES_INSTALL_DIR
-	if (currentFileName.isEmpty() && QFileInfo(KTIKZ_TEMPLATES_INSTALL_DIR).isDir())
-		currentFileName = KTIKZ_TEMPLATES_INSTALL_DIR;
+	if (currentFileName.isEmpty() && QFileInfo(QString::fromLocal8Bit(KTIKZ_TEMPLATES_INSTALL_DIR)).isDir())
+		currentFileName = QString::fromLocal8Bit(KTIKZ_TEMPLATES_INSTALL_DIR);
 #endif
 	const Url url = FileDialog::getOpenUrl(this,
 	                                       tr("Select a template file"), Url(currentFileName),
-	                                       QString("*.pgs *.tex|%1\n*|%2")
+	                                       QString(QLatin1String("*.pgs *.tex|%1\n*|%2"))
 	                                       .arg(tr("%1 template files").arg(QCoreApplication::applicationName()))
 	                                       .arg(tr("All files")));
 	if (url.isValid())

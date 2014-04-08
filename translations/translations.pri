@@ -1,30 +1,20 @@
-# included by ../app/app.pro
-
-include(../qtikzconfig.pri)
-include(../qtikzdefaults.pri)
-include(../qtikzmacros.pri)
-
-#LOCALESUBDIR = locale
-
 ### Input
 
 LANGUAGES = cs de es fr
-TRANSLATIONS = $$tsFilesInDir($${PWD} $${LANGUAGES})
+TRANSLATIONS = $$tsFilesInDir($${PWD}, $${LANGUAGES})
 
 ### Output
-
-LOCALEDIR = $${LOCALESUBDIR}/ # the function qmFiles assumes that this variable ends with / or is empty
 
 !isEmpty(TRANSLATIONS) {
 	updateqm.name = lrelease ${QMAKE_FILE_IN}
 	updateqm.input = TRANSLATIONS
-	updateqm.output = $${LOCALEDIR}${QMAKE_FILE_BASE}.qm
+	updateqm.output = locale/${QMAKE_FILE_BASE}.qm
 	updateqm.commands = $${LRELEASECOMMAND} -silent ${QMAKE_FILE_IN} -qm ${QMAKE_FILE_OUT}
 	updateqm.CONFIG = no_link target_predeps
 	QMAKE_EXTRA_COMPILERS += updateqm
 
-	translations.path = $${RESOURCES_INSTALL_DIR}/$${LOCALESUBDIR}
-	translations.files += $$qmFiles($${TRANSLATIONS})
+	translations.path = $${TRANSLATIONS_INSTALL_DIR}
+	translations.files += $$qmFiles($${OUT_PWD}/locale, $${TRANSLATIONS})
 	translations.CONFIG += no_check_exist
 	INSTALLS += translations
 }

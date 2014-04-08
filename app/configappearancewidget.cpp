@@ -66,15 +66,15 @@ void ConfigAppearanceWidget::readSettings(const QString &settingsGroup)
 	int num;
 	QSettings settings;
 	settings.beginGroup(settingsGroup);
-	m_custom = settings.value("Customize", true).toBool();
-	const int numOfRules = settings.value("Number", 0).toInt();
+	m_custom = settings.value(QLatin1String("Customize"), true).toBool();
+	const int numOfRules = settings.value(QLatin1String("Number"), 0).toInt();
 	for (int i = 0; i < numOfRules; ++i)
 	{
-		num = m_typeNames.indexOf(settings.value("Item" + QString::number(i) + "/Name").toString());
+		num = m_typeNames.indexOf(settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Name")).toString());
 		if (num >= 0)
 		{
-			m_itemColors[num] = settings.value("Item" + QString::number(i) + "/Color").toString();
-			m_itemFonts[num] = settings.value("Item" + QString::number(i) + "/Font").toString();
+			m_itemColors[num] = settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Color")).toString();
+			m_itemFonts[num] = settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Font")).toString();
 		}
 	}
 	settings.endGroup();
@@ -90,16 +90,16 @@ void ConfigAppearanceWidget::writeSettings(const QString &settingsGroup)
 
 	QSettings settings;
 	settings.beginGroup(settingsGroup);
-	settings.setValue("Customize", m_custom);
+	settings.setValue(QLatin1String("Customize"), m_custom);
 	if (m_custom)
 	{
 		for (int i = 0; i < m_typeNames.size(); ++i)
 		{
-			settings.setValue("Item" + QString::number(i) + "/Name", m_typeNames.at(i));
-			settings.setValue("Item" + QString::number(i) + "/Color", m_itemColors.at(i));
-			settings.setValue("Item" + QString::number(i) + "/Font", m_itemFonts.at(i));
+			settings.setValue(QLatin1String("Item") + QString::number(i) + QLatin1String("/Name"), m_typeNames.at(i));
+			settings.setValue(QLatin1String("Item") + QString::number(i) + QLatin1String("/Color"), m_itemColors.at(i));
+			settings.setValue(QLatin1String("Item") + QString::number(i) + QLatin1String("/Font"), m_itemFonts.at(i));
 		}
-		settings.setValue("Number", m_typeNames.size());
+		settings.setValue(QLatin1String("Number"), m_typeNames.size());
 	}
 	settings.endGroup();
 }
@@ -119,7 +119,7 @@ void ConfigAppearanceWidget::setItemToolTip(QTableWidgetItem *item, const QFont 
 	if (metrics.width(item->text()) >= ui.itemTable->contentsRect().width() - 30)
 		item->setToolTip(item->text());
 	else
-		item->setToolTip("");
+		item->setToolTip(QString());
 }
 
 void ConfigAppearanceWidget::showEvent(QShowEvent*)
@@ -242,8 +242,8 @@ void ConfigAppearanceWidget::setDefaultTextCharFormats(const QMap<QString, QText
 {
 	for (int i = 0; i < defaultFormatList.size(); ++i)
 	{
-		m_itemColors << "";
-		m_itemFonts << "";
+		m_itemColors << QString();
+		m_itemFonts << QString();
 	}
 
 	QMap<QString, QTextCharFormat>::const_iterator it = defaultFormatList.constBegin();

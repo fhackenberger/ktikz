@@ -29,11 +29,11 @@ LogHighlighter::LogHighlighter(QTextDocument *parent)
 	keywordFormat.setForeground(Qt::red);
 	keywordFormat.setFontWeight(QFont::Bold);
 	QStringList keywordPatterns;
-	keywordPatterns << "\\S*:\\d+:.*$" << "Undefined control sequence"
-	                << "LaTeX Warning:" << "LaTeX Error:" << "Runaway argument?"
-	                << "Missing character: .*!" << "Error:"
+	keywordPatterns << QLatin1String("\\S*:\\d+:.*$") << QLatin1String("Undefined control sequence")
+	                << QLatin1String("LaTeX Warning:") << QLatin1String("LaTeX Error:") << QLatin1String("Runaway argument?")
+	                << QLatin1String("Missing character: .*!") << QLatin1String("Error:")
 	                << tr("Error:") << tr("Warning:") // error msg created by TikzPreviewGenerator
-	                << "^\\[.*\\] Line \\d+: .*" // error msg created by TikzPreviewGenerator::getParsedLogText()
+	                << QLatin1String("^\\[.*\\] Line \\d+: .*") // error msg created by TikzPreviewGenerator::getParsedLogText()
 	                << tr("This program will not work!");
 	Q_FOREACH (const QString &pattern, keywordPatterns)
 	{
@@ -45,13 +45,13 @@ LogHighlighter::LogHighlighter(QTextDocument *parent)
 	QTextCharFormat commandFormat;
 	commandFormat.setForeground(Qt::darkBlue);
 	commandFormat.setFontWeight(QFont::Bold);
-	rule.pattern = QRegExp("^\\[[^\\]\\d][^\\]]*\\]");
+	rule.pattern = QRegExp(QLatin1String("^\\[[^\\]\\d][^\\]]*\\]"));
 	rule.format = commandFormat;
 	m_highlightingRules.append(rule);
 
 	m_statisticsFormat.setForeground(Qt::darkGray);
 //	m_statisticsFormat.setFontPointSize(5.0);
-	m_statisticsStartExpression = "Here is how much of TeX's memory you used:";
+	m_statisticsStartExpression = QLatin1String("Here is how much of TeX's memory you used:");
 }
 
 LogHighlighter::~LogHighlighter()

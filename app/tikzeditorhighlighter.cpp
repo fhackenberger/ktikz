@@ -49,7 +49,7 @@ void TikzHighlighter::setHighlightingRules(const QVector<HighlightingRule> &high
 	const int currentIndex = highlightTypeNames.size() - 2;
 	// environments
 	QStringList keywordPatterns;
-	keywordPatterns << "\\\\begin\\{[^\\}]*\\}" << "\\\\end\\{[^\\}]*\\}";
+	keywordPatterns << QLatin1String("\\\\begin\\{[^\\}]*\\}") << QLatin1String("\\\\end\\{[^\\}]*\\}");
 	Q_FOREACH (const QString &pattern, keywordPatterns)
 	{
 		rule.type = highlightTypeNames.at(currentIndex);
@@ -58,7 +58,7 @@ void TikzHighlighter::setHighlightingRules(const QVector<HighlightingRule> &high
 	}
 	// comments
 	rule.type = highlightTypeNames.at(currentIndex + 1);
-	rule.pattern = QRegExp("%[^\n]*");
+	rule.pattern = QRegExp(QLatin1String("%[^\n]*"));
 	m_highlightingRules.append(rule);
 
 //	m_formatList = getDefaultHighlightFormats();
@@ -99,7 +99,7 @@ QStringList TikzHighlighter::getTranslatedHighlightTypeNames()
 QStringList TikzHighlighter::getHighlightTypeNames()
 {
 	QStringList highlightTypeNames = TikzCommandInserter::getHighlightTypeNames();
-	highlightTypeNames << "Environments" << "Comments";
+	highlightTypeNames << QLatin1String("Environments") << QLatin1String("Comments");
 	return highlightTypeNames;
 }
 
@@ -108,20 +108,20 @@ QStringList TikzHighlighter::getHighlightTypeNames()
 void TikzHighlighter::applySettings()
 {
 	QSettings settings;
-	settings.beginGroup("Highlighting");
-	const bool customHighlighting = settings.value("Customize", true).toBool();
+	settings.beginGroup(QLatin1String("Highlighting"));
+	const bool customHighlighting = settings.value(QLatin1String("Customize"), true).toBool();
 
 	m_formatList.clear();
 	m_formatList = getDefaultHighlightFormats();
 
 	if (customHighlighting)
 	{
-		const int numOfRules = settings.value("Number", 0).toInt();
+		const int numOfRules = settings.value(QLatin1String("Number"), 0).toInt();
 		for (int i = 0; i < numOfRules; ++i)
 		{
-			const QString name = settings.value("Item" + QString::number(i) + "/Name").toString();
-			const QString colorName = settings.value("Item" + QString::number(i) + "/Color").toString();
-			const QString fontName = settings.value("Item" + QString::number(i) + "/Font").toString();
+			const QString name = settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Name")).toString();
+			const QString colorName = settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Color")).toString();
+			const QString fontName = settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Font")).toString();
 			QFont font;
 			font.fromString(fontName);
 			QTextCharFormat format;

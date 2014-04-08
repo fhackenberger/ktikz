@@ -42,9 +42,9 @@ ReplaceWidget::ReplaceWidget(QWidget *parent) : QWidget(parent)
 	ui.comboBoxFind->setLineEdit(new LineEdit(this));
 	ui.comboBoxReplace->setLineEdit(new LineEdit(this));
 #endif
-	ui.pushButtonClose->setIcon(Icon("dialog-cancel"));
-	ui.pushButtonBackward->setIcon(Icon("go-up"));
-	ui.pushButtonForward->setIcon(Icon("go-down"));
+	ui.pushButtonClose->setIcon(Icon(QLatin1String("dialog-cancel")));
+	ui.pushButtonBackward->setIcon(Icon(QLatin1String("go-up")));
+	ui.pushButtonForward->setIcon(Icon(QLatin1String("go-down")));
 #ifdef KTIKZ_USE_KDE
 	// activate completion
 	KCompletion *completion = ui.comboBoxFind->completionObject();

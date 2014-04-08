@@ -110,19 +110,19 @@ MainWindow::MainWindow()
 
 #ifndef KTIKZ_USE_KDE
 	QStringList themeSearchPaths;
-	themeSearchPaths << QDir::homePath() + "/.local/share/icons/";
+	themeSearchPaths << QDir::homePath() + QLatin1String("/.local/share/icons/");
 	themeSearchPaths << QIcon::themeSearchPaths();
 	QIcon::setThemeSearchPaths(themeSearchPaths);
 #endif
 
 	setAttribute(Qt::WA_DeleteOnClose);
 #ifdef KTIKZ_USE_KDE
-	setObjectName("ktikz#");
-	setWindowIcon(KIcon("ktikz"));
+	setObjectName(QLatin1String("ktikz#"));
+	setWindowIcon(KIcon(QLatin1String("ktikz")));
 	Action::setActionCollection(actionCollection());
 #else
-	setObjectName("qtikz#" + QString::number(s_mainWindowList.size()));
-	setWindowIcon(QIcon(":/icons/qtikz-22.png"));
+	setObjectName(QLatin1String("qtikz#") + QString::number(s_mainWindowList.size()));
+	setWindowIcon(QIcon(QLatin1String(":/icons/qtikz-22.png")));
 #endif
 
 	setCorner(Qt::TopLeftCorner, Qt::LeftDockWidgetArea);
@@ -147,7 +147,7 @@ MainWindow::MainWindow()
 	mainLayout->addWidget(m_tikzEditorView);
 
 	m_logDock = new QDockWidget(this);
-	m_logDock->setObjectName("LogDock");
+	m_logDock->setObjectName(QLatin1String("LogDock"));
 	m_logDock->setAllowedAreas(Qt::AllDockWidgetAreas);
 	m_logDock->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
 	m_logDock->setWindowTitle(tr("&Messages"));
@@ -160,7 +160,7 @@ MainWindow::MainWindow()
 	m_logDock->setWidget(m_logTextEdit);
 
 	m_previewDock = new QDockWidget(this);
-	m_previewDock->setObjectName("PreviewDock");
+	m_previewDock->setObjectName(QLatin1String("PreviewDock"));
 	m_previewDock->setAllowedAreas(Qt::AllDockWidgetAreas);
 	m_previewDock->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
 	m_previewDock->setWindowTitle(tr("Previe&w"));
@@ -180,7 +180,7 @@ MainWindow::MainWindow()
 
 #ifdef KTIKZ_USE_KDE
 	setupGUI(ToolBar | Keys | StatusBar | Save);
-	setXMLFile("ktikzui.rc");
+	setXMLFile(QLatin1String("ktikzui.rc"));
 	createGUI();
 	guiFactory()->addClient(this);
 #endif
@@ -289,14 +289,14 @@ bool MainWindow::queryClose()
 
 void MainWindow::readProperties(const KConfigGroup &group)
 {
-	const KUrl url(group.readPathEntry("CurrentUrl", QString()));
+	const KUrl url(group.readPathEntry(QLatin1String("CurrentUrl"), QString()));
 	if (url.isValid() && !url.isEmpty())
 		loadUrl(url);
 }
 
 void MainWindow::saveProperties(KConfigGroup &group)
 {
-	group.writePathEntry("CurrentUrl", m_currentUrl.url());
+	group.writePathEntry(QLatin1String("CurrentUrl"), m_currentUrl.url());
 }
 #endif
 
@@ -328,8 +328,8 @@ bool MainWindow::closeFile()
 		        m_tikzPreviewController, SLOT(regeneratePreviewAfterDelay()));
 		setCurrentUrl(Url());
 		m_tikzPreviewController->emptyPreview(); // abort still running processes
-		m_logTextEdit->updateLog("", false); // clear log window
-		m_mouseCoordinatesLabel->setText("");
+		m_logTextEdit->updateLog(QString(), false); // clear log window
+		m_mouseCoordinatesLabel->setText(QString());
 		return true;
 	}
 	return false;
@@ -337,7 +337,7 @@ bool MainWindow::closeFile()
 
 void MainWindow::open()
 {
-	const Url openUrl = FileDialog::getOpenUrl(this, tr("Open PGF source file"), m_lastUrl, "text/x-pgf");
+	const Url openUrl = FileDialog::getOpenUrl(this, tr("Open PGF source file"), m_lastUrl, QLatin1String("text/x-pgf"));
 	if (openUrl.isValid() && !openUrl.isEmpty())
 		loadUrl(openUrl);
 }
@@ -360,7 +360,7 @@ bool MainWindow::save()
 
 bool MainWindow::saveAs()
 {
-	const Url saveAsUrl = FileDialog::getSaveUrl(this, tr("Save PGF source file"), m_currentUrl, "text/x-pgf");
+	const Url saveAsUrl = FileDialog::getSaveUrl(this, tr("Save PGF source file"), m_currentUrl, QLatin1String("text/x-pgf"));
 	if (!saveAsUrl.isValid() || saveAsUrl.isEmpty())
 		return false;
 	return saveUrl(saveAsUrl);
@@ -446,7 +446,7 @@ void MainWindow::showTikzDocumentation()
 
 	const QString tikzDocFile = TikzDocumentationController::tikzDocumentationPath();
 	const bool tikzDocFileExists = QFileInfo(tikzDocFile).exists(); // true if tikzDocFile is local and exists
-	const QUrl tikzDocUrl = tikzDocFileExists ? QUrl("file:///" + tikzDocFile) : QUrl(tikzDocFile);
+	const QUrl tikzDocUrl = tikzDocFileExists ? QUrl(QLatin1String("file:///") + tikzDocFile) : QUrl(tikzDocFile);
 
 	if (!QDesktopServices::openUrl(tikzDocUrl))
 	{
@@ -522,7 +522,7 @@ void MainWindow::createActions()
 	m_openRecentAction = StandardAction::openRecent(this, SLOT(loadUrl(Url)), this);
 	m_saveAction = StandardAction::save(this, SLOT(save()), this);
 	m_saveAsAction = StandardAction::saveAs(this, SLOT(saveAs()), this);
-	m_reloadAction = new Action(Icon("view-refresh"), tr("Reloa&d"), this, "file_reload");
+	m_reloadAction = new Action(Icon(QLatin1String("view-refresh")), tr("Reloa&d"), this, QLatin1String("file_reload"));
 	m_reloadAction->setShortcut(QKeySequence::Refresh);
 	m_reloadAction->setStatusTip(tr("Reload the current document"));
 	m_reloadAction->setWhatsThis(tr("<p>Reload the current document from disk.</p>"));
@@ -547,13 +547,13 @@ void MainWindow::createActions()
 	m_exitAction->setWhatsThis(tr("<p>Exit the application.</p>"));
 
 	// View
-	m_buildAction = new Action(Icon("run-build"), tr("&Build"), this, "build");
+	m_buildAction = new Action(Icon(QLatin1String("run-build")), tr("&Build"), this, QLatin1String("build"));
 	m_buildAction->setShortcut(tr("Ctrl+B", "View|Build"));
 	m_buildAction->setStatusTip(tr("Build preview"));
 	m_buildAction->setWhatsThis(tr("<p>Generate preview by building the current TikZ code in the editor.</p>"));
 	connect(m_buildAction, SIGNAL(triggered()), m_tikzPreviewController, SLOT(regeneratePreview()));
 
-	m_viewLogAction = new Action(Icon("run-build-file"), tr("View &Log"), this, "view_log");
+	m_viewLogAction = new Action(Icon(QLatin1String("run-build-file")), tr("View &Log"), this, QLatin1String("view_log"));
 	m_viewLogAction->setStatusTip(tr("View log messages produced by the last executed process"));
 	m_viewLogAction->setWhatsThis(tr("<p>Show the log messages produced by the last executed process in the Messages box.</p>"));
 	connect(m_viewLogAction, SIGNAL(triggered()), this, SLOT(updateLog()));
@@ -565,12 +565,12 @@ void MainWindow::createActions()
 	m_configureAction->setWhatsThis(tr("<p>Configure the settings of this application.</p>"));
 
 #ifdef KTIKZ_USE_KDE
-	addActionCloneToCollection("toggle_preview", m_previewDock->toggleViewAction());
-	addActionCloneToCollection("toggle_log", m_logDock->toggleViewAction());
+	addActionCloneToCollection(QLatin1String("toggle_preview"), m_previewDock->toggleViewAction());
+	addActionCloneToCollection(QLatin1String("toggle_log"), m_logDock->toggleViewAction());
 #endif
 
 	// Help
-	m_showTikzDocAction = new Action(Icon("help-contents"), tr("TikZ &Manual"), this, "show_tikz_doc");
+	m_showTikzDocAction = new Action(Icon(QLatin1String("help-contents")), tr("TikZ &Manual"), this, QLatin1String("show_tikz_doc"));
 	m_showTikzDocAction->setStatusTip(tr("Show the manual of TikZ and PGF"));
 	m_showTikzDocAction->setWhatsThis(tr("<p>Show the manual of TikZ and PGF.</p>"));
 	connect(m_showTikzDocAction, SIGNAL(triggered()), this, SLOT(showTikzDocumentation()));
@@ -578,20 +578,20 @@ void MainWindow::createActions()
 #ifdef KTIKZ_USE_KDE
 	m_whatsThisAction = KStandardAction::whatsThis(this, SLOT(toggleWhatsThisMode()), this);
 #else
-	m_helpAction = new QAction(Icon("help-contents"), tr("%1 &Handbook").arg(KtikzApplication::applicationName()), this);
+	m_helpAction = new QAction(Icon(QLatin1String("help-contents")), tr("%1 &Handbook").arg(KtikzApplication::applicationName()), this);
 	m_helpAction->setStatusTip(tr("Show the application's documentation"));
 	m_helpAction->setShortcut(QKeySequence::HelpContents);
 	connect(m_helpAction, SIGNAL(triggered()), this, SLOT(showDocumentation()));
 
 	m_whatsThisAction = QWhatsThis::createAction(this);
-	m_whatsThisAction->setIcon(QIcon(":/icons/help-contextual.png"));
+	m_whatsThisAction->setIcon(Icon(QLatin1String("help-contextual")));
 	m_whatsThisAction->setStatusTip(tr("Show simple description of any widget"));
 
-	m_aboutAction = new QAction(QIcon(":/icons/qtikz-22.png"), tr("&About %1").arg(KtikzApplication::applicationName()), this);
+	m_aboutAction = new QAction(QIcon(QLatin1String(":/icons/qtikz-22.png")), tr("&About %1").arg(KtikzApplication::applicationName()), this);
 	m_aboutAction->setStatusTip(tr("Show the application's About box"));
 	connect(m_aboutAction, SIGNAL(triggered()), this, SLOT(about()));
 
-	m_aboutQtAction = new QAction(QIcon(":/icons/qt-logo-22.png"), tr("About &Qt"), this);
+	m_aboutQtAction = new QAction(QIcon(QLatin1String(":/icons/qt-logo-22.png")), tr("About &Qt"), this);
 	m_aboutQtAction->setStatusTip(tr("Show the Qt library's About box"));
 	connect(m_aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 #endif
@@ -639,7 +639,7 @@ void MainWindow::createMenus()
 
 	m_settingsMenu = menuBar()->addMenu(tr("&Settings"));
 	QMenu *toolBarMenu = new QMenu(tr("&Toolbars"), this);
-	toolBarMenu->setIcon(Icon("configure-toolbars"));
+	toolBarMenu->setIcon(Icon(QLatin1String("configure-toolbars")));
 	toolBarMenu->menuAction()->setStatusTip(tr("Show or hide toolbars"));
 	toolBarMenu->addAction(m_fileToolBar->toggleViewAction());
 	toolBarMenu->addAction(m_editToolBar->toggleViewAction());
@@ -651,7 +651,7 @@ void MainWindow::createMenus()
 	m_runToolBar->toggleViewAction()->setStatusTip(tr("Show toolbar \"%1\"").arg(m_runToolBar->windowTitle()));
 	m_settingsMenu->addMenu(toolBarMenu);
 	m_sideBarMenu = new QMenu(tr("&Sidebars"), this);
-	m_sideBarMenu->setIcon(Icon("configure-toolbars"));
+	m_sideBarMenu->setIcon(Icon(QLatin1String("configure-toolbars")));
 	m_sideBarMenu->menuAction()->setStatusTip(tr("Show or hide sidebars"));
 	m_sideBarMenu->addAction(m_previewDock->toggleViewAction());
 	m_sideBarMenu->addAction(m_logDock->toggleViewAction());
@@ -681,7 +681,7 @@ void MainWindow::createMenus()
 void MainWindow::createToolBars()
 {
 	m_fileToolBar = addToolBar(tr("File"));
-	m_fileToolBar->setObjectName("FileToolBar");
+	m_fileToolBar->setObjectName(QLatin1String("FileToolBar"));
 	m_fileToolBar->addAction(m_newAction);
 	m_fileToolBar->addAction(m_openAction);
 	m_fileToolBar->addAction(m_saveAction);
@@ -704,9 +704,9 @@ void MainWindow::createToolBars()
 void MainWindow::setToolBarStyle()
 {
 	QSettings settings;
-	settings.beginGroup("MainWindow");
+	settings.beginGroup(QLatin1String("MainWindow"));
 
-	int toolBarStyleNumber = settings.value("ToolBarStyle", 0).toInt();
+	int toolBarStyleNumber = settings.value(QLatin1String("ToolBarStyle"), 0).toInt();
 	Qt::ToolButtonStyle toolBarStyle = Qt::ToolButtonIconOnly;
 	switch (toolBarStyleNumber)
 	{
@@ -736,7 +736,7 @@ void MainWindow::createCommandInsertWidget()
 {
 	// insert global commands widget
 	QSettings settings;
-	bool commandsInDock = settings.value("CommandsInDock", false).toBool();
+	bool commandsInDock = settings.value(QLatin1String("CommandsInDock"), false).toBool();
 
 	if (commandsInDock)
 	{
@@ -744,7 +744,7 @@ void MainWindow::createCommandInsertWidget()
 		addDockWidget(Qt::LeftDockWidgetArea, m_commandsDock);
 
 #ifdef KTIKZ_USE_KDE
-		actionCollection()->addAction("toggle_commands_list", m_commandsDock->toggleViewAction());
+		actionCollection()->addAction(QLatin1String("toggle_commands_list"), m_commandsDock->toggleViewAction());
 #else
 		m_sideBarMenu->insertAction(m_sideBarMenu->actions().at(1), m_commandsDock->toggleViewAction());
 #endif
@@ -753,7 +753,7 @@ void MainWindow::createCommandInsertWidget()
 	else
 	{
 		// add commands action (menu will be added later in init())
-		m_insertAction = new Action(tr("&Insert"), this, "insert");
+		m_insertAction = new Action(tr("&Insert"), this, QLatin1String("insert"));
 #ifndef KTIKZ_USE_KDE
 		menuBar()->insertAction(m_settingsMenu->menuAction(), m_insertAction);
 #endif
@@ -762,7 +762,7 @@ void MainWindow::createCommandInsertWidget()
 	// add user commands menu
 #ifdef KTIKZ_USE_KDE
 	QMenu *userMenu = m_userCommandInserter->getMenu();
-	KAction *userInsertAction = new Action(userMenu->title(), this, "user_insert");
+	KAction *userInsertAction = new Action(userMenu->title(), this, QLatin1String("user_insert"));
 	userInsertAction->setMenu(userMenu);
 #else
 	menuBar()->insertMenu(m_settingsMenu->menuAction(), m_userCommandInserter->getMenu());
@@ -788,7 +788,7 @@ void MainWindow::setDockWidgetStatusTip(bool enabled)
 {
 	QAction *action = qobject_cast<QAction*>(sender());
 	QString dockName = action->text();
-	dockName.remove('&');
+	dockName.remove(QLatin1Char('&'));
 	if (enabled)
 		action->setStatusTip(tr("Hide sidebar \"%1\"").arg(dockName));
 	else
@@ -832,15 +832,15 @@ void MainWindow::applySettings()
 	m_tikzEditorView->applySettings();
 	m_tikzPreviewController->applySettings();
 
-	settings.beginGroup("Preview");
-	m_buildAutomatically = settings.value("BuildAutomatically", true).toBool();
+	settings.beginGroup(QLatin1String("Preview"));
+	m_buildAutomatically = settings.value(QLatin1String("BuildAutomatically"), true).toBool();
 	m_buildAction->setVisible(!m_buildAutomatically);
-	if (!settings.value("ShowCoordinates", true).toBool())
+	if (!settings.value(QLatin1String("ShowCoordinates"), true).toBool())
 		m_mouseCoordinatesLabel->setText(QString());
 	settings.endGroup();
 
-	settings.beginGroup("Editor");
-	m_useCompletion = settings.value("UseCompletion", true).toBool();
+	settings.beginGroup(QLatin1String("Editor"));
+	m_useCompletion = settings.value(QLatin1String("UseCompletion"), true).toBool();
 	updateCompleter();
 	settings.endGroup();
 
@@ -858,22 +858,22 @@ void MainWindow::readSettings()
 	m_openRecentAction->loadEntries();
 
 	QSettings settings;
-	settings.beginGroup("MainWindow");
+	settings.beginGroup(QLatin1String("MainWindow"));
 	const int screenWidth = QApplication::desktop()->availableGeometry().width();
 	QSize size;
 	if (screenWidth > 1200)
-		size = settings.value("size", QSize(1200, 600)).toSize();
+		size = settings.value(QLatin1String("size"), QSize(1200, 600)).toSize();
 	else if (screenWidth > 1024)
-		size = settings.value("size", QSize(1024, 600)).toSize();
+		size = settings.value(QLatin1String("size"), QSize(1024, 600)).toSize();
 	else
-		size = settings.value("size", QSize(800, 600)).toSize();
+		size = settings.value(QLatin1String("size"), QSize(800, 600)).toSize();
 	resize(size);
-	restoreState(settings.value("MainWindowState").toByteArray());
+	restoreState(settings.value(QLatin1String("MainWindowState")).toByteArray());
 	settings.endGroup();
 
 	// still do the following (see applySettings()) here in order to avoid flicker in the toolbar
-	settings.beginGroup("Preview");
-	m_buildAutomatically = settings.value("BuildAutomatically", true).toBool();
+	settings.beginGroup(QLatin1String("Preview"));
+	m_buildAutomatically = settings.value(QLatin1String("BuildAutomatically"), true).toBool();
 	m_buildAction->setVisible(!m_buildAutomatically);
 	settings.endGroup();
 	// still do the following here in order to avoid a crash when a file is opened in a new window
@@ -887,9 +887,9 @@ void MainWindow::writeSettings()
 	m_openRecentAction->saveEntries();
 
 	QSettings settings;
-	settings.beginGroup("MainWindow");
-	settings.setValue("size", size());
-	settings.setValue("MainWindowState", QMainWindow::saveState());
+	settings.beginGroup(QLatin1String("MainWindow"));
+	settings.setValue(QLatin1String("size"), size());
+	settings.setValue(QLatin1String("MainWindowState"), QMainWindow::saveState());
 	settings.endGroup();
 }
 
@@ -1025,9 +1025,9 @@ void MainWindow::setCurrentUrl(const Url &url)
 QString MainWindow::strippedName(const Url &url) const
 {
 	if (!url.isValid() || url.isEmpty())
-		return "untitled.txt";
+		return QLatin1String("untitled.txt");
 	const QString fileName = url.fileName();
-	return (fileName.isEmpty()) ? "untitled.txt" : fileName;
+	return (fileName.isEmpty()) ? QLatin1String("untitled.txt") : fileName;
 }
 
 /***************************************************************************/
