@@ -26,7 +26,7 @@ class ConfigPreviewWidget : public QWidget
 	Q_OBJECT
 
 public:
-	ConfigPreviewWidget(QWidget *parent = 0);
+	explicit ConfigPreviewWidget(QWidget *parent = 0);
 	~ConfigPreviewWidget();
 
 	void readSettings(const QString &settingsGroup);

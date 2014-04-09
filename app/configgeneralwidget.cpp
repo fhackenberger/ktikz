@@ -122,14 +122,14 @@ void ConfigGeneralWidget::browseCommand(QLineEdit *lineEdit, bool isProgram)
 	QString location;
 	if (isProgram)
 	{
-		Url url = FileDialog::getOpenUrl(this, tr("Browse program"), QDir::rootPath());
+		Url url = FileDialog::getOpenUrl(this, tr("Browse program"), Url(QDir::rootPath()));
 		location = url.path();
 	}
 	else
 	{
 		const QString oldLocation = lineEdit->text();
 		Url url = FileDialog::getOpenUrl(this, tr("Browse file"),
-		                                 (!oldLocation.isEmpty()) ? oldLocation : QDir::homePath());
+		                                 Url(!oldLocation.isEmpty() ? oldLocation : QDir::homePath()));
 		location = url.path();
 	}
 	if (!location.isEmpty())

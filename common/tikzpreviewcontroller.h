@@ -43,7 +43,7 @@ class TikzPreviewController : public QObject
 	Q_OBJECT
 
 public:
-	TikzPreviewController(MainWidget *mainWidget);
+	explicit TikzPreviewController(MainWidget *mainWidget);
 	~TikzPreviewController();
 
 	const QString tempDir() const;

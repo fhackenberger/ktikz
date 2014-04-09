@@ -26,7 +26,7 @@ class PageDialog : public KPageDialog
 {
 	Q_OBJECT
 public:
-	PageDialog(QWidget *parent = 0);
+	explicit PageDialog(QWidget *parent = 0);
 	void addPage(QWidget *widget, const QString &title, const QString &iconName);
 };
 #else
@@ -46,7 +46,7 @@ class PageDialog : public QDialog
 {
 	Q_OBJECT
 public:
-	PageDialog(QWidget *parent = 0);
+	explicit PageDialog(QWidget *parent = 0);
 	void setCaption(const QString &caption);
 	void setHelp(const QString &anchor);
 	void addPage(QWidget *widget, const QString &title, const QString &iconName);

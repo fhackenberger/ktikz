@@ -31,7 +31,7 @@ class TikzCommandWidget : public QWidget
 	Q_OBJECT
 
 public:
-	TikzCommandWidget(QWidget *parent = 0);
+	explicit TikzCommandWidget(QWidget *parent = 0);
 	virtual QSize sizeHint() const;
 };
 

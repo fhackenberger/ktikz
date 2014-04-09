@@ -39,7 +39,7 @@ public:
 		PixmapVisible = 1
 	};
 
-	TikzPreviewMessageWidget(QWidget *parent = 0);
+	explicit TikzPreviewMessageWidget(QWidget *parent = 0);
 	~TikzPreviewMessageWidget();
 
 	virtual QSize sizeHint() const;

@@ -26,7 +26,7 @@ class ConfigEditorWidget : public QWidget
 	Q_OBJECT
 
 public:
-	ConfigEditorWidget(QWidget *parent = 0);
+	explicit ConfigEditorWidget(QWidget *parent = 0);
 
 	static QVariant defaultSetting(const QString &key);
 

@@ -25,7 +25,7 @@
 class ColorDialog : public KColorDialog
 {
 public:
-	ColorDialog(QWidget *parent) : KColorDialog(parent) {}
+	explicit ColorDialog(QWidget *parent) : KColorDialog(parent) {}
 
 	static QColor getColor(bool *ok, const QColor &color, QWidget *parent)
 	{
@@ -48,7 +48,7 @@ class ColorDialog : public QColorDialog
 public:
 	// Commented out for Qt 4.5 compatibility (should not be required,
 	// as we don't instantiate ColorDialog directly anyway
-	//ColorDialog(QWidget *parent) : QColorDialog(parent) {}
+	//explicit ColorDialog(QWidget *parent) : QColorDialog(parent) {}
 
 	static QColor getColor(bool *ok, const QColor &color, QWidget *parent)
 	{

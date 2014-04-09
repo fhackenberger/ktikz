@@ -25,7 +25,7 @@
 class FontDialog : public KFontDialog
 {
 public:
-	FontDialog(QWidget *parent) : KFontDialog(parent) {}
+	explicit FontDialog(QWidget *parent) : KFontDialog(parent) {}
 
 	static QFont getFont(bool *ok, const QFont &font, QWidget *parent)
 	{

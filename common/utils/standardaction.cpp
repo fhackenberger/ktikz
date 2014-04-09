@@ -36,7 +36,7 @@ namespace StandardAction
 // XXX the following is an ugly hack, but I don't know how to promote a KAction to an Action
 static Action *copyAction(KAction *action, const QObject *recvr, const char *slot)
 {
-	Action *newAction = new Action(action->icon(), action->text(), action->parent());
+	Action *newAction = new Action(Icon(action->icon()), action->text(), action->parent());
 	newAction->setShortcut(action->shortcut());
 	newAction->setData(action->data());
 	newAction->setObjectName(action->objectName());
@@ -64,7 +64,7 @@ Action *open(const QObject *recvr, const char *slot, QObject *parent)
 RecentFilesAction *openRecent(const QObject *recvr, const char *slot, QObject *parent)
 {
 	KRecentFilesAction *action = KStandardAction::openRecent(recvr, slot, parent);
-	RecentFilesAction *newAction = new RecentFilesAction(action->icon(), action->text(), action->parent());
+	RecentFilesAction *newAction = new RecentFilesAction(Icon(action->icon()), action->text(), action->parent());
 	newAction->setShortcut(action->shortcut());
 	newAction->setData(action->data());
 	newAction->setObjectName(action->objectName());

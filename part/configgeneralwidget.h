@@ -30,7 +30,7 @@ class PartConfigGeneralWidget : public QWidget
 	Q_OBJECT
 
 public:
-	PartConfigGeneralWidget(QWidget *parent = 0);
+	explicit PartConfigGeneralWidget(QWidget *parent = 0);
 
 	void setDefaults();
 	void readSettings(const QString &settingsGroup = QString());

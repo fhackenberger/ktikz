@@ -32,7 +32,7 @@ class RecentFilesAction : public KRecentFilesAction
 	Q_OBJECT
 
 public:
-	RecentFilesAction(QObject *parent);
+	explicit RecentFilesAction(QObject *parent);
 	RecentFilesAction(const QString &text, QObject *parent);
 	RecentFilesAction(const Icon &icon, const QString &text, QObject *parent);
 
@@ -56,7 +56,7 @@ class RecentFilesAction : public Action
 	Q_OBJECT
 
 public:
-	RecentFilesAction(QObject *parent);
+	explicit RecentFilesAction(QObject *parent);
 	RecentFilesAction(const QString &text, QObject *parent);
 	RecentFilesAction(const Icon &icon, const QString &text, QObject *parent);
 	~RecentFilesAction();

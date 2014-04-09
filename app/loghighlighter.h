@@ -32,7 +32,7 @@ class LogHighlighter : public QSyntaxHighlighter
 	Q_OBJECT
 
 public:
-	LogHighlighter(QTextDocument *parent = 0);
+	explicit LogHighlighter(QTextDocument *parent = 0);
 	virtual ~LogHighlighter();
 
 protected:

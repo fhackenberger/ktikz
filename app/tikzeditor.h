@@ -37,7 +37,7 @@ class TikzEditor : public QPlainTextEdit
 	Q_PROPERTY(int numOfLines READ numOfLines)
 
 public:
-	TikzEditor(QWidget *parent = 0);
+	explicit TikzEditor(QWidget *parent = 0);
 	~TikzEditor();
 	void setShowWhiteSpaces(bool visible);
 	void setShowTabulators(bool visible);

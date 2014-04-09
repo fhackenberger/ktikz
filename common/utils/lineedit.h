@@ -20,7 +20,7 @@ class LineEdit : public KLineEdit
 
 public:
 	explicit LineEdit(const QString &text, QWidget *parent = 0);
-	LineEdit(QWidget *parent = 0);
+	explicit LineEdit(QWidget *parent = 0);
 };
 #else
 #include <QtCore/QtGlobal>
@@ -39,7 +39,7 @@ class LineEdit : public QLineEdit
 
 public:
 	explicit LineEdit(const QString &text, QWidget *parent = 0);
-	LineEdit(QWidget *parent = 0);
+	explicit LineEdit(QWidget *parent = 0);
 	virtual QSize sizeHint() const;
 	void setCompletionObject(UrlCompletion *urlCompletion);
 

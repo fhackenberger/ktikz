@@ -54,6 +54,9 @@ QList<TikzCommand> TikzCommandInserter::m_tikzCommandsList;
 
 TikzCommandInserter::TikzCommandInserter(QWidget *parent)
 	: QObject(parent)
+	, m_mainEdit(0)
+	, m_commandsCombo(0)
+	, m_commandsStack(0)
 {
 }
 
@@ -376,6 +379,8 @@ void TikzCommandInserter::addListWidgetItems(QListWidget *listWidget, const QPal
 
 void TikzCommandInserter::showItemsInDockWidget()
 {
+	Q_ASSERT_X(m_commandsCombo, "TikzCommandInserter::showItemsInDockWidget()", "TikzCommandInserter::getDockWidget(QWidget *parent) should be run before using this function");
+	Q_ASSERT_X(m_commandsStack, "TikzCommandInserter::showItemsInDockWidget()", "TikzCommandInserter::getDockWidget(QWidget *parent) should be run before using this function");
 	QListWidget *tikzListWidget = qobject_cast<QListWidget*>(m_commandsStack->widget(0));
 	QPalette standardPalette = QApplication::style()->standardPalette(); // this is slow, so we call this only once here and pass this as argument to addListWidgetItems instead of calling this each time in addListWidgetItems
 	addListWidgetItems(tikzListWidget, standardPalette, m_tikzSections, false); // don't add children
@@ -644,6 +649,7 @@ void TikzCommandInserter::setEditor(QPlainTextEdit *textEdit)
 
 void TikzCommandInserter::insertTag(const QString &tag, int dx, int dy)
 {
+	Q_ASSERT_X(m_mainEdit, "TikzCommandInserter::insertTag(const QString &tag, int dx, int dy)", "m_mainEdit should be set using TikzCommandInserter::setEditor() before using this function");
 	QTextCursor cur = m_mainEdit->textCursor();
 	const int pos = cur.position();
 	m_mainEdit->insertPlainText(tag);

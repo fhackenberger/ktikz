@@ -34,7 +34,7 @@ class ReplaceCurrentWidget : public QWidget
 	Q_OBJECT
 
 public:
-	ReplaceCurrentWidget(QWidget *parent = 0);
+	explicit ReplaceCurrentWidget(QWidget *parent = 0);
 	~ReplaceCurrentWidget();
 	void setReplacement(const QString &text, const QString &replacement);
 

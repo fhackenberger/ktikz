@@ -440,7 +440,6 @@ void TikzEditorView::indent(QChar insertChar, int numOfInserts, bool isUnindenti
 {
 	m_indentWidget->setVisible(false);
 
-	bool go = true;
 	QTextCursor textCursor = m_tikzEditor->textCursor();
 	if (textCursor.hasSelection())
 	{
@@ -451,6 +450,7 @@ void TikzEditorView::indent(QChar insertChar, int numOfInserts, bool isUnindenti
 		textCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
 		if (!isUnindenting)
 		{
+			bool go = true;
 			while (textCursor.position() < end && go)
 			{
 				for (int i = 0; i < numOfInserts; ++i)
@@ -463,6 +463,7 @@ void TikzEditorView::indent(QChar insertChar, int numOfInserts, bool isUnindenti
 		}
 		else
 		{
+			bool go = true;
 			while (textCursor.position() < end && go)
 			{
 				for (int i = 0; i < numOfInserts; ++i)
@@ -508,7 +509,6 @@ void TikzEditorView::indent(QChar insertChar, int numOfInserts, bool isUnindenti
 
 void TikzEditorView::editComment()
 {
-	bool go = true;
 	QTextCursor textCursor = m_tikzEditor->textCursor();
 	if (textCursor.hasSelection())
 	{
@@ -517,6 +517,7 @@ void TikzEditorView::editComment()
 		int end = textCursor.selectionEnd();
 		textCursor.setPosition(start, QTextCursor::MoveAnchor);
 		textCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
+		bool go = true;
 		while (textCursor.position() < end && go)
 		{
 			textCursor.insertText(QLatin1String("% "));
@@ -535,7 +536,6 @@ void TikzEditorView::editComment()
 
 void TikzEditorView::editUncomment()
 {
-	bool go = true;
 	QTextCursor textCursor = m_tikzEditor->textCursor();
 	if (textCursor.hasSelection())
 	{
@@ -544,6 +544,7 @@ void TikzEditorView::editUncomment()
 		int end = textCursor.selectionEnd() - 2;
 		textCursor.setPosition(start, QTextCursor::MoveAnchor);
 		textCursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::MoveAnchor);
+		bool go = true;
 		while (textCursor.position() < end && go)
 		{
 			textCursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, 2);

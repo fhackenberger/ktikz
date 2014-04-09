@@ -44,7 +44,7 @@ class TikzPreview : public QGraphicsView
 	Q_OBJECT
 
 public:
-	TikzPreview(QWidget *parent = 0);
+	explicit TikzPreview(QWidget *parent = 0);
 	~TikzPreview();
 
 	virtual QSize sizeHint() const;

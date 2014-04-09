@@ -27,7 +27,7 @@ class ReplaceWidget : public QWidget
 	Q_OBJECT
 
 public:
-	ReplaceWidget(QWidget *parent = 0);
+	explicit ReplaceWidget(QWidget *parent = 0);
 	~ReplaceWidget();
 	void setForward(bool forward);
 	void setText(const QString &text);

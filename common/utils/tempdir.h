@@ -43,6 +43,8 @@ public:
 
 class TempDir : public QObject
 {
+	Q_OBJECT
+
 public:
 	explicit TempDir(const QString &directoryPrefix = QString(), int mode = 0700);
 	virtual ~TempDir();

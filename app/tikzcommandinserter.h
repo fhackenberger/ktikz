@@ -57,7 +57,7 @@ class TikzCommandInserter : public QObject
 	Q_OBJECT
 
 public:
-	TikzCommandInserter(QWidget *parent = 0);
+	explicit TikzCommandInserter(QWidget *parent = 0);
 
 	static void loadCommands();
 	static QStringList getCommandWords();

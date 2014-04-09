@@ -130,10 +130,9 @@ void RecentFilesAction::openRecentFile()
 void RecentFilesAction::createRecentFilesList()
 {
 	m_recentFileActions.clear();
-	QAction *action;
 	for (int i = 0; i < m_numOfRecentFiles; ++i)
 	{
-		action = new QAction(this);
+		QAction *action = new QAction(this);
 		action->setVisible(false);
 		connect(action, SIGNAL(triggered()), this, SLOT(openRecentFile()));
 		m_recentFileActions.append(action);

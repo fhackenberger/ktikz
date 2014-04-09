@@ -33,7 +33,7 @@ class ConfigDialog : public PageDialog
 	Q_OBJECT
 
 public:
-	ConfigDialog(QWidget *parent = 0);
+	explicit ConfigDialog(QWidget *parent = 0);
 
 	void readSettings();
 	void writeSettings();

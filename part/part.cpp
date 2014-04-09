@@ -244,7 +244,7 @@ QString Part::tikzCode() const
 
 Url Part::url() const
 {
-	return KParts::ReadOnlyPart::url();
+	return Url(KParts::ReadOnlyPart::url());
 }
 
 /***************************************************************************/

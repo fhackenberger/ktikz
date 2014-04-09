@@ -28,7 +28,7 @@ class ConfigGeneralWidget : public QWidget
 	Q_OBJECT
 
 public:
-	ConfigGeneralWidget(QWidget *parent = 0);
+	explicit ConfigGeneralWidget(QWidget *parent = 0);
 	~ConfigGeneralWidget();
 
 	void readSettings(const QString &settingsGroup);

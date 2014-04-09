@@ -53,7 +53,7 @@ public:
 		ReloadTemplate = 1
 	};
 
-	TikzPreviewGenerator(TikzPreviewController *parent);
+	explicit TikzPreviewGenerator(TikzPreviewController *parent);
 	~TikzPreviewGenerator();
 
 	void setTikzFileBaseName(const QString &name);

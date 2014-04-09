@@ -26,8 +26,8 @@ class Url : public KUrl
 {
 public:
 	Url();
-	Url(const QString &fileName);
-	Url(const KUrl &url);
+	explicit Url(const QString &fileName);
+	explicit Url(const KUrl &url);
 };
 #else
 #include <QtCore/QUrl>
@@ -36,8 +36,8 @@ class Url : public QUrl
 {
 public:
 	Url();
-	Url(const QString &fileName);
-	Url(const QUrl &url);
+	explicit Url(const QString &fileName);
+	explicit Url(const QUrl &url);
 
 	QString fileName() const;
 	QString pathOrUrl() const;

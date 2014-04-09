@@ -28,7 +28,7 @@ class UserCommandEditDialog : public QDialog
 	Q_OBJECT
 
 public:
-	UserCommandEditDialog(QWidget *parent = 0);
+	explicit UserCommandEditDialog(QWidget *parent = 0);
 
 	Ui::UserCommandEditDialog ui;
 

@@ -25,8 +25,8 @@
 class Icon : public KIcon
 {
 public:
-	Icon(const QString &iconName) : KIcon(iconName) {}
-	Icon(const QIcon &copy) : KIcon(copy) {}
+	explicit Icon(const QString &iconName) : KIcon(iconName) {}
+	explicit Icon(const QIcon &copy) : KIcon(copy) {}
 	Icon() : KIcon() {}
 };
 #else
@@ -36,11 +36,11 @@ class Icon : public QIcon
 {
 public:
 #ifdef KTIKZ_USE_DESKTOP_ICONS
-	Icon(const QString &iconName) : QIcon(QIcon::fromTheme(iconName, QIcon(QLatin1String(":/icons/") + iconName + QLatin1String(".png")))) {}
+	explicit Icon(const QString &iconName) : QIcon(QIcon::fromTheme(iconName, QIcon(QLatin1String(":/icons/") + iconName + QLatin1String(".png")))) {}
 #else
-	Icon(const QString &iconName) : QIcon(QLatin1String(":/icons/") + iconName + QLatin1String(".png")) {} // faster than the above
+	explicit Icon(const QString &iconName) : QIcon(QLatin1String(":/icons/") + iconName + QLatin1String(".png")) {} // faster than the above
 #endif
-	Icon(const QIcon &copy) : QIcon(copy) {}
+	explicit Icon(const QIcon &copy) : QIcon(copy) {}
 	Icon() : QIcon() {}
 };
 #endif

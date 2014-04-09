@@ -26,7 +26,7 @@ class ComboBox : public KComboBox
 {
 	Q_OBJECT
 public:
-	ComboBox(QWidget *parent = 0);
+	explicit ComboBox(QWidget *parent = 0);
 };
 #else
 #include <QtCore/QtGlobal>
@@ -42,7 +42,7 @@ class ComboBox : public QComboBox
 {
 	Q_OBJECT
 public:
-	ComboBox(QWidget *parent = 0);
+	explicit ComboBox(QWidget *parent = 0);
 	void setCompletionObject(UrlCompletion *urlCompletion);
 };
 #endif

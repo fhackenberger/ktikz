@@ -33,7 +33,7 @@ class LogTextEdit : public QTextEdit
 	Q_OBJECT
 
 public:
-	LogTextEdit(QWidget *parent = 0);
+	explicit LogTextEdit(QWidget *parent = 0);
 	~LogTextEdit();
 	virtual QSize sizeHint() const;
 

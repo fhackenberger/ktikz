@@ -291,7 +291,7 @@ void MainWindow::readProperties(const KConfigGroup &group)
 {
 	const KUrl url(group.readPathEntry(QLatin1String("CurrentUrl"), QString()));
 	if (url.isValid() && !url.isEmpty())
-		loadUrl(url);
+		loadUrl(Url(url));
 }
 
 void MainWindow::saveProperties(KConfigGroup &group)

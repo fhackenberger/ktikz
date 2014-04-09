@@ -63,14 +63,13 @@ ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent)
 
 void ConfigAppearanceWidget::readSettings(const QString &settingsGroup)
 {
-	int num;
 	QSettings settings;
 	settings.beginGroup(settingsGroup);
 	m_custom = settings.value(QLatin1String("Customize"), true).toBool();
 	const int numOfRules = settings.value(QLatin1String("Number"), 0).toInt();
 	for (int i = 0; i < numOfRules; ++i)
 	{
-		num = m_typeNames.indexOf(settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Name")).toString());
+		const int num = m_typeNames.indexOf(settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Name")).toString());
 		if (num >= 0)
 		{
 			m_itemColors[num] = settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Color")).toString();
@@ -247,13 +246,14 @@ void ConfigAppearanceWidget::setDefaultTextCharFormats(const QMap<QString, QText
 	}
 
 	QMap<QString, QTextCharFormat>::const_iterator it = defaultFormatList.constBegin();
-	int num;
 	while (it != defaultFormatList.constEnd())
 	{
-		num = m_typeNames.indexOf(it.key());
-		if (num < 0) continue;
-		m_itemColors[num] = it.value().foreground().color().name();
-		m_itemFonts[num] = it.value().font().toString();
+		const int num = m_typeNames.indexOf(it.key());
+		if (num >= 0)
+		{
+			m_itemColors[num] = it.value().foreground().color().name();
+			m_itemFonts[num] = it.value().font().toString();
+		}
 		++it;
 	}
 }

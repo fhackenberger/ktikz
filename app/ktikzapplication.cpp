@@ -48,7 +48,7 @@ void KtikzApplication::init()
 	{
 		url = args->url(i);
 		if (url.isValid() && url.isLocalFile())
-			mainWindow->loadUrl(url);
+			mainWindow->loadUrl(Url(url));
 	}
 	args->clear();
 }
@@ -89,7 +89,7 @@ void KtikzApplication::init()
 			mainWindow->show();
 			if (!fileName.isEmpty())
 			{
-				mainWindow->loadUrl(QUrl(fileName));
+				mainWindow->loadUrl(Url(fileName));
 				mainWindow->setLineNumber(lineNumber);
 			}
 		}
@@ -105,7 +105,7 @@ void KtikzApplication::init()
 
 	QStringList args = arguments();
 	for (int i = 1; i < args.size(); ++i)
-		mainWindow->loadUrl(QUrl(QFileInfo(args.at(i)).absoluteFilePath()));
+		mainWindow->loadUrl(Url(QFileInfo(args.at(i)).absoluteFilePath()));
 }
 
 QString KtikzApplication::applicationName()

@@ -45,7 +45,7 @@ class TikzEditorView : public QWidget
 	Q_OBJECT
 
 public:
-	TikzEditorView(QWidget *parent = 0);
+	explicit TikzEditorView(QWidget *parent = 0);
 	virtual ~TikzEditorView();
 
 	QPlainTextEdit *editor();

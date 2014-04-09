@@ -29,7 +29,7 @@ class UserCommandInserter : public QObject
 	Q_OBJECT
 
 public:
-	UserCommandInserter(QWidget *parent = 0);
+	explicit UserCommandInserter(QWidget *parent = 0);
 
 	void readSettings();
 	QMenu *getMenu();

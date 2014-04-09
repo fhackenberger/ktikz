@@ -33,7 +33,7 @@ class PartConfigDialog : public KDialog
 	Q_OBJECT
 
 public:
-	PartConfigDialog(QWidget *parent);
+	explicit PartConfigDialog(QWidget *parent);
 	~PartConfigDialog();
 
 	void readSettings();

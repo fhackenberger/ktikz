@@ -21,12 +21,12 @@
 #ifdef KTIKZ_USE_KDE
 Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
 {
-	return KFileDialog::getOpenUrl(dir, filter, parent, caption);
+	return Url(KFileDialog::getOpenUrl(dir, filter, parent, caption));
 }
 
 Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
 {
-	return KFileDialog::getSaveUrl(dir, filter, parent, caption, KFileDialog::ConfirmOverwrite);
+	return Url(KFileDialog::getSaveUrl(dir, filter, parent, caption, KFileDialog::ConfirmOverwrite));
 }
 #else
 #include <QtCore/QCoreApplication>

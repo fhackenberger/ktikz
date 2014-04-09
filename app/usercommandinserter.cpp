@@ -33,8 +33,8 @@ static const QString s_completionPlaceHolder(0x2022);
 
 UserCommandInserter::UserCommandInserter(QWidget *parent)
 	: QObject(parent)
+	, m_userMenu(0)
 {
-	m_userMenu = 0;
 	readSettings();
 }
 
@@ -58,7 +58,8 @@ void UserCommandInserter::readSettings()
 
 QMenu *UserCommandInserter::getMenu()
 {
-	m_userMenu = new QMenu(tr("&User snippets"), qobject_cast<QWidget*>(parent()));
+	if (!m_userMenu)
+		m_userMenu = new QMenu(tr("&User snippets"), qobject_cast<QWidget*>(parent()));
 	updateMenu();
 	return m_userMenu;
 }
@@ -67,20 +68,17 @@ void UserCommandInserter::updateMenu()
 {
 	m_userMenu->clear();
 
-	QAction *action;
 	for (int i = 0; i < m_names.size(); ++i)
 	{
-		action = new QAction(m_names.at(i), m_userMenu);
+		QAction *action = m_userMenu->addAction(m_names.at(i));
 		action->setData(i);
 		connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));
-		m_userMenu->addAction(action);
 	}
 
 	m_userMenu->addSeparator();
 
-	action = new QAction(tr("&Edit user commands"), m_userMenu);
+	QAction *action = m_userMenu->addAction(tr("&Edit user commands"));
 	connect(action, SIGNAL(triggered()), this, SLOT(editCommands()));
-	m_userMenu->addAction(action);
 }
 
 /*

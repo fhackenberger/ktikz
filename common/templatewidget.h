@@ -28,7 +28,7 @@ class TemplateWidget : public QWidget
 	Q_OBJECT
 
 public:
-	TemplateWidget(QWidget *parent = 0);
+	explicit TemplateWidget(QWidget *parent = 0);
 	~TemplateWidget();
 	QWidget *lastTabOrderWidget();
 	void setFileName(const QString &fileName);

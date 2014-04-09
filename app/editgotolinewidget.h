@@ -26,7 +26,7 @@ class GoToLineWidget : public QWidget
 	Q_OBJECT
 
 public:
-	GoToLineWidget(QWidget *parent = 0);
+	explicit GoToLineWidget(QWidget *parent = 0);
 	~GoToLineWidget();
 	void setMaximumValue(int maximumValue);
 	void setValue(int value);

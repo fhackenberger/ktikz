@@ -35,7 +35,7 @@ class ConfigAppearanceWidget : public QWidget
 	Q_OBJECT
 
 public:
-	ConfigAppearanceWidget(QWidget *parent = 0);
+	explicit ConfigAppearanceWidget(QWidget *parent = 0);
 
 	void readSettings(const QString &settingsGroup);
 	void writeSettings(const QString &settingsGroup);

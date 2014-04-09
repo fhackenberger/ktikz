@@ -28,18 +28,16 @@ QWidget *File::s_mainWidget;
 QString File::s_tempDir;
 
 File::File(const QString &fileName, const OpenMode &mode)
+	: m_openMode(mode)
+	, m_url(fileName)
 {
-	m_openMode = mode;
-	m_url = Url(fileName);
-
 	load();
 }
 
 File::File(const Url &url, const OpenMode &mode)
+	: m_openMode(mode)
+	, m_url(url)
 {
-	m_openMode = mode;
-	m_url = url;
-
 	load();
 }
 

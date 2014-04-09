@@ -25,7 +25,7 @@
 class UrlCompletion : public KUrlCompletion
 {
 public:
-	UrlCompletion(QObject *parent = 0) : KUrlCompletion()
+	explicit UrlCompletion(QObject *parent = 0) : KUrlCompletion()
 	{
 		Q_UNUSED(parent);
 	}
@@ -42,7 +42,7 @@ public:
 class UrlCompletion : public QCompleter
 {
 public:
-	UrlCompletion(QObject *parent = 0) : QCompleter(parent)
+	explicit UrlCompletion(QObject *parent = 0) : QCompleter(parent)
 	{
 		QFileSystemModel *fileSystemModel = new QFileSystemModel(this);
 		fileSystemModel->setRootPath(QDir::rootPath()); // slow
