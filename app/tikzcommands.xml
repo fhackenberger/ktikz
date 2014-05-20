@@ -21,7 +21,7 @@ For ease of maintenance of this file, the structure of Part III of the manual is
 		<item name="&amp;Close TikZ picture environment" description="\\end{tikzpicture}" insert="\\end{tikzpicture}" type="0"/>
 		<section title="Pict&amp;ures">
 			<separator/>
-			<item name="&amp;Set baseline" description="baseline=&lt;dimension/coordinate&gt;" insert="baseline=&#8226;" type="3"/>
+			<item name="&amp;Set baseline" description="baseline=&lt;coordinate/dimension&gt;" insert="baseline=&#8226;" type="3"/>
 			<separator/>
 			<item name="Install code to be executed at &amp;begin of picture" description="execute at begin picture=&lt;code&gt;" insert="execute at begin picture=&#8226;" type="3"/>
 			<item name="Install code to be executed at &amp;end of picture" description="execute at end picture=&lt;code&gt;" insert="execute at end picture=&#8226;" type="3"/>
@@ -41,7 +41,7 @@ For ease of maintenance of this file, the structure of Part III of the manual is
 		</section>
 		<section title="&amp;Options">
 			<item name="Set &amp;definition" description="\\tikzset{&lt;variable&gt;=&lt;value&gt;}" insert="\\tikzset{&#8226;=&#8226;}" type="1"/>
-			<item name="Define c&amp;olor" description="\\colorlet{&lt;name&gt;}{&lt;value&gt;}" insert="\colorlet{&#8226;}{&#8226;}" type="1"/>
+			<item name="Define c&amp;olor" description="\\colorlet{&lt;name&gt;}{&lt;value&gt;}" insert="\\colorlet{&#8226;}{&#8226;}" type="1"/>
 			<separator/>
 			<item name="Define s&amp;tyle" description="\\tikzstyle{&lt;name&gt;}=[&lt;options&gt;]" insert="\\tikzstyle{&#8226;}=[&#8226;]" type="1"/>
 			<item name="Add to st&amp;yle" description="\\tikzstyle{&lt;name&gt;}+=[&lt;options&gt;]" insert="\\tikzstyle{&#8226;}+=[&#8226;]" type="1"/>
@@ -341,7 +341,7 @@ For ease of maintenance of this file, the structure of Part III of the manual is
 		<!-- 15.7 -->
 		<section title="&amp;Bounding box">
 			<item name="Define &amp;bounding box for picture" description="\\useasboundingbox" insert="\\useasboundingbox ;" type="1"/>
-			<item name="Define as bounding box (as o&amp;ption)" description="use as bounding box" insert="use as bounding box ;" type="3"/>
+			<item name="Define as bounding box (as o&amp;ption)" description="use as bounding box" insert="use as bounding box" type="3"/>
 			<item name="Exclude everything to the &amp;left of a coordinate" description="trim left=&lt;coordinate/dimension&gt;" insert="trim left=&#8226;" type="3"/>
 			<item name="Exclude everything to the &amp;right of a coordinate" description="trim right=&lt;coordinate/dimension&gt;" insert="trim right=&#8226;" type="3"/>
 		</section>
@@ -620,7 +620,7 @@ For ease of maintenance of this file, the structure of Part III of the manual is
 		</section>
 		<section title="&amp;Fadings">
 			<item name="&amp;Load fadings library" insert="\\usetikzlibrary{fadings}" type="1"/>
-			<item name="Fading picture &amp;environment" description="\\begin{tikzfadingfrompicture}[name=&lt;name&gt;]" insert="\\begin{tikzfadingfrompicture}[name=&#8226;]\n\n\\end{tikzpicture}" dx="0" dy="1" type="0"/>
+			<item name="Fading picture &amp;environment" description="\\begin{tikzfadingfrompicture}[name=&lt;name&gt;]" insert="\\begin{tikzfadingfrompicture}[name=&#8226;]\n\n\\end{tikzfadingfrompicture}" dx="0" dy="1" type="0"/>
 			<item name="&amp;Close fading picture environment" description="\\end{tikzfadingfrompicture}" insert="\\end{tikzfadingfrompicture}" type="0"/>
 			<item name="&amp;Define fading" description="\\tikzfading[&lt;options&gt;]" insert="\\tikzfading[&#8226;]" type="1"/>
 			<separator/>

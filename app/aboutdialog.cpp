@@ -40,7 +40,7 @@ AboutDialog::AboutDialog(QWidget *parent)
 	QLabel *label = new QLabel(QString(QLatin1String("<h1>%1 %2</h1><p>%3</p><p>%4</p>"))
 	                           .arg(KtikzApplication::applicationName())
 	                           .arg(QCoreApplication::applicationVersion())
-	                           .arg(tr("Copyright 2007-2012 Florian Hackenberger and Glad Deschrijver"))
+	                           .arg(tr("Copyright 2007-2014 Florian Hackenberger and Glad Deschrijver"))
 	                           .arg(tr("This is a program for creating TikZ (from the LaTeX pgf package) diagrams.")));
 	label->setWordWrap(true);
 

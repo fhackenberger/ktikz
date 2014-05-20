@@ -19,6 +19,13 @@
 #include "tikzcommandinserter.h"
 
 #include <QtCore/QFile>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtCore/QJsonArray>
+#include <QtCore/QJsonDocument>
+#include <QtCore/QJsonObject>
+#include <QtCore/QJsonParseError>
+#include <QtCore/QJsonValue>
+#endif
 #include <QtCore/QXmlStreamReader>
 #include <QtGui/QTextCursor>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
@@ -125,22 +132,16 @@ static TikzCommandList getChildCommands(QXmlStreamReader *xml, QList<TikzCommand
 
 	commandList.title = QApplication::translate("TikzCommandInserter", xml->attributes().value(QLatin1String("title")).toString().toLatin1().data());
 
-	QString name;
-	QString description;
-	QString insertion;
-	QString highlightString;
-	QString type;
-
 	while (xml->readNextStartElement())
 	{
 		if (xml->name() == QLatin1String("item"))
 		{
 			QXmlStreamAttributes xmlAttributes = xml->attributes();
-			name = QApplication::translate("TikzCommandInserter", xmlAttributes.value(QLatin1String("name")).toString().toLatin1().data());
-			description = xmlAttributes.value(QLatin1String("description")).toString();
-			insertion = xmlAttributes.value(QLatin1String("insert")).toString();
-			highlightString = xmlAttributes.value(QLatin1String("highlight")).toString();
-			type = xmlAttributes.value(QLatin1String("type")).toString();
+			QString name = QApplication::translate("TikzCommandInserter", xmlAttributes.value(QLatin1String("name")).toString().toLatin1().data());
+			QString description = xmlAttributes.value(QLatin1String("description")).toString();
+			QString insertion = xmlAttributes.value(QLatin1String("insert")).toString();
+			QString highlightString = xmlAttributes.value(QLatin1String("highlight")).toString();
+			QString type = xmlAttributes.value(QLatin1String("type")).toString();
 
 			// currently description contains no newlines, otherwise add code to replace all "\n" not preceded by a backslash (as in "\\node") by a newline character
 			description.replace(QLatin1String("\\\\"), QLatin1String("\\"));
@@ -204,29 +205,147 @@ static TikzCommandList getCommands(QXmlStreamReader *xml, QList<TikzCommand> *ti
 	return commandList;
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+static TikzCommandList loadChildCommandsJson(QJsonObject sectionObject, QList<TikzCommand> *tikzCommandsList)
+{
+	TikzCommandList commandList;
+	QList<TikzCommand> commands;
+
+	if (sectionObject.contains(QLatin1String("title")))
+		commandList.title = QCoreApplication::translate("TikzCommandInserter", sectionObject.value(QLatin1String("title")).toString().toLatin1().data());
+
+	if (sectionObject.contains(QLatin1String("commands")))
+	{
+		QJsonValue commandsArrayObject = sectionObject.value(QLatin1String("commands"));
+		if (commandsArrayObject.isArray())
+		{
+			QJsonArray commandsArray = commandsArrayObject.toArray();
+			for (int i = 0; i < commandsArray.size(); ++i)
+			{
+				if (!commandsArray.at(i).isObject())
+					continue;
+				QJsonObject commandObject = commandsArray.at(i).toObject();
+				const int type = commandObject.value(QLatin1String("type")).toInt();
+				if (commandObject.contains(QLatin1String("commands")))
+				{
+					commands << newCommand(QString(), QString(), QString(), QString(), 0, 0, -1); // the i-th command with type == -1 corresponds to the i-th submenu (assumed in getMenu())
+					commandList.children << loadChildCommandsJson(commandObject, tikzCommandsList);
+				}
+				else if (type == -1)
+				{
+					commands << newCommand(QString(), QString(), QString(), QString(), 0, 0, 0);
+				}
+				else
+				{
+					QString name = QCoreApplication::translate("TikzCommandInserter", commandObject.value(QLatin1String("name")).toString().toLatin1().data());
+					QString description = commandObject.value(QLatin1String("description")).toString();
+					QString insertion = commandObject.value(QLatin1String("insert")).toString();
+					QString highlightString = commandObject.value(QLatin1String("highlight")).toString();
+
+					// currently description contains no newlines, otherwise add code to replace all "\n" not preceded by a backslash (as in "\\node") by a newline character
+					description.replace(QLatin1String("\\\\"), QLatin1String("\\"));
+					description = translateOptions(description);
+
+					insertion = restoreNewLines(insertion); // this must be done before the next line
+					insertion.replace(QLatin1String("\\\\"), QLatin1String("\\"));
+//					insertion.replace(QLatin1String("&#8226;"), QString(0x2022));
+
+					if (description.isEmpty()) // if both name and description are empty, setting the description first ensures that name is also set to insertion
+						description = insertion;
+					if (name.isEmpty())
+					{
+						name = description;
+						description.remove(QLatin1Char('&')); // we assume that if name.isEmpty() then an accelerator is defined in description
+					}
+
+					TikzCommand tikzCommand = newCommand(name, description, insertion, highlightString, commandObject.value(QLatin1String("dx")).toInt(), commandObject.value(QLatin1String("dy")).toInt(), type);
+					tikzCommand.number = tikzCommandsList->size();
+					tikzCommandsList->append(tikzCommand);
+					commands << tikzCommand;
+				}
+			}
+		}
+	}
+	commandList.commands = commands;
+
+	return commandList;
+}
+
+static TikzCommandList loadCommandsJson(const QString &fileName, QList<TikzCommand> *tikzCommandsList)
+{
+	TikzCommandList commandList;
+
+	QFile commandsFile(fileName);
+	if (!commandsFile.open(QIODevice::ReadOnly | QIODevice::Text))
+		return commandList;
+
+	QJsonParseError error;
+	QJsonDocument commandsDocument = QJsonDocument::fromJson(commandsFile.readAll(), &error);
+	if (error.error != QJsonParseError::NoError)
+	{
+		qCritical("Parse error in TikZ commands file %s at offset %d:\n%s", qPrintable(fileName), error.offset, qPrintable(error.errorString()));
+		return commandList;
+	}
+	if (commandsDocument.isObject())
+	{
+		QJsonObject sectionObject = commandsDocument.object();
+		commandList = loadChildCommandsJson(sectionObject, tikzCommandsList);
+	}
+	return commandList;
+}
+#endif // QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+
 void TikzCommandInserter::loadCommands()
 {
 	if (!m_tikzSections.commands.isEmpty())
 		return; // don't load the commands again when opening a second window
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	m_tikzSections = loadCommandsJson(QLatin1String(":/tikzcommands.json"), &m_tikzCommandsList);
+#else // QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	QXmlStreamReader xml;
 	m_tikzSections = getCommands(&xml, &m_tikzCommandsList);
+#endif // QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 }
 
 /***************************************************************************/
 
+static QString removeOptionsAndSpecialCharacters(const QString &text)
+{
+	bool isInOption = false;
+	for (int i = 0; i < text.length(); ++i)
+	{
+		if (isInOption)
+			continue;
+		QChar::Category cat = text.at(i).category();
+		if (cat == QChar::Letter_Lowercase || cat == QChar::Letter_Uppercase || text.at(i) == QLatin1Char('\\'))
+			return text.mid(i);
+		if (text.at(i) == QLatin1Char('<'))
+		{
+			isInOption = true;
+			continue;
+		}
+		else if (text.at(i) == QLatin1Char('>'))
+		{
+			isInOption = false;
+			continue;
+		}
+	}
+	return QString();
+}
+
 QStringList TikzCommandInserter::getCommandWords()
 {
 	QStringList words;
-	QString word;
 
-	QRegExp rx1(QLatin1String("^([^a-z\\\\<>]*<[^>]*>)*"));
-	QRegExp rx2(QLatin1String("^[^a-z\\\\]*"));
-	QString allowedLetters = QLatin1String("abcdefghijklmnopqrstuvwxyz\\");
+//	QRegExp rx1(QLatin1String("^([^a-z\\\\<>]*<[^>]*>)*"));
+//	QRegExp rx2(QLatin1String("^[^a-z\\\\]*"));
+//	QString allowedLetters = QLatin1String("abcdefghijklmnopqrstuvwxyz\\");
 	for (int i = 0; i < m_tikzCommandsList.size(); ++i)
 	{
-		word = m_tikzCommandsList.at(i).description;
+		QString word = m_tikzCommandsList.at(i).description;
 		// remove all special characters and <options> at the beginning of the word
+/*
 		if (!word.isEmpty() && !allowedLetters.contains(word.at(0))) // minimize the number of uses of QRegExp
 		{
 			word.remove(rx1);
@@ -246,6 +365,12 @@ QStringList TikzCommandInserter::getCommandWords()
 			if (!word.isEmpty())
 				words.append(word);
 		}
+*/
+		if (word.isEmpty())
+			word = m_tikzCommandsList.at(i).command;
+		word = removeOptionsAndSpecialCharacters(word);
+		if (!word.isEmpty())
+			words.append(word);
 	}
 
 	return words;
@@ -256,7 +381,7 @@ QStringList TikzCommandInserter::getCommandWords()
  */
 //@{
 
-void TikzCommandInserter::updateDescriptionMenuItem()
+void TikzCommandInserter::updateDescriptionToolTip()
 {
 	QAction *action = qobject_cast<QAction*>(sender());
 	if (action)
@@ -306,7 +431,7 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList, QWidget 
 			action->setData(commandList.commands.at(i).number); // link to the corresponding item in m_tikzCommandsList
 			action->setStatusTip(commandList.commands.at(i).description);
 			connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));
-			connect(action, SIGNAL(hovered()), this, SLOT(updateDescriptionMenuItem()));
+			connect(action, SIGNAL(hovered()), this, SLOT(updateDescriptionToolTip()));
 		}
 	}
 
@@ -547,7 +672,7 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
 
 	for (int i = 0; i < m_tikzCommandsList.size(); ++i)
 	{
-		QString command = m_tikzCommandsList.at(i).command;
+		QString command = m_tikzCommandsList.at(i).command.isEmpty() ? m_tikzCommandsList.at(i).description : m_tikzCommandsList.at(i).command;
 		const int type = m_tikzCommandsList.at(i).type;
 		int end;
 		rule.isRegExp = false;
@@ -618,7 +743,8 @@ void TikzCommandInserter::insertTag()
 		const int num = action->data().toInt();
 		const TikzCommand cmd = m_tikzCommandsList.at(num);
 		Q_EMIT showStatusMessage(cmd.description, 0);
-		insertTag(cmd.command, cmd.dx, cmd.dy);
+		const QString command = cmd.command.isEmpty() ? cmd.description : cmd.command;
+		insertTag(command, cmd.dx, cmd.dy);
 	}
 }
 
@@ -629,7 +755,8 @@ void TikzCommandInserter::insertTag(QListWidgetItem *item)
 		const int num = item->data(Qt::UserRole).toInt();
 		const TikzCommand cmd = m_tikzCommandsList.at(num);
 		Q_EMIT showStatusMessage(cmd.description, 0);
-		insertTag(cmd.command, cmd.dx, cmd.dy);
+		const QString command = cmd.command.isEmpty() ? cmd.description : cmd.command;
+		insertTag(command, cmd.dx, cmd.dy);
 	}
 }
 
@@ -650,11 +777,21 @@ void TikzCommandInserter::setEditor(QPlainTextEdit *textEdit)
 void TikzCommandInserter::insertTag(const QString &tag, int dx, int dy)
 {
 	Q_ASSERT_X(m_mainEdit, "TikzCommandInserter::insertTag(const QString &tag, int dx, int dy)", "m_mainEdit should be set using TikzCommandInserter::setEditor() before using this function");
+
 	QTextCursor cur = m_mainEdit->textCursor();
 	const int pos = cur.position();
-	m_mainEdit->insertPlainText(tag);
+
+	// replace all options (between <...>) by a place holder
+	QString insertWord = tag;
+	const QRegExp rx(QLatin1String("<[^<>]*>"));
+	insertWord.replace(rx, s_completionPlaceHolder);
+
+	// insert tag
+	m_mainEdit->insertPlainText(insertWord);
 	cur.setPosition(pos, QTextCursor::MoveAnchor);
-	if (tag.contains(s_completionPlaceHolder))
+
+	// move the text cursor to the first option or to the specified place
+	if (insertWord.contains(s_completionPlaceHolder))
 	{
 		cur = m_mainEdit->document()->find(s_completionPlaceHolder, cur);
 		m_mainEdit->setTextCursor(cur);

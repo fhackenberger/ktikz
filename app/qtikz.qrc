@@ -1,6 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
 	<file>tikzcommands.xml</file>
+	<file>tikzcommands.json</file>
 	<file>icons/qtikz-22.png</file>
 	<file>icons/qtikz-128.png</file>
 	<file>icons/document-edit.png</file>

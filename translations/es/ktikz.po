@@ -2,14 +2,13 @@
 # This file is distributed under the same license as the KtikZ package.
 #
 # Glad Deschrijver <glad.deschrijver@gmail.com>, 2009, 2010, 2011.
-# Glad Deschrijver <Glad.Deschrijver@UGent.be>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2011-11-16 23:24+0100\n"
+"POT-Creation-Date: 2014-04-10 12:06+0200\n"
 "PO-Revision-Date: 2011-11-07 23:21+0100\n"
-"Last-Translator: Glad Deschrijver <Glad.Deschrijver@UGent.be>\n"
+"Last-Translator: Glad Deschrijver <glad.deschrijver@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -18,40 +17,41 @@ msgstr ""
 "X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../app/main.cpp:134
+#: ../app/main.cpp:157
 msgid "KtikZ"
 msgstr "KtikZ"
 
-#: ../app/main.cpp:135
+#: ../app/main.cpp:158
 msgid "A TikZ Editor"
 msgstr "Un editor TikZ"
 
-#: ../app/main.cpp:137 ../part/part.cpp:126
-msgid "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
+#: ../app/main.cpp:160 ../part/part.cpp:126
+#, fuzzy
+msgid "Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"
 msgstr "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
 
-#: ../app/main.cpp:138
+#: ../app/main.cpp:161
 msgid ""
 "This is a program for creating TikZ (from the LaTeX pgf package) diagrams."
 msgstr "Este es un programa para crear diagramas TikZ (del paquete LaTeX pgf)."
 
-#: ../app/main.cpp:140 ../part/part.cpp:129
+#: ../app/main.cpp:163 ../part/part.cpp:129
 msgid "Florian Hackenberger"
 msgstr "Florian Hackenberger"
 
-#: ../app/main.cpp:140 ../part/part.cpp:129
+#: ../app/main.cpp:163 ../part/part.cpp:129
 msgid "Maintainer"
 msgstr "Encargado"
 
-#: ../app/main.cpp:141 ../part/part.cpp:130
+#: ../app/main.cpp:164 ../part/part.cpp:130
 msgid "Glad Deschrijver"
 msgstr "Glad Deschrijver"
 
-#: ../app/main.cpp:141 ../part/part.cpp:130
+#: ../app/main.cpp:164 ../part/part.cpp:130
 msgid "Developer"
 msgstr "Desarrollador"
 
-#: ../app/main.cpp:146
+#: ../app/main.cpp:169
 msgid "TikZ document to open"
 msgstr "Documento TikZ para abrir"
 
@@ -119,22 +119,22 @@ msgctxt "@title:window"
 msgid "File Read Error"
 msgstr "Error de lectura de archivo"
 
-#: ../part/part.cpp:199
+#: ../part/part.cpp:198
 msgctxt "@item:inlistbox filter"
 msgid "TikZ files"
 msgstr "Archivos TikZ"
 
-#: ../part/part.cpp:201
+#: ../part/part.cpp:200
 msgctxt "@item:inlistbox filter"
 msgid "All files"
 msgstr "Todos los archivos"
 
-#: ../part/part.cpp:202
+#: ../part/part.cpp:201
 msgctxt "@title:window"
 msgid "Save TikZ Source File As"
 msgstr "Guardar fichero de fuente TikZ como"
 
-#: ../part/part.cpp:287
+#: ../part/part.cpp:286
 msgctxt "@info:status"
 msgid "Reloading the document..."
 msgstr "Recargando el documento..."

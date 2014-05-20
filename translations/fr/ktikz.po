@@ -1,58 +1,57 @@
 # Copyright (C) 2007-2011 Florian Hackenberger, Glad Deschrijver
 # This file is distributed under the same license as the KtikZ package.
 #
-# Glad Deschrijver <glad.deschrijver@gmail.com>, 2009, 2010, 2011.
-# Glad Deschrijver <Glad.Deschrijver@UGent.be>, 2011.
+# Glad Deschrijver <glad.deschrijver@gmail.com>, 2009, 2010, 2011, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2011-11-16 23:24+0100\n"
-"PO-Revision-Date: 2011-11-07 23:07+0100\n"
-"Last-Translator: Glad Deschrijver <Glad.Deschrijver@UGent.be>\n"
+"POT-Creation-Date: 2014-04-10 12:06+0200\n"
+"PO-Revision-Date: 2014-04-10 12:02+0200\n"
+"Last-Translator: Glad Deschrijver <glad.deschrijver@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../app/main.cpp:134
+#: ../app/main.cpp:157
 msgid "KtikZ"
 msgstr "KtikZ"
 
-#: ../app/main.cpp:135
+#: ../app/main.cpp:158
 msgid "A TikZ Editor"
 msgstr "Un éditeur TikZ"
 
-#: ../app/main.cpp:137 ../part/part.cpp:126
-msgid "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
-msgstr "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
+#: ../app/main.cpp:160 ../part/part.cpp:126
+msgid "Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"
+msgstr "Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"
 
-#: ../app/main.cpp:138
+#: ../app/main.cpp:161
 msgid ""
 "This is a program for creating TikZ (from the LaTeX pgf package) diagrams."
 msgstr ""
 "Ceci est un programme pour créer des diagrammes TikZ (du paquet LaTeX pgf)."
 
-#: ../app/main.cpp:140 ../part/part.cpp:129
+#: ../app/main.cpp:163 ../part/part.cpp:129
 msgid "Florian Hackenberger"
 msgstr "Florian Hackenberger"
 
-#: ../app/main.cpp:140 ../part/part.cpp:129
+#: ../app/main.cpp:163 ../part/part.cpp:129
 msgid "Maintainer"
 msgstr "Mainteneur"
 
-#: ../app/main.cpp:141 ../part/part.cpp:130
+#: ../app/main.cpp:164 ../part/part.cpp:130
 msgid "Glad Deschrijver"
 msgstr "Glad Deschrijver"
 
-#: ../app/main.cpp:141 ../part/part.cpp:130
+#: ../app/main.cpp:164 ../part/part.cpp:130
 msgid "Developer"
 msgstr "Développeur"
 
-#: ../app/main.cpp:146
+#: ../app/main.cpp:169
 msgid "TikZ document to open"
 msgstr "Document TikZ à ouvrir"
 
@@ -120,22 +119,22 @@ msgctxt "@title:window"
 msgid "File Read Error"
 msgstr "Erreur de lecture du fichier"
 
-#: ../part/part.cpp:199
+#: ../part/part.cpp:198
 msgctxt "@item:inlistbox filter"
 msgid "TikZ files"
 msgstr "Fichiers TikZ"
 
-#: ../part/part.cpp:201
+#: ../part/part.cpp:200
 msgctxt "@item:inlistbox filter"
 msgid "All files"
 msgstr "Tous les fichiers"
 
-#: ../part/part.cpp:202
+#: ../part/part.cpp:201
 msgctxt "@title:window"
 msgid "Save TikZ Source File As"
 msgstr "Enregistrer fichier source TikZ sous"
 
-#: ../part/part.cpp:287
+#: ../part/part.cpp:286
 msgctxt "@info:status"
 msgid "Reloading the document..."
 msgstr "Rechargeant le document..."
@@ -319,7 +318,8 @@ msgstr ""
 #. i18n: ectx: label, entry, group (General Options)
 #: rc.cpp:72
 msgid "The path to the editor command used for editing templates."
-msgstr "Le chemin d'accès du fichier exécutable de pdftops."
+msgstr ""
+"Le chemin d'accès de l'éditeur utilisé pour éditer les fichiers de base."
 
 #. i18n: file: ../common/ktikz.kcfg:55
 #. i18n: ectx: label, entry, group (Editor)
@@ -367,7 +367,7 @@ msgstr "La couleur utilisée pour illuminer les parenthèses correspondantes."
 #. i18n: ectx: label, entry, group (Editor)
 #: rc.cpp:96
 msgid "Whether to use TikZ code completion."
-msgstr "Utiliser complètement des commandes."
+msgstr "Utiliser complètement des commandes TikZ."
 
 #. i18n: file: ../common/ktikz.kcfg:93
 #. i18n: ectx: label, entry, group (Highlighting)
@@ -438,8 +438,8 @@ msgid ""
 "<para>Enter the text which will be replaced by the TikZ code in the template "
 "here.</para>"
 msgstr ""
-"Le texte dans le fichier de base qui est remplacé par le code TikZ avant de "
-"compiler."
+"<para>Introduisez le texte qui est remplacé dans le fichier de base par le "
+"code TikZ.</para>"
 
 #. i18n: file: ../part/configgeneralwidget.ui:76
 #. i18n: ectx: property (text), widget (QLabel, replaceLabel)

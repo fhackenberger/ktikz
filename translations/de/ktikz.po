@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: http://www.hackenberger.at/\n"
-"POT-Creation-Date: 2011-11-16 23:24+0100\n"
+"POT-Creation-Date: 2014-04-10 12:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,40 +15,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../app/main.cpp:134
+#: ../app/main.cpp:157
 msgid "KtikZ"
 msgstr ""
 
-#: ../app/main.cpp:135
+#: ../app/main.cpp:158
 msgid "A TikZ Editor"
 msgstr ""
 
-#: ../app/main.cpp:137 ../part/part.cpp:126
-msgid "Copyright 2007-2011 Florian Hackenberger, Glad Deschrijver"
+#: ../app/main.cpp:160 ../part/part.cpp:126
+msgid "Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"
 msgstr ""
 
-#: ../app/main.cpp:138
+#: ../app/main.cpp:161
 msgid ""
 "This is a program for creating TikZ (from the LaTeX pgf package) diagrams."
 msgstr ""
 
-#: ../app/main.cpp:140 ../part/part.cpp:129
+#: ../app/main.cpp:163 ../part/part.cpp:129
 msgid "Florian Hackenberger"
 msgstr ""
 
-#: ../app/main.cpp:140 ../part/part.cpp:129
+#: ../app/main.cpp:163 ../part/part.cpp:129
 msgid "Maintainer"
 msgstr ""
 
-#: ../app/main.cpp:141 ../part/part.cpp:130
+#: ../app/main.cpp:164 ../part/part.cpp:130
 msgid "Glad Deschrijver"
 msgstr ""
 
-#: ../app/main.cpp:141 ../part/part.cpp:130
+#: ../app/main.cpp:164 ../part/part.cpp:130
 msgid "Developer"
 msgstr ""
 
-#: ../app/main.cpp:146
+#: ../app/main.cpp:169
 msgid "TikZ document to open"
 msgstr ""
 
@@ -111,22 +111,22 @@ msgctxt "@title:window"
 msgid "File Read Error"
 msgstr ""
 
-#: ../part/part.cpp:199
+#: ../part/part.cpp:198
 msgctxt "@item:inlistbox filter"
 msgid "TikZ files"
 msgstr ""
 
-#: ../part/part.cpp:201
+#: ../part/part.cpp:200
 msgctxt "@item:inlistbox filter"
 msgid "All files"
 msgstr ""
 
-#: ../part/part.cpp:202
+#: ../part/part.cpp:201
 msgctxt "@title:window"
 msgid "Save TikZ Source File As"
 msgstr ""
 
-#: ../part/part.cpp:287
+#: ../part/part.cpp:286
 msgctxt "@info:status"
 msgid "Reloading the document..."
 msgstr ""

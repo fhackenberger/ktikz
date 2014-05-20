@@ -83,7 +83,7 @@ Q_SIGNALS:
 	void showStatusMessage(const QString &message, int timeout = 0);
 
 private Q_SLOTS:
-	void updateDescriptionMenuItem();
+	void updateDescriptionToolTip();
 	void setListStatusTip(QListWidgetItem *item);
 	void insertTag();
 	void insertTag(QListWidgetItem *item);

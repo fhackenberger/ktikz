@@ -1069,9 +1069,11 @@ QString MainWindow::tikzCode() const
 
 void MainWindow::updateCompleter()
 {
+//QTime t = QTime::currentTime();
 	QStringList words = m_commandInserter->getCommandWords();
 	words << m_userCommandInserter->getCommandWords();
 	words.sort();
 	words.removeDuplicates();
 	m_tikzEditorView->updateCompleter(m_useCompletion, words);
+//qCritical() << "updateCompleter" << t.msecsTo(QTime::currentTime());
 }

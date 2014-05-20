@@ -157,7 +157,7 @@ int main(int argc, char **argv)
 	KAboutData aboutData("ktikz", "ktikz", ki18n("KtikZ"), APPVERSION);
 	aboutData.setShortDescription(ki18n("A TikZ Editor"));
 	aboutData.setLicense(KAboutData::License_GPL_V2);
-	aboutData.setCopyrightStatement(ki18n("Copyright 2007-2012 Florian Hackenberger, Glad Deschrijver"));
+	aboutData.setCopyrightStatement(ki18n("Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"));
 	aboutData.setOtherText(ki18n("This is a program for creating TikZ (from the LaTeX pgf package) diagrams."));
 	aboutData.setBugAddress("florian@hackenberger.at");
 	aboutData.addAuthor(ki18n("Florian Hackenberger"), ki18n("Maintainer"), "florian@hackenberger.at");
