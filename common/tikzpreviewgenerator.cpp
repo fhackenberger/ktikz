@@ -29,6 +29,7 @@
 #include <QtCore/QTextStream>
 #include <QtGui/QPixmap>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtCore/QStandardPaths>
 #include <QtWidgets/QPlainTextEdit>
 #include <poppler-qt5.h>
 #else
@@ -54,7 +55,9 @@ TikzPreviewGenerator::TikzPreviewGenerator(TikzPreviewController *parent)
 	, m_firstRun(true)
 	, m_templateChanged(true) // is set correctly in generatePreviewImpl()
 	, m_useShellEscaping(false) // is set in setShellEscaping() at startup
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 	, m_checkGnuplotExecutable(0)
+#endif // QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 {
 	qRegisterMetaType<TemplateStatus>("TemplateStatus"); // needed for Q_ARG below
 
@@ -105,14 +108,23 @@ void TikzPreviewGenerator::setShellEscaping(bool useShellEscaping)
 
 	if (useShellEscaping)
 	{
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		QString gnuplotPath = QStandardPaths::findExecutable(QLatin1String("gnuplot")); // search in system path
+		if (gnuplotPath.isEmpty() || !QFileInfo(gnuplotPath).isExecutable()) // not found
+			Q_EMIT showErrorMessage(tr("Gnuplot cannot be executed.  Either Gnuplot is not installed "
+			                           "or it is not available in the system PATH or you may have insufficient "
+			                           "permissions to invoke the program."));
+#else // QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 		m_checkGnuplotExecutable = new QProcess;
 		m_checkGnuplotExecutable->start(QLatin1String("gnuplot"), QStringList() << QLatin1String("--version"));
 //		m_checkGnuplotExecutable->moveToThread(&m_thread);
 		connect(m_checkGnuplotExecutable, SIGNAL(error(QProcess::ProcessError)), this, SLOT(displayGnuplotNotExecutable()));
 		connect(m_checkGnuplotExecutable, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(checkGnuplotExecutableFinished(int,QProcess::ExitStatus)));
+#endif // QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	}
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 void TikzPreviewGenerator::displayGnuplotNotExecutable()
 {
 	Q_EMIT showErrorMessage(tr("Gnuplot cannot be executed.  Either Gnuplot is not installed "
@@ -131,6 +143,7 @@ void TikzPreviewGenerator::checkGnuplotExecutableFinished(int exitCode, QProcess
 	m_checkGnuplotExecutable->deleteLater();
 //	m_checkGnuplotExecutable = 0;
 }
+#endif // QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 
 void TikzPreviewGenerator::setTemplateFile(const QString &fileName)
 {

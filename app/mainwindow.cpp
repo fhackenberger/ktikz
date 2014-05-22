@@ -871,15 +871,16 @@ void MainWindow::readSettings()
 	restoreState(settings.value(QLatin1String("MainWindowState")).toByteArray());
 	settings.endGroup();
 
+	// none of the problems below seem to persist in May 2014
 	// still do the following (see applySettings()) here in order to avoid flicker in the toolbar
-	settings.beginGroup(QLatin1String("Preview"));
-	m_buildAutomatically = settings.value(QLatin1String("BuildAutomatically"), true).toBool();
-	m_buildAction->setVisible(!m_buildAutomatically);
-	settings.endGroup();
+//	settings.beginGroup(QLatin1String("Preview"));
+//	m_buildAutomatically = settings.value(QLatin1String("BuildAutomatically"), true).toBool();
+//	m_buildAction->setVisible(!m_buildAutomatically);
+//	settings.endGroup();
 	// still do the following here in order to avoid a crash when a file is opened in a new window
-	m_openRecentAction->createRecentFilesList();
+//	m_openRecentAction->createRecentFilesList();
 	// still do this here, otherwise the compilation fails when a file is loaded in a new window
-	m_tikzPreviewController->applySettings();
+//	m_tikzPreviewController->applySettings();
 }
 
 void MainWindow::writeSettings()

@@ -172,6 +172,8 @@ void TikzPreview::paintEvent(QPaintEvent *event)
 		setSceneRect(m_tikzScene->itemsBoundingRect()); // make sure that the scroll area is not bigger than the actual image
 		m_hasZoomed = false;
 	}
+	if (m_infoWidget && m_infoWidget->isVisible()) // make sure that if the error that Gnuplot is not found is shown at startup, then it is shown in the center of the view; this does not happen automatically because the error is generated before the main window becomes visible
+		centerInfoLabel();
 
 	QGraphicsView::paintEvent(event);
 }
