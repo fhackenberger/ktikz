@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+\draw node[draw=orange] (minus){$-$};
+\draw (minus) +(2,3) node[draw,circle,text width=0.8cm,after node path={(\tikzlastnode) ++(-0.3,0) sin +(0.15,0.15) cos +(0.15,-0.15) sin +(0.15,-0.15) cos +(0.15,0.15)}](osci0){};
+\draw (minus) +(2,1.5) node[draw,circle,text width=0.8cm,after node path={(\tikzlastnode) ++(-0.3,0) sin +(0.15,0.15) cos +(0.15,-0.15) sin +(0.15,-0.15) cos +(0.15,0.15)}](osci1){};
+\draw (minus) +(2,0) node[draw,circle,text width=0.8cm,after node path={(\tikzlastnode) ++(-0.3,0) sin +(0.15,0.15) cos +(0.15,-0.15) sin +(0.15,-0.15) cos +(0.15,0.15)}](osci2){};
+\draw (minus) +(2,-2) node[draw,circle,text width=0.8cm,after node path={(\tikzlastnode) ++(-0.3,0) sin +(0.15,0.15) cos +(0.15,-0.15) sin +(0.15,-0.15) cos +(0.15,0.15)}](osciN){};
+\draw (minus) +(7,0) node[draw=orange](sum){$\sum \alpha_i\cos(\phi_i)$};
+\draw (minus) +(2,-0.9) node(point){.};
+\draw (minus) +(2,-1) node(point2){.};
+\draw (minus) +(2,-1.1) node(point3){.};
+
+\path[draw=orange,arrows=-latex] (minus) edge [curve to,bend left=10] (osci0.west);
+\path[draw=orange,arrows=-latex] (minus) edge [curve to,bend left=10] (osci1.west);
+\path[draw=orange,arrows=-latex] (minus) edge (osci2.west);
+\path[draw=orange,arrows=-latex] (minus) edge [curve to,bend right=10] (osciN.west);
+
+\path[draw=orange,arrows=-latex] (osci0.east) to [curve to,bend left=10] node[above,sloped] {$\alpha_0\cos\phi_0$} (sum.160);
+\path[draw=orange,arrows=-latex] (osci1.east) to [curve to,bend left=10] node[below,sloped] {} (sum.170);
+\path[draw=orange,arrows=-latex] (osci2.east) to node[below,sloped] {} (sum);
+\path[draw=orange,arrows=-latex] (osciN.east) to [curve to,bend right=10] node[below,sloped] {$\alpha_N\cos\phi_N$} (sum.200);
+
+\path[draw=orange,arrows=-latex] (osci0.east) to [curve to,bend left=30] node[] {} (osci1.east);
+\path[draw=orange,arrows=-latex] (osci0.east) to [curve to,bend left=30] node[] {} (osci2.east);
+\path[draw=orange,arrows=-latex] (osci0.east) to [curve to,bend left=30] node[right] {$\tau P_N$} (osciN.east);
+
+\path[draw=orange,arrows=-latex] (sum) to node[above] {$Q_{learned}(t)$} (11,0);
+\path[draw=orange,arrows=-latex] (9.5,0) -- +(0,-3.5) -- (0,-3.5) -- (minus.south);
+
+\path[draw=orange,arrows=-latex] (-2,0) to node[above] {$P_{teach}(t)$} (minus);
+\end{tikzpicture}
