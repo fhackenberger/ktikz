@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2013 First Lastname <your@email.com> -->
+<component type="desktop">
+ <id>ktikz.desktop</id>
+ <metadata_license>CC0-1.0</metadata_license>
+ <project_license>GPL-2.0</project_license>
+ <name>KtikZ</name>
+ <summary>Editor for the TikZ language</summary>
+ <description>
+  <p>
+   KtikZ is a small application helping you to create TikZ (from the LaTeX
+   pgf package) diagrams for your publications.
+  </p>
+ </description>
+ <screenshots>
+  <screenshot type="default">
+   <image>https://github.com/fhackenberger/ktikz/raw/master/screenshot_v0.10.png</image>
+   <caption>The main window showing the application in action</caption>
+  </screenshot>
+  <screenshot>
+   <image>https://github.com/fhackenberger/ktikz/raw/master/screenshot_v0.10_2.png</image>
+   <caption>Another example file</caption>
+  </screenshot>
+ </screenshots>
+ <url type="homepage">https://github.com/fhackenberger/ktikz</url>
+</component>
