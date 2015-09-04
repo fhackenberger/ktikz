@@ -1,7 +1,10 @@
-KtikZ is a program for making pictures using TikZ.
+---
+title: KtikZ
+description: KtikZ is a program for making pictures using TikZ.
 
-Usage
------
+---
+
+# Usage
 
 You write the TikZ code in the editor and KtikZ automatically generates the
 image in a preview panel.
@@ -9,13 +12,16 @@ image in a preview panel.
 The complete description of the usage is available in the application itself,
 under Help -> KtikZ Manual.
 
-Installation
-------------
+# Installation
 
 See the INSTALL file.
 
-License
--------
+# Screenshots
+
+![The main window showing the application in action](/screenshot_v10.0.png?raw=true "The main window showing the application in action")
+![Another example file](/screenshot_v10.0_2.png?raw=true "Another example file")
+
+# License
 
 Copyright (C) 2007-2011 Florian Hackenberger <florian@hackenberger.at>
 Copyright (C) 2007-2013 Glad Deschrijver <glad.deschrijver@gmail.com>
