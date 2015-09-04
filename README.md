@@ -18,8 +18,13 @@ See the INSTALL file.
 
 # Screenshots
 
-![The main window showing the application in action](/screenshot_v10.0.png?raw=true "The main window showing the application in action")
-![Another example file](/screenshot_v10.0_2.png?raw=true "Another example file")
+The main window showing the application in action:
+
+![The main window showing the application in action](screenshot_v10.0.png)
+
+Another example file:
+
+![Another example file](screenshot_v10.0_2.png)
 
 # License
 
