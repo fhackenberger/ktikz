@@ -1,9 +1,3 @@
----
-title: KtikZ
-description: KtikZ is a program for making pictures using TikZ.
-
----
-
 # Usage
 
 You write the TikZ code in the editor and KtikZ automatically generates the
@@ -28,6 +22,7 @@ Another example file:
 
 # License
 
+```
 Copyright (C) 2007-2011 Florian Hackenberger <florian@hackenberger.at>
 Copyright (C) 2007-2013 Glad Deschrijver <glad.deschrijver@gmail.com>
 Copyright (C) 2013 by João Carreira <jfmcarreira@gmail.com>
@@ -144,3 +139,4 @@ Additional copyright holders and licenses:
     The translations are licenced under the same terms as ktikz itself.
       Copyright (C) 2007-2011 Florian Hackenberger <florian@hackenberger.at>
       Copyright (C) 2007-2013 Glad Deschrijver <glad.deschrijver@gmail.com>
+```
