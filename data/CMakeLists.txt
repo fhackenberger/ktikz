@@ -2,13 +2,13 @@ include(../KtikzConfig.cmake)
 
 ### Install desktop file
 
-install(FILES ktikz.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(FILES ktikz.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 
 ### Install text/x-pgf mimetype
 
 find_package(SharedMimeInfo)
-install(FILES qtikz.xml DESTINATION ${XDG_MIME_INSTALL_DIR} RENAME ktikz.xml)
-update_xdg_mimetypes(${XDG_MIME_INSTALL_DIR})
+install(FILES qtikz.xml DESTINATION ${KDE_INSTALL_MIMEDIR} RENAME ktikz.xml)
+update_xdg_mimetypes(${KDE_INSTALL_MIMEDIR})
 
 ### Install examples
 

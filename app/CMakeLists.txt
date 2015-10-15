@@ -57,9 +57,9 @@ set(ktikz_SRCS
 	../common/utils/url.cpp
 	../common/utils/zoomaction.cpp
 )
-# dirty hack: use qt4_wrap_ui to let Qt translate the .ui files instead of KDE (to have less duplication in the translation effort)
-#kde4_add_ui_files(ktikz_SRCS
-qt4_wrap_ui(ktikz_UI_FILES
+# dirty hack: use ki18n_wrap_ui to let Qt translate the .ui files instead of KDE (to have less duplication in the translation effort)
+#ki18n_wrap_ui(ktikz_SRCS
+ki18n_wrap_ui(ktikz_UI_FILES
 	configappearancewidget.ui
 	configeditorwidget.ui
 	configgeneralwidget.ui
@@ -70,20 +70,28 @@ qt4_wrap_ui(ktikz_UI_FILES
 	usercommandeditdialog.ui
 	../common/templatewidget.ui
 )
-kde4_add_kcfg_files(ktikz_SRCS ../common/settings.kcfgc)
-qt4_add_resources(ktikz_SRCS ktikz.qrc)
-qt4_add_resources(ktikz_SRCS qtikz.qrc)
+kconfig_add_kcfg_files(ktikz_SRCS ../common/settings.kcfgc)
+qt5_add_resources(ktikz_SRCS ktikz.qrc)
+qt5_add_resources(ktikz_SRCS qtikz.qrc)
 
 kde4_add_app_icon(ktikz_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/icons/hi*-apps-ktikz.png") # add icons for win32 and mac; this command assumes that the first arg is of the form <appname>_SRCS
 
-# dirty hack: use qt4_wrap_ui to let Qt translate the .ui files instead of KDE
-#kde4_add_executable(ktikz ${ktikz_SRCS})
-kde4_add_executable(ktikz ${ktikz_SRCS} ${ktikz_UI_FILES})
-target_link_libraries(ktikz ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${POPPLER_QT4_LIBRARIES})
+# dirty hack: use ki18n_wrap_ui to let Qt translate the .ui files instead of KDE
+#add_executable(ktikz ${ktikz_SRCS})
+add_executable(ktikz ${ktikz_SRCS} ${ktikz_UI_FILES})
+target_link_libraries(ktikz
+    KF5::KIOCore
+    KF5::TextEditor
+    KF5::I18n
+    KF5::IconThemes
+    KF5::XmlGui
+    KF5::WidgetsAddons
+    KF5::KDELibs4Support
+    ${POPPLER_LIBRARIES} )
 
-install(TARGETS ktikz DESTINATION ${BIN_INSTALL_DIR})
-install(FILES ktikzui.rc DESTINATION ${DATA_INSTALL_DIR}/ktikz)
-install(FILES ../common/ktikz.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(TARGETS ktikz DESTINATION ${KDE_INSTALL_BINDIR})
+install(FILES ktikzui.rc DESTINATION ${KDE_INSTALL_DATADIR}/ktikz)
+install(FILES ../common/ktikz.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 add_subdirectory(icons)
 
@@ -93,6 +101,6 @@ add_custom_command(TARGET uninstalldirs_app
 	COMMAND ${CMAKE_COMMAND} -E remove_directory ${KTIKZ_TRANSLATIONS_INSTALL_DIR}
 	COMMAND ${CMAKE_COMMAND} -E remove_directory ${KTIKZ_TEMPLATES_INSTALL_DIR}
 	COMMAND ${CMAKE_COMMAND} -E remove_directory ${KTIKZ_DATA_INSTALL_DIR}
-	COMMAND ${CMAKE_COMMAND} -E remove_directory ${DATA_INSTALL_DIR}/ktikz
-	COMMENT "Removing directories ${KTIKZ_TRANSLATIONS_INSTALL_DIR} ${KTIKZ_TEMPLATES_INSTALL_DIR} ${KTIKZ_DATA_INSTALL_DIR} ${DATA_INSTALL_DIR}/ktikz"
+	COMMAND ${CMAKE_COMMAND} -E remove_directory ${KDE_INSTALL_DATADIR}/ktikz
+	COMMENT "Removing directories ${KTIKZ_TRANSLATIONS_INSTALL_DIR} ${KTIKZ_TEMPLATES_INSTALL_DIR} ${KTIKZ_DATA_INSTALL_DIR} ${KDE_INSTALL_DATADIR}/ktikz"
 	VERBATIM)
