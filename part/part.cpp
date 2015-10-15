@@ -51,6 +51,8 @@
 #include <QtCore/QSettings>
 #include <QtCore/QTimer>
 #include <QtCore/QTranslator>
+#include <QMimeDatabase>
+#include <QMimeType>
 
 #include "configdialog.h"
 #include "settings.h"
@@ -192,9 +194,10 @@ void Part::saveAs()
 {
 	const KUrl srcUrl = url();
 
-	const KMimeType::Ptr mimeType = KMimeType::mimeType("text/x-pgf");
+	QMimeDatabase db;
+	const QMimeType mimeType = db.mimeTypeForName("text/x-pgf");
 	const QString tikzFilter = (mimeType) ?
-	                           mimeType->patterns().join(" ") + '|' + mimeType->comment()
+	                           mimeType.globPatterns().join(" ") + '|' + mimeType.comment()
 	                           : "*.pgf *.tikz *.tex|" + i18nc("@item:inlistbox filter", "TikZ files");
 	const KUrl dstUrl = KFileDialog::getSaveUrl(srcUrl,
 	                    tikzFilter + "\n*|" + i18nc("@item:inlistbox filter", "All files"),
