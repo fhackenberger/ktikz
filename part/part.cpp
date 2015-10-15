@@ -155,7 +155,7 @@ void Part::createActions()
 	// Help
 	action = actionCollection()->addAction("help_about_ktikz");
 	action->setText(i18n("About KtikZ Viewer"));
-	action->setIcon(KIcon("ktikz"));
+	action->setIcon(QIcon::fromTheme("ktikz"));
 	connect(action, SIGNAL(triggered()), this, SLOT(showAboutDialog()));
 }
 

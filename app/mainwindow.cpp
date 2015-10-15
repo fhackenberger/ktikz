@@ -118,7 +118,7 @@ MainWindow::MainWindow()
 	setAttribute(Qt::WA_DeleteOnClose);
 #ifdef KTIKZ_USE_KDE
 	setObjectName(QLatin1String("ktikz#"));
-	setWindowIcon(KIcon(QLatin1String("ktikz")));
+	setWindowIcon(QIcon::fromTheme(QLatin1String("ktikz")));
 	Action::setActionCollection(actionCollection());
 #else
 	setObjectName(QLatin1String("qtikz#") + QString::number(s_mainWindowList.size()));

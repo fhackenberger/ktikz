@@ -35,7 +35,7 @@ void PageDialog::addPage(QWidget *widget, const QString &title, const QString &i
 
 	KPageWidgetItem *page = new KPageWidgetItem(widget, titleString);
 	page->setHeader(titleString);
-	page->setIcon(KIcon(iconName));
+	page->setIcon(QIcon::fromTheme(iconName));
 	KPageDialog::addPage(page);
 }
 #else
