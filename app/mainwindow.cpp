@@ -762,7 +762,7 @@ void MainWindow::createCommandInsertWidget()
 	// add user commands menu
 #ifdef KTIKZ_USE_KDE
 	QMenu *userMenu = m_userCommandInserter->getMenu();
-	KAction *userInsertAction = new Action(userMenu->title(), this, QLatin1String("user_insert"));
+	QAction *userInsertAction = new Action(userMenu->title(), this, QLatin1String("user_insert"));
 	userInsertAction->setMenu(userMenu);
 #else
 	menuBar()->insertMenu(m_settingsMenu->menuAction(), m_userCommandInserter->getMenu());

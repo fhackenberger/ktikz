@@ -25,21 +25,21 @@
 KActionCollection *Action::s_actionCollection = 0;
 
 Action::Action(QObject *parent, const QString &name)
-	: KAction(parent)
+	: QAction(parent)
 {
 	if (s_actionCollection && !name.isEmpty())
 		s_actionCollection->addAction(name, this);
 }
 
 Action::Action(const QString &text, QObject *parent, const QString &name)
-	: KAction(text, parent)
+	: QAction(text, parent)
 {
 	if (s_actionCollection && !name.isEmpty())
 		s_actionCollection->addAction(name, this);
 }
 
 Action::Action(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-	: KAction(icon, text, parent)
+	: QAction(icon, text, parent)
 {
 	if (s_actionCollection && !name.isEmpty())
 		s_actionCollection->addAction(name, this);

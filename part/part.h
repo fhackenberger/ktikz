@@ -23,7 +23,7 @@
 #include <KParts/ReadOnlyPart>
 
 class KAboutData;
-class KAction;
+class QAction;
 class KDirWatch;
 class QTranslator;
 
@@ -74,7 +74,7 @@ private:
 	TikzPreviewController *m_tikzPreviewController;
 	PartConfigDialog *m_configDialog;
 
-	KAction *m_saveAsAction;
+	QAction *m_saveAsAction;
 
 	QString m_tikzCode;
 

@@ -22,11 +22,11 @@
 class Icon;
 
 #ifdef KTIKZ_USE_KDE
-#include <KAction>
+#include <QAction>
 
 class KActionCollection;
 
-class Action : public KAction
+class Action : public QAction
 {
 	Q_OBJECT
 

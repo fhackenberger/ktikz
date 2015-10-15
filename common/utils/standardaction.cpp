@@ -33,8 +33,8 @@
 namespace StandardAction
 {
 #ifdef KTIKZ_USE_KDE
-// XXX the following is an ugly hack, but I don't know how to promote a KAction to an Action
-static Action *copyAction(KAction *action, const QObject *recvr, const char *slot)
+// XXX the following is an ugly hack, but I don't know how to promote a QAction to an Action
+static Action *copyAction(QAction *action, const QObject *recvr, const char *slot)
 {
 	Action *newAction = new Action(Icon(action->icon()), action->text(), action->parent());
 	newAction->setShortcut(action->shortcut());
@@ -50,9 +50,9 @@ Action *openNew(const QObject *recvr, const char *slot, QObject *parent)
 	return copyAction(KStandardAction::openNew(recvr, slot, parent), recvr, slot);
 }
 /*
-KAction *openNew(const QObject *recvr, const char *slot, QObject *parent)
+QAction *openNew(const QObject *recvr, const char *slot, QObject *parent)
 {
-	KAction *action = KStandardAction::openNew(recvr, slot, parent);
+	QAction *action = KStandardAction::openNew(recvr, slot, parent);
 	Action::actionCollection()->addAction(action->objectName(), action);
 	return action;
 }

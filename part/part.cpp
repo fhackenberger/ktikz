@@ -39,7 +39,7 @@
 
 #include <KAboutApplicationDialog>
 #include <KAboutData>
-#include <KAction>
+#include <QAction>
 #include <KActionCollection>
 #include <KDirWatch>
 #include <KFileDialog>
@@ -149,7 +149,7 @@ void Part::createActions()
 	// Reload: we rely on Konqueror's "Reload" action instead of defining our own
 
 	// Configure
-	KAction *action = KStandardAction::preferences(this, SLOT(configure()), actionCollection());
+	QAction *action = KStandardAction::preferences(this, SLOT(configure()), actionCollection());
 	action->setText(i18nc("@action", "Configure KtikZ Viewer..."));
 
 	// Help
