@@ -18,18 +18,7 @@
 
 #include "filedialog.h"
 
-#ifdef KTIKZ_USE_KDE
-Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
-{
-	return Url(KFileDialog::getOpenUrl(dir, filter, parent, caption));
-}
-
-Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
-{
-	return Url(KFileDialog::getSaveUrl(dir, filter, parent, caption, KFileDialog::ConfirmOverwrite));
-}
-#else
-#include <QtCore/QCoreApplication>
+#include <QCoreApplication>
 
 /*!
  * Parses a KDE-like filter and returns a Qt-like filter.  The filter
@@ -166,4 +155,3 @@ Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &d
 
 	return Url(saveAsFileName);
 }
-#endif
