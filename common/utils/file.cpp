@@ -66,7 +66,7 @@ void File::load()
 
 	if (m_openMode == WriteOnly)
 	{
-		m_file = new KSaveFile(m_localFileName);
+		m_file = new QSaveFile(m_localFileName);
 	}
 	else if (m_openMode == ReadOnly)
 	{
@@ -94,7 +94,7 @@ bool File::open(const QFile::OpenMode &mode)
 	if (m_openMode == WriteOnly)
 	{
 		m_errorString.clear();
-		return dynamic_cast<KSaveFile*>(m_file)->open(); // XXX cannot use qobject_cast because KSaveFile doesn't have the Q_OBJECT macro
+		return dynamic_cast<QSaveFile*>(m_file)->open(); // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
 	}
 	else if (m_openMode == ReadOnly)
 	{
@@ -111,7 +111,7 @@ bool File::close()
 
 	if (m_openMode == WriteOnly)
 	{
-		if (!dynamic_cast<KSaveFile*>(m_file)->finalize()) // XXX cannot use qobject_cast because KSaveFile doesn't have the Q_OBJECT macro
+		if (!dynamic_cast<QSaveFile*>(m_file)->finalize()) // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
 			return false;
 	}
 	m_file->close();
