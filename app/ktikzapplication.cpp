@@ -43,14 +43,13 @@ void KtikzApplication::init()
 	mainWindow->show();
 
 	KUrl url;
-	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-	for (int i = 0; i < args->count(); ++i)
+	for (int i = 0; i < parser.positionalArguments().count(); ++i)
 	{
 		url = args->url(i);
 		if (url.isValid() && url.isLocalFile())
 			mainWindow->loadUrl(Url(url));
 	}
-	args->clear();
+	
 }
 
 QString KtikzApplication::applicationName()

@@ -122,7 +122,7 @@ KAboutData *Part::createAboutData()
 	KAboutData *aboutData = new KAboutData("ktikzpart", "ktikz",
 	                                       ki18n("KtikZ Viewer"), APPVERSION);
 	aboutData->setShortDescription(ki18n("A TikZ Viewer"));
-	aboutData->setLicense(KAboutData::License_GPL_V2);
+	aboutData->setLicense(KAboutLicense::GPL_V2);
 	aboutData->setCopyrightStatement(ki18n("Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"));
 	aboutData->setOtherText(ki18n("This is a plugin for viewing TikZ (from the LaTeX pgf package) diagrams."));
 	aboutData->setBugAddress("florian@hackenberger.at");
