@@ -19,10 +19,9 @@
 #ifndef KTIKZ_TEMPDIR_H
 #define KTIKZ_TEMPDIR_H
 
-#ifdef KTIKZ_USE_KDE
-#include <KTempDir>
+#include <QTemporaryDir>
 
-class TempDir : public KTempDir
+class TempDir : public QTemporaryDir
 {
 public:
 	explicit TempDir(const QString &directoryPrefix = QString(), int mode = 0700);
@@ -30,32 +29,5 @@ public:
 	const QString location() const;
 	bool cleanUp();
 };
-#else
-#include <QtCore/QObject>
-
-/*!
- * \brief Creates a temporary directory with a unique name.
- *
- * This class creates a temporary directory (as a subdir of the system's
- * temp directory).  The directory name, returned by name(), is guaranteed
- * to be unique.
- */
-
-class TempDir : public QObject
-{
-	Q_OBJECT
-
-public:
-	explicit TempDir(const QString &directoryPrefix = QString(), int mode = 0700);
-	virtual ~TempDir();
-
-	const QString location() const;
-	const QString name() const;
-	bool cleanUp();
-
-private:
-	QString m_name;
-};
-#endif
 
 #endif
