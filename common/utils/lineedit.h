@@ -11,18 +11,6 @@
 #ifndef KTIKZ_LINEEDIT_H
 #define KTIKZ_LINEEDIT_H
 
-#ifdef KTIKZ_USE_KDE
-#include <KLineEdit>
-
-class LineEdit : public KLineEdit
-{
-	Q_OBJECT
-
-public:
-	explicit LineEdit(const QString &text, QWidget *parent = 0);
-	explicit LineEdit(QWidget *parent = 0);
-};
-#else
 #include <QtCore/QtGlobal>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QLineEdit>
@@ -54,6 +42,5 @@ private:
 
 	QToolButton *m_clearButton;
 };
-#endif
 
 #endif // LINEEDIT_H

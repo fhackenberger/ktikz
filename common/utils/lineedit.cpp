@@ -10,23 +10,6 @@
 
 #include "lineedit.h"
 
-#ifdef KTIKZ_USE_KDE
-LineEdit::LineEdit(const QString &text, QWidget *parent)
-	: KLineEdit(text, parent)
-{
-	setClearButtonShown(true);
-}
-
-LineEdit::LineEdit(QWidget *parent)
-	: KLineEdit(parent)
-{
-	setClearButtonShown(true);
-}
-#else
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QToolButton>
-#include <QtWidgets/QStyle>
-#else
 #include <QtGui/QToolButton>
 #include <QtGui/QStyle>
 #endif
@@ -90,4 +73,4 @@ void LineEdit::setCompletionObject(UrlCompletion *urlCompletion)
 {
 	setCompleter(urlCompletion);
 }
-#endif
+

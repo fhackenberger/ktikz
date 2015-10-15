@@ -84,11 +84,11 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="KLineEdit" name="replaceEdit">
+       <widget class="QLineEdit" name="replaceEdit">
         <property name="whatsThis">
          <string>&lt;para&gt;Enter the text which will be replaced by the TikZ code in the template here.&lt;/para&gt;</string>
         </property>
-        <property name="showClearButton" stdset="0">
+        <property name="clearButtonEnabled" stdset="0">
          <bool>true</bool>
         </property>
        </widget>
@@ -128,7 +128,7 @@
    <header>kurlrequester.h</header>
   </customwidget>
   <customwidget>
-   <class>KLineEdit</class>
+   <class>QLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
   </customwidget>
