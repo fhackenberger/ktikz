@@ -19,17 +19,6 @@
 #ifndef KTIKZ_ICON_H
 #define KTIKZ_ICON_H
 
-#ifdef KTIKZ_USE_KDE
-#include <QIcon>
-
-class Icon : public QIcon
-{
-public:
-	explicit Icon(const QString &iconName) : QIcon::fromTheme(iconName) {}
-	explicit Icon(const QIcon &copy) : QIcon::fromTheme(copy) {}
-	Icon() : QIcon() {}
-};
-#else
 #include <QtGui/QIcon>
 
 class Icon : public QIcon
@@ -43,6 +32,5 @@ public:
 	explicit Icon(const QIcon &copy) : QIcon(copy) {}
 	Icon() : QIcon() {}
 };
-#endif
 
 #endif
