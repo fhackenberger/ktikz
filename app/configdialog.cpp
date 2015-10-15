@@ -18,12 +18,8 @@
 
 #include "configdialog.h"
 
-#include <QtGui/QKeyEvent>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QWhatsThis>
-#else
-#include <QtGui/QWhatsThis>
-#endif
+#include <QKeyEvent>
+#include <QWhatsThis>
 
 #include "configappearancewidget.h"
 #include "configeditorwidget.h"
