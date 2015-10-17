@@ -19,39 +19,36 @@ include(ECMSetupVersion)
 include(ECMInstallIcons)
 
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets Xml PrintSupport LinguistTools )
-add_definitions (${QT_DEFINITIONS})
-add_definitions (-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
-add_definitions(${Qt5Core_DEFINITIONS} ${Qt5Gui_DEFINITIONS} ${Qt5Widgets_DEFINITIONS} ${Qt5Xml_DEFINITIONS})
 
-find_package(KF5 REQUIRED TextEditor KDELibs4Support WidgetsAddons KIO XmlGui CoreAddons IconThemes I18n JobWidgets )
+find_package(KF5 REQUIRED XmlGui TextEditor Parts IconThemes KDELibs4Support )
+
 include(KDEInstallDirs)
 include(KDECompilerSettings)
 include(KDECMakeSettings)
 include(FeatureSummary)
-include(KDEFrameworkCompilerSettings)
+# include(KDEFrameworkCompilerSettings)
 
 find_package(Poppler "0.12.1")
 set_package_properties("Poppler-Qt5" PROPERTIES
         DESCRIPTION "A PDF rendering library"
         URL "http://poppler.freedesktop.org"
-        TYPE RECOMMENDED
+        TYPE REQUIRED
         PURPOSE "Support for PDF files in KTikZ.")
-
+include_directories( ${POPPLER_INCLUDE_DIR} )
 
 add_subdirectory(app)
-add_subdirectory(part)
+# add_subdirectory(part)
 
 add_subdirectory(doc)
 add_subdirectory(translations)
 add_subdirectory(data)
 
 # Remove directories
-
 add_custom_target(uninstalldirs)
-add_dependencies(uninstalldirs uninstalldirs_app uninstalldirs_part uninstalldirs_doc)
+# add_dependencies(uninstalldirs uninstalldirs_app uninstalldirs_part uninstalldirs_doc)
+add_dependencies(uninstalldirs uninstalldirs_app uninstalldirs_doc)
 
 # Make packages
-
 include(KtikzCPackOptions.cmake)
 include(CPack)
 add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)

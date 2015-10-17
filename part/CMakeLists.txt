@@ -47,15 +47,13 @@ kconfig_add_kcfg_files(ktikzpart_SRCS ../common/settings.kcfgc)
 
 add_library(ktikzpart MODULE ${ktikzpart_SRCS})
 
-target_link_libraries(ktikzpart KF5::KCoreAddons KF5::Parts KF5::IconThemes )
-#     KF5::KIOCore
-#     KF5::TextEditor
-#     KF5::I18n
-#
-#     KF5::XmlGui
-#     KF5::WidgetsAddons
-#     KF5::KDELibs4Support
-#     ${POPPLER_LIBRARIES} )
+target_link_libraries(ktikzpart
+  KF5::Parts
+  KF5::IconThemes
+  KF5::KDELibs4Support
+  ${POPPLER_LIBRARY}
+)
+
 
 install(TARGETS ktikzpart DESTINATION ${KDE_INSTALL_PLUGINDIR})
 install(FILES ktikzpart.rc DESTINATION ${KTIKZPART_DATA_INSTALL_DIR})

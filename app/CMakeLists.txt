@@ -57,8 +57,8 @@ set(ktikz_SRCS
 	../common/utils/url.cpp
 	../common/utils/zoomaction.cpp
 )
+
 # dirty hack: use ki18n_wrap_ui to let Qt translate the .ui files instead of KDE (to have less duplication in the translation effort)
-#ki18n_wrap_ui(ktikz_SRCS
 ki18n_wrap_ui(ktikz_UI_FILES
 	configappearancewidget.ui
 	configeditorwidget.ui
@@ -77,17 +77,12 @@ qt5_add_resources(ktikz_SRCS qtikz.qrc)
 kde4_add_app_icon(ktikz_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/icons/hi*-apps-ktikz.png") # add icons for win32 and mac; this command assumes that the first arg is of the form <appname>_SRCS
 
 # dirty hack: use ki18n_wrap_ui to let Qt translate the .ui files instead of KDE
-#add_executable(ktikz ${ktikz_SRCS})
 add_executable(ktikz ${ktikz_SRCS} ${ktikz_UI_FILES})
 target_link_libraries(ktikz
-    KF5::KIOCore
-    KF5::TextEditor
-    KF5::I18n
-    KF5::IconThemes
     KF5::XmlGui
-    KF5::WidgetsAddons
+    KF5::TextEditor
     KF5::KDELibs4Support
-    ${POPPLER_LIBRARIES} )
+    ${POPPLER_LIBRARY} )
 
 install(TARGETS ktikz DESTINATION ${KDE_INSTALL_BINDIR})
 install(FILES ktikzui.rc DESTINATION ${KDE_INSTALL_DATADIR}/ktikz)
