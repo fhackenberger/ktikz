@@ -36,11 +36,6 @@ Url::Url(const QUrl &url) : QUrl(url)
 {
 }
 
-QString Url::fileName() const
-{
-	return QFileInfo(QUrl::path()).fileName();
-}
-
 QString Url::pathOrUrl() const
 {
 #ifdef Q_OS_WIN32

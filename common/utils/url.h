@@ -28,7 +28,6 @@ public:
 	explicit Url(const QString &fileName);
 	explicit Url(const QUrl &url);
 
-	QString fileName() const;
 	QString pathOrUrl() const;
 	QString path() const;
 };
