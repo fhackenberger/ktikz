@@ -21,7 +21,6 @@
 #include <QtCore/QDir>
 
 
-#include <KComponentData>
 #include <KStandardDirs>
 #include <QTemporaryDir>
 
@@ -45,7 +44,7 @@ const QString TempDir::location() const
 
 bool TempDir::cleanUp()
 {
-	const QString dirName = name();
+	const QString dirName = path();
 	if (dirName.isEmpty()) // we must return in this case, otherwise in the QDir constructor below, the program's working directory is used and we really don't want to remove the files in that
 		return false;
 
