@@ -50,6 +50,7 @@
 #include <QtCore/QTranslator>
 #include <QMimeDatabase>
 #include <QMimeType>
+#include <QDir>
 
 #include "configdialog.h"
 #include "settings.h"
@@ -74,7 +75,8 @@ Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
 	QTranslator *translator = createTranslator("qtikz");
 	qApp->installTranslator(translator);
 
-	setComponentData(ktikzPartFactory::componentData()); // make sure that the actions of this kpart go in a separate section labeled "KtikZ Viewer" (as defined in K_EXPORT_PLUGIN above) in the "Configure Shortcuts" dialog
+  setComponentData(KAboutData("ktikzpart", "KtikZ", APPVERSION));
+// 	setComponentData(ktikzPartFactory::componentData()); // make sure that the actions of this kpart go in a separate section labeled "KtikZ Viewer" (as defined in K_EXPORT_PLUGIN above) in the "Configure Shortcuts" dialog
 
 	m_configDialog = 0;
 
