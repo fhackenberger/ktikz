@@ -19,7 +19,7 @@
 #ifndef KTIKZ_PART_CONFIGDIALOG_H
 #define KTIKZ_PART_CONFIGDIALOG_H
 
-#include <KDialog>
+#include <QDialog>
 
 class QCheckBox;
 
@@ -28,7 +28,7 @@ namespace KtikZ
 
 class PartConfigGeneralWidget;
 
-class PartConfigDialog : public KDialog
+class PartConfigDialog : public QDialog
 {
 	Q_OBJECT
 
