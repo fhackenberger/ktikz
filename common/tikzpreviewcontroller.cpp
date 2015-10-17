@@ -96,7 +96,7 @@ TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
 	m_tikzPreviewGenerator->setTikzFileBaseName(tempFileBaseName());
 #ifdef KTIKZ_USE_KDE
 	File::setMainWidget(m_parentWidget);
-	File::setTempDir(m_tempDir->name()); // this must happen before any object of type File is constructed
+	File::setTempDir(m_tempDir->path()); // this must happen before any object of type File is constructed
 #endif
 }
 
