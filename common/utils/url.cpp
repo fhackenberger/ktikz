@@ -24,12 +24,12 @@ Url::Url() : QUrl()
 {
 }
 
-Url::Url(const QString &fileName) : QUrl()
+Url::Url(const QString &fileName) : QUrl(QUrl::fromUserInput(fileName))
 {
-	if (fileName.startsWith(QLatin1String("file://")))
-		setUrl(fileName);
-	else
-		setPath(fileName);
+// 	if (fileName.startsWith(QLatin1String("file://")))
+// 		setUrl(fileName);
+// 	else
+// 		setPath(fileName);
 }
 
 Url::Url(const QUrl &url) : QUrl(url)
