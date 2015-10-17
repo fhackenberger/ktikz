@@ -51,6 +51,7 @@
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QDir>
+#include <QFileDialog>
 
 #include "configdialog.h"
 #include "settings.h"
@@ -191,17 +192,16 @@ bool Part::openFile()
 
 void Part::saveAs()
 {
-	const KUrl srcUrl = url();
+	const Url srcUrl = url();
 
 	QMimeDatabase db;
 	const QMimeType mimeType = db.mimeTypeForName("text/x-pgf");
-	const QString tikzFilter = (mimeType) ?
+	const QString tikzFilter = (mimeType.isValid()) ?
 	                           mimeType.globPatterns().join(" ") + '|' + mimeType.comment()
 	                           : "*.pgf *.tikz *.tex|" + i18nc("@item:inlistbox filter", "TikZ files");
-	const KUrl dstUrl = QFileDialog::getSaveUrl(srcUrl,
-	                    tikzFilter + "\n*|" + i18nc("@item:inlistbox filter", "All files"),
-	                    widget(), i18nc("@title:window", "Save TikZ Source File As"),
-	                    QFileDialog::ConfirmOverwrite);
+	const QUrl dstUrl = QFileDialog::getSaveFileUrl(widget(), i18nc("@title:window", "Save TikZ Source File As"),
+	                    srcUrl, tikzFilter + "\n*|" + i18nc("@item:inlistbox filter", "All files"));
+
 	if (!dstUrl.isValid())
 		return;
 
