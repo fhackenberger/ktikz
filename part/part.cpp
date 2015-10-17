@@ -121,22 +121,20 @@ QWidget *Part::widget()
 
 KAboutData *Part::createAboutData()
 {
-	KAboutData *aboutData = new KAboutData("ktikzpart", "ktikz",
-	                                       ki18n("KtikZ Viewer"), APPVERSION);
-	aboutData->setShortDescription(ki18n("A TikZ Viewer"));
+	KAboutData *aboutData = new KAboutData(QStringLiteral("ktikz"),i18n("KtikZ"), APPVERSION);
+	aboutData->setShortDescription(i18n("A TikZ Viewer"));
 	aboutData->setLicense(KAboutLicense::GPL_V2);
-	aboutData->setCopyrightStatement(ki18n("Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"));
-	aboutData->setOtherText(ki18n("This is a plugin for viewing TikZ (from the LaTeX pgf package) diagrams."));
+	aboutData->setCopyrightStatement(i18n("Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"));
+	aboutData->setOtherText(i18n("This is a plugin for viewing TikZ (from the LaTeX pgf package) diagrams."));
 	aboutData->setBugAddress("florian@hackenberger.at");
-	aboutData->addAuthor(ki18n("Florian Hackenberger"), ki18n("Maintainer"), "florian@hackenberger.at");
-	aboutData->addAuthor(ki18n("Glad Deschrijver"), ki18n("Developer"), "glad.deschrijver@gmail.com");
-	aboutData->setProgramIconName("ktikz");
+	aboutData->addAuthor(i18n("Florian Hackenberger"), i18n("Maintainer"), "florian@hackenberger.at");
+	aboutData->addAuthor(i18n("Glad Deschrijver"), i18n("Developer"), "glad.deschrijver@gmail.com");
 	return aboutData;
 }
 
 void Part::showAboutDialog()
 {
-	KAboutApplicationDialog dlg(createAboutData(), widget());
+	KAboutApplicationDialog dlg(*(createAboutData()), widget());
 	dlg.exec();
 }
 
@@ -228,7 +226,7 @@ void Part::showJobError(KJob *job)
 {
 	if (job->error() != 0)
 	{
-		KIO::JobUiDelegate *ui = static_cast<KIO::Job*>(job)->ui();
+		KIO::JobUiDelegate *ui = static_cast<KIO::JobUiDelegate*>(static_cast<KIO::Job*>(job)->ui());
 		if (!ui)
 		{
 			qCritical() << "Saving failed; job->ui() is null.";
