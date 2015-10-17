@@ -20,6 +20,7 @@
 
 #include <QKeyEvent>
 #include <QWhatsThis>
+#include <KConfigGroup>
 
 #include "configappearancewidget.h"
 #include "configeditorwidget.h"
@@ -30,7 +31,7 @@
 
 ConfigDialog::ConfigDialog(QWidget *parent) : PageDialog(parent)
 {
-	setCaption(tr("Configure %1").arg(KtikzApplication::applicationName()));
+	setWindowTitle(tr("Configure %1").arg(KtikzApplication::applicationName()));
 	setHelp(QLatin1String("chap-configuration"));
 
 	m_configGeneralWidget = new ConfigGeneralWidget(this);
