@@ -20,6 +20,7 @@
 #define KTIKZ_PART_H
 
 #include "../common/mainwidget.h"
+#include <KPluginFactory>
 #include <KParts/ReadOnlyPart>
 
 class KAboutData;
@@ -85,5 +86,7 @@ private:
 };
 
 } // namespace KtikZ
+
+K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<KtikZ::Part>();)
 
 #endif
