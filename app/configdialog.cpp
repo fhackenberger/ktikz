@@ -32,7 +32,8 @@
 ConfigDialog::ConfigDialog(QWidget *parent) : PageDialog(parent)
 {
 	setWindowTitle(tr("Configure %1").arg(KtikzApplication::applicationName()));
-	setHelp(QLatin1String("chap-configuration"));
+// TODO: Check if this is needed
+// 	setHelp(QLatin1String("chap-configuration"));
 
 	m_configGeneralWidget = new ConfigGeneralWidget(this);
 	m_configEditorWidget = new ConfigEditorWidget(this);
