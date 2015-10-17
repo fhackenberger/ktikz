@@ -114,7 +114,7 @@ public:
 #ifdef KTIKZ_USE_KDE
 	static void setMainWidget(QWidget *widget);
 	static void setTempDir(const QString &dirName);
-
+  static bool fileExists(const Url &url);
 //private slots:
 //	void showJobError(KJob *job);
 #endif
