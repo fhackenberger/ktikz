@@ -19,29 +19,7 @@
 #ifndef KTIKZ_COLORDIALOG_H
 #define KTIKZ_COLORDIALOG_H
 
-#ifdef KTIKZ_USE_KDE
-#include <KColorDialog>
-
-class ColorDialog : public KColorDialog
-{
-public:
-	explicit ColorDialog(QWidget *parent) : KColorDialog(parent) {}
-
-	static QColor getColor(bool *ok, const QColor &color, QWidget *parent)
-	{
-		Q_UNUSED(parent);
-		QColor newColor = color;
-		const int result = KColorDialog::getColor(newColor);
-		*ok = (result == KColorDialog::Accepted);
-		return newColor;
-	}
-};
-#else
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QColorDialog>
-#else
-#include <QtGui/QColorDialog>
-#endif
+#include <QColorDialog>
 
 class ColorDialog : public QColorDialog
 {
@@ -57,6 +35,5 @@ public:
 		return newColor;
 	}
 };
-#endif
 
 #endif
