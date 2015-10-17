@@ -19,22 +19,10 @@
 #ifndef KTIKZAPPLICATION_H
 #define KTIKZAPPLICATION_H
 
-#ifdef KTIKZ_USE_KDE
-#include <KApplication>
-#else
-#include <QtCore/QtGlobal>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QApplication>
-#else
-#include <QtGui/QApplication>
-#endif
-#endif
+#include <QtGlobal>
+#include <QApplication>
 
-#ifdef KTIKZ_USE_KDE
-class KtikzApplication : public KApplication
-#else
 class KtikzApplication : public QApplication
-#endif
 {
 	Q_OBJECT
 
@@ -45,11 +33,9 @@ public:
 	void init();
 	static QString applicationName();
 
-#ifndef KTIKZ_USE_KDE
 protected:
 	void commitData(QSessionManager &manager);
 	void saveState(QSessionManager &manager);
-#endif
 };
 
 #endif
