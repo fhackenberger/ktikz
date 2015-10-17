@@ -454,8 +454,8 @@ static QString createTempLatexFile(const QString &tikzFileBaseName, const QStrin
 
 	QFile templateFile(templateFileName);
 #ifdef KTIKZ_USE_KDE
-	KFileItem templateFileItem(KFileItem::Unknown, KFileItem::Unknown, QUrl::fromLocalFile(templateFileName));
-	if (templateFileItem.determineMimeType()->parentMimeTypes().contains(QLatin1String("text/plain"))
+	KFileItem templateFileItem(QUrl::fromLocalFile(templateFileName));
+	if (templateFileItem.determineMimeType().parentMimeTypes().contains(QLatin1String("text/plain"))
 #else
 	if (QFileInfo(templateFile).isFile()
 #endif
