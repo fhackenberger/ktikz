@@ -21,6 +21,7 @@
 
 #include <QDialog>
 
+class QDialogButtonBox;
 class QCheckBox;
 
 namespace KtikZ
@@ -52,7 +53,7 @@ private:
 	QWidget *viewerWidget();
 
 	PartConfigGeneralWidget *m_configGeneralWidget;
-
+  QDialogButtonBox *m_buttonBox;
 	QCheckBox *m_watchFileCheckBox;
 };
 

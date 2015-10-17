@@ -34,7 +34,7 @@ PartConfigDialog::PartConfigDialog(QWidget *parent)
 	: QDialog(parent)
 {
 	setWindowTitle(i18nc("@title:window", "Configure KtikZ Viewer"));
-	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::RestoreDefaults|QDialogButtonBox::Apply);
+	m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::RestoreDefaults|QDialogButtonBox::Apply);
 
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 
@@ -42,21 +42,21 @@ PartConfigDialog::PartConfigDialog(QWidget *parent)
 	mainLayout->addWidget(viewerWidget());
 	mainLayout->addWidget(m_configGeneralWidget);
 
-	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	QPushButton *okButton = m_buttonBox->button(QDialogButtonBox::Ok);
 	okButton->setDefault(true);
 	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
-	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
-	mainLayout->addWidget(buttonBox);
+	mainLayout->addWidget(m_buttonBox);
 
   setLayout(mainLayout);
 
-	connect(buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(writeSettings()));
+	connect(m_buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(writeSettings()));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(writeSettings()));
-	connect(buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()), this, SLOT(setDefaults()));
+	connect(m_buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()), this, SLOT(setDefaults()));
 	connect(m_configGeneralWidget, SIGNAL(changed(bool)), this, SLOT(buttonBox->button(QDialogButtonBox::Apply)->setEnabled(bool)));
-	buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
+	m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
 }
 
 PartConfigDialog::~PartConfigDialog()
@@ -98,7 +98,7 @@ void PartConfigDialog::setModified()
 	QWidget *sendingWidget = qobject_cast<QWidget*>(sender());
 	QSettings settings(ORGNAME, APPNAME);
 	if (sendingWidget->objectName() == QLatin1String("watchFileCheckBox"))
-		buttonBox->button(QDialogButtonBox::Apply)->setEnabled(m_watchFileCheckBox->isChecked() != settings.value("WatchFile", true).toBool());
+		m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(m_watchFileCheckBox->isChecked() != settings.value("WatchFile", true).toBool());
 }
 
 void PartConfigDialog::writeSettings()
@@ -108,7 +108,7 @@ void PartConfigDialog::writeSettings()
 	QSettings settings(ORGNAME, APPNAME);
 	settings.setValue("WatchFile", m_watchFileCheckBox->isChecked());
 
-	buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
+	m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
 	emit settingsChanged("preferences");
 }
 
