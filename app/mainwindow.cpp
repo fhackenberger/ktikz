@@ -24,7 +24,6 @@
 #ifdef KTIKZ_USE_KDE
 #include <KActionCollection>
 #include <KConfigGroup>
-#include <KLocale>
 #include <KMenuBar>
 #include <KMessageBox>
 #include <KStandardAction>
@@ -289,9 +288,9 @@ bool MainWindow::queryClose()
 
 void MainWindow::readProperties(const KConfigGroup &group)
 {
-	const KUrl url(group.readPathEntry(QLatin1String("CurrentUrl"), QString()));
+	const Url url(group.readPathEntry(QLatin1String("CurrentUrl"), QString()));
 	if (url.isValid() && !url.isEmpty())
-		loadUrl(Url(url));
+		loadUrl(url);
 }
 
 void MainWindow::saveProperties(KConfigGroup &group)
@@ -519,7 +518,7 @@ void MainWindow::createActions()
 	// Open
 	m_newAction = StandardAction::openNew(this, SLOT(newFile()), this);
 	m_openAction = StandardAction::open(this, SLOT(open()), this);
-	m_openRecentAction = StandardAction::openRecent(this, SLOT(loadUrl(Url)), this);
+	m_openRecentAction = StandardAction::openRecent(this, SLOT(loadUrl(QUrl)), this);
 	m_saveAction = StandardAction::save(this, SLOT(save()), this);
 	m_saveAsAction = StandardAction::saveAs(this, SLOT(saveAs()), this);
 	m_reloadAction = new Action(Icon(QLatin1String("view-refresh")), tr("Reloa&d"), this, QLatin1String("file_reload"));
@@ -916,6 +915,11 @@ bool MainWindow::maybeSave()
 			return false;
 	}
 	return true;
+}
+
+void MainWindow::loadUrl(const QUrl &url)
+{
+	loadUrl(Url(url));
 }
 
 void MainWindow::loadUrl(const Url &url)

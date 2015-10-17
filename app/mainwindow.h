@@ -93,6 +93,7 @@ public:
 	}
 
 public Q_SLOTS:
+	void loadUrl(const QUrl &url);
 	void loadUrl(const Url &url);
 	bool save();
 
