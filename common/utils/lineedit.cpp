@@ -10,9 +10,8 @@
 
 #include "lineedit.h"
 
-#include <QtGui/QToolButton>
-#include <QtGui/QStyle>
-#endif
+#include <QToolButton>
+#include <QStyle>
 #include "urlcompletion.h"
 
 LineEdit::LineEdit(const QString &text, QWidget *parent)
