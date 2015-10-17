@@ -70,7 +70,7 @@ RecentFilesAction *openRecent(const QObject *recvr, const char *slot, QObject *p
 	newAction->setObjectName(action->objectName());
 	newAction->setToolBarMode(KRecentFilesAction::MenuMode);
 	newAction->setToolButtonPopupMode(QToolButton::MenuButtonPopup);
-	QObject::connect(newAction, SIGNAL(urlSelected(Url)), recvr, slot);
+	QObject::connect(newAction, SIGNAL(urlSelected(QUrl)), recvr, slot);
 	Action::actionCollection()->addAction(newAction->objectName(), newAction);
 	return newAction;
 }
