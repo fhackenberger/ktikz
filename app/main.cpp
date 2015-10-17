@@ -18,27 +18,23 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-//#include <QDebug>
 #ifdef KTIKZ_USE_KDE
 #include <KAboutData>
-
-#include <KUrl>
+#include <KLocalizedString>
 #else
-#include <QtCore/QSettings>
+#include <QSettings>
 #endif
-#include <QtCore/QDir>
-#include <QtCore/QFileInfo>
-#include <QtCore/QLibraryInfo>
-#include <QtCore/QLocale>
-#include <QtCore/QTranslator>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QWidget> // needed for abort() below
-#else
-#include <QtGui/QWidget> // needed for abort() below
+
+#include <QDir>
+#include <QFileInfo>
+#include <QLibraryInfo>
+#include <QLocale>
+#include <QTranslator>
+#include <QWidget> // needed for abort() below
 #include <QCommandLineParser>
 #include <QCommandLineOption>
-#endif
 
+#include "url.h"
 #include "ktikzapplication.h"
 
 // add copyright notice to the *.ts files; this string is not used anywhere else
@@ -106,11 +102,7 @@ static bool findTranslator(QTranslator *translator, const QString &transName, co
 
 static void createTranslator(QTranslator *translator, const QString &transName, const QString &transDir)
 {
-#ifdef KTIKZ_USE_KDE
-	const QString locale = KGlobal::locale()->language();
-#else
 	const QString locale = QString(QLocale::system().name());
-#endif
 	const QString localeShort = locale.left(2).toLower();
 
 	const QStringList transDirs = QStringList() << transDir
@@ -155,32 +147,35 @@ int main(int argc, char **argv)
 
 #ifdef KTIKZ_USE_KDE
 	Q_INIT_RESOURCE(ktikz);
-
-	KAboutData aboutData("ktikz", "ktikz", ki18n("KtikZ"), APPVERSION);
-	aboutData.setShortDescription(ki18n("A TikZ Editor"));
-	aboutData.setLicense(KAboutLicense::GPL_V2);
-	aboutData.setCopyrightStatement(ki18n("Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"));
-	aboutData.setOtherText(ki18n("This is a program for creating TikZ (from the LaTeX pgf package) diagrams."));
-	aboutData.setBugAddress("florian@hackenberger.at");
-	aboutData.addAuthor(ki18n("Florian Hackenberger"), ki18n("Maintainer"), "florian@hackenberger.at");
-	aboutData.addAuthor(ki18n("Glad Deschrijver"), ki18n("Developer"), "glad.deschrijver@gmail.com");
-
-  QApplication app(argc, argv); // PORTING SCRIPT: move this to before the KAboutData initialization
-  QCommandLineParser parser;
-  KAboutData::setApplicationData(aboutData);
-  parser.addVersionOption();
-  parser.addHelpOption();
-  //PORTING SCRIPT: adapt aboutdata variable if necessary
-  aboutData.setupCommandLine(&parser);
-  parser.process(app); // PORTING SCRIPT: move this to after any parser.addOption
-  aboutData.processCommandLine(&parser);
-
-	parser.addPositionalArgument(QLatin1String("[URL]"), i18n("TikZ document to open"));
 #else
 	Q_INIT_RESOURCE(qtikz);
 #endif
 
 	KtikzApplication app(argc, argv); // slow
+
+#ifdef KTIKZ_USE_KDE
+	Q_INIT_RESOURCE(ktikz);
+
+	KAboutData aboutData(QStringLiteral("ktikz"),i18n("KtikZ"), APPVERSION);
+	aboutData.setShortDescription(i18n("A TikZ Editor"));
+	aboutData.setLicense(KAboutLicense::GPL_V2);
+	aboutData.setCopyrightStatement(i18n("Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"));
+	aboutData.setOtherText(i18n("This is a program for creating TikZ (from the LaTeX pgf package) diagrams."));
+	aboutData.setBugAddress("florian@hackenberger.at");
+	aboutData.addAuthor(i18n("Florian Hackenberger"), i18n("Maintainer"), "florian@hackenberger.at");
+	aboutData.addAuthor(i18n("Glad Deschrijver"), i18n("Developer"), "glad.deschrijver@gmail.com");
+
+	QCommandLineParser parser;
+	aboutData.setupCommandLine(&parser);
+	KAboutData::setApplicationData(aboutData);
+	parser.addVersionOption();
+	parser.addHelpOption();
+	parser.addPositionalArgument(QLatin1String("[URL]"), i18n("TikZ document to open"));
+	parser.process(app); // PORTING SCRIPT: move this to after any parser.addOption
+	aboutData.processCommandLine(&parser);
+#endif
+
+
 	QCoreApplication::setOrganizationName(QString::fromLocal8Bit(ORGNAME));
 
 #ifndef KTIKZ_USE_KDE
