@@ -42,12 +42,9 @@
 #include <QAction>
 #include <KActionCollection>
 #include <KDirWatch>
-#include <KFileDialog>
 #include <KMessageBox>
 #include <KIO/Job>
 #include <KIO/JobUiDelegate>
-#include <KIO/NetAccess>
-#include <KParts/GenericFactory>
 #include <QtCore/QSettings>
 #include <QtCore/QTimer>
 #include <QtCore/QTranslator>
