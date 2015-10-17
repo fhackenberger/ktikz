@@ -19,22 +19,21 @@
 #include "globallocale.h"
 
 #ifdef KTIKZ_USE_KDE
-#include <KGlobal>
 #include <KLocale>
 
 QString GlobalLocale::decimalSymbol()
 {
-	return KGlobal::locale()->decimalSymbol();
+	return KLocale::global()->decimalSymbol();
 }
 
 QString GlobalLocale::formatNumber(double num, int precision)
 {
-	return KGlobal::locale()->formatNumber(num, precision);
+	return KLocale::global()->formatNumber(num, precision);
 }
 
 double GlobalLocale::readNumber(const QString &str)
 {
-	return KGlobal::locale()->readNumber(str);
+	return KLocale::global()->readNumber(str);
 }
 #else
 #include <QtCore/QLocale>
