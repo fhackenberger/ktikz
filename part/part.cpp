@@ -231,7 +231,7 @@ void Part::showJobError(KJob *job)
 		KIO::JobUiDelegate *ui = static_cast<KIO::Job*>(job)->ui();
 		if (!ui)
 		{
-			kError() << "Saving failed; job->ui() is null.";
+			qCritical() << "Saving failed; job->ui() is null.";
 			return;
 		}
 		ui->setWindow(widget());
