@@ -22,10 +22,12 @@
 PageDialog::PageDialog(QWidget *parent) : KPageDialog(parent)
 {
 	setFaceType(List);
-	setButtons(KDialog::Ok | KDialog::Cancel | KDialog::Apply | KDialog::Help);
-
-	connect(this, SIGNAL(applyClicked()), this, SLOT(accept()));
-	connect(this, SIGNAL(okClicked()), this, SLOT(accept()));
+	setStandardButtons(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Apply);
+	QPushButton *okButton = buttonBox ()->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox ()->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(accept()));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 }
 
 void PageDialog::addPage(QWidget *widget, const QString &title, const QString &iconName)
@@ -59,6 +61,10 @@ void PageDialog::addPage(QWidget *widget, const QString &title, const QString &i
 #include <QtGui/QStackedWidget>
 #include <QtGui/QToolButton>
 #include <QtGui/QWhatsThis>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 #endif
 #include "icon.h"
 
