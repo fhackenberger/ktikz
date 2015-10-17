@@ -19,7 +19,7 @@
 #ifndef KTIKZ_GLOBALLOCALE_H
 #define KTIKZ_GLOBALLOCALE_H
 
-#include <QtCore/QString>
+#include <QString>
 
 class GlobalLocale
 {

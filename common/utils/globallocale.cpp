@@ -18,24 +18,6 @@
 
 #include "globallocale.h"
 
-#ifdef KTIKZ_USE_KDE
-#include <KLocale>
-
-QString GlobalLocale::decimalSymbol()
-{
-	return KLocale::global()->decimalSymbol();
-}
-
-QString GlobalLocale::formatNumber(double num, int precision)
-{
-	return KLocale::global()->formatNumber(num, precision);
-}
-
-double GlobalLocale::readNumber(const QString &str)
-{
-	return KLocale::global()->readNumber(str);
-}
-#else
 #include <QtCore/QLocale>
 
 QString GlobalLocale::decimalSymbol()
@@ -52,4 +34,4 @@ double GlobalLocale::readNumber(const QString &str)
 {
 	return str.toDouble();
 }
-#endif
+
