@@ -41,6 +41,7 @@
 #include <QtGui/QPrintDialog>
 #include <QtGui/QPrinter>
 #include <QtGui/QPushButton>
+// #include <KConfigGroup> // JC
 #endif
 
 #include "templatewidget.h"
@@ -109,12 +110,12 @@ TikzPreviewController::~TikzPreviewController()
 
 const QString TikzPreviewController::tempDir() const
 {
-	return m_tempDir->name();
+	return m_tempDir->path();
 }
 
 const QString TikzPreviewController::tempFileBaseName() const
 {
-	return m_tempDir->name() + QLatin1String("/temptikzcode");
+	return m_tempDir->path() + QLatin1String("/temptikzcode");
 }
 
 const QString TikzPreviewController::tempDirLocation() const
