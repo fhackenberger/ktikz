@@ -198,10 +198,10 @@ void Part::saveAs()
 	const QString tikzFilter = (mimeType) ?
 	                           mimeType.globPatterns().join(" ") + '|' + mimeType.comment()
 	                           : "*.pgf *.tikz *.tex|" + i18nc("@item:inlistbox filter", "TikZ files");
-	const KUrl dstUrl = KFileDialog::getSaveUrl(srcUrl,
+	const KUrl dstUrl = QFileDialog::getSaveUrl(srcUrl,
 	                    tikzFilter + "\n*|" + i18nc("@item:inlistbox filter", "All files"),
 	                    widget(), i18nc("@title:window", "Save TikZ Source File As"),
-	                    KFileDialog::ConfirmOverwrite);
+	                    QFileDialog::ConfirmOverwrite);
 	if (!dstUrl.isValid())
 		return;
 
@@ -338,7 +338,7 @@ bool Part::findTranslator(QTranslator *translator, const QString &transName, con
 
 QTranslator *Part::createTranslator(const QString &transName)
 {
-	const QString locale = KGlobal::locale()->language();
+	const QString locale = QLocale::languageToString(QLocale().language());
 	const QString localeShort = locale.left(2).toLower();
 
 	QTranslator *translator = new QTranslator(0);
