@@ -1052,11 +1052,7 @@ void MainWindow::showCursorPosition(int row, int col)
 
 void MainWindow::showMouseCoordinates(qreal x, qreal y, int precisionX, int precisionY)
 {
-#ifdef KTIKZ_USE_KDE
-	m_mouseCoordinatesLabel->setText(tr("Preview: x = %1\ty = %2", "@info:status").arg(KGlobal::locale()->formatNumber(x, precisionX)).arg(KGlobal::locale()->formatNumber(y, precisionY)));
-#else
 	m_mouseCoordinatesLabel->setText(tr("Preview: x = %1\ty = %2", "@info:status").arg(QLocale::system().toString(x, 'f', precisionX)).arg(QLocale::system().toString(y, 'f', precisionY)));
-#endif
 }
 
 /***************************************************************************/
