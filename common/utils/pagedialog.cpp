@@ -17,13 +17,14 @@
  ***************************************************************************/
 
 #include "pagedialog.h"
-
 #ifdef KTIKZ_USE_KDE
+#include <QPushButton>
+
 PageDialog::PageDialog(QWidget *parent) : KPageDialog(parent)
 {
 	setFaceType(List);
 	setStandardButtons(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Apply);
-	QPushButton *okButton = buttonBox ()->button(QDialogButtonBox::Ok);
+	QPushButton *okButton = buttonBox()->button(QDialogButtonBox::Ok);
 	okButton->setDefault(true);
 	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
 	connect(buttonBox ()->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(accept()));
