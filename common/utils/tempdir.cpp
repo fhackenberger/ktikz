@@ -26,16 +26,17 @@
 #include <QTemporaryDir>
 
 TempDir::TempDir(const QString &directoryPrefix, int mode)
-	: QTemporaryDir(directoryPrefix, mode)
+	: QTemporaryDir(directoryPrefix)
 {
 	setAutoRemove(true);
 }
 
 const QString TempDir::location() const
 {
-	const QString tempDirBase = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().componentName());
-	const int end = tempDirBase.lastIndexOf(QLatin1Char('/'));
-	return tempDirBase.mid(0, end);
+// 	const QString tempDirBase = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().componentName());
+// 	const int end = tempDirBase.lastIndexOf(QLatin1Char('/'));
+// 	return tempDirBase.mid(0, end);
+	return QTemporaryDir::path();
 }
 
 /*!
