@@ -13,14 +13,15 @@ else(WIN32 AND NOT UNIX)
 	add_definitions(-DKTIKZ_TEMPLATE_EDITOR_DEFAULT=\"kwrite\")
 endif(WIN32 AND NOT UNIX)
 
-find_package(ECM REQUIRED NO_MODULE)
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
+find_package(ECM 1.1.0 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR})
 include(ECMSetupVersion)
+include(ECMAddAppIcon)
 include(ECMInstallIcons)
 
-find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets Xml PrintSupport LinguistTools )
+find_package(Qt5 5.2 CONFIG REQUIRED Core Gui Widgets Xml PrintSupport LinguistTools )
 
-find_package(KF5 REQUIRED XmlGui TextEditor Parts IconThemes KDELibs4Support )
+find_package(KF5 5.0 REQUIRED DocTools XmlGui TextEditor Parts IconThemes KDELibs4Support )
 
 include(KDEInstallDirs)
 include(KDECompilerSettings)
@@ -40,7 +41,7 @@ add_subdirectory(app)
 # add_subdirectory(part)
 
 add_subdirectory(doc)
-add_subdirectory(translations)
+# add_subdirectory(translations)
 add_subdirectory(data)
 
 # Remove directories

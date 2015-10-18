@@ -11,10 +11,10 @@ install(FILES ${ktikz_QM_FILES} DESTINATION ${KTIKZ_TRANSLATIONS_INSTALL_DIR})
 
 find_package(Gettext)
 if(GETTEXT_FOUND)
-# 	add_subdirectory(cs)
-# 	add_subdirectory(de)
-# 	add_subdirectory(es)
-# 	add_subdirectory(fr)
+	add_subdirectory(cs)
+	add_subdirectory(de)
+	add_subdirectory(es)
+	add_subdirectory(fr)
 else(GETTEXT_FOUND)
 	message(
 "------
