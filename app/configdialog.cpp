@@ -20,7 +20,6 @@
 
 #include <QKeyEvent>
 #include <QWhatsThis>
-#include <KConfigGroup>
 
 #include "configappearancewidget.h"
 #include "configeditorwidget.h"

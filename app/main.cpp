@@ -34,7 +34,7 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
-#include "url.h"
+#include "../common/utils/url.h"
 #include "ktikzapplication.h"
 
 // add copyright notice to the *.ts files; this string is not used anywhere else

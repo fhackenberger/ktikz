@@ -29,12 +29,8 @@ public:
 	explicit ComboBox(QWidget *parent = 0);
 };
 #else
-#include <QtCore/QtGlobal>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QComboBox>
-#else
-#include <QtGui/QComboBox>
-#endif
+#include <QtGlobal>
+#include <QComboBox>
 
 class UrlCompletion;
 

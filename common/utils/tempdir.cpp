@@ -21,7 +21,7 @@
 #include <QtCore/QDir>
 
 
-#include <KStandardDirs>
+// #include <KStandardDirs>
 #include <QTemporaryDir>
 
 TempDir::TempDir(const QString &directoryPrefix, int mode)
