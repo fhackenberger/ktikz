@@ -521,7 +521,7 @@ void MainWindow::createActions()
 	m_openRecentAction = StandardAction::openRecent(this, SLOT(loadUrl(QUrl)), this);
 	m_saveAction = StandardAction::save(this, SLOT(save()), this);
 	m_saveAsAction = StandardAction::saveAs(this, SLOT(saveAs()), this);
-	m_reloadAction = new Action(Icon(QLatin1String("view-refresh")), tr("Reloa&d"), this, QLatin1String("file_reload"));
+	m_reloadAction = new Action(Icon(QStringLiteral("view-refresh")), tr("Reloa&d"), this, QLatin1String("file_reload"));
 	m_reloadAction->setShortcut(QKeySequence::Refresh);
 	m_reloadAction->setStatusTip(tr("Reload the current document"));
 	m_reloadAction->setWhatsThis(tr("<p>Reload the current document from disk.</p>"));

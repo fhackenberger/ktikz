@@ -88,7 +88,7 @@ install(TARGETS ktikz DESTINATION ${KDE_INSTALL_BINDIR})
 install(FILES ktikzui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/ktikz)
 install(FILES ../common/ktikz.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
-add_subdirectory(icons)
+# add_subdirectory(icons)
 
 add_custom_target(uninstalldirs_app)
 add_custom_command(TARGET uninstalldirs_app
