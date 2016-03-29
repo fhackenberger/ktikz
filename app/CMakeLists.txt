@@ -82,7 +82,7 @@ target_link_libraries(ktikz
     KF5::XmlGui
     KF5::TextEditor
     KF5::KDELibs4Support
-    ${POPPLER_LIBRARY} )
+    ${Poppler_LIBRARIES} )
 
 install(TARGETS ktikz DESTINATION ${KDE_INSTALL_BINDIR})
 install(FILES ktikzui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/ktikz)

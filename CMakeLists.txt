@@ -29,13 +29,13 @@ include(KDECMakeSettings)
 include(FeatureSummary)
 # include(KDEFrameworkCompilerSettings)
 
-find_package(Poppler "0.12.1")
+find_package(Poppler "0.12.1" REQUIRED Qt5 Core)
 set_package_properties("Poppler-Qt5" PROPERTIES
         DESCRIPTION "A PDF rendering library"
         URL "http://poppler.freedesktop.org"
         TYPE REQUIRED
         PURPOSE "Support for PDF files in KTikZ.")
-include_directories( ${POPPLER_INCLUDE_DIR} )
+include_directories( ${Poppler_INCLUDE_DIRS} )
 
 add_subdirectory(app)
 # add_subdirectory(part)
