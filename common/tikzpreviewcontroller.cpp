@@ -107,6 +107,13 @@ TikzPreviewController::~TikzPreviewController()
 
 /***************************************************************************/
 
+const TextCodecProfile *TikzPreviewController::textCodecProfile() const {
+    return (TextCodecProfile*) this->m_mainWidget;
+}
+
+
+/***************************************************************************/
+
 const QString TikzPreviewController::tempDir() const
 {
 	return m_tempDir->name();

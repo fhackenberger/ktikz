@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>ConfigEditorWidget</class>
  <widget class="QWidget" name="ConfigEditorWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>332</width>
+    <height>479</height>
+   </rect>
+  </property>
   <property name="windowTitle">
    <string>Configure Editor</string>
   </property>
@@ -245,6 +253,104 @@
         <property name="text">
          <string>Use command &amp;completion</string>
         </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="encodingGoupBox">
+     <property name="title">
+      <string>Encoding</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QComboBox" name="encodingComboBox"/>
+      </item>
+      <item>
+       <widget class="QWidget" name="encodingAdvWidget" native="true">
+        <layout class="QFormLayout" name="formLayout">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="toolTip">
+            <string>Defaut encoding for new documents</string>
+           </property>
+           <property name="text">
+            <string>Defaut encoding</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="defaultEncodingComboBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="toolTip">
+            <string>Encoding for reading text files.
+Warning: if a BOM was detected, the decoder automatically switch to UTF-8 or UTF-16.</string>
+           </property>
+           <property name="text">
+            <string>Decoder</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="readEncodingComboBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="toolTip">
+            <string>Encoding for saving text files</string>
+           </property>
+           <property name="text">
+            <string>Encoder</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QComboBox" name="writeEncodingComboBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="2">
+          <widget class="QCheckBox" name="bomCheckBox">
+           <property name="text">
+            <string>Add BOM to documents</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>

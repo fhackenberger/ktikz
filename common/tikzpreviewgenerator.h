@@ -28,7 +28,7 @@
 
 class QPixmap;
 class QProcess;
-class QPlainTextEdit;
+class QPlainEdit;
 class QTextStream;
 
 namespace Poppler

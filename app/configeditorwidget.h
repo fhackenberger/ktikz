@@ -21,6 +21,9 @@
 
 #include "ui_configeditorwidget.h"
 
+class QTextCodec;
+class QComboBox;
+
 class ConfigEditorWidget : public QWidget
 {
 	Q_OBJECT
@@ -33,14 +36,22 @@ public:
 	void readSettings(const QString &settingsGroup);
 	void writeSettings(const QString &settingsGroup);
 
+    void initializeEncoding();
 protected:
 	Ui::ConfigEditorWidget ui;
 
 private Q_SLOTS:
 	void selectFont();
 
+    void on_encodingComboBox_currentIndexChanged(int index);
+
 private:
 	QFont m_generalFont;
-};
+
+    static QString codecNameToString(const QByteArray &codecName);
+    static QString codecNameToString(QTextCodec *codec);
+    static void fillCodecComboBox(QComboBox *cb);
+    static void selectEncoding(QComboBox *cb, const QVariant& codecName);
+ };
 
 #endif

@@ -43,6 +43,7 @@
 #include "assistantcontroller.h"
 #endif
 
+#include <QtCore/QTextCodec>
 #include <QtCore/QProcess>
 #include <QtCore/QSettings>
 #include <QtCore/QTextStream>
@@ -842,6 +843,14 @@ void MainWindow::applySettings()
 	settings.beginGroup(QLatin1String("Editor"));
 	m_useCompletion = settings.value(QLatin1String("UseCompletion"), true).toBool();
 	updateCompleter();
+    settings.beginGroup(QLatin1String("encoding"));
+        QVariant qv = settings.value(QLatin1String("default"));
+        setCurrentEncoding( qv.isNull() ? QTextCodec::codecForLocale() : QTextCodec::codecForName(qv.toByteArray())) ;
+        qv = settings.value(QLatin1String("encoder"));
+        m_overrideEncoder = qv.isNull() ? NULL : QTextCodec::codecForName(qv.toByteArray()) ;
+        qv = settings.value(QLatin1String("decoder"));
+        m_overrideDecoder = qv.isNull() ? NULL : QTextCodec::codecForName(qv.toByteArray()) ;
+        m_encoderBom = settings.value(QLatin1String("bom"), true).toBool();
 	settings.endGroup();
 
 	m_tikzHighlighter->applySettings();
@@ -956,7 +965,9 @@ void MainWindow::loadUrl(const Url &url)
 	           m_tikzPreviewController, SLOT(regeneratePreviewAfterDelay()));
 	QTextStream in(file.file());
 	QApplication::setOverrideCursor(Qt::WaitCursor);
-	m_tikzEditorView->editor()->setPlainText(in.readAll());
+    this->configureStreamDecoding(in);
+    m_tikzEditorView->editor()->setPlainText(in.readAll());
+	setCurrentEncoding(in.codec());
 	QApplication::restoreOverrideCursor();
 //qCritical() << "loadUrl" << t.msecsTo(QTime::currentTime());
 	m_tikzPreviewController->generatePreview();
@@ -969,6 +980,7 @@ void MainWindow::loadUrl(const Url &url)
 	m_openRecentAction->addUrl(url);
 //qCritical() << "loadUrl" << t.msecsTo(QTime::currentTime());
 //	statusBar()->showMessage(tr("File loaded"), 2000); // this is slow
+//      statusBar()->showMessage(tr("File loaded using %1 codec").arg(QString( m_currentEncoding->name())), 2000);
 //qCritical() << "loadUrl" << t.msecsTo(QTime::currentTime());
 }
 
@@ -989,6 +1001,8 @@ bool MainWindow::saveUrl(const Url &url)
 
 	QTextStream out(file.file());
 	QApplication::setOverrideCursor(Qt::WaitCursor);
+
+    this->configureStreamEncoding(out);
 	out << m_tikzEditorView->editor()->toPlainText();
 	out.flush();
 	QApplication::restoreOverrideCursor();
@@ -1008,6 +1022,12 @@ bool MainWindow::saveUrl(const Url &url)
 	saveLastInternalModifiedDateTime(); // make sure that the save in this function is not seen as an "external" save
 	statusBar()->showMessage(tr("File saved", "@info:status"), 2000);
 	return true;
+}
+
+void MainWindow::setCurrentEncoding(QTextCodec *codec, bool isUserRequest)
+{
+    m_currentEncoding = codec;
+   // TODO: implement user warning and suggestion to reload the file.
 }
 
 Url MainWindow::url() const
@@ -1031,16 +1051,40 @@ QString MainWindow::strippedName(const Url &url) const
 	return (fileName.isEmpty()) ? QLatin1String("untitled.txt") : fileName;
 }
 
+QTextCodec *MainWindow::getEncoder() const {
+    return this->m_overrideEncoder ? this->m_overrideEncoder : this->m_currentEncoding;  }
+
+void MainWindow::configureStreamEncoding(QTextStream& textStream)
+{
+    QTextCodec* encoder = this->getEncoder();
+    if(Q_LIKELY(encoder)) // should be true
+        textStream.setCodec(encoder);
+    else
+        qWarning("The encoder variable should not be null.");
+
+    textStream.setGenerateByteOrderMark(this->m_encoderBom);
+
+}
+
+void MainWindow::configureStreamDecoding(QTextStream &textStream)
+{
+    if(m_overrideDecoder)
+    {
+        textStream.setCodec(m_overrideDecoder);
+    }
+    textStream.setAutoDetectUnicode(true);
+}
+
 /***************************************************************************/
 
 void MainWindow::setLineNumber(int lineNumber)
 {
-	m_tikzEditorView->goToLine(lineNumber - 1);
+    m_tikzEditorView->goToLine(lineNumber - 1);
 }
 
 int MainWindow::lineNumber() const
 {
-	return m_tikzEditorView->lineNumber();
+    return m_tikzEditorView->lineNumber();
 }
 
 /***************************************************************************/

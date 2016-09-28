@@ -27,8 +27,9 @@
 #endif
 
 #include "utils/url.h"
+#include "textcodecprofile.h"
 
-class MainWidget
+class MainWidget : TextCodecProfile
 {
 public:
 	virtual ~MainWidget() {}
@@ -44,7 +45,7 @@ public:
 	virtual Url url() const
 	{
 		return Url();
-	}
+    }
 };
 
 #endif
