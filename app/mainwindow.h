@@ -223,7 +223,7 @@ private:
     QTextCodec* m_overrideEncoder;
     /// If not null, override the decoder
     QTextCodec* m_overrideDecoder;
-    /// True if a BOM must be had to the text file
+    /// True if a BOM must be added to the PGF-file
     bool m_encoderBom;
     /// Return the current encoder (m_currentEncoding or another if encoder is overriden).
     /*virtual*/ QTextCodec* getEncoder() const;
