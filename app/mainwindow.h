@@ -92,8 +92,8 @@ public:
 		return s_mainWindowList;
 	}
 
-    virtual void configureStreamEncoding(QTextStream &textStream);
-    virtual void configureStreamDecoding(QTextStream &textStream);
+	virtual void configureStreamEncoding(QTextStream &textStream);
+	virtual void configureStreamDecoding(QTextStream &textStream);
 
 public Q_SLOTS:
 	void loadUrl(const Url &url);
@@ -133,9 +133,9 @@ private Q_SLOTS:
 	void showCursorPosition(int row, int col);
 	void showMouseCoordinates(qreal x, qreal y, int precisionX = 5, int precisionY = 5);
 	void updateCompleter();
-    /// Change the codec for the current document
-    /// @param isUserRequest set to true if the user request the changement (in this case, the application should warn the user -- not implemented yet.).
-    void setCurrentEncoding(QTextCodec* codec, bool isUserRequest = false);
+	/// Change the codec for the current document
+	/// @param isUserRequest set to true if the user requested the changement (in this case, the application should warn the user -- not implemented yet.).
+	void setCurrentEncoding(QTextCodec* codec, bool isUserRequest = false);
 
 private:
 	void createActions();
@@ -219,14 +219,14 @@ private:
 
 	Url m_currentUrl;
 	QTextCodec* m_currentEncoding;
-    /// If not null, override the encoder (rather than @ref m_currentEncoding)
-    QTextCodec* m_overrideEncoder;
-    /// If not null, override the decoder
-    QTextCodec* m_overrideDecoder;
-    /// True if a BOM must be added to the PGF-file
-    bool m_encoderBom;
-    /// Return the current encoder (m_currentEncoding or another if encoder is overriden).
-    /*virtual*/ QTextCodec* getEncoder() const;
+	/// If not null, override the encoder (rather than @ref m_currentEncoding)
+	QTextCodec* m_overrideEncoder;
+	/// If not null, override the decoder
+	QTextCodec* m_overrideDecoder;
+	/// True if a BOM must be added to the PGF-file
+	bool m_encoderBom;
+	/// Return the current encoder (m_currentEncoding or another if encoder is overriden).
+	/*virtual*/ QTextCodec* getEncoder() const;
 
 	Url m_lastUrl;
 	QDateTime m_lastInternalModifiedDateTime;

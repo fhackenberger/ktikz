@@ -311,7 +311,7 @@ void TikzPreviewGenerator::createPreview()
 	// load template file if changed
 	if (m_templateChanged)
 	{
-        const QString errorString = createTempLatexFile(m_tikzFileBaseName, m_templateFileName, m_tikzReplaceText, m_parent->textCodecProfile());
+		const QString errorString = createTempLatexFile(m_tikzFileBaseName, m_templateFileName, m_tikzReplaceText, m_parent->textCodecProfile());
 		if (!errorString.isEmpty())
 		{
 			showFileWriteError(m_tikzFileBaseName + QLatin1String(".tex"), errorString);
@@ -322,7 +322,7 @@ void TikzPreviewGenerator::createPreview()
 	}
 
 	// load tikz code
-    const QString errorString = createTempTikzFile(m_tikzFileBaseName, m_tikzCode, m_parent->textCodecProfile());
+	const QString errorString = createTempTikzFile(m_tikzFileBaseName, m_tikzCode, m_parent->textCodecProfile());
 	if (!errorString.isEmpty())
 	{
 		showFileWriteError(m_tikzFileBaseName + QLatin1String(".pgf"), errorString);
@@ -452,7 +452,7 @@ static QString createTempLatexFile(const QString &tikzFileBaseName, const QStrin
 		return tikzTexFile.errorString();
 
 	QTextStream tikzStream(tikzTexFile.file());
-    codecProfile->configureStreamEncoding(tikzStream);
+	codecProfile->configureStreamEncoding(tikzStream);
 
 	QFile templateFile(templateFileName);
 #ifdef KTIKZ_USE_KDE
@@ -461,11 +461,11 @@ static QString createTempLatexFile(const QString &tikzFileBaseName, const QStrin
 #else
 	if (QFileInfo(templateFile).isFile()
 #endif
-	        && templateFile.open(QIODevice::ReadOnly | QIODevice::Text) // if user-specified template file is readable
-	        && !tikzReplaceText.isEmpty())
+			&& templateFile.open(QIODevice::ReadOnly | QIODevice::Text) // if user-specified template file is readable
+			&& !tikzReplaceText.isEmpty())
 	{
 		QTextStream templateFileStream(&templateFile);
-        codecProfile->configureStreamDecoding(templateFileStream);
+		codecProfile->configureStreamDecoding(templateFileStream);
 		while (!templateFileStream.atEnd())
 		{
 			QString templateLine = templateFileStream.readLine();
@@ -503,7 +503,7 @@ static QString createTempTikzFile(const QString &tikzFileBaseName, const QString
 		return tikzFile.errorString();
 
 	QTextStream tikzStream(tikzFile.file());
-    codecProfile->configureStreamEncoding(tikzStream);
+	codecProfile->configureStreamEncoding(tikzStream);
 
 	tikzStream << tikzCode << endl;
 	tikzStream.flush();
@@ -536,7 +536,7 @@ void TikzPreviewGenerator::removeFromLatexSearchPath(const QString &path)
 }
 
 bool TikzPreviewGenerator::runProcess(const QString &name, const QString &command,
-                                      const QStringList &arguments, const QString &workingDir)
+									  const QStringList &arguments, const QString &workingDir)
 {
 	QString shortLogText;
 	QString longLogText;

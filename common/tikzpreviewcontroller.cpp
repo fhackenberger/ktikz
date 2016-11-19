@@ -108,7 +108,7 @@ TikzPreviewController::~TikzPreviewController()
 /***************************************************************************/
 
 const TextCodecProfile *TikzPreviewController::textCodecProfile() const {
-    return (TextCodecProfile*) this->m_mainWidget;
+	return (TextCodecProfile*) this->m_mainWidget;
 }
 
 

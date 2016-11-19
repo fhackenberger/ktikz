@@ -47,7 +47,7 @@ public:
 	explicit TikzPreviewController(MainWidget *mainWidget);
 	~TikzPreviewController();
 
-    const TextCodecProfile* textCodecProfile() const;
+	const TextCodecProfile* textCodecProfile() const;
 	const QString tempDir() const;
 	const QString tempDirLocation() const;
 	TemplateWidget *templateWidget() const;
