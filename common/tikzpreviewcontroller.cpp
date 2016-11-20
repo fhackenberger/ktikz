@@ -1,6 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2008, 2009, 2010, 2011, 2012, 2014                      *
  *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
+ *   Copyright (C) 2016 by G. Prudhomme                                    *
+ *     <gprud@users.noreply.github.com>                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
