@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{mathptmx}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+%\usepackage{color}
+\usepackage[active,pdftex,tightpage]{preview}
+\PreviewEnvironment[]{tikzpicture}
+\PreviewEnvironment[]{pgfpicture}
+\DeclareSymbolFont{symbolsb}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{symbolsb}{bold}{OMS}{cmsy}{b}{n}
+\DeclareSymbolFontAlphabet{\mathcal}{symbolsb}
+
+\usetikzlibrary{positioning}
+
+\tikzset{
+  >=stealth
+}
+
+\begin{document}
+<>
+\end{document}
