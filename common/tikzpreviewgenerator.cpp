@@ -3,6 +3,8 @@
  *     <florian@hackenberger.at>                                           *
  *   Copyright (C) 2007, 2008, 2009, 2010, 2011, 2012, 2014                *
  *     by Glad Deschrijver <glad.deschrijver@gmail.com>                    *
+ *   Copyright (C) 2016 by G. Prudhomme                                    *
+ *     <gprud@users.noreply.github.com>                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -38,6 +40,7 @@
 #endif
 
 #include "tikzpreviewcontroller.h"
+#include "mainwidget.h"
 #include "utils/file.h"
 
 #ifdef Q_OS_WIN
@@ -291,8 +294,8 @@ static QList<qreal> tikzCoordinates(const QString &tikzFileBaseName)
 	return tikzCoordinateList;
 }
 
-static QString createTempLatexFile(const QString &tikzFileBaseName, const QString &templateFileName, const QString &tikzReplaceText);
-static QString createTempTikzFile(const QString &tikzFileBaseName, const QString &tikzCode);
+static QString createTempLatexFile(const QString &tikzFileBaseName, const QString &templateFileName, const QString &tikzReplaceText, const TextCodecProfile *codecProfile);
+static QString createTempTikzFile(const QString &tikzFileBaseName, const QString &tikzCode, const TextCodecProfile *codecProfile);
 
 void TikzPreviewGenerator::createPreview()
 {
@@ -310,7 +313,7 @@ void TikzPreviewGenerator::createPreview()
 	// load template file if changed
 	if (m_templateChanged)
 	{
-		const QString errorString = createTempLatexFile(m_tikzFileBaseName, m_templateFileName, m_tikzReplaceText);
+		const QString errorString = createTempLatexFile(m_tikzFileBaseName, m_templateFileName, m_tikzReplaceText, m_parent->textCodecProfile());
 		if (!errorString.isEmpty())
 		{
 			showFileWriteError(m_tikzFileBaseName + QLatin1String(".tex"), errorString);
@@ -321,7 +324,7 @@ void TikzPreviewGenerator::createPreview()
 	}
 
 	// load tikz code
-	const QString errorString = createTempTikzFile(m_tikzFileBaseName, m_tikzCode);
+	const QString errorString = createTempTikzFile(m_tikzFileBaseName, m_tikzCode, m_parent->textCodecProfile());
 	if (!errorString.isEmpty())
 	{
 		showFileWriteError(m_tikzFileBaseName + QLatin1String(".pgf"), errorString);
@@ -412,7 +415,7 @@ void TikzPreviewGenerator::showFileWriteError(const QString &fileName, const QSt
 	Q_EMIT updateLog(error, true);
 }
 
-static QString createTempLatexFile(const QString &tikzFileBaseName, const QString &templateFileName, const QString &tikzReplaceText)
+static QString createTempLatexFile(const QString &tikzFileBaseName, const QString &templateFileName, const QString &tikzReplaceText, const TextCodecProfile *codecProfile)
 {
 	const QString inputTikzCode = QLatin1String("\\makeatletter\n"
 		"\\ifdefined\\endtikzpicture%\n"
@@ -451,6 +454,7 @@ static QString createTempLatexFile(const QString &tikzFileBaseName, const QStrin
 		return tikzTexFile.errorString();
 
 	QTextStream tikzStream(tikzTexFile.file());
+	codecProfile->configureStreamEncoding(tikzStream);
 
 	QFile templateFile(templateFileName);
 #ifdef KTIKZ_USE_KDE
@@ -459,10 +463,11 @@ static QString createTempLatexFile(const QString &tikzFileBaseName, const QStrin
 #else
 	if (QFileInfo(templateFile).isFile()
 #endif
-	        && templateFile.open(QIODevice::ReadOnly | QIODevice::Text) // if user-specified template file is readable
-	        && !tikzReplaceText.isEmpty())
+			&& templateFile.open(QIODevice::ReadOnly | QIODevice::Text) // if user-specified template file is readable
+			&& !tikzReplaceText.isEmpty())
 	{
 		QTextStream templateFileStream(&templateFile);
+		codecProfile->configureStreamDecoding(templateFileStream);
 		while (!templateFileStream.atEnd())
 		{
 			QString templateLine = templateFileStream.readLine();
@@ -493,13 +498,15 @@ static QString createTempLatexFile(const QString &tikzFileBaseName, const QStrin
 	return QString();
 }
 
-static QString createTempTikzFile(const QString &tikzFileBaseName, const QString &tikzCode)
+static QString createTempTikzFile(const QString &tikzFileBaseName, const QString &tikzCode, const TextCodecProfile *codecProfile)
 {
 	File tikzFile(tikzFileBaseName + QLatin1String(".pgf"), File::WriteOnly);
 	if (!tikzFile.open())
 		return tikzFile.errorString();
 
 	QTextStream tikzStream(tikzFile.file());
+	codecProfile->configureStreamEncoding(tikzStream);
+
 	tikzStream << tikzCode << endl;
 	tikzStream.flush();
 
@@ -531,7 +538,7 @@ void TikzPreviewGenerator::removeFromLatexSearchPath(const QString &path)
 }
 
 bool TikzPreviewGenerator::runProcess(const QString &name, const QString &command,
-                                      const QStringList &arguments, const QString &workingDir)
+									  const QStringList &arguments, const QString &workingDir)
 {
 	QString shortLogText;
 	QString longLogText;
