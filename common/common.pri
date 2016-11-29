@@ -17,4 +17,5 @@ SOURCES += \
 	$${PWD}/tikzpreviewrenderer.cpp
 HEADERS += \
 #	$$headerFiles($$SOURCES) \
-	$${PWD}/mainwidget.h
+	$${PWD}/mainwidget.h \
+    $$PWD/textcodecprofile.h

@@ -1,6 +1,6 @@
 /***************************************************************************
- *   Copyright (C) 2008, 2009 by Glad Deschrijver                          *
- *     <glad.deschrijver@gmail.com>                                        *
+ *   Copyright (C) 2016 by G. Prudhomme                                    *
+ *     <gprud@users.noreply.github.com>                                    *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -16,36 +16,25 @@
  *   along with this program; if not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef KTIKZ_MAIN_WIDGET_H
-#define KTIKZ_MAIN_WIDGET_H
+#ifndef TEXTCODECPROFILE_H
+#define TEXTCODECPROFILE_H
 
-#include <QtCore/QString>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QWidget>
-#else
-#include <QtGui/QWidget>
-#endif
+class QTextStream;
 
-#include "utils/url.h"
-#include "textcodecprofile.h"
-
-class MainWidget : TextCodecProfile
-{
+class TextCodecProfile{
 public:
-	virtual ~MainWidget() {}
-
-	virtual QWidget *widget()
+	/// Configure a QTextStream to encode a TeX file.
+	/// @arg textStream A non-null instance of QTextStream.
+	void configureStreamEncoding(QTextStream& textStream) const
 	{
-		return new QWidget();
+		Q_UNUSED(textStream);
 	}
-	virtual QString tikzCode() const
+	/// Configure a QTextStream to decode a TeX file.
+	/// @arg textStream A non-null instance of QTextStream.
+	void configureStreamDecoding(QTextStream& textStream) const
 	{
-		return QString();
+		Q_UNUSED(textStream);
 	}
-	virtual Url url() const
-	{
-		return Url();
-    }
 };
 
-#endif
+#endif // TEXTCODECPROFILE_H

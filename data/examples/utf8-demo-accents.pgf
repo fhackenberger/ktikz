@@ -1,0 +1,6 @@
+﻿\begin{tikzpicture}[text width=6cm, align=center]
+	\path
+		node(A){This is a node with French accents~: é è ê ë  à ç ô û ù.  }
+	node[below=of A](B){Without unicode or encoding support (and inputenc \TeX{} package), this text has to be written like this~: \'e \` e \^e \"e  \`a \c{c} \^o \^u \`u.  }
+		node[below=of B]{This should work with any language.};
+\end{tikzpicture}
