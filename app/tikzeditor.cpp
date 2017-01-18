@@ -319,7 +319,7 @@ void TikzEditor::printWhiteSpaces(QPainter &painter)
 
 	QPen backupPen(painter.pen());
 	QPen tabulatorsPen(m_tabulatorsColor);
-	tabulatorsPen.setWidthF(qMax(qreal(0.5), spaceWidth * .1));
+	tabulatorsPen.setWidthF(qMax(qreal(0.5), qreal(spaceWidth * .1)));
 	tabulatorsPen.setCapStyle(Qt::RoundCap);
 	tabulatorsPen.setJoinStyle(Qt::RoundJoin);
 	QPen whiteSpacesPen(m_whiteSpacesColor);
