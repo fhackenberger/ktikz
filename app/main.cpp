@@ -159,11 +159,12 @@ int main(int argc, char **argv)
 	KAboutData aboutData(QStringLiteral("ktikz"),i18n("KtikZ"), APPVERSION);
 	aboutData.setShortDescription(i18n("A TikZ Editor"));
 	aboutData.setLicense(KAboutLicense::GPL_V2);
-	aboutData.setCopyrightStatement(i18n("Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"));
+	aboutData.setCopyrightStatement(i18n("Copyright 2007-2017 Florian Hackenberger, Glad Deschrijver, Joao Carreira"));
 	aboutData.setOtherText(i18n("This is a program for creating TikZ (from the LaTeX pgf package) diagrams."));
-	aboutData.setBugAddress("florian@hackenberger.at");
+	aboutData.setBugAddress("jfmcarreira@gmail.com");
 	aboutData.addAuthor(i18n("Florian Hackenberger"), i18n("Maintainer"), "florian@hackenberger.at");
 	aboutData.addAuthor(i18n("Glad Deschrijver"), i18n("Developer"), "glad.deschrijver@gmail.com");
+  aboutData.addAuthor(i18n("Joao Carreira"), i18n("KDE Frameworks port"), "jfmcarreira@gmail.com");
 
 	QCommandLineParser parser;
 	aboutData.setupCommandLine(&parser);
