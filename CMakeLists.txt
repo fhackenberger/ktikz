@@ -38,10 +38,10 @@ set_package_properties("Poppler-Qt5" PROPERTIES
 include_directories( ${Poppler_INCLUDE_DIRS} )
 
 add_subdirectory(app)
-# add_subdirectory(part)
+add_subdirectory(part)
 
 add_subdirectory(doc)
-# add_subdirectory(translations)
+add_subdirectory(translations)
 add_subdirectory(data)
 
 # Remove directories

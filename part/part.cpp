@@ -61,9 +61,6 @@
 #include "../common/utils/action.h"
 #include "browserextension.h"
 
-// K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<KtikZ::Part>();)
-// K_EXPORT_PLUGIN(ktikzPartFactory(KAboutData("ktikzpart", "ktikz", ki18n("KtikZ Viewer"), APPVERSION)))
-
 namespace KtikZ
 {
 

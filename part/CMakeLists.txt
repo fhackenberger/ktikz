@@ -50,8 +50,10 @@ add_library(ktikzpart MODULE ${ktikzpart_SRCS})
 target_link_libraries(ktikzpart
   KF5::Parts
   KF5::IconThemes
+  KF5::CoreAddons
+  KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets KF5::KIONTLM
   KF5::KDELibs4Support
-  ${POPPLER_LIBRARY}
+  ${Poppler_LIBRARIES}
 )
 
 

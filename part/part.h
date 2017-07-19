@@ -87,6 +87,6 @@ private:
 
 } // namespace KtikZ
 
-K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<KtikZ::Part>();)
+// K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<KtikZ::Part>();)
 
 #endif
