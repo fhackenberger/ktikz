@@ -37,6 +37,7 @@
 
 #include "part.h"
 
+#include <KPluginFactory>
 #include <KAboutApplicationDialog>
 #include <KAboutData>
 #include <QAction>
@@ -239,7 +240,7 @@ QString Part::tikzCode() const
 	return m_tikzCode;
 }
 
-Url Part::url() const
+Url KtikZ::Part::url() const
 {
 	return Url(KParts::ReadOnlyPart::url());
 }
@@ -345,5 +346,9 @@ QTranslator *Part::createTranslator(const QString &transName)
 #endif
 	return translator;
 }
+
+K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<KtikZ::Part>();)
+
+#include "part.moc"
 
 } // namespace KtikZ

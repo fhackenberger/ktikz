@@ -20,7 +20,7 @@
 #define KTIKZ_PART_H
 
 #include "../common/mainwidget.h"
-#include <KPluginFactory>
+#include <KParts/Part>
 #include <KParts/ReadOnlyPart>
 
 class KAboutData;
@@ -43,8 +43,8 @@ class Part : public KParts::ReadOnlyPart, public MainWidget
 	Q_OBJECT
 
 public:
-	Part(QWidget *parentWidget, QObject *parent, const QVariantList &args);
-	virtual ~Part();
+	explicit Part(QWidget *parentWidget, QObject *parent, const QVariantList &args);
+	virtual ~Part() Q_DECL_OVERRIDE;
 
 	static KAboutData *createAboutData();
 	virtual QWidget *widget();
@@ -52,7 +52,8 @@ public:
 	Url url() const;
 
 protected:
-	virtual bool openFile();
+	/** Reimplemented from KParts::PartBase. */
+	bool openFile() Q_DECL_OVERRIDE;
 	bool closeUrl();
 
 private slots:
@@ -87,6 +88,5 @@ private:
 
 } // namespace KtikZ
 
-// K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<KtikZ::Part>();)
 
 #endif
