@@ -52,9 +52,9 @@ void ConfigEditorWidget::initializeEncoding()
 	else
 		localCodecName = codecNameToString( localCodec->aliases()[1]);
  
-	ui.encodingComboBox->addItem(tr("System local - %1", "Encoding").arg(localCodecName), QString::fromAscii("System"));
-	ui.encodingComboBox->addItem(tr("UTF-8", "Encoding"), QString::fromAscii("UTF-8 BOM"));
-	ui.encodingComboBox->addItem(tr("UTF-8 without BOM", "Encoding"), QString::fromAscii("UTF-8"));
+	ui.encodingComboBox->addItem(tr("System local - %1", "Encoding").arg(localCodecName), QString::fromLatin1("System"));
+	ui.encodingComboBox->addItem(tr("UTF-8", "Encoding"), QString::fromLatin1("UTF-8 BOM"));
+	ui.encodingComboBox->addItem(tr("UTF-8 without BOM", "Encoding"), QString::fromLatin1("UTF-8"));
 	ui.encodingComboBox->addItem(tr("(Advanced)", "Encoding"), QString());
 	ui.encodingComboBox->setCurrentIndex(ui.encodingComboBox->count()-1);
  
@@ -230,19 +230,19 @@ void ConfigEditorWidget::on_encodingComboBox_currentIndexChanged(int index)
 		{
 			QVariant de, re, we;
 			bool bom ;
-			if (key.compare(QString::fromAscii("UTF-8+BOM"))==0)
+			if (key.compare(QString::fromLatin1("UTF-8+BOM"))==0)
 			{
-				de = QString::fromAscii("UTF-8");
+				de = QString::fromLatin1("UTF-8");
 				we = de;
 				bom = true;
 			}
-			else if (key.compare(QString::fromAscii("UTF-8"))==0)
+			else if (key.compare(QString::fromLatin1("UTF-8"))==0)
 			{
-				de = QString::fromAscii("UTF-8");
+				de = QString::fromLatin1("UTF-8");
 				we = de;
 				bom = false;
 			}
-			else // if (key.compare(QString::fromAscii("System"))==0)
+			else // if (key.compare(QString::fromLatin1("System"))==0)
 			{
 				bom = true;
 			}
@@ -260,7 +260,7 @@ void ConfigEditorWidget::on_encodingComboBox_currentIndexChanged(int index)
 
 QString ConfigEditorWidget::codecNameToString(const QByteArray& codecName)
 {
-	return QString::fromAscii(codecName.constData(), codecName.length());
+	return QString::fromLatin1(codecName.constData(), codecName.length());
 }
 
 QString ConfigEditorWidget::codecNameToString(QTextCodec *codec){return codecNameToString(codec->name());}
