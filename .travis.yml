@@ -1,0 +1,5 @@
+language: cpp
+before_install:
+	- sudo apt-get install -qq update
+	- sudo apt-get install build-essential cmake libqt4-dev qt4-dev-tools libpoppler-qt4-dev kdelibs5-dev preview-latex-style
+script: mkdir -f buildqt && cd buildqt && qmake ../qtikz.pro && make
