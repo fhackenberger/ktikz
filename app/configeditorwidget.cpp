@@ -41,7 +41,7 @@ ConfigEditorWidget::ConfigEditorWidget(QWidget *parent)
 	// ** Encoding
 	initializeEncoding();
 }
- 
+
 void ConfigEditorWidget::initializeEncoding()
 {
 	/// Local codec
@@ -51,30 +51,30 @@ void ConfigEditorWidget::initializeEncoding()
 		localCodecName = codecNameToString( localCodec);
 	else
 		localCodecName = codecNameToString( localCodec->aliases()[1]);
- 
-  ui.encodingComboBox->addItem(tr("System local - %1", "Encoding").arg(localCodecName), QString::fromLatin1("System"));
-  ui.encodingComboBox->addItem(tr("UTF-8", "Encoding"), QString::fromLatin1("UTF-8 BOM"));
-  ui.encodingComboBox->addItem(tr("UTF-8 without BOM", "Encoding"), QString::fromLatin1("UTF-8"));
+
+	ui.encodingComboBox->addItem(tr("System local - %1", "Encoding").arg(localCodecName), QString::fromLatin1("System"));
+	ui.encodingComboBox->addItem(tr("UTF-8", "Encoding"), QString::fromLatin1("UTF-8 BOM"));
+	ui.encodingComboBox->addItem(tr("UTF-8 without BOM", "Encoding"), QString::fromLatin1("UTF-8"));
 	ui.encodingComboBox->addItem(tr("(Advanced)", "Encoding"), QString());
 	ui.encodingComboBox->setCurrentIndex(ui.encodingComboBox->count()-1);
- 
- 
- 
+
+
+
 	QComboBox* cb (ui.defaultEncodingComboBox);
 	cb->addItem(tr("(Local codec - %1)", "Encoding").arg(localCodecName), QVariant()
 		);
 	fillCodecComboBox(cb);
- 
- 
+
+
 	cb = ui.readEncodingComboBox;
 	cb->addItem(tr("(Local or unicode)", "Encoding"),  QVariant());
 	fillCodecComboBox(cb);
- 
+
 	cb = ui.writeEncodingComboBox;
 	cb->addItem(tr("(Same)", "Encoding"),  QVariant());
 	fillCodecComboBox(cb);
 }
- 
+
 
 QVariant ConfigEditorWidget::defaultSetting(const QString &key)
 {
@@ -124,7 +124,7 @@ void ConfigEditorWidget::readSettings(const QString &settingsGroup)
 	ui.highlightCurrentLineColorButton->setColor(settings.value(QLatin1String("ColorHighlightCurrentLine"), defaultSetting(QLatin1String("ColorHighlightCurrentLine"))).value<QColor>());
 
 	ui.useCompletionCheck->setChecked(settings.value(QLatin1String("UseCompletion"), defaultSetting(QLatin1String("UseCompletion"))).toBool());
-	
+
 	// encoding
 	settings.beginGroup(QLatin1String("encoding"));
 		selectEncoding(ui.defaultEncodingComboBox, settings.value(QLatin1String("default")));
@@ -133,7 +133,7 @@ void ConfigEditorWidget::readSettings(const QString &settingsGroup)
 		ui.bomCheckBox->setChecked(settings.value(QLatin1String("bom"), true).toBool());
 		selectEncoding(ui.encodingComboBox, settings.value(QLatin1String("preset"), QLatin1String("System")));
 	settings.endGroup();
-	
+
 	settings.endGroup();
 }
 
@@ -152,7 +152,7 @@ void ConfigEditorWidget::writeSettings(const QString &settingsGroup)
 	settings.setValue(QLatin1String("ShowHighlightCurrentLine"), ui.highlightCurrentLineCheck->isChecked());
 	settings.setValue(QLatin1String("ColorHighlightCurrentLine"), ui.highlightCurrentLineColorButton->color());
 	settings.setValue(QLatin1String("UseCompletion"), ui.useCompletionCheck->isChecked());
-	
+
 	settings.beginGroup(QLatin1String("encoding"));
 		settings.setValue(QLatin1String("default"),
 			ui.defaultEncodingComboBox->itemData(ui.defaultEncodingComboBox->currentIndex()));
@@ -230,6 +230,7 @@ void ConfigEditorWidget::on_encodingComboBox_currentIndexChanged(int index)
 		{
 			QVariant de, re, we;
 			bool bom ;
+<<<<<<< HEAD
       if (key.compare(QString::fromLatin1("UTF-8+BOM"))==0)
 			{
         de = QString::fromLatin1("UTF-8");
@@ -243,6 +244,21 @@ void ConfigEditorWidget::on_encodingComboBox_currentIndexChanged(int index)
 				bom = false;
 			}
       else // if (key.compare(QString::fromLatin1("System"))==0)
+=======
+			if (key.compare(QString::fromLatin1("UTF-8+BOM"))==0)
+			{
+				de = QString::fromLatin1("UTF-8");
+				we = de;
+				bom = true;
+			}
+			else if (key.compare(QString::fromLatin1("UTF-8"))==0)
+			{
+				de = QString::fromLatin1("UTF-8");
+				we = de;
+				bom = false;
+			}
+			else // if (key.compare(QString::fromLatin1("System"))==0)
+>>>>>>> master
 			{
 				bom = true;
 			}
@@ -260,7 +276,11 @@ void ConfigEditorWidget::on_encodingComboBox_currentIndexChanged(int index)
 
 QString ConfigEditorWidget::codecNameToString(const QByteArray& codecName)
 {
+<<<<<<< HEAD
   return QString::fromLatin1(codecName.constData(), codecName.length());
+=======
+	return QString::fromLatin1(codecName.constData(), codecName.length());
+>>>>>>> master
 }
 
 QString ConfigEditorWidget::codecNameToString(QTextCodec *codec){return codecNameToString(codec->name());}
