@@ -230,21 +230,6 @@ void ConfigEditorWidget::on_encodingComboBox_currentIndexChanged(int index)
 		{
 			QVariant de, re, we;
 			bool bom ;
-<<<<<<< HEAD
-      if (key.compare(QString::fromLatin1("UTF-8+BOM"))==0)
-			{
-        de = QString::fromLatin1("UTF-8");
-				we = de;
-				bom = true;
-			}
-      else if (key.compare(QString::fromLatin1("UTF-8"))==0)
-			{
-        de = QString::fromLatin1("UTF-8");
-				we = de;
-				bom = false;
-			}
-      else // if (key.compare(QString::fromLatin1("System"))==0)
-=======
 			if (key.compare(QString::fromLatin1("UTF-8+BOM"))==0)
 			{
 				de = QString::fromLatin1("UTF-8");
@@ -258,7 +243,6 @@ void ConfigEditorWidget::on_encodingComboBox_currentIndexChanged(int index)
 				bom = false;
 			}
 			else // if (key.compare(QString::fromLatin1("System"))==0)
->>>>>>> master
 			{
 				bom = true;
 			}
@@ -276,11 +260,7 @@ void ConfigEditorWidget::on_encodingComboBox_currentIndexChanged(int index)
 
 QString ConfigEditorWidget::codecNameToString(const QByteArray& codecName)
 {
-<<<<<<< HEAD
-  return QString::fromLatin1(codecName.constData(), codecName.length());
-=======
 	return QString::fromLatin1(codecName.constData(), codecName.length());
->>>>>>> master
 }
 
 QString ConfigEditorWidget::codecNameToString(QTextCodec *codec){return codecNameToString(codec->name());}
