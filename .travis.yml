@@ -2,4 +2,4 @@ language: cpp
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install build-essential cmake libqt4-dev qt4-dev-tools libpoppler-qt4-dev kdelibs5-dev preview-latex-style
-script: mkdir -p buildqt && cd buildqt && qmake ../qtikz.pro && make
+script: mkdir -p buildqt && cd buildqt && qmake ../qtikz.pro && make && cd .. && git clean -f -d && mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` && make
