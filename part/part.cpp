@@ -37,20 +37,22 @@
 
 #include "part.h"
 
+#include <KPluginFactory>
 #include <KAboutApplicationDialog>
 #include <KAboutData>
-#include <KAction>
+#include <QAction>
 #include <KActionCollection>
 #include <KDirWatch>
-#include <KFileDialog>
 #include <KMessageBox>
 #include <KIO/Job>
 #include <KIO/JobUiDelegate>
-#include <KIO/NetAccess>
-#include <KParts/GenericFactory>
 #include <QtCore/QSettings>
 #include <QtCore/QTimer>
 #include <QtCore/QTranslator>
+#include <QMimeDatabase>
+#include <QMimeType>
+#include <QDir>
+#include <QFileDialog>
 
 #include "configdialog.h"
 #include "settings.h"
@@ -59,9 +61,6 @@
 #include "../common/tikzpreviewcontroller.h"
 #include "../common/utils/action.h"
 #include "browserextension.h"
-
-K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<KtikZ::Part>();)
-K_EXPORT_PLUGIN(ktikzPartFactory(KAboutData("ktikzpart", "ktikz", ki18n("KtikZ Viewer"), APPVERSION)))
 
 namespace KtikZ
 {
@@ -75,7 +74,8 @@ Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
 	QTranslator *translator = createTranslator("qtikz");
 	qApp->installTranslator(translator);
 
-	setComponentData(ktikzPartFactory::componentData()); // make sure that the actions of this kpart go in a separate section labeled "KtikZ Viewer" (as defined in K_EXPORT_PLUGIN above) in the "Configure Shortcuts" dialog
+  setComponentData(KAboutData("ktikzpart", "KtikZ", APPVERSION));
+// 	setComponentData(ktikzPartFactory::componentData()); // make sure that the actions of this kpart go in a separate section labeled "KtikZ Viewer" (as defined in K_EXPORT_PLUGIN above) in the "Configure Shortcuts" dialog
 
 	m_configDialog = 0;
 
@@ -119,22 +119,20 @@ QWidget *Part::widget()
 
 KAboutData *Part::createAboutData()
 {
-	KAboutData *aboutData = new KAboutData("ktikzpart", "ktikz",
-	                                       ki18n("KtikZ Viewer"), APPVERSION);
-	aboutData->setShortDescription(ki18n("A TikZ Viewer"));
-	aboutData->setLicense(KAboutData::License_GPL_V2);
-	aboutData->setCopyrightStatement(ki18n("Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"));
-	aboutData->setOtherText(ki18n("This is a plugin for viewing TikZ (from the LaTeX pgf package) diagrams."));
+	KAboutData *aboutData = new KAboutData(QStringLiteral("ktikz"),i18n("KtikZ"), APPVERSION);
+	aboutData->setShortDescription(i18n("A TikZ Viewer"));
+	aboutData->setLicense(KAboutLicense::GPL_V2);
+	aboutData->setCopyrightStatement(i18n("Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"));
+	aboutData->setOtherText(i18n("This is a plugin for viewing TikZ (from the LaTeX pgf package) diagrams."));
 	aboutData->setBugAddress("florian@hackenberger.at");
-	aboutData->addAuthor(ki18n("Florian Hackenberger"), ki18n("Maintainer"), "florian@hackenberger.at");
-	aboutData->addAuthor(ki18n("Glad Deschrijver"), ki18n("Developer"), "glad.deschrijver@gmail.com");
-	aboutData->setProgramIconName("ktikz");
+	aboutData->addAuthor(i18n("Florian Hackenberger"), i18n("Maintainer"), "florian@hackenberger.at");
+	aboutData->addAuthor(i18n("Glad Deschrijver"), i18n("Developer"), "glad.deschrijver@gmail.com");
 	return aboutData;
 }
 
 void Part::showAboutDialog()
 {
-	KAboutApplicationDialog dlg(createAboutData(), widget());
+	KAboutApplicationDialog dlg(*(createAboutData()), widget());
 	dlg.exec();
 }
 
@@ -147,13 +145,13 @@ void Part::createActions()
 	// Reload: we rely on Konqueror's "Reload" action instead of defining our own
 
 	// Configure
-	KAction *action = KStandardAction::preferences(this, SLOT(configure()), actionCollection());
+	QAction *action = KStandardAction::preferences(this, SLOT(configure()), actionCollection());
 	action->setText(i18nc("@action", "Configure KtikZ Viewer..."));
 
 	// Help
 	action = actionCollection()->addAction("help_about_ktikz");
 	action->setText(i18n("About KtikZ Viewer"));
-	action->setIcon(KIcon("ktikz"));
+	action->setIcon(QIcon::fromTheme("ktikz"));
 	connect(action, SIGNAL(triggered()), this, SLOT(showAboutDialog()));
 }
 
@@ -190,16 +188,16 @@ bool Part::openFile()
 
 void Part::saveAs()
 {
-	const KUrl srcUrl = url();
+	const Url srcUrl = url();
 
-	const KMimeType::Ptr mimeType = KMimeType::mimeType("text/x-pgf");
-	const QString tikzFilter = (mimeType) ?
-	                           mimeType->patterns().join(" ") + '|' + mimeType->comment()
+	QMimeDatabase db;
+	const QMimeType mimeType = db.mimeTypeForName("text/x-pgf");
+	const QString tikzFilter = (mimeType.isValid()) ?
+	                           mimeType.globPatterns().join(" ") + '|' + mimeType.comment()
 	                           : "*.pgf *.tikz *.tex|" + i18nc("@item:inlistbox filter", "TikZ files");
-	const KUrl dstUrl = KFileDialog::getSaveUrl(srcUrl,
-	                    tikzFilter + "\n*|" + i18nc("@item:inlistbox filter", "All files"),
-	                    widget(), i18nc("@title:window", "Save TikZ Source File As"),
-	                    KFileDialog::ConfirmOverwrite);
+	const QUrl dstUrl = QFileDialog::getSaveFileUrl(widget(), i18nc("@title:window", "Save TikZ Source File As"),
+	                    srcUrl, tikzFilter + "\n*|" + i18nc("@item:inlistbox filter", "All files"));
+
 	if (!dstUrl.isValid())
 		return;
 
@@ -226,10 +224,10 @@ void Part::showJobError(KJob *job)
 {
 	if (job->error() != 0)
 	{
-		KIO::JobUiDelegate *ui = static_cast<KIO::Job*>(job)->ui();
+		KIO::JobUiDelegate *ui = static_cast<KIO::JobUiDelegate*>(static_cast<KIO::Job*>(job)->ui());
 		if (!ui)
 		{
-			kError() << "Saving failed; job->ui() is null.";
+			qCritical() << "Saving failed; job->ui() is null.";
 			return;
 		}
 		ui->setWindow(widget());
@@ -242,7 +240,7 @@ QString Part::tikzCode() const
 	return m_tikzCode;
 }
 
-Url Part::url() const
+Url KtikZ::Part::url() const
 {
 	return Url(KParts::ReadOnlyPart::url());
 }
@@ -336,7 +334,7 @@ bool Part::findTranslator(QTranslator *translator, const QString &transName, con
 
 QTranslator *Part::createTranslator(const QString &transName)
 {
-	const QString locale = KGlobal::locale()->language();
+	const QString locale = QLocale::languageToString(QLocale().language());
 	const QString localeShort = locale.left(2).toLower();
 
 	QTranslator *translator = new QTranslator(0);
@@ -348,5 +346,9 @@ QTranslator *Part::createTranslator(const QString &transName)
 #endif
 	return translator;
 }
+
+K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<KtikZ::Part>();)
+
+#include "part.moc"
 
 } // namespace KtikZ

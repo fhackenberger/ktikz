@@ -25,43 +25,44 @@
 #ifdef KTIKZ_USE_KDE
 #include <KActionCollection>
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 RecentFilesAction::RecentFilesAction(QObject *parent)
 	: KRecentFilesAction(parent)
 {
 	Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
-	connect(this, SIGNAL(urlSelected(KUrl)), this, SLOT(selectUrl(KUrl)));
+	connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
 }
 
 RecentFilesAction::RecentFilesAction(const QString &text, QObject *parent)
 	: KRecentFilesAction(text, parent)
 {
 	Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
-	connect(this, SIGNAL(urlSelected(KUrl)), this, SLOT(selectUrl(KUrl)));
+	connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
 }
 
 RecentFilesAction::RecentFilesAction(const Icon &icon, const QString &text, QObject *parent)
 	: KRecentFilesAction(icon, text, parent)
 {
 	Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
-	connect(this, SIGNAL(urlSelected(KUrl)), this, SLOT(selectUrl(KUrl)));
+	connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
 }
 
 void RecentFilesAction::loadEntries()
 {
-	KRecentFilesAction::loadEntries(KGlobal::config()->group(QLatin1String("Recent Files")));
+	KRecentFilesAction::loadEntries(KSharedConfig::openConfig()->group(QLatin1String("Recent Files")));
 	setEnabled(true);
 }
 
 void RecentFilesAction::saveEntries()
 {
-	KRecentFilesAction::saveEntries(KGlobal::config()->group(QLatin1String("Recent Files")));
-	KGlobal::config()->sync();
+	KRecentFilesAction::saveEntries(KSharedConfig::openConfig()->group(QLatin1String("Recent Files")));
+	KSharedConfig::openConfig()->sync();
 }
 
-void RecentFilesAction::selectUrl(const KUrl &url)
+void RecentFilesAction::selectUrl(const QUrl &url)
 {
-	Q_EMIT urlSelected(Url(url));
+	Q_EMIT urlSelected(url);
 }
 
 void RecentFilesAction::addUrl(const Url &url, const QString &name)

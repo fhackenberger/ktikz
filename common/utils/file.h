@@ -21,9 +21,9 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QFile>
+#include <QSaveFile>
 
 #ifdef KTIKZ_USE_KDE
-#include <KSaveFile>
 class KJob;
 #endif
 
@@ -32,10 +32,10 @@ class KJob;
 class Url;
 
 /*!
- * \brief Wrapper around a QFile or, in the KDE version, KSaveFile object.
+ * \brief Wrapper around a QFile or, in the KDE version, QSaveFile object.
  *
  * This class is a wrapper around a QFile object.  In the KDE version, if the
- * OpenMode is File::WriteOnly, then it is a wrapper around a KSaveFile object.
+ * OpenMode is File::WriteOnly, then it is a wrapper around a QSaveFile object.
  * This class also handles opening and saving remote files using KIO
  * transparently.
  *
@@ -114,7 +114,7 @@ public:
 #ifdef KTIKZ_USE_KDE
 	static void setMainWidget(QWidget *widget);
 	static void setTempDir(const QString &dirName);
-
+  static bool fileExists(const Url &url);
 //private slots:
 //	void showJobError(KJob *job);
 #endif

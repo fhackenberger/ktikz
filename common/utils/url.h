@@ -19,18 +19,7 @@
 #ifndef KTIKZ_URL_H
 #define KTIKZ_URL_H
 
-#ifdef KTIKZ_USE_KDE
-#include <KUrl>
-
-class Url : public KUrl
-{
-public:
-	Url();
-	explicit Url(const QString &fileName);
-	explicit Url(const KUrl &url);
-};
-#else
-#include <QtCore/QUrl>
+#include <QUrl>
 
 class Url : public QUrl
 {
@@ -39,10 +28,8 @@ public:
 	explicit Url(const QString &fileName);
 	explicit Url(const QUrl &url);
 
-	QString fileName() const;
 	QString pathOrUrl() const;
 	QString path() const;
 };
-#endif
 
 #endif

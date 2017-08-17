@@ -18,12 +18,8 @@
 
 #include "configdialog.h"
 
-#include <QtGui/QKeyEvent>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QWhatsThis>
-#else
-#include <QtGui/QWhatsThis>
-#endif
+#include <QKeyEvent>
+#include <QWhatsThis>
 
 #include "configappearancewidget.h"
 #include "configeditorwidget.h"
@@ -34,8 +30,9 @@
 
 ConfigDialog::ConfigDialog(QWidget *parent) : PageDialog(parent)
 {
-	setCaption(tr("Configure %1").arg(KtikzApplication::applicationName()));
-	setHelp(QLatin1String("chap-configuration"));
+	setWindowTitle(tr("Configure %1").arg(KtikzApplication::applicationName()));
+// TODO: Check if this is needed
+// 	setHelp(QLatin1String("chap-configuration"));
 
 	m_configGeneralWidget = new ConfigGeneralWidget(this);
 	m_configEditorWidget = new ConfigEditorWidget(this);

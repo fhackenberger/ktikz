@@ -21,26 +21,8 @@
 
 #include "url.h"
 
-#ifdef KTIKZ_USE_KDE
-#include <KFileDialog>
+#include <QFileDialog>
 
-class FileDialog : public KFileDialog
-{
-public:
-	explicit FileDialog(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString()) : KFileDialog(directory, filter, parent, 0)
-	{
-		Q_UNUSED(caption)
-	}
-
-	static Url getOpenUrl(QWidget *parent = 0, const QString &caption = QString(), const Url &dir = Url(), const QString &filter = QString());
-	static Url getSaveUrl(QWidget *parent = 0, const QString &caption = QString(), const Url &dir = Url(), const QString &filter = QString());
-};
-#else
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QFileDialog>
-#else
-#include <QtGui/QFileDialog>
-#endif
 
 /*!
  * \brief Provides a dialog to select an URL for opening or saving.
@@ -64,6 +46,5 @@ public:
 	static Url getOpenUrl(QWidget *parent = 0, const QString &caption = QString(), const Url &dir = Url(), const QString &filter = QString());
 	static Url getSaveUrl(QWidget *parent = 0, const QString &caption = QString(), const Url &dir = Url(), const QString &filter = QString());
 };
-#endif
 
 #endif

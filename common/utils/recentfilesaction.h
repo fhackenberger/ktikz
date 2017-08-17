@@ -43,10 +43,10 @@ public:
 	void removeUrl(const Url &url);
 
 Q_SIGNALS:
-	void urlSelected(const Url &url);
+	void urlSelected(const QUrl &url);
 
 private Q_SLOTS:
-	void selectUrl(const KUrl &url);
+	void selectUrl(const QUrl &url);
 };
 #else
 #include "action.h"

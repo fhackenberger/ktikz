@@ -20,10 +20,11 @@
 #define KTIKZ_PART_H
 
 #include "../common/mainwidget.h"
+#include <KParts/Part>
 #include <KParts/ReadOnlyPart>
 
 class KAboutData;
-class KAction;
+class QAction;
 class KDirWatch;
 class QTranslator;
 
@@ -42,8 +43,8 @@ class Part : public KParts::ReadOnlyPart, public MainWidget
 	Q_OBJECT
 
 public:
-	Part(QWidget *parentWidget, QObject *parent, const QVariantList &args);
-	virtual ~Part();
+	explicit Part(QWidget *parentWidget, QObject *parent, const QVariantList &args);
+	virtual ~Part() Q_DECL_OVERRIDE;
 
 	static KAboutData *createAboutData();
 	virtual QWidget *widget();
@@ -51,7 +52,8 @@ public:
 	Url url() const;
 
 protected:
-	virtual bool openFile();
+	/** Reimplemented from KParts::PartBase. */
+	bool openFile() Q_DECL_OVERRIDE;
 	bool closeUrl();
 
 private slots:
@@ -74,7 +76,7 @@ private:
 	TikzPreviewController *m_tikzPreviewController;
 	PartConfigDialog *m_configDialog;
 
-	KAction *m_saveAsAction;
+	QAction *m_saveAsAction;
 
 	QString m_tikzCode;
 
@@ -85,5 +87,6 @@ private:
 };
 
 } // namespace KtikZ
+
 
 #endif

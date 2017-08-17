@@ -19,8 +19,9 @@
 #ifndef KTIKZ_PART_CONFIGDIALOG_H
 #define KTIKZ_PART_CONFIGDIALOG_H
 
-#include <KDialog>
+#include <QDialog>
 
+class QDialogButtonBox;
 class QCheckBox;
 
 namespace KtikZ
@@ -28,7 +29,7 @@ namespace KtikZ
 
 class PartConfigGeneralWidget;
 
-class PartConfigDialog : public KDialog
+class PartConfigDialog : public QDialog
 {
 	Q_OBJECT
 
@@ -52,7 +53,7 @@ private:
 	QWidget *viewerWidget();
 
 	PartConfigGeneralWidget *m_configGeneralWidget;
-
+  QDialogButtonBox *m_buttonBox;
 	QCheckBox *m_watchFileCheckBox;
 };
 

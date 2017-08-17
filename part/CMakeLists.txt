@@ -1,7 +1,7 @@
 include(../KtikzConfig.cmake)
 add_definitions("-DKTIKZ_TRANSLATIONS_INSTALL_DIR=\"${KTIKZ_TRANSLATIONS_INSTALL_DIR}\"")
 
-set(KTIKZPART_DATA_INSTALL_DIR ${DATA_INSTALL_DIR}/ktikzpart)
+set(KTIKZPART_DATA_INSTALL_DIR ${KDE_INSTALL_DATADIR}/ktikzpart)
 #add_definitions(-DORGNAME=\\\"Florian_Hackenberger\\\" -DAPPNAME=\\\"ktikz\\\")
 add_definitions(-DKTIKZ_KPART)
 
@@ -38,20 +38,28 @@ set(ktikzpart_SRCS
 	../common/utils/zoomaction.cpp
 )
 
-kde4_add_ui_files(ktikzpart_SRCS
+ki18n_wrap_ui(ktikzpart_SRCS
 	configgeneralwidget.ui
 	../common/templatewidget.ui
 )
 
-kde4_add_kcfg_files(ktikzpart_SRCS ../common/settings.kcfgc)
+kconfig_add_kcfg_files(ktikzpart_SRCS ../common/settings.kcfgc)
 
-kde4_add_plugin(ktikzpart ${ktikzpart_SRCS})
+add_library(ktikzpart MODULE ${ktikzpart_SRCS})
 
-target_link_libraries(ktikzpart ${KDE4_KPARTS_LIBS} ${POPPLER_QT4_LIBRARIES})
+target_link_libraries(ktikzpart
+  KF5::Parts
+  KF5::IconThemes
+  KF5::CoreAddons
+  KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets KF5::KIONTLM
+  KF5::KDELibs4Support
+  ${Poppler_LIBRARIES}
+)
 
-install(TARGETS ktikzpart DESTINATION ${PLUGIN_INSTALL_DIR})
+
+install(TARGETS ktikzpart DESTINATION ${KDE_INSTALL_PLUGINDIR})
 install(FILES ktikzpart.rc DESTINATION ${KTIKZPART_DATA_INSTALL_DIR})
-install(FILES ktikzpart.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(FILES ktikzpart.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
 
 add_custom_target(uninstalldirs_part)
 add_custom_command(TARGET uninstalldirs_part

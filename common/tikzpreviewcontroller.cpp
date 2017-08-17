@@ -43,6 +43,7 @@
 #include <QtGui/QPrintDialog>
 #include <QtGui/QPrinter>
 #include <QtGui/QPushButton>
+// #include <KConfigGroup> // JC
 #endif
 
 #include "templatewidget.h"
@@ -97,7 +98,7 @@ TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
 	m_tikzPreviewGenerator->setTikzFileBaseName(tempFileBaseName());
 #ifdef KTIKZ_USE_KDE
 	File::setMainWidget(m_parentWidget);
-	File::setTempDir(m_tempDir->name()); // this must happen before any object of type File is constructed
+	File::setTempDir(m_tempDir->path()); // this must happen before any object of type File is constructed
 #endif
 }
 
@@ -118,12 +119,12 @@ const TextCodecProfile *TikzPreviewController::textCodecProfile() const {
 
 const QString TikzPreviewController::tempDir() const
 {
-	return m_tempDir->name();
+	return m_tempDir->path();
 }
 
 const QString TikzPreviewController::tempFileBaseName() const
 {
-	return m_tempDir->name() + QLatin1String("/temptikzcode");
+	return m_tempDir->path() + QLatin1String("/temptikzcode");
 }
 
 const QString TikzPreviewController::tempDirLocation() const

@@ -19,42 +19,17 @@
 #ifndef KTIKZ_FONTDIALOG_H
 #define KTIKZ_FONTDIALOG_H
 
-#ifdef KTIKZ_USE_KDE
-#include <KFontDialog>
-
-class FontDialog : public KFontDialog
-{
-public:
-	explicit FontDialog(QWidget *parent) : KFontDialog(parent) {}
-
-	static QFont getFont(bool *ok, const QFont &font, QWidget *parent)
-	{
-		Q_UNUSED(parent);
-		QFont newFont = font;
-		const int result = KFontDialog::getFont(newFont);
-		*ok = (result == KFontDialog::Accepted);
-		return newFont;
-	}
-};
-#else
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QFontDialog>
-#else
-#include <QtGui/QFontDialog>
-#endif
+#include <QFontDialog>
 
 class FontDialog : public QFontDialog
 {
 public:
-	// Commented out for Qt 4.5 compatibility (should not be required,
-	// as we don't instantiate FontDialog directly anyway).
-	//FontDialog(QWidget *parent) : QFontDialog(parent) {}
+	FontDialog(QWidget *parent) : QFontDialog(parent) {}
 
 	static QFont getFont(bool *ok, const QFont &font, QWidget *parent)
 	{
 		return QFontDialog::getFont(ok, font, parent);
 	}
 };
-#endif
 
 #endif

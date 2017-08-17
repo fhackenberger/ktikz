@@ -19,7 +19,7 @@
 #ifndef KTIKZ_PART_CONFIGGENERALWIDGET_H
 #define KTIKZ_PART_CONFIGGENERALWIDGET_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include "ui_configgeneralwidget.h"
 
 namespace KtikZ

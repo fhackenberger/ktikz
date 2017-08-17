@@ -19,10 +19,11 @@
 #include "file.h"
 
 #ifdef KTIKZ_USE_KDE
-//#include <KDebug>
 #include <KIO/Job>
+#include <KJobWidgets>
+#include <KSaveFile>
 //#include <KIO/JobUiDelegate>
-#include <KIO/NetAccess>
+// #include <KIO/NetAccess>
 
 QWidget *File::s_mainWidget;
 QString File::s_tempDir;
@@ -39,6 +40,17 @@ File::File(const Url &url, const OpenMode &mode)
 	, m_url(url)
 {
 	load();
+}
+
+bool File::fileExists(const Url &url)
+{
+	if (!(url.isValid()))
+  {
+		return false;
+	}
+	KIO::StatJob * existsJob = KIO::stat(url, KIO::StatJob::DestinationSide, 0);
+	existsJob->exec();
+	return (existsJob->error() == KJob::NoError);
 }
 
 /*!
@@ -70,12 +82,13 @@ void File::load()
 	}
 	else if (m_openMode == ReadOnly)
 	{
-		if (!m_url.isLocalFile() && KIO::NetAccess::exists(m_url, KIO::NetAccess::SourceSide, s_mainWidget))
+		if (!m_url.isLocalFile() && File::fileExists(m_url) )
 		{
-			KIO::Job *job = KIO::file_copy(m_url, KUrl::fromPath(m_localFileName), -1, KIO::Overwrite | KIO::HideProgressInfo);
-			if (!KIO::NetAccess::synchronousRun(job, s_mainWidget))
+			KIO::Job *job = KIO::file_copy(m_url, QUrl::fromLocalFile(m_localFileName), -1, KIO::Overwrite | KIO::HideProgressInfo);
+			KJobWidgets::setWindow(job, s_mainWidget);
+			if (!job->exec())
 			{
-				m_errorString = tr("Could not copy \"%1\" to temporary file \"%2\".").arg(m_url.prettyUrl()).arg(m_localFileName);
+				m_errorString = tr("Could not copy \"%1\" to temporary file \"%2\".").arg(m_url.toDisplayString()).arg(m_localFileName);
 				return;
 			}
 		}
@@ -94,7 +107,7 @@ bool File::open(const QFile::OpenMode &mode)
 	if (m_openMode == WriteOnly)
 	{
 		m_errorString.clear();
-		return dynamic_cast<KSaveFile*>(m_file)->open(); // XXX cannot use qobject_cast because KSaveFile doesn't have the Q_OBJECT macro
+		return dynamic_cast<KSaveFile*>(m_file)->open(); // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
 	}
 	else if (m_openMode == ReadOnly)
 	{
@@ -111,17 +124,18 @@ bool File::close()
 
 	if (m_openMode == WriteOnly)
 	{
-		if (!dynamic_cast<KSaveFile*>(m_file)->finalize()) // XXX cannot use qobject_cast because KSaveFile doesn't have the Q_OBJECT macro
+		if (!dynamic_cast<KSaveFile*>(m_file)->finalize()) // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
 			return false;
 	}
 	m_file->close();
 
 	if (m_openMode == WriteOnly && !m_url.isLocalFile())
 	{
-		KIO::Job *job = KIO::file_copy(KUrl::fromPath(m_localFileName), m_url, -1, KIO::Overwrite | KIO::HideProgressInfo);
-		if (!KIO::NetAccess::synchronousRun(job, s_mainWidget))
+		KIO::Job *job = KIO::file_copy(QUrl::fromLocalFile(m_localFileName), m_url, -1, KIO::Overwrite | KIO::HideProgressInfo);
+    KJobWidgets::setWindow(job, s_mainWidget);
+    if (!job->exec())
 		{
-			m_errorString = tr("Could not copy temporary file \"%1\" to \"%2\".").arg(m_localFileName).arg(m_url.prettyUrl());
+			m_errorString = tr("Could not copy temporary file \"%1\" to \"%2\".").arg(m_localFileName).arg(m_url.toDisplayString());
 			return false;
 		}
 	}
@@ -141,7 +155,7 @@ void File::showJobError(KJob *job)
 		KIO::JobUiDelegate *ui = static_cast<KIO::Job*>(job)->ui();
 		if (!ui)
 		{
-			kError() << "Saving failed; job->ui() is null.";
+			qCritical() << "Saving failed; job->ui() is null.";
 			return;
 		}
 		ui->setWindow(s_mainWidget);
@@ -153,7 +167,8 @@ void File::showJobError(KJob *job)
 bool File::copy(const Url &fromUrl, const Url &toUrl)
 {
 	KIO::Job *job = KIO::file_copy(fromUrl, toUrl, -1, KIO::Overwrite | KIO::HideProgressInfo);
-	return KIO::NetAccess::synchronousRun(job, s_mainWidget);
+	KJobWidgets::setWindow(job, s_mainWidget);
+	return job->exec();;
 }
 
 /*!

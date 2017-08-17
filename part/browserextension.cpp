@@ -31,8 +31,8 @@ BrowserExtension::BrowserExtension(KParts::ReadOnlyPart *part, TikzPreviewContro
 {
 	m_tikzPreviewController = tikzPreviewController;
 	emit enableAction("print", true);
-	QString iconPath = KIconLoader::global()->iconPath("text-x-pgf", KIconLoader::SizeSmall);
-	emit setIconUrl(KUrl::fromPath(iconPath));
+	QString iconPath = KIconLoader::global()->iconPath(QStringLiteral("text-x-pgf"), KIconLoader::SizeSmall);
+	emit setIconUrl(QUrl::fromLocalFile(iconPath));
 }
 
 BrowserExtension::~BrowserExtension()

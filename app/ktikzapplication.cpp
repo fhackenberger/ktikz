@@ -19,54 +19,11 @@
 #include "ktikzapplication.h"
 
 #include "mainwindow.h"
-
-#ifdef KTIKZ_USE_KDE
-#include <KCmdLineArgs>
-#include <KUrl>
-
-KtikzApplication::KtikzApplication(int &argc, char **argv)
-	: KApplication()
-{
-	Q_UNUSED(argc);
-	Q_UNUSED(argv);
-}
-
-void KtikzApplication::init()
-{
-	if (isSessionRestored())
-	{
-		kRestoreMainWindows<MainWindow>();
-		return;
-	}
-
-	MainWindow *mainWindow = new MainWindow;
-	mainWindow->show();
-
-	KUrl url;
-	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-	for (int i = 0; i < args->count(); ++i)
-	{
-		url = args->url(i);
-		if (url.isValid() && url.isLocalFile())
-			mainWindow->loadUrl(Url(url));
-	}
-	args->clear();
-}
-
-QString KtikzApplication::applicationName()
-{
-	return QLatin1String("KtikZ");
-}
-#else
-#include <QtCore/QFileInfo>
-#include <QtCore/QUrl>
-#include <QtCore/QSettings>
-#include <QtGui/QSessionManager>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QMessageBox>
-#else
-#include <QtGui/QMessageBox>
-#endif
+#include <QFileInfo>
+#include <QUrl>
+#include <QSettings>
+#include <QSessionManager>
+#include <QMessageBox>
 
 KtikzApplication::KtikzApplication(int &argc, char **argv)
 	: QApplication(argc, argv)
@@ -108,10 +65,17 @@ void KtikzApplication::init()
 		mainWindow->loadUrl(Url(QFileInfo(args.at(i)).absoluteFilePath()));
 }
 
+#ifdef KTIKZ_USE_KDE
 QString KtikzApplication::applicationName()
 {
-	return QLatin1String("QtikZ");
+	return QStringLiteral("KtikZ");
 }
+#else
+QString KtikzApplication::applicationName()
+{
+	return QStringLiteral("QtikZ");
+}
+#endif
 
 void KtikzApplication::commitData(QSessionManager &manager)
 {
@@ -176,7 +140,6 @@ void KtikzApplication::saveState(QSessionManager &manager)
 	settings.endArray();
 	settings.endGroup();
 }
-#endif
 
 KtikzApplication::~KtikzApplication()
 {

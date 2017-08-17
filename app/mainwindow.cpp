@@ -26,7 +26,6 @@
 #ifdef KTIKZ_USE_KDE
 #include <KActionCollection>
 #include <KConfigGroup>
-#include <KLocale>
 #include <KMenuBar>
 #include <KMessageBox>
 #include <KStandardAction>
@@ -121,7 +120,7 @@ MainWindow::MainWindow()
 	setAttribute(Qt::WA_DeleteOnClose);
 #ifdef KTIKZ_USE_KDE
 	setObjectName(QLatin1String("ktikz#"));
-	setWindowIcon(KIcon(QLatin1String("ktikz")));
+	setWindowIcon(QIcon::fromTheme(QLatin1String("ktikz")));
 	Action::setActionCollection(actionCollection());
 #else
 	setObjectName(QLatin1String("qtikz#") + QString::number(s_mainWindowList.size()));
@@ -292,9 +291,9 @@ bool MainWindow::queryClose()
 
 void MainWindow::readProperties(const KConfigGroup &group)
 {
-	const KUrl url(group.readPathEntry(QLatin1String("CurrentUrl"), QString()));
+	const Url url(group.readPathEntry(QLatin1String("CurrentUrl"), QString()));
 	if (url.isValid() && !url.isEmpty())
-		loadUrl(Url(url));
+		loadUrl(url);
 }
 
 void MainWindow::saveProperties(KConfigGroup &group)
@@ -522,10 +521,10 @@ void MainWindow::createActions()
 	// Open
 	m_newAction = StandardAction::openNew(this, SLOT(newFile()), this);
 	m_openAction = StandardAction::open(this, SLOT(open()), this);
-	m_openRecentAction = StandardAction::openRecent(this, SLOT(loadUrl(Url)), this);
+	m_openRecentAction = StandardAction::openRecent(this, SLOT(loadUrl(QUrl)), this);
 	m_saveAction = StandardAction::save(this, SLOT(save()), this);
 	m_saveAsAction = StandardAction::saveAs(this, SLOT(saveAs()), this);
-	m_reloadAction = new Action(Icon(QLatin1String("view-refresh")), tr("Reloa&d"), this, QLatin1String("file_reload"));
+	m_reloadAction = new Action(Icon(QStringLiteral("view-refresh")), tr("Reloa&d"), this, QLatin1String("file_reload"));
 	m_reloadAction->setShortcut(QKeySequence::Refresh);
 	m_reloadAction->setStatusTip(tr("Reload the current document"));
 	m_reloadAction->setWhatsThis(tr("<p>Reload the current document from disk.</p>"));
@@ -765,7 +764,7 @@ void MainWindow::createCommandInsertWidget()
 	// add user commands menu
 #ifdef KTIKZ_USE_KDE
 	QMenu *userMenu = m_userCommandInserter->getMenu();
-	KAction *userInsertAction = new Action(userMenu->title(), this, QLatin1String("user_insert"));
+	QAction *userInsertAction = new Action(userMenu->title(), this, QLatin1String("user_insert"));
 	userInsertAction->setMenu(userMenu);
 #else
 	menuBar()->insertMenu(m_settingsMenu->menuAction(), m_userCommandInserter->getMenu());
@@ -927,6 +926,11 @@ bool MainWindow::maybeSave()
 			return false;
 	}
 	return true;
+}
+
+void MainWindow::loadUrl(const QUrl &url)
+{
+	loadUrl(Url(url));
 }
 
 void MainWindow::loadUrl(const Url &url)
@@ -1100,11 +1104,7 @@ void MainWindow::showCursorPosition(int row, int col)
 
 void MainWindow::showMouseCoordinates(qreal x, qreal y, int precisionX, int precisionY)
 {
-#ifdef KTIKZ_USE_KDE
-	m_mouseCoordinatesLabel->setText(tr("Preview: x = %1\ty = %2", "@info:status").arg(KGlobal::locale()->formatNumber(x, precisionX)).arg(KGlobal::locale()->formatNumber(y, precisionY)));
-#else
 	m_mouseCoordinatesLabel->setText(tr("Preview: x = %1\ty = %2", "@info:status").arg(QLocale::system().toString(x, 'f', precisionX)).arg(QLocale::system().toString(y, 'f', precisionY)));
-#endif
 }
 
 /***************************************************************************/
