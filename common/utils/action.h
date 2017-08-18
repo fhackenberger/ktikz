@@ -19,14 +19,13 @@
 #ifndef KTIKZ_ACTION_H
 #define KTIKZ_ACTION_H
 
-class Icon;
-
-#ifdef KTIKZ_USE_KDE
+#include <QtGlobal>
 #include <QAction>
 
 class KActionCollection;
+class Icon;
 
-class Action : public QAction
+class Action: public QAction
 {
 	Q_OBJECT
 
@@ -34,30 +33,13 @@ public:
 	explicit Action(QObject *parent, const QString &name = QString());
 	Action(const QString &text, QObject *parent, const QString &name = QString());
 	Action(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
-
+#ifdef KTIKZ_USE_KDE
 	static KActionCollection *actionCollection();
 	static void setActionCollection(KActionCollection *actionCollection);
 
 private:
 	static KActionCollection *s_actionCollection;
-};
-#else
-#include <QtCore/QtGlobal>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QAction>
-#else
-#include <QtGui/QAction>
 #endif
-
-class Action : public QAction
-{
-	Q_OBJECT
-
-public:
-	explicit Action(QObject *parent, const QString &name = QString());
-	Action(const QString &text, QObject *parent, const QString &name = QString());
-	Action(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
 };
-#endif
 
 #endif
