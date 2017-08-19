@@ -164,7 +164,7 @@ int main(int argc, char **argv)
 	aboutData.setBugAddress("jfmcarreira@gmail.com");
 	aboutData.addAuthor(i18n("Florian Hackenberger"), i18n("Maintainer"), "florian@hackenberger.at");
 	aboutData.addAuthor(i18n("Glad Deschrijver"), i18n("Developer"), "glad.deschrijver@gmail.com");
-  aboutData.addAuthor(i18n("Joao Carreira"), i18n("KDE Frameworks port"), "jfmcarreira@gmail.com");
+	aboutData.addAuthor(i18n("Joao Carreira"), i18n("Maintainer"), "jfmcarreira@gmail.com");
 
 	QCommandLineParser parser;
 	aboutData.setupCommandLine(&parser);
