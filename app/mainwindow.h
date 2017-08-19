@@ -54,7 +54,6 @@ class TikzCommandInserter;
 class TikzEditorView;
 class TikzHighlighter;
 class TikzPreviewController;
-class Url;
 class UserCommandInserter;
 
 /** Provides a tiny application for simple editing of TikZ graphics
@@ -85,7 +84,7 @@ public:
 	virtual QWidget *widget();
 	bool isDocumentModified() const;
 	QString tikzCode() const;
-	Url url() const;
+	QUrl url() const;
 	void setLineNumber(int lineNumber);
 	int lineNumber() const;
 
@@ -99,7 +98,7 @@ public:
 
 public Q_SLOTS:
 	void loadUrl(const QUrl &url);
-	void loadUrl(const Url &url);
+	//void loadUrl(const Url &url);
 	bool save();
 
 protected:
@@ -154,9 +153,9 @@ private:
 	void readSettings();
 	void writeSettings();
 	bool maybeSave();
-	bool saveUrl(const Url &url);
-	void setCurrentUrl(const Url &url);
-	QString strippedName(const Url &url) const;
+	bool saveUrl(const QUrl &url);
+	void setCurrentUrl(const QUrl &url);
+	QString strippedName(const QUrl &url) const;
 	void showPdfPage();
 
 	static QList<MainWindow*> s_mainWindowList;
@@ -220,7 +219,7 @@ private:
 #endif
 	QPointer<ConfigDialog> m_configDialog;
 
-	Url m_currentUrl;
+	QUrl m_currentUrl;
 	QTextCodec* m_currentEncoding;
 	/// If not null, override the encoder (rather than @ref m_currentEncoding)
 	QTextCodec* m_overrideEncoder;
@@ -231,7 +230,7 @@ private:
 	/// Return the current encoder (m_currentEncoding or another if encoder is overriden).
 	/*virtual*/ QTextCodec* getEncoder() const;
 
-	Url m_lastUrl;
+	QUrl m_lastUrl;
 	QDateTime m_lastInternalModifiedDateTime;
 	bool m_isModifiedExternally;
 };

@@ -240,9 +240,9 @@ QString Part::tikzCode() const
 	return m_tikzCode;
 }
 
-Url KtikZ::Part::url() const
+QUrl KtikZ::Part::url() const
 {
-	return Url(KParts::ReadOnlyPart::url());
+	return KParts::ReadOnlyPart::url();
 }
 
 /***************************************************************************/

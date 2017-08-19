@@ -35,12 +35,13 @@ File::File(const QString &fileName, const OpenMode &mode)
 	load();
 }
 
-File::File(const Url &url, const OpenMode &mode)
+File::File(const QUrl &url, const OpenMode &mode)
 	: m_openMode(mode)
-	, m_url(url)
+	, m_url(Url(url))
 {
 	load();
 }
+
 
 bool File::fileExists(const Url &url)
 {

@@ -49,7 +49,7 @@ public:
 	static KAboutData *createAboutData();
 	virtual QWidget *widget();
 	QString tikzCode() const;
-	Url url() const;
+	QUrl url() const;
 
 protected:
 	/** Reimplemented from KParts::PartBase. */

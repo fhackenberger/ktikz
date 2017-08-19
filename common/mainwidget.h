@@ -19,14 +19,10 @@
 #ifndef KTIKZ_MAIN_WIDGET_H
 #define KTIKZ_MAIN_WIDGET_H
 
-#include <QtCore/QString>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QWidget>
-#else
-#include <QtGui/QWidget>
-#endif
+#include <QString>
+#include <QWidget>
+#include <QUrl>
 
-#include "utils/url.h"
 #include "textcodecprofile.h"
 
 class MainWidget : TextCodecProfile
@@ -42,10 +38,10 @@ public:
 	{
 		return QString();
 	}
-	virtual Url url() const
+	virtual QUrl url() const
 	{
-		return Url();
-    }
+		return QUrl();
+	}
 };
 
 #endif

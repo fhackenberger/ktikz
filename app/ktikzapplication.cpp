@@ -19,6 +19,8 @@
 #include "ktikzapplication.h"
 
 #include "mainwindow.h"
+#include "utils/url.h"
+
 #include <QFileInfo>
 #include <QUrl>
 #include <QSettings>

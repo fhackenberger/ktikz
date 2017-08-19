@@ -101,7 +101,7 @@ public:
 	};
 
 	File(const QString &fileName, const OpenMode &mode);
-	File(const Url &url, const OpenMode &mode);
+	File(const QUrl &url, const OpenMode &mode);
 	~File();
 
 	bool open(const QFile::OpenMode &mode = 0);

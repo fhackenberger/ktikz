@@ -65,15 +65,15 @@ void RecentFilesAction::selectUrl(const QUrl &url)
 	Q_EMIT urlSelected(url);
 }
 
-void RecentFilesAction::addUrl(const Url &url, const QString &name)
-{
-	KRecentFilesAction::addUrl(url, name);
-}
+//void RecentFilesAction::addUrl(const Url &url, const QString &name)
+//{
+//	KRecentFilesAction::addUrl(url, name);
+//}
 
-void RecentFilesAction::removeUrl(const Url &url)
-{
-	KRecentFilesAction::removeUrl(url);
-}
+//void RecentFilesAction::removeUrl(const Url &url)
+//{
+//	KRecentFilesAction::removeUrl(url);
+//}
 #else
 #include <QtCore/QSettings>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
@@ -179,7 +179,7 @@ void RecentFilesAction::updateRecentFilesList()
 		m_recentFileActions[i]->setVisible(false);
 }
 
-void RecentFilesAction::addUrl(const Url &url, const QString &name)
+void RecentFilesAction::addUrl(const QUrl &url, const QString &name)
 {
 	Q_UNUSED(name);
 	const QString fileName = url.path();
@@ -195,7 +195,7 @@ void RecentFilesAction::addUrl(const Url &url, const QString &name)
 	updateRecentFilesList();
 }
 
-void RecentFilesAction::removeUrl(const Url &url)
+void RecentFilesAction::removeUrl(const QUrl &url)
 {
 	m_recentFilesList.removeAll(url.path());
 	updateRecentFilesList();

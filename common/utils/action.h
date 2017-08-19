@@ -33,6 +33,8 @@ public:
 	explicit Action(QObject *parent, const QString &name = QString());
 	Action(const QString &text, QObject *parent, const QString &name = QString());
 	Action(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
+
+
 #ifdef KTIKZ_USE_KDE
 	static KActionCollection *actionCollection();
 	static void setActionCollection(KActionCollection *actionCollection);

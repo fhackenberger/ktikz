@@ -362,7 +362,7 @@ bool MainWindow::save()
 
 bool MainWindow::saveAs()
 {
-	const Url saveAsUrl = FileDialog::getSaveUrl(this, tr("Save PGF source file"), m_currentUrl, QLatin1String("text/x-pgf"));
+	const Url saveAsUrl = FileDialog::getSaveUrl(this, tr("Save PGF source file"), Url(m_currentUrl), QLatin1String("text/x-pgf"));
 	if (!saveAsUrl.isValid() || saveAsUrl.isEmpty())
 		return false;
 	return saveUrl(saveAsUrl);
@@ -370,7 +370,7 @@ bool MainWindow::saveAs()
 
 void MainWindow::reload()
 {
-	const Url currentUrl = m_currentUrl;
+	const QUrl currentUrl = m_currentUrl;
 	if (closeFile())
 	{
 		saveLastInternalModifiedDateTime();
@@ -521,7 +521,7 @@ void MainWindow::createActions()
 	// Open
 	m_newAction = StandardAction::openNew(this, SLOT(newFile()), this);
 	m_openAction = StandardAction::open(this, SLOT(open()), this);
-	m_openRecentAction = StandardAction::openRecent(this, SLOT(loadUrl(QUrl)), this);
+	m_openRecentAction = StandardAction::openRecent(this, SLOT(loadUrl(const QUrl&)), this);
 	m_saveAction = StandardAction::save(this, SLOT(save()), this);
 	m_saveAsAction = StandardAction::saveAs(this, SLOT(saveAs()), this);
 	m_reloadAction = new Action(Icon(QStringLiteral("view-refresh")), tr("Reloa&d"), this, QLatin1String("file_reload"));
@@ -930,11 +930,11 @@ bool MainWindow::maybeSave()
 
 void MainWindow::loadUrl(const QUrl &url)
 {
-	loadUrl(Url(url));
-}
+//	loadUrl(Url(url));
+//}
 
-void MainWindow::loadUrl(const Url &url)
-{
+//void MainWindow::loadUrl(const Url &url)
+//{
 //QTime t = QTime::currentTime();
 	// check whether the file can be opened
 	if (!url.isValid() || url.isEmpty())
@@ -990,7 +990,7 @@ void MainWindow::loadUrl(const Url &url)
 //qCritical() << "loadUrl" << t.msecsTo(QTime::currentTime());
 }
 
-bool MainWindow::saveUrl(const Url &url)
+bool MainWindow::saveUrl(const QUrl &url)
 {
 	if (!url.isValid() || url.isEmpty())
 		return false;
@@ -1036,12 +1036,12 @@ void MainWindow::setCurrentEncoding(QTextCodec *codec, bool isUserRequest)
    // TODO: implement user warning and suggestion to reload the file.
 }
 
-Url MainWindow::url() const
+QUrl MainWindow::url() const
 {
 	return m_currentUrl;
 }
 
-void MainWindow::setCurrentUrl(const Url &url)
+void MainWindow::setCurrentUrl(const QUrl &url)
 {
 	m_currentUrl = url;
 	m_tikzEditorView->editor()->document()->setModified(false);
@@ -1049,7 +1049,7 @@ void MainWindow::setCurrentUrl(const Url &url)
 	setWindowTitle(tr("%1[*] - %2").arg(strippedName(m_currentUrl)).arg(KtikzApplication::applicationName()));
 }
 
-QString MainWindow::strippedName(const Url &url) const
+QString MainWindow::strippedName(const QUrl &url) const
 {
 	if (!url.isValid() || url.isEmpty())
 		return QLatin1String("untitled.txt");

@@ -39,8 +39,8 @@ public:
 	void createRecentFilesList() {}
 	void loadEntries();
 	void saveEntries();
-	void addUrl(const Url &url, const QString &name = QString());
-	void removeUrl(const Url &url);
+	//void addUrl(const QUrl &url, const QString &name = QString());
+	//void removeUrl(const QUrl &url);
 
 Q_SIGNALS:
 	void urlSelected(const QUrl &url);
@@ -64,8 +64,8 @@ public:
 	void createRecentFilesList();
 	void loadEntries();
 	void saveEntries();
-	void addUrl(const Url &url, const QString &name = QString());
-	void removeUrl(const Url &url);
+	void addUrl(const QUrl &url, const QString &name = QString());
+	void removeUrl(const QUrl &url);
 
 Q_SIGNALS:
 	void urlSelected(const Url &url);
