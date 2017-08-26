@@ -29,7 +29,7 @@ QString File::s_tempDir;
 
 File::File(const QString &fileName, const OpenMode &mode)
 	: m_openMode(mode)
-	, m_url(fileName)
+	, m_url(QUrl::fromUserInput(fileName))
 {
 	load();
 }

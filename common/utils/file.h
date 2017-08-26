@@ -21,7 +21,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QFile>
-#include <QSaveFile>
+//#include <QSaveFile>
 #include <QUrl>
 
 #ifdef KTIKZ_USE_KDE
