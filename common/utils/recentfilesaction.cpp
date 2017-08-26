@@ -31,21 +31,21 @@ RecentFilesAction::RecentFilesAction(QObject *parent)
 	: KRecentFilesAction(parent)
 {
 	Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
-	connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
+	//connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
 }
 
 RecentFilesAction::RecentFilesAction(const QString &text, QObject *parent)
 	: KRecentFilesAction(text, parent)
 {
 	Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
-	connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
+	//connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
 }
 
 RecentFilesAction::RecentFilesAction(const Icon &icon, const QString &text, QObject *parent)
 	: KRecentFilesAction(icon, text, parent)
 {
 	Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
-	connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
+	//connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
 }
 
 void RecentFilesAction::loadEntries()
@@ -59,21 +59,6 @@ void RecentFilesAction::saveEntries()
 	KRecentFilesAction::saveEntries(KSharedConfig::openConfig()->group(QLatin1String("Recent Files")));
 	KSharedConfig::openConfig()->sync();
 }
-
-void RecentFilesAction::selectUrl(const QUrl &url)
-{
-	Q_EMIT urlSelected(url);
-}
-
-//void RecentFilesAction::addUrl(const Url &url, const QString &name)
-//{
-//	KRecentFilesAction::addUrl(url, name);
-//}
-
-//void RecentFilesAction::removeUrl(const Url &url)
-//{
-//	KRecentFilesAction::removeUrl(url);
-//}
 #else
 #include <QtCore/QSettings>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)

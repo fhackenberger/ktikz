@@ -39,14 +39,6 @@ public:
 	void createRecentFilesList() {}
 	void loadEntries();
 	void saveEntries();
-	//void addUrl(const QUrl &url, const QString &name = QString());
-	//void removeUrl(const QUrl &url);
-
-Q_SIGNALS:
-	void urlSelected(const QUrl &url);
-
-private Q_SLOTS:
-	void selectUrl(const QUrl &url);
 };
 #else
 #include "action.h"
