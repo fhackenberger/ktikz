@@ -22,14 +22,11 @@
 #include <QtCore/QObject>
 #include <QtCore/QFile>
 #include <QSaveFile>
+#include <QUrl>
 
 #ifdef KTIKZ_USE_KDE
 class KJob;
 #endif
-
-#include "url.h"
-
-class Url;
 
 /*!
  * \brief Wrapper around a QFile or, in the KDE version, QSaveFile object.
@@ -109,12 +106,12 @@ public:
 	QFile *file();
 	QString errorString() const;
 
-	static bool copy(const Url &fromUrl, const Url &toUrl);
+	static bool copy(const QUrl &fromUrl, const QUrl &toUrl);
 
 #ifdef KTIKZ_USE_KDE
 	static void setMainWidget(QWidget *widget);
 	static void setTempDir(const QString &dirName);
-  static bool fileExists(const Url &url);
+	static bool fileExists(const QUrl &url);
 //private slots:
 //	void showJobError(KJob *job);
 #endif
@@ -130,7 +127,7 @@ private:
 	static QString s_tempDir;
 #endif
 
-	Url m_url;
+	QUrl m_url;
 	QString m_localFileName;
 
 	QString m_errorString;

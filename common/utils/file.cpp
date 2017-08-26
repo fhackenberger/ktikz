@@ -17,13 +17,12 @@
  ***************************************************************************/
 
 #include "file.h"
+#include "url.h"
 
 #ifdef KTIKZ_USE_KDE
 #include <KIO/Job>
 #include <KJobWidgets>
 #include <KSaveFile>
-//#include <KIO/JobUiDelegate>
-// #include <KIO/NetAccess>
 
 QWidget *File::s_mainWidget;
 QString File::s_tempDir;
@@ -37,13 +36,13 @@ File::File(const QString &fileName, const OpenMode &mode)
 
 File::File(const QUrl &url, const OpenMode &mode)
 	: m_openMode(mode)
-	, m_url(Url(url))
+	, m_url(url)
 {
 	load();
 }
 
 
-bool File::fileExists(const Url &url)
+bool File::fileExists(const QUrl &url)
 {
 	if (!(url.isValid()))
   {
@@ -165,7 +164,7 @@ void File::showJobError(KJob *job)
 }
 */
 
-bool File::copy(const Url &fromUrl, const Url &toUrl)
+bool File::copy(const QUrl &fromUrl, const QUrl &toUrl)
 {
 	KIO::Job *job = KIO::file_copy(fromUrl, toUrl, -1, KIO::Overwrite | KIO::HideProgressInfo);
 	KJobWidgets::setWindow(job, s_mainWidget);
@@ -218,10 +217,10 @@ File::File(const QString &fileName, const OpenMode &mode)
  * \param mode the mode in which the file will be opened
  */
 
-File::File(const Url &url, const OpenMode &mode)
+File::File(const QUrl &url, const OpenMode &mode)
 {
 	m_openMode = mode;
-	m_file = new QFile(url.path());
+	m_file = new QFile(Url(url).path());
 }
 
 File::~File()
@@ -265,19 +264,19 @@ bool File::close()
  * \return true if successful, false otherwise
  */
 
-bool File::copy(const Url &fromUrl, const Url &toUrl)
+bool File::copy(const QUrl &fromUrl, const QUrl &toUrl)
 {
-	const QString toFileName = toUrl.path();
+	const QString toFileName = Url(toUrl).path();
 	if (QFileInfo(toFileName).exists() && !QFile::remove(toFileName))
 	{
 //		QMessageBox::critical(s_mainWidget, QCoreApplication::applicationName(),
 //		    tr("The file \"%1\" could not be overwritten").arg(toFileName));
 		return false;
 	}
-//	if (!QFile::copy(fromUrl.path(), toUrl.path()))
+//	if (!QFile::copy(Url(fromUrl).path(), Url(toUrl).path()))
 //		QMessageBox::critical(s_mainWidget, QCoreApplication::applicationName(),
 //		    tr("The file \"%1\" could not be copied to").arg(toFileName));
-	return QFile::copy(fromUrl.path(), toFileName);
+	return QFile::copy(Url(fromUrl).path(), toFileName);
 }
 #endif
 
