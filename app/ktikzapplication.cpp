@@ -19,7 +19,6 @@
 #include "ktikzapplication.h"
 
 #include "mainwindow.h"
-#include "utils/url.h"
 
 #include <QFileInfo>
 #include <QUrl>
@@ -48,7 +47,7 @@ void KtikzApplication::init()
 			mainWindow->show();
 			if (!fileName.isEmpty())
 			{
-				mainWindow->loadUrl(Url(fileName));
+				mainWindow->loadUrl(QUrl::fromUserInput(fileName));
 				mainWindow->setLineNumber(lineNumber);
 			}
 		}
@@ -64,7 +63,7 @@ void KtikzApplication::init()
 
 	QStringList args = arguments();
 	for (int i = 1; i < args.size(); ++i)
-		mainWindow->loadUrl(Url(QFileInfo(args.at(i)).absoluteFilePath()));
+		mainWindow->loadUrl(QUrl::fromUserInput(QFileInfo(args.at(i)).absoluteFilePath()));
 }
 
 #ifdef KTIKZ_USE_KDE
