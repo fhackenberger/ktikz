@@ -1,7 +1,7 @@
 language: cpp
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install build-essential cmake libqt4-dev qt4-dev-tools libpoppler-qt4-dev kdelibs5-dev preview-latex-style
-script: mkdir -p buildqt && cd buildqt && qmake ../qtikz.pro && make && cd ..
+  - sudo apt-get install build-essential cmake qtbase5-dev libpoppler-qt5-dev preview-latex-style
+script: mkdir -p buildqt && cd buildqt && qmake -qt5 ../qtikz.pro && make && cd ..
 # The full build script with Qt and KDE builds fails for now, see https://travis-ci.org/fhackenberger/ktikz/builds/265616161
 # script: mkdir -p buildqt && cd buildqt && qmake ../qtikz.pro && make && cd .. && git clean -f -d && mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` .. && make
