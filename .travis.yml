@@ -1,4 +1,5 @@
 language: cpp
+dist: xenial
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install build-essential cmake qtbase5-dev libpoppler-qt5-dev preview-latex-style
