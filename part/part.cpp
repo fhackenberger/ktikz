@@ -224,7 +224,8 @@ void Part::showJobError(KJob *job)
 {
 	if (job->error() != 0)
 	{
-		KIO::JobUiDelegate *ui = static_cast<KIO::JobUiDelegate*>(static_cast<KIO::Job*>(job)->ui());
+		KIO::JobUiDelegate *ui = static_cast<KIO::JobUiDelegate*>(static_cast<KIO::Job*>(job)->uiDelegate());
+
 		if (!ui)
 		{
 			qCritical() << "Saving failed; job->ui() is null.";
