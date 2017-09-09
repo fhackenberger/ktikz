@@ -24,7 +24,7 @@
 class TempDir : public QTemporaryDir
 {
 public:
-	explicit TempDir(const QString &directoryPrefix = QString(), int mode = 0700);
+	explicit TempDir(const QString &directoryPrefix = QString());
 
 	const QString location() const;
 	bool cleanUp();

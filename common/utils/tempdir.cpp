@@ -24,7 +24,7 @@
 // #include <KStandardDirs>
 #include <QTemporaryDir>
 
-TempDir::TempDir(const QString &directoryPrefix, int mode)
+TempDir::TempDir(const QString &directoryPrefix)
 	: QTemporaryDir(directoryPrefix)
 {
 	setAutoRemove(true);
