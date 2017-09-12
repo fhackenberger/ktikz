@@ -22,7 +22,7 @@
 #ifdef KTIKZ_USE_KDE
 #include <KIO/Job>
 #include <KJobWidgets>
-#include <KSaveFile>
+//#include <KSaveFile>
 
 QWidget *File::s_mainWidget;
 QString File::s_tempDir;
@@ -78,7 +78,8 @@ void File::load()
 
 	if (m_openMode == WriteOnly)
 	{
-		m_file = new KSaveFile(m_localFileName);
+		//m_file = new KSaveFile(m_localFileName);
+		m_file = new QFile(m_localFileName);
 	}
 	else if (m_openMode == ReadOnly)
 	{
@@ -107,7 +108,8 @@ bool File::open(const QFile::OpenMode &mode)
 	if (m_openMode == WriteOnly)
 	{
 		m_errorString.clear();
-		return dynamic_cast<KSaveFile*>(m_file)->open(); // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
+		//return dynamic_cast<KSaveFile*>(m_file)->open(); // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
+		return m_file->open( QFile::ReadWrite ); // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
 	}
 	else if (m_openMode == ReadOnly)
 	{
@@ -124,8 +126,10 @@ bool File::close()
 
 	if (m_openMode == WriteOnly)
 	{
-		if (!dynamic_cast<KSaveFile*>(m_file)->finalize()) // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
-			return false;
+		//if (!dynamic_cast<KSaveFile*>(m_file)->finalize()) // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
+		//	return false;
+		m_file->close();
+		return true;
 	}
 	m_file->close();
 
