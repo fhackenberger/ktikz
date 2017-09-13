@@ -21,7 +21,7 @@ include(ECMInstallIcons)
 
 find_package(Qt5 5.2 CONFIG REQUIRED Core Gui Widgets Xml PrintSupport LinguistTools )
 
-find_package(KF5 5.0 REQUIRED DocTools XmlGui TextEditor Parts IconThemes KDELibs4Support )
+find_package(KF5 5.0 REQUIRED DocTools XmlGui TextEditor Parts IconThemes )
 
 include(KDEInstallDirs)
 include(KDECompilerSettings)

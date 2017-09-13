@@ -80,7 +80,8 @@ add_executable(ktikz ${ktikz_SRCS} ${ktikz_UI_FILES})
 target_link_libraries(ktikz
     KF5::XmlGui
     KF5::TextEditor
-    KF5::KDELibs4Support
+    KF5::IconThemes
+    Qt5::PrintSupport
     ${Poppler_LIBRARIES} )
 
 install(TARGETS ktikz DESTINATION ${KDE_INSTALL_BINDIR})

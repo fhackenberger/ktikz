@@ -26,24 +26,17 @@
 #ifdef KTIKZ_USE_KDE
 #include <KActionCollection>
 #include <KConfigGroup>
-#include <KMenuBar>
 #include <KMessageBox>
 #include <KStandardAction>
-#include <KStatusBar>
 #include <KXMLGUIFactory>
 #else
-#include <QtCore/QLocale>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QStatusBar>
-#else
-#include <QtGui/QMenuBar>
-#include <QtGui/QStatusBar>
-#endif
+#include <QLocale>
 #include "aboutdialog.h"
 #include "assistantcontroller.h"
 #endif
 
+#include <QMenuBar>
+#include <QStatusBar>
 #include <QtCore/QTextCodec>
 #include <QtCore/QProcess>
 #include <QtCore/QSettings>
