@@ -500,18 +500,18 @@ static QString createTempLatexFile(const QString &tikzFileBaseName, const QStrin
 
 static QString createTempTikzFile(const QString &tikzFileBaseName, const QString &tikzCode, const TextCodecProfile *codecProfile)
 {
-	File tikzFile(tikzFileBaseName + QLatin1String(".pgf"), File::WriteOnly);
-	if (!tikzFile.open())
-		return tikzFile.errorString();
+	QFile tikzFile(tikzFileBaseName + QLatin1String(".pgf"));
 
-	QTextStream tikzStream(tikzFile.file());
+	if (!tikzFile.open(QFile::WriteOnly))
+		return QString("Could not open \"%1\".").arg(tikzFileBaseName);
+
+	QTextStream tikzStream(&tikzFile);
 	codecProfile->configureStreamEncoding(tikzStream);
 
 	tikzStream << tikzCode << endl;
 	tikzStream.flush();
 
-	if (!tikzFile.close())
-		return tikzFile.errorString();
+	tikzFile.close();
 
 	qDebug() << "tikz code written to:" << tikzFileBaseName + QLatin1String(".pgf");
 	return QString();
