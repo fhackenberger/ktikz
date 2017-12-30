@@ -217,14 +217,15 @@ void ConfigEditorWidget::selectEncoding(QComboBox *cb, const QVariant &codecName
 
 void ConfigEditorWidget::on_encodingComboBox_currentIndexChanged(int index)
 {
-	bool b = (index == -1);
-	//Q_ASSERT(b);
-	if(Q_LIKELY( ~b) ) // true when the widget is initialized...
+	bool bShowAdvEncondingOptions = (index == -1);
+
+	// (!bShowAdvEncondingOptions) is true when the widget is initialized.
+	if(Q_LIKELY( !bShowAdvEncondingOptions) )
 	{
 		QString key=ui.encodingComboBox->itemData(index).toString();
 		if (key.isEmpty())
 		{
-			b = true;
+			bShowAdvEncondingOptions = true;
 		}
 		else
 		{
@@ -253,7 +254,7 @@ void ConfigEditorWidget::on_encodingComboBox_currentIndexChanged(int index)
 			ui.bomCheckBox->setChecked(bom);
 		}
 	}
-	ui.encodingAdvWidget->setVisible(b);
+	ui.encodingAdvWidget->setVisible(bShowAdvEncondingOptions);
 
 
 }
