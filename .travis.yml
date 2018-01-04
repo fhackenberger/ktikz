@@ -4,9 +4,13 @@ env:
 
 language: cpp
 dist: xenial
+
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install build-essential cmake qtbase5-dev qttools5-dev qttools5-dev-tools libpoppler-qt5-dev preview-latex-style
-script: mkdir -p buildqt && cd buildqt && QT_SELECT=5 qmake ../qtikz.pro && QT_SELECT=5  make && cd ..
-# The full build script with Qt and KDE builds fails for now, see https://travis-ci.org/fhackenberger/ktikz/builds/265616161
-# script: mkdir -p buildqt && cd buildqt && qmake ../qtikz.pro && make && cd .. && git clean -f -d && mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` .. && make
+  - sudo apt-get install -y build-essential preview-latex-style
+  - sudo apt-get install -y qtbase5-dev qttools5-dev qttools5-dev-tools libpoppler-qt5-dev
+  - sudo apt-get install -y cmake extra-cmake-modules kdoctools-dev libkf5iconthemes-dev libkf5kdelibs4support-dev libkf5parts-dev libkf5texteditor-dev libkf5xmlgui-dev libpoppler-qt5-dev libqt5sql5-sqlite pkg-config
+
+script:
+  - mkdir buildqt && cd buildqt && QT_SELECT=5 qmake ../qtikz.pro && QT_SELECT=5 make && cd ..
+  - mkdir build && cd build && cmake .. && make && cd ..
