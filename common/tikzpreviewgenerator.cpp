@@ -503,7 +503,7 @@ static QString createTempTikzFile(const QString &tikzFileBaseName, const QString
 	QFile tikzFile(tikzFileBaseName + QLatin1String(".pgf"));
 
 	if (!tikzFile.open(QFile::WriteOnly))
-		return QString("Could not open \"%1\".").arg(tikzFileBaseName);
+		return QString::fromUtf8("Could not open \"%1\".").arg(tikzFileBaseName);
 
 	QTextStream tikzStream(&tikzFile);
 	codecProfile->configureStreamEncoding(tikzStream);
