@@ -5,6 +5,7 @@ set(KTIKZ_VERSION "0.11")
 
 add_definitions(-DORGNAME=\"Florian_Hackenberger\" -DAPPNAME=\"ktikz\")
 add_definitions(-DAPPVERSION=\"${KTIKZ_VERSION}\")
+add_definitions(-DKTIKZ_USE_DESKTOP_ICONS)
 add_definitions(-DKTIKZ_USE_KDE)
 add_definitions(-DKTIKZ_TIKZ_DOCUMENTATION_DEFAULT=\"/usr/share/doc/texmf/pgf/pgfmanual.pdf.gz\")
 if(WIN32 AND NOT UNIX)
