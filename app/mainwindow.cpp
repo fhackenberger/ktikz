@@ -543,7 +543,7 @@ void MainWindow::createActions()
 
 	// View
 	m_buildAction = new Action(Icon(QLatin1String("run-build")), tr("&Build"), this, QLatin1String("build"));
-	m_buildAction->setShortcut(tr("Ctrl+B", "View|Build"));
+	//m_buildAction->setShortcut(tr("Ctrl+B", "View|Build"));
 	m_buildAction->setStatusTip(tr("Build preview"));
 	m_buildAction->setWhatsThis(tr("<p>Generate preview by building the current TikZ code in the editor.</p>"));
 	connect(m_buildAction, SIGNAL(triggered()), m_tikzPreviewController, SLOT(regeneratePreview()));
