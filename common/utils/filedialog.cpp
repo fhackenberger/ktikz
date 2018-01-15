@@ -106,7 +106,7 @@ static QString getParsedFilter(const QString &filter)
 
 Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
 {
-	const QString openFileName = QFileDialog::getOpenFileName(parent, caption, dir.path(), getParsedFilter(filter));
+	const QUrl openFileName = QFileDialog::getOpenFileUrl(parent, caption, dir, getParsedFilter(filter));
 	if (openFileName.isEmpty())
 		return Url();
 	return Url(openFileName);
@@ -149,7 +149,7 @@ Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &d
 
 Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
 {
-	const QString saveAsFileName = QFileDialog::getSaveFileName(parent, caption, dir.path(), getParsedFilter(filter));
+	const QUrl saveAsFileName = QFileDialog::getSaveFileUrl(parent, caption, dir, getParsedFilter(filter));
 	if (saveAsFileName.isEmpty())
 		return Url();
 
