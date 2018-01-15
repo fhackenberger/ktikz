@@ -54,6 +54,3 @@ CONFIG += release
 
 # TikZ documentation default file path:
 TIKZ_DOCUMENTATION_DEFAULT = "/usr/share/doc/texmf/pgf/pgfmanual.pdf.gz"
-
-# Default template editor:
-#TEMPLATE_EDITOR_DEFAULT = "kwrite"

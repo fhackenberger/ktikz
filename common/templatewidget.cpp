@@ -18,6 +18,10 @@
 
 #include "templatewidget.h"
 
+#ifdef KTIKZ_USE_KDE
+#include <KRun>
+#endif
+
 #include <QtCore/QProcess>
 #include <QtCore/QSettings>
 #include <QtGui/QKeyEvent>
@@ -176,8 +180,12 @@ void TemplateWidget::editTemplateFile()
 	QStringList editorArguments;
 	editorArguments << ui.templateCombo->currentText();
 
+#ifdef KTIKZ_USE_KDE
+	KRun::runUrl( Url( fileName() ), QStringLiteral( "text/plain" ), NULL,  0 );
+#else
 	QProcess process;
 	process.startDetached(m_editor, editorArguments);
+#endif
 
 	QApplication::restoreOverrideCursor();
 }

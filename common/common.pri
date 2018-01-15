@@ -2,7 +2,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT *= widgets printsupport
 
 include($${_PRO_FILE_PWD_}/qmake/findpoppler.pri)
 
-DEFINES += KTIKZ_TEMPLATE_EDITOR_DEFAULT=\\\"$${TEMPLATE_EDITOR_DEFAULT}\\\"
 DEFINES += KTIKZ_TEMPLATES_INSTALL_DIR=\\\"$${TEMPLATES_INSTALL_DIR}\\\"
 
 include($${PWD}/utils/utils.pri)

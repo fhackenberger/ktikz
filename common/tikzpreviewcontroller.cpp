@@ -518,7 +518,7 @@ void TikzPreviewController::applySettings()
 	const QString replaceText = settings.value(QLatin1String("TemplateReplaceText"), QLatin1String("<>")).toString();
 	m_tikzPreviewGenerator->setReplaceText(replaceText);
 	m_templateWidget->setReplaceText(replaceText);
-	m_templateWidget->setEditor(settings.value(QLatin1String("TemplateEditor"), QString::fromLocal8Bit(KTIKZ_TEMPLATE_EDITOR_DEFAULT)).toString());
+	m_templateWidget->setEditor(settings.value(QLatin1String("TemplateEditor"), QLatin1String("")).toString());
 
 	settings.beginGroup(QLatin1String("Preview"));
 	m_tikzPreview->setShowCoordinates(settings.value(QLatin1String("ShowCoordinates"), true).toBool());
