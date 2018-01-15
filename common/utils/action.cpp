@@ -45,6 +45,11 @@ Action::Action(const Icon &icon, const QString &text, QObject *parent, const QSt
 		s_actionCollection->addAction(name, this);
 }
 
+void Action::setShortcut(const QKeySequence &shortcut)
+{
+	actionCollection()->setDefaultShortcut( this, shortcut );
+}
+
 KActionCollection *Action::actionCollection()
 {
 	return s_actionCollection;
@@ -74,5 +79,10 @@ Action::Action(const Icon &icon, const QString &text, QObject *parent, const QSt
 {
 	if (!name.isEmpty())
 		setObjectName(name);
+}
+
+void Action::setShortcut(const QKeySequence &shortcut)
+{
+	QAction::setShortcut(shortcut);
 }
 #endif

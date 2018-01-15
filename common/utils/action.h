@@ -34,6 +34,7 @@ public:
 	Action(const QString &text, QObject *parent, const QString &name = QString());
 	Action(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
 
+	void setShortcut(const QKeySequence &shortcut);
 
 #ifdef KTIKZ_USE_KDE
 	static KActionCollection *actionCollection();
