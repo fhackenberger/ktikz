@@ -1,3 +1,7 @@
+version 0.12:
+- port to kde frameworks and remove unused classes
+- "Edit template" button now uses the default text editor instead of
+the one selected in settings
 version 0.11:
 - show in the statusbar the x- and y-coordinates of the mouse cursor
   according to the tikzpicture's coordinate system
