@@ -1,11 +1,11 @@
-lessThan(QT_VERSION, 4.6) {
-	error("QtikZ requires Qt version 4.6 or higher.")
+lessThan(QT_VERSION, 5.0) {
+	error("QtikZ requires Qt version 5.0 or higher.")
 }
 
 ORGNAME = "Florian_Hackenberger"
 APPNAME = qtikz
 APPEXENAME = qtikz
-APPVERSION = 0.11
+APPVERSION = 0.12
 
 include(qmake/qtikzconfig.pri)
 include(qmake/qtikzdefaults.pri)
