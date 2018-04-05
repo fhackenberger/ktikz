@@ -45,10 +45,11 @@
 CONFIG -= debug
 CONFIG += release
 
+# Qt commands (uncomment if needed)
 # qmake command:
-#QMAKECOMMAND = qmake-qt4
+#QMAKECOMMAND = qmake-qt5
 # lrelease command:
-#LRELEASECOMMAND = lrelease-qt4
+#LRELEASECOMMAND = lrelease-qt5
 # qcollectiongenerator command:
 #QCOLLECTIONGENERATORCOMMAND = qcollectiongenerator
 
