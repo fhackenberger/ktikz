@@ -412,7 +412,7 @@ For ease of maintenance of this file, the structure of Part III of the manual is
 			<item name="D&amp;isable all alignments" description="align=none" insert="align=none" type="3"/>
 			<separator/>
 			<item name="Set text &amp;width in node" description="text width=&lt;dimension&gt;" insert="text width=&#8226;" type="3"/>
-			<item name="Set text &amp;height in node" description="text heigth=&lt;dimension&gt;" insert="text height=&#8226;" type="3"/>
+			<item name="Set text &amp;height in node" description="text height=&lt;dimension&gt;" insert="text height=&#8226;" type="3"/>
 			<item name="Set text &amp;depth in node" description="text depth=&lt;dimension&gt;" insert="text depth=&#8226;" type="3"/>
 		</section>
 		<!-- 16.5 -->
