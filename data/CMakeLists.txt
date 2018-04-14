@@ -16,3 +16,7 @@ install(FILES examples/template_example.pgs
 	examples/template_example2.pgs
 	examples/beamer-example-template.pgs
 	DESTINATION ${KTIKZ_TEMPLATES_INSTALL_DIR})
+
+### Install appdata file
+
+install(FILES ktikz.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
