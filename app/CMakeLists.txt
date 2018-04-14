@@ -73,7 +73,8 @@ kconfig_add_kcfg_files(ktikz_SRCS ../common/settings.kcfgc)
 qt5_add_resources(ktikz_SRCS ktikz.qrc)
 qt5_add_resources(ktikz_SRCS qtikz.qrc)
 
-# kde4_add_app_icon(ktikz_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/icons/hi*-apps-ktikz.png") # add icons for win32 and mac; this command assumes that the first arg is of the form <appname>_SRCS
+file(GLOB icons_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/icons/*-apps-ktikz.png")
+ecm_add_app_icon(ktikz_SRCS ICONS ${icons_SRCS}) # add icons for win32 and mac; this command assumes that the first arg is of the form <appname>_SRCS
 
 # dirty hack: use ki18n_wrap_ui to let Qt translate the .ui files instead of KDE
 add_executable(ktikz ${ktikz_SRCS} ${ktikz_UI_FILES})
