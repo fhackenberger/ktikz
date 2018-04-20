@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=QtikZ
-Exec=qtikz
+Exec=qtikz %F
 Icon=
 Terminal=false
 MimeType=text/x-pgf;text/x-tex;
