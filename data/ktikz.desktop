@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=KtikZ
-Exec=ktikz
+Exec=ktikz %F
 Icon=ktikz
 Terminal=false
 MimeType=text/x-pgf;text/x-tex;
