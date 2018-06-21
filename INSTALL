@@ -3,28 +3,28 @@ The following are required for compilation:
   headers, ...)
 - cmake (if you want to install the KPart)
 - a standard LaTeX environment
-- a Qt 4 development environment (libraries, headers, qmake, ...): only
-  QtCore, QtGui and QtXml are required, at least in version 4.6
-- the poppler-qt4 libraries and headers, at least in version 0.6
-- the kdelibs development environment (only if you want KDE integration
-  and the KPart), at least in version 4.3
+- a Qt 5 development environment (libraries, headers, qmake, ...): only
+  QtCore, QtGui and QtXml are required, at least in version 5.0
+- the poppler-qt5 libraries and headers, at least in version 0.4q
+- the following KDE frameworks development environment (only if you want KDE integration
+  and the KPart): KDocTools KXmlGui KTextEditor KParts KIconThemes
 - the LaTeX pgf package (which includes TikZ)
 - the LaTeX preview package
 
-In Ubuntu you would obtain those by installing the following packages:
+TODO: Add Ubuntu dependencies (Ubuntu 18.04)
+In Ubuntu 18.04 LTS you would obtain those by installing the following packages:
 - build-essential
 - cmake (if you want to install the KDE version)
-- libqt4-dev
-- qt4-dev-tools
-- libpoppler-qt4-dev
-- kdelibs5-dev (only if you want KDE integration and the KPart)
+- qtbase5-dev
+- libpoppler-qt5-dev
+- libkf5doctools-dev, libkf5xmlgui-dev, libkf5texteditor-dev, libkf5parts-dev, libkf5iconthemes-devs
 - pgf
 - preview-latex-style
 
 Install the Qt-only (qtikz) application (using qmake):
 ------------------------------------------------------
 
-1. Edit the paths in qmake/qtikzconfig.pri
+1. Edit the paths in qmake/ q.pri
 2. Run the following commands (this will create an executable named qtikz):
   mkdir buildqt
   cd buildqt
@@ -50,7 +50,7 @@ and a KPart which will be loaded when clicking a *.pgf or *.tikz file
 in Konqueror):
   mkdir build
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` ..
+  cmake ..
   make
   sudo make install
 
