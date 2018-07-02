@@ -22,6 +22,8 @@ DEFINES += KTIKZ_DOCUMENTATION_INSTALL_DIR=\\\"$${DOCUMENTATION_INSTALL_DIR}\\\"
 DEFINES += KTIKZ_TIKZ_DOCUMENTATION_DEFAULT=\\\"$${TIKZ_DOCUMENTATION_DEFAULT}\\\"
 DEFINES += KTIKZ_TRANSLATIONS_INSTALL_DIR=\\\"$${TRANSLATIONS_INSTALL_DIR}\\\"
 
+INCLUDEPATH += $${PWD}/../common/
+
 ### Build files
 
 MOC_DIR = moc
@@ -31,7 +33,7 @@ UI_DIR = ui
 
 ### Input
 
-include(../common/common.pri)
+include($${PWD}/../common/common.pri)
 
 FORMS += \
 	$${PWD}/configappearancewidget.ui \
