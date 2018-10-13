@@ -285,10 +285,10 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label">
            <property name="toolTip">
-            <string>Defaut encoding for new documents</string>
+            <string>Default encoding for new documents</string>
            </property>
            <property name="text">
-            <string>Defaut encoding</string>
+            <string>Default encoding</string>
            </property>
           </widget>
          </item>
