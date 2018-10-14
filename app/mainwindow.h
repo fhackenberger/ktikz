@@ -137,7 +137,7 @@ private Q_SLOTS:
 	void updateCompleter();
 	/// Change the codec for the current document
 	/// @param isUserRequest set to true if the user requested the changement (in this case, the application should warn the user -- not implemented yet.).
-	void setCurrentEncoding(QTextCodec* codec, bool isUserRequest = false);
+  void setCurrentEncoding(QTextCodec* codec /*, bool isUserRequest = false */ );
 
 private:
 	void createActions();

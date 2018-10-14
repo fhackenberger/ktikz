@@ -1023,7 +1023,7 @@ bool MainWindow::saveUrl(const QUrl &url)
 	return true;
 }
 
-void MainWindow::setCurrentEncoding(QTextCodec *codec, bool isUserRequest)
+void MainWindow::setCurrentEncoding(QTextCodec *codec )
 {
 	m_currentEncoding = codec;
    // TODO: implement user warning and suggestion to reload the file.

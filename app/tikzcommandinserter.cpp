@@ -183,7 +183,7 @@ static TikzCommandList getChildCommands(QXmlStreamReader *xml, QList<TikzCommand
 
 	return commandList;
 }
-
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 static TikzCommandList getCommands(QXmlStreamReader *xml, QList<TikzCommand> *tikzCommandsList)
 {
 	TikzCommandList commandList;
@@ -204,6 +204,7 @@ static TikzCommandList getCommands(QXmlStreamReader *xml, QList<TikzCommand> *ti
 		qCritical("Parse error in TikZ commands file at line %d, column %d:\n%s", int(xml->lineNumber()), int(xml->columnNumber()), qPrintable(xml->errorString()));
 	return commandList;
 }
+#endif
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 static TikzCommandList loadChildCommandsJson(QJsonObject sectionObject, QList<TikzCommand> *tikzCommandsList)
