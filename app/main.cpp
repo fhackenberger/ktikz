@@ -56,7 +56,8 @@ static void debugOutput(QtMsgType type, const QMessageLogContext &context, const
 	switch (type)
 	{
 		case QtDebugMsg:
-		case QtWarningMsg:
+    case QtInfoMsg:
+    case QtWarningMsg:
 #ifndef QT_NO_DEBUG
 			fprintf(stderr, "%s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
 #endif

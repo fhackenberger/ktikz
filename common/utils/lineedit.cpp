@@ -14,13 +14,13 @@
 LineEdit::LineEdit(const QString &text, QWidget *parent)
 	: KLineEdit(text, parent)
 {
-	setClearButtonShown(true);
+  setClearButtonEnabled(true);
 }
 
 LineEdit::LineEdit(QWidget *parent)
 	: KLineEdit(parent)
 {
-	setClearButtonShown(true);
+  setClearButtonEnabled(true);
 }
 #else
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)

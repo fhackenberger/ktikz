@@ -20,10 +20,26 @@ find_package(Qt5 5.2 CONFIG REQUIRED Core Gui Widgets Xml PrintSupport LinguistT
 find_package(KF5 5.0 REQUIRED DocTools XmlGui TextEditor Parts IconThemes )
 
 include(KDEInstallDirs)
-include(KDECompilerSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
 include(FeatureSummary)
 # include(KDEFrameworkCompilerSettings)
+
+
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+  add_definitions(-DQT_STRICT_ITERATORS)
+endif()
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
+endif()
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+   if (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS "5.0.0")
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Wlogical-op" )
+   endif()
+endif()
+
 
 find_package(Poppler "0.12.1" REQUIRED Qt5 Core)
 set_package_properties("Poppler-Qt5" PROPERTIES
@@ -42,8 +58,8 @@ add_subdirectory(data)
 
 # Remove directories
 add_custom_target(uninstalldirs)
-# add_dependencies(uninstalldirs uninstalldirs_app uninstalldirs_part uninstalldirs_doc)
-add_dependencies(uninstalldirs uninstalldirs_app uninstalldirs_doc)
+add_dependencies(uninstalldirs uninstalldirs_app uninstalldirs_part uninstalldirs_doc)
+# add_dependencies(uninstalldirs uninstalldirs_app uninstalldirs_doc)
 
 # Make packages
 include(KtikzCPackOptions.cmake)

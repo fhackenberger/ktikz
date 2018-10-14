@@ -181,7 +181,7 @@ void TemplateWidget::editTemplateFile()
 	editorArguments << ui.templateCombo->currentText();
 
 #ifdef KTIKZ_USE_KDE
-	KRun::runUrl( Url( fileName() ), QStringLiteral( "text/plain" ), NULL,  0 );
+  KRun::runUrl( Url( fileName() ), QStringLiteral( "text/plain" ), NULL,  KRun::RunExecutables, QString() );
 #else
 	QProcess process;
 	process.startDetached(m_editor, editorArguments);
