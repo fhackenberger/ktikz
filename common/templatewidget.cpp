@@ -20,6 +20,7 @@
 
 #ifdef KTIKZ_USE_KDE
 #include <KRun>
+#include <kio_version.h>
 #endif
 
 #include <QtCore/QProcess>
@@ -181,7 +182,11 @@ void TemplateWidget::editTemplateFile()
 	editorArguments << ui.templateCombo->currentText();
 
 #ifdef KTIKZ_USE_KDE
+ #if ( (KIO_VERSION_MAJOR >= 5)  && ( KIO_VERSION_MINOR > 31 ) )
   KRun::runUrl( Url( fileName() ), QStringLiteral( "text/plain" ), NULL,  KRun::RunExecutables, QString() );
+#else
+  KRun::runUrl( Url( fileName() ), QStringLiteral( "text/plain" ), NULL,  0 );
+#endif
 #else
 	QProcess process;
 	process.startDetached(m_editor, editorArguments);
