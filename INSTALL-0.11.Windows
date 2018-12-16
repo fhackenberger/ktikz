@@ -16,7 +16,7 @@ Get NSIS at http://nsis.sourceforge.net/Download and install it.
 Install dependencies:
 ---------------------
 
-1. Download from http://www.gtk.org/download/win32.php the following
+1. Download from https://www.gtk.org/download/windows.php the following
 packages (run-time version and developer version):
 - zlib
 - cairo
