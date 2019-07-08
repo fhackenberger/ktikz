@@ -17,7 +17,7 @@ In Ubuntu 18.04 LTS you would obtain those by installing the following packages:
 - cmake (if you want to install the KDE version)
 - qtbase5-dev
 - libpoppler-qt5-dev
-- libkf5doctools-dev, libkf5xmlgui-dev, libkf5texteditor-dev, libkf5parts-dev, libkf5iconthemes-devs
+- libkf5doctools-dev, libkf5xmlgui-dev, libkf5texteditor-dev, libkf5parts-dev, libkf5iconthemes-dev
 - pgf
 - preview-latex-style
 
