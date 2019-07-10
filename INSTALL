@@ -20,6 +20,7 @@ In Ubuntu 18.04 LTS you would obtain those by installing the following packages:
 - libkf5doctools-dev, libkf5xmlgui-dev, libkf5texteditor-dev, libkf5parts-dev, libkf5iconthemes-dev
 - pgf
 - preview-latex-style
+- extra-cmake-modules
 
 Install the Qt-only (qtikz) application (using qmake):
 ------------------------------------------------------
