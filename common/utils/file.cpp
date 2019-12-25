@@ -109,7 +109,7 @@ bool File::open(const QFile::OpenMode &mode)
 	{
 		m_errorString.clear();
 		//return dynamic_cast<KSaveFile*>(m_file)->open(); // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
-		return m_file->open( QFile::ReadWrite ); // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
+		return m_file->open( QFile::WriteOnly ); // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
 	}
 	else if (m_openMode == ReadOnly)
 	{
