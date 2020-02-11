@@ -657,13 +657,18 @@ bool TikzPreviewGenerator::generatePdfFile(const QString &tikzFileBaseName, cons
 	// remove log file before running pdflatex again
 	QDir::root().remove(tikzFileBaseName + QLatin1String(".log"));
 
-	QStringList latexArguments;
+	QStringList arguments;
 	if (useShellEscaping)
-		latexArguments << QLatin1String("-shell-escape");
-	latexArguments << QLatin1String("-halt-on-error") << QLatin1String("-file-line-error")
-	               << QLatin1String("-interaction") << QLatin1String("nonstopmode") << QLatin1String("-output-directory")
-	               << QFileInfo(tikzFileBaseName + QLatin1String(".tex")).absolutePath()
-	               << tikzFileBaseName + QLatin1String(".tex");
+		arguments << QLatin1String("-shell-escape");
+	if (latexCommand == "context) {
+		// ConTeXt doesn’t know output-directory, we’d have to cd there
+		arguments << QLatin1String("--nonstopmode");
+	} else {
+		arguments << QLatin1String("-halt-on-error") << QLatin1String("-file-line-error")
+		          << QLatin1String("-interaction") << QLatin1String("nonstopmode") << QLatin1String("-output-directory")
+		          << QFileInfo(tikzFileBaseName + QLatin1String(".tex")).absolutePath();
+	}
+	arguments << tikzFileBaseName + QLatin1String(".tex");
 
 	Q_EMIT updateLog(QLatin1String("[LaTeX] ") + tr("Running...", "info process"), false); // runFailed = false
 	return runProcess(QLatin1String("LaTeX"), latexCommand, latexArguments, QFileInfo(tikzFileBaseName).absolutePath());
