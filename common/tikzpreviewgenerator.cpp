@@ -660,7 +660,7 @@ bool TikzPreviewGenerator::generatePdfFile(const QString &tikzFileBaseName, cons
 	QStringList arguments;
 	if (useShellEscaping)
 		arguments << QLatin1String("-shell-escape");
-	if (latexCommand == "context) {
+	if (latexCommand == "context") {
 		// ConTeXt doesn’t know output-directory, we’d have to cd there
 		arguments << QLatin1String("--nonstopmode");
 	} else {
