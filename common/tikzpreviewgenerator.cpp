@@ -671,5 +671,5 @@ bool TikzPreviewGenerator::generatePdfFile(const QString &tikzFileBaseName, cons
 	arguments << tikzFileBaseName + QLatin1String(".tex");
 
 	Q_EMIT updateLog(QLatin1String("[LaTeX] ") + tr("Running...", "info process"), false); // runFailed = false
-	return runProcess(QLatin1String("LaTeX"), latexCommand, latexArguments, QFileInfo(tikzFileBaseName).absolutePath());
+	return runProcess(QLatin1String("LaTeX"), latexCommand, arguments, QFileInfo(tikzFileBaseName).absolutePath());
 }
