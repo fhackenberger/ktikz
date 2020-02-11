@@ -658,17 +658,17 @@ bool TikzPreviewGenerator::generatePdfFile(const QString &tikzFileBaseName, cons
 	QDir::root().remove(tikzFileBaseName + QLatin1String(".log"));
 
 	QStringList arguments;
-	if (useShellEscaping)
-		arguments << QLatin1String("-shell-escape");
-	if (latexCommand == "context") {
-		// ConTeXt doesn’t know output-directory, we’d have to cd there
+	if (latexCommand == QLatin1String("context")) {
+		// ConTeXt doesn’t support enabling \write18 via command line
 		arguments << QLatin1String("--nonstopmode");
 	} else {
+		if (useShellEscaping)
+			arguments << QLatin1String("-shell-escape");
 		arguments << QLatin1String("-halt-on-error") << QLatin1String("-file-line-error")
-		          << QLatin1String("-interaction") << QLatin1String("nonstopmode") << QLatin1String("-output-directory")
-		          << QFileInfo(tikzFileBaseName + QLatin1String(".tex")).absolutePath();
+		          << QLatin1String("-interaction") << QLatin1String("nonstopmode");
 	}
-	arguments << tikzFileBaseName + QLatin1String(".tex");
+	// We run the command in the temp dir, so using the file name is enough
+	arguments << QFileInfo(tikzFileBaseName + QLatin1String(".tex")).fileName();
 
 	Q_EMIT updateLog(QLatin1String("[LaTeX] ") + tr("Running...", "info process"), false); // runFailed = false
 	return runProcess(QLatin1String("LaTeX"), latexCommand, arguments, QFileInfo(tikzFileBaseName).absolutePath());
