@@ -33,6 +33,10 @@ class QTextCharFormat;
 class ComboBox;
 class HighlightingRule;
 
+namespace KTextEditor {
+	class Document;
+}
+
 struct TikzCommand
 {
 	QString name;
@@ -68,7 +72,12 @@ public:
 	static QStringList getTranslatedHighlightTypeNames();
 	static QStringList getHighlightTypeNames();
 	static QVector<HighlightingRule> getHighlightingRules();
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	void setEditor(KTextEditor::Document *textEdit);
+#endif
 	void setEditor(QPlainTextEdit *textEdit);
+
+
 
 public Q_SLOTS:
 	void insertTag(const QString &tag, int dx = 0, int dy = 0);
@@ -92,7 +101,12 @@ private:
 	QMenu *getMenu(const TikzCommandList &commandList, QWidget *parent);
 	void addListWidgetItems(QListWidget *listWidget, const QPalette &standardPalette, const TikzCommandList &commandList, bool addChildren = true);
 
+#ifdef KTIKZ_USE_KTEXTEDITOR
+  KTextEditor::Document *m_mainKFEdit;
+#endif
 	QPlainTextEdit *m_mainEdit;
+
+
 	static TikzCommandList m_tikzSections;
 	static QList<TikzCommand> m_tikzCommandsList;
 

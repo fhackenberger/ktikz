@@ -18,6 +18,12 @@
 
 #include "tikzcommandinserter.h"
 
+#ifdef KTIKZ_USE_KTEXTEDITOR
+#include <KTextEditor/Document>
+#include <KTextEditor/View>
+#include <KTextEditor/Cursor>
+#endif
+
 #include <QtCore/QFile>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtCore/QJsonArray>
@@ -61,6 +67,9 @@ QList<TikzCommand> TikzCommandInserter::m_tikzCommandsList;
 
 TikzCommandInserter::TikzCommandInserter(QWidget *parent)
 	: QObject(parent)
+#ifdef KTIKZ_USE_KTEXTEDITOR
+  , m_mainKFEdit(0)
+#endif
 	, m_mainEdit(0)
 	, m_commandsCombo(0)
 	, m_commandsStack(0)
@@ -761,6 +770,12 @@ void TikzCommandInserter::insertTag(QListWidgetItem *item)
 	}
 }
 
+#ifdef KTIKZ_USE_KTEXTEDITOR
+void TikzCommandInserter::setEditor(KTextEditor::Document *doc)
+{
+  m_mainKFEdit = doc;
+}
+#endif
 void TikzCommandInserter::setEditor(QPlainTextEdit *textEdit)
 {
 	m_mainEdit = textEdit;
@@ -777,38 +792,51 @@ void TikzCommandInserter::setEditor(QPlainTextEdit *textEdit)
 
 void TikzCommandInserter::insertTag(const QString &tag, int dx, int dy)
 {
-	Q_ASSERT_X(m_mainEdit, "TikzCommandInserter::insertTag(const QString &tag, int dx, int dy)", "m_mainEdit should be set using TikzCommandInserter::setEditor() before using this function");
+#ifdef KTIKZ_USE_KTEXTEDITOR
+  if( m_mainKFEdit )
+  {
+    Q_ASSERT_X(m_mainKFEdit, "TikzCommandInserter::insertTag(const QString &tag, int dx, int dy)", "m_mainEdit should be set using TikzCommandInserter::setEditor() before using this function");
+    KTextEditor::View *documentView = m_mainKFEdit->views().at(0);
+    KTextEditor::Cursor cur = documentView->cursorPosition();
+    m_mainKFEdit->insertText(cur, tag, true);
+  }
+  else
+  {
+#endif
+    Q_ASSERT_X(m_mainEdit, "TikzCommandInserter::insertTag(const QString &tag, int dx, int dy)", "m_mainEdit should be set using TikzCommandInserter::setEditor() before using this function");
 
-	QTextCursor cur = m_mainEdit->textCursor();
-	const int pos = cur.position();
+    // replace all options (between <...>) by a place holder
+    QString insertWord = tag;
+    const QRegExp rx(QLatin1String("<[^<>]*>"));
+    insertWord.replace(rx, s_completionPlaceHolder);
 
-	// replace all options (between <...>) by a place holder
-	QString insertWord = tag;
-	const QRegExp rx(QLatin1String("<[^<>]*>"));
-	insertWord.replace(rx, s_completionPlaceHolder);
+    QTextCursor cur = m_mainEdit->textCursor();
+    const int pos = cur.position();
 
-	// insert tag
-	m_mainEdit->insertPlainText(insertWord);
-	cur.setPosition(pos, QTextCursor::MoveAnchor);
+    // insert tag
+    m_mainEdit->insertPlainText(insertWord);
+    cur.setPosition(pos, QTextCursor::MoveAnchor);
 
-	// move the text cursor to the first option or to the specified place
-	if (insertWord.contains(s_completionPlaceHolder))
-	{
-		cur = m_mainEdit->document()->find(s_completionPlaceHolder, cur);
-		m_mainEdit->setTextCursor(cur);
-	}
-	else if (dx > 0 || dy > 0)
-	{
-		if (dy > 0)
-		{
-			cur.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, dy);
-			cur.movePosition(QTextCursor::StartOfLine, QTextCursor::MoveAnchor, 1);
-		}
-		if (dx > 0)
-			cur.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, dx);
-		m_mainEdit->setTextCursor(cur);
-	}
-	// else we are only inserting a string with no placeholders and no positioning, so the cursor must come at the end of the string (this is done automatically by Qt)
-
-	m_mainEdit->setFocus();
+    // move the text cursor to the first option or to the specified place
+    if (insertWord.contains(s_completionPlaceHolder))
+    {
+      cur = m_mainEdit->document()->find(s_completionPlaceHolder, cur);
+      m_mainEdit->setTextCursor(cur);
+    }
+    else if (dx > 0 || dy > 0)
+    {
+      if (dy > 0)
+      {
+        cur.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, dy);
+        cur.movePosition(QTextCursor::StartOfLine, QTextCursor::MoveAnchor, 1);
+      }
+      if (dx > 0)
+        cur.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, dx);
+      m_mainEdit->setTextCursor(cur);
+    }
+    // else we are only inserting a string with no placeholders and no positioning, so the cursor must come at the end of the string (this is done automatically by Qt)
+    m_mainEdit->setFocus();
+#ifdef KTIKZ_USE_KTEXTEDITOR
+  }
+#endif
 }

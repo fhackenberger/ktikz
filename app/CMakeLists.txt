@@ -57,6 +57,13 @@ set(ktikz_SRCS
 	../common/utils/zoomaction.cpp
 )
 
+if( KTIKZ_USE_KTEXTEDITOR )
+  list(APPEND ktikz_SRCS
+    tikzktexteditorview.cpp
+    tikzktexteditorcompletion.cpp
+  )
+endif()
+
 # dirty hack: use ki18n_wrap_ui to let Qt translate the .ui files instead of KDE (to have less duplication in the translation effort)
 ki18n_wrap_ui(ktikz_UI_FILES
 	configappearancewidget.ui
@@ -85,7 +92,14 @@ target_link_libraries(ktikz
     Qt5::PrintSupport
     ${Poppler_LIBRARIES} )
 
+if( KTIKZ_USE_KTEXTEDITOR )
+  target_link_libraries(ktikz KF5::TextEditor)
+endif()
+
 install(TARGETS ktikz DESTINATION ${KDE_INSTALL_BINDIR})
+if( KTIKZ_USE_KTEXTEDITOR )
+  install(FILES ktikzui_frameworks.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/ktikz)
+endif()
 install(FILES ktikzui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/ktikz)
 install(FILES ../common/ktikz.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 

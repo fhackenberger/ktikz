@@ -20,6 +20,7 @@
 
 #include <QKeyEvent>
 #include <QWhatsThis>
+#include <QSettings>
 
 #include "configappearancewidget.h"
 #include "configeditorwidget.h"
@@ -34,20 +35,39 @@ ConfigDialog::ConfigDialog(QWidget *parent) : PageDialog(parent)
 // TODO: Check if this is needed
 // 	setHelp(QLatin1String("chap-configuration"));
 
+	
+
 	m_configGeneralWidget = new ConfigGeneralWidget(this);
-	m_configEditorWidget = new ConfigEditorWidget(this);
-	m_configAppearanceWidget = new ConfigAppearanceWidget(this);
-	m_configPreviewWidget = new ConfigPreviewWidget(this);
 	addPage(m_configGeneralWidget, tr("&General"), QLatin1String("preferences-desktop-theme"));
-	addPage(m_configEditorWidget, tr("&Editor"), QLatin1String("accessories-text-editor"));
+
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME)); 
+	bool showEditorConfig = settings.value(QLatin1String("EditorWidget"), 0).toInt() == 0;
+	if (!showEditorConfig)
+	{
+		m_configEditorWidget = NULL;
+	}
+	else
+#endif
+	{
+		m_configEditorWidget = new ConfigEditorWidget(this);
+		addPage(m_configEditorWidget, tr("&Editor"), QLatin1String("accessories-text-editor"));
+	}
+	
+	m_configAppearanceWidget = new ConfigAppearanceWidget(this);
 	addPage(m_configAppearanceWidget, tr("&Highlighting"), QLatin1String("preferences-desktop-color"));
+
+	m_configPreviewWidget = new ConfigPreviewWidget(this);
 	addPage(m_configPreviewWidget, tr("&Preview"), QLatin1String("preferences-desktop-theme"));
 }
 
 void ConfigDialog::readSettings()
 {
 	m_configGeneralWidget->readSettings(QString());
-	m_configEditorWidget->readSettings(QLatin1String("Editor"));
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if( m_configEditorWidget)
+#endif
+		m_configEditorWidget->readSettings(QLatin1String("Editor"));
 	m_configAppearanceWidget->readSettings(QLatin1String("Highlighting"));
 	m_configPreviewWidget->readSettings(QLatin1String("Preview"));
 }
@@ -55,7 +75,10 @@ void ConfigDialog::readSettings()
 void ConfigDialog::writeSettings()
 {
 	m_configGeneralWidget->writeSettings(QString());
-	m_configEditorWidget->writeSettings(QLatin1String("Editor"));
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if( m_configEditorWidget)
+#endif
+		m_configEditorWidget->writeSettings(QLatin1String("Editor"));
 	m_configAppearanceWidget->writeSettings(QLatin1String("Highlighting"));
 	m_configPreviewWidget->writeSettings(QLatin1String("Preview"));
 }

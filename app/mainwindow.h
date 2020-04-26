@@ -51,7 +51,9 @@ class ConfigDialog;
 class LogTextEdit;
 class RecentFilesAction;
 class TikzCommandInserter;
+class TikzKTextEditorView;
 class TikzEditorView;
+class TikzEditorViewAbstract;
 class TikzHighlighter;
 class TikzPreviewController;
 class UserCommandInserter;
@@ -160,8 +162,14 @@ private:
 
 	static QList<MainWindow*> s_mainWindowList;
 
-	TikzEditorView *m_tikzEditorView;
+	bool m_useKTextEditor;
+	TikzEditorViewAbstract *m_tikzEditorView;
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	TikzKTextEditorView *m_tikzKTextEditor;
+#endif
+	TikzEditorView *m_tikzQtEditorView;
 	TikzHighlighter *m_tikzHighlighter;
+
 	bool m_useCompletion;
 
 	TikzPreviewController *m_tikzPreviewController;
@@ -185,16 +193,18 @@ private:
 	QToolBar *m_editToolBar;
 	QToolBar *m_viewToolBar;
 	QToolBar *m_runToolBar;
+//#ifndef KTIKZ_USE_KTEXTEDITOR
+	QAction *m_saveAction;
+	QAction *m_saveAsAction;
+	Action *m_reloadAction;
+//#endif
 	QAction *m_newAction;
 	QAction *m_openAction;
 	RecentFilesAction *m_openRecentAction;
-	QAction *m_saveAction;
-	QAction *m_saveAsAction;
 	QAction *m_exportAction;
 	QAction *m_exportEpsAction;
 	QAction *m_exportPdfAction;
 	QAction *m_exportPngAction;
-	Action *m_reloadAction;
 	QAction *m_closeAction;
 	QAction *m_exitAction;
 	QAction *m_procStopAction;

@@ -46,7 +46,7 @@
 #include "../common/utils/standardaction.h"
 
 TikzEditorView::TikzEditorView(QWidget *parent)
-	: QWidget(parent)
+	: TikzEditorViewAbstract(parent)
 	, m_goToLineWidget(0)
 	, m_indentWidget(0)
 	, m_replaceWidget(0)
@@ -95,6 +95,16 @@ TikzEditorView::~TikzEditorView()
 QPlainTextEdit *TikzEditorView::editor()
 {
 	return m_tikzEditor;
+}
+
+QTextDocument *TikzEditorView::document()
+{
+	return m_tikzEditor->document();
+}
+
+QString TikzEditorView::text()
+{
+	return  m_tikzEditor->document()->toPlainText();
 }
 
 void TikzEditorView::setFont(const QFont &editorFont)
@@ -729,3 +739,24 @@ void TikzEditorView::updateCompleter(bool useCompletion, const QStringList &word
 {
 	m_tikzEditor->updateCompleter(useCompletion, words);
 }
+
+void TikzEditorView::clear()
+{
+	editor()->clear();
+}
+
+bool TikzEditorView::isEmpty()
+{
+	return document()->isEmpty();
+}
+
+bool TikzEditorView::isModified()
+{
+	return document()->isModified();
+}
+
+void TikzEditorView::setModified( bool value )
+{
+	return document()->setModified( value );
+}
+

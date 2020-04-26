@@ -3,10 +3,15 @@ cmake_minimum_required(VERSION 2.8.12)
 
 set(KTIKZ_VERSION "0.12")
 
+set(KTIKZ_USE_KTEXTEDITOR TRUE CACHE BOOL "Use KTextEditor framework" )
+
 add_definitions(-DORGNAME=\"Florian_Hackenberger\" -DAPPNAME=\"ktikz\")
 add_definitions(-DAPPVERSION=\"${KTIKZ_VERSION}\")
 add_definitions(-DKTIKZ_USE_DESKTOP_ICONS)
 add_definitions(-DKTIKZ_USE_KDE)
+if( KTIKZ_USE_KTEXTEDITOR )
+  add_definitions(-DKTIKZ_USE_KTEXTEDITOR)
+endif()
 add_definitions(-DKTIKZ_TIKZ_DOCUMENTATION_DEFAULT=\"/usr/share/doc/texmf/pgf/pgfmanual.pdf.gz\")
 
 find_package(ECM 1.1.0 REQUIRED NO_MODULE)

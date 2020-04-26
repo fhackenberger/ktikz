@@ -88,6 +88,10 @@
 #include "../common/utils/toggleaction.h"
 #include "../common/utils/url.h"
 
+#ifdef KTIKZ_USE_KTEXTEDITOR
+#include "tikzktexteditorview.h"
+#endif
+
 QList<MainWindow*> MainWindow::s_mainWindowList;
 
 MainWindow::MainWindow()
@@ -128,10 +132,23 @@ MainWindow::MainWindow()
 //qCritical() << t.msecsTo(QTime::currentTime());
 	m_tikzPreviewController = new TikzPreviewController(this);
 //qCritical() << "TikzPreviewController" << t.msecsTo(QTime::currentTime());
-	m_tikzEditorView = new TikzEditorView(this);
+
+	m_useKTextEditor = false;
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME));
+	m_useKTextEditor = settings.value(QLatin1String("EditorWidget"), 0).toInt() == 1;
+	if (m_useKTextEditor)
+	{
+		m_tikzEditorView = m_tikzKTextEditor = new TikzKTextEditorView(this);
+	}
+	else
+#endif
+	{
+		m_tikzEditorView = m_tikzQtEditorView = new TikzEditorView(this);
+		m_tikzHighlighter = new TikzHighlighter(m_tikzQtEditorView->editor()->document());
+	}
 //qCritical() << "TikzEditorView" << t.msecsTo(QTime::currentTime());
 	m_commandInserter = new TikzCommandInserter(this);
-	m_tikzHighlighter = new TikzHighlighter(m_tikzEditorView->editor()->document());
 	m_userCommandInserter = new UserCommandInserter(this);
 
 	QWidget *mainWidget = new QWidget(this);
@@ -174,12 +191,27 @@ MainWindow::MainWindow()
 	createStatusBar();
 
 #ifdef KTIKZ_USE_KDE
-	setupGUI(ToolBar | Keys | StatusBar | Save);
-	setXMLFile(QLatin1String("ktikzui.rc"));
-	createGUI();
-	guiFactory()->addClient(this);
+	setupGUI(ToolBar | Keys | StatusBar | Save );
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (!m_useKTextEditor)
 #endif
-	setTabOrder(m_tikzPreviewController->templateWidget()->lastTabOrderWidget(), m_tikzEditorView->editor());
+		createGUI("ktikzui.rc");
+	guiFactory()->addClient(this);
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (m_useKTextEditor)
+	{
+		createGUI("ktikzui_frameworks.rc");
+		guiFactory()->addClient( m_tikzKTextEditor->view() );
+	}
+#endif
+#endif
+
+	// TODO: check this
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (!m_useKTextEditor)
+#endif
+		setTabOrder(m_tikzPreviewController->templateWidget()->lastTabOrderWidget(), m_tikzQtEditorView->editor());
+
 
 	connect(m_commandInserter, SIGNAL(showStatusMessage(QString,int)),
 	        statusBar(), SLOT(showMessage(QString,int)));
@@ -188,8 +220,12 @@ MainWindow::MainWindow()
 	        this, SLOT(setDocumentModified(bool)));
 	connect(m_tikzEditorView, SIGNAL(cursorPositionChanged(int,int)),
 	        this, SLOT(showCursorPosition(int,int)));
-	connect(m_tikzEditorView, SIGNAL(showStatusMessage(QString,int)),
-	        statusBar(), SLOT(showMessage(QString,int)));
+
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (!m_useKTextEditor)
+#endif
+		connect(m_tikzQtEditorView, SIGNAL(showStatusMessage(QString,int)),
+						statusBar(), SLOT(showMessage(QString,int)));
 
 	connect(m_tikzEditorView, SIGNAL(focusIn()),
 	        this, SLOT(checkForFileChanges()));
@@ -212,7 +248,7 @@ MainWindow::MainWindow()
 	setCurrentUrl(Url());
 	setDocumentModified(false);
 	saveLastInternalModifiedDateTime();
-	m_tikzEditorView->editor()->setFocus();
+	m_tikzEditorView->setFocus();
 
 	// delayed initialization
 //	QTimer::singleShot(0, this, SLOT(init())); // this causes flicker at startup and init() is not executed in a separate thread anyway :(
@@ -234,25 +270,36 @@ MainWindow::~MainWindow()
 #endif
 
 	delete m_tikzPreviewController;
-	m_tikzHighlighter->deleteLater();
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (!m_useKTextEditor)
+#endif
+		m_tikzHighlighter->deleteLater();
 }
 
 void MainWindow::init()
 {
 //QTime t = QTime::currentTime();
-	m_tikzEditorView->setPasteEnabled();
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (!m_useKTextEditor)
+#endif
+		m_tikzQtEditorView->setPasteEnabled();
 
 	TikzCommandInserter::loadCommands();
 //qCritical() << "TikzCommandInserter::loadCommands()" << t.msecsTo(QTime::currentTime());
-	m_commandInserter->setEditor(m_tikzEditorView->editor());
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (m_useKTextEditor)
+		m_commandInserter->setEditor(m_tikzKTextEditor->editor());
+	else
+#endif
+	{
+		m_commandInserter->setEditor(m_tikzQtEditorView->editor());
+		m_tikzHighlighter->setHighlightingRules(m_commandInserter->getHighlightingRules());
+	}
+
 	if (m_insertAction)
 		m_insertAction->setMenu(m_commandInserter->getMenu());
 	else
 		m_commandInserter->showItemsInDockWidget();
-//qCritical() << "setMenu()" << t.msecsTo(QTime::currentTime());
-	m_tikzHighlighter->setHighlightingRules(m_commandInserter->getHighlightingRules());
-//qCritical() << "setHighlightingRules()" << t.msecsTo(QTime::currentTime());
-//	m_tikzHighlighter->rehighlight(); // avoid that textEdit emits the signal contentsChanged() when it is still empty
 	connect(m_userCommandInserter, SIGNAL(insertTag(QString)), m_commandInserter, SLOT(insertTag(QString)));
 
 	// the following disconnect ensures that the following signal is not unnecessarily triggered twice when a file is loaded in a new window
@@ -318,7 +365,7 @@ bool MainWindow::closeFile()
 	{
 		disconnect(m_tikzEditorView, SIGNAL(contentsChanged()),
 		           m_tikzPreviewController, SLOT(regeneratePreviewAfterDelay()));
-		m_tikzEditorView->editor()->clear();
+		m_tikzEditorView->clear();
 		connect(m_tikzEditorView, SIGNAL(contentsChanged()),
 		        m_tikzPreviewController, SLOT(regeneratePreviewAfterDelay()));
 		setCurrentUrl(Url());
@@ -487,8 +534,13 @@ bool MainWindow::isDocumentModified() const
 void MainWindow::setDocumentModified(bool isModified)
 {
 	setWindowModified(isModified);
-	m_saveAction->setEnabled(isModified);
-	m_saveAsAction->setEnabled(m_currentUrl.isValid() && !m_currentUrl.isEmpty());
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (!m_useKTextEditor)
+#endif
+	{
+		m_saveAction->setEnabled(isModified);
+		m_saveAsAction->setEnabled(m_currentUrl.isValid() && !m_currentUrl.isEmpty());
+	}
 }
 
 void MainWindow::updateLog()
@@ -511,34 +563,47 @@ void MainWindow::toggleWhatsThisMode()
 
 void MainWindow::createActions()
 {
-	// Open
+
+	// Editor related actions
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (!m_useKTextEditor)
+#endif
+	{
+		m_saveAction = StandardAction::save(this, SLOT(save()), this);
+		m_saveAction->setStatusTip(tr("Save the current document to disk"));
+		m_saveAction->setWhatsThis(tr("<p>Save the current document to disk.</p>"));
+
+		m_saveAsAction = StandardAction::saveAs(this, SLOT(saveAs()), this);
+		m_saveAsAction->setStatusTip(tr("Save the document under a new name"));
+		m_saveAsAction->setWhatsThis(tr("<p>Save the document under a new name.</p>"));
+
+		m_reloadAction = new Action(Icon(QStringLiteral("view-refresh")), tr("Reloa&d"), this, QLatin1String("file_reload"));
+		m_reloadAction->setShortcut(QKeySequence::Refresh);
+		m_reloadAction->setStatusTip(tr("Reload the current document"));
+		m_reloadAction->setWhatsThis(tr("<p>Reload the current document from disk.</p>"));
+		connect(m_reloadAction, SIGNAL(triggered()), this, SLOT(reload()));
+	}
+
+
+	// General action
 	m_newAction = StandardAction::openNew(this, SLOT(newFile()), this);
-	m_openAction = StandardAction::open(this, SLOT(open()), this);
-	m_openRecentAction = StandardAction::openRecent(this, SLOT(loadUrl(const QUrl&)), this);
-	m_saveAction = StandardAction::save(this, SLOT(save()), this);
-	m_saveAsAction = StandardAction::saveAs(this, SLOT(saveAs()), this);
-	m_reloadAction = new Action(Icon(QStringLiteral("view-refresh")), tr("Reloa&d"), this, QLatin1String("file_reload"));
-	m_reloadAction->setShortcut(QKeySequence::Refresh);
-	m_reloadAction->setStatusTip(tr("Reload the current document"));
-	m_reloadAction->setWhatsThis(tr("<p>Reload the current document from disk.</p>"));
-	connect(m_reloadAction, SIGNAL(triggered()), this, SLOT(reload()));
-	m_closeAction = StandardAction::close(this, SLOT(closeFile()), this);
-	m_exitAction = StandardAction::quit(this, SLOT(close()), this);
-
 	m_newAction->setStatusTip(tr("Create a new document"));
-	m_openAction->setStatusTip(tr("Open an existing file"));
-	m_openRecentAction->setStatusTip(tr("Open a recently opened file"));
-	m_saveAction->setStatusTip(tr("Save the current document to disk"));
-	m_saveAsAction->setStatusTip(tr("Save the document under a new name"));
-	m_closeAction->setStatusTip(tr("Close the current document"));
-	m_exitAction->setStatusTip(tr("Exit the application"));
-
 	m_newAction->setWhatsThis(tr("<p>Create a new document.</p>"));
+
+	m_openAction = StandardAction::open(this, SLOT(open()), this);
+	m_openAction->setStatusTip(tr("Open an existing file"));
 	m_openAction->setWhatsThis(tr("<p>Open an existing file.</p>"));
+
+	m_openRecentAction = StandardAction::openRecent(this, SLOT(loadUrl(QUrl)), this);
+	m_openRecentAction->setStatusTip(tr("Open a recently opened file"));
 	m_openRecentAction->setWhatsThis(tr("<p>Open a recently opened file.</p>"));
-	m_saveAction->setWhatsThis(tr("<p>Save the current document to disk.</p>"));
-	m_saveAsAction->setWhatsThis(tr("<p>Save the document under a new name.</p>"));
+
+	m_closeAction = StandardAction::close(this, SLOT(closeFile()), this);
+	m_closeAction->setStatusTip(tr("Close the current document"));
 	m_closeAction->setWhatsThis(tr("<p>Close the current document.</p>"));
+
+	m_exitAction = StandardAction::quit(this, SLOT(close()), this);
+	m_exitAction->setStatusTip(tr("Exit the application"));
 	m_exitAction->setWhatsThis(tr("<p>Exit the application.</p>"));
 
 	// View
@@ -824,7 +889,11 @@ void MainWindow::applySettings()
 {
 	QSettings settings;
 
-	m_tikzEditorView->applySettings();
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (!m_useKTextEditor)
+#endif
+		m_tikzQtEditorView->applySettings();
+
 	m_tikzPreviewController->applySettings();
 
 	settings.beginGroup(QLatin1String("Preview"));
@@ -847,8 +916,13 @@ void MainWindow::applySettings()
 		m_encoderBom = settings.value(QLatin1String("bom"), true).toBool();
 	settings.endGroup();
 
-	m_tikzHighlighter->applySettings();
-	m_tikzHighlighter->rehighlight();
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (!m_useKTextEditor)
+#endif
+	{
+		m_tikzHighlighter->applySettings();
+		m_tikzHighlighter->rehighlight();
+	}
 
 	m_openRecentAction->createRecentFilesList();
 #ifndef KTIKZ_USE_KDE
@@ -904,8 +978,7 @@ bool MainWindow::maybeSave()
 	checkForFileChanges(Closing);
 	if (m_isModifiedExternally) // if the user presses "Cancel" when asked to overwrite or close the file, then we abort the closing procedure
 		return false;
-
-	if (m_tikzEditorView->editor()->document()->isModified())
+	if (m_tikzEditorView->isModified())
 	{
 		const int ret = QMessageBox::warning(this, KtikzApplication::applicationName(),
 		                                     tr("The document has been modified.\n"
@@ -945,7 +1018,7 @@ void MainWindow::loadUrl(const QUrl &url)
 	}
 
 	// only open a new window (if necessary) if the file can actually be opened
-	if (!m_tikzEditorView->editor()->document()->isEmpty())
+	if (!m_tikzEditorView->isEmpty())
 	{
 		MainWindow *newMainWindow = new MainWindow;
 		newMainWindow->loadUrl(url);
@@ -962,12 +1035,23 @@ void MainWindow::loadUrl(const QUrl &url)
 //qCritical() << "loadUrl" << t.msecsTo(QTime::currentTime());
 	disconnect(m_tikzEditorView, SIGNAL(contentsChanged()),
 	           m_tikzPreviewController, SLOT(regeneratePreviewAfterDelay()));
-	QTextStream in(file.file());
-	QApplication::setOverrideCursor(Qt::WaitCursor);
-	this->configureStreamDecoding(in);
-	m_tikzEditorView->editor()->setPlainText(in.readAll());
-	setCurrentEncoding(in.codec());
-	QApplication::restoreOverrideCursor();
+
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (m_useKTextEditor)
+	{
+		m_tikzKTextEditor->document()->openUrl(url);
+	}
+	else
+#endif
+	{
+		QTextStream in(file.file());
+		QApplication::setOverrideCursor(Qt::WaitCursor);
+		this->configureStreamDecoding(in);
+		m_tikzQtEditorView->editor()->setPlainText(in.readAll());
+		setCurrentEncoding(in.codec());
+	}
+
+  QApplication::restoreOverrideCursor();
 //qCritical() << "loadUrl" << t.msecsTo(QTime::currentTime());
 	m_tikzPreviewController->generatePreview();
 //qCritical() << "loadUrl" << t.msecsTo(QTime::currentTime());
@@ -1002,7 +1086,7 @@ bool MainWindow::saveUrl(const QUrl &url)
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 
 	this->configureStreamEncoding(out);
-	out << m_tikzEditorView->editor()->toPlainText();
+	out << m_tikzEditorView->text();
 	out.flush();
 	QApplication::restoreOverrideCursor();
 
@@ -1037,7 +1121,7 @@ QUrl MainWindow::url() const
 void MainWindow::setCurrentUrl(const QUrl &url)
 {
 	m_currentUrl = url;
-	m_tikzEditorView->editor()->document()->setModified(false);
+  m_tikzEditorView->setModified(false);
 	setDocumentModified(false);
 	setWindowTitle(tr("%1[*] - %2").arg(strippedName(m_currentUrl)).arg(KtikzApplication::applicationName()));
 }
@@ -1080,12 +1164,20 @@ void MainWindow::configureStreamDecoding(QTextStream &textStream)
 
 void MainWindow::setLineNumber(int lineNumber)
 {
-	m_tikzEditorView->goToLine(lineNumber - 1);
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (!m_useKTextEditor)
+#endif
+		m_tikzQtEditorView->goToLine(lineNumber - 1);
 }
 
 int MainWindow::lineNumber() const
 {
-	return m_tikzEditorView->lineNumber();
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	if (m_useKTextEditor)
+		return 0; //TODO: do something
+	else
+#endif
+		return m_tikzQtEditorView->lineNumber();
 }
 
 /***************************************************************************/
@@ -1104,7 +1196,7 @@ void MainWindow::showMouseCoordinates(qreal x, qreal y, int precisionX, int prec
 
 QString MainWindow::tikzCode() const
 {
-	return m_tikzEditorView->editor()->toPlainText();
+	return m_tikzEditorView->text();
 }
 
 /***************************************************************************/

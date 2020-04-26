@@ -40,6 +40,11 @@ ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent)
 	ui.toolBarStyleComboBox->setVisible(false);
 #endif
 
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	ui.editorWidgetComboBox->addItem(tr("Qt Editor", "TextEditor"), QString());
+	ui.editorWidgetComboBox->addItem(tr("KDE Frameworks Editor", "TextEditor"), QString());
+#endif
+
 	m_urlCompletion = new UrlCompletion(this);
 	ui.tikzDocEdit->setCompletionObject(m_urlCompletion);
 	ui.latexEdit->setCompletionObject(m_urlCompletion);
@@ -70,6 +75,9 @@ void ConfigGeneralWidget::readSettings(const QString &settingsGroup)
 #ifndef KTIKZ_USE_KDE
 	ui.historyLengthSpinBox->setValue(settings.value(QLatin1String("RecentFilesNumber"), 10).toInt());
 #endif
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	ui.editorWidgetComboBox->setCurrentIndex(settings.value(QLatin1String("EditorWidget"), 0).toInt());
+#endif
 	ui.commandsInDockCheck->setChecked(settings.value(QLatin1String("CommandsInDock"), false).toBool());
 	ui.tikzDocEdit->setText(TikzDocumentationController::tikzDocumentationPath());
 	ui.latexEdit->setText(settings.value(QLatin1String("LatexCommand"), QLatin1String("pdflatex")).toString());
@@ -91,6 +99,9 @@ void ConfigGeneralWidget::writeSettings(const QString &settingsGroup)
 	settings.beginGroup(settingsGroup);
 #ifndef KTIKZ_USE_KDE
 	settings.setValue(QLatin1String("RecentFilesNumber"), ui.historyLengthSpinBox->value());
+#endif
+#ifdef KTIKZ_USE_KTEXTEDITOR
+	settings.setValue(QLatin1String("EditorWidget"), ui.editorWidgetComboBox->currentIndex());
 #endif
 	settings.setValue(QLatin1String("CommandsInDock"), ui.commandsInDockCheck->isChecked());
 	TikzDocumentationController::storeTikzDocumentationPath(ui.tikzDocEdit->text());

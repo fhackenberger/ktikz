@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>ConfigGeneralWidget</class>
  <widget class="QWidget" name="ConfigGeneralWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>429</width>
+    <height>567</height>
+   </rect>
+  </property>
   <property name="windowTitle">
    <string>General</string>
   </property>
@@ -67,13 +75,6 @@
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QLabel" name="commandsInDockLabel">
-          <property name="text">
-           <string>(you have to restart this program for this change to take effect)</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
       <item>
@@ -132,6 +133,44 @@
          </spacer>
         </item>
        </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="editorWidgetLabel">
+          <property name="text">
+           <string>Editor widget</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="editorWidgetComboBox">
+          <property name="currentText">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="commandsInDockLabel">
+        <property name="text">
+         <string>(you have to restart this program for these change to take effect)</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -437,58 +476,5 @@
  <resources>
   <include location="qtikz.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>showCoordinatesCheck</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>bestPrecisionRadio</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>101</x>
-     <y>245</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>258</x>
-     <y>245</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>showCoordinatesCheck</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>specifyPrecisionWidget</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>101</x>
-     <y>241</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>287</x>
-     <y>269</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>specifyPrecisionRadio</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>specifyPrecisionSpinBox</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>255</x>
-     <y>269</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>351</x>
-     <y>269</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
- <buttongroups>
-  <buttongroup name="buildButtonGroup"/>
-  <buttongroup name="precisionButtonGroup"/>
- </buttongroups>
+ <connections/>
 </ui>

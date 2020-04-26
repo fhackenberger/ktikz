@@ -26,6 +26,7 @@
 #include <QtGui/QWidget>
 #endif
 //#include "tikzcommandinserter.h"
+#include "tikzeditorviewabstract.h"
 
 class QAction;
 class QMenu;
@@ -40,7 +41,7 @@ class ReplaceCurrentWidget;
 class TikzEditor;
 //class TikzHighlighter;
 
-class TikzEditorView : public QWidget
+class TikzEditorView : public TikzEditorViewAbstract
 {
 	Q_OBJECT
 
@@ -49,6 +50,8 @@ public:
 	virtual ~TikzEditorView();
 
 	QPlainTextEdit *editor();
+	QTextDocument *document();
+	QString text();
 #ifndef KTIKZ_USE_KDE
 	QMenu *editMenu();
 	QMenu *bookmarksMenu();
@@ -58,6 +61,10 @@ public:
 	void setLine(const QString &line);
 	int lineNumber() const;
 	void updateCompleter(bool useCompletion, const QStringList &words);
+	void clear();
+	bool isEmpty();
+	bool isModified();
+	void setModified( bool value );
 
 public Q_SLOTS:
 	void setPasteEnabled();
