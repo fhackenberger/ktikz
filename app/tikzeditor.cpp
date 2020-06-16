@@ -46,6 +46,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCompleter>
 #include <QtWidgets/QScrollBar>
+#include <QtGui/QPainterPath>
 #include <QtCore/QStringListModel>
 #else
 #include <QtGui/QAbstractItemView>
