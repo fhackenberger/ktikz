@@ -50,7 +50,7 @@ void ConfigPreviewWidget::readSettings(const QString &settingsGroup)
 		ui.specifyPrecisionRadio->setChecked(true);
 		ui.specifyPrecisionSpinBox->setValue(precision);
 	}
-    ui.backgroundColorButton->setColor(settings.value(QLatin1String("PreviewBackgroundColor")).value<QColor>());
+	ui.backgroundColorButton->setColor(settings.value(QLatin1String("PreviewBackgroundColor")).value<QColor>());
 	settings.endGroup();
 }
 

@@ -58,7 +58,7 @@ public:
 	void setProcessRunning(bool isRunning);
 	void setShowCoordinates(bool show);
 	void setCoordinatePrecision(int precision);
-    void setBackgroundColor(QColor color);
+	void setBackgroundColor(QColor color);
 
 public Q_SLOTS:
 	void showPreview(const QImage &tikzImage, qreal zoomFactor = 1.0);

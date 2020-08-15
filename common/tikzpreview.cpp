@@ -49,7 +49,7 @@ TikzPreview::TikzPreview(QWidget *parent)
 	, m_oldZoomFactor(-1)
 	, m_hasZoomed(false)
 {
-    m_tikzScene = new QGraphicsScene(this);
+	m_tikzScene = new QGraphicsScene(this);
 	m_tikzPixmapItem = m_tikzScene->addPixmap(QPixmap());
 	setScene(m_tikzScene);
 	setDragMode(QGraphicsView::ScrollHandDrag);
@@ -61,7 +61,7 @@ TikzPreview::TikzPreview(QWidget *parent)
 	QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME));
 	settings.beginGroup(QLatin1String("Preview"));
 	m_zoomFactor = settings.value(QLatin1String("ZoomFactor"), 1).toDouble();
-    setBackgroundColor(settings.value(QLatin1String("PreviewBackgroundColor"), ConfigEditorWidget::defaultSetting(QLatin1String("PreviewBackgroundColor"))).value<QColor>());
+	setBackgroundColor(settings.value(QLatin1String("PreviewBackgroundColor"), ConfigEditorWidget::defaultSetting(QLatin1String("PreviewBackgroundColor"))).value<QColor>());
 	settings.endGroup();
 
 	createActions();
@@ -382,7 +382,7 @@ void TikzPreview::setCoordinatePrecision(int precision)
 
 void TikzPreview::setBackgroundColor(QColor color)
 {
-    m_tikzScene->setBackgroundBrush(color);
+	m_tikzScene->setBackgroundBrush(color);
 }
 
 /***************************************************************************/
