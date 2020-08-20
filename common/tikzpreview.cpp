@@ -32,6 +32,7 @@
 #include <QScrollBar>
 #include <QToolBar>
 
+#include "app/configeditorwidget.h"
 #include "tikzpreviewrenderer.h"
 #include "utils/action.h"
 #include "utils/icon.h"
@@ -60,6 +61,7 @@ TikzPreview::TikzPreview(QWidget *parent)
 	QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME));
 	settings.beginGroup(QLatin1String("Preview"));
 	m_zoomFactor = settings.value(QLatin1String("ZoomFactor"), 1).toDouble();
+	setBackgroundColor(settings.value(QLatin1String("PreviewBackgroundColor"), ConfigEditorWidget::defaultSetting(QLatin1String("PreviewBackgroundColor"))).value<QColor>());
 	settings.endGroup();
 
 	createActions();
@@ -376,6 +378,11 @@ void TikzPreview::setShowCoordinates(bool show)
 void TikzPreview::setCoordinatePrecision(int precision)
 {
 	m_precision = precision;
+}
+
+void TikzPreview::setBackgroundColor(QColor color)
+{
+	m_tikzScene->setBackgroundBrush(color);
 }
 
 /***************************************************************************/

@@ -103,6 +103,8 @@ QVariant ConfigEditorWidget::defaultSetting(const QString &key)
 	}
 	else if (key == QLatin1String("UseCompletion"))
 		return true;
+	else if (key == QLatin1String("PreviewBackgroundColor"))
+		return QColor(Qt::white);
 	return QVariant();
 }
 

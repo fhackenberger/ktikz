@@ -50,6 +50,7 @@ void ConfigPreviewWidget::readSettings(const QString &settingsGroup)
 		ui.specifyPrecisionRadio->setChecked(true);
 		ui.specifyPrecisionSpinBox->setValue(precision);
 	}
+	ui.backgroundColorButton->setColor(settings.value(QLatin1String("PreviewBackgroundColor")).value<QColor>());
 	settings.endGroup();
 }
 
@@ -63,5 +64,6 @@ void ConfigPreviewWidget::writeSettings(const QString &settingsGroup)
 		settings.setValue(QLatin1String("ShowCoordinatesPrecision"), -1);
 	else
 		settings.setValue(QLatin1String("ShowCoordinatesPrecision"), ui.specifyPrecisionSpinBox->value());
-	settings.endGroup();
+    settings.setValue(QLatin1String("PreviewBackgroundColor"), ui.backgroundColorButton->color());
+    settings.endGroup();
 }
