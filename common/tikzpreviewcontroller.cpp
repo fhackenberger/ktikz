@@ -523,6 +523,7 @@ void TikzPreviewController::applySettings()
 	settings.beginGroup(QLatin1String("Preview"));
 	m_tikzPreview->setShowCoordinates(settings.value(QLatin1String("ShowCoordinates"), true).toBool());
 	m_tikzPreview->setCoordinatePrecision(settings.value(QLatin1String("ShowCoordinatesPrecision"), -1).toInt());
+	m_tikzPreview->setBackgroundColor(settings.value(QLatin1String("PreviewBackgroundColor"), QColor(0, 0, 0)).value<QColor>());
 	settings.endGroup();
 }
 

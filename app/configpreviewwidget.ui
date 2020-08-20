@@ -118,6 +118,36 @@
     </layout>
    </item>
    <item>
+    <layout class="QGridLayout" name="whiteSpaceGridLayout">
+     <item row="0" column="1">
+      <widget class="ColorButton" name="backgroundColorButton">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="whatsThis">
+        <string>&lt;p&gt;Select the color for the background.&lt;/p&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="colorBackgroundLabel">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="whatsThis">
+        <string>&lt;p&gt;Select the color for the background.&lt;/p&gt;</string>
+       </property>
+       <property name="text">
+        <string>Background Color</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -132,9 +162,14 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="qtikz.qrc"/>
- </resources>
+ <customwidgets>
+  <customwidget>
+   <class>ColorButton</class>
+   <extends>QToolButton</extends>
+   <header>../common/utils/colorbutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
  <connections>
   <connection>
    <sender>showCoordinatesCheck</sender>
