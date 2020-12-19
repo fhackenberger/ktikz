@@ -3,7 +3,7 @@ env:
     - MAKEFLAGS="-j 2"
 
 language: cpp
-dist: xenial
+dist: focal
 
 before_install:
   - sudo apt-get -qq update
