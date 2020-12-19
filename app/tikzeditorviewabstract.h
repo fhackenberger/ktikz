@@ -20,21 +20,30 @@
 #define TIKZEDITORVIEWABSTRACT_H
 
 #include <QWidget>
+#ifndef KTIKZ_USE_KDE
+#include <QMenu>
+#include <QToolBar>
+#endif
 
 class TikzEditorViewAbstract: public QWidget
 {
 public:
-  explicit TikzEditorViewAbstract(QWidget *parent = 0)
-        : QWidget(parent)
+    explicit TikzEditorViewAbstract(QWidget *parent = 0)
+            : QWidget(parent)
     {}
-  virtual ~TikzEditorViewAbstract(){ };
+    virtual ~TikzEditorViewAbstract() { };
 
-  virtual QString text() = 0;
-  virtual void updateCompleter(bool useCompletion, const QStringList &words) = 0;
-  virtual void clear() = 0;
-  virtual bool isEmpty() = 0;
-  virtual bool isModified() = 0;
-  virtual void setModified( bool value ) = 0;
+#ifndef KTIKZ_USE_KDE
+    virtual QMenu *editMenu() = 0;
+    virtual QMenu *bookmarksMenu() = 0;
+    virtual QToolBar *toolBar() = 0;
+#endif
+    virtual QString text() = 0;
+    virtual void updateCompleter(bool useCompletion, const QStringList &words) = 0;
+    virtual void clear() = 0;
+    virtual bool isEmpty() = 0;
+    virtual bool isModified() = 0;
+    virtual void setModified(bool value) = 0;
 
 };
 
