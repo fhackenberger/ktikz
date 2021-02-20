@@ -1,3 +1,10 @@
+version 0.13:
+- Complete port to KDE Frameworks 5
+- Add configurable backgroud color for the preview
+- Add support for KTextEditor framework. This makes possible to use both
+  the Qt and KDE editor. Makes a smooth integration into KDE.
+- Use `WriteOnly` flag when writing file
+- Use target-arch pkg-config not local arch
 version 0.12:
 - port to kde frameworks and remove unused classes
 - "Edit template" button now uses the default text editor instead of
