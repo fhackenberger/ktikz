@@ -1,7 +1,7 @@
 project(ktikz)
 cmake_minimum_required(VERSION 2.8.12)
 
-set(KTIKZ_VERSION "0.12")
+set(KTIKZ_VERSION "0.13.2")
 
 set(KTIKZ_USE_KTEXTEDITOR TRUE CACHE BOOL "Use KTextEditor framework" )
 
