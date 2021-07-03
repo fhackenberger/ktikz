@@ -40,7 +40,7 @@ static QString getParsedFilter(const QString &filter)
 			if (i > 0)
 				parsedFilter += QLatin1String(";;");
 			if (mimeTypeList.at(i) == QLatin1String("text/x-pgf"))
-				parsedFilter += QCoreApplication::translate("FileDialog", "PGF document", "filter") + QLatin1String(" (*.pgf *.tikz)");
+				parsedFilter += QCoreApplication::translate("FileDialog", "PGF document", "filter") + QLatin1String(" (*.pgf *.tikz *.tex)");
 			else if (mimeTypeList.at(i) == QLatin1String("image/x-eps"))
 				parsedFilter += QCoreApplication::translate("FileDialog", "EPS image", "filter") + QLatin1String(" (*.eps)");
 			else if (mimeTypeList.at(i) == QLatin1String("application/pdf"))
