@@ -46,9 +46,10 @@ public:
 	void clear();
 	bool isEmpty();
 	bool isModified();
-	void setModified( bool value );
+	void setModified(bool value);
 
 Q_SIGNALS:
+	void documentUrlChanged(const QUrl& url);
 	void modificationChanged(bool changed);
 	void contentsChanged();
 	void cursorPositionChanged(int row, int col);

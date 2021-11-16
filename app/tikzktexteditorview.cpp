@@ -45,7 +45,7 @@ TikzKTextEditorView::TikzKTextEditorView(QWidget *parent)
 
 
 	connect(m_currentDoc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
-				this, SIGNAL(modificationChanged(bool)));
+				this, SLOT(setDocumentModified(KTextEditor::Document*)));
 
 	connect(m_documentView, SIGNAL(focusIn(KTextEditor::View*)),
 				this, SIGNAL(focusIn()));
@@ -54,6 +54,9 @@ TikzKTextEditorView::TikzKTextEditorView(QWidget *parent)
 
 	connect(m_currentDoc, SIGNAL(textChanged(KTextEditor::Document*)),
       this, SIGNAL(contentsChanged()));
+
+	connect(m_currentDoc, SIGNAL(urlChanged(const QUrl&)),
+				this, SIGNAL(documentUrlChanged(const QUrl&)));
 
 	KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(m_documentView);
 	if (cci) {

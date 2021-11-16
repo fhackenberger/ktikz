@@ -195,13 +195,18 @@ MainWindow::MainWindow()
 #ifdef KTIKZ_USE_KTEXTEDITOR
 	if (!m_useKTextEditor)
 #endif
+	{
 		createGUI("ktikzui.rc");
+	}
 	guiFactory()->addClient(this);
 #ifdef KTIKZ_USE_KTEXTEDITOR
 	if (m_useKTextEditor)
 	{
 		createGUI("ktikzui_frameworks.rc");
 		guiFactory()->addClient( m_tikzKTextEditor->view() );
+
+		connect(m_tikzKTextEditor, SIGNAL(documentUrlChanged(const QUrl&)),
+						this, SLOT(changedUrl(const QUrl&)));
 	}
 #endif
 #endif
@@ -210,7 +215,11 @@ MainWindow::MainWindow()
 #ifdef KTIKZ_USE_KTEXTEDITOR
 	if (!m_useKTextEditor)
 #endif
+	{
 		setTabOrder(m_tikzPreviewController->templateWidget()->lastTabOrderWidget(), m_tikzQtEditorView->editor());
+		connect(m_tikzQtEditorView, SIGNAL(showStatusMessage(QString,int)),
+						statusBar(), SLOT(showMessage(QString,int)));
+	}
 
 
 	connect(m_commandInserter, SIGNAL(showStatusMessage(QString,int)),
@@ -220,12 +229,6 @@ MainWindow::MainWindow()
 	        this, SLOT(setDocumentModified(bool)));
 	connect(m_tikzEditorView, SIGNAL(cursorPositionChanged(int,int)),
 	        this, SLOT(showCursorPosition(int,int)));
-
-#ifdef KTIKZ_USE_KTEXTEDITOR
-	if (!m_useKTextEditor)
-#endif
-		connect(m_tikzQtEditorView, SIGNAL(showStatusMessage(QString,int)),
-						statusBar(), SLOT(showMessage(QString,int)));
 
 	connect(m_tikzEditorView, SIGNAL(focusIn()),
 	        this, SLOT(checkForFileChanges()));
@@ -1067,6 +1070,11 @@ void MainWindow::loadUrl(const QUrl &url)
 //qCritical() << "loadUrl" << t.msecsTo(QTime::currentTime());
 }
 
+void MainWindow::changedUrl(const QUrl &url)
+{
+	setCurrentUrl(url);
+}
+
 bool MainWindow::saveUrl(const QUrl &url)
 {
 	if (!url.isValid() || url.isEmpty())
@@ -1121,7 +1129,7 @@ QUrl MainWindow::url() const
 void MainWindow::setCurrentUrl(const QUrl &url)
 {
 	m_currentUrl = url;
-  m_tikzEditorView->setModified(false);
+    m_tikzEditorView->setModified(false);
 	setDocumentModified(false);
 	setWindowTitle(tr("%1[*] - %2").arg(strippedName(m_currentUrl)).arg(KtikzApplication::applicationName()));
 }
