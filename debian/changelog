@@ -1,3 +1,13 @@
+ktikz (0.13.1) unstable; urgency=low
+  * Complete port to KDE Frameworks 5
+  * Add configurable backgroud color for the preview
+  * Add support for KTextEditor framework. This makes possible to use both
+  * the Qt and KDE editor. Makes a smooth integration into KDE.
+  * Use `WriteOnly` flag when writing file
+  * Use target-arch pkg-config not local arch
+
+ -- Joao Carreira <jfmcarreira@gmail.com>  Mon, 29 Dec 2021 23:34:00 +0100
+
 ktikz (0.10~svn140-1) UNRELEASED; urgency=low
 
   * New upstream version (svn snapshot).

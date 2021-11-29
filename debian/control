@@ -1,15 +1,20 @@
 Source: ktikz
 Section: graphics
 Priority: optional
-Maintainer: Florian Hackenberger <florian@hackenberger.at>
+Maintainer: Joao Carreira <jfmcarreira@gmail.com>
 Uploaders: Stuart Prescott <stuart+debian@nanonanonano.net>
 Build-Depends: debhelper (>= 7.3.16~),
                 pkg-kde-tools (>= 0.5~),
                 cmake,
-                qt4-dev-tools,
-                libqt4-dev (>= 4.4.0~),
-                libpoppler-qt4-dev,
-                kdelibs5-dev,
+                qtbase5-dev,
+                qtchooser,
+                qt5-qmake,
+                qtbase5-dev-tools,
+                libpoppler-qt5-dev,
+                libkf5xmlgui-dev,
+                libkf5texteditor-dev,
+                libkf5parts-dev,
+                libkf5iconthemes-dev,
                 xsltproc,
                 imagemagick,
                 libmagickcore-extra
@@ -23,8 +28,7 @@ Depends: pgf,
           preview-latex-style,
           ${shlibs:Depends},
           ${misc:Depends}
-Recommends: poppler-utils,
-              khelpcenter4
+Recommends: poppler-utils
 Description: editor for the TikZ drawing language - KDE version
  KtikZ is a small application to assist in the creation of diagrams and
  drawings using the TikZ macros from the LaTeX package "pgf". It consists of
@@ -47,7 +51,7 @@ Depends: pgf,
           ${shlibs:Depends},
           ${misc:Depends}
 Recommends: poppler-utils,
-            qt4-dev-tools
+            qtbase5-dev
 Description: editor for the TikZ drawing language - Qt version
  QtikZ is a small application to assist in the creation of diagrams and
  drawings using the TikZ macros from the LaTeX package "pgf". It consists of
