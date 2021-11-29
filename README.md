@@ -19,11 +19,7 @@ See the INSTALL file.
 
 The main window showing the application in action:
 
-![The main window showing the application in action](screenshot_v0.10.png)
-
-Another example file:
-
-![Another example file](screenshot_v0.10_2.png)
+![The main window showing the application in action](screenshots/screenshot_v0.13.png)
 
 # License
 

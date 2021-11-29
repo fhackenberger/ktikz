@@ -28,12 +28,11 @@ Features:
   the user is still editing the \input command).
   No, don't do that, find a better way to handle this.
 
+- Add support for tabs in the editor. Multiple tabs with single preview widget.
+
 Bugs or shortcomings:
 ---------------------
 
 - Make sure that all strings in the kpart are translated.
-
-- In common/utils/standardaction.cpp a better way of promoting the KActions
-  to Action must be found.
 
 - In common/tikzpreviewcontroller.cpp find a better way to print the image.
