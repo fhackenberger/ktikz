@@ -10,6 +10,7 @@ APPVERSION = 0.12
 include(qmake/qtikzconfig.pri)
 include(qmake/qtikzdefaults.pri)
 include(qmake/qtikzmacros.pri)
+include(qmake/findpoppler.pri)
 
 include(app/app.pri)
 include(translations/translations.pri)
@@ -33,7 +34,6 @@ unix:!macx {
 	message(The man page will be installed in)
 	message("  $${MAN_INSTALL_DIR}")
 }
-message()
 message("If you would like to change these paths,")
 message("please adjust qtikzconfig.pri to your needs and rerun qmake.")
 

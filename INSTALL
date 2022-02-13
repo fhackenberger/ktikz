@@ -25,7 +25,7 @@ In Ubuntu 18.04 LTS you would obtain those by installing the following packages:
 Install the Qt-only (qtikz) application (using qmake):
 ------------------------------------------------------
 
-1. Edit the paths in qmake/ q.pri
+1. Edit the paths in qmake/qtikzconfig.pri
 2. Run the following commands (this will create an executable named qtikz):
   mkdir buildqt
   cd buildqt
