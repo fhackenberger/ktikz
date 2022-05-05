@@ -33,7 +33,11 @@
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtCore/QStandardPaths>
 #include <QtWidgets/QPlainTextEdit>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+#include <QtPdf/QtPdf>
+#else
 #include <poppler-qt5.h>
+#endif
 #else
 #include <QtGui/QPlainTextEdit>
 #include <poppler-qt4.h>

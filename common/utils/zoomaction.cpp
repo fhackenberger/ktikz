@@ -18,6 +18,7 @@
 
 #include "zoomaction.h"
 
+#include <QRegularExpression>
 #include "globallocale.h"
 #include "icon.h"
 
@@ -141,5 +142,5 @@ void ZoomAction::setZoomFactor(qreal zoomFactor)
 
 void ZoomAction::setZoomFactor(const QString &zoomFactorText)
 {
-	setZoomFactor(GlobalLocale::readNumber(QString(zoomFactorText).remove(QRegExp(QString(QLatin1String("[^\\d\\%1]*")).arg(GlobalLocale::decimalSymbol())))) / 100.0);
+    setZoomFactor(GlobalLocale::readNumber(QString(zoomFactorText).remove(QRegularExpression(QString(QLatin1String("[^\\d\\%1]*")).arg(GlobalLocale::decimalSymbol())))) / 100.0);
 }

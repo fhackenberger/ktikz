@@ -23,10 +23,14 @@
 
 class QImage;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+class QPdfDocument;
+#else
 namespace Poppler
 {
 class Document;
 }
+#endif
 
 class TikzPreviewRenderer : public QObject
 {
@@ -37,7 +41,11 @@ public:
 	~TikzPreviewRenderer();
 
 public Q_SLOTS:
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    void generatePreview(QPdfDocument *tikzPdfDoc, qreal zoomFactor = 1.0, int currentPage = 0);
+#else
 	void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor = 1.0, int currentPage = 0);
+#endif
 
 Q_SIGNALS:
 	void showPreview(const QImage &image, qreal zoomFactor = 1.0);
