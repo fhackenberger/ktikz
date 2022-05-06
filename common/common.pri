@@ -1,6 +1,8 @@
 greaterThan(QT_MAJOR_VERSION, 4): QT *= widgets printsupport
+greaterThan(QT_MAJOR_VERSION, 6): QT *= core5compat pdf
 
-include($${_PRO_FILE_PWD_}/qmake/findpoppler.pri)
+
+#include($${_PRO_FILE_PWD_}/qmake/findpoppler.pri)
 
 DEFINES += KTIKZ_TEMPLATES_INSTALL_DIR=\\\"$${TEMPLATES_INSTALL_DIR}\\\"
 

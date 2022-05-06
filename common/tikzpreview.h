@@ -29,10 +29,14 @@
 
 class QToolBar;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+class QPdfDocument;
+#else
 namespace Poppler
 {
 class Document;
 }
+#endif
 
 class Action;
 class ZoomAction;
@@ -62,12 +66,20 @@ public:
 
 public Q_SLOTS:
 	void showPreview(const QImage &tikzImage, qreal zoomFactor = 1.0);
-	void pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
-	void showErrorMessage(const QString &message);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    void pixmapUpdated(QPdfDocument *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
+#else
+    void pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
+#endif
+    void showErrorMessage(const QString &message);
 
 Q_SIGNALS:
 	void showMouseCoordinates(qreal x, qreal y, int precisionX = 5, int precisionY = 5);
-	void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor, int currentPage);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    void generatePreview(QPdfDocument *tikzPdfDoc, qreal zoomFactor, int currentPage);
+#else
+    void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor, int currentPage);
+#endif
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event);
@@ -104,7 +116,11 @@ private:
 
 	TikzPreviewMessageWidget *m_infoWidget;
 
-	Poppler::Document *m_tikzPdfDoc;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    QPdfDocument *m_tikzPdfDoc;
+#else
+    Poppler::Document *m_tikzPdfDoc;
+#endif
 	int m_currentPage;
 	qreal m_zoomFactor;
 	qreal m_oldZoomFactor;

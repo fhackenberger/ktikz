@@ -22,7 +22,11 @@
 #include "configeditorwidget.h"
 
 #include <QtCore/QSettings>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QtCore5Compat/QTextCodec>
+#else
 #include <QTextCodec>
+#endif
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QApplication>
 #else
@@ -197,8 +201,12 @@ void ConfigEditorWidget::fillCodecComboBox(QComboBox *cb)
 	QVector<ComboItem> ciList; ciList.reserve(ca.length());
 	Q_FOREACH(const QByteArray &ba , ca)
 		ciList.append(ComboItem(codecNameToString(ba), ba));
-	qSort(ciList);
-	Q_FOREACH (const ComboItem& ci, ciList) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    std::sort(ciList.begin(), ciList.end());
+#else
+    qSort(ciList);
+#endif
+    Q_FOREACH (const ComboItem& ci, ciList) {
 		cb->addItem(ci.text, ci.data);
 	}
 }

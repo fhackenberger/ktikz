@@ -100,7 +100,7 @@ void ReplaceWidget::doFind()
 	if (ui.comboBoxFind->findText(currentText) < 0)
 		ui.comboBoxFind->addItem(currentText);
 
-	QTextDocument::FindFlags flags = 0;
+    QTextDocument::FindFlags flags = (QTextDocument::FindFlags)0;
 	if (ui.checkBoxCaseSensitive->isChecked())
 		flags |= QTextDocument::FindCaseSensitively;
 	if (ui.checkBoxWholeWords->isChecked())
@@ -121,7 +121,7 @@ void ReplaceWidget::doReplace()
 	if (ui.comboBoxReplace->findText(replacementText) < 0)
 		ui.comboBoxReplace->addItem(replacementText);
 
-	QTextDocument::FindFlags flags = 0;
+    QTextDocument::FindFlags flags = (QTextDocument::FindFlags)0;
 	if (ui.checkBoxCaseSensitive->isChecked())
 		flags |= QTextDocument::FindCaseSensitively;
 	if (ui.checkBoxWholeWords->isChecked())

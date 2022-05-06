@@ -22,12 +22,15 @@
 #define TIKZEDITORHIGHLIGHTER_H
 
 #include <QtGui/QSyntaxHighlighter>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+#include <QtCore5Compat/QRegExp>
+#endif
 
 struct HighlightingRule
 {
 	QString type; /// The name of the formatting type
 	QString matchString; /// The string to match for formatting; only used when pattern is empty
-	QRegExp pattern; /// The pattern to match for formatting; overrides usage of matchString
+    QRegExp pattern; /// The pattern to match for formatting
 	bool isRegExp;
 };
 

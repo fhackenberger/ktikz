@@ -37,7 +37,11 @@
 
 #include <QMenuBar>
 #include <QStatusBar>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QtCore5Compat/QTextCodec>
+#else
 #include <QtCore/QTextCodec>
+#endif
 #include <QtCore/QProcess>
 #include <QtCore/QSettings>
 #include <QtCore/QTextStream>
@@ -45,7 +49,9 @@
 #include <QtGui/QCloseEvent>
 #include <QtGui/QDesktopServices>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <QtWidgets/QDesktopWidget>
+#endif
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMessageBox>
@@ -94,7 +100,7 @@
 
 QList<MainWindow*> MainWindow::s_mainWindowList;
 
-MainWindow::MainWindow()
+MainWindow::MainWindow() : 	m_doOverrideEncoder(false), m_doOverrideDecoder(false)
 {
 //QTime t = QTime::currentTime();
 #ifndef KTIKZ_USE_KDE
@@ -106,6 +112,9 @@ MainWindow::MainWindow()
 	m_insertAction = 0;
 
 	s_mainWindowList.append(this);
+
+    qRegisterMetaType<QPdfDocument>();
+    qRegisterMetaType<QPdfDocument*>();
 
 #ifndef KTIKZ_USE_KDE
 	QStringList themeSearchPaths;
@@ -154,7 +163,11 @@ MainWindow::MainWindow()
 	QWidget *mainWidget = new QWidget(this);
 	QVBoxLayout *mainLayout = new QVBoxLayout(mainWidget);
 	mainLayout->setSpacing(0);
-	mainLayout->setMargin(0);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+#else
+    mainLayout->setMargin(0);
+#endif
 	mainLayout->addWidget(m_tikzPreviewController->templateWidget());
 	mainLayout->addWidget(m_tikzEditorView);
 
@@ -911,11 +924,40 @@ void MainWindow::applySettings()
 	updateCompleter();
 	settings.beginGroup(QLatin1String("encoding"));
 		QVariant qv = settings.value(QLatin1String("default"));
-		setCurrentEncoding( qv.isNull() ? QTextCodec::codecForLocale() : QTextCodec::codecForName(qv.toByteArray())) ;
-		qv = settings.value(QLatin1String("encoder"));
-		m_overrideEncoder = qv.isNull() ? NULL : QTextCodec::codecForName(qv.toByteArray()) ;
-		qv = settings.value(QLatin1String("decoder"));
-		m_overrideDecoder = qv.isNull() ? NULL : QTextCodec::codecForName(qv.toByteArray()) ;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+        if (qv.isNull())
+        {
+            setCurrentEncoding( QStringConverter::System ) ;
+        } else {
+            std::optional<QStringConverter::Encoding> currentEncoding = QStringConverter::encodingForName(qv.toString().toStdString().c_str());
+            setCurrentEncoding( currentEncoding.value_or( QStringConverter::System ) ) ;
+        }
+
+        qv = settings.value(QLatin1String("encoder"));
+        if (qv.isNull())
+        {
+            m_doOverrideEncoder = false;
+        } else {
+            std::optional<QStringConverter::Encoding> overrideEncoding = QStringConverter::encodingForName(qv.toString().toStdString().c_str());
+            m_doOverrideEncoder = overrideEncoding.has_value();
+            m_overrideEncoder = overrideEncoding.value_or( QStringConverter::System ) ;
+        }
+        qv = settings.value(QLatin1String("decoder"));
+        if (qv.isNull())
+        {
+            m_doOverrideDecoder = false;
+        } else {
+            std::optional<QStringConverter::Encoding> overrideDecoding = QStringConverter::encodingForName(qv.toString().toStdString().c_str());
+            m_doOverrideDecoder = overrideDecoding.has_value();
+            m_overrideDecoder = overrideDecoding.value_or( QStringConverter::System ) ;
+        }
+#else
+        setCurrentEncoding( qv.isNull() ? QTextCodec::codecForLocale() : QTextCodec::codecForName(qv.toByteArray())) ;
+        qv = settings.value(QLatin1String("encoder"));
+        m_overrideEncoder = qv.isNull() ? NULL : QTextCodec::codecForName(qv.toByteArray()) ;
+        qv = settings.value(QLatin1String("decoder"));
+        m_overrideDecoder = qv.isNull() ? NULL : QTextCodec::codecForName(qv.toByteArray()) ;
+#endif
 		m_encoderBom = settings.value(QLatin1String("bom"), true).toBool();
 	settings.endGroup();
 
@@ -939,7 +981,11 @@ void MainWindow::readSettings()
 
 	QSettings settings;
 	settings.beginGroup(QLatin1String("MainWindow"));
-	const int screenWidth = QApplication::desktop()->availableGeometry().width();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    const int screenWidth = screen()->availableGeometry().width();
+#else
+    const int screenWidth = QApplication::desktop()->availableGeometry().width();
+#endif
 	QSize size;
 	if (screenWidth > 1200)
 		size = settings.value(QLatin1String("size"), QSize(1200, 600)).toSize();
@@ -1051,7 +1097,11 @@ void MainWindow::loadUrl(const QUrl &url)
 		QApplication::setOverrideCursor(Qt::WaitCursor);
 		this->configureStreamDecoding(in);
 		m_tikzQtEditorView->editor()->setPlainText(in.readAll());
-		setCurrentEncoding(in.codec());
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+        setCurrentEncoding(in.encoding());
+#else
+        setCurrentEncoding(in.codec());
+#endif
 	}
 
   QApplication::restoreOverrideCursor();
@@ -1115,11 +1165,19 @@ bool MainWindow::saveUrl(const QUrl &url)
 	return true;
 }
 
-void MainWindow::setCurrentEncoding(QTextCodec *codec )
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+void MainWindow::setCurrentEncoding(QStringConverter::Encoding codec )
 {
-	m_currentEncoding = codec;
+    m_currentEncoding = codec;
    // TODO: implement user warning and suggestion to reload the file.
 }
+#else
+void MainWindow::setCurrentEncoding(QTextCodec *codec )
+{
+    m_currentEncoding = codec;
+   // TODO: implement user warning and suggestion to reload the file.
+}
+#endif
 
 QUrl MainWindow::url() const
 {
@@ -1142,18 +1200,29 @@ QString MainWindow::strippedName(const QUrl &url) const
 	return (fileName.isEmpty()) ? QLatin1String("untitled.txt") : fileName;
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+QStringConverter::Encoding MainWindow::getEncoder() const
+{
+    return this->m_doOverrideEncoder ? this->m_overrideEncoder : this->m_currentEncoding;
+}
+#else
 QTextCodec *MainWindow::getEncoder() const
 {
-	return this->m_overrideEncoder ? this->m_overrideEncoder : this->m_currentEncoding;
+    return this->m_overrideEncoder ? this->m_overrideEncoder : this->m_currentEncoding;
 }
+#endif
 
 void MainWindow::configureStreamEncoding(QTextStream& textStream)
 {
-	QTextCodec* encoder = this->getEncoder();
-	if(Q_LIKELY(encoder)) // should be true
-		textStream.setCodec(encoder);
-	else
-		qWarning("The encoder variable should not be null.");
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    textStream.setEncoding(this->getEncoder());
+#else
+    QTextCodec* encoder = this->getEncoder();
+    if(Q_LIKELY(encoder)) // should be true
+        textStream.setCodec(encoder);
+    else
+        qWarning("The encoder variable should not be null.");
+#endif
 
 	textStream.setGenerateByteOrderMark(this->m_encoderBom);
 
@@ -1161,10 +1230,17 @@ void MainWindow::configureStreamEncoding(QTextStream& textStream)
 
 void MainWindow::configureStreamDecoding(QTextStream &textStream)
 {
-	if(m_overrideDecoder)
-	{
-		textStream.setCodec(m_overrideDecoder);
-	}
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    if(m_doOverrideDecoder)
+    {
+        textStream.setEncoding(m_overrideDecoder);
+    }
+#else
+    if(m_overrideDecoder)
+    {
+        textStream.setCodec(m_overrideDecoder);
+    }
+#endif
 	textStream.setAutoDetectUnicode(true);
 }
 

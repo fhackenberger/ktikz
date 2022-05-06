@@ -74,7 +74,11 @@ void LineNumberWidget::paintEvent(QPaintEvent *event)
 			{
 				if (userBookmarks.at(i) == lineNumber)
 				{
-					painter.fillRect(2, top, fm.width(QLatin1Char('B')) + 4, lineHeight, m_highlightBrush);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+                    painter.fillRect(2, top, fm.horizontalAdvance(QLatin1Char('B')) + 4, lineHeight, m_highlightBrush);
+#else
+                    painter.fillRect(2, top, fm.width(QLatin1Char('B')) + 4, lineHeight, m_highlightBrush);
+#endif
 					painter.setPen(m_highlightedTextPen);
 					painter.drawText(4, top, width() - 4, lineHeight, Qt::AlignLeft | Qt::AlignTop, QLatin1String("B"));
 					painter.setPen(m_highlightPen);
@@ -97,8 +101,12 @@ void LineNumberWidget::paintEvent(QPaintEvent *event)
 void LineNumberWidget::mousePressEvent(QMouseEvent *event)
 {
 	event->accept();
-	const QPoint p = m_editor->viewport()->mapFromGlobal(event->globalPos());
-	const int lineNumber = m_editor->cursorForPosition(p).blockNumber() + 1;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    const QPointF p = m_editor->viewport()->mapFromGlobal(event->globalPosition());
+#else
+    const QPoint p = m_editor->viewport()->mapFromGlobal(event->globalPos());
+#endif
+    const int lineNumber = m_editor->cursorForPosition(p.toPoint()).blockNumber() + 1;
 	if (lineNumber <= 0)
 		return;
 

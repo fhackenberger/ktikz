@@ -20,7 +20,7 @@
 
 #include <QtCore/QSettings>
 
-static const QString s_completionPlaceHolder(0x2022);
+static const QString s_completionPlaceHolder(QChar(0x2022));
 
 UserCommandEditDialog::UserCommandEditDialog(QWidget *parent)
 	: QDialog(parent),

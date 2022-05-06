@@ -23,6 +23,7 @@
 
 #include <QtGui/QSyntaxHighlighter>
 #include <QtGui/QTextCharFormat>
+#include <QRegularExpression>
 
 /** A simple, incomplete highlighter for LaTeX .log files
  * @author Florian Hackenberger <florian@hackenberger.at>
@@ -44,7 +45,11 @@ protected:
 private:
 	struct LogHighlightingRule
 	{
-		QRegExp pattern; /// The pattern to match for formatting
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+        QRegularExpression pattern; /// The pattern to match for formatting
+#else
+        QRegExp pattern; /// The pattern to match for formatting
+#endif
 		QTextCharFormat format; /// The style of the formatting
 	};
 	/// All highlighting rules with their formatting for easy iteration

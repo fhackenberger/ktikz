@@ -37,7 +37,11 @@ LogHighlighter::LogHighlighter(QTextDocument *parent)
 	                << tr("This program will not work!");
 	Q_FOREACH (const QString &pattern, keywordPatterns)
 	{
-		rule.pattern = QRegExp(pattern);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+        rule.pattern = QRegularExpression(pattern);
+#else
+        rule.pattern = QRegExp(pattern);
+#endif
 		rule.format = keywordFormat;
 		m_highlightingRules.append(rule);
 	}
@@ -45,7 +49,11 @@ LogHighlighter::LogHighlighter(QTextDocument *parent)
 	QTextCharFormat commandFormat;
 	commandFormat.setForeground(Qt::darkBlue);
 	commandFormat.setFontWeight(QFont::Bold);
-	rule.pattern = QRegExp(QLatin1String("^\\[[^\\]\\d][^\\]]*\\]"));
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    rule.pattern = QRegularExpression(QLatin1String("^\\[[^\\]\\d][^\\]]*\\]"));
+#else
+    rule.pattern = QRegExp(QLatin1String("^\\[[^\\]\\d][^\\]]*\\]"));
+#endif
 	rule.format = commandFormat;
 	m_highlightingRules.append(rule);
 
@@ -65,8 +73,19 @@ void LogHighlighter::highlightBlock(const QString &text)
 	{
 //		const QRegExp expression(rule.pattern);
 //		int index = text.indexOf(expression);
-		QRegExp expression(rule.pattern);
-		int index = expression.indexIn(text);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+        QRegularExpression expression(rule.pattern);
+        QRegularExpressionMatch match = expression.match(text);
+        while (match.hasMatch())
+        {
+            const int length = match.capturedLength();
+            setFormat(match.capturedStart(), length, rule.format);
+//			index = text.indexOf(expression, index + length);
+            match = expression.match(text, match.capturedEnd() + 1);
+        }
+#else
+        QRegExp expression(rule.pattern);
+        int index = text.indexOf(expression);
 		while (index >= 0)
 		{
 			const int length = expression.matchedLength();
@@ -74,7 +93,8 @@ void LogHighlighter::highlightBlock(const QString &text)
 //			index = text.indexOf(expression, index + length);
 			index = expression.indexIn(text, index + length);
 		}
-	}
+#endif
+    }
 
 	// Highlight statistics (at the end of the log)
 	setCurrentBlockState(0); // The current block state tracks multiline formatting

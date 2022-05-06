@@ -65,7 +65,11 @@ TikzEditorView::TikzEditorView(QWidget *parent)
 
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 	mainLayout->setSpacing(0);
-	mainLayout->setMargin(0);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+#else
+    mainLayout->setMargin(0);
+#endif
 	mainLayout->addWidget(m_tikzEditor);
 
 	createActions();
@@ -147,7 +151,11 @@ void TikzEditorView::setFont(const QFont &editorFont)
 	fm.setFontPointSize(editorFont.pointSize());
 	m_tikzEditor->setCurrentCharFormat(fm);
 
-	m_tikzEditor->setTabStopWidth(m_tikzEditor->fontMetrics().width(QLatin1String("    ")));
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    m_tikzEditor->setTabStopDistance(m_tikzEditor->fontMetrics().horizontalAdvance(QLatin1String("    ")));
+#else
+    m_tikzEditor->setTabStopWidth(m_tikzEditor->fontMetrics().width(QLatin1String("    ")));
+#endif
 }
 
 void TikzEditorView::createActions()

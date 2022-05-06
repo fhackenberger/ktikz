@@ -69,7 +69,11 @@ void LogTextEdit::setLogPalette(bool runFailed)
 	if (runFailed)
 	{
 		QPalette failedPalette(QApplication::palette());
-		failedPalette.setColor(QPalette::Background, QColor(255, 102, 102));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        failedPalette.setColor(QPalette::Window, QColor(255, 102, 102));
+#else
+        failedPalette.setColor(QPalette::Background, QColor(255, 102, 102));
+#endif
 		setAutoFillBackground(true);
 		setPalette(failedPalette);
 	}

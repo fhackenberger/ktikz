@@ -42,11 +42,20 @@ TikzPreviewRenderer::~TikzPreviewRenderer()
 	}
 }
 
-void TikzPreviewRenderer::generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor, int currentPage)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+void TikzPreviewRenderer::generatePreview(QPdfDocument *tikzPdfDoc, qreal zoomFactor, int currentPage)
 {
-	Poppler::Page *pdfPage = tikzPdfDoc->page(currentPage);
-	const QImage tikzImage = pdfPage->renderToImage(zoomFactor * 72, zoomFactor * 72);
-	delete pdfPage;
+    const QImage tikzImage = tikzPdfDoc->render(currentPage, QSize(zoomFactor * 72, zoomFactor * 72));
 
 	Q_EMIT showPreview(tikzImage, zoomFactor);
 }
+#else
+void TikzPreviewRenderer::generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor, int currentPage)
+{
+    Poppler::Page *pdfPage = tikzPdfDoc->page(currentPage);
+    const QImage tikzImage = pdfPage->renderToImage(zoomFactor * 72, zoomFactor * 72);
+    delete pdfPage;
+
+    Q_EMIT showPreview(tikzImage, zoomFactor);
+}
+#endif

@@ -33,11 +33,14 @@ class QProcess;
 class QPlainEdit;
 class QTextStream;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+class QPdfDocument;
+#else
 namespace Poppler
 {
 class Document;
 }
-
+#endif
 class TikzPreviewController;
 
 /**
@@ -75,7 +78,11 @@ public Q_SLOTS:
 	void abortProcess();
 
 Q_SIGNALS:
-	void pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    void pixmapUpdated(QPdfDocument *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
+#else
+    void pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
+#endif
 	void setExportActionsEnabled(bool enabled);
 	void showErrorMessage(const QString &message);
 	void updateLog(const QString &logText, bool runFailed);
@@ -97,7 +104,11 @@ protected:
 	bool generatePdfFile(const QString &tikzFileBaseName, const QString &latexCommand, bool useShellEscaping);
 
 	TikzPreviewController *m_parent;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    QPdfDocument *m_tikzPdfDoc;
+#else
 	Poppler::Document *m_tikzPdfDoc;
+#endif
 	QString m_tikzCode;
 
 	QThread m_thread;
