@@ -109,7 +109,7 @@ void RecentFilesAction::openRecentFile()
 #ifdef Q_OS_WIN32
 		Q_EMIT urlSelected(Url(action->data().toString()));
 #else
-		Q_EMIT urlSelected(Url(QLatin1String("file://") + action->data().toString()));
+        Q_EMIT urlSelected(QUrl(QLatin1String("file://") + action->data().toString()));
 #endif
 }
 

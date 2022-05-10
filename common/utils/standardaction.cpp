@@ -305,7 +305,7 @@ Action *open(const QObject *recvr, const char *slot, QObject *parent)
 RecentFilesAction *openRecent(const QObject *recvr, const char *slot, QObject *parent)
 {
 	RecentFilesAction *action = new RecentFilesAction(Icon(QLatin1String("document-open-recent")), QCoreApplication::translate("StandardAction", "&Open Recent"), parent);
-	QObject::connect(action, SIGNAL(urlSelected(Url)), recvr, slot);
+    QObject::connect(action, SIGNAL(urlSelected(QUrl)), recvr, slot);
 	return action;
 }
 Action *save(const QObject *recvr, const char *slot, QObject *parent)
