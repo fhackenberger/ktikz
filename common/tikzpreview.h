@@ -76,7 +76,7 @@ public Q_SLOTS:
 Q_SIGNALS:
 	void showMouseCoordinates(qreal x, qreal y, int precisionX = 5, int precisionY = 5);
 #if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
-    void generatePreview(QPdfDocument *tikzPdfDoc, qreal zoomFactor, int currentPage);
+    void generatePreview(QPdfDocument *tikzPdfDoc, qreal zoomFactor, QSize size, int currentPage);
 #else
     void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor, int currentPage);
 #endif

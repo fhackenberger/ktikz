@@ -43,9 +43,9 @@ TikzPreviewRenderer::~TikzPreviewRenderer()
 }
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
-void TikzPreviewRenderer::generatePreview(QPdfDocument *tikzPdfDoc, qreal zoomFactor, int currentPage)
+void TikzPreviewRenderer::generatePreview(QPdfDocument *tikzPdfDoc, qreal zoomFactor, QSize size, int currentPage)
 {
-    const QImage tikzImage = tikzPdfDoc->render(currentPage, QSize(zoomFactor * 72, zoomFactor * 72));
+    const QImage tikzImage = tikzPdfDoc->render(currentPage, size.scaled(zoomFactor*100, zoomFactor*100, Qt::KeepAspectRatio));
 
 	Q_EMIT showPreview(tikzImage, zoomFactor);
 }

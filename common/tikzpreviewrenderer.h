@@ -20,6 +20,7 @@
 #define KTIKZ_TIKZPREVIEWRENDERER_H
 
 #include <QtCore/QThread>
+#include <QSize>
 
 class QImage;
 
@@ -42,7 +43,7 @@ public:
 
 public Q_SLOTS:
 #if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
-    void generatePreview(QPdfDocument *tikzPdfDoc, qreal zoomFactor = 1.0, int currentPage = 0);
+    void generatePreview(QPdfDocument *tikzPdfDoc, qreal zoomFactor, QSize size, int currentPage = 0);
 #else
 	void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor = 1.0, int currentPage = 0);
 #endif

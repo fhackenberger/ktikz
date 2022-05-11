@@ -70,7 +70,7 @@ TikzPreview::TikzPreview(QWidget *parent)
 
 	m_tikzPreviewRenderer = new TikzPreviewRenderer();
 #if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
-    connect(this, SIGNAL(generatePreview(QPdfDocument*,qreal,int)), m_tikzPreviewRenderer, SLOT(generatePreview(QPdfDocument*,qreal,int)));
+    connect(this, SIGNAL(generatePreview(QPdfDocument*,qreal, QSize, int)), m_tikzPreviewRenderer, SLOT(generatePreview(QPdfDocument*,qreal, QSize,int)));
 #else
     connect(this, SIGNAL(generatePreview(Poppler::Document*,qreal,int)), m_tikzPreviewRenderer, SLOT(generatePreview(Poppler::Document*,qreal,int)));
 #endif
@@ -277,7 +277,7 @@ void TikzPreview::showPdfPage()
 
 	if (!m_processRunning)
     {
-		Q_EMIT generatePreview(m_tikzPdfDoc, m_zoomFactor, m_currentPage); // render the current pdf page to a QImage in TikzPreviewRenderer (in a different thread)
+        Q_EMIT generatePreview(m_tikzPdfDoc, m_zoomFactor, sizeHint(), m_currentPage); // render the current pdf page to a QImage in TikzPreviewRenderer (in a different thread)
     }
 }
 

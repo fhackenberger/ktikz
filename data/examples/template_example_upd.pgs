@@ -1,0 +1,29 @@
+% \documentclass{article}
+\documentclass[convert={density=300,size=1080x800,outext=.png}]{standalone}
+\usepackage{mathptmx}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{fit}
+%\usepackage{color}
+\usepackage[active,pdftex,tightpage]{preview}
+\usepackage{babel}
+\usepackage{pgfopts}
+\usepackage{ifthen}
+\usepackage{xstring}
+\usepackage{calc}
+% \usepackage{tikz-uml}
+\usepackage{pgf-umlsd}
+\PreviewEnvironment[]{tikzpicture}
+\PreviewEnvironment[]{pgfpicture}
+\DeclareSymbolFont{symbolsb}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{symbolsb}{bold}{OMS}{cmsy}{b}{n}
+\DeclareSymbolFontAlphabet{\mathcal}{symbolsb}
+\begin{document}
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, aspect=2, text width=4em, text centered, inner sep=0pt]
+\tikzstyle{processblock} = [rectangle, draw, fill=green!20, text width=10em, text centered, rounded corners, ]
+<>
+\end{document}
+
