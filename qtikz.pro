@@ -10,7 +10,6 @@ APPVERSION = 0.12
 include(qmake/qtikzconfig.pri)
 include(qmake/qtikzdefaults.pri)
 include(qmake/qtikzmacros.pri)
-include(qmake/findpoppler.pri)
 
 include(app/app.pri)
 include(translations/translations.pri)

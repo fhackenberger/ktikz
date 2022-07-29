@@ -53,13 +53,13 @@ void TikzHighlighter::setHighlightingRules(const QVector<HighlightingRule> &high
 	Q_FOREACH (const QString &pattern, keywordPatterns)
 	{
 		rule.type = highlightTypeNames.at(currentIndex);
-		rule.pattern = QRegExp(pattern);
+        rule.pattern = QRegExp(pattern);
 		rule.isRegExp = true;
 		m_highlightingRules.append(rule);
 	}
 	// comments
 	rule.type = highlightTypeNames.at(currentIndex + 1);
-	rule.pattern = QRegExp(QLatin1String("%[^\n]*"));
+    rule.pattern = QRegExp(QLatin1String("%[^\n]*"));
 	rule.isRegExp = true;
 	m_highlightingRules.append(rule);
 

@@ -92,10 +92,10 @@ private Q_SLOTS:
 	void editReplace();
 	void tabIndent(bool isUnindenting = false);
 	void indent(QChar insertChar, int numOfInserts, bool isUnindenting = false);
-	bool search(const QString &text, QTextDocument::FindFlags flags = 0, bool startAtCursor = true, bool continueFromBeginning = false);
+    bool search(const QString &text, QTextDocument::FindFlags flags = (QTextDocument::FindFlags)0, bool startAtCursor = true, bool continueFromBeginning = false);
 	void search();
 	void replace(const QString &replacement);
-	void replace(const QString &text, const QString &replacement, QTextDocument::FindFlags flags = 0, bool startAtCursor = true);
+    void replace(const QString &text, const QString &replacement, QTextDocument::FindFlags flags = (QTextDocument::FindFlags)0, bool startAtCursor = true);
 	void replace();
 	void replaceAll();
 

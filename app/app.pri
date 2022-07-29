@@ -6,6 +6,7 @@ LANGUAGE = C++
 CONFIG += qt warn_on thread
 QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 5): QT += core5compat pdf
 
 DEFINES += QT_STL QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII QT_NO_CAST_FROM_BYTEARRAY QT_STRICT_ITERATORS QT_NO_URL_CAST_FROM_STRING QT_NO_KEYWORDS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x050200
@@ -14,6 +15,7 @@ DEFINES += QT_STL QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII QT_NO_CAST_FROM_BYTE
 #QMAKE_CXXFLAGS += -Wall -Wextra -Wpedantic -Weffc++ -Wlogical-op -Wmissing-declarations -Wold-style-cast -Woverloaded-virtual -Wshadow -Wstrict-null-sentinel -Wswitch-default -Wuseless-cast -Wzero-as-null-pointer-constant -fmessage-length=0 -fdiagnostics-show-location=every-line
 #QMAKE_CXXFLAGS += -Wall -Wextra -Wpedantic -Wlogical-op -Wmissing-declarations -Wold-style-cast -Woverloaded-virtual
 #QMAKE_CXX = clang
+QMAKE_CXXFLAGS += -Og -ggdb
 
 DEFINES += ORGNAME=\\\"$${ORGNAME}\\\"
 DEFINES += APPNAME=\\\"$${APPNAME}\\\"

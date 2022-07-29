@@ -55,12 +55,15 @@
 #include <QtGui/QStackedWidget>
 #include <QtGui/QToolTip>
 #endif
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QtCore5Compat/QRegExp>
+#endif
 
 #include "tikzeditorhighlighter.h"
 #include "tikzcommandwidget.h"
 #include "../common/utils/combobox.h"
 
-static const QString s_completionPlaceHolder(0x2022);
+static const QString s_completionPlaceHolder(QChar(0x2022));
 
 TikzCommandList TikzCommandInserter::m_tikzSections;
 QList<TikzCommand> TikzCommandInserter::m_tikzCommandsList;
@@ -102,11 +105,15 @@ static TikzCommand newCommand(const QString &name,
 static QString translateOptions(const QString &text)
 {
 	QString translatedText;
-	for (int pos = 0, oldPos = 0; pos >= 0;)
+    for (qsizetype pos = 0, oldPos = 0; pos >= 0;)
 	{
 		oldPos = pos;
 		pos = text.indexOf(QLatin1Char('<'), pos); // option is between < and >
-		translatedText += text.midRef(oldPos, pos - oldPos + 1); // add text between the current option and the previous option; this also adds the end of the original string, except when there are no options
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+        translatedText += text.mid(oldPos, pos - oldPos + 1); // add text between the current option and the previous option; this also adds the end of the original string, except when there are no options
+#else
+        translatedText += text.midRef(oldPos, pos - oldPos + 1); // add text between the current option and the previous option; this also adds the end of the original string, except when there are no options
+#endif
 		if (pos >= 0)
 		{
 			oldPos = pos;
@@ -504,8 +511,13 @@ void TikzCommandInserter::addListWidgetItems(QListWidget *listWidget, const QPal
 		QString itemText = commandList.children.at(i).title;
 		item->setText(itemText.remove(QLatin1Char('&')));
 
-		item->setBackgroundColor(titleBg);
-		item->setTextColor(titleFg);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+        item->setBackground(titleBg);
+        item->setForeground(titleFg);
+#else
+        item->setBackgroundColor(titleBg);
+        item->setTextColor(titleFg);
+#endif
 		item->setFont(titleFont);
 
 		addListWidgetItems(listWidget, standardPalette, commandList.children.at(i));
@@ -579,7 +591,11 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
 	tikzLayout->addWidget(commandsComboLabel, 0, 0);
 	tikzLayout->addWidget(m_commandsCombo, 0, 1);
 	tikzLayout->addWidget(m_commandsStack, 1, 0, 1, 2);
-	tikzLayout->setMargin(5);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    tikzLayout->setContentsMargins(5, 5, 5, 5);
+#else
+    tikzLayout->setMargin(5);
+#endif
 
 	TikzCommandWidget *tikzWidget = new TikzCommandWidget;
 	tikzWidget->setLayout(tikzLayout);
@@ -807,7 +823,11 @@ void TikzCommandInserter::insertTag(const QString &tag, int dx, int dy)
 
     // replace all options (between <...>) by a place holder
     QString insertWord = tag;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    const QRegularExpression rx(QLatin1String("<[^<>]*>"));
+#else
     const QRegExp rx(QLatin1String("<[^<>]*>"));
+#endif
     insertWord.replace(rx, s_completionPlaceHolder);
 
     QTextCursor cur = m_mainEdit->textCursor();

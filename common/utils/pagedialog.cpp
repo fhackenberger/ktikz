@@ -98,8 +98,12 @@ QWidget *PageDialog::centerWidget()
 	m_pagesTitleLabel->setStyleSheet(QLatin1String("QLabel { font-weight: bold; }"));
 	QGridLayout *titleLayout = new QGridLayout(titleFrame);
 	titleLayout->setColumnStretch(0, 1);
-	titleLayout->setMargin(6);
-	titleLayout->addWidget(m_pagesTitleLabel);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    titleLayout->setContentsMargins(6, 6, 6, 6);
+#else
+    titleLayout->setMargin(6);
+#endif
+    titleLayout->addWidget(m_pagesTitleLabel);
 
 	// add pages
 	m_pagesStackedWidget = new QStackedWidget;

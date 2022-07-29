@@ -40,10 +40,10 @@
 #MAN_INSTALL_DIR = $${PREFIX}/share/man
 
 # compile in debug mode:
-#CONFIG += debug
+CONFIG += debug
 # compile in release mode:
-CONFIG -= debug
-CONFIG += release
+#CONFIG -= debug
+#CONFIG += release
 
 # Qt commands (uncomment if needed)
 # qmake command:

@@ -18,7 +18,9 @@
 
 #include "tikzpreview.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+#include <QtPdf/QtPdf>
+#elif QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <poppler-qt5.h>
 #else
 #include <poppler-qt4.h>
@@ -26,7 +28,7 @@
 
 #include <QSettings>
 #include <QApplication>
-#include <QDesktopWidget>
+//#include <QDesktopWidget>
 #include <QGraphicsProxyWidget>
 #include <QMenu>
 #include <QScrollBar>
@@ -67,7 +69,11 @@ TikzPreview::TikzPreview(QWidget *parent)
 	createActions();
 
 	m_tikzPreviewRenderer = new TikzPreviewRenderer();
-	connect(this, SIGNAL(generatePreview(Poppler::Document*,qreal,int)), m_tikzPreviewRenderer, SLOT(generatePreview(Poppler::Document*,qreal,int)));
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    connect(this, SIGNAL(generatePreview(QPdfDocument*,qreal, QSize, int)), m_tikzPreviewRenderer, SLOT(generatePreview(QPdfDocument*,qreal, QSize,int)));
+#else
+    connect(this, SIGNAL(generatePreview(Poppler::Document*,qreal,int)), m_tikzPreviewRenderer, SLOT(generatePreview(Poppler::Document*,qreal,int)));
+#endif
 	connect(m_tikzPreviewRenderer, SIGNAL(showPreview(QImage,qreal)), this, SLOT(showPreview(QImage,qreal)));
 }
 
@@ -93,7 +99,11 @@ void TikzPreview::contextMenuEvent(QContextMenuEvent *event)
 
 QSize TikzPreview::sizeHint() const
 {
-	const int screenWidth = QApplication::desktop()->availableGeometry().width();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    const int screenWidth = QApplication::primaryScreen()->availableGeometry().width();
+#else
+    const int screenWidth = QApplication::desktop()->availableGeometry().width();
+#endif
 	if (screenWidth > 1200)
 		return QSize(500, 400);
 	else if (screenWidth > 1024)
@@ -208,16 +218,28 @@ void TikzPreview::showPreviousPage()
 	if (m_currentPage > 0)
 		--m_currentPage;
 	m_previousPageAction->setEnabled(m_currentPage > 0);
-	m_nextPageAction->setEnabled(m_currentPage < m_tikzPdfDoc->numPages() - 1);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    m_nextPageAction->setEnabled(m_currentPage < m_tikzPdfDoc->pageCount() - 1);
+#else
+    m_nextPageAction->setEnabled(m_currentPage < m_tikzPdfDoc->numPages() - 1);
+#endif
 	showPdfPage();
 }
 
 void TikzPreview::showNextPage()
 {
-	if (m_currentPage < m_tikzPdfDoc->numPages() - 1)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    if (m_currentPage < m_tikzPdfDoc->pageCount() - 1)
+#else
+    if (m_currentPage < m_tikzPdfDoc->numPages() - 1)
+#endif
 		++m_currentPage;
 	m_previousPageAction->setEnabled(m_currentPage > 0);
-	m_nextPageAction->setEnabled(m_currentPage < m_tikzPdfDoc->numPages() - 1);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    m_nextPageAction->setEnabled(m_currentPage < m_tikzPdfDoc->pageCount() - 1);
+#else
+    m_nextPageAction->setEnabled(m_currentPage < m_tikzPdfDoc->numPages() - 1);
+#endif
 	showPdfPage();
 }
 
@@ -244,11 +266,19 @@ void TikzPreview::showPreview(const QImage &tikzImage, qreal zoomFactor)
 
 void TikzPreview::showPdfPage()
 {
-	if (!m_tikzPdfDoc || m_tikzPdfDoc->numPages() < 1)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    if (!m_tikzPdfDoc || m_tikzPdfDoc->pageCount() < 1)
+#else
+    if (!m_tikzPdfDoc || m_tikzPdfDoc->numPages() < 1)
+#endif
+    {
 		return;
+    }
 
 	if (!m_processRunning)
-		Q_EMIT generatePreview(m_tikzPdfDoc, m_zoomFactor, m_currentPage); // render the current pdf page to a QImage in TikzPreviewRenderer (in a different thread)
+    {
+        Q_EMIT generatePreview(m_tikzPdfDoc, m_zoomFactor, sizeHint(), m_currentPage); // render the current pdf page to a QImage in TikzPreviewRenderer (in a different thread)
+    }
 }
 
 void TikzPreview::emptyPreview()
@@ -266,7 +296,11 @@ void TikzPreview::emptyPreview()
 	m_nextPageAction->setVisible(false);
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+void TikzPreview::pixmapUpdated(QPdfDocument *tikzPdfDoc, const QList<qreal> &tikzCoordinates)
+#else
 void TikzPreview::pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates)
+#endif
 {
 	m_tikzPdfDoc = tikzPdfDoc;
 	m_tikzCoordinates = tikzCoordinates;
@@ -277,11 +311,15 @@ void TikzPreview::pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal
 		return;
 	}
 
-	m_tikzPdfDoc->setRenderBackend(Poppler::Document::SplashBackend);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    const int numOfPages = m_tikzPdfDoc->pageCount();
+#else
+    m_tikzPdfDoc->setRenderBackend(Poppler::Document::SplashBackend);
 //	m_tikzPdfDoc->setRenderBackend(Poppler::Document::ArthurBackend);
-	m_tikzPdfDoc->setRenderHint(Poppler::Document::Antialiasing, true);
-	m_tikzPdfDoc->setRenderHint(Poppler::Document::TextAntialiasing, true);
-	const int numOfPages = m_tikzPdfDoc->numPages();
+    m_tikzPdfDoc->setRenderHint(Poppler::Document::Antialiasing, true);
+    m_tikzPdfDoc->setRenderHint(Poppler::Document::TextAntialiasing, true);
+    const int numOfPages = m_tikzPdfDoc->numPages();
+#endif
 
 	const bool visible = (numOfPages > 1);
 	if (m_pageSeparator)
@@ -303,13 +341,17 @@ void TikzPreview::pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal
 
 QImage TikzPreview::renderToImage(double xres, double yres, int pageNumber)
 {
-	Poppler::Page *page = m_tikzPdfDoc->page(pageNumber);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    const QImage image = m_tikzPdfDoc->render(pageNumber, QSize(xres, yres));
+#else
+    Poppler::Page *page = m_tikzPdfDoc->page(pageNumber);
 //	const QSizeF pageSize = page->pageSizeF();
 //	const QImage image = pageSize.height() >= pageSize.width()
 //		? page->renderToImage(xres, yres)
 //		: page->renderToImage(xres, yres, -1, -1, -1, -1, Poppler::Page::Rotate270); // slow
-	const QImage image = page->renderToImage(xres, yres); // slow
-	delete page;
+    const QImage image = page->renderToImage(xres, yres); // slow
+    delete page;
+#endif
 	return image;
 }
 
@@ -325,7 +367,11 @@ int TikzPreview::currentPage() const
 
 int TikzPreview::numberOfPages() const
 {
-	return m_tikzPdfDoc->numPages();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    return m_tikzPdfDoc->pageCount();
+#else
+    return m_tikzPdfDoc->numPages();
+#endif
 }
 
 /***************************************************************************/
@@ -391,7 +437,11 @@ void TikzPreview::wheelEvent(QWheelEvent *event)
 {
 	if (event->modifiers() == Qt::ControlModifier)
 	{
-		if (event->delta() > 0)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+        if (event->angleDelta().y() > 0)
+#else
+        if (event->delta() > 0)
+#endif
 			zoomIn();
 		else
 			zoomOut();

@@ -60,7 +60,7 @@ public:
 	void removeUrl(const QUrl &url);
 
 Q_SIGNALS:
-	void urlSelected(const Url &url);
+    void urlSelected(const QUrl &url);
 
 private Q_SLOTS:
 	void openRecentFile();

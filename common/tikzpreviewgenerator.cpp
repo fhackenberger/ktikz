@@ -33,7 +33,13 @@
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtCore/QStandardPaths>
 #include <QtWidgets/QPlainTextEdit>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+#include <QtPdf/QtPdf>
+#include <QtCore5Compat/QRegExp>
+#include <iostream>
+#else
 #include <poppler-qt5.h>
+#endif
 #else
 #include <QtGui/QPlainTextEdit>
 #include <poppler-qt4.h>
@@ -180,7 +186,7 @@ static QString getParsedLogText(QTextStream *logStream)
 {
 	QString logText;
 
-	QRegExp errorPattern(QLatin1String("(\\S*):(\\d+): (.*$)"));
+    QRegExp errorPattern(QLatin1String("(\\S*):(\\d+): (.*$)"));
 	QList<QLatin1String> errorMessageList;
 	errorMessageList << QLatin1String("Undefined control sequence")
 	                 << QLatin1String("LaTeX Warning:") << QLatin1String("LaTeX Error:")
@@ -199,7 +205,7 @@ static QString getParsedLogText(QTextStream *logStream)
 			logText += QLatin1String("[LaTeX] Line ") + lineNum + QLatin1String(": ") + errorMsg;
 
 			// while we don't get a line starting with "l.<number> ...", we have to add the line to the first error message
-			QRegExp rx(QLatin1String("^l\\.(\\d+)(.*)"));
+            QRegExp  rx(QLatin1String("^l\\.(\\d+)(.*)"));
 			logLine = logStream->readLine();
 			while (rx.indexIn(logLine) < 0 && !logStream->atEnd())
 			{
@@ -346,8 +352,13 @@ void TikzPreviewGenerator::createPreview()
 			// Update widget
 			if (m_tikzPdfDoc)
 				delete m_tikzPdfDoc;
-			m_tikzPdfDoc = Poppler::Document::load(tikzPdfFileInfo.absoluteFilePath());
-			if (m_tikzPdfDoc)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+            m_tikzPdfDoc = new QPdfDocument();
+            if (m_tikzPdfDoc->load(tikzPdfFileInfo.absoluteFilePath()) == QPdfDocument::NoError)
+#else
+            m_tikzPdfDoc = Poppler::Document::load(tikzPdfFileInfo.absoluteFilePath());
+            if (m_tikzPdfDoc)
+#endif
 			{
 				m_shortLogText = QLatin1String("[LaTeX] ") + tr("Process finished successfully.", "info process");
 				Q_EMIT pixmapUpdated(m_tikzPdfDoc, tikzCoordinates(m_tikzFileBaseName));
@@ -508,7 +519,7 @@ static QString createTempTikzFile(const QString &tikzFileBaseName, const QString
 	QTextStream tikzStream(&tikzFile);
 	codecProfile->configureStreamEncoding(tikzStream);
 
-	tikzStream << tikzCode << endl;
+    tikzStream << tikzCode << QLatin1String("\n");
 	tikzStream.flush();
 
 	tikzFile.close();

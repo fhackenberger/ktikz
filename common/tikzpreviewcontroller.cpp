@@ -74,8 +74,13 @@ TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
 	createActions();
 
 	qRegisterMetaType<QList<qreal> >("QList<qreal>");
-	connect(m_tikzPreviewGenerator, SIGNAL(pixmapUpdated(Poppler::Document*,QList<qreal>)),
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+    connect(m_tikzPreviewGenerator, SIGNAL(pixmapUpdated(QPdfDocument*,QList<qreal>)),
+            m_tikzPreview, SLOT(pixmapUpdated(QPdfDocument*,QList<qreal>)));
+#else
+    connect(m_tikzPreviewGenerator, SIGNAL(pixmapUpdated(Poppler::Document*,QList<qreal>)),
 	        m_tikzPreview, SLOT(pixmapUpdated(Poppler::Document*,QList<qreal>)));
+#endif
 	connect(m_tikzPreviewGenerator, SIGNAL(showErrorMessage(QString)),
 	        m_tikzPreview, SLOT(showErrorMessage(QString)));
 	connect(m_tikzPreviewGenerator, SIGNAL(setExportActionsEnabled(bool)),
