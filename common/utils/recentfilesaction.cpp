@@ -61,11 +61,7 @@ void RecentFilesAction::saveEntries()
 }
 #else
 #include <QtCore/QSettings>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QMenu>
-#else
-#include <QtGui/QMenu>
-#endif
 
 RecentFilesAction::RecentFilesAction(QObject *parent)
 	: Action(parent)

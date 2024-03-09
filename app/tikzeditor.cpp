@@ -41,20 +41,12 @@
 #include <QtGui/QPalette>
 #include <QtGui/QTextBlock>
 #include <QtGui/QTextLayout>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QAbstractItemView>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCompleter>
 #include <QtWidgets/QScrollBar>
 #include <QtGui/QPainterPath>
 #include <QtCore/QStringListModel>
-#else
-#include <QtGui/QAbstractItemView>
-#include <QtGui/QApplication>
-#include <QtGui/QCompleter>
-#include <QtGui/QScrollBar>
-#include <QtGui/QStringListModel>
-#endif
 
 #include "linenumberwidget.h"
 

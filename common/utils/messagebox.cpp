@@ -47,13 +47,8 @@ void MessageBox::error(QWidget *parent, const QString &text, const QString &capt
 	KMessageBox::error(parent, text, caption);
 }
 #else
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
-#else
-#include <QtGui/QMessageBox>
-#include <QtGui/QPushButton>
-#endif
 
 int MessageBox::questionYesNo(QWidget *parent, const QString &text, const QString &caption, const QString &yesButtonText, const QString &noButtonText)
 {

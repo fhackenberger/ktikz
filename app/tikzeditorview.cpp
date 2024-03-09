@@ -23,15 +23,9 @@
 #include <QtCore/QPointer>
 #include <QtCore/QSettings>
 #include <QtGui/QTextCursor>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QToolBar>
-#else
-#include <QtGui/QApplication>
-#include <QtGui/QMenu>
-#include <QtGui/QToolBar>
-#endif
 
 #include "configeditorwidget.h"
 #include "editgotolinewidget.h"

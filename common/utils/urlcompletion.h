@@ -31,13 +31,8 @@ public:
 	}
 };
 #else
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QCompleter>
 #include <QtWidgets/QFileSystemModel>
-#else
-#include <QtGui/QCompleter>
-#include <QtGui/QFileSystemModel>
-#endif
 
 class UrlCompletion : public QCompleter
 {

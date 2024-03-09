@@ -1,5 +1,5 @@
-project(ktikz)
 cmake_minimum_required(VERSION 3.16.0)
+project(ktikz)
 
 set(KTIKZ_VERSION "0.13.2")
 

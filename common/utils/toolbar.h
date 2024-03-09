@@ -31,11 +31,7 @@ public:
 };
 #else
 #include <QtCore/QtGlobal>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QToolBar>
-#else
-#include <QtGui/QToolBar>
-#endif
 
 class ToolBar : public QToolBar
 {

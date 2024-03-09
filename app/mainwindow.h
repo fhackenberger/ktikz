@@ -27,14 +27,12 @@
 #include <KXmlGuiWindow>
 #else
 #include <QtCore/QtGlobal>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QMainWindow>
-#else
-#include <QtGui/QMainWindow>
-#endif
+
 class AboutDialog;
 class AssistantController;
 #endif
+
 #include <QtCore/QDateTime>
 #include <QtCore/QPointer>
 #include "../common/mainwidget.h"

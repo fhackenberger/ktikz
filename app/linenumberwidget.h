@@ -20,11 +20,7 @@
 #define LINENUMBERWIDGET_H
 
 #include <QtGui/QPen>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QWidget>
-#else
-#include <QtGui/QWidget>
-#endif
 
 class TikzEditor;
 

@@ -45,15 +45,9 @@ SelectAction::SelectAction(const Icon &icon, const QString &text, QObject *paren
 		Action::actionCollection()->addAction(name, this);
 }
 #else
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QWidgetAction>
-#else
-#include <QtGui/QComboBox>
-#include <QtGui/QLineEdit>
-#include <QtGui/QWidgetAction>
-#endif
 
 SelectAction::SelectAction(QObject *parent, const QString &name)
 	: QWidgetAction(parent)

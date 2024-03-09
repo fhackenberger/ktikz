@@ -27,12 +27,8 @@
 #include <QtCore/QSettings>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QTextDocument>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLineEdit>
-#else
-#include <QtGui/QApplication>
-#endif
 
 #include "utils/combobox.h"
 #include "utils/filedialog.h"
@@ -44,12 +40,8 @@
 TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
 	ui.templateCombo->setEditable(true);
 	ui.templateCombo->lineEdit()->setClearButtonEnabled(true);
-#else
-	ui.templateCombo->setLineEdit(new LineEdit(this)); // slow
-#endif
 	ui.templateCombo->setMinimumContentsLength(20);
 	ui.templateChooseButton->setIcon(Icon(QLatin1String("document-open")));
 #ifdef KTIKZ_KPART
@@ -126,11 +118,7 @@ void TemplateWidget::setReplaceText(const QString &replace)
 	                                     "included and which will be typesetted to produce the preview "
 	                                     "image.  The string %1 in the template will be replaced by the "
 	                                     "TikZ code.</p>")
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	                                     .arg(replace.toHtmlEscaped()));
-#else
-	                                     .arg(Qt::escape(replace)));
-#endif
 	ui.templateCombo->setWhatsThis(tr("<p>Give the file name of the LaTeX "
 	                                  "template.  If this input field is empty or contains an invalid "
 	                                  "file name, an internal default template will be used.</p>")

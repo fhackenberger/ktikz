@@ -20,11 +20,8 @@
 #define KTIKZ_TIKZPREVIEW_H
 
 #include <QtCore/QtGlobal>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QGraphicsView>
-#else
-#include <QtGui/QGraphicsView>
-#endif
+
 #include "tikzpreviewmessagewidget.h"
 
 class QToolBar;
