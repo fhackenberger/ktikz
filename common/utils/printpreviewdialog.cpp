@@ -18,13 +18,8 @@
 
 #include "printpreviewdialog.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtPrintSupport/QPrintPreviewWidget>
 #include <QtWidgets/QVBoxLayout>
-#else
-#include <QtGui/QPrintPreviewWidget>
-#include <QtGui/QVBoxLayout>
-#endif
 
 #include "action.h"
 #include "globallocale.h"

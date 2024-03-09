@@ -25,16 +25,13 @@
 #endif
 
 #include <QtCore/QFile>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonDocument>
 #include <QtCore/QJsonObject>
 #include <QtCore/QJsonParseError>
 #include <QtCore/QJsonValue>
-#endif
 #include <QtCore/QXmlStreamReader>
 #include <QtGui/QTextCursor>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QGridLayout>
@@ -44,17 +41,6 @@
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QToolTip>
-#else
-#include <QtGui/QApplication>
-#include <QtGui/QDockWidget>
-#include <QtGui/QGridLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QListWidget>
-#include <QtGui/QMenu>
-#include <QtGui/QPlainTextEdit>
-#include <QtGui/QStackedWidget>
-#include <QtGui/QToolTip>
-#endif
 
 #include "tikzeditorhighlighter.h"
 #include "tikzcommandwidget.h"
@@ -192,30 +178,7 @@ static TikzCommandList getChildCommands(QXmlStreamReader *xml, QList<TikzCommand
 
 	return commandList;
 }
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-static TikzCommandList getCommands(QXmlStreamReader *xml, QList<TikzCommand> *tikzCommandsList)
-{
-	TikzCommandList commandList;
 
-	QFile tagsFile(QLatin1String(":/tikzcommands.xml"));
-	if (!tagsFile.open(QFile::ReadOnly))
-		return commandList;
-
-	xml->setDevice(&tagsFile);
-	if (xml->readNextStartElement())
-	{
-		if (xml->name() == QLatin1String("tikzcommands"))
-			commandList = getChildCommands(xml, tikzCommandsList);
-		else
-			xml->raiseError(QApplication::translate("TikzCommandInserter", "Cannot parse the TikZ commands file."));
-	}
-	if (xml->error()) // this should never happen in a final release because tikzcommands.xml is built in the binary
-		qCritical("Parse error in TikZ commands file at line %d, column %d:\n%s", int(xml->lineNumber()), int(xml->columnNumber()), qPrintable(xml->errorString()));
-	return commandList;
-}
-#endif
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 static TikzCommandList loadChildCommandsJson(QJsonObject sectionObject, QList<TikzCommand> *tikzCommandsList)
 {
 	TikzCommandList commandList;
@@ -303,19 +266,13 @@ static TikzCommandList loadCommandsJson(const QString &fileName, QList<TikzComma
 	}
 	return commandList;
 }
-#endif // QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 
 void TikzCommandInserter::loadCommands()
 {
 	if (!m_tikzSections.commands.isEmpty())
 		return; // don't load the commands again when opening a second window
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	m_tikzSections = loadCommandsJson(QLatin1String(":/tikzcommands.json"), &m_tikzCommandsList);
-#else // QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-	QXmlStreamReader xml;
-	m_tikzSections = getCommands(&xml, &m_tikzCommandsList);
-#endif // QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 }
 
 /***************************************************************************/
@@ -404,13 +361,7 @@ void TikzCommandInserter::updateDescriptionToolTip()
 		description.replace(QLatin1Char('>'), QLatin1String("&gt;"));
 		QMenu *menu = qobject_cast<QMenu*>(action->parentWidget());
 		const QRect rect = menu->actionGeometry(action);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
-//		QToolTip::showText(menu->mapToGlobal(rect.topRight()), QLatin1String("<p>") + description + QLatin1String("</p>"), menu, rect, 5000);
 		QToolTip::showText(menu->mapToGlobal(QPoint(rect.x() + rect.width(), rect.y() - rect.height() / 2)), QLatin1String("<p>") + description + QLatin1String("</p>"), menu, rect, 5000);
-#else
-//		QToolTip::showText(menu->mapToGlobal(rect.topRight()), QLatin1String("<p>") + description + QLatin1String("</p>"), menu, rect);
-		QToolTip::showText(menu->mapToGlobal(QPoint(rect.x() + rect.width(), rect.y() - rect.height() / 2)), QLatin1String("<p>") + description + QLatin1String("</p>"), menu, rect);
-#endif
 	}
 }
 

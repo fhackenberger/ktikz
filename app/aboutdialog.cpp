@@ -18,17 +18,10 @@
 
 #include "aboutdialog.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
-#else
-#include <QtGui/QDialogButtonBox>
-#include <QtGui/QLabel>
-#include <QtGui/QTextBrowser>
-#include <QtGui/QVBoxLayout>
-#endif
 
 #include "ktikzapplication.h"
 

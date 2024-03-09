@@ -31,11 +31,7 @@ public:
 };
 #else
 #include <QtCore/QtGlobal>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QDialog>
-#else
-#include <QtGui/QDialog>
-#endif
 
 class QLabel;
 class QListWidget;

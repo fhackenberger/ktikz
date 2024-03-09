@@ -21,30 +21,17 @@
 #include "tikzpreviewcontroller.h"
 
 #ifndef KTIKZ_USE_KDE
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QToolBar>
-#else
-#include <QtGui/QToolBar>
-#endif
 #endif
 
 #include <QtCore/QSettings>
 #include <QtCore/QTimer>
 #include <QtCore/QPointer>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtPrintSupport/QPrintDialog>
 #include <QtPrintSupport/QPrinter>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QPushButton>
-#else
-#include <QtGui/QDialogButtonBox>
-#include <QtGui/QMenu>
-#include <QtGui/QPrintDialog>
-#include <QtGui/QPrinter>
-#include <QtGui/QPushButton>
-// #include <KConfigGroup> // JC
-#endif
 
 #include "templatewidget.h"
 #include "tikzpreview.h"

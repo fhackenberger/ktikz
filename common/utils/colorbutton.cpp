@@ -25,13 +25,8 @@
 
 #ifndef KTIKZ_USE_KDE
 #include <QtGui/QPainter>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QColorDialog>
-#else
-#include <QtGui/QApplication>
-#include <QtGui/QColorDialog>
-#endif
 
 ColorButton::ColorButton(QWidget *parent) : QToolButton(parent)
 {

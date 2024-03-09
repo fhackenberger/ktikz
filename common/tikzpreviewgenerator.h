@@ -83,10 +83,6 @@ Q_SIGNALS:
 	void processRunning(bool isRunning);
 
 private Q_SLOTS:
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-	void displayGnuplotNotExecutable();
-	void checkGnuplotExecutableFinished(int exitCode, QProcess::ExitStatus exitStatus);
-#endif // QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 	void generatePreviewImpl(TemplateStatus templateStatus = DontReloadTemplate);
 
 protected:
@@ -119,10 +115,6 @@ protected:
 	QString m_shortLogText;
 	QString m_logText;
 	bool m_useShellEscaping;
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-	QProcess *m_checkGnuplotExecutable;
-#endif // QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 };
 
 #endif

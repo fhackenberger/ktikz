@@ -48,7 +48,6 @@ static struct { const char *source; const char *comment; } copyrightString = QT_
 	"Copyright (C) <YEAR> <NAME>.\" in which you fill in the year(s) of "
 	"translation and your name.");
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 static void debugOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
 	// qDebug() and qWarning() only show messages when in debug mode
@@ -70,27 +69,6 @@ static void debugOutput(QtMsgType type, const QMessageLogContext &context, const
 			abort();
 	}
 }
-#else
-static void debugOutput(QtMsgType type, const char *msg)
-{
-	// qDebug() and qWarning() only show messages when in debug mode
-	switch (type)
-	{
-		case QtDebugMsg:
-		case QtWarningMsg:
-#ifndef QT_NO_DEBUG
-			fprintf(stderr, "%s\n", msg);
-#endif
-			break;
-		case QtCriticalMsg:
-			fprintf(stderr, "%s\n", msg);
-			break;
-		case QtFatalMsg:
-			fprintf(stderr, "Fatal: %s\n", msg);
-			abort();
-	}
-}
-#endif
 
 static bool findTranslator(QTranslator *translator, const QString &transName, const QString &transDir)
 {
@@ -126,11 +104,7 @@ int main(int argc, char **argv)
 //QTime t = QTime::currentTime();
 	Q_UNUSED(copyrightString);
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	qInstallMessageHandler(debugOutput);
-#else
-	qInstallMsgHandler(debugOutput);
-#endif
 
 #ifndef KTIKZ_USE_KDE
 	// discard session (X11 calls QApplication::saveState() also when the app

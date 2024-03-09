@@ -19,15 +19,10 @@
  ***************************************************************************/
 
 #include <QDebug>
-#include "tikzeditorhighlighter.h"
-
 #include <QtCore/QSettings>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QApplication>
-#else
-#include <QtGui/QApplication>
-#endif
 
+#include "tikzeditorhighlighter.h"
 #include "tikzcommandinserter.h"
 
 TikzHighlighter::TikzHighlighter(QTextDocument *parent)

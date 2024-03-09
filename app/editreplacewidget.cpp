@@ -18,9 +18,7 @@
 
 #include "editreplacewidget.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
 #include <QtWidgets/QLineEdit>
-#endif
 
 #ifdef KTIKZ_USE_KDE
 #include <KCompletion>
@@ -33,15 +31,10 @@
 ReplaceWidget::ReplaceWidget(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
 	ui.comboBoxFind->setEditable(true);
 	ui.comboBoxReplace->setEditable(true);
 	ui.comboBoxFind->lineEdit()->setClearButtonEnabled(true);
 	ui.comboBoxReplace->lineEdit()->setClearButtonEnabled(true);
-#else
-	ui.comboBoxFind->setLineEdit(new LineEdit(this));
-	ui.comboBoxReplace->setLineEdit(new LineEdit(this));
-#endif
 	ui.pushButtonClose->setIcon(Icon(QLatin1String("dialog-cancel")));
 	ui.pushButtonBackward->setIcon(Icon(QLatin1String("go-up")));
 	ui.pushButtonForward->setIcon(Icon(QLatin1String("go-down")));
