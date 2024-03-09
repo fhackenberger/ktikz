@@ -1,4 +1,4 @@
-greaterThan(QT_MAJOR_VERSION, 4): QT *= widgets printsupport
+QT *= widgets printsupport
 
 include($${_PRO_FILE_PWD_}/qmake/findpoppler.pri)
 
