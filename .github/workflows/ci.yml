@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [ 'master' ]
+  pull_request:
+    branches: [ 'master' ]
+  schedule:
+    - cron: '30 12 * * 0'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux:
+    name: Build (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install \
+            qtbase5-dev \
+            libqt5widgets5 \
+            libqt5printsupport5 \
+            qttools5-dev \
+            qttools5-dev-tools \
+            libpoppler-qt5-dev
+      - name: Build QTikZ
+        run: |
+          mkdir -p build-qt5-ubuntu && cd build-qt5-ubuntu
+          QT_SELECT=5 qmake ../qtikz.pro
+          QT_SELECT=5 make -j4
+
+  macos:
+    name: Build (macOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          # https://github.com/TeXworks/texworks/blob/c485a6c151c22cc628b02e382fa534eb7591878d/.github/workflows/ci.yml#L162
+          cd /usr/local/bin && rm -f 2to3* idle* pydoc* python*
+
+          # brew update > /tmp/brew_update.log || { echo "::error::Updating homebrew failed"; cat /tmp/brew_update.log; exit 1; }
+          brew install poppler-qt5 qt@5
+
+          brew link --force poppler-qt5
+          brew link --force qt@5
+      - name: Build QTikZ
+        run: |
+          export PATH="/usr/local/opt/qt@5/bin:$PATH"
+
+          mkdir -p build-qt5-macos && cd build-qt5-macos
+          QT_SELECT=5 qmake ../qtikz.pro
+          QT_SELECT=5 make -j4
+
+# vim: set ts=2 sw=2 et:
