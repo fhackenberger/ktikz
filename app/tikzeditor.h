@@ -69,12 +69,12 @@ Q_SIGNALS:
     void tabIndent(bool isUnindenting);
 
 protected:
-    void paintEvent(QPaintEvent *event);
-    void keyPressEvent(QKeyEvent *event);
-    void focusInEvent(QFocusEvent *event);
-    void focusOutEvent(QFocusEvent *event);
+    void paintEvent(QPaintEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
+    void focusInEvent(QFocusEvent *event) override;
+    void focusOutEvent(QFocusEvent *event) override;
     int lineNumberAreaWidth();
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
 
 private Q_SLOTS:
     void highlightCurrentLine();

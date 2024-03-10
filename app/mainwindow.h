@@ -80,10 +80,10 @@ public:
     MainWindow();
     virtual ~MainWindow();
 
-    virtual QWidget *widget();
+    virtual QWidget *widget() override;
     bool isDocumentModified() const;
-    QString tikzCode() const;
-    QUrl url() const;
+    QString tikzCode() const override;
+    QUrl url() const override;
     void setLineNumber(int lineNumber);
     int lineNumber() const;
 
@@ -99,11 +99,11 @@ public Q_SLOTS:
 
 protected:
 #ifdef KTIKZ_USE_KDE
-    bool queryClose();
-    void readProperties(const KConfigGroup &group);
-    void saveProperties(KConfigGroup &group);
+    bool queryClose() override;
+    void readProperties(const KConfigGroup &group) override;
+    void saveProperties(KConfigGroup &group) override;
 #endif
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
 
 private Q_SLOTS:
     void init();

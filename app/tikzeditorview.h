@@ -47,7 +47,7 @@ public:
 
     QPlainTextEdit *editor();
     QTextDocument *document();
-    QString text();
+    QString text() override;
 #ifndef KTIKZ_USE_KDE
     QMenu *editMenu();
     QMenu *bookmarksMenu();
@@ -56,11 +56,11 @@ public:
     void applySettings();
     void setLine(const QString &line);
     int lineNumber() const;
-    void updateCompleter(bool useCompletion, const QStringList &words);
-    void clear();
-    bool isEmpty();
-    bool isModified();
-    void setModified(bool value);
+    void updateCompleter(bool useCompletion, const QStringList &words) override;
+    void clear() override;
+    bool isEmpty() override;
+    bool isModified() override;
+    void setModified(bool value) override;
 
 public Q_SLOTS:
     void setPasteEnabled();

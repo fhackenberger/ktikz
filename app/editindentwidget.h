@@ -38,8 +38,8 @@ Q_SIGNALS:
     void hidden();
 
 protected:
-    virtual void showEvent(QShowEvent *event);
-    virtual void keyPressEvent(QKeyEvent *event);
+    virtual void showEvent(QShowEvent *event) override;
+    virtual void keyPressEvent(QKeyEvent *event) override;
 
 private Q_SLOTS:
     void indent();

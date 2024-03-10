@@ -32,7 +32,7 @@ class PrintPreviewDialog : public QDialog
 public:
     explicit PrintPreviewDialog(QPrinter *printer, QWidget *parent = 0);
 
-    void setVisible(bool visible);
+    void setVisible(bool visible) override;
 
 Q_SIGNALS:
     void paintRequested(QPrinter *printer);

@@ -29,12 +29,12 @@ class LineNumberWidget : public QWidget
     Q_OBJECT
 public:
     explicit LineNumberWidget(TikzEditor *editor);
-    QSize sizeHint() const;
+    QSize sizeHint() const override;
 
 protected:
-    virtual void paintEvent(QPaintEvent *event);
-    virtual void mousePressEvent(QMouseEvent *event);
-    virtual void mouseReleaseEvent(QMouseEvent *);
+    virtual void paintEvent(QPaintEvent *event) override;
+    virtual void mousePressEvent(QMouseEvent *event) override;
+    virtual void mouseReleaseEvent(QMouseEvent *) override;
 
 private:
     TikzEditor *m_editor;

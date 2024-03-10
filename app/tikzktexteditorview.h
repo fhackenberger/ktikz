@@ -39,14 +39,14 @@ public:
 
     KTextEditor::Document *editor();
     KTextEditor::Document *document();
-    QString text();
+    QString text() override;
     KTextEditor::View *view();
 
-    void updateCompleter(bool useCompletion, const QStringList &words);
-    void clear();
-    bool isEmpty();
-    bool isModified();
-    void setModified(bool value);
+    void updateCompleter(bool useCompletion, const QStringList &words) override;
+    void clear() override;
+    bool isEmpty() override;
+    bool isModified() override;
+    void setModified(bool value) override;
 
 Q_SIGNALS:
     void documentUrlChanged(const QUrl &url);

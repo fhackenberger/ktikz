@@ -43,17 +43,17 @@ class Part : public KParts::ReadOnlyPart, public MainWidget
 
 public:
     explicit Part(QWidget *parentWidget, QObject *parent, const QVariantList &args);
-    virtual ~Part() Q_DECL_OVERRIDE;
+    virtual ~Part() override;
 
     static KAboutData *createAboutData();
-    virtual QWidget *widget();
-    QString tikzCode() const;
-    QUrl url() const;
+    virtual QWidget *widget() override;
+    QString tikzCode() const override;
+    QUrl url() const override;
 
 protected:
     /** Reimplemented from KParts::PartBase. */
-    bool openFile() Q_DECL_OVERRIDE;
-    bool closeUrl();
+    bool openFile() override;
+    bool closeUrl() override;
 
 private slots:
     void showAboutDialog();

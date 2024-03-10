@@ -59,7 +59,7 @@ private Q_SLOTS:
     void showColorDialog();
 
 private:
-    void showEvent(QShowEvent *);
+    void showEvent(QShowEvent *) override;
     void setHighlightedForeground(const QString &colorName);
     void setItemToolTip(QTableWidgetItem *item, const QFont &font);
 

@@ -46,10 +46,10 @@ Q_SIGNALS:
     void settingsChanged();
 
 private Q_SLOTS:
-    void accept();
+    void accept() override;
 
 private:
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
 
     ConfigAppearanceWidget *m_configAppearanceWidget;
     ConfigEditorWidget *m_configEditorWidget;
