@@ -87,6 +87,9 @@ void TikzKTextEditorCompletion::completionInvoked(
         KTextEditor::View *view, const KTextEditor::Range &range,
         KTextEditor::CodeCompletionModel::InvocationType it)
 {
+    Q_UNUSED(view);
+    Q_UNUSED(range);
+    Q_UNUSED(it);
     setRowCount(m_matches.rowCount());
 }
 
