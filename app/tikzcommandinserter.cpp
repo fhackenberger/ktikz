@@ -482,8 +482,8 @@ void TikzCommandInserter::addListWidgetItems(QListWidget *listWidget,
         QString itemText = commandList.children.at(i).title;
         item->setText(itemText.remove(QLatin1Char('&')));
 
-        item->setBackgroundColor(titleBg);
-        item->setTextColor(titleFg);
+        item->setBackground(titleBg);
+        item->setForeground(titleFg);
         item->setFont(titleFont);
 
         addListWidgetItems(listWidget, standardPalette, commandList.children.at(i));
