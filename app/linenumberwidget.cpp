@@ -72,7 +72,7 @@ void LineNumberWidget::paintEvent(QPaintEvent *event)
         if (bottom >= event->rect().top()) {
             for (int i = 0; i < userBookmarks.length(); ++i) {
                 if (userBookmarks.at(i) == lineNumber) {
-                    painter.fillRect(2, top, fm.width(QLatin1Char('B')) + 4, lineHeight,
+                    painter.fillRect(2, top, fm.horizontalAdvance(QLatin1Char('B')) + 4, lineHeight,
                                      m_highlightBrush);
                     painter.setPen(m_highlightedTextPen);
                     painter.drawText(4, top, width() - 4, lineHeight, Qt::AlignLeft | Qt::AlignTop,

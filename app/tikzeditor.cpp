@@ -314,7 +314,7 @@ void TikzEditor::paintSpace(QPainter &painter, qreal x, qreal y, int spaceWidth)
 void TikzEditor::printWhiteSpaces(QPainter &painter)
 {
     const QFontMetrics fontMetrics = QFontMetrics(document()->defaultFont());
-    const int spaceWidth = fontMetrics.width(QLatin1Char(' '));
+    const int spaceWidth = fontMetrics.horizontalAdvance(QLatin1Char(' '));
     const int fontHeight = fontMetrics.height();
     QTextCursor cursor = textCursor();
 
@@ -747,7 +747,8 @@ int TikzEditor::lineNumberAreaWidth()
         ++digits;
     digits = qMax(4, digits) + 1;
 
-    return m_showLineNumberArea ? 3 + fontMetrics().width(QLatin1Char('9')) * digits : 0;
+    return m_showLineNumberArea ? 3 + fontMetrics().horizontalAdvance(QLatin1Char('9')) * digits
+                                : 0;
 }
 
 void TikzEditor::updateLineNumberAreaWidth()
