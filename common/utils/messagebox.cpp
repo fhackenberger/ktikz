@@ -20,11 +20,28 @@
 
 #ifdef KTIKZ_USE_KDE
 #  include <KMessageBox>
+#  include <kwidgetsaddons_version.h>
 
 int MessageBox::questionYesNo(QWidget *parent, const QString &text, const QString &caption,
                               const QString &yesButtonText, const QString &noButtonText)
 {
     int result;
+#  if ((KWIDGETSADDONS_VERSION_MAJOR >= 5) && (KWIDGETSADDONS_VERSION_MINOR >= 100))
+    if (!yesButtonText.isEmpty()) {
+        if (!noButtonText.isEmpty())
+            result = KMessageBox::questionTwoActions(
+                    parent, text, caption, KGuiItem(yesButtonText, QLatin1String("dialog-ok")),
+                    KGuiItem(noButtonText, QLatin1String("process-stop")));
+        else
+            result = KMessageBox::questionTwoActions(
+                    parent, text, caption, KGuiItem(yesButtonText, QLatin1String("dialog-ok")),
+                    KStandardGuiItem::cancel());
+    } else
+        result = KMessageBox::questionTwoActions(parent, text, caption, KStandardGuiItem::ok(),
+                                                 KStandardGuiItem::cancel());
+
+    return (result == KMessageBox::PrimaryAction) ? Yes : No;
+#  else
     if (!yesButtonText.isEmpty()) {
         if (!noButtonText.isEmpty())
             result = KMessageBox::questionYesNo(
@@ -37,11 +54,7 @@ int MessageBox::questionYesNo(QWidget *parent, const QString &text, const QStrin
         result = KMessageBox::questionYesNo(parent, text, caption);
 
     return (result == KMessageBox::Yes) ? Yes : No;
-}
-
-void MessageBox::sorry(QWidget *parent, const QString &text, const QString &caption)
-{
-    KMessageBox::sorry(parent, text, caption);
+#  endif
 }
 
 void MessageBox::error(QWidget *parent, const QString &text, const QString &caption)
@@ -72,11 +85,6 @@ int MessageBox::questionYesNo(QWidget *parent, const QString &text, const QStrin
                                        QMessageBox::Yes);
 
     return (result == QMessageBox::Yes) ? Yes : No;
-}
-
-void MessageBox::sorry(QWidget *parent, const QString &text, const QString &caption)
-{
-    QMessageBox::warning(parent, caption, text);
 }
 
 void MessageBox::error(QWidget *parent, const QString &text, const QString &caption)
