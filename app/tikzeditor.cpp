@@ -505,7 +505,7 @@ void TikzEditor::keyPressEvent(QKeyEvent *event)
     else if (event->key() == Qt::Key_Tab || event->key() == Qt::Key_Backtab) {
         QTextCursor cursor = textCursor();
         QTextBlock block = cursor.block();
-        QTextDocument::FindFlags flags = 0;
+        QTextDocument::FindFlags flags = QTextDocument::FindFlags();
         if (event->key() == Qt::Key_Backtab)
             flags = QTextDocument::FindBackward;
         if (cursor.hasSelection() && cursor.selectedText().contains(QChar::ParagraphSeparator)) {
