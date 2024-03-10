@@ -476,7 +476,7 @@ static QString createTempTikzFile(const QString &tikzFileBaseName, const QString
     QTextStream tikzStream(&tikzFile);
     codecProfile->configureStreamEncoding(tikzStream);
 
-    tikzStream << tikzCode << endl;
+    tikzStream << tikzCode << Qt::endl;
     tikzStream.flush();
 
     tikzFile.close();
