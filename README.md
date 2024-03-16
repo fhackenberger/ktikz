@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/fhackenberger/ktikz.svg?branch=master)](https://travis-ci.org/fhackenberger/ktikz)
+[![Build Status](https://github.com/fhackenberger/ktikz/workflows/CI/badge.svg)](https://github.com/fhackenberger/ktikz/actions?query=branch%3Amaster+workflow%3ACI)
+
 # KtikZ
 
 KtikZ provides a nice user interface for making pictures using TikZ
