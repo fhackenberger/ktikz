@@ -56,7 +56,7 @@ target_link_libraries(ktikzpart
   KF5::KIOWidgets
   KF5::KIONTLM
   Qt5::PrintSupport
-  ${Poppler_LIBRARIES}
+  Poppler::Qt5
 )
 
 

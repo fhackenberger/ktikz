@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16.0)
+cmake_minimum_required(VERSION 3.24.0)
 project(ktikz)
 
 set(KTIKZ_VERSION "0.13.2")
@@ -20,16 +20,15 @@ include(ECMSetupVersion)
 include(ECMAddAppIcon)
 include(ECMInstallIcons)
 
-find_package(Qt5 5.2 CONFIG REQUIRED Core Gui Widgets Xml PrintSupport LinguistTools )
+find_package(Qt5 5.15 CONFIG REQUIRED Core Gui Widgets Xml PrintSupport LinguistTools )
 
-find_package(KF5 5.0 REQUIRED DocTools XmlGui TextEditor Parts IconThemes )
+find_package(KF5 5.102 REQUIRED DocTools XmlGui TextEditor Parts IconThemes )
 
 include(KDEInstallDirs)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
 include(FeatureSummary)
 # include(KDEFrameworkCompilerSettings)
-
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
   add_definitions(-DQT_STRICT_ITERATORS)
@@ -45,14 +44,12 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
    endif()
 endif()
 
-
-find_package(Poppler "0.12.1" REQUIRED Qt5 Core)
+find_package(Poppler "23.01" REQUIRED Qt5 Core)
 set_package_properties("Poppler-Qt5" PROPERTIES
         DESCRIPTION "A PDF rendering library"
         URL "http://poppler.freedesktop.org"
         TYPE REQUIRED
         PURPOSE "Support for PDF files in KTikZ.")
-include_directories( ${Poppler_INCLUDE_DIRS} )
 
 add_subdirectory(app)
 add_subdirectory(part)

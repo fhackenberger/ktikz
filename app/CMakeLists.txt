@@ -90,7 +90,7 @@ target_link_libraries(ktikz
     KF5::TextEditor
     KF5::IconThemes
     Qt5::PrintSupport
-    ${Poppler_LIBRARIES} )
+    Poppler::Qt5)
 
 if( KTIKZ_USE_KTEXTEDITOR )
   target_link_libraries(ktikz KF5::TextEditor)
