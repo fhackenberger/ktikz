@@ -34,84 +34,83 @@ class ComboBox;
 class HighlightingRule;
 
 namespace KTextEditor {
-	class Document;
+class Document;
 }
 
 struct TikzCommand
 {
-	QString name;
-	QString description;
-	QString command;
-	QString highlightString;
-	int dx;
-	int dy;
-	int type;
-	int number;
+    QString name;
+    QString description;
+    QString command;
+    QString highlightString;
+    int dx;
+    int dy;
+    int type;
+    int number;
 };
 
 struct TikzCommandList
 {
-	QString title;
-	QList<TikzCommand> commands;
-	QList<TikzCommandList> children;
+    QString title;
+    QList<TikzCommand> commands;
+    QList<TikzCommandList> children;
 };
 
 class TikzCommandInserter : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit TikzCommandInserter(QWidget *parent = 0);
+    explicit TikzCommandInserter(QWidget *parent = 0);
 
-	static void loadCommands();
-	static QStringList getCommandWords();
-	QMenu *getMenu();
-	void showItemsInDockWidget();
-	QDockWidget *getDockWidget(QWidget *parent = 0);
-	static QMap<QString, QTextCharFormat> getDefaultHighlightFormats();
-	static QStringList getTranslatedHighlightTypeNames();
-	static QStringList getHighlightTypeNames();
-	static QVector<HighlightingRule> getHighlightingRules();
+    static void loadCommands();
+    static QStringList getCommandWords();
+    QMenu *getMenu();
+    void showItemsInDockWidget();
+    QDockWidget *getDockWidget(QWidget *parent = 0);
+    static QMap<QString, QTextCharFormat> getDefaultHighlightFormats();
+    static QStringList getTranslatedHighlightTypeNames();
+    static QStringList getHighlightTypeNames();
+    static QVector<HighlightingRule> getHighlightingRules();
 #ifdef KTIKZ_USE_KTEXTEDITOR
-	void setEditor(KTextEditor::Document *textEdit);
+    void setEditor(KTextEditor::Document *textEdit);
 #endif
-	void setEditor(QPlainTextEdit *textEdit);
-
-
+    void setEditor(QPlainTextEdit *textEdit);
 
 public Q_SLOTS:
-	void insertTag(const QString &tag, int dx = 0, int dy = 0);
+    void insertTag(const QString &tag, int dx = 0, int dy = 0);
 
 Q_SIGNALS:
-	/*!
-	 * This signal is emitted whenever a message should be shown in
-	 * the statusbar.
-	 * \param message the message to be shown in the status bar
-	 * \param timeout the duration in milli-seconds (if non-zero) during which the message must be shown
-	 */
-	void showStatusMessage(const QString &message, int timeout = 0);
+    /*!
+     * This signal is emitted whenever a message should be shown in
+     * the statusbar.
+     * \param message the message to be shown in the status bar
+     * \param timeout the duration in milli-seconds (if non-zero) during which the message must be
+     * shown
+     */
+    void showStatusMessage(const QString &message, int timeout = 0);
 
 private Q_SLOTS:
-	void updateDescriptionToolTip();
-	void setListStatusTip(QListWidgetItem *item);
-	void insertTag();
-	void insertTag(QListWidgetItem *item);
+    void updateDescriptionToolTip();
+    void setListStatusTip(QListWidgetItem *item);
+    void insertTag();
+    void insertTag(QListWidgetItem *item);
 
 private:
-	QMenu *getMenu(const TikzCommandList &commandList, QWidget *parent);
-	void addListWidgetItems(QListWidget *listWidget, const QPalette &standardPalette, const TikzCommandList &commandList, bool addChildren = true);
+    QMenu *getMenu(const TikzCommandList &commandList, QWidget *parent);
+    void addListWidgetItems(QListWidget *listWidget, const QPalette &standardPalette,
+                            const TikzCommandList &commandList, bool addChildren = true);
 
 #ifdef KTIKZ_USE_KTEXTEDITOR
-  KTextEditor::Document *m_mainKFEdit;
+    KTextEditor::Document *m_mainKFEdit;
 #endif
-	QPlainTextEdit *m_mainEdit;
+    QPlainTextEdit *m_mainEdit;
 
+    static TikzCommandList m_tikzSections;
+    static QList<TikzCommand> m_tikzCommandsList;
 
-	static TikzCommandList m_tikzSections;
-	static QList<TikzCommand> m_tikzCommandsList;
-
-	ComboBox *m_commandsCombo;
-	QStackedWidget *m_commandsStack;
+    ComboBox *m_commandsCombo;
+    QStackedWidget *m_commandsStack;
 };
 
 #endif

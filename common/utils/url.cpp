@@ -20,36 +20,32 @@
 
 #include <QtCore/QFileInfo>
 
-Url::Url() : QUrl()
-{
-}
+Url::Url() : QUrl() { }
 
 Url::Url(const QString &fileName) : QUrl(QUrl::fromUserInput(fileName))
 {
-// 	if (fileName.startsWith(QLatin1String("file://")))
-// 		setUrl(fileName);
-// 	else
-// 		setPath(fileName);
+    // 	if (fileName.startsWith(QLatin1String("file://")))
+    // 		setUrl(fileName);
+    // 	else
+    // 		setPath(fileName);
 }
 
-Url::Url(const QUrl &url) : QUrl(url)
-{
-}
+Url::Url(const QUrl &url) : QUrl(url) { }
 
 QString Url::pathOrUrl() const
 {
 #ifdef Q_OS_WIN32
-	return QUrl::toString();
+    return QUrl::toString();
 #else
-	return QUrl::path();
+    return QUrl::path();
 #endif
 }
 
 QString Url::path() const
 {
 #ifdef Q_OS_WIN32
-	return QUrl::toString();
+    return QUrl::toString();
 #else
-	return QUrl::path();
+    return QUrl::path();
 #endif
 }

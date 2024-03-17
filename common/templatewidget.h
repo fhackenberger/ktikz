@@ -25,37 +25,37 @@ class UrlCompletion;
 
 class TemplateWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit TemplateWidget(QWidget *parent = 0);
-	~TemplateWidget();
-	QWidget *lastTabOrderWidget();
-	void setFileName(const QString &fileName);
-	void setReplaceText(const QString &replace);
-	void setEditor(const QString &editor);
-	QString fileName() const;
+    explicit TemplateWidget(QWidget *parent = 0);
+    ~TemplateWidget();
+    QWidget *lastTabOrderWidget();
+    void setFileName(const QString &fileName);
+    void setReplaceText(const QString &replace);
+    void setEditor(const QString &editor);
+    QString fileName() const;
 
 Q_SIGNALS:
-	void fileNameChanged(const QString &fileName);
-	void focusEditor();
+    void fileNameChanged(const QString &fileName);
+    void focusEditor();
 
 protected:
-	void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);
 
 private Q_SLOTS:
-	void selectTemplateFile();
-	void editTemplateFile();
-	void reloadTemplateFile();
+    void selectTemplateFile();
+    void editTemplateFile();
+    void reloadTemplateFile();
 
 private:
-	void readRecentTemplates();
-	void saveRecentTemplates();
+    void readRecentTemplates();
+    void saveRecentTemplates();
 
-	Ui::TemplateWidget ui;
-	UrlCompletion *m_urlCompletion;
+    Ui::TemplateWidget ui;
+    UrlCompletion *m_urlCompletion;
 
-	QString m_editor;
+    QString m_editor;
 };
 
 #endif

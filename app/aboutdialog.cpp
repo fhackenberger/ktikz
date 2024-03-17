@@ -25,45 +25,48 @@
 
 #include "ktikzapplication.h"
 
-AboutDialog::AboutDialog(QWidget *parent)
-	: QDialog(parent)
+AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
-	QLabel *pixmapLabel = new QLabel;
-	pixmapLabel->setPixmap(QPixmap(QLatin1String(":/icons/qtikz-128.png")));
-	QLabel *label = new QLabel(QString(QLatin1String("<h1>%1 %2</h1><p>%3</p><p>%4</p>"))
-	                           .arg(KtikzApplication::applicationName())
-	                           .arg(QCoreApplication::applicationVersion())
-	                           .arg(tr("Copyright 2007-2014 Florian Hackenberger and Glad Deschrijver"))
-	                           .arg(tr("This is a program for creating TikZ (from the LaTeX pgf package) diagrams.")));
-	label->setWordWrap(true);
+    QLabel *pixmapLabel = new QLabel;
+    pixmapLabel->setPixmap(QPixmap(QLatin1String(":/icons/qtikz-128.png")));
+    QLabel *label = new QLabel(
+            QString(QLatin1String("<h1>%1 %2</h1><p>%3</p><p>%4</p>"))
+                    .arg(KtikzApplication::applicationName())
+                    .arg(QCoreApplication::applicationVersion())
+                    .arg(tr("Copyright 2007-2014 Florian Hackenberger and Glad Deschrijver"))
+                    .arg(tr("This is a program for creating TikZ (from the LaTeX pgf package) "
+                            "diagrams.")));
+    label->setWordWrap(true);
 
-	QWidget *topWidget = new QWidget;
-	QHBoxLayout *topLayout = new QHBoxLayout;
-	topLayout->addWidget(pixmapLabel);
-	topLayout->addWidget(label);
-	topWidget->setLayout(topLayout);
+    QWidget *topWidget = new QWidget;
+    QHBoxLayout *topLayout = new QHBoxLayout;
+    topLayout->addWidget(pixmapLabel);
+    topLayout->addWidget(label);
+    topWidget->setLayout(topLayout);
 
-	QTextBrowser *textEdit = new QTextBrowser;
-	textEdit->setHtml(tr("<p>This program is free "
-	                     "software; you can redistribute it and/or modify it under the "
-	                     "terms of the GNU General Public License as published by the "
-	                     "Free Software Foundation; either version 2 of the License, "
-	                     "or (at your option) any later version.</p>"
-	                     "<p>This program is distributed in the hope that it will "
-	                     "be useful, but WITHOUT ANY WARRANTY; without even the implied "
-	                     "warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  "
-	                     "See the <a href=\"http://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU General Public License</a> for more details.</p>"));
-	textEdit->setReadOnly(true);
-	textEdit->setOpenExternalLinks(true);
-	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
-	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    QTextBrowser *textEdit = new QTextBrowser;
+    textEdit->setHtml(
+            tr("<p>This program is free "
+               "software; you can redistribute it and/or modify it under the "
+               "terms of the GNU General Public License as published by the "
+               "Free Software Foundation; either version 2 of the License, "
+               "or (at your option) any later version.</p>"
+               "<p>This program is distributed in the hope that it will "
+               "be useful, but WITHOUT ANY WARRANTY; without even the implied "
+               "warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  "
+               "See the <a href=\"http://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU "
+               "General Public License</a> for more details.</p>"));
+    textEdit->setReadOnly(true);
+    textEdit->setOpenExternalLinks(true);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
+    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 
-	QVBoxLayout *mainLayout = new QVBoxLayout(this);
-	mainLayout->addWidget(topWidget);
-	mainLayout->addWidget(textEdit);
-	mainLayout->addWidget(buttonBox);
-	mainLayout->setSpacing(10);
-	buttonBox->setFocus();
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    mainLayout->addWidget(topWidget);
+    mainLayout->addWidget(textEdit);
+    mainLayout->addWidget(buttonBox);
+    mainLayout->setSpacing(10);
+    buttonBox->setFocus();
 
-	setWindowTitle(tr("About %1").arg(KtikzApplication::applicationName()));
+    setWindowTitle(tr("About %1").arg(KtikzApplication::applicationName()));
 }

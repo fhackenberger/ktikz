@@ -19,66 +19,68 @@
 #include "messagebox.h"
 
 #ifdef KTIKZ_USE_KDE
-#include <KMessageBox>
+#  include <KMessageBox>
 
-int MessageBox::questionYesNo(QWidget *parent, const QString &text, const QString &caption, const QString &yesButtonText, const QString &noButtonText)
+int MessageBox::questionYesNo(QWidget *parent, const QString &text, const QString &caption,
+                              const QString &yesButtonText, const QString &noButtonText)
 {
-	int result;
-	if (!yesButtonText.isEmpty())
-	{
-		if (!noButtonText.isEmpty())
-			result = KMessageBox::questionYesNo(parent, text, caption, KGuiItem(yesButtonText, QLatin1String("dialog-ok")), KGuiItem(noButtonText, QLatin1String("process-stop")));
-		else
-			result = KMessageBox::questionYesNo(parent, text, caption, KGuiItem(yesButtonText, QLatin1String("dialog-ok")));
-	}
-	else
-		result = KMessageBox::questionYesNo(parent, text, caption);
+    int result;
+    if (!yesButtonText.isEmpty()) {
+        if (!noButtonText.isEmpty())
+            result = KMessageBox::questionYesNo(
+                    parent, text, caption, KGuiItem(yesButtonText, QLatin1String("dialog-ok")),
+                    KGuiItem(noButtonText, QLatin1String("process-stop")));
+        else
+            result = KMessageBox::questionYesNo(
+                    parent, text, caption, KGuiItem(yesButtonText, QLatin1String("dialog-ok")));
+    } else
+        result = KMessageBox::questionYesNo(parent, text, caption);
 
-	return (result == KMessageBox::Yes) ? Yes : No;
+    return (result == KMessageBox::Yes) ? Yes : No;
 }
 
 void MessageBox::sorry(QWidget *parent, const QString &text, const QString &caption)
 {
-	KMessageBox::sorry(parent, text, caption);
+    KMessageBox::sorry(parent, text, caption);
 }
 
 void MessageBox::error(QWidget *parent, const QString &text, const QString &caption)
 {
-	KMessageBox::error(parent, text, caption);
+    KMessageBox::error(parent, text, caption);
 }
 #else
-#include <QtWidgets/QMessageBox>
-#include <QtWidgets/QPushButton>
+#  include <QtWidgets/QMessageBox>
+#  include <QtWidgets/QPushButton>
 
-int MessageBox::questionYesNo(QWidget *parent, const QString &text, const QString &caption, const QString &yesButtonText, const QString &noButtonText)
+int MessageBox::questionYesNo(QWidget *parent, const QString &text, const QString &caption,
+                              const QString &yesButtonText, const QString &noButtonText)
 {
-	QMessageBox::StandardButton result;
-	if (!yesButtonText.isEmpty())
-	{
-		QMessageBox msgBox(QMessageBox::Question, caption, text, QMessageBox::NoButton, parent);
-		QPushButton *yesButton = msgBox.addButton(yesButtonText, QMessageBox::YesRole);
-		if (!noButtonText.isEmpty())
-			msgBox.addButton(noButtonText, QMessageBox::NoRole);
-		else
-			msgBox.addButton(QMessageBox::No);
-		msgBox.setDefaultButton(yesButton);
+    QMessageBox::StandardButton result;
+    if (!yesButtonText.isEmpty()) {
+        QMessageBox msgBox(QMessageBox::Question, caption, text, QMessageBox::NoButton, parent);
+        QPushButton *yesButton = msgBox.addButton(yesButtonText, QMessageBox::YesRole);
+        if (!noButtonText.isEmpty())
+            msgBox.addButton(noButtonText, QMessageBox::NoRole);
+        else
+            msgBox.addButton(QMessageBox::No);
+        msgBox.setDefaultButton(yesButton);
 
-		msgBox.exec();
-		return (msgBox.clickedButton() == yesButton) ? Yes : No;
-	}
-	else
-		result = QMessageBox::question(parent, caption, text, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+        msgBox.exec();
+        return (msgBox.clickedButton() == yesButton) ? Yes : No;
+    } else
+        result = QMessageBox::question(parent, caption, text, QMessageBox::Yes | QMessageBox::No,
+                                       QMessageBox::Yes);
 
-	return (result == QMessageBox::Yes) ? Yes : No;
+    return (result == QMessageBox::Yes) ? Yes : No;
 }
 
 void MessageBox::sorry(QWidget *parent, const QString &text, const QString &caption)
 {
-	QMessageBox::warning(parent, caption, text);
+    QMessageBox::warning(parent, caption, text);
 }
 
 void MessageBox::error(QWidget *parent, const QString &text, const QString &caption)
 {
-	QMessageBox::critical(parent, caption, text);
+    QMessageBox::critical(parent, caption, text);
 }
 #endif

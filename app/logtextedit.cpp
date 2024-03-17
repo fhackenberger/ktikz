@@ -23,52 +23,50 @@
 
 LogTextEdit::LogTextEdit(QWidget *parent) : QTextEdit(parent)
 {
-	m_logHighlighter = new LogHighlighter(document());
-	setReadOnly(true);
+    m_logHighlighter = new LogHighlighter(document());
+    setReadOnly(true);
 }
 
 LogTextEdit::~LogTextEdit()
 {
-	m_logHighlighter->deleteLater();
+    m_logHighlighter->deleteLater();
 }
 
 QSize LogTextEdit::sizeHint() const
 {
-	return QSize(300, 90);
+    return QSize(300, 90);
 }
 
 void LogTextEdit::updateLog(const QString &logText)
 {
-	setPlainText(logText);
+    setPlainText(logText);
 }
 
 void LogTextEdit::updateLog(const QString &logText, bool runFailed)
 {
-	setPlainText(logText);
-	setLogPalette(runFailed);
+    setPlainText(logText);
+    setLogPalette(runFailed);
 }
 
 void LogTextEdit::appendLog(const QString &logText)
 {
-	setPlainText(toPlainText() + logText);
+    setPlainText(toPlainText() + logText);
 }
 
 void LogTextEdit::appendLog(const QString &logText, bool runFailed)
 {
-	setPlainText(toPlainText() + logText);
-	setLogPalette(runFailed);
+    setPlainText(toPlainText() + logText);
+    setLogPalette(runFailed);
 }
 
 void LogTextEdit::setLogPalette(bool runFailed)
 {
-	moveCursor(QTextCursor::End);
-	if (runFailed)
-	{
-		QPalette failedPalette(QApplication::palette());
-		failedPalette.setColor(QPalette::Background, QColor(255, 102, 102));
-		setAutoFillBackground(true);
-		setPalette(failedPalette);
-	}
-	else
-		setPalette(QApplication::palette());
+    moveCursor(QTextCursor::End);
+    if (runFailed) {
+        QPalette failedPalette(QApplication::palette());
+        failedPalette.setColor(QPalette::Background, QColor(255, 102, 102));
+        setAutoFillBackground(true);
+        setPalette(failedPalette);
+    } else
+        setPalette(QApplication::palette());
 }

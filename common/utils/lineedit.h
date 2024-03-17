@@ -12,43 +12,43 @@
 #define KTIKZ_LINEEDIT_H
 
 #ifdef KTIKZ_USE_KDE
-#include <KLineEdit>
+#  include <KLineEdit>
 
 class LineEdit : public KLineEdit
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit LineEdit(const QString &text, QWidget *parent = 0);
-	explicit LineEdit(QWidget *parent = 0);
+    explicit LineEdit(const QString &text, QWidget *parent = 0);
+    explicit LineEdit(QWidget *parent = 0);
 };
 #else
-#include <QtCore/QtGlobal>
-#include <QtWidgets/QLineEdit>
+#  include <QtCore/QtGlobal>
+#  include <QtWidgets/QLineEdit>
 
 class QToolButton;
 class UrlCompletion;
 
 class LineEdit : public QLineEdit
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit LineEdit(const QString &text, QWidget *parent = 0);
-	explicit LineEdit(QWidget *parent = 0);
-	virtual QSize sizeHint() const;
-	void setCompletionObject(UrlCompletion *urlCompletion);
+    explicit LineEdit(const QString &text, QWidget *parent = 0);
+    explicit LineEdit(QWidget *parent = 0);
+    virtual QSize sizeHint() const;
+    void setCompletionObject(UrlCompletion *urlCompletion);
 
 protected:
-	void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event);
 
 private Q_SLOTS:
-	void updateClearButton(const QString &text);
+    void updateClearButton(const QString &text);
 
 private:
-	void init();
+    void init();
 
-	QToolButton *m_clearButton;
+    QToolButton *m_clearButton;
 };
 #endif
 

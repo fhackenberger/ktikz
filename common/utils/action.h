@@ -25,23 +25,23 @@
 class KActionCollection;
 class Icon;
 
-class Action: public QAction
+class Action : public QAction
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit Action(QObject *parent, const QString &name = QString());
-	Action(const QString &text, QObject *parent, const QString &name = QString());
-	Action(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
+    explicit Action(QObject *parent, const QString &name = QString());
+    Action(const QString &text, QObject *parent, const QString &name = QString());
+    Action(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
 
-	void setShortcut(const QKeySequence &shortcut);
+    void setShortcut(const QKeySequence &shortcut);
 
 #ifdef KTIKZ_USE_KDE
-	static KActionCollection *actionCollection();
-	static void setActionCollection(KActionCollection *actionCollection);
+    static KActionCollection *actionCollection();
+    static void setActionCollection(KActionCollection *actionCollection);
 
 private:
-	static KActionCollection *s_actionCollection;
+    static KActionCollection *s_actionCollection;
 #endif
 };
 

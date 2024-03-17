@@ -23,12 +23,12 @@
 
 class TikzDocumentationController : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	static QString tikzDocumentationPath();
-	static void storeTikzDocumentationPath(const QString &path);
-	static QString searchTikzDocumentationInTexTree();
+    static QString tikzDocumentationPath();
+    static void storeTikzDocumentationPath(const QString &path);
+    static QString searchTikzDocumentationInTexTree();
 };
 
 #endif

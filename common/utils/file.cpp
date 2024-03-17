@@ -20,37 +20,32 @@
 #include "url.h"
 
 #ifdef KTIKZ_USE_KDE
-#include <KIO/Job>
-#include <KJobWidgets>
-//#include <KSaveFile>
+#  include <KIO/Job>
+#  include <KJobWidgets>
+// #include <KSaveFile>
 
 QWidget *File::s_mainWidget;
 QString File::s_tempDir;
 
 File::File(const QString &fileName, const OpenMode &mode)
-	: m_openMode(mode)
-	, m_url(QUrl::fromUserInput(fileName))
+    : m_openMode(mode), m_url(QUrl::fromUserInput(fileName))
 {
-	load();
+    load();
 }
 
-File::File(const QUrl &url, const OpenMode &mode)
-	: m_openMode(mode)
-	, m_url(url)
+File::File(const QUrl &url, const OpenMode &mode) : m_openMode(mode), m_url(url)
 {
-	load();
+    load();
 }
-
 
 bool File::fileExists(const QUrl &url)
 {
-	if (!(url.isValid()))
-  {
-		return false;
-	}
-	KIO::StatJob * existsJob = KIO::stat(url, KIO::StatJob::DestinationSide, 0);
-	existsJob->exec();
-	return (existsJob->error() == KJob::NoError);
+    if (!(url.isValid())) {
+        return false;
+    }
+    KIO::StatJob *existsJob = KIO::stat(url, KIO::StatJob::DestinationSide, 0);
+    existsJob->exec();
+    return (existsJob->error() == KJob::NoError);
 }
 
 /*!
@@ -62,88 +57,87 @@ bool File::fileExists(const QUrl &url)
 
 void File::load()
 {
-	m_errorString.clear();
+    m_errorString.clear();
 
-	if (!m_url.isValid())
-	{
-		m_file = new QFile();
-		return;
-	}
+    if (!m_url.isValid()) {
+        m_file = new QFile();
+        return;
+    }
 
-	// We assume for simplicity that s_tempDir is not empty, this is the
-	// case because a TikzPreviewController object is created at startup
-	// and in its constructor setTempDir() is called.
-	Q_ASSERT_X(!s_tempDir.isEmpty(), "loading a file", "File::setTempDir(const QString &dirName) must be called before constructing any File object");
-	m_localFileName = m_url.isLocalFile() ? m_url.path() : s_tempDir + m_url.fileName();
+    // We assume for simplicity that s_tempDir is not empty, this is the
+    // case because a TikzPreviewController object is created at startup
+    // and in its constructor setTempDir() is called.
+    Q_ASSERT_X(!s_tempDir.isEmpty(), "loading a file",
+               "File::setTempDir(const QString &dirName) must be called before constructing any "
+               "File object");
+    m_localFileName = m_url.isLocalFile() ? m_url.path() : s_tempDir + m_url.fileName();
 
-	if (m_openMode == WriteOnly)
-	{
-		//m_file = new KSaveFile(m_localFileName);
-		m_file = new QFile(m_localFileName);
-	}
-	else if (m_openMode == ReadOnly)
-	{
-		if (!m_url.isLocalFile() && File::fileExists(m_url) )
-		{
-			KIO::Job *job = KIO::file_copy(m_url, QUrl::fromLocalFile(m_localFileName), -1, KIO::Overwrite | KIO::HideProgressInfo);
-			KJobWidgets::setWindow(job, s_mainWidget);
-			if (!job->exec())
-			{
-				m_errorString = tr("Could not copy \"%1\" to temporary file \"%2\".").arg(m_url.toDisplayString()).arg(m_localFileName);
-				return;
-			}
-		}
-		m_file = new QFile(m_localFileName);
-	}
+    if (m_openMode == WriteOnly) {
+        // m_file = new KSaveFile(m_localFileName);
+        m_file = new QFile(m_localFileName);
+    } else if (m_openMode == ReadOnly) {
+        if (!m_url.isLocalFile() && File::fileExists(m_url)) {
+            KIO::Job *job = KIO::file_copy(m_url, QUrl::fromLocalFile(m_localFileName), -1,
+                                           KIO::Overwrite | KIO::HideProgressInfo);
+            KJobWidgets::setWindow(job, s_mainWidget);
+            if (!job->exec()) {
+                m_errorString = tr("Could not copy \"%1\" to temporary file \"%2\".")
+                                        .arg(m_url.toDisplayString())
+                                        .arg(m_localFileName);
+                return;
+            }
+        }
+        m_file = new QFile(m_localFileName);
+    }
 }
 
 File::~File()
 {
-	close();
-	delete m_file;
+    close();
+    delete m_file;
 }
 
 bool File::open(const QFile::OpenMode &mode)
 {
-	if (m_openMode == WriteOnly)
-	{
-		m_errorString.clear();
-		//return dynamic_cast<KSaveFile*>(m_file)->open(); // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
-		return m_file->open( QFile::WriteOnly ); // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
-	}
-	else if (m_openMode == ReadOnly)
-	{
-		if (!m_errorString.isEmpty()) // when the file is not a local file and copying the file to a local file using KIO failed
-			return false;
-		return m_file->open(QFile::ReadOnly | mode);
-	}
-	return false;
+    if (m_openMode == WriteOnly) {
+        m_errorString.clear();
+        // return dynamic_cast<KSaveFile*>(m_file)->open(); // XXX cannot use qobject_cast because
+        // QSaveFile doesn't have the Q_OBJECT macro
+        return m_file->open(QFile::WriteOnly); // XXX cannot use qobject_cast because QSaveFile
+                                               // doesn't have the Q_OBJECT macro
+    } else if (m_openMode == ReadOnly) {
+        if (!m_errorString.isEmpty()) // when the file is not a local file and copying the file to a
+                                      // local file using KIO failed
+            return false;
+        return m_file->open(QFile::ReadOnly | mode);
+    }
+    return false;
 }
 
 bool File::close()
 {
-	m_errorString.clear();
+    m_errorString.clear();
 
-	if (m_openMode == WriteOnly)
-	{
-		//if (!dynamic_cast<KSaveFile*>(m_file)->finalize()) // XXX cannot use qobject_cast because QSaveFile doesn't have the Q_OBJECT macro
-		//	return false;
-		m_file->close();
-		return true;
-	}
-	m_file->close();
+    if (m_openMode == WriteOnly) {
+        // if (!dynamic_cast<KSaveFile*>(m_file)->finalize()) // XXX cannot use qobject_cast because
+        // QSaveFile doesn't have the Q_OBJECT macro 	return false;
+        m_file->close();
+        return true;
+    }
+    m_file->close();
 
-	if (m_openMode == WriteOnly && !m_url.isLocalFile())
-	{
-		KIO::Job *job = KIO::file_copy(QUrl::fromLocalFile(m_localFileName), m_url, -1, KIO::Overwrite | KIO::HideProgressInfo);
-    KJobWidgets::setWindow(job, s_mainWidget);
-    if (!job->exec())
-		{
-			m_errorString = tr("Could not copy temporary file \"%1\" to \"%2\".").arg(m_localFileName).arg(m_url.toDisplayString());
-			return false;
-		}
-	}
-	return true;
+    if (m_openMode == WriteOnly && !m_url.isLocalFile()) {
+        KIO::Job *job = KIO::file_copy(QUrl::fromLocalFile(m_localFileName), m_url, -1,
+                                       KIO::Overwrite | KIO::HideProgressInfo);
+        KJobWidgets::setWindow(job, s_mainWidget);
+        if (!job->exec()) {
+            m_errorString = tr("Could not copy temporary file \"%1\" to \"%2\".")
+                                    .arg(m_localFileName)
+                                    .arg(m_url.toDisplayString());
+            return false;
+        }
+    }
+    return true;
 }
 
 /*
@@ -154,54 +148,57 @@ bool File::close()
 /*
 void File::showJobError(KJob *job)
 {
-	if (job->error() != 0)
-	{
-		KIO::JobUiDelegate *ui = static_cast<KIO::Job*>(job)->ui();
-		if (!ui)
-		{
-			qCritical() << "Saving failed; job->ui() is null.";
-			return;
-		}
-		ui->setWindow(s_mainWidget);
-		ui->showErrorMessage();
-	}
+        if (job->error() != 0)
+        {
+                KIO::JobUiDelegate *ui = static_cast<KIO::Job*>(job)->ui();
+                if (!ui)
+                {
+                        qCritical() << "Saving failed; job->ui() is null.";
+                        return;
+                }
+                ui->setWindow(s_mainWidget);
+                ui->showErrorMessage();
+        }
 }
 */
 
 bool File::copy(const QUrl &fromUrl, const QUrl &toUrl)
 {
-	KIO::Job *job = KIO::file_copy(fromUrl, toUrl, -1, KIO::Overwrite | KIO::HideProgressInfo);
-	KJobWidgets::setWindow(job, s_mainWidget);
-	return job->exec();;
+    KIO::Job *job = KIO::file_copy(fromUrl, toUrl, -1, KIO::Overwrite | KIO::HideProgressInfo);
+    KJobWidgets::setWindow(job, s_mainWidget);
+    return job->exec();
+    ;
 }
 
 /*!
  * This function sets the main widget which will be used as a parent for all
  * KIO dialogs used for copying remote files in the KDE version.  This function
  * \b must be called prior to creating any File object.
- * \param widget a QWidget which will be the parent widget for the KIO dialogs, typically this is the main window
+ * \param widget a QWidget which will be the parent widget for the KIO dialogs, typically this is
+ * the main window
  */
 
 void File::setMainWidget(QWidget *widget)
 {
-	s_mainWidget = widget;
+    s_mainWidget = widget;
 }
 
 /*!
  * This function sets the temporary directory in which all remote files will
  * be copied by KIO in order to use them locally.  This function
  * \b must be called prior to creating any File object.
- * \param dirName the name of the temporary directory in which the local versions of the remote files are stored
+ * \param dirName the name of the temporary directory in which the local versions of the remote
+ * files are stored
  */
 
 void File::setTempDir(const QString &dirName)
 {
-	s_tempDir = dirName;
+    s_tempDir = dirName;
 }
 #else
-//#include <QtCore/QCoreApplication>
-//#include <QtGui/QMessageBox>
-#include <QtCore/QFileInfo>
+// #include <QtCore/QCoreApplication>
+// #include <QtGui/QMessageBox>
+#  include <QtCore/QFileInfo>
 
 /*!
  * Constructs a File object.
@@ -211,8 +208,8 @@ void File::setTempDir(const QString &dirName)
 
 File::File(const QString &fileName, const OpenMode &mode)
 {
-	m_openMode = mode;
-	m_file = new QFile(fileName);
+    m_openMode = mode;
+    m_file = new QFile(fileName);
 }
 
 /*!
@@ -223,14 +220,14 @@ File::File(const QString &fileName, const OpenMode &mode)
 
 File::File(const QUrl &url, const OpenMode &mode)
 {
-	m_openMode = mode;
-	m_file = new QFile(Url(url).path());
+    m_openMode = mode;
+    m_file = new QFile(Url(url).path());
 }
 
 File::~File()
 {
-	close();
-	delete m_file;
+    close();
+    delete m_file;
 }
 
 /*!
@@ -242,11 +239,11 @@ File::~File()
 
 bool File::open(const QFile::OpenMode &mode)
 {
-	if (m_openMode == WriteOnly)
-		return m_file->open(QFile::WriteOnly | mode);
-	else if (m_openMode == ReadOnly)
-		return m_file->open(QFile::ReadOnly | mode);
-	return false;
+    if (m_openMode == WriteOnly)
+        return m_file->open(QFile::WriteOnly | mode);
+    else if (m_openMode == ReadOnly)
+        return m_file->open(QFile::ReadOnly | mode);
+    return false;
 }
 
 /*!
@@ -256,8 +253,8 @@ bool File::open(const QFile::OpenMode &mode)
 
 bool File::close()
 {
-	m_file->close();
-	return true;
+    m_file->close();
+    return true;
 }
 
 /*!
@@ -270,17 +267,16 @@ bool File::close()
 
 bool File::copy(const QUrl &fromUrl, const QUrl &toUrl)
 {
-	const QString toFileName = Url(toUrl).path();
-	if (QFileInfo(toFileName).exists() && !QFile::remove(toFileName))
-	{
-//		QMessageBox::critical(s_mainWidget, QCoreApplication::applicationName(),
-//		    tr("The file \"%1\" could not be overwritten").arg(toFileName));
-		return false;
-	}
-//	if (!QFile::copy(Url(fromUrl).path(), Url(toUrl).path()))
-//		QMessageBox::critical(s_mainWidget, QCoreApplication::applicationName(),
-//		    tr("The file \"%1\" could not be copied to").arg(toFileName));
-	return QFile::copy(Url(fromUrl).path(), toFileName);
+    const QString toFileName = Url(toUrl).path();
+    if (QFileInfo(toFileName).exists() && !QFile::remove(toFileName)) {
+        //		QMessageBox::critical(s_mainWidget, QCoreApplication::applicationName(),
+        //		    tr("The file \"%1\" could not be overwritten").arg(toFileName));
+        return false;
+    }
+    //	if (!QFile::copy(Url(fromUrl).path(), Url(toUrl).path()))
+    //		QMessageBox::critical(s_mainWidget, QCoreApplication::applicationName(),
+    //		    tr("The file \"%1\" could not be copied to").arg(toFileName));
+    return QFile::copy(Url(fromUrl).path(), toFileName);
 }
 #endif
 
@@ -310,7 +306,7 @@ bool File::copy(const QUrl &fromUrl, const QUrl &toUrl)
 
 QFile *File::file()
 {
-	return m_file;
+    return m_file;
 }
 
 /*!
@@ -320,7 +316,7 @@ QFile *File::file()
 
 QString File::errorString() const
 {
-	if (!m_errorString.isEmpty())
-		return m_errorString;
-	return m_file->errorString();
+    if (!m_errorString.isEmpty())
+        return m_errorString;
+    return m_file->errorString();
 }

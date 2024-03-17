@@ -23,45 +23,47 @@
 
 QString TikzDocumentationController::tikzDocumentationPath()
 {
-	QSettings settings;
-	QString tikzDocFile = settings.value(QLatin1String("TikzDocumentation")).toString();
-	const bool tikzDocFileInSettingsEmpty = tikzDocFile.isEmpty();
+    QSettings settings;
+    QString tikzDocFile = settings.value(QLatin1String("TikzDocumentation")).toString();
+    const bool tikzDocFileInSettingsEmpty = tikzDocFile.isEmpty();
 
-	if (tikzDocFileInSettingsEmpty)
-		tikzDocFile = searchTikzDocumentationInTexTree();
+    if (tikzDocFileInSettingsEmpty)
+        tikzDocFile = searchTikzDocumentationInTexTree();
 
 #ifdef KTIKZ_TIKZ_DOCUMENTATION_DEFAULT
-	if (tikzDocFile.isEmpty())
-		tikzDocFile = QString::fromLocal8Bit(KTIKZ_TIKZ_DOCUMENTATION_DEFAULT);
+    if (tikzDocFile.isEmpty())
+        tikzDocFile = QString::fromLocal8Bit(KTIKZ_TIKZ_DOCUMENTATION_DEFAULT);
 #endif
 
-	if (tikzDocFileInSettingsEmpty && !tikzDocFile.isEmpty())
-		storeTikzDocumentationPath(tikzDocFile);
+    if (tikzDocFileInSettingsEmpty && !tikzDocFile.isEmpty())
+        storeTikzDocumentationPath(tikzDocFile);
 
-	return tikzDocFile;
+    return tikzDocFile;
 }
 
 void TikzDocumentationController::storeTikzDocumentationPath(const QString &path)
 {
-	QSettings settings;
-	settings.setValue(QLatin1String("TikzDocumentation"), path);
+    QSettings settings;
+    settings.setValue(QLatin1String("TikzDocumentation"), path);
 }
 
 QString TikzDocumentationController::searchTikzDocumentationInTexTree()
 {
-	const QString kpsewhichCommand = QLatin1String("kpsewhich");
-	QStringList kpsewhichArguments;
-	kpsewhichArguments << QLatin1String("--format") << QLatin1String("TeX system documentation") << QLatin1String("pgfmanual.pdf") << QLatin1String("pgfmanual.pdf.gz") << QLatin1String("pgfmanual.ps") << QLatin1String("pgfmanual.ps.gz");
+    const QString kpsewhichCommand = QLatin1String("kpsewhich");
+    QStringList kpsewhichArguments;
+    kpsewhichArguments << QLatin1String("--format") << QLatin1String("TeX system documentation")
+                       << QLatin1String("pgfmanual.pdf") << QLatin1String("pgfmanual.pdf.gz")
+                       << QLatin1String("pgfmanual.ps") << QLatin1String("pgfmanual.ps.gz");
 
-	QProcess process;
-	process.start(kpsewhichCommand, kpsewhichArguments);
-	process.waitForStarted(1000);
-	while (process.state() != QProcess::NotRunning)
-		process.waitForFinished(100 /*msec*/);
+    QProcess process;
+    process.start(kpsewhichCommand, kpsewhichArguments);
+    process.waitForStarted(1000);
+    while (process.state() != QProcess::NotRunning)
+        process.waitForFinished(100 /*msec*/);
 
-	QString tikzDocFile = QString::fromLocal8Bit(process.readAllStandardOutput().constData());
-	int newLinePosition = tikzDocFile.indexOf(QLatin1Char('\n'));
-	if (newLinePosition >= 0)
-		tikzDocFile.remove(newLinePosition, tikzDocFile.length());
-	return tikzDocFile.trimmed();
+    QString tikzDocFile = QString::fromLocal8Bit(process.readAllStandardOutput().constData());
+    int newLinePosition = tikzDocFile.indexOf(QLatin1Char('\n'));
+    if (newLinePosition >= 0)
+        tikzDocFile.remove(newLinePosition, tikzDocFile.length());
+    return tikzDocFile.trimmed();
 }

@@ -23,21 +23,20 @@
 
 class TikzPreviewController;
 
-namespace KtikZ
-{
+namespace KtikZ {
 
 class BrowserExtension : public KParts::BrowserExtension
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	BrowserExtension(KParts::ReadOnlyPart*, TikzPreviewController *tikzPreviewController);
-	~BrowserExtension();
+    BrowserExtension(KParts::ReadOnlyPart *, TikzPreviewController *tikzPreviewController);
+    ~BrowserExtension();
 
 private Q_SLOTS:
-	void print();
+    void print();
 
 private:
-	TikzPreviewController *m_tikzPreviewController;
+    TikzPreviewController *m_tikzPreviewController;
 };
 
 } // namespace KtikZ

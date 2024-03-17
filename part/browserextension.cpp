@@ -23,25 +23,24 @@
 
 #include "../common/tikzpreviewcontroller.h"
 
-namespace KtikZ
-{
+namespace KtikZ {
 
-BrowserExtension::BrowserExtension(KParts::ReadOnlyPart *part, TikzPreviewController *tikzPreviewController)
-	: KParts::BrowserExtension(part)
+BrowserExtension::BrowserExtension(KParts::ReadOnlyPart *part,
+                                   TikzPreviewController *tikzPreviewController)
+    : KParts::BrowserExtension(part)
 {
-	m_tikzPreviewController = tikzPreviewController;
-	emit enableAction("print", true);
-	QString iconPath = KIconLoader::global()->iconPath(QStringLiteral("text-x-pgf"), KIconLoader::SizeSmall);
-	emit setIconUrl(QUrl::fromLocalFile(iconPath));
+    m_tikzPreviewController = tikzPreviewController;
+    emit enableAction("print", true);
+    QString iconPath =
+            KIconLoader::global()->iconPath(QStringLiteral("text-x-pgf"), KIconLoader::SizeSmall);
+    emit setIconUrl(QUrl::fromLocalFile(iconPath));
 }
 
-BrowserExtension::~BrowserExtension()
-{
-}
+BrowserExtension::~BrowserExtension() { }
 
 void BrowserExtension::print()
 {
-	m_tikzPreviewController->printImage();
+    m_tikzPreviewController->printImage();
 }
 
 } // namespace KtikZ

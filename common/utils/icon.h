@@ -24,14 +24,18 @@
 class Icon : public QIcon
 {
 public:
-// Check why second option might make more sense
-//#ifdef KTIKZ_USE_DESKTOP_ICONS
-	explicit Icon(const QString &iconName) : QIcon(QIcon::fromTheme(iconName, QIcon(QLatin1String(":/icons/") + iconName + QLatin1String(".png")))) {}
-//#else
-//	explicit Icon(const QString &iconName) : QIcon(QLatin1String(":/icons/") + iconName + QLatin1String(".png")) {} // faster than the above
-//#endif
-	explicit Icon(const QIcon &copy) : QIcon(copy) {}
-	Icon() : QIcon() {}
+    // Check why second option might make more sense
+    // #ifdef KTIKZ_USE_DESKTOP_ICONS
+    explicit Icon(const QString &iconName)
+        : QIcon(QIcon::fromTheme(
+                iconName, QIcon(QLatin1String(":/icons/") + iconName + QLatin1String(".png"))))
+    {
+    }
+    // #else
+    //	explicit Icon(const QString &iconName) : QIcon(QLatin1String(":/icons/") + iconName +
+    //QLatin1String(".png")) {} // faster than the above #endif
+    explicit Icon(const QIcon &copy) : QIcon(copy) { }
+    Icon() : QIcon() { }
 };
 
 #endif

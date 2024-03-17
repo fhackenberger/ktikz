@@ -20,30 +20,27 @@
 #define KTIKZ_URLCOMPLETION_H
 
 #ifdef KTIKZ_USE_KDE
-#include <KUrlCompletion>
+#  include <KUrlCompletion>
 
 class UrlCompletion : public KUrlCompletion
 {
 public:
-	explicit UrlCompletion(QObject *parent = 0) : KUrlCompletion()
-	{
-		Q_UNUSED(parent);
-	}
+    explicit UrlCompletion(QObject *parent = 0) : KUrlCompletion() { Q_UNUSED(parent); }
 };
 #else
-#include <QtWidgets/QCompleter>
-#include <QtWidgets/QFileSystemModel>
+#  include <QtWidgets/QCompleter>
+#  include <QtWidgets/QFileSystemModel>
 
 class UrlCompletion : public QCompleter
 {
 public:
-	explicit UrlCompletion(QObject *parent = 0) : QCompleter(parent)
-	{
-		QFileSystemModel *fileSystemModel = new QFileSystemModel(this);
-		fileSystemModel->setRootPath(QDir::rootPath()); // slow
-		setModel(fileSystemModel);
-		setCompletionMode(QCompleter::PopupCompletion);
-	}
+    explicit UrlCompletion(QObject *parent = 0) : QCompleter(parent)
+    {
+        QFileSystemModel *fileSystemModel = new QFileSystemModel(this);
+        fileSystemModel->setRootPath(QDir::rootPath()); // slow
+        setModel(fileSystemModel);
+        setCompletionMode(QCompleter::PopupCompletion);
+    }
 };
 #endif
 

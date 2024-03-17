@@ -30,48 +30,48 @@
 #include <QUrl>
 
 namespace KTextEditor {
-    class Document;
-    class View;
-}
+class Document;
+class View;
+} // namespace KTextEditor
 
-
-class TikzKTextEditorCompletion
-	: public KTextEditor::CodeCompletionModel
-	, public KTextEditor::CodeCompletionModelControllerInterface
+class TikzKTextEditorCompletion : public KTextEditor::CodeCompletionModel,
+                                  public KTextEditor::CodeCompletionModelControllerInterface
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
+    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 
 public:
-	TikzKTextEditorCompletion(QObject* parent);
-	~TikzKTextEditorCompletion();
+    TikzKTextEditorCompletion(QObject *parent);
+    ~TikzKTextEditorCompletion();
 
-	void updateCompleter(bool useCompletion, const QStringList &words);
+    void updateCompleter(bool useCompletion, const QStringList &words);
 
-	//bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
-	KTextEditor::Range completionRange(KTextEditor::View *view, const KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
-	//QString filterString(KTextEditor::View *view, const KTextEditor::Range &range, const KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
+    // bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool
+    // userInsertion, const KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
+    KTextEditor::Range completionRange(KTextEditor::View *view,
+                                       const KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
+    // QString filterString(KTextEditor::View *view, const KTextEditor::Range &range, const
+    // KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
 
-	void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, KTextEditor::CodeCompletionModel::InvocationType it) Q_DECL_OVERRIDE;
-	QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
+    void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range,
+                           KTextEditor::CodeCompletionModel::InvocationType it) Q_DECL_OVERRIDE;
+    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
 
 private:
+    void findMatches();
 
-	void findMatches();
+    bool m_useCompletion;
+    QStringList m_wordsList;
+    /**
+     * model with matching data
+     */
+    QStandardItemModel m_matches;
 
-	bool m_useCompletion;
-	QStringList m_wordsList;
-	/**
-	 * model with matching data
-	 */
-	QStandardItemModel m_matches;
-
-	/**
-	 * automatic invocation?
-	 */
-	bool m_automatic;
+    /**
+     * automatic invocation?
+     */
+    bool m_automatic;
 };
 
 #endif
-

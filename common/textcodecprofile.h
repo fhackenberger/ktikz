@@ -21,20 +21,15 @@
 
 class QTextStream;
 
-class TextCodecProfile{
+class TextCodecProfile
+{
 public:
-	/// Configure a QTextStream to encode a TeX file.
-	/// @arg textStream A non-null instance of QTextStream.
-	void configureStreamEncoding(QTextStream& textStream) const
-	{
-		Q_UNUSED(textStream);
-	}
-	/// Configure a QTextStream to decode a TeX file.
-	/// @arg textStream A non-null instance of QTextStream.
-	void configureStreamDecoding(QTextStream& textStream) const
-	{
-		Q_UNUSED(textStream);
-	}
+    /// Configure a QTextStream to encode a TeX file.
+    /// @arg textStream A non-null instance of QTextStream.
+    void configureStreamEncoding(QTextStream &textStream) const { Q_UNUSED(textStream); }
+    /// Configure a QTextStream to decode a TeX file.
+    /// @arg textStream A non-null instance of QTextStream.
+    void configureStreamDecoding(QTextStream &textStream) const { Q_UNUSED(textStream); }
 };
 
 #endif // TEXTCODECPROFILE_H

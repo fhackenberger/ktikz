@@ -21,7 +21,7 @@
 #include <QtWidgets/QLineEdit>
 
 #ifdef KTIKZ_USE_KDE
-#include <KCompletion>
+#  include <KCompletion>
 #endif
 #include <QtGui/QKeyEvent>
 
@@ -30,118 +30,116 @@
 
 ReplaceWidget::ReplaceWidget(QWidget *parent) : QWidget(parent)
 {
-	ui.setupUi(this);
-	ui.comboBoxFind->setEditable(true);
-	ui.comboBoxReplace->setEditable(true);
-	ui.comboBoxFind->lineEdit()->setClearButtonEnabled(true);
-	ui.comboBoxReplace->lineEdit()->setClearButtonEnabled(true);
-	ui.pushButtonClose->setIcon(Icon(QLatin1String("dialog-cancel")));
-	ui.pushButtonBackward->setIcon(Icon(QLatin1String("go-up")));
-	ui.pushButtonForward->setIcon(Icon(QLatin1String("go-down")));
+    ui.setupUi(this);
+    ui.comboBoxFind->setEditable(true);
+    ui.comboBoxReplace->setEditable(true);
+    ui.comboBoxFind->lineEdit()->setClearButtonEnabled(true);
+    ui.comboBoxReplace->lineEdit()->setClearButtonEnabled(true);
+    ui.pushButtonClose->setIcon(Icon(QLatin1String("dialog-cancel")));
+    ui.pushButtonBackward->setIcon(Icon(QLatin1String("go-up")));
+    ui.pushButtonForward->setIcon(Icon(QLatin1String("go-down")));
 #ifdef KTIKZ_USE_KDE
-	// activate completion
-	KCompletion *completion = ui.comboBoxFind->completionObject();
-	connect(ui.comboBoxFind, SIGNAL(returnPressed(QString)), completion, SLOT(addItem(QString)));
-	completion = ui.comboBoxReplace->completionObject();
-	connect(ui.comboBoxReplace, SIGNAL(returnPressed(QString)), completion, SLOT(addItem(QString)));
+    // activate completion
+    KCompletion *completion = ui.comboBoxFind->completionObject();
+    connect(ui.comboBoxFind, SIGNAL(returnPressed(QString)), completion, SLOT(addItem(QString)));
+    completion = ui.comboBoxReplace->completionObject();
+    connect(ui.comboBoxReplace, SIGNAL(returnPressed(QString)), completion, SLOT(addItem(QString)));
 #endif
 
-	setFocusProxy(ui.comboBoxFind);
+    setFocusProxy(ui.comboBoxFind);
 
-	connect(ui.pushButtonBackward, SIGNAL(clicked()), this, SLOT(setBackward()));
-	connect(ui.pushButtonForward, SIGNAL(clicked()), this, SLOT(setForward()));
-	connect(ui.pushButtonFind, SIGNAL(clicked()), this, SLOT(doFind()));
-	connect(ui.pushButtonReplace, SIGNAL(clicked()), this, SLOT(doReplace()));
-	connect(ui.pushButtonClose, SIGNAL(clicked()), this, SLOT(hide()));
+    connect(ui.pushButtonBackward, SIGNAL(clicked()), this, SLOT(setBackward()));
+    connect(ui.pushButtonForward, SIGNAL(clicked()), this, SLOT(setForward()));
+    connect(ui.pushButtonFind, SIGNAL(clicked()), this, SLOT(doFind()));
+    connect(ui.pushButtonReplace, SIGNAL(clicked()), this, SLOT(doReplace()));
+    connect(ui.pushButtonClose, SIGNAL(clicked()), this, SLOT(hide()));
 }
 
-ReplaceWidget::~ReplaceWidget()
-{
-}
+ReplaceWidget::~ReplaceWidget() { }
 
 void ReplaceWidget::setBackward()
 {
-	ui.pushButtonBackward->setChecked(true);
-	ui.pushButtonForward->setChecked(false);
+    ui.pushButtonBackward->setChecked(true);
+    ui.pushButtonForward->setChecked(false);
 }
 
 void ReplaceWidget::setForward()
 {
-	ui.pushButtonBackward->setChecked(false);
-	ui.pushButtonForward->setChecked(true);
+    ui.pushButtonBackward->setChecked(false);
+    ui.pushButtonForward->setChecked(true);
 }
 
 void ReplaceWidget::setForward(bool forward)
 {
-	if (forward)
-		setForward();
-	else
-		setBackward();
+    if (forward)
+        setForward();
+    else
+        setBackward();
 }
 
 void ReplaceWidget::hide()
 {
-	setVisible(false);
-	Q_EMIT focusEditor();
+    setVisible(false);
+    Q_EMIT focusEditor();
 }
 
 void ReplaceWidget::doFind()
 {
-	const QString currentText = ui.comboBoxFind->currentText();
-	if (currentText.isEmpty())
-		return;
-	if (ui.comboBoxFind->findText(currentText) < 0)
-		ui.comboBoxFind->addItem(currentText);
+    const QString currentText = ui.comboBoxFind->currentText();
+    if (currentText.isEmpty())
+        return;
+    if (ui.comboBoxFind->findText(currentText) < 0)
+        ui.comboBoxFind->addItem(currentText);
 
-	QTextDocument::FindFlags flags = 0;
-	if (ui.checkBoxCaseSensitive->isChecked())
-		flags |= QTextDocument::FindCaseSensitively;
-	if (ui.checkBoxWholeWords->isChecked())
-		flags |= QTextDocument::FindWholeWords;
-	if (!ui.pushButtonForward->isChecked())
-		flags |= QTextDocument::FindBackward;
-	Q_EMIT search(currentText, flags);
+    QTextDocument::FindFlags flags = 0;
+    if (ui.checkBoxCaseSensitive->isChecked())
+        flags |= QTextDocument::FindCaseSensitively;
+    if (ui.checkBoxWholeWords->isChecked())
+        flags |= QTextDocument::FindWholeWords;
+    if (!ui.pushButtonForward->isChecked())
+        flags |= QTextDocument::FindBackward;
+    Q_EMIT search(currentText, flags);
 }
 
 void ReplaceWidget::doReplace()
 {
-	const QString currentText = ui.comboBoxFind->currentText();
-	if (currentText.isEmpty())
-		return;
-	const QString replacementText = ui.comboBoxReplace->currentText();
-	if (ui.comboBoxFind->findText(currentText) < 0)
-		ui.comboBoxFind->addItem(currentText);
-	if (ui.comboBoxReplace->findText(replacementText) < 0)
-		ui.comboBoxReplace->addItem(replacementText);
+    const QString currentText = ui.comboBoxFind->currentText();
+    if (currentText.isEmpty())
+        return;
+    const QString replacementText = ui.comboBoxReplace->currentText();
+    if (ui.comboBoxFind->findText(currentText) < 0)
+        ui.comboBoxFind->addItem(currentText);
+    if (ui.comboBoxReplace->findText(replacementText) < 0)
+        ui.comboBoxReplace->addItem(replacementText);
 
-	QTextDocument::FindFlags flags = 0;
-	if (ui.checkBoxCaseSensitive->isChecked())
-		flags |= QTextDocument::FindCaseSensitively;
-	if (ui.checkBoxWholeWords->isChecked())
-		flags |= QTextDocument::FindWholeWords;
-	if (!ui.pushButtonForward->isChecked())
-		flags |= QTextDocument::FindBackward;
-	Q_EMIT replace(currentText, replacementText, flags);
+    QTextDocument::FindFlags flags = 0;
+    if (ui.checkBoxCaseSensitive->isChecked())
+        flags |= QTextDocument::FindCaseSensitively;
+    if (ui.checkBoxWholeWords->isChecked())
+        flags |= QTextDocument::FindWholeWords;
+    if (!ui.pushButtonForward->isChecked())
+        flags |= QTextDocument::FindBackward;
+    Q_EMIT replace(currentText, replacementText, flags);
 }
 
 void ReplaceWidget::setText(const QString &text)
 {
-	ui.comboBoxFind->lineEdit()->setText(text);
-	ui.comboBoxFind->setFocus();
-	ui.comboBoxFind->lineEdit()->selectAll();
+    ui.comboBoxFind->lineEdit()->setText(text);
+    ui.comboBoxFind->setFocus();
+    ui.comboBoxFind->lineEdit()->selectAll();
 }
 
 void ReplaceWidget::showEvent(QShowEvent *event)
 {
-	ui.comboBoxFind->setFocus();
-	QWidget::showEvent(event);
+    ui.comboBoxFind->setFocus();
+    QWidget::showEvent(event);
 }
 
 void ReplaceWidget::keyPressEvent(QKeyEvent *event)
 {
-	if (event->key() == Qt::Key_Escape)
-		hide();
-	else if (event->key() == Qt::Key_Return)
-		doFind();
-	QWidget::keyPressEvent(event);
+    if (event->key() == Qt::Key_Escape)
+        hide();
+    else if (event->key() == Qt::Key_Return)
+        doFind();
+    QWidget::keyPressEvent(event);
 }

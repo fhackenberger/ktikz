@@ -25,18 +25,14 @@ class QWidget;
 class MessageBox
 {
 public:
-	enum ButtonCode
-	{
-		Ok = 1,
-		Cancel = 2,
-		Yes = 3,
-		No = 4,
-		Continue = 5
-	};
+    enum ButtonCode { Ok = 1, Cancel = 2, Yes = 3, No = 4, Continue = 5 };
 
-	static int questionYesNo(QWidget *parent, const QString &text, const QString &caption = QString(), const QString &yesButtonText = QString(), const QString &noButtonText = QString());
-	static void sorry(QWidget *parent, const QString &text, const QString &caption = QString());
-	static void error(QWidget *parent, const QString &text, const QString &caption = QString());
+    static int questionYesNo(QWidget *parent, const QString &text,
+                             const QString &caption = QString(),
+                             const QString &yesButtonText = QString(),
+                             const QString &noButtonText = QString());
+    static void sorry(QWidget *parent, const QString &text, const QString &caption = QString());
+    static void error(QWidget *parent, const QString &text, const QString &caption = QString());
 };
 
 #endif

@@ -25,163 +25,163 @@
 #include "tikzeditorhighlighter.h"
 #include "tikzcommandinserter.h"
 
-TikzHighlighter::TikzHighlighter(QTextDocument *parent)
-	: QSyntaxHighlighter(parent)
-{
-}
+TikzHighlighter::TikzHighlighter(QTextDocument *parent) : QSyntaxHighlighter(parent) { }
 
-TikzHighlighter::~TikzHighlighter()
-{
-}
+TikzHighlighter::~TikzHighlighter() { }
 
 void TikzHighlighter::setHighlightingRules(const QVector<HighlightingRule> &highlightingRules)
 {
-	m_highlightingRules << highlightingRules;
+    m_highlightingRules << highlightingRules;
 
-	// add highlighting for environments and comments
-	HighlightingRule rule;
-	QStringList highlightTypeNames = getHighlightTypeNames();
-	const int currentIndex = highlightTypeNames.size() - 2;
-	// environments
-	QStringList keywordPatterns;
-	keywordPatterns << QLatin1String("\\\\begin\\{[^\\}]*\\}") << QLatin1String("\\\\end\\{[^\\}]*\\}");
-	Q_FOREACH (const QString &pattern, keywordPatterns)
-	{
-		rule.type = highlightTypeNames.at(currentIndex);
-		rule.pattern = QRegExp(pattern);
-		rule.isRegExp = true;
-		m_highlightingRules.append(rule);
-	}
-	// comments
-	rule.type = highlightTypeNames.at(currentIndex + 1);
-	rule.pattern = QRegExp(QLatin1String("%[^\n]*"));
-	rule.isRegExp = true;
-	m_highlightingRules.append(rule);
+    // add highlighting for environments and comments
+    HighlightingRule rule;
+    QStringList highlightTypeNames = getHighlightTypeNames();
+    const int currentIndex = highlightTypeNames.size() - 2;
+    // environments
+    QStringList keywordPatterns;
+    keywordPatterns << QLatin1String("\\\\begin\\{[^\\}]*\\}")
+                    << QLatin1String("\\\\end\\{[^\\}]*\\}");
+    Q_FOREACH (const QString &pattern, keywordPatterns) {
+        rule.type = highlightTypeNames.at(currentIndex);
+        rule.pattern = QRegExp(pattern);
+        rule.isRegExp = true;
+        m_highlightingRules.append(rule);
+    }
+    // comments
+    rule.type = highlightTypeNames.at(currentIndex + 1);
+    rule.pattern = QRegExp(QLatin1String("%[^\n]*"));
+    rule.isRegExp = true;
+    m_highlightingRules.append(rule);
 
-//	m_formatList = getDefaultHighlightFormats();
+    //	m_formatList = getDefaultHighlightFormats();
 }
 
 /***************************************************************************/
 
 QMap<QString, QTextCharFormat> TikzHighlighter::getDefaultHighlightFormats()
 {
-	QMap<QString, QTextCharFormat> formatList = TikzCommandInserter::getDefaultHighlightFormats();
-	QStringList highlightTypeNames = getHighlightTypeNames();
-	const int currentIndex = highlightTypeNames.size() - 2;
+    QMap<QString, QTextCharFormat> formatList = TikzCommandInserter::getDefaultHighlightFormats();
+    QStringList highlightTypeNames = getHighlightTypeNames();
+    const int currentIndex = highlightTypeNames.size() - 2;
 
-	// format for environments
-	QTextCharFormat keywordFormat;
-	keywordFormat.setForeground(Qt::darkBlue);
-	keywordFormat.setFont(qApp->font());
-	keywordFormat.setFontWeight(QFont::Bold);
-	formatList[highlightTypeNames.at(currentIndex)] = keywordFormat;
+    // format for environments
+    QTextCharFormat keywordFormat;
+    keywordFormat.setForeground(Qt::darkBlue);
+    keywordFormat.setFont(qApp->font());
+    keywordFormat.setFontWeight(QFont::Bold);
+    formatList[highlightTypeNames.at(currentIndex)] = keywordFormat;
 
-	// format for comments
-	QTextCharFormat commentFormat;
-	commentFormat.setForeground(Qt::gray);
-	commentFormat.setFont(qApp->font());
-	commentFormat.setFontWeight(QFont::Normal);
-	formatList[highlightTypeNames.at(currentIndex + 1)] = commentFormat;
+    // format for comments
+    QTextCharFormat commentFormat;
+    commentFormat.setForeground(Qt::gray);
+    commentFormat.setFont(qApp->font());
+    commentFormat.setFontWeight(QFont::Normal);
+    formatList[highlightTypeNames.at(currentIndex + 1)] = commentFormat;
 
-	return formatList;
+    return formatList;
 }
 
 QStringList TikzHighlighter::getTranslatedHighlightTypeNames()
 {
-	QStringList translatedHighlightTypeNames = TikzCommandInserter::getTranslatedHighlightTypeNames();
-	translatedHighlightTypeNames << tr("Environments") << tr("Comments");
-	return translatedHighlightTypeNames;
+    QStringList translatedHighlightTypeNames =
+            TikzCommandInserter::getTranslatedHighlightTypeNames();
+    translatedHighlightTypeNames << tr("Environments") << tr("Comments");
+    return translatedHighlightTypeNames;
 }
 
 QStringList TikzHighlighter::getHighlightTypeNames()
 {
-	QStringList highlightTypeNames = TikzCommandInserter::getHighlightTypeNames();
-	highlightTypeNames << QLatin1String("Environments") << QLatin1String("Comments");
-	return highlightTypeNames;
+    QStringList highlightTypeNames = TikzCommandInserter::getHighlightTypeNames();
+    highlightTypeNames << QLatin1String("Environments") << QLatin1String("Comments");
+    return highlightTypeNames;
 }
 
 /***************************************************************************/
 
 void TikzHighlighter::applySettings()
 {
-	QSettings settings;
-	settings.beginGroup(QLatin1String("Highlighting"));
-	const bool customHighlighting = settings.value(QLatin1String("Customize"), true).toBool();
+    QSettings settings;
+    settings.beginGroup(QLatin1String("Highlighting"));
+    const bool customHighlighting = settings.value(QLatin1String("Customize"), true).toBool();
 
-	m_formatList.clear();
-	m_formatList = getDefaultHighlightFormats();
+    m_formatList.clear();
+    m_formatList = getDefaultHighlightFormats();
 
-	if (customHighlighting)
-	{
-		const int numOfRules = settings.value(QLatin1String("Number"), 0).toInt();
-		for (int i = 0; i < numOfRules; ++i)
-		{
-			const QString name = settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Name")).toString();
-			const QString colorName = settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Color")).toString();
-			const QString fontName = settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Font")).toString();
-			QFont font;
-			font.fromString(fontName);
-			QTextCharFormat format;
-			format.setForeground(QBrush(QColor(colorName)));
-			format.setFont(font);
-			m_formatList[name] = format;
-		}
-	}
-	settings.endGroup();
+    if (customHighlighting) {
+        const int numOfRules = settings.value(QLatin1String("Number"), 0).toInt();
+        for (int i = 0; i < numOfRules; ++i) {
+            const QString name = settings.value(QLatin1String("Item") + QString::number(i)
+                                                + QLatin1String("/Name"))
+                                         .toString();
+            const QString colorName = settings.value(QLatin1String("Item") + QString::number(i)
+                                                     + QLatin1String("/Color"))
+                                              .toString();
+            const QString fontName = settings.value(QLatin1String("Item") + QString::number(i)
+                                                    + QLatin1String("/Font"))
+                                             .toString();
+            QFont font;
+            font.fromString(fontName);
+            QTextCharFormat format;
+            format.setForeground(QBrush(QColor(colorName)));
+            format.setFont(font);
+            m_formatList[name] = format;
+        }
+    }
+    settings.endGroup();
 }
 
 namespace {
 
 int indexOf(const QString &text, const QString &tag, int startPos = 0)
 {
-	// valgrind --tool=callgrind --zero-before="MainWindow::loadUrl(Url const&)" gives a small win for this function over "text.indexOf(tag, startPos);"
-	const int textLength = text.length();
-	const int tagLength = tag.length();
-	for (int i = startPos, j = 0; i < textLength && j < tagLength; ++i, ++j)
-	{
-		if (text.at(i) != tag.at(j))
-		{
-			j = -1;
-			continue;
-		}
-		if (j == tagLength - 1)
-			return i - tagLength + 1;
-	}
-	return -1;
+    // valgrind --tool=callgrind --zero-before="MainWindow::loadUrl(Url const&)" gives a small win
+    // for this function over "text.indexOf(tag, startPos);"
+    const int textLength = text.length();
+    const int tagLength = tag.length();
+    for (int i = startPos, j = 0; i < textLength && j < tagLength; ++i, ++j) {
+        if (text.at(i) != tag.at(j)) {
+            j = -1;
+            continue;
+        }
+        if (j == tagLength - 1)
+            return i - tagLength + 1;
+    }
+    return -1;
 }
 
 } // anonymous namespace
 
 void TikzHighlighter::highlightBlock(const QString &text)
 {
-	// Try each highlighting pattern and apply formatting if it matches
-	// Having the outer loop loop over the highlighting rules and the inner loop over the text is much faster than conversely
-	Q_FOREACH (const HighlightingRule &rule, m_highlightingRules)
-	{
-		if (!rule.isRegExp) // match the insertion string
-		{
-			const int length = rule.matchString.length();
-//			int index = text.indexOf(rule.matchString);
-			int index = indexOf(text, rule.matchString);
-			while (index >= 0)
-			{
-				if (index == 0 || text.at(index - 1) != QLatin1Char('\\')) // avoid matching e.g. "node" as an option if in reality "\node" as a command is written
-					setFormat(index, length, m_formatList[rule.type]);
-//				index = text.indexOf(rule.matchString, index + length);
-				index = indexOf(text, rule.matchString, index + length);
-			}
-		}
-		else // match the pattern
-		{
-			int index = rule.pattern.indexIn(text);
-			while (index >= 0)
-			{
-				const int length = rule.pattern.matchedLength();
-				if (index == 0 || text.at(index-1) != QLatin1Char('\\'))
-					setFormat(index, length, m_formatList[rule.type]);
-				index = rule.pattern.indexIn(text, index + length);
-			}
-		}
-	}
-	setCurrentBlockState(0);
+    // Try each highlighting pattern and apply formatting if it matches
+    // Having the outer loop loop over the highlighting rules and the inner loop over the text is
+    // much faster than conversely
+    Q_FOREACH (const HighlightingRule &rule, m_highlightingRules) {
+        if (!rule.isRegExp) // match the insertion string
+        {
+            const int length = rule.matchString.length();
+            //			int index = text.indexOf(rule.matchString);
+            int index = indexOf(text, rule.matchString);
+            while (index >= 0) {
+                if (index == 0
+                    || text.at(index - 1)
+                            != QLatin1Char('\\')) // avoid matching e.g. "node" as an option if in
+                                                  // reality "\node" as a command is written
+                    setFormat(index, length, m_formatList[rule.type]);
+                //				index = text.indexOf(rule.matchString, index +
+                //length);
+                index = indexOf(text, rule.matchString, index + length);
+            }
+        } else // match the pattern
+        {
+            int index = rule.pattern.indexIn(text);
+            while (index >= 0) {
+                const int length = rule.pattern.matchedLength();
+                if (index == 0 || text.at(index - 1) != QLatin1Char('\\'))
+                    setFormat(index, length, m_formatList[rule.type]);
+                index = rule.pattern.indexIn(text, index + length);
+            }
+        }
+    }
+    setCurrentBlockState(0);
 }

@@ -23,17 +23,17 @@
 
 class ConfigPreviewWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ConfigPreviewWidget(QWidget *parent = 0);
-	~ConfigPreviewWidget();
+    explicit ConfigPreviewWidget(QWidget *parent = 0);
+    ~ConfigPreviewWidget();
 
-	void readSettings(const QString &settingsGroup);
-	void writeSettings(const QString &settingsGroup);
+    void readSettings(const QString &settingsGroup);
+    void writeSettings(const QString &settingsGroup);
 
 protected:
-	Ui::ConfigPreviewWidget ui;
+    Ui::ConfigPreviewWidget ui;
 };
 
 #endif // KTIKZ_CONFIGPREVIEWWIDGET_H

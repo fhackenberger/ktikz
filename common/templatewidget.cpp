@@ -19,8 +19,8 @@
 #include "templatewidget.h"
 
 #ifdef KTIKZ_USE_KDE
-#include <KRun>
-#include <kio_version.h>
+#  include <KRun>
+#  include <kio_version.h>
 #endif
 
 #include <QtCore/QProcess>
@@ -39,160 +39,165 @@
 
 TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
 {
-	ui.setupUi(this);
-	ui.templateCombo->setEditable(true);
-	ui.templateCombo->lineEdit()->setClearButtonEnabled(true);
-	ui.templateCombo->setMinimumContentsLength(20);
-	ui.templateChooseButton->setIcon(Icon(QLatin1String("document-open")));
+    ui.setupUi(this);
+    ui.templateCombo->setEditable(true);
+    ui.templateCombo->lineEdit()->setClearButtonEnabled(true);
+    ui.templateCombo->setMinimumContentsLength(20);
+    ui.templateChooseButton->setIcon(Icon(QLatin1String("document-open")));
 #ifdef KTIKZ_KPART
-	ui.templateReloadButton->setVisible(false);
+    ui.templateReloadButton->setVisible(false);
 #else
-	ui.templateReloadButton->setIcon(Icon(QLatin1String("view-refresh")));
+    ui.templateReloadButton->setIcon(Icon(QLatin1String("view-refresh")));
 #endif
-	ui.templateEditButton->setIcon(Icon(QLatin1String("document-edit")));
+    ui.templateEditButton->setIcon(Icon(QLatin1String("document-edit")));
 
-	m_urlCompletion = new UrlCompletion(this);
-	ui.templateCombo->setCompletionObject(m_urlCompletion);
+    m_urlCompletion = new UrlCompletion(this);
+    ui.templateCombo->setCompletionObject(m_urlCompletion);
 
-	connect(ui.templateChooseButton, SIGNAL(clicked()),
-	        this, SLOT(selectTemplateFile()));
-	connect(ui.templateEditButton, SIGNAL(clicked()),
-	        this, SLOT(editTemplateFile()));
-	connect(ui.templateReloadButton, SIGNAL(clicked()),
-	        this, SLOT(reloadTemplateFile()));
-	connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)),
-	        this, SIGNAL(fileNameChanged(QString)));
+    connect(ui.templateChooseButton, SIGNAL(clicked()), this, SLOT(selectTemplateFile()));
+    connect(ui.templateEditButton, SIGNAL(clicked()), this, SLOT(editTemplateFile()));
+    connect(ui.templateReloadButton, SIGNAL(clicked()), this, SLOT(reloadTemplateFile()));
+    connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)), this,
+            SIGNAL(fileNameChanged(QString)));
 
-	readRecentTemplates();
+    readRecentTemplates();
 }
 
 TemplateWidget::~TemplateWidget()
 {
-	saveRecentTemplates();
-	delete m_urlCompletion;
+    saveRecentTemplates();
+    delete m_urlCompletion;
 }
 
 QWidget *TemplateWidget::lastTabOrderWidget()
 {
-	return ui.templateEditButton;
+    return ui.templateEditButton;
 }
 
 void TemplateWidget::readRecentTemplates()
 {
-	QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME));
-	ui.templateCombo->setMaxCount(settings.value(QLatin1String("TemplateRecentNumber"), 10).toInt());
-	const QStringList templateRecentList = settings.value(QLatin1String("TemplateRecent")).toStringList();
-	ui.templateCombo->addItems(templateRecentList);
-	const int index = templateRecentList.indexOf(settings.value(QLatin1String("TemplateFile")).toString());
-	ui.templateCombo->setCurrentIndex(index >= 0 ? index : 0);
+    QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME));
+    ui.templateCombo->setMaxCount(
+            settings.value(QLatin1String("TemplateRecentNumber"), 10).toInt());
+    const QStringList templateRecentList =
+            settings.value(QLatin1String("TemplateRecent")).toStringList();
+    ui.templateCombo->addItems(templateRecentList);
+    const int index =
+            templateRecentList.indexOf(settings.value(QLatin1String("TemplateFile")).toString());
+    ui.templateCombo->setCurrentIndex(index >= 0 ? index : 0);
 }
 
 void TemplateWidget::saveRecentTemplates()
 {
-	QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME));
-	QStringList recentTemplates;
-	for (int i = 0; i < ui.templateCombo->count(); ++i)
-		recentTemplates << ui.templateCombo->itemText(i);
-	settings.setValue(QLatin1String("TemplateRecent"), recentTemplates);
-	settings.setValue(QLatin1String("TemplateFile"), ui.templateCombo->lineEdit()->text());
+    QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME));
+    QStringList recentTemplates;
+    for (int i = 0; i < ui.templateCombo->count(); ++i)
+        recentTemplates << ui.templateCombo->itemText(i);
+    settings.setValue(QLatin1String("TemplateRecent"), recentTemplates);
+    settings.setValue(QLatin1String("TemplateFile"), ui.templateCombo->lineEdit()->text());
 }
 
 void TemplateWidget::setFileName(const QString &fileName)
 {
-	disconnect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)),
-	           this, SIGNAL(fileNameChanged(QString)));
-	const int index = ui.templateCombo->findText(fileName);
-	if (index >= 0) // then remove item in order to re-add it at the top
-		ui.templateCombo->removeItem(index);
-	ui.templateCombo->insertItem(0, fileName);
-	ui.templateCombo->lineEdit()->setText(QString());
-	connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)),
-	        this, SIGNAL(fileNameChanged(QString)));
-	ui.templateCombo->setCurrentIndex(0);
+    disconnect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)), this,
+               SIGNAL(fileNameChanged(QString)));
+    const int index = ui.templateCombo->findText(fileName);
+    if (index >= 0) // then remove item in order to re-add it at the top
+        ui.templateCombo->removeItem(index);
+    ui.templateCombo->insertItem(0, fileName);
+    ui.templateCombo->lineEdit()->setText(QString());
+    connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)), this,
+            SIGNAL(fileNameChanged(QString)));
+    ui.templateCombo->setCurrentIndex(0);
 }
 
 void TemplateWidget::setReplaceText(const QString &replace)
 {
-	const QString templateDescription(tr("<p>The template contains the code "
-	                                     "of a complete LaTeX document in which the TikZ picture will be "
-	                                     "included and which will be typesetted to produce the preview "
-	                                     "image.  The string %1 in the template will be replaced by the "
-	                                     "TikZ code.</p>")
-	                                     .arg(replace.toHtmlEscaped()));
-	ui.templateCombo->setWhatsThis(tr("<p>Give the file name of the LaTeX "
-	                                  "template.  If this input field is empty or contains an invalid "
-	                                  "file name, an internal default template will be used.</p>")
-	                               + templateDescription);
-	ui.templateLabel->setWhatsThis(ui.templateCombo->whatsThis());
-	ui.templateEditButton->setWhatsThis(tr("<p>Edit this template with "
-	                                       "an external editor specified in the \"Configure\" dialog.</p>")
-	                                    + templateDescription);
+    const QString templateDescription(
+            tr("<p>The template contains the code "
+               "of a complete LaTeX document in which the TikZ picture will be "
+               "included and which will be typesetted to produce the preview "
+               "image.  The string %1 in the template will be replaced by the "
+               "TikZ code.</p>")
+                    .arg(replace.toHtmlEscaped()));
+    ui.templateCombo->setWhatsThis(
+            tr("<p>Give the file name of the LaTeX "
+               "template.  If this input field is empty or contains an invalid "
+               "file name, an internal default template will be used.</p>")
+            + templateDescription);
+    ui.templateLabel->setWhatsThis(ui.templateCombo->whatsThis());
+    ui.templateEditButton->setWhatsThis(
+            tr("<p>Edit this template with "
+               "an external editor specified in the \"Configure\" dialog.</p>")
+            + templateDescription);
 #ifdef KTIKZ_KPART
-	// dirty hack: make the following strings translated in the kpart:
-	ui.templateLabel->setText(tr("&Template:"));
-	ui.templateChooseButton->setWhatsThis(tr("<p>Browse to an existing template file.</p>"));
-	ui.templateChooseButton->setToolTip(tr("Select template file"));
-	ui.templateEditButton->setToolTip(tr("Edit template file"));
+    // dirty hack: make the following strings translated in the kpart:
+    ui.templateLabel->setText(tr("&Template:"));
+    ui.templateChooseButton->setWhatsThis(tr("<p>Browse to an existing template file.</p>"));
+    ui.templateChooseButton->setToolTip(tr("Select template file"));
+    ui.templateEditButton->setToolTip(tr("Edit template file"));
 #endif
 }
 
 void TemplateWidget::setEditor(const QString &editor)
 {
-	m_editor = editor;
+    m_editor = editor;
 }
 
 QString TemplateWidget::fileName() const
 {
-	return ui.templateCombo->currentText();
+    return ui.templateCombo->currentText();
 }
 
 void TemplateWidget::selectTemplateFile()
 {
-	QString currentFileName = ui.templateCombo->currentText();
+    QString currentFileName = ui.templateCombo->currentText();
 #ifdef KTIKZ_TEMPLATES_INSTALL_DIR
-	if (currentFileName.isEmpty() && QFileInfo(QString::fromLocal8Bit(KTIKZ_TEMPLATES_INSTALL_DIR)).isDir())
-		currentFileName = QString::fromLocal8Bit(KTIKZ_TEMPLATES_INSTALL_DIR);
+    if (currentFileName.isEmpty()
+        && QFileInfo(QString::fromLocal8Bit(KTIKZ_TEMPLATES_INSTALL_DIR)).isDir())
+        currentFileName = QString::fromLocal8Bit(KTIKZ_TEMPLATES_INSTALL_DIR);
 #endif
-	const Url url = FileDialog::getOpenUrl(this,
-	                                       tr("Select a template file"), Url(currentFileName),
-	                                       QString(QLatin1String("*.pgs *.tex|%1\n*|%2"))
-	                                       .arg(tr("%1 template files").arg(QCoreApplication::applicationName()))
-	                                       .arg(tr("All files")));
-	if (url.isValid())
-		setFileName(url.pathOrUrl());
+    const Url url = FileDialog::getOpenUrl(
+            this, tr("Select a template file"), Url(currentFileName),
+            QString(QLatin1String("*.pgs *.tex|%1\n*|%2"))
+                    .arg(tr("%1 template files").arg(QCoreApplication::applicationName()))
+                    .arg(tr("All files")));
+    if (url.isValid())
+        setFileName(url.pathOrUrl());
 }
 
 void TemplateWidget::editTemplateFile()
 {
-	QApplication::setOverrideCursor(Qt::WaitCursor);
+    QApplication::setOverrideCursor(Qt::WaitCursor);
 
-	QStringList editorArguments;
-	editorArguments << ui.templateCombo->currentText();
+    QStringList editorArguments;
+    editorArguments << ui.templateCombo->currentText();
 
 #ifdef KTIKZ_USE_KDE
- #if ( (KIO_VERSION_MAJOR >= 5)  && ( KIO_VERSION_MINOR > 31 ) )
-  KRun::runUrl( Url( fileName() ), QStringLiteral( "text/plain" ), NULL,  KRun::RunExecutables, QString() );
+#  if ((KIO_VERSION_MAJOR >= 5) && (KIO_VERSION_MINOR > 31))
+    KRun::runUrl(Url(fileName()), QStringLiteral("text/plain"), NULL, KRun::RunExecutables,
+                 QString());
+#  else
+    KRun::runUrl(Url(fileName()), QStringLiteral("text/plain"), NULL, 0);
+#  endif
 #else
-  KRun::runUrl( Url( fileName() ), QStringLiteral( "text/plain" ), NULL,  0 );
-#endif
-#else
-	QProcess process;
-	process.startDetached(m_editor, editorArguments);
+    QProcess process;
+    process.startDetached(m_editor, editorArguments);
 #endif
 
-	QApplication::restoreOverrideCursor();
+    QApplication::restoreOverrideCursor();
 }
 
 void TemplateWidget::reloadTemplateFile()
 {
-	setFileName(fileName());
+    setFileName(fileName());
 }
 
 void TemplateWidget::keyPressEvent(QKeyEvent *event)
 {
-	if (event->key() == Qt::Key_Return)
-		setFileName(ui.templateCombo->currentText());
-	if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Return)
-		Q_EMIT focusEditor();
-	QWidget::keyPressEvent(event);
+    if (event->key() == Qt::Key_Return)
+        setFileName(ui.templateCombo->currentText());
+    if (event->key() == Qt::Key_Escape || event->key() == Qt::Key_Return)
+        Q_EMIT focusEditor();
+    QWidget::keyPressEvent(event);
 }

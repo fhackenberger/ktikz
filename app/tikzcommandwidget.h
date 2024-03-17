@@ -24,11 +24,11 @@
 
 class TikzCommandWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit TikzCommandWidget(QWidget *parent = 0);
-	virtual QSize sizeHint() const;
+    explicit TikzCommandWidget(QWidget *parent = 0);
+    virtual QSize sizeHint() const;
 };
 
 #endif

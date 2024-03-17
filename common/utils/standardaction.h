@@ -23,8 +23,7 @@ class Action;
 class RecentFilesAction;
 class QObject;
 
-namespace StandardAction
-{
+namespace StandardAction {
 Action *openNew(const QObject *recvr, const char *slot, QObject *parent);
 Action *open(const QObject *recvr, const char *slot, QObject *parent);
 RecentFilesAction *openRecent(const QObject *recvr, const char *slot, QObject *parent);
@@ -48,6 +47,6 @@ Action *zoomOut(const QObject *recvr, const char *slot, QObject *parent);
 Action *preferences(const QObject *recvr, const char *slot, QObject *parent);
 Action *printPreview(const QObject *recvr, const char *slot, QObject *parent);
 Action *print(const QObject *recvr, const char *slot, QObject *parent);
-}
+} // namespace StandardAction
 
 #endif

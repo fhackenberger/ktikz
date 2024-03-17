@@ -22,32 +22,34 @@
 class Icon;
 
 #ifdef KTIKZ_USE_KDE
-#include <KToggleAction>
+#  include <KToggleAction>
 
 class ToggleAction : public KToggleAction
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ToggleAction(QObject *parent, const QString &name = QString());
-	ToggleAction(const QString &text, QObject *parent, const QString &name = QString());
-	ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
+    explicit ToggleAction(QObject *parent, const QString &name = QString());
+    ToggleAction(const QString &text, QObject *parent, const QString &name = QString());
+    ToggleAction(const Icon &icon, const QString &text, QObject *parent,
+                 const QString &name = QString());
 };
 #else
-#include <QtCore/QtGlobal>
-#include <QtWidgets/QAction>
+#  include <QtCore/QtGlobal>
+#  include <QtWidgets/QAction>
 
 class ToggleAction : public QAction
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ToggleAction(QObject *parent, const QString &name = QString());
-	ToggleAction(const QString &text, QObject *parent, const QString &name = QString());
-	ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
+    explicit ToggleAction(QObject *parent, const QString &name = QString());
+    ToggleAction(const QString &text, QObject *parent, const QString &name = QString());
+    ToggleAction(const Icon &icon, const QString &text, QObject *parent,
+                 const QString &name = QString());
 
 private:
-	void init(const QString &name);
+    void init(const QString &name);
 };
 #endif
 

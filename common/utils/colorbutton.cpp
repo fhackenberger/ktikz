@@ -24,53 +24,53 @@
 #include "colorbutton.h"
 
 #ifndef KTIKZ_USE_KDE
-#include <QtGui/QPainter>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QColorDialog>
+#  include <QtGui/QPainter>
+#  include <QtWidgets/QApplication>
+#  include <QtWidgets/QColorDialog>
 
 ColorButton::ColorButton(QWidget *parent) : QToolButton(parent)
 {
-	connect(this, SIGNAL(clicked()), this, SLOT(showColorDialog()));
+    connect(this, SIGNAL(clicked()), this, SLOT(showColorDialog()));
 }
 
 ColorButton::ColorButton(const QColor &color, QWidget *parent) : QToolButton(parent)
 {
-	setColor(color);
-	connect(this, SIGNAL(clicked()), this, SLOT(showColorDialog()));
+    setColor(color);
+    connect(this, SIGNAL(clicked()), this, SLOT(showColorDialog()));
 }
 
 void ColorButton::showColorDialog()
 {
-	const QColor newColor = QColorDialog::getColor(m_color, this);
-	if (newColor.isValid())
-		setColor(newColor);
+    const QColor newColor = QColorDialog::getColor(m_color, this);
+    if (newColor.isValid())
+        setColor(newColor);
 }
 
 QColor ColorButton::color() const
 {
-	return m_color;
+    return m_color;
 }
 
 void ColorButton::setColor(const QColor &color)
 {
-	m_color = color;
-	Q_EMIT colorChanged(color);
-	update();
+    m_color = color;
+    Q_EMIT colorChanged(color);
+    update();
 }
 
 void ColorButton::paintEvent(QPaintEvent *event)
 {
-	QToolButton::paintEvent(event);
-	if (!isEnabled())
-		return;
+    QToolButton::paintEvent(event);
+    if (!isEnabled())
+        return;
 
-	QRect r = rect();
-	r.adjust(5, 5, -5, -5);
-	QPainter painter(this);
-	const QColor borderColor(QApplication::palette().color(QPalette::Normal, QPalette::Dark));
-	painter.setPen(borderColor);
-	painter.drawRect(r);
-	r.adjust(1, 1, 0, 0);
-	painter.fillRect(r, m_color);
+    QRect r = rect();
+    r.adjust(5, 5, -5, -5);
+    QPainter painter(this);
+    const QColor borderColor(QApplication::palette().color(QPalette::Normal, QPalette::Dark));
+    painter.setPen(borderColor);
+    painter.drawRect(r);
+    r.adjust(1, 1, 0, 0);
+    painter.fillRect(r, m_color);
 }
 #endif

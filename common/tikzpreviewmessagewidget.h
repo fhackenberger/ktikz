@@ -26,26 +26,22 @@ class QLabel;
 
 class TikzPreviewMessageWidget : public QFrame
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	enum PixmapVisibility
-	{
-		PixmapNotVisible = 0,
-		PixmapVisible = 1
-	};
+    enum PixmapVisibility { PixmapNotVisible = 0, PixmapVisible = 1 };
 
-	explicit TikzPreviewMessageWidget(QWidget *parent = 0);
-	~TikzPreviewMessageWidget();
+    explicit TikzPreviewMessageWidget(QWidget *parent = 0);
+    ~TikzPreviewMessageWidget();
 
-	virtual QSize sizeHint() const;
-	void setText(const QString &message, PixmapVisibility pixmapVisibility = PixmapNotVisible);
+    virtual QSize sizeHint() const;
+    void setText(const QString &message, PixmapVisibility pixmapVisibility = PixmapNotVisible);
 
 private:
-	QSize calculateSize(bool pixmapVisible) const;
+    QSize calculateSize(bool pixmapVisible) const;
 
-	QLabel *m_infoPixmapLabel;
-	QLabel *m_infoLabel;
+    QLabel *m_infoPixmapLabel;
+    QLabel *m_infoLabel;
 };
 
 #endif
