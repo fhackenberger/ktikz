@@ -28,26 +28,26 @@ class ZoomAction;
 
 class PrintPreviewDialog : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	explicit PrintPreviewDialog(QPrinter *printer, QWidget *parent = 0);
+    explicit PrintPreviewDialog(QPrinter *printer, QWidget *parent = 0);
 
-	void setVisible(bool visible);
+    void setVisible(bool visible);
 
 Q_SIGNALS:
-	void paintRequested(QPrinter *printer);
+    void paintRequested(QPrinter *printer);
 
 private Q_SLOTS:
-	void setZoomFactor(qreal zoomFactor);
-	void updateZoomFactor();
-	void zoomIn();
-	void zoomOut();
-	void print();
+    void setZoomFactor(qreal zoomFactor);
+    void updateZoomFactor();
+    void zoomIn();
+    void zoomOut();
+    void print();
 
 private:
-	QPrintPreviewWidget *m_printPreviewWidget;
-	ZoomAction *m_zoomToAction;
-	bool m_initialized;
+    QPrintPreviewWidget *m_printPreviewWidget;
+    ZoomAction *m_zoomToAction;
+    bool m_initialized;
 };
 
 #endif

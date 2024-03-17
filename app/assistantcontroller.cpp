@@ -26,69 +26,65 @@
 
 #include "ktikzapplication.h"
 
-AssistantController::AssistantController()
-	: m_process(0)
-{
-}
+AssistantController::AssistantController() : m_process(0) { }
 
 AssistantController::~AssistantController()
 {
-	if (m_process && m_process->state() == QProcess::Running)
-	{
-		m_process->terminate();
-		m_process->waitForFinished(3000);
-	}
-	delete m_process;
+    if (m_process && m_process->state() == QProcess::Running) {
+        m_process->terminate();
+        m_process->waitForFinished(3000);
+    }
+    delete m_process;
 }
 
 bool AssistantController::startAssistant()
 {
-	if (!m_process)
-		m_process = new QProcess();
+    if (!m_process)
+        m_process = new QProcess();
 
-	if (m_process->state() != QProcess::Running)
-	{
-		QString app = QLibraryInfo::location(QLibraryInfo::BinariesPath) + QDir::separator();
+    if (m_process->state() != QProcess::Running) {
+        QString app = QLibraryInfo::location(QLibraryInfo::BinariesPath) + QDir::separator();
 #if !defined(Q_OS_MAC)
-		app += QLatin1String("assistant");
+        app += QLatin1String("assistant");
 #else
-		app += QLatin1String("Assistant.app/Contents/MacOS/Assistant");
+        app += QLatin1String("Assistant.app/Contents/MacOS/Assistant");
 #endif
 
-		const QString ktikzDocFile = QString::fromLocal8Bit(KTIKZ_DOCUMENTATION_INSTALL_DIR) + QLatin1String("/qtikz.qhc");
-		if (!QFileInfo(ktikzDocFile).isReadable())
-		{
-			QMessageBox::critical(0, KtikzApplication::applicationName(),
-			                      QCoreApplication::translate("AssistantController", "Unable to open the help file (%1)").arg(ktikzDocFile));
-			return false;
-		}
+        const QString ktikzDocFile = QString::fromLocal8Bit(KTIKZ_DOCUMENTATION_INSTALL_DIR)
+                + QLatin1String("/qtikz.qhc");
+        if (!QFileInfo(ktikzDocFile).isReadable()) {
+            QMessageBox::critical(0, KtikzApplication::applicationName(),
+                                  QCoreApplication::translate("AssistantController",
+                                                              "Unable to open the help file (%1)")
+                                          .arg(ktikzDocFile));
+            return false;
+        }
 
-		QStringList args;
-		args << QLatin1String("-collectionFile")
-		     << ktikzDocFile
-		     << QLatin1String("-enableRemoteControl");
+        QStringList args;
+        args << QLatin1String("-collectionFile") << ktikzDocFile
+             << QLatin1String("-enableRemoteControl");
 
-		m_process->start(app, args);
+        m_process->start(app, args);
 
-		if (!m_process->waitForStarted())
-		{
-			QMessageBox::critical(0, KtikzApplication::applicationName(),
-			                      QCoreApplication::translate("AssistantController", "Unable to launch Qt Assistant (%1)").arg(app));
-			return false;
-		}
-	}
-	return true;
+        if (!m_process->waitForStarted()) {
+            QMessageBox::critical(0, KtikzApplication::applicationName(),
+                                  QCoreApplication::translate("AssistantController",
+                                                              "Unable to launch Qt Assistant (%1)")
+                                          .arg(app));
+            return false;
+        }
+    }
+    return true;
 }
 
 void AssistantController::showDocumentation(const QString &page)
 {
-	if (!startAssistant())
-		return;
+    if (!startAssistant())
+        return;
 
-	if (!page.isEmpty())
-	{
-		QByteArray ba;
-		ba.append("setSource qthelp://hackenberger.qtikz/doc/");
-		m_process->write(ba + page.toLocal8Bit() + '\0');
-	}
+    if (!page.isEmpty()) {
+        QByteArray ba;
+        ba.append("setSource qthelp://hackenberger.qtikz/doc/");
+        m_process->write(ba + page.toLocal8Bit() + '\0');
+    }
 }

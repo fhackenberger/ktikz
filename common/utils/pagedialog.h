@@ -20,18 +20,18 @@
 #define KTIKZ_PAGEDIALOG_H
 
 #ifdef KTIKZ_USE_KDE
-#include <KPageDialog>
+#  include <KPageDialog>
 
 class PageDialog : public KPageDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	explicit PageDialog(QWidget *parent = 0);
-	void addPage(QWidget *widget, const QString &title, const QString &iconName);
+    explicit PageDialog(QWidget *parent = 0);
+    void addPage(QWidget *widget, const QString &title, const QString &iconName);
 };
 #else
-#include <QtCore/QtGlobal>
-#include <QtWidgets/QDialog>
+#  include <QtCore/QtGlobal>
+#  include <QtWidgets/QDialog>
 
 class QLabel;
 class QListWidget;
@@ -40,24 +40,24 @@ class QStackedWidget;
 
 class PageDialog : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	explicit PageDialog(QWidget *parent = 0);
-	void setCaption(const QString &caption);
-	void setHelp(const QString &anchor);
-	void addPage(QWidget *widget, const QString &title, const QString &iconName);
+    explicit PageDialog(QWidget *parent = 0);
+    void setCaption(const QString &caption);
+    void setHelp(const QString &anchor);
+    void addPage(QWidget *widget, const QString &title, const QString &iconName);
 
 private Q_SLOTS:
-	void setCurrentPage(int page);
+    void setCurrentPage(int page);
 
 private:
-	QWidget *centerWidget();
+    QWidget *centerWidget();
 
-	QListWidget *m_pagesListWidget;
-	QList<QListWidgetItem*> m_pagesListWidgetItems;
-	QLabel *m_pagesTitleLabel;
-	QStackedWidget *m_pagesStackedWidget;
-	int m_iconWidth;
+    QListWidget *m_pagesListWidget;
+    QList<QListWidgetItem *> m_pagesListWidgetItems;
+    QLabel *m_pagesTitleLabel;
+    QStackedWidget *m_pagesStackedWidget;
+    int m_iconWidth;
 };
 #endif
 

@@ -30,31 +30,31 @@ class ConfigPreviewWidget;
 
 class ConfigDialog : public PageDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ConfigDialog(QWidget *parent = 0);
+    explicit ConfigDialog(QWidget *parent = 0);
 
-	void readSettings();
-	void writeSettings();
+    void readSettings();
+    void writeSettings();
 
-	void setTranslatedHighlightTypeNames(const QStringList &typeNames);
-	void setHighlightTypeNames(const QStringList &typeNames);
-	void setDefaultHighlightFormats(const QMap<QString, QTextCharFormat> &defaultFormatList);
+    void setTranslatedHighlightTypeNames(const QStringList &typeNames);
+    void setHighlightTypeNames(const QStringList &typeNames);
+    void setDefaultHighlightFormats(const QMap<QString, QTextCharFormat> &defaultFormatList);
 
 Q_SIGNALS:
-	void settingsChanged();
+    void settingsChanged();
 
 private Q_SLOTS:
-	void accept();
+    void accept();
 
 private:
-	void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);
 
-	ConfigAppearanceWidget *m_configAppearanceWidget;
-	ConfigEditorWidget *m_configEditorWidget;
-	ConfigGeneralWidget *m_configGeneralWidget;
-	ConfigPreviewWidget *m_configPreviewWidget;
+    ConfigAppearanceWidget *m_configAppearanceWidget;
+    ConfigEditorWidget *m_configEditorWidget;
+    ConfigGeneralWidget *m_configGeneralWidget;
+    ConfigPreviewWidget *m_configPreviewWidget;
 };
 
 #endif

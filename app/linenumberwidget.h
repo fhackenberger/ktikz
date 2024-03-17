@@ -26,22 +26,22 @@ class TikzEditor;
 
 class LineNumberWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	explicit LineNumberWidget(TikzEditor *editor);
-	QSize sizeHint() const;
+    explicit LineNumberWidget(TikzEditor *editor);
+    QSize sizeHint() const;
 
 protected:
-	virtual void paintEvent(QPaintEvent *event);
-	virtual void mousePressEvent(QMouseEvent *event);
-	virtual void mouseReleaseEvent(QMouseEvent*);
+    virtual void paintEvent(QPaintEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
+    virtual void mouseReleaseEvent(QMouseEvent *);
 
 private:
-	TikzEditor* m_editor;
-	QColor m_highlightColor;
-	QBrush m_highlightBrush;
-	QPen m_highlightPen;
-	QPen m_highlightedTextPen;
+    TikzEditor *m_editor;
+    QColor m_highlightColor;
+    QBrush m_highlightBrush;
+    QPen m_highlightPen;
+    QPen m_highlightedTextPen;
 };
 
 #endif // LINENUMBERWIDGET_H

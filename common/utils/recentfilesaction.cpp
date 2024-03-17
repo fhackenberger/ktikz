@@ -23,162 +23,160 @@
 #include "url.h"
 
 #ifdef KTIKZ_USE_KDE
-#include <KActionCollection>
-#include <KConfigGroup>
-#include <KSharedConfig>
+#  include <KActionCollection>
+#  include <KConfigGroup>
+#  include <KSharedConfig>
 
-RecentFilesAction::RecentFilesAction(QObject *parent)
-	: KRecentFilesAction(parent)
+RecentFilesAction::RecentFilesAction(QObject *parent) : KRecentFilesAction(parent)
 {
-	Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
-	//connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
+    Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
+    // connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
 }
 
 RecentFilesAction::RecentFilesAction(const QString &text, QObject *parent)
-	: KRecentFilesAction(text, parent)
+    : KRecentFilesAction(text, parent)
 {
-	Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
-	//connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
+    Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
+    // connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
 }
 
 RecentFilesAction::RecentFilesAction(const Icon &icon, const QString &text, QObject *parent)
-	: KRecentFilesAction(icon, text, parent)
+    : KRecentFilesAction(icon, text, parent)
 {
-	Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
-	//connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
+    Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
+    // connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
 }
 
 void RecentFilesAction::loadEntries()
 {
-	KRecentFilesAction::loadEntries(KSharedConfig::openConfig()->group(QLatin1String("Recent Files")));
-	setEnabled(true);
+    KRecentFilesAction::loadEntries(
+            KSharedConfig::openConfig()->group(QLatin1String("Recent Files")));
+    setEnabled(true);
 }
 
 void RecentFilesAction::saveEntries()
 {
-	KRecentFilesAction::saveEntries(KSharedConfig::openConfig()->group(QLatin1String("Recent Files")));
-	KSharedConfig::openConfig()->sync();
+    KRecentFilesAction::saveEntries(
+            KSharedConfig::openConfig()->group(QLatin1String("Recent Files")));
+    KSharedConfig::openConfig()->sync();
 }
 #else
-#include <QtCore/QSettings>
-#include <QtWidgets/QMenu>
+#  include <QtCore/QSettings>
+#  include <QtWidgets/QMenu>
 
-RecentFilesAction::RecentFilesAction(QObject *parent)
-	: Action(parent)
+RecentFilesAction::RecentFilesAction(QObject *parent) : Action(parent)
 {
-	createMenu();
+    createMenu();
 }
 
-RecentFilesAction::RecentFilesAction(const QString &text, QObject *parent)
-	: Action(text, parent)
+RecentFilesAction::RecentFilesAction(const QString &text, QObject *parent) : Action(text, parent)
 {
-	createMenu();
+    createMenu();
 }
 
 RecentFilesAction::RecentFilesAction(const Icon &icon, const QString &text, QObject *parent)
-	: Action(icon, text, parent)
+    : Action(icon, text, parent)
 {
-	createMenu();
+    createMenu();
 }
 
 RecentFilesAction::~RecentFilesAction()
 {
-	delete m_recentMenu;
+    delete m_recentMenu;
 }
 
 void RecentFilesAction::createMenu()
 {
-	m_numOfRecentFiles = 5; // is set correctly in loadEntries() which must be executed before anything else happens with the menu
+    m_numOfRecentFiles = 5; // is set correctly in loadEntries() which must be executed before
+                            // anything else happens with the menu
 
-	setObjectName(QLatin1String("file_open_recent"));
-	setText(tr("Open &Recent"));
-	setIcon(Icon(QLatin1String("document-open-recent")));
+    setObjectName(QLatin1String("file_open_recent"));
+    setText(tr("Open &Recent"));
+    setIcon(Icon(QLatin1String("document-open-recent")));
 
-	m_recentMenu = new QMenu();
-	setMenu(m_recentMenu);
+    m_recentMenu = new QMenu();
+    setMenu(m_recentMenu);
 }
 
 void RecentFilesAction::openRecentFile()
 {
-	QAction *action = qobject_cast<QAction*>(sender());
-	if (action)
-#ifdef Q_OS_WIN32
-		Q_EMIT urlSelected(Url(action->data().toString()));
-#else
-		Q_EMIT urlSelected(Url(QLatin1String("file://") + action->data().toString()));
-#endif
+    QAction *action = qobject_cast<QAction *>(sender());
+    if (action)
+#  ifdef Q_OS_WIN32
+        Q_EMIT urlSelected(Url(action->data().toString()));
+#  else
+        Q_EMIT urlSelected(Url(QLatin1String("file://") + action->data().toString()));
+#  endif
 }
 
 void RecentFilesAction::createRecentFilesList()
 {
-	m_recentFileActions.clear();
-	for (int i = 0; i < m_numOfRecentFiles; ++i)
-	{
-		QAction *action = new QAction(this);
-		action->setVisible(false);
-		connect(action, SIGNAL(triggered()), this, SLOT(openRecentFile()));
-		m_recentFileActions.append(action);
-	}
+    m_recentFileActions.clear();
+    for (int i = 0; i < m_numOfRecentFiles; ++i) {
+        QAction *action = new QAction(this);
+        action->setVisible(false);
+        connect(action, SIGNAL(triggered()), this, SLOT(openRecentFile()));
+        m_recentFileActions.append(action);
+    }
 
-	// when the user has decreased the maximum number of recent files, then we must remove the superfluous entries
-	while (m_recentFilesList.size() > m_numOfRecentFiles)
-		m_recentFilesList.removeLast();
+    // when the user has decreased the maximum number of recent files, then we must remove the
+    // superfluous entries
+    while (m_recentFilesList.size() > m_numOfRecentFiles)
+        m_recentFilesList.removeLast();
 
-	updateRecentFilesList();
+    updateRecentFilesList();
 
-	m_recentMenu->clear(); // this also deletes all the QActions in the menu
-	m_recentMenu->addActions(m_recentFileActions);
+    m_recentMenu->clear(); // this also deletes all the QActions in the menu
+    m_recentMenu->addActions(m_recentFileActions);
 }
 
 void RecentFilesAction::loadEntries()
 {
-	QSettings settings;
-	m_numOfRecentFiles = settings.value(QLatin1String("RecentFilesNumber"), 5).toInt();
+    QSettings settings;
+    m_numOfRecentFiles = settings.value(QLatin1String("RecentFilesNumber"), 5).toInt();
 
-	m_recentFilesList = settings.value(QLatin1String("RecentFiles")).toStringList();
-	setEnabled(true);
+    m_recentFilesList = settings.value(QLatin1String("RecentFiles")).toStringList();
+    setEnabled(true);
 }
 
 void RecentFilesAction::saveEntries()
 {
-	QSettings settings;
-	if (m_recentFilesList.size() > 0)
-		settings.setValue(QLatin1String("RecentFiles"), m_recentFilesList);
+    QSettings settings;
+    if (m_recentFilesList.size() > 0)
+        settings.setValue(QLatin1String("RecentFiles"), m_recentFilesList);
 }
 
 void RecentFilesAction::updateRecentFilesList()
 {
-	m_recentMenu->setEnabled(m_recentFilesList.count() > 0);
+    m_recentMenu->setEnabled(m_recentFilesList.count() > 0);
 
-	for (int i = 0; i < m_recentFilesList.count(); ++i)
-	{
-		m_recentFileActions[i]->setText(m_recentFilesList.at(i));
-		m_recentFileActions[i]->setData(m_recentFilesList.at(i));
-		m_recentFileActions[i]->setVisible(true);
-	}
-	for (int i = m_recentFilesList.count(); i < m_numOfRecentFiles; ++i)
-		m_recentFileActions[i]->setVisible(false);
+    for (int i = 0; i < m_recentFilesList.count(); ++i) {
+        m_recentFileActions[i]->setText(m_recentFilesList.at(i));
+        m_recentFileActions[i]->setData(m_recentFilesList.at(i));
+        m_recentFileActions[i]->setVisible(true);
+    }
+    for (int i = m_recentFilesList.count(); i < m_numOfRecentFiles; ++i)
+        m_recentFileActions[i]->setVisible(false);
 }
 
 void RecentFilesAction::addUrl(const QUrl &url, const QString &name)
 {
-	Q_UNUSED(name);
-	const QString fileName = url.path();
+    Q_UNUSED(name);
+    const QString fileName = url.path();
 
-	if (m_recentFilesList.contains(fileName))
-		m_recentFilesList.move(m_recentFilesList.indexOf(fileName), 0);
-	else
-	{
-		if (m_recentFilesList.count() >= m_numOfRecentFiles)
-			m_recentFilesList.removeLast();
-		m_recentFilesList.prepend(fileName);
-	}
-	updateRecentFilesList();
+    if (m_recentFilesList.contains(fileName))
+        m_recentFilesList.move(m_recentFilesList.indexOf(fileName), 0);
+    else {
+        if (m_recentFilesList.count() >= m_numOfRecentFiles)
+            m_recentFilesList.removeLast();
+        m_recentFilesList.prepend(fileName);
+    }
+    updateRecentFilesList();
 }
 
 void RecentFilesAction::removeUrl(const QUrl &url)
 {
-	m_recentFilesList.removeAll(url.path());
-	updateRecentFilesList();
+    m_recentFilesList.removeAll(url.path());
+    updateRecentFilesList();
 }
 #endif

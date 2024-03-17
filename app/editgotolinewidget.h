@@ -23,29 +23,29 @@
 
 class GoToLineWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit GoToLineWidget(QWidget *parent = 0);
-	~GoToLineWidget();
-	void setMaximumValue(int maximumValue);
-	void setValue(int value);
+    explicit GoToLineWidget(QWidget *parent = 0);
+    ~GoToLineWidget();
+    void setMaximumValue(int maximumValue);
+    void setValue(int value);
 
 public Q_SLOTS:
-	void goToLine();
+    void goToLine();
 
 Q_SIGNALS:
-	void goToLine(int lineNumber);
-	void focusEditor();
+    void goToLine(int lineNumber);
+    void focusEditor();
 
 protected:
-	virtual void keyPressEvent(QKeyEvent *event);
+    virtual void keyPressEvent(QKeyEvent *event);
 
 protected Q_SLOTS:
-	void hide();
+    void hide();
 
 private:
-	Ui::GoToLineWidget ui;
+    Ui::GoToLineWidget ui;
 };
 
 #endif

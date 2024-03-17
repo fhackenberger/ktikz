@@ -29,43 +29,42 @@ class TikzKTextEditorCompletion;
 
 #include "tikzeditorviewabstract.h"
 
-class TikzKTextEditorView: public TikzEditorViewAbstract
+class TikzKTextEditorView : public TikzEditorViewAbstract
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit TikzKTextEditorView(QWidget *parent = 0);
-	virtual ~TikzKTextEditorView();
+    explicit TikzKTextEditorView(QWidget *parent = 0);
+    virtual ~TikzKTextEditorView();
 
-	KTextEditor::Document *editor();
-	KTextEditor::Document *document();
-	QString text();
-	KTextEditor::View *view();
+    KTextEditor::Document *editor();
+    KTextEditor::Document *document();
+    QString text();
+    KTextEditor::View *view();
 
-	void updateCompleter(bool useCompletion, const QStringList &words);
-	void clear();
-	bool isEmpty();
-	bool isModified();
-	void setModified(bool value);
+    void updateCompleter(bool useCompletion, const QStringList &words);
+    void clear();
+    bool isEmpty();
+    bool isModified();
+    void setModified(bool value);
 
 Q_SIGNALS:
-	void documentUrlChanged(const QUrl& url);
-	void modificationChanged(bool changed);
-	void contentsChanged();
-	void cursorPositionChanged(int row, int col);
-	void showStatusMessage(const QString &message, int timeout = 3000);
-	void setSearchFromBegin(bool searchFromBegin);
-	void focusIn();
-	void focusOut();
+    void documentUrlChanged(const QUrl &url);
+    void modificationChanged(bool changed);
+    void contentsChanged();
+    void cursorPositionChanged(int row, int col);
+    void showStatusMessage(const QString &message, int timeout = 3000);
+    void setSearchFromBegin(bool searchFromBegin);
+    void focusIn();
+    void focusOut();
 
 private Q_SLOTS:
-	void setDocumentModified(KTextEditor::Document *);
+    void setDocumentModified(KTextEditor::Document *);
 
 private:
-	KTextEditor::Document *m_currentDoc;
-	KTextEditor::View *m_documentView;
-	TikzKTextEditorCompletion *m_completion;
-
+    KTextEditor::Document *m_currentDoc;
+    KTextEditor::View *m_documentView;
+    TikzKTextEditorCompletion *m_completion;
 };
 
 #endif

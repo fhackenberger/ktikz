@@ -23,48 +23,46 @@
 
 GoToLineWidget::GoToLineWidget(QWidget *parent) : QWidget(parent)
 {
-	ui.setupUi(this);
-	ui.spinBoxGo->setMinimum(1);
-	ui.pushButtonClose->setIcon(Icon(QLatin1String("dialog-cancel")));
+    ui.setupUi(this);
+    ui.spinBoxGo->setMinimum(1);
+    ui.pushButtonClose->setIcon(Icon(QLatin1String("dialog-cancel")));
 
-	setFocusProxy(ui.spinBoxGo);
+    setFocusProxy(ui.spinBoxGo);
 
-	connect(ui.pushButtonGo, SIGNAL(clicked()), this, SLOT(goToLine()));
-	connect(ui.pushButtonClose, SIGNAL(clicked()), this, SLOT(hide()));
+    connect(ui.pushButtonGo, SIGNAL(clicked()), this, SLOT(goToLine()));
+    connect(ui.pushButtonClose, SIGNAL(clicked()), this, SLOT(hide()));
 }
 
-GoToLineWidget::~GoToLineWidget()
-{
-}
+GoToLineWidget::~GoToLineWidget() { }
 
 void GoToLineWidget::goToLine()
 {
-	Q_EMIT goToLine(ui.spinBoxGo->value() - 1);
+    Q_EMIT goToLine(ui.spinBoxGo->value() - 1);
 }
 
 void GoToLineWidget::setMaximumValue(int maximumValue)
 {
-	ui.spinBoxGo->setMaximum(maximumValue);
+    ui.spinBoxGo->setMaximum(maximumValue);
 }
 
 void GoToLineWidget::setValue(int value)
 {
-	ui.spinBoxGo->setValue(value);
-	ui.spinBoxGo->setFocus();
-	ui.spinBoxGo->selectAll();
+    ui.spinBoxGo->setValue(value);
+    ui.spinBoxGo->setFocus();
+    ui.spinBoxGo->selectAll();
 }
 
 void GoToLineWidget::hide()
 {
-	setVisible(false);
-	Q_EMIT focusEditor();
+    setVisible(false);
+    Q_EMIT focusEditor();
 }
 
 void GoToLineWidget::keyPressEvent(QKeyEvent *event)
 {
-	if (event->key() == Qt::Key_Escape)
-		hide();
-	else if (event->key() == Qt::Key_Return)
-		goToLine();
-	QWidget::keyPressEvent(event);
+    if (event->key() == Qt::Key_Escape)
+        hide();
+    else if (event->key() == Qt::Key_Return)
+        goToLine();
+    QWidget::keyPressEvent(event);
 }

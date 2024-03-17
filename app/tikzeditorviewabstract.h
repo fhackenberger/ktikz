@@ -21,17 +21,15 @@
 
 #include <QWidget>
 #ifndef KTIKZ_USE_KDE
-#include <QMenu>
-#include <QToolBar>
+#  include <QMenu>
+#  include <QToolBar>
 #endif
 
-class TikzEditorViewAbstract: public QWidget
+class TikzEditorViewAbstract : public QWidget
 {
 public:
-    explicit TikzEditorViewAbstract(QWidget *parent = 0)
-            : QWidget(parent)
-    {}
-    virtual ~TikzEditorViewAbstract() { };
+    explicit TikzEditorViewAbstract(QWidget *parent = 0) : QWidget(parent) { }
+    virtual ~TikzEditorViewAbstract(){};
 
 #ifndef KTIKZ_USE_KDE
     virtual QMenu *editMenu() = 0;
@@ -44,7 +42,6 @@ public:
     virtual bool isEmpty() = 0;
     virtual bool isModified() = 0;
     virtual void setModified(bool value) = 0;
-
 };
 
 #endif

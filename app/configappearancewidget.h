@@ -28,47 +28,47 @@ class QTextCharFormat;
 
 class ConfigAppearanceWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ConfigAppearanceWidget(QWidget *parent = 0);
+    explicit ConfigAppearanceWidget(QWidget *parent = 0);
 
-	void readSettings(const QString &settingsGroup);
-	void writeSettings(const QString &settingsGroup);
+    void readSettings(const QString &settingsGroup);
+    void writeSettings(const QString &settingsGroup);
 
-	void addItem(const QString &titleName);
-	void addItemFont(const QString &fontName);
-	void addItemColor(const QString &colorName);
-	void addItems(const QStringList &titleNames);
-	void setItemFonts(const QStringList &fontNames);
-	void setItemColors(const QStringList &colorNames);
-	void setCustomizationType(bool custom);
-	QStringList getItemFonts();
-	QStringList getItemColors();
-	bool getCustomizationType();
-	void setTypeNames(const QStringList &typeNames);
-	void setDefaultTextCharFormats(const QMap<QString, QTextCharFormat> &defaultFormatList);
+    void addItem(const QString &titleName);
+    void addItemFont(const QString &fontName);
+    void addItemColor(const QString &colorName);
+    void addItems(const QStringList &titleNames);
+    void setItemFonts(const QStringList &fontNames);
+    void setItemColors(const QStringList &colorNames);
+    void setCustomizationType(bool custom);
+    QStringList getItemFonts();
+    QStringList getItemColors();
+    bool getCustomizationType();
+    void setTypeNames(const QStringList &typeNames);
+    void setDefaultTextCharFormats(const QMap<QString, QTextCharFormat> &defaultFormatList);
 
 protected:
-	Ui::ConfigAppearanceWidget ui;
+    Ui::ConfigAppearanceWidget ui;
 
 private Q_SLOTS:
-	void setItemHighlighted(QTableWidgetItem *item);
-	void toggleCustom();
-	void showFontDialog();
-	void showColorDialog();
+    void setItemHighlighted(QTableWidgetItem *item);
+    void toggleCustom();
+    void showFontDialog();
+    void showColorDialog();
 
 private:
-	void showEvent(QShowEvent*);
-	void setHighlightedForeground(const QString &colorName);
-	void setItemToolTip(QTableWidgetItem *item, const QFont &font);
+    void showEvent(QShowEvent *);
+    void setHighlightedForeground(const QString &colorName);
+    void setItemToolTip(QTableWidgetItem *item, const QFont &font);
 
-	int m_itemHighlighted;
-	int m_itemMargin;
-	bool m_custom;
-	QStringList m_itemFonts;
-	QStringList m_itemColors;
-	QStringList m_typeNames;
+    int m_itemHighlighted;
+    int m_itemMargin;
+    bool m_custom;
+    QStringList m_itemFonts;
+    QStringList m_itemColors;
+    QStringList m_typeNames;
 };
 
 #endif

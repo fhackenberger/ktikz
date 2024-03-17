@@ -2,10 +2,9 @@
  *   Copyright (C) 2008, 2009, 2013, 2014 by Glad Deschrijver              *
  *     <glad.deschrijver@gmail.com>                                        *
  *   Copyright (C) 2016 by G. Prudhomme                                    *
- *     <gprud@users.noreply.github.com>                                    *                                                                      *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
+ *     <gprud@users.noreply.github.com>                                    * * This program is free
+ *software; you can redistribute it and/or modify  * it under the terms of the GNU General Public
+ *License as published by  * the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
@@ -27,32 +26,33 @@ class QComboBox;
 
 class ConfigEditorWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ConfigEditorWidget(QWidget *parent = 0);
+    explicit ConfigEditorWidget(QWidget *parent = 0);
 
-	static QVariant defaultSetting(const QString &key);
+    static QVariant defaultSetting(const QString &key);
 
-	void readSettings(const QString &settingsGroup);
-	void writeSettings(const QString &settingsGroup);
+    void readSettings(const QString &settingsGroup);
+    void writeSettings(const QString &settingsGroup);
 
-	void initializeEncoding();
+    void initializeEncoding();
+
 protected:
-	Ui::ConfigEditorWidget ui;
+    Ui::ConfigEditorWidget ui;
 
 private Q_SLOTS:
-	void selectFont();
+    void selectFont();
 
-	void on_encodingComboBox_currentIndexChanged(int index);
+    void on_encodingComboBox_currentIndexChanged(int index);
 
 private:
-	QFont m_generalFont;
+    QFont m_generalFont;
 
-	static QString codecNameToString(const QByteArray &codecName);
-	static QString codecNameToString(QTextCodec *codec);
-	static void fillCodecComboBox(QComboBox *cb);
-	static void selectEncoding(QComboBox *cb, const QVariant& codecName);
- };
+    static QString codecNameToString(const QByteArray &codecName);
+    static QString codecNameToString(QTextCodec *codec);
+    static void fillCodecComboBox(QComboBox *cb);
+    static void selectEncoding(QComboBox *cb, const QVariant &codecName);
+};
 
 #endif

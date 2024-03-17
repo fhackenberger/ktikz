@@ -24,122 +24,117 @@
 static const qreal s_minZoomFactor = 0.1;
 static const qreal s_maxZoomFactor = 6;
 
-ZoomAction::ZoomAction(QObject *parent, const QString &name)
-	: SelectAction(parent, name)
+ZoomAction::ZoomAction(QObject *parent, const QString &name) : SelectAction(parent, name)
 {
-	init();
+    init();
 }
 
 ZoomAction::ZoomAction(const QString &text, QObject *parent, const QString &name)
-	: SelectAction(text, parent, name)
+    : SelectAction(text, parent, name)
 {
-	init();
+    init();
 }
 
 ZoomAction::ZoomAction(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-	: SelectAction(icon, text, parent, name)
+    : SelectAction(icon, text, parent, name)
 {
-	init();
+    init();
 }
 
 void ZoomAction::init()
 {
-	setEditable(true);
-	setToolTip(tr("Select or insert zoom factor here"));
-	setWhatsThis(tr("<p>Select the zoom factor here.  "
-	                "Alternatively, you can also introduce a zoom factor and "
-	                "press Enter.</p>"));
-	setCurrentZoomFactor();
-	connect(this, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
+    setEditable(true);
+    setToolTip(tr("Select or insert zoom factor here"));
+    setWhatsThis(tr("<p>Select the zoom factor here.  "
+                    "Alternatively, you can also introduce a zoom factor and "
+                    "press Enter.</p>"));
+    setCurrentZoomFactor();
+    connect(this, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
 }
 
-ZoomAction::~ZoomAction()
-{
-}
+ZoomAction::~ZoomAction() { }
 
 qreal ZoomAction::minZoomFactor() const
 {
-	return s_minZoomFactor;
+    return s_minZoomFactor;
 }
 
 qreal ZoomAction::maxZoomFactor() const
 {
-	return s_maxZoomFactor;
+    return s_maxZoomFactor;
 }
 
 static QString formatZoomFactor(qreal zoomFactor)
 {
-	QString zoomFactorText = GlobalLocale::formatNumber(zoomFactor, 2);
-	const QString decimalSymbol = GlobalLocale::decimalSymbol();
+    QString zoomFactorText = GlobalLocale::formatNumber(zoomFactor, 2);
+    const QString decimalSymbol = GlobalLocale::decimalSymbol();
 
-	zoomFactorText.remove(decimalSymbol + QLatin1String("00"));
-	// remove trailing zero in numbers like 12.30
-	if (zoomFactorText.endsWith(QLatin1Char('0'))
-	        && zoomFactorText.indexOf(decimalSymbol) >= 0)
-		zoomFactorText.chop(1);
+    zoomFactorText.remove(decimalSymbol + QLatin1String("00"));
+    // remove trailing zero in numbers like 12.30
+    if (zoomFactorText.endsWith(QLatin1Char('0')) && zoomFactorText.indexOf(decimalSymbol) >= 0)
+        zoomFactorText.chop(1);
 
-	zoomFactorText += QLatin1Char('%');
-	return zoomFactorText;
+    zoomFactorText += QLatin1Char('%');
+    return zoomFactorText;
 }
 
 void ZoomAction::setCurrentZoomFactor(qreal newZoomFactor)
 {
-	const qreal zoomFactorArray[] = {12.50, 25, 50, 75, 100, 125, 150, 200, 250, 300};
-	const int zoomFactorNumber = 10;
-	QStringList zoomFactorList;
-	int newZoomFactorPosition = -1;
-	bool addNewZoomFactor = true;
+    const qreal zoomFactorArray[] = { 12.50, 25, 50, 75, 100, 125, 150, 200, 250, 300 };
+    const int zoomFactorNumber = 10;
+    QStringList zoomFactorList;
+    int newZoomFactorPosition = -1;
+    bool addNewZoomFactor = true;
 
-	if (newZoomFactor < s_minZoomFactor || newZoomFactor > s_maxZoomFactor)
-		addNewZoomFactor = false;
+    if (newZoomFactor < s_minZoomFactor || newZoomFactor > s_maxZoomFactor)
+        addNewZoomFactor = false;
 
-	newZoomFactor *= 100;
-	for (int i = 0; i < zoomFactorNumber; ++i)
-	{
-		if (addNewZoomFactor && newZoomFactor < zoomFactorArray[i])
-		{
-			zoomFactorList << formatZoomFactor(newZoomFactor);
-			newZoomFactorPosition = i;
-			addNewZoomFactor = false;
-		}
-		else if (newZoomFactor == zoomFactorArray[i])
-		{
-			newZoomFactorPosition = i;
-			addNewZoomFactor = false;
-		}
-		zoomFactorList << formatZoomFactor(zoomFactorArray[i]);
-	}
-	if (addNewZoomFactor)
-	{
-		zoomFactorList << formatZoomFactor(newZoomFactor);
-		newZoomFactorPosition = zoomFactorNumber;
-	}
+    newZoomFactor *= 100;
+    for (int i = 0; i < zoomFactorNumber; ++i) {
+        if (addNewZoomFactor && newZoomFactor < zoomFactorArray[i]) {
+            zoomFactorList << formatZoomFactor(newZoomFactor);
+            newZoomFactorPosition = i;
+            addNewZoomFactor = false;
+        } else if (newZoomFactor == zoomFactorArray[i]) {
+            newZoomFactorPosition = i;
+            addNewZoomFactor = false;
+        }
+        zoomFactorList << formatZoomFactor(zoomFactorArray[i]);
+    }
+    if (addNewZoomFactor) {
+        zoomFactorList << formatZoomFactor(newZoomFactor);
+        newZoomFactorPosition = zoomFactorNumber;
+    }
 
-	disconnect(this, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
-	removeAllActions();
-	setItems(zoomFactorList);
-	if (newZoomFactorPosition >= 0)
-		setCurrentItem(newZoomFactorPosition);
-	connect(this, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
+    disconnect(this, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
+    removeAllActions();
+    setItems(zoomFactorList);
+    if (newZoomFactorPosition >= 0)
+        setCurrentItem(newZoomFactorPosition);
+    connect(this, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
 }
 
 void ZoomAction::setZoomFactor(qreal zoomFactor)
 {
-	// adjust zoom factor
-	zoomFactor = qBound(s_minZoomFactor, zoomFactor, s_maxZoomFactor);
+    // adjust zoom factor
+    zoomFactor = qBound(s_minZoomFactor, zoomFactor, s_maxZoomFactor);
 
-	// add current zoom factor to the list of zoom factors
-	const QString zoomFactorString = formatZoomFactor(zoomFactor * 100);
-	const int zoomFactorIndex = items().indexOf(zoomFactorString);
-	if (zoomFactorIndex >= 0)
-		setCurrentItem(zoomFactorIndex);
-	else
-		setCurrentZoomFactor(zoomFactor);
+    // add current zoom factor to the list of zoom factors
+    const QString zoomFactorString = formatZoomFactor(zoomFactor * 100);
+    const int zoomFactorIndex = items().indexOf(zoomFactorString);
+    if (zoomFactorIndex >= 0)
+        setCurrentItem(zoomFactorIndex);
+    else
+        setCurrentZoomFactor(zoomFactor);
 
-	Q_EMIT zoomFactorAdded(zoomFactor);
+    Q_EMIT zoomFactorAdded(zoomFactor);
 }
 
 void ZoomAction::setZoomFactor(const QString &zoomFactorText)
 {
-	setZoomFactor(GlobalLocale::readNumber(QString(zoomFactorText).remove(QRegExp(QString(QLatin1String("[^\\d\\%1]*")).arg(GlobalLocale::decimalSymbol())))) / 100.0);
+    setZoomFactor(GlobalLocale::readNumber(
+                          QString(zoomFactorText)
+                                  .remove(QRegExp(QString(QLatin1String("[^\\d\\%1]*"))
+                                                          .arg(GlobalLocale::decimalSymbol()))))
+                  / 100.0);
 }

@@ -28,96 +28,88 @@
 #include <QWidget>
 #include <QVBoxLayout>
 
-TikzKTextEditorView::TikzKTextEditorView(QWidget *parent)
-	: TikzEditorViewAbstract(parent)
+TikzKTextEditorView::TikzKTextEditorView(QWidget *parent) : TikzEditorViewAbstract(parent)
 {
 
-	m_currentDoc =  KTextEditor::Editor::instance()->createDocument(this);
-	// create a widget to display the document
-	m_documentView = m_currentDoc->createView(this);
+    m_currentDoc = KTextEditor::Editor::instance()->createDocument(this);
+    // create a widget to display the document
+    m_documentView = m_currentDoc->createView(this);
 
-	QVBoxLayout *mainLayout = new QVBoxLayout(this);
-	mainLayout->setSpacing(0);
-	mainLayout->setMargin(0);
-	mainLayout->addWidget(m_documentView);
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    mainLayout->setSpacing(0);
+    mainLayout->setMargin(0);
+    mainLayout->addWidget(m_documentView);
 
-	m_currentDoc->setMode(QStringLiteral("LaTeX"));
+    m_currentDoc->setMode(QStringLiteral("LaTeX"));
 
+    connect(m_currentDoc, SIGNAL(modifiedChanged(KTextEditor::Document *)), this,
+            SLOT(setDocumentModified(KTextEditor::Document *)));
 
-	connect(m_currentDoc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
-				this, SLOT(setDocumentModified(KTextEditor::Document*)));
+    connect(m_documentView, SIGNAL(focusIn(KTextEditor::View *)), this, SIGNAL(focusIn()));
+    connect(m_documentView, SIGNAL(focusOut(KTextEditor::View *)), this, SIGNAL(focusOut()));
 
-	connect(m_documentView, SIGNAL(focusIn(KTextEditor::View*)),
-				this, SIGNAL(focusIn()));
-	connect(m_documentView, SIGNAL(focusOut(KTextEditor::View*)),
-				this, SIGNAL(focusOut()));
+    connect(m_currentDoc, SIGNAL(textChanged(KTextEditor::Document *)), this,
+            SIGNAL(contentsChanged()));
 
-	connect(m_currentDoc, SIGNAL(textChanged(KTextEditor::Document*)),
-      this, SIGNAL(contentsChanged()));
+    connect(m_currentDoc, SIGNAL(urlChanged(const QUrl &)), this,
+            SIGNAL(documentUrlChanged(const QUrl &)));
 
-	connect(m_currentDoc, SIGNAL(urlChanged(const QUrl&)),
-				this, SIGNAL(documentUrlChanged(const QUrl&)));
-
-	KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(m_documentView);
-	if (cci) {
-		m_completion = new TikzKTextEditorCompletion(this);
-		cci->registerCompletionModel(m_completion);
-	}
-
+    KTextEditor::CodeCompletionInterface *cci =
+            qobject_cast<KTextEditor::CodeCompletionInterface *>(m_documentView);
+    if (cci) {
+        m_completion = new TikzKTextEditorCompletion(this);
+        cci->registerCompletionModel(m_completion);
+    }
 }
 
-TikzKTextEditorView::~TikzKTextEditorView()
-{
+TikzKTextEditorView::~TikzKTextEditorView() { }
 
+KTextEditor::Document *TikzKTextEditorView::editor()
+{
+    return document();
 }
 
-
-KTextEditor::Document* TikzKTextEditorView::editor()
+KTextEditor::Document *TikzKTextEditorView::document()
 {
-	return document();
-}
-
-KTextEditor::Document* TikzKTextEditorView::document()
-{
-	return m_currentDoc;
+    return m_currentDoc;
 }
 
 QString TikzKTextEditorView::text()
 {
-	return  m_currentDoc->text();
+    return m_currentDoc->text();
 }
 
-KTextEditor::View* TikzKTextEditorView::view()
+KTextEditor::View *TikzKTextEditorView::view()
 {
-	return m_documentView;
+    return m_documentView;
 }
 
 void TikzKTextEditorView::setDocumentModified(KTextEditor::Document *doc)
 {
-	Q_EMIT modificationChanged(doc->isModified());
+    Q_EMIT modificationChanged(doc->isModified());
 }
 
 void TikzKTextEditorView::updateCompleter(bool useCompletion, const QStringList &words)
 {
-	m_completion->updateCompleter(useCompletion, words);
+    m_completion->updateCompleter(useCompletion, words);
 }
 
 void TikzKTextEditorView::clear()
 {
-	editor()->clear();
+    editor()->clear();
 }
 
 bool TikzKTextEditorView::isEmpty()
 {
-	return document()->isEmpty();
+    return document()->isEmpty();
 }
 
 bool TikzKTextEditorView::isModified()
 {
-	return document()->isModified();
+    return document()->isModified();
 }
 
-void TikzKTextEditorView::setModified( bool value )
+void TikzKTextEditorView::setModified(bool value)
 {
-	return document()->setModified( value );
+    return document()->setModified(value);
 }

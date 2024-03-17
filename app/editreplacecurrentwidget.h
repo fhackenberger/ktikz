@@ -27,32 +27,32 @@ class QPushButton;
 
 class ReplaceCurrentWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ReplaceCurrentWidget(QWidget *parent = 0);
-	~ReplaceCurrentWidget();
-	void setReplacement(const QString &text, const QString &replacement);
+    explicit ReplaceCurrentWidget(QWidget *parent = 0);
+    ~ReplaceCurrentWidget();
+    void setReplacement(const QString &text, const QString &replacement);
 
 Q_SIGNALS:
-	void search();
-	void replace();
-	void replaceAll();
-	void hidden();
+    void search();
+    void replace();
+    void replaceAll();
+    void hidden();
 
 protected:
-	virtual void showEvent(QShowEvent *event);
-	virtual void keyPressEvent(QKeyEvent *event);
+    virtual void showEvent(QShowEvent *event);
+    virtual void keyPressEvent(QKeyEvent *event);
 
 protected Q_SLOTS:
-	void hide();
+    void hide();
 
 private Q_SLOTS:
-	void dontReplace();
+    void dontReplace();
 
 private:
-	QLabel *m_replaceLabel;
-	QPushButton *m_replaceButton;
+    QLabel *m_replaceLabel;
+    QPushButton *m_replaceButton;
 };
 
 #endif

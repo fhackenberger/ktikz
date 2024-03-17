@@ -26,8 +26,7 @@
 
 class QToolBar;
 
-namespace Poppler
-{
+namespace Poppler {
 class Document;
 }
 
@@ -38,78 +37,81 @@ class TikzPreviewRenderer;
 
 class TikzPreview : public QGraphicsView
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit TikzPreview(QWidget *parent = 0);
-	~TikzPreview();
+    explicit TikzPreview(QWidget *parent = 0);
+    ~TikzPreview();
 
-	virtual QSize sizeHint() const;
-	QList<QAction*> actions();
-	QToolBar *toolBar();
-	QImage renderToImage(double xres, double yres, int pageNumber);
-	QPixmap pixmap() const;
-	int currentPage() const;
-	int numberOfPages() const;
-	void emptyPreview();
-	void setProcessRunning(bool isRunning);
-	void setShowCoordinates(bool show);
-	void setCoordinatePrecision(int precision);
-	void setBackgroundColor(QColor color);
+    virtual QSize sizeHint() const;
+    QList<QAction *> actions();
+    QToolBar *toolBar();
+    QImage renderToImage(double xres, double yres, int pageNumber);
+    QPixmap pixmap() const;
+    int currentPage() const;
+    int numberOfPages() const;
+    void emptyPreview();
+    void setProcessRunning(bool isRunning);
+    void setShowCoordinates(bool show);
+    void setCoordinatePrecision(int precision);
+    void setBackgroundColor(QColor color);
 
 public Q_SLOTS:
-	void showPreview(const QImage &tikzImage, qreal zoomFactor = 1.0);
-	void pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
-	void showErrorMessage(const QString &message);
+    void showPreview(const QImage &tikzImage, qreal zoomFactor = 1.0);
+    void pixmapUpdated(Poppler::Document *tikzPdfDoc,
+                       const QList<qreal> &tikzCoordinates = QList<qreal>());
+    void showErrorMessage(const QString &message);
 
 Q_SIGNALS:
-	void showMouseCoordinates(qreal x, qreal y, int precisionX = 5, int precisionY = 5);
-	void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor, int currentPage);
+    void showMouseCoordinates(qreal x, qreal y, int precisionX = 5, int precisionY = 5);
+    void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor, int currentPage);
 
 protected:
-	void contextMenuEvent(QContextMenuEvent *event);
-	void paintEvent(QPaintEvent *event);
-	void wheelEvent(QWheelEvent *event);
-	void mouseMoveEvent(QMouseEvent *event);
-	void mousePressEvent(QMouseEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event);
+    void paintEvent(QPaintEvent *event);
+    void wheelEvent(QWheelEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 
 private Q_SLOTS:
-	void setZoomFactor(qreal zoomFactor);
-	void zoomIn();
-	void zoomOut();
-	void showPreviousPage();
-	void showNextPage();
+    void setZoomFactor(qreal zoomFactor);
+    void zoomIn();
+    void zoomOut();
+    void showPreviousPage();
+    void showNextPage();
 
 private:
-	void createInformationLabel();
-	void createActions();
-	void showPdfPage();
-	void centerInfoLabel();
-	void setInfoLabelText(const QString &message, TikzPreviewMessageWidget::PixmapVisibility pixmapVisibility = TikzPreviewMessageWidget::PixmapNotVisible);
+    void createInformationLabel();
+    void createActions();
+    void showPdfPage();
+    void centerInfoLabel();
+    void setInfoLabelText(const QString &message,
+                          TikzPreviewMessageWidget::PixmapVisibility pixmapVisibility =
+                                  TikzPreviewMessageWidget::PixmapNotVisible);
 
-	QGraphicsScene *m_tikzScene;
-	QGraphicsPixmapItem *m_tikzPixmapItem;
-	TikzPreviewRenderer *m_tikzPreviewRenderer;
-	bool m_processRunning;
+    QGraphicsScene *m_tikzScene;
+    QGraphicsPixmapItem *m_tikzPixmapItem;
+    TikzPreviewRenderer *m_tikzPreviewRenderer;
+    bool m_processRunning;
 
-	QAction *m_zoomInAction;
-	QAction *m_zoomOutAction;
-	ZoomAction *m_zoomToAction;
-	QAction *m_pageSeparator;
-	Action *m_previousPageAction;
-	Action *m_nextPageAction;
+    QAction *m_zoomInAction;
+    QAction *m_zoomOutAction;
+    ZoomAction *m_zoomToAction;
+    QAction *m_pageSeparator;
+    Action *m_previousPageAction;
+    Action *m_nextPageAction;
 
-	TikzPreviewMessageWidget *m_infoWidget;
+    TikzPreviewMessageWidget *m_infoWidget;
 
-	Poppler::Document *m_tikzPdfDoc;
-	int m_currentPage;
-	qreal m_zoomFactor;
-	qreal m_oldZoomFactor;
-	bool m_hasZoomed;
+    Poppler::Document *m_tikzPdfDoc;
+    int m_currentPage;
+    qreal m_zoomFactor;
+    qreal m_oldZoomFactor;
+    bool m_hasZoomed;
 
-	bool m_showCoordinates;
-	QList<qreal> m_tikzCoordinates;
-	int m_precision;
+    bool m_showCoordinates;
+    QList<qreal> m_tikzCoordinates;
+    int m_precision;
 };
 
 #endif

@@ -27,89 +27,95 @@
 
 #include "configgeneralwidget.h"
 
-namespace KtikZ
+namespace KtikZ {
+
+PartConfigDialog::PartConfigDialog(QWidget *parent) : QDialog(parent)
 {
+    setWindowTitle(i18nc("@title:window", "Configure KtikZ Viewer"));
+    m_buttonBox =
+            new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel
+                                 | QDialogButtonBox::RestoreDefaults | QDialogButtonBox::Apply);
 
-PartConfigDialog::PartConfigDialog(QWidget *parent)
-	: QDialog(parent)
-{
-	setWindowTitle(i18nc("@title:window", "Configure KtikZ Viewer"));
-	m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::RestoreDefaults|QDialogButtonBox::Apply);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
 
-	QVBoxLayout *mainLayout = new QVBoxLayout;
+    m_configGeneralWidget = new PartConfigGeneralWidget(this);
+    mainLayout->addWidget(viewerWidget());
+    mainLayout->addWidget(m_configGeneralWidget);
 
-	m_configGeneralWidget = new PartConfigGeneralWidget(this);
-	mainLayout->addWidget(viewerWidget());
-	mainLayout->addWidget(m_configGeneralWidget);
+    QPushButton *okButton = m_buttonBox->button(QDialogButtonBox::Ok);
+    okButton->setDefault(true);
+    okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+    connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    // PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please
+    // move it.
+    mainLayout->addWidget(m_buttonBox);
 
-	QPushButton *okButton = m_buttonBox->button(QDialogButtonBox::Ok);
-	okButton->setDefault(true);
-	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
-	connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-	connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
-	mainLayout->addWidget(m_buttonBox);
+    setLayout(mainLayout);
 
-  setLayout(mainLayout);
-
-	connect(m_buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(writeSettings()));
-	connect(okButton, SIGNAL(clicked()), this, SLOT(writeSettings()));
-	connect(m_buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()), this, SLOT(setDefaults()));
-	connect(m_configGeneralWidget, SIGNAL(changed(bool)), this, SLOT(buttonBox->button(QDialogButtonBox::Apply)->setEnabled(bool)));
-	m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
+    connect(m_buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this,
+            SLOT(writeSettings()));
+    connect(okButton, SIGNAL(clicked()), this, SLOT(writeSettings()));
+    connect(m_buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()), this,
+            SLOT(setDefaults()));
+    connect(m_configGeneralWidget, SIGNAL(changed(bool)), this,
+            SLOT(buttonBox->button(QDialogButtonBox::Apply)->setEnabled(bool)));
+    m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
 }
 
-PartConfigDialog::~PartConfigDialog()
-{
-}
+PartConfigDialog::~PartConfigDialog() { }
 
 QWidget *PartConfigDialog::viewerWidget()
 {
-	QGroupBox *viewerGroupBox = new QGroupBox(i18nc("@title:group", "Viewer"));
-	QVBoxLayout *viewerLayout = new QVBoxLayout(viewerGroupBox);
-	m_watchFileCheckBox = new QCheckBox(i18nc("@option:check", "&Reload document on file change"));
-	m_watchFileCheckBox->setObjectName("watchFileCheckBox");
-	m_watchFileCheckBox->setWhatsThis(i18nc("@info:whatsthis", "<para>When this option is checked, "
-	                                        "the TikZ image will be reloaded each time that the file is modified "
-	                                        "by another program.</para>"));
-	viewerLayout->addWidget(m_watchFileCheckBox);
+    QGroupBox *viewerGroupBox = new QGroupBox(i18nc("@title:group", "Viewer"));
+    QVBoxLayout *viewerLayout = new QVBoxLayout(viewerGroupBox);
+    m_watchFileCheckBox = new QCheckBox(i18nc("@option:check", "&Reload document on file change"));
+    m_watchFileCheckBox->setObjectName("watchFileCheckBox");
+    m_watchFileCheckBox->setWhatsThis(
+            i18nc("@info:whatsthis",
+                  "<para>When this option is checked, "
+                  "the TikZ image will be reloaded each time that the file is modified "
+                  "by another program.</para>"));
+    viewerLayout->addWidget(m_watchFileCheckBox);
 
-	connect(m_watchFileCheckBox, SIGNAL(toggled(bool)), this, SLOT(setModified()));
+    connect(m_watchFileCheckBox, SIGNAL(toggled(bool)), this, SLOT(setModified()));
 
-	return viewerGroupBox;
+    return viewerGroupBox;
 }
 
 void PartConfigDialog::setDefaults()
 {
-	m_configGeneralWidget->setDefaults();
-	m_watchFileCheckBox->setChecked(true);
+    m_configGeneralWidget->setDefaults();
+    m_watchFileCheckBox->setChecked(true);
 }
 
 void PartConfigDialog::readSettings()
 {
-	m_configGeneralWidget->readSettings();
+    m_configGeneralWidget->readSettings();
 
-	QSettings settings(ORGNAME, APPNAME);
-	m_watchFileCheckBox->setChecked(settings.value("WatchFile", true).toBool());
+    QSettings settings(ORGNAME, APPNAME);
+    m_watchFileCheckBox->setChecked(settings.value("WatchFile", true).toBool());
 }
 
 void PartConfigDialog::setModified()
 {
-	QWidget *sendingWidget = qobject_cast<QWidget*>(sender());
-	QSettings settings(ORGNAME, APPNAME);
-	if (sendingWidget->objectName() == QLatin1String("watchFileCheckBox"))
-		m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(m_watchFileCheckBox->isChecked() != settings.value("WatchFile", true).toBool());
+    QWidget *sendingWidget = qobject_cast<QWidget *>(sender());
+    QSettings settings(ORGNAME, APPNAME);
+    if (sendingWidget->objectName() == QLatin1String("watchFileCheckBox"))
+        m_buttonBox->button(QDialogButtonBox::Apply)
+                ->setEnabled(m_watchFileCheckBox->isChecked()
+                             != settings.value("WatchFile", true).toBool());
 }
 
 void PartConfigDialog::writeSettings()
 {
-	m_configGeneralWidget->writeSettings();
+    m_configGeneralWidget->writeSettings();
 
-	QSettings settings(ORGNAME, APPNAME);
-	settings.setValue("WatchFile", m_watchFileCheckBox->isChecked());
+    QSettings settings(ORGNAME, APPNAME);
+    settings.setValue("WatchFile", m_watchFileCheckBox->isChecked());
 
-	m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
-	emit settingsChanged("preferences");
+    m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
+    emit settingsChanged("preferences");
 }
 
 } // namespace KtikZ

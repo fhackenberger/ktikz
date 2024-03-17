@@ -24,9 +24,9 @@
 class GlobalLocale
 {
 public:
-	static QString decimalSymbol();
-	static QString formatNumber(double num, int precision = -1);
-	static double readNumber(const QString &str);
+    static QString decimalSymbol();
+    static QString formatNumber(double num, int precision = -1);
+    static double readNumber(const QString &str);
 };
 
 #endif

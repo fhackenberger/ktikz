@@ -22,16 +22,15 @@
 
 QString GlobalLocale::decimalSymbol()
 {
-	return QLocale::system().decimalPoint();
+    return QLocale::system().decimalPoint();
 }
 
 QString GlobalLocale::formatNumber(double num, int precision)
 {
-	return QLocale::system().toString(num, 'f', precision);
+    return QLocale::system().toString(num, 'f', precision);
 }
 
 double GlobalLocale::readNumber(const QString &str)
 {
-	return str.toDouble();
+    return str.toDouble();
 }
-

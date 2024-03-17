@@ -20,28 +20,28 @@
 #define KTIKZ_TOOLBAR_H
 
 #ifdef KTIKZ_USE_KDE
-#include <KToolBar>
+#  include <KToolBar>
 
 class ToolBar : public KToolBar
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ToolBar(const QString &objectName, QWidget *parent);
+    explicit ToolBar(const QString &objectName, QWidget *parent);
 };
 #else
-#include <QtCore/QtGlobal>
-#include <QtWidgets/QToolBar>
+#  include <QtCore/QtGlobal>
+#  include <QtWidgets/QToolBar>
 
 class ToolBar : public QToolBar
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ToolBar(const QString &objectName, QWidget *parent);
+    explicit ToolBar(const QString &objectName, QWidget *parent);
 
 private:
-	void setToolBarStyle();
+    void setToolBarStyle();
 };
 #endif
 

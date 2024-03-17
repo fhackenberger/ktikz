@@ -27,54 +27,50 @@
 
 static const QString s_completionPlaceHolder(0x2022);
 
-UserCommandInserter::UserCommandInserter(QWidget *parent)
-	: QObject(parent)
-	, m_userMenu(0)
+UserCommandInserter::UserCommandInserter(QWidget *parent) : QObject(parent), m_userMenu(0)
 {
-	readSettings();
+    readSettings();
 }
 
 void UserCommandInserter::readSettings()
 {
-	m_names.clear();
-	m_commands.clear();
-	QSettings settings;
-	const int size = settings.beginReadArray(QLatin1String("UserCommands"));
-	for (int i = 0; i < size; ++i)
-	{
-		settings.setArrayIndex(i);
-		m_names.append(settings.value(QLatin1String("Name")).toString());
-		m_commands.append(settings.value(QLatin1String("Command")).toString());
-	}
-	settings.endArray();
+    m_names.clear();
+    m_commands.clear();
+    QSettings settings;
+    const int size = settings.beginReadArray(QLatin1String("UserCommands"));
+    for (int i = 0; i < size; ++i) {
+        settings.setArrayIndex(i);
+        m_names.append(settings.value(QLatin1String("Name")).toString());
+        m_commands.append(settings.value(QLatin1String("Command")).toString());
+    }
+    settings.endArray();
 
-	if (m_userMenu)
-		updateMenu();
+    if (m_userMenu)
+        updateMenu();
 }
 
 QMenu *UserCommandInserter::getMenu()
 {
-	if (!m_userMenu)
-		m_userMenu = new QMenu(tr("&User snippets"), qobject_cast<QWidget*>(parent()));
-	updateMenu();
-	return m_userMenu;
+    if (!m_userMenu)
+        m_userMenu = new QMenu(tr("&User snippets"), qobject_cast<QWidget *>(parent()));
+    updateMenu();
+    return m_userMenu;
 }
 
 void UserCommandInserter::updateMenu()
 {
-	m_userMenu->clear();
+    m_userMenu->clear();
 
-	for (int i = 0; i < m_names.size(); ++i)
-	{
-		QAction *action = m_userMenu->addAction(m_names.at(i));
-		action->setData(i);
-		connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));
-	}
+    for (int i = 0; i < m_names.size(); ++i) {
+        QAction *action = m_userMenu->addAction(m_names.at(i));
+        action->setData(i);
+        connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));
+    }
 
-	m_userMenu->addSeparator();
+    m_userMenu->addSeparator();
 
-	QAction *action = m_userMenu->addAction(tr("&Edit user commands"));
-	connect(action, SIGNAL(triggered()), this, SLOT(editCommands()));
+    QAction *action = m_userMenu->addAction(tr("&Edit user commands"));
+    connect(action, SIGNAL(triggered()), this, SLOT(editCommands()));
 }
 
 /*
@@ -83,7 +79,7 @@ void UserCommandInserter::updateMenu()
 
 QStringList UserCommandInserter::getCommandWords()
 {
-	return m_commands;
+    return m_commands;
 }
 
 /*
@@ -92,19 +88,19 @@ QStringList UserCommandInserter::getCommandWords()
 
 void UserCommandInserter::insertTag()
 {
-	QAction *action = qobject_cast<QAction*>(sender());
-	if (!action)
-		return;
-	Q_EMIT insertTag(m_commands.at(action->data().toInt()));
+    QAction *action = qobject_cast<QAction *>(sender());
+    if (!action)
+        return;
+    Q_EMIT insertTag(m_commands.at(action->data().toInt()));
 }
 
 void UserCommandInserter::editCommands()
 {
-	QPointer<UserCommandEditDialog> editDialog = new UserCommandEditDialog(qobject_cast<QWidget*>(parent()));
-	if (editDialog->exec())
-	{
-		readSettings();
-		Q_EMIT updateCompleter();
-	}
-	delete editDialog;
+    QPointer<UserCommandEditDialog> editDialog =
+            new UserCommandEditDialog(qobject_cast<QWidget *>(parent()));
+    if (editDialog->exec()) {
+        readSettings();
+        Q_EMIT updateCompleter();
+    }
+    delete editDialog;
 }

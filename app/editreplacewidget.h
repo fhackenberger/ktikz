@@ -24,36 +24,36 @@
 
 class ReplaceWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ReplaceWidget(QWidget *parent = 0);
-	~ReplaceWidget();
-	void setForward(bool forward);
-	void setText(const QString &text);
+    explicit ReplaceWidget(QWidget *parent = 0);
+    ~ReplaceWidget();
+    void setForward(bool forward);
+    void setText(const QString &text);
 
 public Q_SLOTS:
-	void doFind();
+    void doFind();
 
 Q_SIGNALS:
-	void focusEditor();
-	void search(const QString &text, QTextDocument::FindFlags flags);
-	void replace(const QString &text, const QString &replacement, QTextDocument::FindFlags flags);
+    void focusEditor();
+    void search(const QString &text, QTextDocument::FindFlags flags);
+    void replace(const QString &text, const QString &replacement, QTextDocument::FindFlags flags);
 
 protected:
-	virtual void showEvent(QShowEvent *event);
-	virtual void keyPressEvent(QKeyEvent *event);
+    virtual void showEvent(QShowEvent *event);
+    virtual void keyPressEvent(QKeyEvent *event);
 
 protected Q_SLOTS:
-	void hide();
+    void hide();
 
 private Q_SLOTS:
-	void setBackward();
-	void setForward();
-	void doReplace();
+    void setBackward();
+    void setForward();
+    void doReplace();
 
 private:
-	Ui::ReplaceWidget ui;
+    Ui::ReplaceWidget ui;
 };
 
 #endif

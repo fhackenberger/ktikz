@@ -26,7 +26,7 @@
 
 class QAction;
 class QMenu;
-//class QSyntaxHighlighter;
+// class QSyntaxHighlighter;
 class QPlainTextEdit;
 class QToolBar;
 class Action;
@@ -35,103 +35,105 @@ class IndentWidget;
 class ReplaceWidget;
 class ReplaceCurrentWidget;
 class TikzEditor;
-//class TikzHighlighter;
+// class TikzHighlighter;
 
 class TikzEditorView : public TikzEditorViewAbstract
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit TikzEditorView(QWidget *parent = 0);
-	virtual ~TikzEditorView();
+    explicit TikzEditorView(QWidget *parent = 0);
+    virtual ~TikzEditorView();
 
-	QPlainTextEdit *editor();
-	QTextDocument *document();
-	QString text();
+    QPlainTextEdit *editor();
+    QTextDocument *document();
+    QString text();
 #ifndef KTIKZ_USE_KDE
-	QMenu *editMenu();
-	QMenu *bookmarksMenu();
-	QToolBar *toolBar();
+    QMenu *editMenu();
+    QMenu *bookmarksMenu();
+    QToolBar *toolBar();
 #endif
-	void applySettings();
-	void setLine(const QString &line);
-	int lineNumber() const;
-	void updateCompleter(bool useCompletion, const QStringList &words);
-	void clear();
-	bool isEmpty();
-	bool isModified();
-	void setModified( bool value );
+    void applySettings();
+    void setLine(const QString &line);
+    int lineNumber() const;
+    void updateCompleter(bool useCompletion, const QStringList &words);
+    void clear();
+    bool isEmpty();
+    bool isModified();
+    void setModified(bool value);
 
 public Q_SLOTS:
-	void setPasteEnabled();
-	void goToLine(int lineNumber);
+    void setPasteEnabled();
+    void goToLine(int lineNumber);
 
 Q_SIGNALS:
-	void modificationChanged(bool changed);
-	void contentsChanged();
-	void cursorPositionChanged(int row, int col);
-	void showStatusMessage(const QString &message, int timeout = 3000);
-	void setSearchFromBegin(bool searchFromBegin);
-	void focusIn();
-	void focusOut();
+    void modificationChanged(bool changed);
+    void contentsChanged();
+    void cursorPositionChanged(int row, int col);
+    void showStatusMessage(const QString &message, int timeout = 3000);
+    void setSearchFromBegin(bool searchFromBegin);
+    void focusIn();
+    void focusOut();
 
 private Q_SLOTS:
-//	void showCursorPosition();
-	void editGoToLine();
-	void editIndent();
-	void editUnindent();
-	void editComment();
-	void editUncomment();
-	void editFind();
-	void editFindNext();
-	void editFindPrevious();
-	void editReplace();
-	void tabIndent(bool isUnindenting = false);
-	void indent(QChar insertChar, int numOfInserts, bool isUnindenting = false);
-	bool search(const QString &text, QTextDocument::FindFlags flags = 0, bool startAtCursor = true, bool continueFromBeginning = false);
-	void search();
-	void replace(const QString &replacement);
-	void replace(const QString &text, const QString &replacement, QTextDocument::FindFlags flags = 0, bool startAtCursor = true);
-	void replace();
-	void replaceAll();
+    //	void showCursorPosition();
+    void editGoToLine();
+    void editIndent();
+    void editUnindent();
+    void editComment();
+    void editUncomment();
+    void editFind();
+    void editFindNext();
+    void editFindPrevious();
+    void editReplace();
+    void tabIndent(bool isUnindenting = false);
+    void indent(QChar insertChar, int numOfInserts, bool isUnindenting = false);
+    bool search(const QString &text, QTextDocument::FindFlags flags = 0, bool startAtCursor = true,
+                bool continueFromBeginning = false);
+    void search();
+    void replace(const QString &replacement);
+    void replace(const QString &text, const QString &replacement,
+                 QTextDocument::FindFlags flags = 0, bool startAtCursor = true);
+    void replace();
+    void replaceAll();
 
 private:
-	void setFont(const QFont &editorFont);
-	void createActions();
-	void initGoToLineWidget();
-	void setLine(int lineNumber);
-	void initIndentWidget();
-	void openIndentWidget();
-	void initReplaceWidgets();
-	void openReplaceWidget();
+    void setFont(const QFont &editorFont);
+    void createActions();
+    void initGoToLineWidget();
+    void setLine(int lineNumber);
+    void initIndentWidget();
+    void openIndentWidget();
+    void initReplaceWidgets();
+    void openReplaceWidget();
 
-	TikzEditor *m_tikzEditor;
-	GoToLineWidget *m_goToLineWidget;
-	IndentWidget *m_indentWidget;
-	ReplaceWidget *m_replaceWidget;
-	ReplaceCurrentWidget *m_replaceCurrentWidget;
+    TikzEditor *m_tikzEditor;
+    GoToLineWidget *m_goToLineWidget;
+    IndentWidget *m_indentWidget;
+    ReplaceWidget *m_replaceWidget;
+    ReplaceCurrentWidget *m_replaceCurrentWidget;
 
-	QString m_searchText;
-	QString m_replaceText;
-	QTextDocument::FindFlags m_flags;
-	bool m_startAtCursor;
+    QString m_searchText;
+    QString m_replaceText;
+    QTextDocument::FindFlags m_flags;
+    bool m_startAtCursor;
 
-//	TikzHighlighter *tikzHighlighter;
+    //	TikzHighlighter *tikzHighlighter;
 
-//	TikzCommandInserter *commandInserter;
+    //	TikzCommandInserter *commandInserter;
 
-	QAction *m_undoAction;
-	QAction *m_redoAction;
-	QAction *m_cutAction;
-	QAction *m_copyAction;
-	QAction *m_pasteAction;
-	QAction *m_selectAllAction;
-	QList<QAction*> m_editActions;
-	Action *m_setBookmarkAction;
-	Action *m_previousBookmarkAction;
-	Action *m_nextBookmarkAction;
+    QAction *m_undoAction;
+    QAction *m_redoAction;
+    QAction *m_cutAction;
+    QAction *m_copyAction;
+    QAction *m_pasteAction;
+    QAction *m_selectAllAction;
+    QList<QAction *> m_editActions;
+    Action *m_setBookmarkAction;
+    Action *m_previousBookmarkAction;
+    Action *m_nextBookmarkAction;
 
-//	int customHighlighting;
+    //	int customHighlighting;
 };
 
 #endif

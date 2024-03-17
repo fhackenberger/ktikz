@@ -22,105 +22,105 @@
 #include "icon.h"
 
 #ifdef KTIKZ_USE_KDE
-#include <KActionCollection>
+#  include <KActionCollection>
 
-SelectAction::SelectAction(QObject *parent, const QString &name)
-	: KSelectAction(parent)
+SelectAction::SelectAction(QObject *parent, const QString &name) : KSelectAction(parent)
 {
-	if (!name.isEmpty())
-		Action::actionCollection()->addAction(name, this);
+    if (!name.isEmpty())
+        Action::actionCollection()->addAction(name, this);
 }
 
 SelectAction::SelectAction(const QString &text, QObject *parent, const QString &name)
-	: KSelectAction(text, parent)
+    : KSelectAction(text, parent)
 {
-	if (!name.isEmpty())
-		Action::actionCollection()->addAction(name, this);
+    if (!name.isEmpty())
+        Action::actionCollection()->addAction(name, this);
 }
 
-SelectAction::SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-	: KSelectAction(icon, text, parent)
+SelectAction::SelectAction(const Icon &icon, const QString &text, QObject *parent,
+                           const QString &name)
+    : KSelectAction(icon, text, parent)
 {
-	if (!name.isEmpty())
-		Action::actionCollection()->addAction(name, this);
+    if (!name.isEmpty())
+        Action::actionCollection()->addAction(name, this);
 }
 #else
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QLineEdit>
-#include <QtWidgets/QWidgetAction>
+#  include <QtWidgets/QComboBox>
+#  include <QtWidgets/QLineEdit>
+#  include <QtWidgets/QWidgetAction>
 
-SelectAction::SelectAction(QObject *parent, const QString &name)
-	: QWidgetAction(parent)
+SelectAction::SelectAction(QObject *parent, const QString &name) : QWidgetAction(parent)
 {
-	init(name);
+    init(name);
 }
 
 SelectAction::SelectAction(const QString &text, QObject *parent, const QString &name)
-	: QWidgetAction(parent)
+    : QWidgetAction(parent)
 {
-	init(name);
-	setText(text);
+    init(name);
+    setText(text);
 }
 
-SelectAction::SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-	: QWidgetAction(parent)
+SelectAction::SelectAction(const Icon &icon, const QString &text, QObject *parent,
+                           const QString &name)
+    : QWidgetAction(parent)
 {
-	init(name);
-	setIcon(icon);
-	setText(text);
+    init(name);
+    setIcon(icon);
+    setText(text);
 }
 
 void SelectAction::init(const QString &name)
 {
-	if (!name.isEmpty())
-		setObjectName(name);
+    if (!name.isEmpty())
+        setObjectName(name);
 
-	m_selectCombo = new QComboBox;
-	setDefaultWidget(m_selectCombo);
-	connect(m_selectCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(setCurrentItem()));
+    m_selectCombo = new QComboBox;
+    setDefaultWidget(m_selectCombo);
+    connect(m_selectCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(setCurrentItem()));
 }
 
 SelectAction::~SelectAction()
 {
-	delete m_selectCombo;
+    delete m_selectCombo;
 }
 
 void SelectAction::setEditable(bool editable)
 {
-	m_selectCombo->setEditable(editable);
-	if (editable)
-		connect(m_selectCombo->lineEdit(), SIGNAL(returnPressed()), this, SLOT(setCurrentItem()));
+    m_selectCombo->setEditable(editable);
+    if (editable)
+        connect(m_selectCombo->lineEdit(), SIGNAL(returnPressed()), this, SLOT(setCurrentItem()));
 }
 
 void SelectAction::setCurrentItem()
 {
-	const QString text = m_selectCombo->currentText();
-	Q_EMIT triggered(text);
+    const QString text = m_selectCombo->currentText();
+    Q_EMIT triggered(text);
 }
 
 void SelectAction::removeAllActions()
 {
-	m_selectCombo->clear();
+    m_selectCombo->clear();
 }
 
 void SelectAction::setItems(const QStringList &items)
 {
-	m_selectCombo->clear();
-	m_selectCombo->addItems(items);
+    m_selectCombo->clear();
+    m_selectCombo->addItems(items);
 }
 
 void SelectAction::setCurrentItem(int index)
 {
-	m_selectCombo->setCurrentIndex(index);
-	if (m_selectCombo->isEditable())
-		m_selectCombo->lineEdit()->setText(m_selectCombo->currentText());
+    m_selectCombo->setCurrentIndex(index);
+    if (m_selectCombo->isEditable())
+        m_selectCombo->lineEdit()->setText(m_selectCombo->currentText());
 }
 
 QStringList SelectAction::items() const
 {
-	QStringList itemList;
-	for (int i = 0; i < m_selectCombo->count(); ++i)
-		itemList << m_selectCombo->itemText(i);
-	return itemList;
+    QStringList itemList;
+    for (int i = 0; i < m_selectCombo->count(); ++i)
+        itemList << m_selectCombo->itemText(i);
+    return itemList;
 }
 #endif

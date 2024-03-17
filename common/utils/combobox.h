@@ -20,26 +20,26 @@
 #define KTIKZ_COMBOBOX_H
 
 #ifdef KTIKZ_USE_KDE
-#include <KComboBox>
+#  include <KComboBox>
 
 class ComboBox : public KComboBox
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	explicit ComboBox(QWidget *parent = 0);
+    explicit ComboBox(QWidget *parent = 0);
 };
 #else
-#include <QtGlobal>
-#include <QComboBox>
+#  include <QtGlobal>
+#  include <QComboBox>
 
 class UrlCompletion;
 
 class ComboBox : public QComboBox
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	explicit ComboBox(QWidget *parent = 0);
-	void setCompletionObject(UrlCompletion *urlCompletion);
+    explicit ComboBox(QWidget *parent = 0);
+    void setCompletionObject(UrlCompletion *urlCompletion);
 };
 #endif
 

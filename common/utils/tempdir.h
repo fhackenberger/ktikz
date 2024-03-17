@@ -24,10 +24,10 @@
 class TempDir : public QTemporaryDir
 {
 public:
-	explicit TempDir(const QString &directoryPrefix = QString());
+    explicit TempDir(const QString &directoryPrefix = QString());
 
-	const QString location() const;
-	bool cleanUp();
+    const QString location() const;
+    bool cleanUp();
 };
 
 #endif

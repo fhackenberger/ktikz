@@ -20,50 +20,47 @@
 
 #include <QtCore/QSettings>
 
-ConfigPreviewWidget::ConfigPreviewWidget(QWidget *parent)
-	: QWidget(parent)
+ConfigPreviewWidget::ConfigPreviewWidget(QWidget *parent) : QWidget(parent)
 {
-	ui.setupUi(this);
+    ui.setupUi(this);
 }
 
-ConfigPreviewWidget::~ConfigPreviewWidget()
-{
-}
+ConfigPreviewWidget::~ConfigPreviewWidget() { }
 
 void ConfigPreviewWidget::readSettings(const QString &settingsGroup)
 {
-	QSettings settings;
-	settings.beginGroup(settingsGroup);
-	if (settings.value(QLatin1String("BuildAutomatically"), true).toBool())
-		ui.buildAutomaticallyRadio->setChecked(true);
-	else
-		ui.buildManuallyRadio->setChecked(true);
+    QSettings settings;
+    settings.beginGroup(settingsGroup);
+    if (settings.value(QLatin1String("BuildAutomatically"), true).toBool())
+        ui.buildAutomaticallyRadio->setChecked(true);
+    else
+        ui.buildManuallyRadio->setChecked(true);
 
-	ui.showCoordinatesCheck->setChecked(settings.value(QLatin1String("ShowCoordinates"), true).toBool());
-	const int precision = settings.value(QLatin1String("ShowCoordinatesPrecision"), -1).toInt();
-	if (precision < 0)
-	{
-		ui.bestPrecisionRadio->setChecked(true);
-	}
-	else
-	{
-		ui.specifyPrecisionRadio->setChecked(true);
-		ui.specifyPrecisionSpinBox->setValue(precision);
-	}
-	ui.backgroundColorButton->setColor(settings.value(QLatin1String("PreviewBackgroundColor")).value<QColor>());
-	settings.endGroup();
+    ui.showCoordinatesCheck->setChecked(
+            settings.value(QLatin1String("ShowCoordinates"), true).toBool());
+    const int precision = settings.value(QLatin1String("ShowCoordinatesPrecision"), -1).toInt();
+    if (precision < 0) {
+        ui.bestPrecisionRadio->setChecked(true);
+    } else {
+        ui.specifyPrecisionRadio->setChecked(true);
+        ui.specifyPrecisionSpinBox->setValue(precision);
+    }
+    ui.backgroundColorButton->setColor(
+            settings.value(QLatin1String("PreviewBackgroundColor")).value<QColor>());
+    settings.endGroup();
 }
 
 void ConfigPreviewWidget::writeSettings(const QString &settingsGroup)
 {
-	QSettings settings;
-	settings.beginGroup(settingsGroup);
-	settings.setValue(QLatin1String("BuildAutomatically"), ui.buildAutomaticallyRadio->isChecked());
-	settings.setValue(QLatin1String("ShowCoordinates"), ui.showCoordinatesCheck->isChecked());
-	if (ui.bestPrecisionRadio->isChecked())
-		settings.setValue(QLatin1String("ShowCoordinatesPrecision"), -1);
-	else
-		settings.setValue(QLatin1String("ShowCoordinatesPrecision"), ui.specifyPrecisionSpinBox->value());
+    QSettings settings;
+    settings.beginGroup(settingsGroup);
+    settings.setValue(QLatin1String("BuildAutomatically"), ui.buildAutomaticallyRadio->isChecked());
+    settings.setValue(QLatin1String("ShowCoordinates"), ui.showCoordinatesCheck->isChecked());
+    if (ui.bestPrecisionRadio->isChecked())
+        settings.setValue(QLatin1String("ShowCoordinatesPrecision"), -1);
+    else
+        settings.setValue(QLatin1String("ShowCoordinatesPrecision"),
+                          ui.specifyPrecisionSpinBox->value());
     settings.setValue(QLatin1String("PreviewBackgroundColor"), ui.backgroundColorButton->color());
     settings.endGroup();
 }

@@ -25,10 +25,10 @@
 
 struct HighlightingRule
 {
-	QString type; /// The name of the formatting type
-	QString matchString; /// The string to match for formatting; only used when pattern is empty
-	QRegExp pattern; /// The pattern to match for formatting; overrides usage of matchString
-	bool isRegExp;
+    QString type; /// The name of the formatting type
+    QString matchString; /// The string to match for formatting; only used when pattern is empty
+    QRegExp pattern; /// The pattern to match for formatting; overrides usage of matchString
+    bool isRegExp;
 };
 
 /** A simple highlighter for the TikZ graphics programming language
@@ -36,30 +36,30 @@ struct HighlightingRule
  */
 class TikzHighlighter : public QSyntaxHighlighter
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit TikzHighlighter(QTextDocument *parent = 0);
-	virtual ~TikzHighlighter();
+    explicit TikzHighlighter(QTextDocument *parent = 0);
+    virtual ~TikzHighlighter();
 
-	void setHighlightingRules(const QVector<HighlightingRule> &highlightingRules);
-	static QMap<QString, QTextCharFormat> getDefaultHighlightFormats();
-	static QStringList getTranslatedHighlightTypeNames();
-	static QStringList getHighlightTypeNames();
-	void applySettings();
+    void setHighlightingRules(const QVector<HighlightingRule> &highlightingRules);
+    static QMap<QString, QTextCharFormat> getDefaultHighlightFormats();
+    static QStringList getTranslatedHighlightTypeNames();
+    static QStringList getHighlightTypeNames();
+    void applySettings();
 
 protected:
-	/** Implements QSyntaxHighlighter::highlightBlock()
-	 * @see QSyntaxHighlighter::highlightBlock()
-	 */
-	void highlightBlock(const QString &text);
+    /** Implements QSyntaxHighlighter::highlightBlock()
+     * @see QSyntaxHighlighter::highlightBlock()
+     */
+    void highlightBlock(const QString &text);
 
 private:
-	/// All highlighting rules with their formatting for easy iteration
-	QVector<HighlightingRule> m_highlightingRules;
+    /// All highlighting rules with their formatting for easy iteration
+    QVector<HighlightingRule> m_highlightingRules;
 
-	QMap<QString, QTextCharFormat> m_formatList;
-	QStringList m_highlightTypeNames;
+    QMap<QString, QTextCharFormat> m_formatList;
+    QStringList m_highlightTypeNames;
 };
 
 #endif

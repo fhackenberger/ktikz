@@ -19,42 +19,37 @@
 #include "toolbar.h"
 
 #ifdef KTIKZ_USE_KDE
-ToolBar::ToolBar(const QString &objectName, QWidget *parent)
-	: KToolBar(objectName, parent)
-{
-}
+ToolBar::ToolBar(const QString &objectName, QWidget *parent) : KToolBar(objectName, parent) { }
 #else
-#include <QtCore/QSettings>
+#  include <QtCore/QSettings>
 
-ToolBar::ToolBar(const QString &objectName, QWidget *parent)
-	: QToolBar(parent)
+ToolBar::ToolBar(const QString &objectName, QWidget *parent) : QToolBar(parent)
 {
-	setObjectName(objectName);
-	setToolBarStyle();
+    setObjectName(objectName);
+    setToolBarStyle();
 }
 
 void ToolBar::setToolBarStyle()
 {
-	QSettings settings;
-	settings.beginGroup(QLatin1String("MainWindow"));
+    QSettings settings;
+    settings.beginGroup(QLatin1String("MainWindow"));
 
-	const int toolBarStyleNumber = settings.value(QLatin1String("ToolBarStyle"), 0).toInt();
-	Qt::ToolButtonStyle toolBarStyle = Qt::ToolButtonIconOnly;
-	switch (toolBarStyleNumber)
-	{
-		case 0:
-			toolBarStyle = Qt::ToolButtonIconOnly;
-			break;
-		case 1:
-			toolBarStyle = Qt::ToolButtonTextOnly;
-			break;
-		case 2:
-			toolBarStyle = Qt::ToolButtonTextBesideIcon;
-			break;
-		case 3:
-			toolBarStyle = Qt::ToolButtonTextUnderIcon;
-			break;
-	}
-	setToolButtonStyle(toolBarStyle);
+    const int toolBarStyleNumber = settings.value(QLatin1String("ToolBarStyle"), 0).toInt();
+    Qt::ToolButtonStyle toolBarStyle = Qt::ToolButtonIconOnly;
+    switch (toolBarStyleNumber) {
+    case 0:
+        toolBarStyle = Qt::ToolButtonIconOnly;
+        break;
+    case 1:
+        toolBarStyle = Qt::ToolButtonTextOnly;
+        break;
+    case 2:
+        toolBarStyle = Qt::ToolButtonTextBesideIcon;
+        break;
+    case 3:
+        toolBarStyle = Qt::ToolButtonTextUnderIcon;
+        break;
+    }
+    setToolButtonStyle(toolBarStyle);
 }
 #endif

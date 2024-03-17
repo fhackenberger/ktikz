@@ -23,24 +23,24 @@
 
 TikzPreviewRenderer::TikzPreviewRenderer()
 {
-	moveToThread(&m_thread);
-	m_thread.start();
+    moveToThread(&m_thread);
+    m_thread.start();
 }
 
 TikzPreviewRenderer::~TikzPreviewRenderer()
 {
-	if (m_thread.isRunning())
-	{
-		m_thread.quit();
-		m_thread.wait();
-	}
+    if (m_thread.isRunning()) {
+        m_thread.quit();
+        m_thread.wait();
+    }
 }
 
-void TikzPreviewRenderer::generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor, int currentPage)
+void TikzPreviewRenderer::generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor,
+                                          int currentPage)
 {
-	Poppler::Page *pdfPage = tikzPdfDoc->page(currentPage);
-	const QImage tikzImage = pdfPage->renderToImage(zoomFactor * 72, zoomFactor * 72);
-	delete pdfPage;
+    Poppler::Page *pdfPage = tikzPdfDoc->page(currentPage);
+    const QImage tikzImage = pdfPage->renderToImage(zoomFactor * 72, zoomFactor * 72);
+    delete pdfPage;
 
-	Q_EMIT showPreview(tikzImage, zoomFactor);
+    Q_EMIT showPreview(tikzImage, zoomFactor);
 }

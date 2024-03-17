@@ -43,79 +43,79 @@ class ToggleAction;
 
 class TikzPreviewController : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit TikzPreviewController(MainWidget *mainWidget);
-	~TikzPreviewController();
+    explicit TikzPreviewController(MainWidget *mainWidget);
+    ~TikzPreviewController();
 
-	const TextCodecProfile* textCodecProfile() const;
-	const QString tempDir() const;
-	const QString tempDirLocation() const;
-	TemplateWidget *templateWidget() const;
-	TikzPreview *tikzPreview() const;
+    const TextCodecProfile *textCodecProfile() const;
+    const QString tempDir() const;
+    const QString tempDirLocation() const;
+    TemplateWidget *templateWidget() const;
+    TikzPreview *tikzPreview() const;
 #ifndef KTIKZ_USE_KDE
-	QAction *exportAction();
-	QAction *printPreviewAction();
-	QAction *printAction();
-	QMenu *menu();
-	QList<QToolBar*> toolBars();
-	void setToolBarStyle(const Qt::ToolButtonStyle &style);
+    QAction *exportAction();
+    QAction *printPreviewAction();
+    QAction *printAction();
+    QMenu *menu();
+    QList<QToolBar *> toolBars();
+    void setToolBarStyle(const Qt::ToolButtonStyle &style);
 #endif
-	QString tikzCode() const;
-	QString getLogText();
-	void emptyPreview();
-	void applySettings();
+    QString tikzCode() const;
+    QString getLogText();
+    void emptyPreview();
+    void applySettings();
 
 public Q_SLOTS:
-	void printPreviewImage();
-	void printImage();
-	void generatePreview();
-	void regeneratePreviewAfterDelay();
+    void printPreviewImage();
+    void printImage();
+    void generatePreview();
+    void regeneratePreviewAfterDelay();
 
 private Q_SLOTS:
-	void setTemplateFileAndRegenerate(const QString &path);
-	void setReplaceTextAndRegenerate(const QString &replace);
-	void regeneratePreview();
-	void abortProcess();
-	void exportImage();
-	void printImage(QPrinter *printer);
-	void setExportActionsEnabled(bool enabled);
-	void setProcessRunning(bool isRunning);
-	void toggleShellEscaping(bool useShellEscaping);
+    void setTemplateFileAndRegenerate(const QString &path);
+    void setReplaceTextAndRegenerate(const QString &replace);
+    void regeneratePreview();
+    void abortProcess();
+    void exportImage();
+    void printImage(QPrinter *printer);
+    void setExportActionsEnabled(bool enabled);
+    void setProcessRunning(bool isRunning);
+    void toggleShellEscaping(bool useShellEscaping);
 
 Q_SIGNALS:
-	void updateLog(const QString &logText, bool runFailed);
-	void appendLog(const QString &logText, bool runFailed);
-	void showMouseCoordinates(qreal x, qreal y, int precisionX, int precisionY);
+    void updateLog(const QString &logText, bool runFailed);
+    void appendLog(const QString &logText, bool runFailed);
+    void showMouseCoordinates(qreal x, qreal y, int precisionX, int precisionY);
 
 private:
-	const QString tempFileBaseName() const;
-	void createActions();
-	void generatePreview(TikzPreviewGenerator::TemplateStatus templateStatus);
-	bool setTemplateFile(const QString &path);
-	Url getExportUrl(const Url &url, const QString &mimeType) const;
+    const QString tempFileBaseName() const;
+    void createActions();
+    void generatePreview(TikzPreviewGenerator::TemplateStatus templateStatus);
+    bool setTemplateFile(const QString &path);
+    Url getExportUrl(const Url &url, const QString &mimeType) const;
 
-	MainWidget *m_mainWidget;
-	QWidget *m_parentWidget;
+    MainWidget *m_mainWidget;
+    QWidget *m_parentWidget;
 
-	TemplateWidget *m_templateWidget;
-	TikzPreview *m_tikzPreview;
-	TikzPreviewGenerator *m_tikzPreviewGenerator;
+    TemplateWidget *m_templateWidget;
+    TikzPreview *m_tikzPreview;
+    TikzPreviewGenerator *m_tikzPreviewGenerator;
 
-	QTimer *m_regenerateTimer;
+    QTimer *m_regenerateTimer;
 
 #ifndef KTIKZ_USE_KDE
-	QList<QToolBar*> m_toolBars;
+    QList<QToolBar *> m_toolBars;
 #endif
-	Action *m_exportAction;
-	Action *m_printPreviewAction;
-	Action *m_printAction;
-	Action *m_procStopAction;
-	ToggleAction *m_shellEscapeAction;
+    Action *m_exportAction;
+    Action *m_printPreviewAction;
+    Action *m_printAction;
+    Action *m_procStopAction;
+    ToggleAction *m_shellEscapeAction;
 
-	TempDir *m_tempDir;
-	QString m_currentFileName;
+    TempDir *m_tempDir;
+    QString m_currentFileName;
 };
 
 #endif

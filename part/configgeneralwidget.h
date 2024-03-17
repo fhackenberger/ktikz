@@ -22,28 +22,27 @@
 #include <QWidget>
 #include "ui_configgeneralwidget.h"
 
-namespace KtikZ
-{
+namespace KtikZ {
 
 class PartConfigGeneralWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit PartConfigGeneralWidget(QWidget *parent = 0);
+    explicit PartConfigGeneralWidget(QWidget *parent = 0);
 
-	void setDefaults();
-	void readSettings(const QString &settingsGroup = QString());
-	void writeSettings(const QString &settingsGroup = QString());
+    void setDefaults();
+    void readSettings(const QString &settingsGroup = QString());
+    void writeSettings(const QString &settingsGroup = QString());
 
 signals:
-	void changed(bool isChanged);
+    void changed(bool isChanged);
 
 protected:
-	Ui::PartConfigGeneralWidget ui;
+    Ui::PartConfigGeneralWidget ui;
 
 private slots:
-	void setModified();
+    void setModified();
 };
 
 } // namespace KtikZ

@@ -20,69 +20,65 @@
 #include "icon.h"
 
 #ifdef KTIKZ_USE_KDE
-#include <KActionCollection>
+#  include <KActionCollection>
 
 KActionCollection *Action::s_actionCollection = 0;
 
-Action::Action(QObject *parent, const QString &name)
-	: QAction(parent)
+Action::Action(QObject *parent, const QString &name) : QAction(parent)
 {
-	if (s_actionCollection && !name.isEmpty())
-		s_actionCollection->addAction(name, this);
+    if (s_actionCollection && !name.isEmpty())
+        s_actionCollection->addAction(name, this);
 }
 
-Action::Action(const QString &text, QObject *parent, const QString &name)
-	: QAction(text, parent)
+Action::Action(const QString &text, QObject *parent, const QString &name) : QAction(text, parent)
 {
-	if (s_actionCollection && !name.isEmpty())
-		s_actionCollection->addAction(name, this);
+    if (s_actionCollection && !name.isEmpty())
+        s_actionCollection->addAction(name, this);
 }
 
 Action::Action(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-	: QAction(icon, text, parent)
+    : QAction(icon, text, parent)
 {
-	if (s_actionCollection && !name.isEmpty())
-		s_actionCollection->addAction(name, this);
+    if (s_actionCollection && !name.isEmpty())
+        s_actionCollection->addAction(name, this);
 }
 
 void Action::setShortcut(const QKeySequence &shortcut)
 {
-	actionCollection()->setDefaultShortcut( this, shortcut );
+    actionCollection()->setDefaultShortcut(this, shortcut);
 }
 
 KActionCollection *Action::actionCollection()
 {
-	return s_actionCollection;
+    return s_actionCollection;
 }
 
 void Action::setActionCollection(KActionCollection *actionCollection)
 {
-	s_actionCollection = actionCollection;
+    s_actionCollection = actionCollection;
 }
 #else
-Action::Action(QObject *parent, const QString &name)
-	: QAction(parent)
+Action::Action(QObject *parent, const QString &name) : QAction(parent)
 {
-	if (!name.isEmpty())
-		setObjectName(name);
+    if (!name.isEmpty())
+        setObjectName(name);
 }
 
-Action::Action(const QString &text, QObject *parent, const QString &name)
-	: QAction(text, parent)
+Action::Action(const QString &text, QObject *parent, const QString &name) : QAction(text, parent)
 {
-	if (!name.isEmpty())
-		setObjectName(name);
+    if (!name.isEmpty())
+        setObjectName(name);
 }
 
 Action::Action(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-	: QAction(icon, text, parent)
+    : QAction(icon, text, parent)
 {
-	if (!name.isEmpty())
-		setObjectName(name);
+    if (!name.isEmpty())
+        setObjectName(name);
 }
 
 void Action::setShortcut(const QKeySequence &shortcut)
 {
-	QAction::setShortcut(shortcut);
+    QAction::setShortcut(shortcut);
 }
 #endif

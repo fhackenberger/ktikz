@@ -22,52 +22,52 @@
 #include "icon.h"
 
 #ifdef KTIKZ_USE_KDE
-#include <KActionCollection>
+#  include <KActionCollection>
 
-ToggleAction::ToggleAction(QObject *parent, const QString &name)
-	: KToggleAction(parent)
+ToggleAction::ToggleAction(QObject *parent, const QString &name) : KToggleAction(parent)
 {
-	if (!name.isEmpty())
-		Action::actionCollection()->addAction(name, this);
+    if (!name.isEmpty())
+        Action::actionCollection()->addAction(name, this);
 }
 
 ToggleAction::ToggleAction(const QString &text, QObject *parent, const QString &name)
-	: KToggleAction(text, parent)
+    : KToggleAction(text, parent)
 {
-	if (!name.isEmpty())
-		Action::actionCollection()->addAction(name, this);
+    if (!name.isEmpty())
+        Action::actionCollection()->addAction(name, this);
 }
 
-ToggleAction::ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-	: KToggleAction(icon, text, parent)
+ToggleAction::ToggleAction(const Icon &icon, const QString &text, QObject *parent,
+                           const QString &name)
+    : KToggleAction(icon, text, parent)
 {
-	if (!name.isEmpty())
-		Action::actionCollection()->addAction(name, this);
+    if (!name.isEmpty())
+        Action::actionCollection()->addAction(name, this);
 }
 #else
-ToggleAction::ToggleAction(QObject *parent, const QString &name)
-	: QAction(parent)
+ToggleAction::ToggleAction(QObject *parent, const QString &name) : QAction(parent)
 {
-	init(name);
+    init(name);
 }
 
 ToggleAction::ToggleAction(const QString &text, QObject *parent, const QString &name)
-	: QAction(text, parent)
+    : QAction(text, parent)
 {
-	init(name);
+    init(name);
 }
 
-ToggleAction::ToggleAction(const Icon &icon, const QString &text, QObject *parent, const QString &name)
-	: QAction(icon, text, parent)
+ToggleAction::ToggleAction(const Icon &icon, const QString &text, QObject *parent,
+                           const QString &name)
+    : QAction(icon, text, parent)
 {
-	init(name);
+    init(name);
 }
 
 void ToggleAction::init(const QString &name)
 {
-	if (!name.isEmpty())
-		setObjectName(name);
+    if (!name.isEmpty())
+        setObjectName(name);
 
-	setCheckable(true);
+    setCheckable(true);
 }
 #endif

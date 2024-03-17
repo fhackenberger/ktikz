@@ -28,20 +28,11 @@
 class MainWidget : TextCodecProfile
 {
 public:
-	virtual ~MainWidget() {}
+    virtual ~MainWidget() { }
 
-	virtual QWidget *widget()
-	{
-		return new QWidget();
-	}
-	virtual QString tikzCode() const
-	{
-		return QString();
-	}
-	virtual QUrl url() const
-	{
-		return QUrl();
-	}
+    virtual QWidget *widget() { return new QWidget(); }
+    virtual QString tikzCode() const { return QString(); }
+    virtual QUrl url() const { return QUrl(); }
 };
 
 #endif

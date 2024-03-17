@@ -25,29 +25,29 @@ class QMenu;
 
 class UserCommandEditDialog : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit UserCommandEditDialog(QWidget *parent = 0);
+    explicit UserCommandEditDialog(QWidget *parent = 0);
 
-	Ui::UserCommandEditDialog ui;
+    Ui::UserCommandEditDialog ui;
 
 public Q_SLOTS:
-	void accept();
+    void accept();
 
 private Q_SLOTS:
-	void readSettings();
-	void writeSettings();
-	void setEditingEnabled(bool enabled);
-	void addItem();
-	void removeItem();
-	void changeItem(int index);
-	void insertPlaceHolder();
+    void readSettings();
+    void writeSettings();
+    void setEditingEnabled(bool enabled);
+    void addItem();
+    void removeItem();
+    void changeItem(int index);
+    void insertPlaceHolder();
 
 private:
-	QStringList m_names;
-	QStringList m_commands;
-	int m_oldIndex;
+    QStringList m_names;
+    QStringList m_commands;
+    int m_oldIndex;
 };
 
-#endif //USERCOMMANDEDITDIALOG_H
+#endif // USERCOMMANDEDITDIALOG_H
