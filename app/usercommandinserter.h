@@ -26,29 +26,29 @@ class QMenu;
 
 class UserCommandInserter : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit UserCommandInserter(QWidget *parent = 0);
+    explicit UserCommandInserter(QWidget *parent = 0);
 
-	void readSettings();
-	QMenu *getMenu();
-	QStringList getCommandWords();
+    void readSettings();
+    QMenu *getMenu();
+    QStringList getCommandWords();
 
 Q_SIGNALS:
-	void updateCompleter();
-	void insertTag(const QString &tag);
+    void updateCompleter();
+    void insertTag(const QString &tag);
 
 private Q_SLOTS:
-	void insertTag();
-	void editCommands();
+    void insertTag();
+    void editCommands();
 
 private:
-	void updateMenu();
+    void updateMenu();
 
-	QMenu *m_userMenu;
-	QStringList m_names;
-	QStringList m_commands;
+    QMenu *m_userMenu;
+    QStringList m_names;
+    QStringList m_commands;
 };
 
-#endif //USERCOMMANDINSERTER_H
+#endif // USERCOMMANDINSERTER_H

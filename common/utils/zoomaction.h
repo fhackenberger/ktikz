@@ -25,27 +25,28 @@ class Icon;
 
 class ZoomAction : public SelectAction
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ZoomAction(QObject *parent, const QString &name = QString());
-	ZoomAction(const QString &text, QObject *parent, const QString &name = QString());
-	ZoomAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
-	~ZoomAction();
+    explicit ZoomAction(QObject *parent, const QString &name = QString());
+    ZoomAction(const QString &text, QObject *parent, const QString &name = QString());
+    ZoomAction(const Icon &icon, const QString &text, QObject *parent,
+               const QString &name = QString());
+    ~ZoomAction();
 
-	qreal minZoomFactor() const;
-	qreal maxZoomFactor() const;
-	void setZoomFactor(qreal zoomFactor);
+    qreal minZoomFactor() const;
+    qreal maxZoomFactor() const;
+    void setZoomFactor(qreal zoomFactor);
 
 Q_SIGNALS:
-	void zoomFactorAdded(qreal zoomFactor);
+    void zoomFactorAdded(qreal zoomFactor);
 
 private Q_SLOTS:
-	void setZoomFactor(const QString &zoomFactorText);
+    void setZoomFactor(const QString &zoomFactorText);
 
 private:
-	void init();
-	void setCurrentZoomFactor(qreal newZoomFactor = 1);
+    void init();
+    void setCurrentZoomFactor(qreal newZoomFactor = 1);
 };
 
 #endif

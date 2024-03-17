@@ -19,18 +19,14 @@
 #include "combobox.h"
 
 #ifdef KTIKZ_USE_KDE
-ComboBox::ComboBox(QWidget *parent) : KComboBox(parent)
-{
-}
+ComboBox::ComboBox(QWidget *parent) : KComboBox(parent) { }
 #else
-#include "urlcompletion.h"
+#  include "urlcompletion.h"
 
-ComboBox::ComboBox(QWidget *parent) : QComboBox(parent)
-{
-}
+ComboBox::ComboBox(QWidget *parent) : QComboBox(parent) { }
 
 void ComboBox::setCompletionObject(UrlCompletion *urlCompletion)
 {
-	setCompleter(urlCompletion);
+    setCompleter(urlCompletion);
 }
 #endif

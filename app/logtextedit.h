@@ -26,22 +26,22 @@ class QSyntaxHighlighter;
 
 class LogTextEdit : public QTextEdit
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit LogTextEdit(QWidget *parent = 0);
-	~LogTextEdit();
-	virtual QSize sizeHint() const;
+    explicit LogTextEdit(QWidget *parent = 0);
+    ~LogTextEdit();
+    virtual QSize sizeHint() const;
 
 public Q_SLOTS:
-	void updateLog(const QString &logText);
-	void updateLog(const QString &logText, bool runFailed);
-	void appendLog(const QString &logText);
-	void appendLog(const QString &logText, bool runFailed);
+    void updateLog(const QString &logText);
+    void updateLog(const QString &logText, bool runFailed);
+    void appendLog(const QString &logText);
+    void appendLog(const QString &logText, bool runFailed);
 
 private:
-	void setLogPalette(bool runFailed);
-	QSyntaxHighlighter *m_logHighlighter;
+    void setLogPalette(bool runFailed);
+    QSyntaxHighlighter *m_logHighlighter;
 };
 
 #endif

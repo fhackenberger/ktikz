@@ -23,34 +23,34 @@
 
 class IndentWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit IndentWidget(QWidget *parent = 0);
-	~IndentWidget();
+    explicit IndentWidget(QWidget *parent = 0);
+    ~IndentWidget();
 
-	void setUnindenting(bool isUnindenting = true);
-	QChar insertChar() const;
-	int numOfInserts() const;
+    void setUnindenting(bool isUnindenting = true);
+    QChar insertChar() const;
+    int numOfInserts() const;
 
 Q_SIGNALS:
-	void indent(QChar insertChar, int numOfInserts, bool isUnindenting);
-	void hidden();
+    void indent(QChar insertChar, int numOfInserts, bool isUnindenting);
+    void hidden();
 
 protected:
-	virtual void showEvent(QShowEvent *event);
-	virtual void keyPressEvent(QKeyEvent *event);
+    virtual void showEvent(QShowEvent *event);
+    virtual void keyPressEvent(QKeyEvent *event);
 
 private Q_SLOTS:
-	void indent();
-	void hide();
+    void indent();
+    void hide();
 
 private:
-	void readSettings();
-	void writeSettings();
+    void readSettings();
+    void writeSettings();
 
-	Ui::IndentWidget ui;
-	bool m_isUnindenting;
+    Ui::IndentWidget ui;
+    bool m_isUnindenting;
 };
 
 #endif

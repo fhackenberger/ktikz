@@ -24,18 +24,18 @@
 
 class KtikzApplication : public QApplication
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	KtikzApplication(int &argc, char **argv);
-	virtual ~KtikzApplication();
+    KtikzApplication(int &argc, char **argv);
+    virtual ~KtikzApplication();
 
-	void init();
-	static QString applicationName();
+    void init();
+    static QString applicationName();
 
 protected:
-	void commitData(QSessionManager &manager);
-	void saveState(QSessionManager &manager);
+    void commitData(QSessionManager &manager);
+    void saveState(QSessionManager &manager);
 };
 
 #endif

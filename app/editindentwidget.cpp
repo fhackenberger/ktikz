@@ -25,86 +25,90 @@
 
 IndentWidget::IndentWidget(QWidget *parent) : QWidget(parent)
 {
-	ui.setupUi(this);
-	ui.pushButtonClose->setIcon(Icon(QLatin1String("dialog-cancel")));
+    ui.setupUi(this);
+    ui.pushButtonClose->setIcon(Icon(QLatin1String("dialog-cancel")));
 
-	readSettings();
+    readSettings();
 
-	connect(ui.pushButtonIndent, SIGNAL(clicked()), this, SLOT(indent()));
-	connect(ui.pushButtonClose, SIGNAL(clicked()), this, SLOT(hide()));
+    connect(ui.pushButtonIndent, SIGNAL(clicked()), this, SLOT(indent()));
+    connect(ui.pushButtonClose, SIGNAL(clicked()), this, SLOT(hide()));
 }
 
-IndentWidget::~IndentWidget()
-{
-}
+IndentWidget::~IndentWidget() { }
 
 void IndentWidget::readSettings()
 {
-	QSettings settings;
-	settings.beginGroup(QLatin1String("Editor"));
-	ui.radioButtonSpaces->setChecked(settings.value(QLatin1String("Indent/InsertChar"), '\t').toChar() == QLatin1Char(' '));
-	ui.radioButtonTabs->setChecked(settings.value(QLatin1String("Indent/InsertChar"), '\t').toChar() != QLatin1Char(' '));
-	ui.spinBoxSpaces->setValue(settings.value(QLatin1String("Indent/NumberOfSpaces"), 2).toInt());
-	ui.spinBoxTabs->setValue(settings.value(QLatin1String("Indent/NumberOfTabs"), 1).toInt());
-	settings.endGroup();
+    QSettings settings;
+    settings.beginGroup(QLatin1String("Editor"));
+    ui.radioButtonSpaces->setChecked(
+            settings.value(QLatin1String("Indent/InsertChar"), '\t').toChar() == QLatin1Char(' '));
+    ui.radioButtonTabs->setChecked(settings.value(QLatin1String("Indent/InsertChar"), '\t').toChar()
+                                   != QLatin1Char(' '));
+    ui.spinBoxSpaces->setValue(settings.value(QLatin1String("Indent/NumberOfSpaces"), 2).toInt());
+    ui.spinBoxTabs->setValue(settings.value(QLatin1String("Indent/NumberOfTabs"), 1).toInt());
+    settings.endGroup();
 }
 
 void IndentWidget::writeSettings()
 {
-	QSettings settings;
-	settings.beginGroup(QLatin1String("Editor"));
-	settings.setValue(QLatin1String("Indent/InsertChar"), ui.radioButtonSpaces->isChecked() ? QVariant::fromValue(' ') : QVariant::fromValue('\t'));
-	settings.setValue(QLatin1String("Indent/NumberOfSpaces"), ui.spinBoxSpaces->value());
-	settings.setValue(QLatin1String("Indent/NumberOfTabs"), ui.spinBoxTabs->value());
-	settings.endGroup();
+    QSettings settings;
+    settings.beginGroup(QLatin1String("Editor"));
+    settings.setValue(QLatin1String("Indent/InsertChar"),
+                      ui.radioButtonSpaces->isChecked() ? QVariant::fromValue(' ')
+                                                        : QVariant::fromValue('\t'));
+    settings.setValue(QLatin1String("Indent/NumberOfSpaces"), ui.spinBoxSpaces->value());
+    settings.setValue(QLatin1String("Indent/NumberOfTabs"), ui.spinBoxTabs->value());
+    settings.endGroup();
 }
 
 void IndentWidget::setUnindenting(bool isUnindenting)
 {
-	m_isUnindenting = isUnindenting;
-	setWindowTitle(m_isUnindenting ? tr("Unindent") : tr("Indent"));
-	ui.pushButtonIndent->setText(m_isUnindenting ? tr("Unin&dent") : tr("In&dent"));
+    m_isUnindenting = isUnindenting;
+    setWindowTitle(m_isUnindenting ? tr("Unindent") : tr("Indent"));
+    ui.pushButtonIndent->setText(m_isUnindenting ? tr("Unin&dent") : tr("In&dent"));
 }
 
 QChar IndentWidget::insertChar() const
 {
-	return ui.radioButtonSpaces->isChecked() ? QLatin1Char(' ') : QLatin1Char('\t');
+    return ui.radioButtonSpaces->isChecked() ? QLatin1Char(' ') : QLatin1Char('\t');
 }
 
 int IndentWidget::numOfInserts() const
 {
-	return ui.radioButtonSpaces->isChecked() ? ui.spinBoxSpaces->value() : ui.spinBoxTabs->value();
+    return ui.radioButtonSpaces->isChecked() ? ui.spinBoxSpaces->value() : ui.spinBoxTabs->value();
 }
 
 void IndentWidget::indent()
 {
-	const QChar insertChar = ui.radioButtonSpaces->isChecked() ? QLatin1Char(' ') : QLatin1Char('\t');
-	const int numOfInserts = ui.radioButtonSpaces->isChecked() ? ui.spinBoxSpaces->value() : ui.spinBoxTabs->value();
-	Q_EMIT indent(insertChar, numOfInserts, m_isUnindenting);
-	writeSettings();
+    const QChar insertChar =
+            ui.radioButtonSpaces->isChecked() ? QLatin1Char(' ') : QLatin1Char('\t');
+    const int numOfInserts =
+            ui.radioButtonSpaces->isChecked() ? ui.spinBoxSpaces->value() : ui.spinBoxTabs->value();
+    Q_EMIT indent(insertChar, numOfInserts, m_isUnindenting);
+    writeSettings();
 }
 
 void IndentWidget::hide()
 {
-	setVisible(false);
-	Q_EMIT hidden();
-	readSettings();
+    setVisible(false);
+    Q_EMIT hidden();
+    readSettings();
 }
 
 void IndentWidget::showEvent(QShowEvent *event)
 {
-	if (ui.radioButtonSpaces->isChecked())
-		setFocusProxy(ui.radioButtonSpaces);
-	else
-		setFocusProxy(ui.radioButtonTabs);
-	QWidget::showEvent(event);
+    if (ui.radioButtonSpaces->isChecked())
+        setFocusProxy(ui.radioButtonSpaces);
+    else
+        setFocusProxy(ui.radioButtonTabs);
+    QWidget::showEvent(event);
 }
 
 void IndentWidget::keyPressEvent(QKeyEvent *event)
 {
-	if (event->key() == Qt::Key_Escape)
-		hide();
-	else if (event->key() == Qt::Key_Return)
-		indent();
-	QWidget::keyPressEvent(event);
+    if (event->key() == Qt::Key_Escape)
+        hide();
+    else if (event->key() == Qt::Key_Return)
+        indent();
+    QWidget::keyPressEvent(event);
 }

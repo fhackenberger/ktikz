@@ -22,49 +22,51 @@
 class Icon;
 
 #ifdef KTIKZ_USE_KDE
-#include <KSelectAction>
+#  include <KSelectAction>
 
 class SelectAction : public KSelectAction
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit SelectAction(QObject *parent, const QString &name = QString());
-	SelectAction(const QString &text, QObject *parent, const QString &name = QString());
-	SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
+    explicit SelectAction(QObject *parent, const QString &name = QString());
+    SelectAction(const QString &text, QObject *parent, const QString &name = QString());
+    SelectAction(const Icon &icon, const QString &text, QObject *parent,
+                 const QString &name = QString());
 };
 #else
-#include <QtCore/QtGlobal>
-#include <QtWidgets/QWidgetAction>
+#  include <QtCore/QtGlobal>
+#  include <QtWidgets/QWidgetAction>
 
 class QComboBox;
 
 class SelectAction : public QWidgetAction
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit SelectAction(QObject *parent, const QString &name = QString());
-	SelectAction(const QString &text, QObject *parent, const QString &name = QString());
-	SelectAction(const Icon &icon, const QString &text, QObject *parent, const QString &name = QString());
-	~SelectAction();
+    explicit SelectAction(QObject *parent, const QString &name = QString());
+    SelectAction(const QString &text, QObject *parent, const QString &name = QString());
+    SelectAction(const Icon &icon, const QString &text, QObject *parent,
+                 const QString &name = QString());
+    ~SelectAction();
 
-	void setEditable(bool editable);
-	void removeAllActions();
-	void setItems(const QStringList &items);
-	void setCurrentItem(int index);
-	QStringList items() const;
+    void setEditable(bool editable);
+    void removeAllActions();
+    void setItems(const QStringList &items);
+    void setCurrentItem(int index);
+    QStringList items() const;
 
 Q_SIGNALS:
-	void triggered(const QString &text);
+    void triggered(const QString &text);
 
 private Q_SLOTS:
-	void setCurrentItem();
+    void setCurrentItem();
 
 private:
-	void init(const QString &name);
+    void init(const QString &name);
 
-	QComboBox *m_selectCombo;
+    QComboBox *m_selectCombo;
 };
 #endif
 

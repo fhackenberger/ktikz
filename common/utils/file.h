@@ -21,7 +21,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QFile>
-//#include <QSaveFile>
+// #include <QSaveFile>
 #include <QUrl>
 
 #ifdef KTIKZ_USE_KDE
@@ -84,53 +84,52 @@ class KJob;
 
 class File : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	/*!
-	 * This enum is used with the constructor to describe the mode in which
-	 * the file will be opened.
-	 */
-	enum OpenMode
-	{
-		ReadOnly, /*!<The file will be opened for reading. */
-		WriteOnly /*!<The file will be opened for writing. */
-	};
+    /*!
+     * This enum is used with the constructor to describe the mode in which
+     * the file will be opened.
+     */
+    enum OpenMode {
+        ReadOnly, /*!<The file will be opened for reading. */
+        WriteOnly /*!<The file will be opened for writing. */
+    };
 
-	File(const QString &fileName, const OpenMode &mode);
-	File(const QUrl &url, const OpenMode &mode);
-	~File();
+    File(const QString &fileName, const OpenMode &mode);
+    File(const QUrl &url, const OpenMode &mode);
+    ~File();
 
-	bool open(const QFile::OpenMode &mode = 0);
-	bool close();
-	QFile *file();
-	QString errorString() const;
+    bool open(const QFile::OpenMode &mode = 0);
+    bool close();
+    QFile *file();
+    QString errorString() const;
 
-	static bool copy(const QUrl &fromUrl, const QUrl &toUrl);
+    static bool copy(const QUrl &fromUrl, const QUrl &toUrl);
 
 #ifdef KTIKZ_USE_KDE
-	static void setMainWidget(QWidget *widget);
-	static void setTempDir(const QString &dirName);
-	static bool fileExists(const QUrl &url);
-//private slots:
+    static void setMainWidget(QWidget *widget);
+    static void setTempDir(const QString &dirName);
+    static bool fileExists(const QUrl &url);
+// private slots:
 //	void showJobError(KJob *job);
 #endif
 
 private:
-	void load();
+    void load();
 
-	OpenMode m_openMode;
-	QFile *m_file;
+    OpenMode m_openMode;
+    QFile *m_file;
 
 #ifdef KTIKZ_USE_KDE
-	static QWidget *s_mainWidget;
-	static QString s_tempDir;
+    static QWidget *s_mainWidget;
+    static QString s_tempDir;
 #endif
 
-	QUrl m_url;
-	QString m_localFileName;
+    QUrl m_url;
+    QString m_localFileName;
 
-	QString m_errorString;
+    QString m_errorString;
 };
 
 #endif

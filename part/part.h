@@ -30,8 +30,7 @@ class QTranslator;
 
 class TikzPreviewController;
 
-namespace KtikZ
-{
+namespace KtikZ {
 
 class PartConfigDialog;
 
@@ -40,53 +39,52 @@ class PartConfigDialog;
  */
 class Part : public KParts::ReadOnlyPart, public MainWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit Part(QWidget *parentWidget, QObject *parent, const QVariantList &args);
-	virtual ~Part() Q_DECL_OVERRIDE;
+    explicit Part(QWidget *parentWidget, QObject *parent, const QVariantList &args);
+    virtual ~Part() Q_DECL_OVERRIDE;
 
-	static KAboutData *createAboutData();
-	virtual QWidget *widget();
-	QString tikzCode() const;
-	QUrl url() const;
+    static KAboutData *createAboutData();
+    virtual QWidget *widget();
+    QString tikzCode() const;
+    QUrl url() const;
 
 protected:
-	/** Reimplemented from KParts::PartBase. */
-	bool openFile() Q_DECL_OVERRIDE;
-	bool closeUrl();
+    /** Reimplemented from KParts::PartBase. */
+    bool openFile() Q_DECL_OVERRIDE;
+    bool closeUrl();
 
 private slots:
-	void showAboutDialog();
+    void showAboutDialog();
 
-	void saveAs();
-	void showJobError(KJob *job);
+    void saveAs();
+    void showJobError(KJob *job);
 
-	void slotFileDirty(const QString &path);
-	void slotDoFileDirty();
+    void slotFileDirty(const QString &path);
+    void slotDoFileDirty();
 
-	void applySettings();
-	void configure();
+    void applySettings();
+    void configure();
 
 private:
-	void createActions();
-	bool findTranslator(QTranslator *translator, const QString &transName, const QString &transDir);
-	QTranslator *createTranslator(const QString &transName);
+    void createActions();
+    bool findTranslator(QTranslator *translator, const QString &transName, const QString &transDir);
+    QTranslator *createTranslator(const QString &transName);
 
-	TikzPreviewController *m_tikzPreviewController;
-	PartConfigDialog *m_configDialog;
+    TikzPreviewController *m_tikzPreviewController;
+    PartConfigDialog *m_configDialog;
 
-	QAction *m_saveAsAction;
+    QAction *m_saveAsAction;
 
-	QString m_tikzCode;
+    QString m_tikzCode;
 
-	// document watcher (and reloader) variables
-	KDirWatch *m_watcher;
-	QTimer *m_dirtyHandler;
-	bool m_fileWasRemoved;
+    // document watcher (and reloader) variables
+    KDirWatch *m_watcher;
+    QTimer *m_dirtyHandler;
+    bool m_fileWasRemoved;
 };
 
 } // namespace KtikZ
-
 
 #endif

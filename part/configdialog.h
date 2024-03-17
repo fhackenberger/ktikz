@@ -24,37 +24,36 @@
 class QDialogButtonBox;
 class QCheckBox;
 
-namespace KtikZ
-{
+namespace KtikZ {
 
 class PartConfigGeneralWidget;
 
 class PartConfigDialog : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit PartConfigDialog(QWidget *parent);
-	~PartConfigDialog();
+    explicit PartConfigDialog(QWidget *parent);
+    ~PartConfigDialog();
 
-	void readSettings();
+    void readSettings();
 
 public slots:
-	void setDefaults();
-	void writeSettings();
+    void setDefaults();
+    void writeSettings();
 
 signals:
-	void settingsChanged(const QString &dialogName);
+    void settingsChanged(const QString &dialogName);
 
 private slots:
-	void setModified();
+    void setModified();
 
 private:
-	QWidget *viewerWidget();
+    QWidget *viewerWidget();
 
-	PartConfigGeneralWidget *m_configGeneralWidget;
-  QDialogButtonBox *m_buttonBox;
-	QCheckBox *m_watchFileCheckBox;
+    PartConfigGeneralWidget *m_configGeneralWidget;
+    QDialogButtonBox *m_buttonBox;
+    QCheckBox *m_watchFileCheckBox;
 };
 
 } // namespace KtikZ

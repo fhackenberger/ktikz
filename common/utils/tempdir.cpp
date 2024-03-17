@@ -20,22 +20,20 @@
 
 #include <QtCore/QDir>
 
-
 // #include <KStandardDirs>
 #include <QTemporaryDir>
 
-TempDir::TempDir(const QString &directoryPrefix)
-	: QTemporaryDir(directoryPrefix)
+TempDir::TempDir(const QString &directoryPrefix) : QTemporaryDir(directoryPrefix)
 {
-	setAutoRemove(true);
+    setAutoRemove(true);
 }
 
 const QString TempDir::location() const
 {
-// 	const QString tempDirBase = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().componentName());
-// 	const int end = tempDirBase.lastIndexOf(QLatin1Char('/'));
-// 	return tempDirBase.mid(0, end);
-	return QTemporaryDir::path();
+    // 	const QString tempDirBase = KStandardDirs::locateLocal("tmp",
+    // KGlobal::mainComponent().componentName()); 	const int end =
+    // tempDirBase.lastIndexOf(QLatin1Char('/')); 	return tempDirBase.mid(0, end);
+    return QTemporaryDir::path();
 }
 
 /*!
@@ -44,17 +42,19 @@ const QString TempDir::location() const
 
 bool TempDir::cleanUp()
 {
-	const QString dirName = path();
-	if (dirName.isEmpty()) // we must return in this case, otherwise in the QDir constructor below, the program's working directory is used and we really don't want to remove the files in that
-		return false;
+    const QString dirName = path();
+    if (dirName.isEmpty()) // we must return in this case, otherwise in the QDir constructor below,
+                           // the program's working directory is used and we really don't want to
+                           // remove the files in that
+        return false;
 
-	QDir tempDir(dirName);
-	if (!tempDir.exists())
-		return false;
+    QDir tempDir(dirName);
+    if (!tempDir.exists())
+        return false;
 
-	bool success = true;
-	const QStringList fileList = tempDir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries);
-	Q_FOREACH (const QString &fileName, fileList)
-		success = success && tempDir.remove(fileName);
-	return success;
+    bool success = true;
+    const QStringList fileList = tempDir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries);
+    Q_FOREACH (const QString &fileName, fileList)
+        success = success && tempDir.remove(fileName);
+    return success;
 }

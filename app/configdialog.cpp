@@ -31,84 +31,82 @@
 
 ConfigDialog::ConfigDialog(QWidget *parent) : PageDialog(parent)
 {
-	setWindowTitle(tr("Configure %1").arg(KtikzApplication::applicationName()));
-// TODO: Check if this is needed
-// 	setHelp(QLatin1String("chap-configuration"));
+    setWindowTitle(tr("Configure %1").arg(KtikzApplication::applicationName()));
+    // TODO: Check if this is needed
+    // 	setHelp(QLatin1String("chap-configuration"));
 
-	
-
-	m_configGeneralWidget = new ConfigGeneralWidget(this);
-	addPage(m_configGeneralWidget, tr("&General"), QLatin1String("preferences-desktop-theme"));
+    m_configGeneralWidget = new ConfigGeneralWidget(this);
+    addPage(m_configGeneralWidget, tr("&General"), QLatin1String("preferences-desktop-theme"));
 
 #ifdef KTIKZ_USE_KTEXTEDITOR
-	QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME)); 
-	bool showEditorConfig = settings.value(QLatin1String("EditorWidget"), 0).toInt() == 0;
-	if (!showEditorConfig)
-	{
-		m_configEditorWidget = NULL;
-	}
-	else
+    QSettings settings(QString::fromLocal8Bit(ORGNAME), QString::fromLocal8Bit(APPNAME));
+    bool showEditorConfig = settings.value(QLatin1String("EditorWidget"), 0).toInt() == 0;
+    if (!showEditorConfig) {
+        m_configEditorWidget = NULL;
+    } else
 #endif
-	{
-		m_configEditorWidget = new ConfigEditorWidget(this);
-		addPage(m_configEditorWidget, tr("&Editor"), QLatin1String("accessories-text-editor"));
-	}
-	
-	m_configAppearanceWidget = new ConfigAppearanceWidget(this);
-	addPage(m_configAppearanceWidget, tr("&Highlighting"), QLatin1String("preferences-desktop-color"));
+    {
+        m_configEditorWidget = new ConfigEditorWidget(this);
+        addPage(m_configEditorWidget, tr("&Editor"), QLatin1String("accessories-text-editor"));
+    }
 
-	m_configPreviewWidget = new ConfigPreviewWidget(this);
-	addPage(m_configPreviewWidget, tr("&Preview"), QLatin1String("preferences-desktop-theme"));
+    m_configAppearanceWidget = new ConfigAppearanceWidget(this);
+    addPage(m_configAppearanceWidget, tr("&Highlighting"),
+            QLatin1String("preferences-desktop-color"));
+
+    m_configPreviewWidget = new ConfigPreviewWidget(this);
+    addPage(m_configPreviewWidget, tr("&Preview"), QLatin1String("preferences-desktop-theme"));
 }
 
 void ConfigDialog::readSettings()
 {
-	m_configGeneralWidget->readSettings(QString());
+    m_configGeneralWidget->readSettings(QString());
 #ifdef KTIKZ_USE_KTEXTEDITOR
-	if( m_configEditorWidget)
+    if (m_configEditorWidget)
 #endif
-		m_configEditorWidget->readSettings(QLatin1String("Editor"));
-	m_configAppearanceWidget->readSettings(QLatin1String("Highlighting"));
-	m_configPreviewWidget->readSettings(QLatin1String("Preview"));
+        m_configEditorWidget->readSettings(QLatin1String("Editor"));
+    m_configAppearanceWidget->readSettings(QLatin1String("Highlighting"));
+    m_configPreviewWidget->readSettings(QLatin1String("Preview"));
 }
 
 void ConfigDialog::writeSettings()
 {
-	m_configGeneralWidget->writeSettings(QString());
+    m_configGeneralWidget->writeSettings(QString());
 #ifdef KTIKZ_USE_KTEXTEDITOR
-	if( m_configEditorWidget)
+    if (m_configEditorWidget)
 #endif
-		m_configEditorWidget->writeSettings(QLatin1String("Editor"));
-	m_configAppearanceWidget->writeSettings(QLatin1String("Highlighting"));
-	m_configPreviewWidget->writeSettings(QLatin1String("Preview"));
+        m_configEditorWidget->writeSettings(QLatin1String("Editor"));
+    m_configAppearanceWidget->writeSettings(QLatin1String("Highlighting"));
+    m_configPreviewWidget->writeSettings(QLatin1String("Preview"));
 }
 
 void ConfigDialog::setTranslatedHighlightTypeNames(const QStringList &typeNames)
 {
-	Q_FOREACH (const QString &typeName, typeNames)
-		m_configAppearanceWidget->addItem(typeName);
+    Q_FOREACH (const QString &typeName, typeNames)
+        m_configAppearanceWidget->addItem(typeName);
 }
 
 void ConfigDialog::setHighlightTypeNames(const QStringList &typeNames)
 {
-	m_configAppearanceWidget->setTypeNames(typeNames);
+    m_configAppearanceWidget->setTypeNames(typeNames);
 }
 
-void ConfigDialog::setDefaultHighlightFormats(const QMap<QString, QTextCharFormat> &defaultFormatList)
+void ConfigDialog::setDefaultHighlightFormats(
+        const QMap<QString, QTextCharFormat> &defaultFormatList)
 {
-	m_configAppearanceWidget->setDefaultTextCharFormats(defaultFormatList);
+    m_configAppearanceWidget->setDefaultTextCharFormats(defaultFormatList);
 }
 
 void ConfigDialog::accept()
 {
-	writeSettings();
-	Q_EMIT settingsChanged();
-	QDialog::accept();
+    writeSettings();
+    Q_EMIT settingsChanged();
+    QDialog::accept();
 }
 
 void ConfigDialog::keyPressEvent(QKeyEvent *event)
 {
-	if (event->key() == Qt::Key_F1 && event->modifiers() == Qt::ShiftModifier)
-		QWhatsThis::enterWhatsThisMode();
-	QDialog::keyPressEvent(event);
+    if (event->key() == Qt::Key_F1 && event->modifiers() == Qt::ShiftModifier)
+        QWhatsThis::enterWhatsThisMode();
+    QDialog::keyPressEvent(event);
 }

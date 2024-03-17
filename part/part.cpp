@@ -62,290 +62,291 @@
 #include "../common/utils/action.h"
 #include "browserextension.h"
 
-namespace KtikZ
-{
+namespace KtikZ {
 
 Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
-	: KParts::ReadOnlyPart(parent)
+    : KParts::ReadOnlyPart(parent)
 {
-	Q_UNUSED(args);
+    Q_UNUSED(args);
 
-	// dirty hack: make sure that the "Export" menu and the "Template" widget are translated
-	QTranslator *translator = createTranslator("qtikz");
-	qApp->installTranslator(translator);
+    // dirty hack: make sure that the "Export" menu and the "Template" widget are translated
+    QTranslator *translator = createTranslator("qtikz");
+    qApp->installTranslator(translator);
 
-  setComponentData(KAboutData("ktikzpart", "KtikZ", APPVERSION));
-// 	setComponentData(ktikzPartFactory::componentData()); // make sure that the actions of this kpart go in a separate section labeled "KtikZ Viewer" (as defined in K_EXPORT_PLUGIN above) in the "Configure Shortcuts" dialog
+    setComponentData(KAboutData("ktikzpart", "KtikZ", APPVERSION));
+    // 	setComponentData(ktikzPartFactory::componentData()); // make sure that the actions of this
+    // kpart go in a separate section labeled "KtikZ Viewer" (as defined in K_EXPORT_PLUGIN above)
+    // in the "Configure Shortcuts" dialog
 
-	m_configDialog = 0;
+    m_configDialog = 0;
 
-	Action::setActionCollection(actionCollection());
-	m_tikzPreviewController = new TikzPreviewController(this);
+    Action::setActionCollection(actionCollection());
+    m_tikzPreviewController = new TikzPreviewController(this);
 
-	QWidget *mainWidget = new QWidget(parentWidget);
-	QVBoxLayout *mainLayout = new QVBoxLayout;
-	mainLayout->setSpacing(0);
-	mainLayout->setMargin(0);
-	mainLayout->addWidget(m_tikzPreviewController->templateWidget());
-	mainLayout->addWidget(m_tikzPreviewController->tikzPreview());
-	mainWidget->setLayout(mainLayout);
-	setWidget(mainWidget);
+    QWidget *mainWidget = new QWidget(parentWidget);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setSpacing(0);
+    mainLayout->setMargin(0);
+    mainLayout->addWidget(m_tikzPreviewController->templateWidget());
+    mainLayout->addWidget(m_tikzPreviewController->tikzPreview());
+    mainWidget->setLayout(mainLayout);
+    setWidget(mainWidget);
 
-	createActions();
+    createActions();
 
-	// document watcher and reloader
-	m_watcher = new KDirWatch(this);
-	connect(m_watcher, SIGNAL(dirty(QString)), this, SLOT(slotFileDirty(QString)));
-	m_dirtyHandler = new QTimer(this);
-	m_dirtyHandler->setSingleShot(true);
-	connect(m_dirtyHandler, SIGNAL(timeout()), this, SLOT(slotDoFileDirty()));
+    // document watcher and reloader
+    m_watcher = new KDirWatch(this);
+    connect(m_watcher, SIGNAL(dirty(QString)), this, SLOT(slotFileDirty(QString)));
+    m_dirtyHandler = new QTimer(this);
+    m_dirtyHandler->setSingleShot(true);
+    connect(m_dirtyHandler, SIGNAL(timeout()), this, SLOT(slotDoFileDirty()));
 
-	new BrowserExtension(this, m_tikzPreviewController); // needed to be able to use Konqueror's "Print" action
+    new BrowserExtension(
+            this, m_tikzPreviewController); // needed to be able to use Konqueror's "Print" action
 
-	setXMLFile("ktikzpart/ktikzpart.rc");
+    setXMLFile("ktikzpart/ktikzpart.rc");
 
-	applySettings();
+    applySettings();
 }
 
 Part::~Part()
 {
-	delete m_tikzPreviewController;
+    delete m_tikzPreviewController;
 }
 
 QWidget *Part::widget()
 {
-	return KParts::ReadOnlyPart::widget();
+    return KParts::ReadOnlyPart::widget();
 }
 
 KAboutData *Part::createAboutData()
 {
-	KAboutData *aboutData = new KAboutData(QStringLiteral("ktikz"),i18n("KtikZ"), APPVERSION);
-	aboutData->setShortDescription(i18n("A TikZ Viewer"));
-	aboutData->setLicense(KAboutLicense::GPL_V2);
-	aboutData->setCopyrightStatement(i18n("Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"));
-	aboutData->setOtherText(i18n("This is a plugin for viewing TikZ (from the LaTeX pgf package) diagrams."));
-	aboutData->setBugAddress("florian@hackenberger.at");
-	aboutData->addAuthor(i18n("Florian Hackenberger"), i18n("Maintainer"), "florian@hackenberger.at");
-	aboutData->addAuthor(i18n("Glad Deschrijver"), i18n("Developer"), "glad.deschrijver@gmail.com");
-	return aboutData;
+    KAboutData *aboutData = new KAboutData(QStringLiteral("ktikz"), i18n("KtikZ"), APPVERSION);
+    aboutData->setShortDescription(i18n("A TikZ Viewer"));
+    aboutData->setLicense(KAboutLicense::GPL_V2);
+    aboutData->setCopyrightStatement(
+            i18n("Copyright 2007-2014 Florian Hackenberger, Glad Deschrijver"));
+    aboutData->setOtherText(
+            i18n("This is a plugin for viewing TikZ (from the LaTeX pgf package) diagrams."));
+    aboutData->setBugAddress("florian@hackenberger.at");
+    aboutData->addAuthor(i18n("Florian Hackenberger"), i18n("Maintainer"),
+                         "florian@hackenberger.at");
+    aboutData->addAuthor(i18n("Glad Deschrijver"), i18n("Developer"), "glad.deschrijver@gmail.com");
+    return aboutData;
 }
 
 void Part::showAboutDialog()
 {
-	KAboutApplicationDialog dlg(*(createAboutData()), widget());
-	dlg.exec();
+    KAboutApplicationDialog dlg(*(createAboutData()), widget());
+    dlg.exec();
 }
 
 void Part::createActions()
 {
-	// File
-	m_saveAsAction = actionCollection()->addAction(KStandardAction::SaveAs, this, SLOT(saveAs()));
-	m_saveAsAction->setWhatsThis(i18nc("@info:whatsthis", "<para>Save the document under a new name.</para>"));
+    // File
+    m_saveAsAction = actionCollection()->addAction(KStandardAction::SaveAs, this, SLOT(saveAs()));
+    m_saveAsAction->setWhatsThis(
+            i18nc("@info:whatsthis", "<para>Save the document under a new name.</para>"));
 
-	// Reload: we rely on Konqueror's "Reload" action instead of defining our own
+    // Reload: we rely on Konqueror's "Reload" action instead of defining our own
 
-	// Configure
-	QAction *action = KStandardAction::preferences(this, SLOT(configure()), actionCollection());
-	action->setText(i18nc("@action", "Configure KtikZ Viewer..."));
+    // Configure
+    QAction *action = KStandardAction::preferences(this, SLOT(configure()), actionCollection());
+    action->setText(i18nc("@action", "Configure KtikZ Viewer..."));
 
-	// Help
-	action = actionCollection()->addAction("help_about_ktikz");
-	action->setText(i18n("About KtikZ Viewer"));
-	action->setIcon(QIcon::fromTheme("ktikz"));
-	connect(action, SIGNAL(triggered()), this, SLOT(showAboutDialog()));
+    // Help
+    action = actionCollection()->addAction("help_about_ktikz");
+    action->setText(i18n("About KtikZ Viewer"));
+    action->setIcon(QIcon::fromTheme("ktikz"));
+    connect(action, SIGNAL(triggered()), this, SLOT(showAboutDialog()));
 }
 
 /***************************************************************************/
 
 bool Part::openFile()
 {
-	const QString fileName = localFilePath();
+    const QString fileName = localFilePath();
 
-	QFile file(fileName);
-	if (!file.open(QFile::ReadOnly | QFile::Text))
-	{
-		KMessageBox::error(widget(), i18nc("@info", "Cannot read file <filename>%1</filename>:<nl/><message>%2</message>", fileName, file.errorString()), i18nc("@title:window", "File Read Error"));
-		return false;
-	}
+    QFile file(fileName);
+    if (!file.open(QFile::ReadOnly | QFile::Text)) {
+        KMessageBox::error(
+                widget(),
+                i18nc("@info",
+                      "Cannot read file <filename>%1</filename>:<nl/><message>%2</message>",
+                      fileName, file.errorString()),
+                i18nc("@title:window", "File Read Error"));
+        return false;
+    }
 
-	QTextStream in(&file);
-	m_tikzCode = in.readAll();
-	m_tikzPreviewController->generatePreview();
+    QTextStream in(&file);
+    m_tikzCode = in.readAll();
+    m_tikzPreviewController->generatePreview();
 
-	// set the file to the fileWatcher
-	if (url().isLocalFile())
-	{
-		if (!m_watcher->contains(localFilePath()))
-			m_watcher->addFile(localFilePath());
-		QFileInfo fi(localFilePath());
-		if (!m_watcher->contains(fi.absolutePath()))
-			m_watcher->addDir(fi.absolutePath());
-	}
-	m_fileWasRemoved = false;
+    // set the file to the fileWatcher
+    if (url().isLocalFile()) {
+        if (!m_watcher->contains(localFilePath()))
+            m_watcher->addFile(localFilePath());
+        QFileInfo fi(localFilePath());
+        if (!m_watcher->contains(fi.absolutePath()))
+            m_watcher->addDir(fi.absolutePath());
+    }
+    m_fileWasRemoved = false;
 
-	return true;
+    return true;
 }
 
 void Part::saveAs()
 {
-	const Url srcUrl = url();
+    const Url srcUrl = url();
 
-	QMimeDatabase db;
-	const QMimeType mimeType = db.mimeTypeForName("text/x-pgf");
-	const QString tikzFilter = (mimeType.isValid()) ?
-	                           mimeType.globPatterns().join(" ") + '|' + mimeType.comment()
-	                           : "*.pgf *.tikz *.tex|" + i18nc("@item:inlistbox filter", "TikZ files");
-	const QUrl dstUrl = QFileDialog::getSaveFileUrl(widget(), i18nc("@title:window", "Save TikZ Source File As"),
-	                    srcUrl, tikzFilter + "\n*|" + i18nc("@item:inlistbox filter", "All files"));
+    QMimeDatabase db;
+    const QMimeType mimeType = db.mimeTypeForName("text/x-pgf");
+    const QString tikzFilter = (mimeType.isValid())
+            ? mimeType.globPatterns().join(" ") + '|' + mimeType.comment()
+            : "*.pgf *.tikz *.tex|" + i18nc("@item:inlistbox filter", "TikZ files");
+    const QUrl dstUrl = QFileDialog::getSaveFileUrl(
+            widget(), i18nc("@title:window", "Save TikZ Source File As"), srcUrl,
+            tikzFilter + "\n*|" + i18nc("@item:inlistbox filter", "All files"));
 
-	if (!dstUrl.isValid())
-		return;
+    if (!dstUrl.isValid())
+        return;
 
-	KIO::Job *job = KIO::file_copy(srcUrl, dstUrl, -1, KIO::Overwrite | KIO::HideProgressInfo);
-	connect(job, SIGNAL(result(KJob*)), this, SLOT(showJobError(KJob*)));
+    KIO::Job *job = KIO::file_copy(srcUrl, dstUrl, -1, KIO::Overwrite | KIO::HideProgressInfo);
+    connect(job, SIGNAL(result(KJob *)), this, SLOT(showJobError(KJob *)));
 }
 
 bool Part::closeUrl()
 {
-	if (url().isLocalFile())
-	{
-		m_watcher->removeFile(localFilePath());
-		QFileInfo fi(localFilePath());
-		m_watcher->removeDir(fi.absolutePath());
-	}
+    if (url().isLocalFile()) {
+        m_watcher->removeFile(localFilePath());
+        QFileInfo fi(localFilePath());
+        m_watcher->removeDir(fi.absolutePath());
+    }
 
-	emit setWindowCaption("");
-	m_fileWasRemoved = false;
+    emit setWindowCaption("");
+    m_fileWasRemoved = false;
 
-	return KParts::ReadOnlyPart::closeUrl();
+    return KParts::ReadOnlyPart::closeUrl();
 }
 
 void Part::showJobError(KJob *job)
 {
-	if (job->error() != 0)
-	{
-		KIO::JobUiDelegate *ui = static_cast<KIO::JobUiDelegate*>(static_cast<KIO::Job*>(job)->uiDelegate());
+    if (job->error() != 0) {
+        KIO::JobUiDelegate *ui =
+                static_cast<KIO::JobUiDelegate *>(static_cast<KIO::Job *>(job)->uiDelegate());
 
-		if (!ui)
-		{
-			qCritical() << "Saving failed; job->ui() is null.";
-			return;
-		}
-		ui->setWindow(widget());
-		ui->showErrorMessage();
-	}
+        if (!ui) {
+            qCritical() << "Saving failed; job->ui() is null.";
+            return;
+        }
+        ui->setWindow(widget());
+        ui->showErrorMessage();
+    }
 }
 
 QString Part::tikzCode() const
 {
-	return m_tikzCode;
+    return m_tikzCode;
 }
 
 QUrl KtikZ::Part::url() const
 {
-	return KParts::ReadOnlyPart::url();
+    return KParts::ReadOnlyPart::url();
 }
 
 /***************************************************************************/
 
 void Part::slotFileDirty(const QString &path)
 {
-	// The beauty of this is that each start cancels the previous one.
-	// This means that timeout() is only fired when there have
-	// no changes to the file for the last 750 milisecs.
-	// This ensures that we don't update on every other byte that gets
-	// written to the file.
-	if (path == localFilePath())
-	{
-		m_dirtyHandler->start(750);
-	}
-	else
-	{
-		QFileInfo fi(localFilePath());
-		if (fi.absolutePath() == path)
-		{
-			// Our parent has been dirtified
-			if (!QFile::exists(localFilePath()))
-			{
-				m_fileWasRemoved = true;
-			}
-			else if (m_fileWasRemoved && QFile::exists(localFilePath()))
-			{
-				// we need to watch the new file
-				m_watcher->removeFile(localFilePath());
-				m_watcher->addFile(localFilePath());
-				m_dirtyHandler->start(750);
-			}
-		}
-	}
+    // The beauty of this is that each start cancels the previous one.
+    // This means that timeout() is only fired when there have
+    // no changes to the file for the last 750 milisecs.
+    // This ensures that we don't update on every other byte that gets
+    // written to the file.
+    if (path == localFilePath()) {
+        m_dirtyHandler->start(750);
+    } else {
+        QFileInfo fi(localFilePath());
+        if (fi.absolutePath() == path) {
+            // Our parent has been dirtified
+            if (!QFile::exists(localFilePath())) {
+                m_fileWasRemoved = true;
+            } else if (m_fileWasRemoved && QFile::exists(localFilePath())) {
+                // we need to watch the new file
+                m_watcher->removeFile(localFilePath());
+                m_watcher->addFile(localFilePath());
+                m_dirtyHandler->start(750);
+            }
+        }
+    }
 }
 
 void Part::slotDoFileDirty()
 {
-	m_tikzPreviewController->tikzPreview()->showErrorMessage(i18nc("@info:status", "Reloading the document..."));
+    m_tikzPreviewController->tikzPreview()->showErrorMessage(
+            i18nc("@info:status", "Reloading the document..."));
 
-	// close and (try to) reopen the document
-	if (!KParts::ReadOnlyPart::openUrl(url()))
-	{
-		// start watching the file again (since we dropped it on close)
-		m_watcher->addFile(localFilePath());
-		m_dirtyHandler->start(750);
-	}
+    // close and (try to) reopen the document
+    if (!KParts::ReadOnlyPart::openUrl(url())) {
+        // start watching the file again (since we dropped it on close)
+        m_watcher->addFile(localFilePath());
+        m_dirtyHandler->start(750);
+    }
 }
 
 /***************************************************************************/
 
 void Part::applySettings()
 {
-	m_tikzPreviewController->applySettings();
+    m_tikzPreviewController->applySettings();
 
-	// Watch File
-	QSettings settings(ORGNAME, APPNAME);
-	bool watchFile = settings.value("WatchFile", true).toBool();
-	if (watchFile && m_watcher->isStopped())
-		m_watcher->startScan();
-	if (!watchFile && !m_watcher->isStopped())
-	{
-		m_dirtyHandler->stop();
-		m_watcher->stopScan();
-	}
+    // Watch File
+    QSettings settings(ORGNAME, APPNAME);
+    bool watchFile = settings.value("WatchFile", true).toBool();
+    if (watchFile && m_watcher->isStopped())
+        m_watcher->startScan();
+    if (!watchFile && !m_watcher->isStopped()) {
+        m_dirtyHandler->stop();
+        m_watcher->stopScan();
+    }
 }
 
 void Part::configure()
 {
-	if (m_configDialog == 0)
-	{
-		m_configDialog = new PartConfigDialog(widget());
-		connect(m_configDialog, SIGNAL(settingsChanged(QString)), this, SLOT(applySettings()));
-	}
-	m_configDialog->readSettings();
-	m_configDialog->show();
+    if (m_configDialog == 0) {
+        m_configDialog = new PartConfigDialog(widget());
+        connect(m_configDialog, SIGNAL(settingsChanged(QString)), this, SLOT(applySettings()));
+    }
+    m_configDialog->readSettings();
+    m_configDialog->show();
 }
 
 /***************************************************************************/
 /* The following are only used to translate the "Export" menu and "Template" widget */
 
-bool Part::findTranslator(QTranslator *translator, const QString &transName, const QString &transDir)
+bool Part::findTranslator(QTranslator *translator, const QString &transName,
+                          const QString &transDir)
 {
-	const QString qmFile = transName + ".qm";
-	if (QFileInfo(QDir(transDir), qmFile).exists())
-		return translator->load(qmFile, transDir);
-	return false;
+    const QString qmFile = transName + ".qm";
+    if (QFileInfo(QDir(transDir), qmFile).exists())
+        return translator->load(qmFile, transDir);
+    return false;
 }
 
 QTranslator *Part::createTranslator(const QString &transName)
 {
-	const QString locale = QLocale::languageToString(QLocale().language());
-	const QString localeShort = locale.left(2).toLower();
+    const QString locale = QLocale::languageToString(QLocale().language());
+    const QString localeShort = locale.left(2).toLower();
 
-	QTranslator *translator = new QTranslator(0);
+    QTranslator *translator = new QTranslator(0);
 #ifdef KTIKZ_TRANSLATIONS_INSTALL_DIR
-	const QDir qmPath(KTIKZ_TRANSLATIONS_INSTALL_DIR);
-	bool foundTranslator = findTranslator(translator, transName + '_' + locale, qmPath.absolutePath());
-	if (!foundTranslator)
-		findTranslator(translator, transName + '_' + localeShort, qmPath.absolutePath());
+    const QDir qmPath(KTIKZ_TRANSLATIONS_INSTALL_DIR);
+    bool foundTranslator =
+            findTranslator(translator, transName + '_' + locale, qmPath.absolutePath());
+    if (!foundTranslator)
+        findTranslator(translator, transName + '_' + localeShort, qmPath.absolutePath());
 #endif
-	return translator;
+    return translator;
 }
 
 K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<KtikZ::Part>();)

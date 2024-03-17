@@ -26,15 +26,15 @@ class QProcess;
 class AssistantController
 {
 public:
-	AssistantController();
-	~AssistantController();
+    AssistantController();
+    ~AssistantController();
 
-	void showDocumentation(const QString &page = QString());
+    void showDocumentation(const QString &page = QString());
 
 private:
-	bool startAssistant();
+    bool startAssistant();
 
-	QProcess *m_process;
+    QProcess *m_process;
 };
 
 #endif

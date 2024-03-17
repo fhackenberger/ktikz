@@ -33,8 +33,7 @@ class QProcess;
 class QPlainEdit;
 class QTextStream;
 
-namespace Poppler
-{
+namespace Poppler {
 class Document;
 }
 
@@ -46,75 +45,74 @@ class TikzPreviewController;
  */
 class TikzPreviewGenerator : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	enum TemplateStatus
-	{
-		DontReloadTemplate = 0,
-		ReloadTemplate = 1
-	};
+    enum TemplateStatus { DontReloadTemplate = 0, ReloadTemplate = 1 };
 
-	explicit TikzPreviewGenerator(TikzPreviewController *parent);
-	~TikzPreviewGenerator();
+    explicit TikzPreviewGenerator(TikzPreviewController *parent);
+    ~TikzPreviewGenerator();
 
-	void setTikzFileBaseName(const QString &name);
-	void setLatexCommand(const QString &command);
-	void setPdftopsCommand(const QString &command);
-	void setShellEscaping(bool useShellEscaping);
-	QString getLogText() const;
-	bool hasRunFailed();
-	void addToLatexSearchPath(const QString &path);
-	void removeFromLatexSearchPath(const QString &path);
-	bool generateEpsFile(int page);
+    void setTikzFileBaseName(const QString &name);
+    void setLatexCommand(const QString &command);
+    void setPdftopsCommand(const QString &command);
+    void setShellEscaping(bool useShellEscaping);
+    QString getLogText() const;
+    bool hasRunFailed();
+    void addToLatexSearchPath(const QString &path);
+    void removeFromLatexSearchPath(const QString &path);
+    bool generateEpsFile(int page);
 
 public Q_SLOTS:
-	void setTemplateFile(const QString &fileName);
-	void setReplaceText(const QString &replace);
-	void generatePreview(TemplateStatus templateStatus = DontReloadTemplate);
-	void abortProcess();
+    void setTemplateFile(const QString &fileName);
+    void setReplaceText(const QString &replace);
+    void generatePreview(TemplateStatus templateStatus = DontReloadTemplate);
+    void abortProcess();
 
 Q_SIGNALS:
-	void pixmapUpdated(Poppler::Document *tikzPdfDoc, const QList<qreal> &tikzCoordinates = QList<qreal>());
-	void setExportActionsEnabled(bool enabled);
-	void showErrorMessage(const QString &message);
-	void updateLog(const QString &logText, bool runFailed);
-	void appendLog(const QString &logText, bool runFailed);
-	void processRunning(bool isRunning);
+    void pixmapUpdated(Poppler::Document *tikzPdfDoc,
+                       const QList<qreal> &tikzCoordinates = QList<qreal>());
+    void setExportActionsEnabled(bool enabled);
+    void showErrorMessage(const QString &message);
+    void updateLog(const QString &logText, bool runFailed);
+    void appendLog(const QString &logText, bool runFailed);
+    void processRunning(bool isRunning);
 
 private Q_SLOTS:
-	void generatePreviewImpl(TemplateStatus templateStatus = DontReloadTemplate);
+    void generatePreviewImpl(TemplateStatus templateStatus = DontReloadTemplate);
 
 protected:
-	void parseLogFile();
-	void createPreview();
-	void showFileWriteError(const QString &fileName, const QString &errorMessage);
-	bool runProcess(const QString &name, const QString &command, const QStringList &arguments, const QString &workingDir = QString());
-	bool generatePdfFile(const QString &tikzFileBaseName, const QString &latexCommand, bool useShellEscaping);
+    void parseLogFile();
+    void createPreview();
+    void showFileWriteError(const QString &fileName, const QString &errorMessage);
+    bool runProcess(const QString &name, const QString &command, const QStringList &arguments,
+                    const QString &workingDir = QString());
+    bool generatePdfFile(const QString &tikzFileBaseName, const QString &latexCommand,
+                         bool useShellEscaping);
 
-	TikzPreviewController *m_parent;
-	Poppler::Document *m_tikzPdfDoc;
-	QString m_tikzCode;
+    TikzPreviewController *m_parent;
+    Poppler::Document *m_tikzPdfDoc;
+    QString m_tikzCode;
 
-	QThread m_thread;
+    QThread m_thread;
 
-	QProcess *m_process;
-	mutable QMutex m_memberLock;
-	bool m_processAborted;
-	bool m_runFailed;
-	QProcessEnvironment m_processEnvironment;
-	bool m_firstRun;
+    QProcess *m_process;
+    mutable QMutex m_memberLock;
+    bool m_processAborted;
+    bool m_runFailed;
+    QProcessEnvironment m_processEnvironment;
+    bool m_firstRun;
 
-	QString m_tikzFileBaseName;
-	QString m_templateFileName;
-	QString m_tikzReplaceText;
-	bool m_templateChanged;
+    QString m_tikzFileBaseName;
+    QString m_templateFileName;
+    QString m_tikzReplaceText;
+    bool m_templateChanged;
 
-	QString m_latexCommand;
-	QString m_pdftopsCommand;
-	QString m_shortLogText;
-	QString m_logText;
-	bool m_useShellEscaping;
+    QString m_latexCommand;
+    QString m_pdftopsCommand;
+    QString m_shortLogText;
+    QString m_logText;
+    bool m_useShellEscaping;
 };
 
 #endif

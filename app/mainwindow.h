@@ -24,10 +24,10 @@
 #define MAINWINDOW_H
 
 #ifdef KTIKZ_USE_KDE
-#include <KXmlGuiWindow>
+#  include <KXmlGuiWindow>
 #else
-#include <QtCore/QtGlobal>
-#include <QtWidgets/QMainWindow>
+#  include <QtCore/QtGlobal>
+#  include <QtWidgets/QMainWindow>
 
 class AboutDialog;
 class AssistantController;
@@ -65,182 +65,179 @@ class MainWindow : public KXmlGuiWindow, public MainWidget
 class MainWindow : public QMainWindow, public MainWidget
 #endif
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	/*!
-	 * This enum is used to determine when the file is checked for external changes.
-	 */
-	enum FileCheckMoment
-	{
-		FocusIn, /*!<During focusing in. */
-		Saving, /*!<During saving. */
-		Closing /*!<During closing. */
-	};
+    /*!
+     * This enum is used to determine when the file is checked for external changes.
+     */
+    enum FileCheckMoment {
+        FocusIn, /*!<During focusing in. */
+        Saving, /*!<During saving. */
+        Closing /*!<During closing. */
+    };
 
-	MainWindow();
-	virtual ~MainWindow();
+    MainWindow();
+    virtual ~MainWindow();
 
-	virtual QWidget *widget();
-	bool isDocumentModified() const;
-	QString tikzCode() const;
-	QUrl url() const;
-	void setLineNumber(int lineNumber);
-	int lineNumber() const;
+    virtual QWidget *widget();
+    bool isDocumentModified() const;
+    QString tikzCode() const;
+    QUrl url() const;
+    void setLineNumber(int lineNumber);
+    int lineNumber() const;
 
-	static QList<MainWindow*> mainWindowList()
-	{
-		return s_mainWindowList;
-	}
+    static QList<MainWindow *> mainWindowList() { return s_mainWindowList; }
 
-	virtual void configureStreamEncoding(QTextStream &textStream);
-	virtual void configureStreamDecoding(QTextStream &textStream);
+    virtual void configureStreamEncoding(QTextStream &textStream);
+    virtual void configureStreamDecoding(QTextStream &textStream);
 
 public Q_SLOTS:
-	void loadUrl(const QUrl &url);
-	void changedUrl(const QUrl &url);
-	bool save();
+    void loadUrl(const QUrl &url);
+    void changedUrl(const QUrl &url);
+    bool save();
 
 protected:
 #ifdef KTIKZ_USE_KDE
-	bool queryClose();
-	void readProperties(const KConfigGroup &group);
-	void saveProperties(KConfigGroup &group);
+    bool queryClose();
+    void readProperties(const KConfigGroup &group);
+    void saveProperties(KConfigGroup &group);
 #endif
-	void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event);
 
 private Q_SLOTS:
-	void init();
-	void checkForFileChanges(const FileCheckMoment &moment = FocusIn);
-	void saveLastInternalModifiedDateTime();
-	void setDockWidgetStatusTip(bool enabled);
-	void setToolBarStatusTip(bool enabled);
-	void newFile();
-	bool closeFile();
-	void open();
-	bool saveAs();
-	void reload();
-	void showTikzDocumentation();
+    void init();
+    void checkForFileChanges(const FileCheckMoment &moment = FocusIn);
+    void saveLastInternalModifiedDateTime();
+    void setDockWidgetStatusTip(bool enabled);
+    void setToolBarStatusTip(bool enabled);
+    void newFile();
+    bool closeFile();
+    void open();
+    bool saveAs();
+    void reload();
+    void showTikzDocumentation();
 #ifndef KTIKZ_USE_KDE
-	void about();
-	void showDocumentation();
+    void about();
+    void showDocumentation();
 #endif
-	void configure();
-	void applySettings();
-	void setDocumentModified(bool isModified);
-	void updateLog();
+    void configure();
+    void applySettings();
+    void setDocumentModified(bool isModified);
+    void updateLog();
 #ifdef KTIKZ_USE_KDE
-	void toggleWhatsThisMode();
+    void toggleWhatsThisMode();
 #endif
-	void showCursorPosition(int row, int col);
-	void showMouseCoordinates(qreal x, qreal y, int precisionX = 5, int precisionY = 5);
-	void updateCompleter();
-	/// Change the codec for the current document
-	/// @param isUserRequest set to true if the user requested the changement (in this case, the application should warn the user -- not implemented yet.).
-  void setCurrentEncoding(QTextCodec* codec /*, bool isUserRequest = false */ );
+    void showCursorPosition(int row, int col);
+    void showMouseCoordinates(qreal x, qreal y, int precisionX = 5, int precisionY = 5);
+    void updateCompleter();
+    /// Change the codec for the current document
+    /// @param isUserRequest set to true if the user requested the changement (in this case, the
+    /// application should warn the user -- not implemented yet.).
+    void setCurrentEncoding(QTextCodec *codec /*, bool isUserRequest = false */);
 
 private:
-	void createActions();
+    void createActions();
 #ifdef KTIKZ_USE_KDE
-	void addActionCloneToCollection(const QString &actionName, QAction *action);
+    void addActionCloneToCollection(const QString &actionName, QAction *action);
 #else
-	void createMenus();
-	void createToolBars();
-	void setToolBarStyle();
+    void createMenus();
+    void createToolBars();
+    void setToolBarStyle();
 #endif
-	void createCommandInsertWidget();
-	void createStatusBar();
-	void readSettings();
-	void writeSettings();
-	bool maybeSave();
-	bool saveUrl(const QUrl &url);
-	void setCurrentUrl(const QUrl &url);
-	QString strippedName(const QUrl &url) const;
-	void showPdfPage();
+    void createCommandInsertWidget();
+    void createStatusBar();
+    void readSettings();
+    void writeSettings();
+    bool maybeSave();
+    bool saveUrl(const QUrl &url);
+    void setCurrentUrl(const QUrl &url);
+    QString strippedName(const QUrl &url) const;
+    void showPdfPage();
 
-	static QList<MainWindow*> s_mainWindowList;
+    static QList<MainWindow *> s_mainWindowList;
 
-	bool m_useKTextEditor;
-	TikzEditorViewAbstract *m_tikzEditorView;
+    bool m_useKTextEditor;
+    TikzEditorViewAbstract *m_tikzEditorView;
 #ifdef KTIKZ_USE_KTEXTEDITOR
-	TikzKTextEditorView *m_tikzKTextEditor;
+    TikzKTextEditorView *m_tikzKTextEditor;
 #endif
-	TikzEditorView *m_tikzQtEditorView;
-	TikzHighlighter *m_tikzHighlighter;
+    TikzEditorView *m_tikzQtEditorView;
+    TikzHighlighter *m_tikzHighlighter;
 
-	bool m_useCompletion;
+    bool m_useCompletion;
 
-	TikzPreviewController *m_tikzPreviewController;
-	bool m_buildAutomatically;
+    TikzPreviewController *m_tikzPreviewController;
+    bool m_buildAutomatically;
 
-	QDockWidget *m_previewDock;
+    QDockWidget *m_previewDock;
 
-	QDockWidget *m_logDock;
-	LogTextEdit *m_logTextEdit;
+    QDockWidget *m_logDock;
+    LogTextEdit *m_logTextEdit;
 
-	QDockWidget *m_commandsDock;
-	TikzCommandInserter *m_commandInserter;
-	UserCommandInserter *m_userCommandInserter;
+    QDockWidget *m_commandsDock;
+    TikzCommandInserter *m_commandInserter;
+    UserCommandInserter *m_userCommandInserter;
 
-	QLabel *m_positionLabel;
-	QLabel *m_mouseCoordinatesLabel;
+    QLabel *m_positionLabel;
+    QLabel *m_mouseCoordinatesLabel;
 
-	QMenu *m_settingsMenu;
-	QMenu *m_sideBarMenu;
-	QToolBar *m_fileToolBar;
-	QToolBar *m_editToolBar;
-	QToolBar *m_viewToolBar;
-	QToolBar *m_runToolBar;
-//#ifndef KTIKZ_USE_KTEXTEDITOR
-	QAction *m_saveAction;
-	QAction *m_saveAsAction;
-	Action *m_reloadAction;
-//#endif
-	QAction *m_newAction;
-	QAction *m_openAction;
-	RecentFilesAction *m_openRecentAction;
-	QAction *m_exportAction;
-	QAction *m_exportEpsAction;
-	QAction *m_exportPdfAction;
-	QAction *m_exportPngAction;
-	QAction *m_closeAction;
-	QAction *m_exitAction;
-	QAction *m_procStopAction;
-	Action *m_buildAction;
-	Action *m_insertAction;
-	QAction *m_viewLogAction;
-	QAction *m_shellEscapeAction;
-	QAction *m_configureAction;
-	QAction *m_showTikzDocAction;
-	QAction *m_whatsThisAction;
+    QMenu *m_settingsMenu;
+    QMenu *m_sideBarMenu;
+    QToolBar *m_fileToolBar;
+    QToolBar *m_editToolBar;
+    QToolBar *m_viewToolBar;
+    QToolBar *m_runToolBar;
+    // #ifndef KTIKZ_USE_KTEXTEDITOR
+    QAction *m_saveAction;
+    QAction *m_saveAsAction;
+    Action *m_reloadAction;
+    // #endif
+    QAction *m_newAction;
+    QAction *m_openAction;
+    RecentFilesAction *m_openRecentAction;
+    QAction *m_exportAction;
+    QAction *m_exportEpsAction;
+    QAction *m_exportPdfAction;
+    QAction *m_exportPngAction;
+    QAction *m_closeAction;
+    QAction *m_exitAction;
+    QAction *m_procStopAction;
+    Action *m_buildAction;
+    Action *m_insertAction;
+    QAction *m_viewLogAction;
+    QAction *m_shellEscapeAction;
+    QAction *m_configureAction;
+    QAction *m_showTikzDocAction;
+    QAction *m_whatsThisAction;
 #ifndef KTIKZ_USE_KDE
-	QAction *m_helpAction;
-	QAction *m_aboutAction;
-	QAction *m_aboutQtAction;
+    QAction *m_helpAction;
+    QAction *m_aboutAction;
+    QAction *m_aboutQtAction;
 #endif
-	QToolButton *m_shellEscapeButton;
-	bool m_useShellEscaping;
+    QToolButton *m_shellEscapeButton;
+    bool m_useShellEscaping;
 
 #ifndef KTIKZ_USE_KDE
-	QPointer<AboutDialog> m_aboutDialog;
-	AssistantController *m_assistantController;
+    QPointer<AboutDialog> m_aboutDialog;
+    AssistantController *m_assistantController;
 #endif
-	QPointer<ConfigDialog> m_configDialog;
+    QPointer<ConfigDialog> m_configDialog;
 
-	QUrl m_currentUrl;
-	QTextCodec* m_currentEncoding;
-	/// If not null, override the encoder (rather than @ref m_currentEncoding)
-	QTextCodec* m_overrideEncoder;
-	/// If not null, override the decoder
-	QTextCodec* m_overrideDecoder;
-	/// True if a BOM must be added to the PGF-file
-	bool m_encoderBom;
-	/// Return the current encoder (m_currentEncoding or another if encoder is overriden).
-	/*virtual*/ QTextCodec* getEncoder() const;
+    QUrl m_currentUrl;
+    QTextCodec *m_currentEncoding;
+    /// If not null, override the encoder (rather than @ref m_currentEncoding)
+    QTextCodec *m_overrideEncoder;
+    /// If not null, override the decoder
+    QTextCodec *m_overrideDecoder;
+    /// True if a BOM must be added to the PGF-file
+    bool m_encoderBom;
+    /// Return the current encoder (m_currentEncoding or another if encoder is overriden).
+    /*virtual*/ QTextCodec *getEncoder() const;
 
-	QUrl m_lastUrl;
-	QDateTime m_lastInternalModifiedDateTime;
-	bool m_isModifiedExternally;
+    QUrl m_lastUrl;
+    QDateTime m_lastInternalModifiedDateTime;
+    bool m_isModifiedExternally;
 };
 
 #endif

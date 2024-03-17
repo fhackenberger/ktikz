@@ -29,30 +29,30 @@
  */
 class LogHighlighter : public QSyntaxHighlighter
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit LogHighlighter(QTextDocument *parent = 0);
-	virtual ~LogHighlighter();
+    explicit LogHighlighter(QTextDocument *parent = 0);
+    virtual ~LogHighlighter();
 
 protected:
-	/** Implements QSyntaxHighlighter::highlightBlock()
-	 * @see QSyntaxHighlighter::highlightBlock()
-	 */
-	void highlightBlock(const QString &text);
+    /** Implements QSyntaxHighlighter::highlightBlock()
+     * @see QSyntaxHighlighter::highlightBlock()
+     */
+    void highlightBlock(const QString &text);
 
 private:
-	struct LogHighlightingRule
-	{
-		QRegExp pattern; /// The pattern to match for formatting
-		QTextCharFormat format; /// The style of the formatting
-	};
-	/// All highlighting rules with their formatting for easy iteration
-	QVector<LogHighlightingRule> m_highlightingRules;
-	/// The start of the statistics output by LaTeX
-	QString m_statisticsStartExpression;
-	/// The highlighting format for LaTeX statistics
-	QTextCharFormat m_statisticsFormat;
+    struct LogHighlightingRule
+    {
+        QRegExp pattern; /// The pattern to match for formatting
+        QTextCharFormat format; /// The style of the formatting
+    };
+    /// All highlighting rules with their formatting for easy iteration
+    QVector<LogHighlightingRule> m_highlightingRules;
+    /// The start of the statistics output by LaTeX
+    QString m_statisticsStartExpression;
+    /// The highlighting format for LaTeX statistics
+    QTextCharFormat m_statisticsFormat;
 };
 
 #endif

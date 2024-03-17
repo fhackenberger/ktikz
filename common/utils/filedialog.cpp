@@ -31,42 +31,47 @@
 
 static QString getParsedFilter(const QString &filter)
 {
-	QString parsedFilter;
-	if (filter.indexOf(QLatin1Char('/')) >= 0) // filter is a string like "text/x-pgf text/x-tex"
-	{
-		const QStringList mimeTypeList = filter.split(QLatin1Char(' '));
-		for (int i = 0; i < mimeTypeList.size(); ++i)
-		{
-			if (i > 0)
-				parsedFilter += QLatin1String(";;");
-			if (mimeTypeList.at(i) == QLatin1String("text/x-pgf"))
-				parsedFilter += QCoreApplication::translate("FileDialog", "PGF document", "filter") + QLatin1String(" (*.pgf *.tikz *.tex)");
-			else if (mimeTypeList.at(i) == QLatin1String("image/x-eps"))
-				parsedFilter += QCoreApplication::translate("FileDialog", "EPS image", "filter") + QLatin1String(" (*.eps)");
-			else if (mimeTypeList.at(i) == QLatin1String("application/pdf"))
-				parsedFilter += QCoreApplication::translate("FileDialog", "PDF document", "filter") + QLatin1String(" (*.pdf)");
-			else if (mimeTypeList.at(i).startsWith(QLatin1String("image/")))
-			{
-				const QString mimeType = mimeTypeList.at(i).mid(6);
-				parsedFilter += QCoreApplication::translate("FileDialog", "%1 image", "filter").arg(mimeType.toUpper()) + QLatin1String(" (*.") + mimeType + QLatin1Char(')');
-			}
-		}
-	}
-	else if (filter.indexOf(QLatin1Char('|')) >= 0) // filter is a string like "*.pgf *.tikz|PGF document\n*.tex|TeX document", we assume that in this case '/' doesn't appear in filter
-	{
-		const QStringList filterList = filter.split(QLatin1Char('\n'));
-		for (int i = 0; i < filterList.size(); ++i)
-		{
-			const QStringList filterItems = filterList.at(i).split(QLatin1Char('|'));
-			if (i > 0)
-				parsedFilter += QLatin1String(";;");
-			parsedFilter += filterItems.at(1) + QLatin1String(" (") + filterItems.at(0) + QLatin1Char(')');
-		}
-	}
-	if (!parsedFilter.isEmpty())
-		parsedFilter += QLatin1String(";;");
-	parsedFilter += QCoreApplication::translate("FileDialog", "All files", "filter") + QLatin1String(" (*)");
-	return parsedFilter;
+    QString parsedFilter;
+    if (filter.indexOf(QLatin1Char('/')) >= 0) // filter is a string like "text/x-pgf text/x-tex"
+    {
+        const QStringList mimeTypeList = filter.split(QLatin1Char(' '));
+        for (int i = 0; i < mimeTypeList.size(); ++i) {
+            if (i > 0)
+                parsedFilter += QLatin1String(";;");
+            if (mimeTypeList.at(i) == QLatin1String("text/x-pgf"))
+                parsedFilter += QCoreApplication::translate("FileDialog", "PGF document", "filter")
+                        + QLatin1String(" (*.pgf *.tikz *.tex)");
+            else if (mimeTypeList.at(i) == QLatin1String("image/x-eps"))
+                parsedFilter += QCoreApplication::translate("FileDialog", "EPS image", "filter")
+                        + QLatin1String(" (*.eps)");
+            else if (mimeTypeList.at(i) == QLatin1String("application/pdf"))
+                parsedFilter += QCoreApplication::translate("FileDialog", "PDF document", "filter")
+                        + QLatin1String(" (*.pdf)");
+            else if (mimeTypeList.at(i).startsWith(QLatin1String("image/"))) {
+                const QString mimeType = mimeTypeList.at(i).mid(6);
+                parsedFilter += QCoreApplication::translate("FileDialog", "%1 image", "filter")
+                                        .arg(mimeType.toUpper())
+                        + QLatin1String(" (*.") + mimeType + QLatin1Char(')');
+            }
+        }
+    } else if (filter.indexOf(QLatin1Char('|'))
+               >= 0) // filter is a string like "*.pgf *.tikz|PGF document\n*.tex|TeX document", we
+                     // assume that in this case '/' doesn't appear in filter
+    {
+        const QStringList filterList = filter.split(QLatin1Char('\n'));
+        for (int i = 0; i < filterList.size(); ++i) {
+            const QStringList filterItems = filterList.at(i).split(QLatin1Char('|'));
+            if (i > 0)
+                parsedFilter += QLatin1String(";;");
+            parsedFilter +=
+                    filterItems.at(1) + QLatin1String(" (") + filterItems.at(0) + QLatin1Char(')');
+        }
+    }
+    if (!parsedFilter.isEmpty())
+        parsedFilter += QLatin1String(";;");
+    parsedFilter += QCoreApplication::translate("FileDialog", "All files", "filter")
+            + QLatin1String(" (*)");
+    return parsedFilter;
 }
 
 /*!
@@ -100,16 +105,23 @@ static QString getParsedFilter(const QString &filter)
  * \param parent the parent widget for which the file dialog will be a modal dialog
  * \param caption the title of the file dialog
  * \param dir starting directory; if dir includes a file name, the file will be selected
- * \param filter a list of filters separated by '\\n'; every filter entry is defined through \c namefilter|text \c to \c display.  If no '|' is found in the expression, just the namefilter is shown.  In the Qt-only version the filter "All files (*)" is automatically appended to cover the case in which the "Filter" entry of the dialog cannot be cleared (as in KDE's file dialog).  Alternatively, a list of mimetypes separated by a space can be given.  For better consistency across applications in a KDE environment, it is recommended to use the latter option.
- * \return an url specifying the file selected by the user in the file dialog
+ * \param filter a list of filters separated by '\\n'; every filter entry is defined through \c
+ * namefilter|text \c to \c display.  If no '|' is found in the expression, just the namefilter is
+ * shown.  In the Qt-only version the filter "All files (*)" is automatically appended to cover the
+ * case in which the "Filter" entry of the dialog cannot be cleared (as in KDE's file dialog).
+ * Alternatively, a list of mimetypes separated by a space can be given.  For better consistency
+ * across applications in a KDE environment, it is recommended to use the latter option. \return an
+ * url specifying the file selected by the user in the file dialog
  */
 
-Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
+Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &dir,
+                           const QString &filter)
 {
-	const QUrl openFileName = QFileDialog::getOpenFileUrl(parent, caption, dir, getParsedFilter(filter));
-	if (openFileName.isEmpty())
-		return Url();
-	return Url(openFileName);
+    const QUrl openFileName =
+            QFileDialog::getOpenFileUrl(parent, caption, dir, getParsedFilter(filter));
+    if (openFileName.isEmpty())
+        return Url();
+    return Url(openFileName);
 }
 
 /*!
@@ -143,15 +155,22 @@ Url FileDialog::getOpenUrl(QWidget *parent, const QString &caption, const Url &d
  * \param parent the parent widget for which the file dialog will be a modal dialog
  * \param caption the title of the file dialog
  * \param dir starting directory; if dir includes a file name, the file will be selected
- * \param filter a list of filters separated by '\\n'; every filter entry is defined through \c namefilter|text \c to \c display.  If no '|' is found in the expression, just the namefilter is shown.  In the Qt-only version the filter "All files (*)" is automatically appended to cover the case in which the "Filter" entry of the dialog cannot be cleared (as in KDE's file dialog).  Alternatively, a list of mimetypes separated by a space can be given.  For better consistency across applications in a KDE environment, it is recommended to use the latter option.
- * \return an url specifying the file selected by the user in the file dialog
+ * \param filter a list of filters separated by '\\n'; every filter entry is defined through \c
+ * namefilter|text \c to \c display.  If no '|' is found in the expression, just the namefilter is
+ * shown.  In the Qt-only version the filter "All files (*)" is automatically appended to cover the
+ * case in which the "Filter" entry of the dialog cannot be cleared (as in KDE's file dialog).
+ * Alternatively, a list of mimetypes separated by a space can be given.  For better consistency
+ * across applications in a KDE environment, it is recommended to use the latter option. \return an
+ * url specifying the file selected by the user in the file dialog
  */
 
-Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &dir, const QString &filter)
+Url FileDialog::getSaveUrl(QWidget *parent, const QString &caption, const Url &dir,
+                           const QString &filter)
 {
-	const QUrl saveAsFileName = QFileDialog::getSaveFileUrl(parent, caption, dir, getParsedFilter(filter));
-	if (saveAsFileName.isEmpty())
-		return Url();
+    const QUrl saveAsFileName =
+            QFileDialog::getSaveFileUrl(parent, caption, dir, getParsedFilter(filter));
+    if (saveAsFileName.isEmpty())
+        return Url();
 
-	return Url(saveAsFileName);
+    return Url(saveAsFileName);
 }

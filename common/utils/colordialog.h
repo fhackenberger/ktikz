@@ -24,16 +24,16 @@
 class ColorDialog : public QColorDialog
 {
 public:
-	// Commented out for Qt 4.5 compatibility (should not be required,
-	// as we don't instantiate ColorDialog directly anyway
-	//explicit ColorDialog(QWidget *parent) : QColorDialog(parent) {}
+    // Commented out for Qt 4.5 compatibility (should not be required,
+    // as we don't instantiate ColorDialog directly anyway
+    // explicit ColorDialog(QWidget *parent) : QColorDialog(parent) {}
 
-	static QColor getColor(bool *ok, const QColor &color, QWidget *parent)
-	{
-		const QColor newColor = QColorDialog::getColor(color, parent);
-		*ok = newColor.isValid();
-		return newColor;
-	}
+    static QColor getColor(bool *ok, const QColor &color, QWidget *parent)
+    {
+        const QColor newColor = QColorDialog::getColor(color, parent);
+        *ok = newColor.isValid();
+        return newColor;
+    }
 };
 
 #endif

@@ -25,26 +25,26 @@ class UrlCompletion;
 
 class ConfigGeneralWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ConfigGeneralWidget(QWidget *parent = 0);
-	~ConfigGeneralWidget();
+    explicit ConfigGeneralWidget(QWidget *parent = 0);
+    ~ConfigGeneralWidget();
 
-	void readSettings(const QString &settingsGroup);
-	void writeSettings(const QString &settingsGroup);
+    void readSettings(const QString &settingsGroup);
+    void writeSettings(const QString &settingsGroup);
 
 protected:
-	Ui::ConfigGeneralWidget ui;
+    Ui::ConfigGeneralWidget ui;
 
 private Q_SLOTS:
-	void searchTikzDocumentation();
-	void browseCommand();
+    void searchTikzDocumentation();
+    void browseCommand();
 
 private:
-	void browseCommand(QLineEdit *lineEdit, bool isProgram = true);
+    void browseCommand(QLineEdit *lineEdit, bool isProgram = true);
 
-	UrlCompletion *m_urlCompletion;
+    UrlCompletion *m_urlCompletion;
 };
 
 #endif

@@ -20,43 +20,43 @@
 #define KTIKZ_COLORBUTTON_H
 
 #ifdef KTIKZ_USE_KDE
-#include <KColorButton>
+#  include <KColorButton>
 
 class ColorButton : public KColorButton
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit ColorButton(QWidget *parent = 0) : KColorButton(parent) {}
-	explicit ColorButton(const QColor &color, QWidget *parent = 0) : KColorButton(color, parent) {}
+    explicit ColorButton(QWidget *parent = 0) : KColorButton(parent) { }
+    explicit ColorButton(const QColor &color, QWidget *parent = 0) : KColorButton(color, parent) { }
 };
 #else
-#include <QtCore/QtGlobal>
-#include <QtWidgets/QToolButton>
+#  include <QtCore/QtGlobal>
+#  include <QtWidgets/QToolButton>
 
 class ColorButton : public QToolButton
 {
-	Q_OBJECT
-	Q_PROPERTY(QColor color READ color WRITE setColor)
+    Q_OBJECT
+    Q_PROPERTY(QColor color READ color WRITE setColor)
 
 public:
-	explicit ColorButton(QWidget *parent = 0);
-	explicit ColorButton(const QColor &color, QWidget *parent = 0);
+    explicit ColorButton(QWidget *parent = 0);
+    explicit ColorButton(const QColor &color, QWidget *parent = 0);
 
-	QColor color() const;
-	void setColor(const QColor &color);
+    QColor color() const;
+    void setColor(const QColor &color);
 
 Q_SIGNALS:
-	void colorChanged(const QColor &newColor);
+    void colorChanged(const QColor &newColor);
 
 protected:
-	void paintEvent(QPaintEvent*);
+    void paintEvent(QPaintEvent *);
 
 private Q_SLOTS:
-	void showColorDialog();
+    void showColorDialog();
 
 private:
-	QColor m_color;
+    QColor m_color;
 };
 #endif
 

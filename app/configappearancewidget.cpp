@@ -26,273 +26,274 @@
 #include "../common/utils/colordialog.h"
 #include "../common/utils/fontdialog.h"
 
-ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent)
-	: QWidget(parent)
+ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent) : QWidget(parent)
 {
-	m_itemMargin = 10;
+    m_itemMargin = 10;
 
-	ui.setupUi(this);
+    ui.setupUi(this);
 
-	QButtonGroup *buttonGroup = new QButtonGroup(this);
-	buttonGroup->addButton(ui.standardAppearanceCheck);
-	buttonGroup->addButton(ui.customAppearanceCheck);
-	buttonGroup->setExclusive(true);
-	connect(buttonGroup, SIGNAL(buttonClicked(QAbstractButton*)), this, SLOT(toggleCustom()));
+    QButtonGroup *buttonGroup = new QButtonGroup(this);
+    buttonGroup->addButton(ui.standardAppearanceCheck);
+    buttonGroup->addButton(ui.customAppearanceCheck);
+    buttonGroup->setExclusive(true);
+    connect(buttonGroup, SIGNAL(buttonClicked(QAbstractButton *)), this, SLOT(toggleCustom()));
 
-	QPalette palette = ui.itemTable->palette();
-	QColor highlightBackgroundColor(QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::AlternateBase));
-	if (highlightBackgroundColor == QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::Base))
-		highlightBackgroundColor = highlightBackgroundColor.darker(110);
-	palette.setColor(QPalette::Normal, QPalette::Highlight, highlightBackgroundColor);
-	palette.setColor(QPalette::Normal, QPalette::HighlightedText, QPalette::Text);
-	palette.setColor(QPalette::Inactive, QPalette::Highlight, highlightBackgroundColor);
-	palette.setColor(QPalette::Inactive, QPalette::HighlightedText, QPalette::Text);
-	palette.setColor(QPalette::Disabled, QPalette::Highlight, highlightBackgroundColor);
-	ui.itemTable->setPalette(palette);
-	m_itemHighlighted = -1;
-	connect(ui.itemTable, SIGNAL(currentItemChanged(QTableWidgetItem*,QTableWidgetItem*)), this, SLOT(setItemHighlighted(QTableWidgetItem*)));
+    QPalette palette = ui.itemTable->palette();
+    QColor highlightBackgroundColor(QApplication::style()->standardPalette().color(
+            QPalette::Normal, QPalette::AlternateBase));
+    if (highlightBackgroundColor
+        == QApplication::style()->standardPalette().color(QPalette::Normal, QPalette::Base))
+        highlightBackgroundColor = highlightBackgroundColor.darker(110);
+    palette.setColor(QPalette::Normal, QPalette::Highlight, highlightBackgroundColor);
+    palette.setColor(QPalette::Normal, QPalette::HighlightedText, QPalette::Text);
+    palette.setColor(QPalette::Inactive, QPalette::Highlight, highlightBackgroundColor);
+    palette.setColor(QPalette::Inactive, QPalette::HighlightedText, QPalette::Text);
+    palette.setColor(QPalette::Disabled, QPalette::Highlight, highlightBackgroundColor);
+    ui.itemTable->setPalette(palette);
+    m_itemHighlighted = -1;
+    connect(ui.itemTable, SIGNAL(currentItemChanged(QTableWidgetItem *, QTableWidgetItem *)), this,
+            SLOT(setItemHighlighted(QTableWidgetItem *)));
 
-	connect(ui.fontButton, SIGNAL(clicked()), this, SLOT(showFontDialog()));
-	connect(ui.colorButton, SIGNAL(clicked()), this, SLOT(showColorDialog()));
+    connect(ui.fontButton, SIGNAL(clicked()), this, SLOT(showFontDialog()));
+    connect(ui.colorButton, SIGNAL(clicked()), this, SLOT(showColorDialog()));
 }
 
 void ConfigAppearanceWidget::readSettings(const QString &settingsGroup)
 {
-	QSettings settings;
-	settings.beginGroup(settingsGroup);
-	m_custom = settings.value(QLatin1String("Customize"), true).toBool();
-	const int numOfRules = settings.value(QLatin1String("Number"), 0).toInt();
-	for (int i = 0; i < numOfRules; ++i)
-	{
-		const int num = m_typeNames.indexOf(settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Name")).toString());
-		if (num >= 0)
-		{
-			m_itemColors[num] = settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Color")).toString();
-			m_itemFonts[num] = settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Font")).toString();
-		}
-	}
-	settings.endGroup();
+    QSettings settings;
+    settings.beginGroup(settingsGroup);
+    m_custom = settings.value(QLatin1String("Customize"), true).toBool();
+    const int numOfRules = settings.value(QLatin1String("Number"), 0).toInt();
+    for (int i = 0; i < numOfRules; ++i) {
+        const int num = m_typeNames.indexOf(
+                settings.value(QLatin1String("Item") + QString::number(i) + QLatin1String("/Name"))
+                        .toString());
+        if (num >= 0) {
+            m_itemColors[num] = settings.value(QLatin1String("Item") + QString::number(i)
+                                               + QLatin1String("/Color"))
+                                        .toString();
+            m_itemFonts[num] = settings.value(QLatin1String("Item") + QString::number(i)
+                                              + QLatin1String("/Font"))
+                                       .toString();
+        }
+    }
+    settings.endGroup();
 
-	setCustomizationType(m_custom);
-	setItemFonts(m_itemFonts);
-	setItemColors(m_itemColors);
+    setCustomizationType(m_custom);
+    setItemFonts(m_itemFonts);
+    setItemColors(m_itemColors);
 }
 
 void ConfigAppearanceWidget::writeSettings(const QString &settingsGroup)
 {
-	m_custom = getCustomizationType();
+    m_custom = getCustomizationType();
 
-	QSettings settings;
-	settings.beginGroup(settingsGroup);
-	settings.setValue(QLatin1String("Customize"), m_custom);
-	if (m_custom)
-	{
-		for (int i = 0; i < m_typeNames.size(); ++i)
-		{
-			settings.setValue(QLatin1String("Item") + QString::number(i) + QLatin1String("/Name"), m_typeNames.at(i));
-			settings.setValue(QLatin1String("Item") + QString::number(i) + QLatin1String("/Color"), m_itemColors.at(i));
-			settings.setValue(QLatin1String("Item") + QString::number(i) + QLatin1String("/Font"), m_itemFonts.at(i));
-		}
-		settings.setValue(QLatin1String("Number"), m_typeNames.size());
-	}
-	settings.endGroup();
+    QSettings settings;
+    settings.beginGroup(settingsGroup);
+    settings.setValue(QLatin1String("Customize"), m_custom);
+    if (m_custom) {
+        for (int i = 0; i < m_typeNames.size(); ++i) {
+            settings.setValue(QLatin1String("Item") + QString::number(i) + QLatin1String("/Name"),
+                              m_typeNames.at(i));
+            settings.setValue(QLatin1String("Item") + QString::number(i) + QLatin1String("/Color"),
+                              m_itemColors.at(i));
+            settings.setValue(QLatin1String("Item") + QString::number(i) + QLatin1String("/Font"),
+                              m_itemFonts.at(i));
+        }
+        settings.setValue(QLatin1String("Number"), m_typeNames.size());
+    }
+    settings.endGroup();
 }
 
 void ConfigAppearanceWidget::setItemHighlighted(QTableWidgetItem *item)
 {
-	m_itemHighlighted = ui.itemTable->row(item);
-	setHighlightedForeground(m_itemColors.at(m_itemHighlighted));
-	ui.fontButton->setEnabled(true);
-	ui.colorButton->setEnabled(true);
+    m_itemHighlighted = ui.itemTable->row(item);
+    setHighlightedForeground(m_itemColors.at(m_itemHighlighted));
+    ui.fontButton->setEnabled(true);
+    ui.colorButton->setEnabled(true);
 }
 
 void ConfigAppearanceWidget::setItemToolTip(QTableWidgetItem *item, const QFont &font)
 {
-	const QFontMetrics metrics(font);
-	ui.itemTable->setRowHeight(m_itemHighlighted, metrics.height() + m_itemMargin);
-	if (metrics.width(item->text()) >= ui.itemTable->contentsRect().width() - 30)
-		item->setToolTip(item->text());
-	else
-		item->setToolTip(QString());
+    const QFontMetrics metrics(font);
+    ui.itemTable->setRowHeight(m_itemHighlighted, metrics.height() + m_itemMargin);
+    if (metrics.width(item->text()) >= ui.itemTable->contentsRect().width() - 30)
+        item->setToolTip(item->text());
+    else
+        item->setToolTip(QString());
 }
 
-void ConfigAppearanceWidget::showEvent(QShowEvent*)
+void ConfigAppearanceWidget::showEvent(QShowEvent *)
 {
-	for (int i = 0; i < ui.itemTable->rowCount(); ++i)
-	{
-		QFont font;
-		font.fromString(m_itemFonts.at(i));
-		setItemToolTip(ui.itemTable->item(i, 0), font);
-	}
+    for (int i = 0; i < ui.itemTable->rowCount(); ++i) {
+        QFont font;
+        font.fromString(m_itemFonts.at(i));
+        setItemToolTip(ui.itemTable->item(i, 0), font);
+    }
 
-	if (m_itemHighlighted < 0)
-		return;
-	setHighlightedForeground(m_itemColors.at(m_itemHighlighted));
+    if (m_itemHighlighted < 0)
+        return;
+    setHighlightedForeground(m_itemColors.at(m_itemHighlighted));
 }
 
 void ConfigAppearanceWidget::addItem(const QString &titleName)
 {
-	const int itemTableRowNum = ui.itemTable->rowCount();
-	ui.itemTable->setRowCount(itemTableRowNum + 1);
+    const int itemTableRowNum = ui.itemTable->rowCount();
+    ui.itemTable->setRowCount(itemTableRowNum + 1);
 
-	QTableWidgetItem *item = new QTableWidgetItem;
-	item->setText(titleName);
-	item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-	ui.itemTable->setItem(itemTableRowNum, 0, item);
+    QTableWidgetItem *item = new QTableWidgetItem;
+    item->setText(titleName);
+    item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    ui.itemTable->setItem(itemTableRowNum, 0, item);
 }
 
 void ConfigAppearanceWidget::addItemFont(const QString &fontName)
 {
-	const int rowNum = m_itemFonts.size();
-	m_itemFonts.append(fontName);
+    const int rowNum = m_itemFonts.size();
+    m_itemFonts.append(fontName);
 
-	QFont font;
-	font.fromString(fontName);
-	ui.itemTable->item(rowNum, 0)->setFont(font);
-	ui.itemTable->setRowHeight(rowNum, QFontMetrics(font).height() + m_itemMargin);
+    QFont font;
+    font.fromString(fontName);
+    ui.itemTable->item(rowNum, 0)->setFont(font);
+    ui.itemTable->setRowHeight(rowNum, QFontMetrics(font).height() + m_itemMargin);
 }
 
 void ConfigAppearanceWidget::addItemColor(const QString &colorName)
 {
-	const int rowNum = m_itemColors.size();
-	m_itemColors.append(colorName);
-	ui.itemTable->item(rowNum, 0)->setForeground(QColor(colorName));
-	toggleCustom();
+    const int rowNum = m_itemColors.size();
+    m_itemColors.append(colorName);
+    ui.itemTable->item(rowNum, 0)->setForeground(QColor(colorName));
+    toggleCustom();
 }
 
 void ConfigAppearanceWidget::addItems(const QStringList &titleNames)
 {
-	for (int i = 0; i < titleNames.size(); ++i)
-		addItem(titleNames.at(i));
+    for (int i = 0; i < titleNames.size(); ++i)
+        addItem(titleNames.at(i));
 }
 
 void ConfigAppearanceWidget::setItemFonts(const QStringList &fontNames)
 {
-	m_itemFonts = fontNames;
-	for (int i = 0; i < m_itemFonts.size(); ++i)
-	{
-		QFont font;
-		font.fromString(m_itemFonts.at(i));
-		ui.itemTable->item(i, 0)->setFont(font);
-		ui.itemTable->setRowHeight(i, QFontMetrics(font).height() + m_itemMargin);
-	}
+    m_itemFonts = fontNames;
+    for (int i = 0; i < m_itemFonts.size(); ++i) {
+        QFont font;
+        font.fromString(m_itemFonts.at(i));
+        ui.itemTable->item(i, 0)->setFont(font);
+        ui.itemTable->setRowHeight(i, QFontMetrics(font).height() + m_itemMargin);
+    }
 }
 
 void ConfigAppearanceWidget::setItemColors(const QStringList &colorNames)
 {
-	m_itemColors = colorNames;
-	for (int i = 0; i < m_itemColors.size(); ++i)
-		ui.itemTable->item(i, 0)->setForeground(QColor(m_itemColors.at(i)));
-	toggleCustom();
+    m_itemColors = colorNames;
+    for (int i = 0; i < m_itemColors.size(); ++i)
+        ui.itemTable->item(i, 0)->setForeground(QColor(m_itemColors.at(i)));
+    toggleCustom();
 }
 
 QStringList ConfigAppearanceWidget::getItemFonts()
 {
-	return m_itemFonts;
+    return m_itemFonts;
 }
 
 QStringList ConfigAppearanceWidget::getItemColors()
 {
-	return m_itemColors;
+    return m_itemColors;
 }
 
 void ConfigAppearanceWidget::setCustomizationType(bool custom)
 {
-	if (custom)
-		ui.customAppearanceCheck->setChecked(true);
-	else
-		ui.standardAppearanceCheck->setChecked(true);
-	toggleCustom();
+    if (custom)
+        ui.customAppearanceCheck->setChecked(true);
+    else
+        ui.standardAppearanceCheck->setChecked(true);
+    toggleCustom();
 }
 
 bool ConfigAppearanceWidget::getCustomizationType()
 {
-	return !ui.standardAppearanceCheck->isChecked();
+    return !ui.standardAppearanceCheck->isChecked();
 }
 
 void ConfigAppearanceWidget::toggleCustom()
 {
-	if (ui.customAppearanceCheck->isChecked())
-	{
-		ui.appearanceGroupBox->setEnabled(true);
-		for (int i = 0; i < m_itemColors.size(); ++i)
-			ui.itemTable->item(i, 0)->setForeground(QColor(m_itemColors.at(i)));
-	}
-	else
-	{
-		ui.appearanceGroupBox->setEnabled(false);
-		for (int i = 0; i < m_itemColors.size(); ++i)
-			ui.itemTable->item(i, 0)->setForeground(QApplication::style()->standardPalette().color(QPalette::Disabled, QPalette::Text));
-	}
+    if (ui.customAppearanceCheck->isChecked()) {
+        ui.appearanceGroupBox->setEnabled(true);
+        for (int i = 0; i < m_itemColors.size(); ++i)
+            ui.itemTable->item(i, 0)->setForeground(QColor(m_itemColors.at(i)));
+    } else {
+        ui.appearanceGroupBox->setEnabled(false);
+        for (int i = 0; i < m_itemColors.size(); ++i)
+            ui.itemTable->item(i, 0)->setForeground(QApplication::style()->standardPalette().color(
+                    QPalette::Disabled, QPalette::Text));
+    }
 }
 
 void ConfigAppearanceWidget::setTypeNames(const QStringList &typeNames)
 {
-	m_typeNames = typeNames;
+    m_typeNames = typeNames;
 }
 
-void ConfigAppearanceWidget::setDefaultTextCharFormats(const QMap<QString, QTextCharFormat> &defaultFormatList)
+void ConfigAppearanceWidget::setDefaultTextCharFormats(
+        const QMap<QString, QTextCharFormat> &defaultFormatList)
 {
-	for (int i = 0; i < defaultFormatList.size(); ++i)
-	{
-		m_itemColors << QString();
-		m_itemFonts << QString();
-	}
+    for (int i = 0; i < defaultFormatList.size(); ++i) {
+        m_itemColors << QString();
+        m_itemFonts << QString();
+    }
 
-	QMap<QString, QTextCharFormat>::const_iterator it = defaultFormatList.constBegin();
-	while (it != defaultFormatList.constEnd())
-	{
-		const int num = m_typeNames.indexOf(it.key());
-		if (num >= 0)
-		{
-			m_itemColors[num] = it.value().foreground().color().name();
-			m_itemFonts[num] = it.value().font().toString();
-		}
-		++it;
-	}
+    QMap<QString, QTextCharFormat>::const_iterator it = defaultFormatList.constBegin();
+    while (it != defaultFormatList.constEnd()) {
+        const int num = m_typeNames.indexOf(it.key());
+        if (num >= 0) {
+            m_itemColors[num] = it.value().foreground().color().name();
+            m_itemFonts[num] = it.value().font().toString();
+        }
+        ++it;
+    }
 }
 
 void ConfigAppearanceWidget::showFontDialog()
 {
-	if (m_itemHighlighted < 0)
-		return;
+    if (m_itemHighlighted < 0)
+        return;
 
-	bool ok;
-	QFont currentFont;
-	currentFont.fromString(m_itemFonts.at(m_itemHighlighted));
-	const QFont newFont = FontDialog::getFont(&ok, currentFont, this);
-	if (ok)
-	{
-		QTableWidgetItem *item = ui.itemTable->item(m_itemHighlighted, 0);
-		m_itemFonts.replace(m_itemHighlighted, newFont.toString());
-		item->setFont(newFont);
-		setItemToolTip(item, newFont);
-	}
+    bool ok;
+    QFont currentFont;
+    currentFont.fromString(m_itemFonts.at(m_itemHighlighted));
+    const QFont newFont = FontDialog::getFont(&ok, currentFont, this);
+    if (ok) {
+        QTableWidgetItem *item = ui.itemTable->item(m_itemHighlighted, 0);
+        m_itemFonts.replace(m_itemHighlighted, newFont.toString());
+        item->setFont(newFont);
+        setItemToolTip(item, newFont);
+    }
 }
 
 void ConfigAppearanceWidget::showColorDialog()
 {
-	if (m_itemHighlighted < 0)
-		return;
+    if (m_itemHighlighted < 0)
+        return;
 
-	bool ok;
-	const QColor currentColor(m_itemColors.at(m_itemHighlighted));
-	const QColor newColor = ColorDialog::getColor(&ok, currentColor, this);
-	if (ok)
-	{
-		m_itemColors.replace(m_itemHighlighted, newColor.name());
-		ui.itemTable->item(m_itemHighlighted, 0)->setForeground(newColor);
-		setHighlightedForeground(m_itemColors.at(m_itemHighlighted));
-	}
+    bool ok;
+    const QColor currentColor(m_itemColors.at(m_itemHighlighted));
+    const QColor newColor = ColorDialog::getColor(&ok, currentColor, this);
+    if (ok) {
+        m_itemColors.replace(m_itemHighlighted, newColor.name());
+        ui.itemTable->item(m_itemHighlighted, 0)->setForeground(newColor);
+        setHighlightedForeground(m_itemColors.at(m_itemHighlighted));
+    }
 }
 
 void ConfigAppearanceWidget::setHighlightedForeground(const QString &colorName)
 {
-	QPalette palette = ui.itemTable->palette();
-	const QColor color(colorName);
-	palette.setColor(QPalette::Normal, QPalette::HighlightedText, color);
-	palette.setColor(QPalette::Inactive, QPalette::HighlightedText, color);
-	palette.setColor(QPalette::Disabled, QPalette::HighlightedText, QApplication::style()->standardPalette().color(QPalette::Disabled, QPalette::Text));
-	ui.itemTable->setPalette(palette);
+    QPalette palette = ui.itemTable->palette();
+    const QColor color(colorName);
+    palette.setColor(QPalette::Normal, QPalette::HighlightedText, color);
+    palette.setColor(QPalette::Inactive, QPalette::HighlightedText, color);
+    palette.setColor(
+            QPalette::Disabled, QPalette::HighlightedText,
+            QApplication::style()->standardPalette().color(QPalette::Disabled, QPalette::Text));
+    ui.itemTable->setPalette(palette);
 }

@@ -23,27 +23,27 @@
 
 class QImage;
 
-namespace Poppler
-{
+namespace Poppler {
 class Document;
 }
 
 class TikzPreviewRenderer : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	TikzPreviewRenderer();
-	~TikzPreviewRenderer();
+    TikzPreviewRenderer();
+    ~TikzPreviewRenderer();
 
 public Q_SLOTS:
-	void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor = 1.0, int currentPage = 0);
+    void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor = 1.0,
+                         int currentPage = 0);
 
 Q_SIGNALS:
-	void showPreview(const QImage &image, qreal zoomFactor = 1.0);
+    void showPreview(const QImage &image, qreal zoomFactor = 1.0);
 
 private:
-	QThread m_thread;
+    QThread m_thread;
 };
 
 #endif

@@ -28,65 +28,63 @@
 
 ReplaceCurrentWidget::ReplaceCurrentWidget(QWidget *parent) : QWidget(parent)
 {
-	m_replaceLabel = new QLabel;
-	m_replaceButton = new QPushButton(tr("&Replace"));
-	QPushButton *replaceAllButton = new QPushButton(tr("Replace &All"));
-	QPushButton *dontReplaceButton = new QPushButton(tr("&Don't Replace"));
-	QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
-	cancelButton->setIcon(Icon(QLatin1String("dialog-cancel")));
+    m_replaceLabel = new QLabel;
+    m_replaceButton = new QPushButton(tr("&Replace"));
+    QPushButton *replaceAllButton = new QPushButton(tr("Replace &All"));
+    QPushButton *dontReplaceButton = new QPushButton(tr("&Don't Replace"));
+    QPushButton *cancelButton = new QPushButton(tr("&Cancel"));
+    cancelButton->setIcon(Icon(QLatin1String("dialog-cancel")));
 
-	QVBoxLayout *mainLayout = new QVBoxLayout(this);
-	QWidget *buttonsWidget = new QWidget;
-	QHBoxLayout *buttonsLayout = new QHBoxLayout;
-	buttonsLayout->addWidget(m_replaceButton);
-	buttonsLayout->addWidget(replaceAllButton);
-	buttonsLayout->addWidget(dontReplaceButton);
-	buttonsLayout->addWidget(cancelButton);
-	buttonsLayout->addStretch();
-	buttonsLayout->setMargin(0);
-	buttonsWidget->setLayout(buttonsLayout);
-	mainLayout->addWidget(m_replaceLabel);
-	mainLayout->addWidget(buttonsWidget);
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    QWidget *buttonsWidget = new QWidget;
+    QHBoxLayout *buttonsLayout = new QHBoxLayout;
+    buttonsLayout->addWidget(m_replaceButton);
+    buttonsLayout->addWidget(replaceAllButton);
+    buttonsLayout->addWidget(dontReplaceButton);
+    buttonsLayout->addWidget(cancelButton);
+    buttonsLayout->addStretch();
+    buttonsLayout->setMargin(0);
+    buttonsWidget->setLayout(buttonsLayout);
+    mainLayout->addWidget(m_replaceLabel);
+    mainLayout->addWidget(buttonsWidget);
 
-	setFocusProxy(m_replaceButton);
+    setFocusProxy(m_replaceButton);
 
-	connect(m_replaceButton, SIGNAL(clicked()), this, SIGNAL(replace()));
-	connect(replaceAllButton, SIGNAL(clicked()), this, SIGNAL(replaceAll()));
-	connect(dontReplaceButton, SIGNAL(clicked()), this, SLOT(dontReplace()));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(hide()));
+    connect(m_replaceButton, SIGNAL(clicked()), this, SIGNAL(replace()));
+    connect(replaceAllButton, SIGNAL(clicked()), this, SIGNAL(replaceAll()));
+    connect(dontReplaceButton, SIGNAL(clicked()), this, SLOT(dontReplace()));
+    connect(cancelButton, SIGNAL(clicked()), this, SLOT(hide()));
 }
 
-ReplaceCurrentWidget::~ReplaceCurrentWidget()
-{
-}
+ReplaceCurrentWidget::~ReplaceCurrentWidget() { }
 
 void ReplaceCurrentWidget::setReplacement(const QString &text, const QString &replacement)
 {
-	m_replaceLabel->setText(tr("Replace %1 by %2?").arg(text).arg(replacement));
+    m_replaceLabel->setText(tr("Replace %1 by %2?").arg(text).arg(replacement));
 }
 
 void ReplaceCurrentWidget::dontReplace()
 {
-	Q_EMIT search();
+    Q_EMIT search();
 }
 
 void ReplaceCurrentWidget::hide()
 {
-	setVisible(false);
-	Q_EMIT hidden();
+    setVisible(false);
+    Q_EMIT hidden();
 }
 
 void ReplaceCurrentWidget::showEvent(QShowEvent *event)
 {
-	m_replaceButton->setFocus();
-	QWidget::showEvent(event);
+    m_replaceButton->setFocus();
+    QWidget::showEvent(event);
 }
 
 void ReplaceCurrentWidget::keyPressEvent(QKeyEvent *event)
 {
-	if (event->key() == Qt::Key_Escape)
-		hide();
-	else if (event->key() == Qt::Key_Return)
-		Q_EMIT replace();
-	QWidget::keyPressEvent(event);
+    if (event->key() == Qt::Key_Escape)
+        hide();
+    else if (event->key() == Qt::Key_Return)
+        Q_EMIT replace();
+    QWidget::keyPressEvent(event);
 }

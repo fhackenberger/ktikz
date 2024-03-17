@@ -28,82 +28,86 @@
 #include "toolbar.h"
 #include "zoomaction.h"
 
-PrintPreviewDialog::PrintPreviewDialog(QPrinter *printer, QWidget *parent)
-	: QDialog(parent)
+PrintPreviewDialog::PrintPreviewDialog(QPrinter *printer, QWidget *parent) : QDialog(parent)
 {
-	m_initialized = false;
+    m_initialized = false;
 
-	QVBoxLayout *mainLayout = new QVBoxLayout;
+    QVBoxLayout *mainLayout = new QVBoxLayout;
 
-	m_printPreviewWidget = new QPrintPreviewWidget(printer, this);
-	connect(m_printPreviewWidget, SIGNAL(paintRequested(QPrinter*)), this, SIGNAL(paintRequested(QPrinter*)));
-	connect(m_printPreviewWidget, SIGNAL(previewChanged()), this, SLOT(updateZoomFactor()));
+    m_printPreviewWidget = new QPrintPreviewWidget(printer, this);
+    connect(m_printPreviewWidget, SIGNAL(paintRequested(QPrinter *)), this,
+            SIGNAL(paintRequested(QPrinter *)));
+    connect(m_printPreviewWidget, SIGNAL(previewChanged()), this, SLOT(updateZoomFactor()));
 
-	ToolBar *toolBar = new ToolBar(QLatin1String("printpreview_toolbar"), this);
-	Action *action = new Action(Icon(QLatin1String("zoom-fit-width")), tr("Fit &width"), this, QLatin1String("printpreview_fit_width"));
-	connect(action, SIGNAL(triggered()), m_printPreviewWidget, SLOT(fitToWidth()));
-	toolBar->addAction(action);
-	action = new Action(Icon(QLatin1String("zoom-fit-best")), tr("Fit p&age"), this, QLatin1String("printpreview_fit_page"));
-	connect(action, SIGNAL(triggered()), m_printPreviewWidget, SLOT(fitInView()));
-	toolBar->addAction(action);
-	m_zoomToAction = new ZoomAction(Icon(QLatin1String("zoom-original")), tr("&Zoom"), this, QLatin1String("printpreview_zoom_to"));
-	connect(m_zoomToAction, SIGNAL(zoomFactorAdded(qreal)), this, SLOT(setZoomFactor(qreal)));
-	toolBar->addAction(m_zoomToAction);
-	toolBar->addAction(StandardAction::zoomIn(this, SLOT(zoomIn()), this));
-	toolBar->addAction(StandardAction::zoomOut(this, SLOT(zoomOut()), this));
-	action = new Action(Icon(QLatin1String("document-print")), tr("&Print"), this, QLatin1String("printpreview_print"));
-	connect(action, SIGNAL(triggered()), this, SLOT(print()));
-	toolBar->addAction(action);
-	action = new Action(Icon(QLatin1String("window-close")), tr("&Close"), this, QLatin1String("printpreview_close"));
-	connect(action, SIGNAL(triggered()), this, SLOT(reject()));
-	toolBar->addAction(action);
+    ToolBar *toolBar = new ToolBar(QLatin1String("printpreview_toolbar"), this);
+    Action *action = new Action(Icon(QLatin1String("zoom-fit-width")), tr("Fit &width"), this,
+                                QLatin1String("printpreview_fit_width"));
+    connect(action, SIGNAL(triggered()), m_printPreviewWidget, SLOT(fitToWidth()));
+    toolBar->addAction(action);
+    action = new Action(Icon(QLatin1String("zoom-fit-best")), tr("Fit p&age"), this,
+                        QLatin1String("printpreview_fit_page"));
+    connect(action, SIGNAL(triggered()), m_printPreviewWidget, SLOT(fitInView()));
+    toolBar->addAction(action);
+    m_zoomToAction = new ZoomAction(Icon(QLatin1String("zoom-original")), tr("&Zoom"), this,
+                                    QLatin1String("printpreview_zoom_to"));
+    connect(m_zoomToAction, SIGNAL(zoomFactorAdded(qreal)), this, SLOT(setZoomFactor(qreal)));
+    toolBar->addAction(m_zoomToAction);
+    toolBar->addAction(StandardAction::zoomIn(this, SLOT(zoomIn()), this));
+    toolBar->addAction(StandardAction::zoomOut(this, SLOT(zoomOut()), this));
+    action = new Action(Icon(QLatin1String("document-print")), tr("&Print"), this,
+                        QLatin1String("printpreview_print"));
+    connect(action, SIGNAL(triggered()), this, SLOT(print()));
+    toolBar->addAction(action);
+    action = new Action(Icon(QLatin1String("window-close")), tr("&Close"), this,
+                        QLatin1String("printpreview_close"));
+    connect(action, SIGNAL(triggered()), this, SLOT(reject()));
+    toolBar->addAction(action);
 
-	mainLayout->addWidget(toolBar);
-	mainLayout->addWidget(m_printPreviewWidget);
-	setLayout(mainLayout);
+    mainLayout->addWidget(toolBar);
+    mainLayout->addWidget(m_printPreviewWidget);
+    setLayout(mainLayout);
 
-	m_zoomToAction->setZoomFactor(1.0);
+    m_zoomToAction->setZoomFactor(1.0);
 }
 
 void PrintPreviewDialog::setVisible(bool visible)
 {
-	// this will make the dialog get a decent default size
-	if (visible && !m_initialized)
-	{
-		m_printPreviewWidget->updatePreview();
-		m_initialized = true;
-	}
-	QDialog::setVisible(visible);
+    // this will make the dialog get a decent default size
+    if (visible && !m_initialized) {
+        m_printPreviewWidget->updatePreview();
+        m_initialized = true;
+    }
+    QDialog::setVisible(visible);
 }
 
 void PrintPreviewDialog::setZoomFactor(qreal zoomFactor)
 {
-	m_printPreviewWidget->setZoomFactor(zoomFactor);
+    m_printPreviewWidget->setZoomFactor(zoomFactor);
 }
 
 void PrintPreviewDialog::updateZoomFactor()
 {
-	disconnect(m_zoomToAction, SIGNAL(zoomFactorAdded(qreal)), this, SLOT(setZoomFactor(qreal)));
-	m_zoomToAction->setZoomFactor(m_printPreviewWidget->zoomFactor());
-	connect(m_zoomToAction, SIGNAL(zoomFactorAdded(qreal)), this, SLOT(setZoomFactor(qreal)));
+    disconnect(m_zoomToAction, SIGNAL(zoomFactorAdded(qreal)), this, SLOT(setZoomFactor(qreal)));
+    m_zoomToAction->setZoomFactor(m_printPreviewWidget->zoomFactor());
+    connect(m_zoomToAction, SIGNAL(zoomFactorAdded(qreal)), this, SLOT(setZoomFactor(qreal)));
 }
 
 void PrintPreviewDialog::zoomIn()
 {
-	const qreal zoomFactor = m_printPreviewWidget->zoomFactor();
-	m_zoomToAction->setZoomFactor(zoomFactor + (zoomFactor > 0.99 ?
-	                                           (zoomFactor > 1.99 ? 0.5 : 0.2) : 0.1));
+    const qreal zoomFactor = m_printPreviewWidget->zoomFactor();
+    m_zoomToAction->setZoomFactor(zoomFactor
+                                  + (zoomFactor > 0.99 ? (zoomFactor > 1.99 ? 0.5 : 0.2) : 0.1));
 }
 
 void PrintPreviewDialog::zoomOut()
 {
-	const qreal zoomFactor = m_printPreviewWidget->zoomFactor();
-	m_zoomToAction->setZoomFactor(zoomFactor - (zoomFactor > 1.01 ?
-	                                           (zoomFactor > 2.01 ? 0.5 : 0.2) : 0.1));
+    const qreal zoomFactor = m_printPreviewWidget->zoomFactor();
+    m_zoomToAction->setZoomFactor(zoomFactor
+                                  - (zoomFactor > 1.01 ? (zoomFactor > 2.01 ? 0.5 : 0.2) : 0.1));
 }
 
 void PrintPreviewDialog::print()
 {
-	m_printPreviewWidget->print();
-	accept();
+    m_printPreviewWidget->print();
+    accept();
 }

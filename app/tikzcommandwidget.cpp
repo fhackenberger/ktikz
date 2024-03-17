@@ -18,11 +18,9 @@
 
 #include "tikzcommandwidget.h"
 
-TikzCommandWidget::TikzCommandWidget(QWidget *parent) : QWidget(parent)
-{
-}
+TikzCommandWidget::TikzCommandWidget(QWidget *parent) : QWidget(parent) { }
 
 QSize TikzCommandWidget::sizeHint() const
 {
-	return QSize(100, 200);
+    return QSize(100, 200);
 }

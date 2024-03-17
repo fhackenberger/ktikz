@@ -29,43 +29,36 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-
-TikzKTextEditorCompletion::TikzKTextEditorCompletion(QObject* parent)
-		: KTextEditor::CodeCompletionModel(parent)
+TikzKTextEditorCompletion::TikzKTextEditorCompletion(QObject *parent)
+    : KTextEditor::CodeCompletionModel(parent)
 {
-	m_wordsList.clear();
+    m_wordsList.clear();
 }
 
-TikzKTextEditorCompletion::~TikzKTextEditorCompletion()
-{
-
-
-}
+TikzKTextEditorCompletion::~TikzKTextEditorCompletion() { }
 
 void TikzKTextEditorCompletion::updateCompleter(bool useCompletion, const QStringList &words)
 {
-	m_useCompletion = useCompletion;
-	m_wordsList = words;
-	findMatches();
+    m_useCompletion = useCompletion;
+    m_wordsList = words;
+    findMatches();
 }
 
 void TikzKTextEditorCompletion::findMatches()
 {
-	m_matches.clear();
-	for( int i = 0; i < m_wordsList.size(); i++ )
-	{
-		QStandardItem* item = new QStandardItem();
-		item->setData( m_wordsList.at(i) , Qt::DisplayRole);
-		if( m_wordsList.at(i).startsWith(QStringLiteral("\\")) )
-		{
-			item->setData(QIcon::fromTheme(QStringLiteral("code-function")), Qt::DecorationRole);
-		}
-		m_matches.appendRow( item );
-	}
+    m_matches.clear();
+    for (int i = 0; i < m_wordsList.size(); i++) {
+        QStandardItem *item = new QStandardItem();
+        item->setData(m_wordsList.at(i), Qt::DisplayRole);
+        if (m_wordsList.at(i).startsWith(QStringLiteral("\\"))) {
+            item->setData(QIcon::fromTheme(QStringLiteral("code-function")), Qt::DecorationRole);
+        }
+        m_matches.appendRow(item);
+    }
 }
 
-
-//bool TikzKTextEditorCompletion::shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position)
+// bool TikzKTextEditorCompletion::shouldStartCompletion(KTextEditor::View *view, const QString
+// &insertedText, bool userInsertion, const KTextEditor::Cursor &position)
 //{
 //	if( !m_useCompletion )
 //		return false;
@@ -81,69 +74,62 @@ void TikzKTextEditorCompletion::findMatches()
 //		return true;
 //	}
 //	return false;
-//}
+// }
 
-
-KTextEditor::Range TikzKTextEditorCompletion::completionRange(KTextEditor::View *view, const KTextEditor::Cursor &position)
+KTextEditor::Range TikzKTextEditorCompletion::completionRange(KTextEditor::View *view,
+                                                              const KTextEditor::Cursor &position)
 {
-	KTextEditor::Range range = view->document()->wordRangeAt( position );
-	return range;
+    KTextEditor::Range range = view->document()->wordRangeAt(position);
+    return range;
 }
 
-void TikzKTextEditorCompletion::completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, KTextEditor::CodeCompletionModel::InvocationType it)
+void TikzKTextEditorCompletion::completionInvoked(
+        KTextEditor::View *view, const KTextEditor::Range &range,
+        KTextEditor::CodeCompletionModel::InvocationType it)
 {
-	setRowCount(m_matches.rowCount());
+    setRowCount(m_matches.rowCount());
 }
 
 QVariant TikzKTextEditorCompletion::data(const QModelIndex &index, int role) const
 {
 
-	if (!index.isValid() || index.row() >= m_matches.rowCount()) {
-		return QVariant();
-	}
+    if (!index.isValid() || index.row() >= m_matches.rowCount()) {
+        return QVariant();
+    }
 
-	const QStandardItem *match = m_matches.item(index.row());
+    const QStandardItem *match = m_matches.item(index.row());
 
-	if(index.column() == KTextEditor::CodeCompletionModel::Name && role == Qt::DisplayRole)
-	{
-		QString name = match->data( Qt::DisplayRole ).toString();
-		return name;
-	}
-	if(index.column() == KTextEditor::CodeCompletionModel::Icon && role == Qt::DecorationRole)
-	{
-		return match->data( Qt::DecorationRole );
-	}
+    if (index.column() == KTextEditor::CodeCompletionModel::Name && role == Qt::DisplayRole) {
+        QString name = match->data(Qt::DisplayRole).toString();
+        return name;
+    }
+    if (index.column() == KTextEditor::CodeCompletionModel::Icon && role == Qt::DecorationRole) {
+        return match->data(Qt::DecorationRole);
+    }
 
-	switch (role)
-	{
-	case KTextEditor::CodeCompletionModel::CompletionRole:
-	{
-		int p = KTextEditor::CodeCompletionModel::NoProperty;
-		return p;
-	}
-	case KTextEditor::CodeCompletionModel::BestMatchesCount:
-	{
-		return 1;
-	}
-	case KTextEditor::CodeCompletionModel::ArgumentHintDepth:
-	{
-		return 0;
-	}
-	case KTextEditor::CodeCompletionModel::GroupRole:
-	{
-		break;
-	}
-	case KTextEditor::CodeCompletionModel::IsExpandable:
-	{
-		// I like the green arrow
-		return false;
-	}
-	case KTextEditor::CodeCompletionModel::ExpandingWidget:
-	{
-		// TODO well implementation in DCD is missing
-		break;
-	}
-	}
+    switch (role) {
+    case KTextEditor::CodeCompletionModel::CompletionRole: {
+        int p = KTextEditor::CodeCompletionModel::NoProperty;
+        return p;
+    }
+    case KTextEditor::CodeCompletionModel::BestMatchesCount: {
+        return 1;
+    }
+    case KTextEditor::CodeCompletionModel::ArgumentHintDepth: {
+        return 0;
+    }
+    case KTextEditor::CodeCompletionModel::GroupRole: {
+        break;
+    }
+    case KTextEditor::CodeCompletionModel::IsExpandable: {
+        // I like the green arrow
+        return false;
+    }
+    case KTextEditor::CodeCompletionModel::ExpandingWidget: {
+        // TODO well implementation in DCD is missing
+        break;
+    }
+    }
 
-	return QVariant();
+    return QVariant();
 }

@@ -24,12 +24,12 @@
 class Url : public QUrl
 {
 public:
-	Url();
-	explicit Url(const QString &fileName);
-	Url(const QUrl &url);
+    Url();
+    explicit Url(const QString &fileName);
+    Url(const QUrl &url);
 
-	QString pathOrUrl() const;
-	QString path() const;
+    QString pathOrUrl() const;
+    QString path() const;
 };
 
 #endif

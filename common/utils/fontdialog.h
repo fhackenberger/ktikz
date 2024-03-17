@@ -24,12 +24,12 @@
 class FontDialog : public QFontDialog
 {
 public:
-	FontDialog(QWidget *parent) : QFontDialog(parent) {}
+    FontDialog(QWidget *parent) : QFontDialog(parent) { }
 
-	static QFont getFont(bool *ok, const QFont &font, QWidget *parent)
-	{
-		return QFontDialog::getFont(ok, font, parent);
-	}
+    static QFont getFont(bool *ok, const QFont &font, QWidget *parent)
+    {
+        return QFontDialog::getFont(ok, font, parent);
+    }
 };
 
 #endif

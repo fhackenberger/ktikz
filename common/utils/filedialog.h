@@ -23,7 +23,6 @@
 
 #include <QFileDialog>
 
-
 /*!
  * \brief Provides a dialog to select an URL for opening or saving.
  *
@@ -41,10 +40,16 @@
 class FileDialog : public QFileDialog
 {
 public:
-	explicit FileDialog(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString()) : QFileDialog(parent, caption, directory, filter) {}
+    explicit FileDialog(QWidget *parent = 0, const QString &caption = QString(),
+                        const QString &directory = QString(), const QString &filter = QString())
+        : QFileDialog(parent, caption, directory, filter)
+    {
+    }
 
-	static Url getOpenUrl(QWidget *parent = 0, const QString &caption = QString(), const Url &dir = Url(), const QString &filter = QString());
-	static Url getSaveUrl(QWidget *parent = 0, const QString &caption = QString(), const Url &dir = Url(), const QString &filter = QString());
+    static Url getOpenUrl(QWidget *parent = 0, const QString &caption = QString(),
+                          const Url &dir = Url(), const QString &filter = QString());
+    static Url getSaveUrl(QWidget *parent = 0, const QString &caption = QString(),
+                          const Url &dir = Url(), const QString &filter = QString());
 };
 
 #endif

@@ -23,56 +23,56 @@ class Icon;
 class Url;
 
 #ifdef KTIKZ_USE_KDE
-#include <KRecentFilesAction>
+#  include <KRecentFilesAction>
 
 class KActionCollection;
 
 class RecentFilesAction : public KRecentFilesAction
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit RecentFilesAction(QObject *parent);
-	RecentFilesAction(const QString &text, QObject *parent);
-	RecentFilesAction(const Icon &icon, const QString &text, QObject *parent);
+    explicit RecentFilesAction(QObject *parent);
+    RecentFilesAction(const QString &text, QObject *parent);
+    RecentFilesAction(const Icon &icon, const QString &text, QObject *parent);
 
-	void createRecentFilesList() {}
-	void loadEntries();
-	void saveEntries();
+    void createRecentFilesList() { }
+    void loadEntries();
+    void saveEntries();
 };
 #else
-#include "action.h"
+#  include "action.h"
 
 class RecentFilesAction : public Action
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit RecentFilesAction(QObject *parent);
-	RecentFilesAction(const QString &text, QObject *parent);
-	RecentFilesAction(const Icon &icon, const QString &text, QObject *parent);
-	~RecentFilesAction();
+    explicit RecentFilesAction(QObject *parent);
+    RecentFilesAction(const QString &text, QObject *parent);
+    RecentFilesAction(const Icon &icon, const QString &text, QObject *parent);
+    ~RecentFilesAction();
 
-	void createRecentFilesList();
-	void loadEntries();
-	void saveEntries();
-	void addUrl(const QUrl &url, const QString &name = QString());
-	void removeUrl(const QUrl &url);
+    void createRecentFilesList();
+    void loadEntries();
+    void saveEntries();
+    void addUrl(const QUrl &url, const QString &name = QString());
+    void removeUrl(const QUrl &url);
 
 Q_SIGNALS:
-	void urlSelected(const Url &url);
+    void urlSelected(const Url &url);
 
 private Q_SLOTS:
-	void openRecentFile();
+    void openRecentFile();
 
 private:
-	void createMenu();
-	void updateRecentFilesList();
+    void createMenu();
+    void updateRecentFilesList();
 
-	QMenu *m_recentMenu;
-	QList<QAction*> m_recentFileActions;
-	QStringList m_recentFilesList;
-	int m_numOfRecentFiles;
+    QMenu *m_recentMenu;
+    QList<QAction *> m_recentFileActions;
+    QStringList m_recentFilesList;
+    int m_numOfRecentFiles;
 };
 #endif
 
