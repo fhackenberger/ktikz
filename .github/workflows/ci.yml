@@ -13,8 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  linux:
-    name: Build (Linux)
+  linux-qt:
+    name: Build (Linux/Qt)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,6 +33,37 @@ jobs:
           mkdir -p build-qt5-ubuntu && cd build-qt5-ubuntu
           QT_SELECT=5 qmake ../qtikz.pro
           QT_SELECT=5 make -j4
+
+  linux-kde:
+    name: Build (Linux/KDE)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install \
+            qtbase5-dev \
+            libqt5widgets5 \
+            libqt5printsupport5 \
+            qttools5-dev \
+            qttools5-dev-tools \
+            libpoppler-qt5-dev
+          sudo apt-get -y install \
+            extra-cmake-modules \
+            kdoctools5 \
+            libkf5doctools-dev \
+            libkf5xmlgui-dev \
+            libkf5texteditor-dev \
+            libkf5parts-dev \
+            libkf5iconthemes-dev
+      - name: Build KTikZ
+        run: |
+          cmake -Bbuild \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS="-Wdeprecated"
+
+          cmake --build build
 
   macos:
     name: Build (macOS)
