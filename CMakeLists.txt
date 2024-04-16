@@ -22,7 +22,7 @@ include(ECMInstallIcons)
 
 find_package(Qt5 5.15 CONFIG REQUIRED Core Gui Widgets Xml PrintSupport LinguistTools )
 
-find_package(KF5 5.102 REQUIRED DocTools XmlGui TextEditor Parts IconThemes )
+find_package(KF5 5.92 REQUIRED DocTools XmlGui TextEditor Parts IconThemes )
 
 include(KDEInstallDirs)
 include(KDECompilerSettings NO_POLICY_SCOPE)
@@ -44,7 +44,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
    endif()
 endif()
 
-find_package(Poppler "23.01" REQUIRED Qt5 Core)
+find_package(Poppler "22.02" REQUIRED Qt5 Core)
 set_package_properties("Poppler-Qt5" PROPERTIES
         DESCRIPTION "A PDF rendering library"
         URL "http://poppler.freedesktop.org"
