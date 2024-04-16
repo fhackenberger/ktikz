@@ -41,7 +41,7 @@ void TikzHighlighter::setHighlightingRules(const QVector<HighlightingRule> &high
     QStringList keywordPatterns;
     keywordPatterns << QLatin1String("\\\\begin\\{[^\\}]*\\}")
                     << QLatin1String("\\\\end\\{[^\\}]*\\}");
-    Q_FOREACH (const QString &pattern, keywordPatterns) {
+    for (const QString &pattern: keywordPatterns) {
         rule.type = highlightTypeNames.at(currentIndex);
         rule.pattern = QRegExp(pattern);
         rule.isRegExp = true;
@@ -156,7 +156,7 @@ void TikzHighlighter::highlightBlock(const QString &text)
     // Try each highlighting pattern and apply formatting if it matches
     // Having the outer loop loop over the highlighting rules and the inner loop over the text is
     // much faster than conversely
-    Q_FOREACH (const HighlightingRule &rule, m_highlightingRules) {
+    for (const HighlightingRule &rule: m_highlightingRules) {
         if (!rule.isRegExp) // match the insertion string
         {
             const int length = rule.matchString.length();

@@ -37,7 +37,7 @@ LogHighlighter::LogHighlighter(QTextDocument *parent) : QSyntaxHighlighter(paren
             << QLatin1String("^\\[.*\\] Line \\d+: .*") // error msg created by
                                                         // TikzPreviewGenerator::getParsedLogText()
             << tr("This program will not work!");
-    Q_FOREACH (const QString &pattern, keywordPatterns) {
+    for (const QString &pattern: keywordPatterns) {
         rule.pattern = QRegExp(pattern);
         rule.format = keywordFormat;
         m_highlightingRules.append(rule);
@@ -60,15 +60,15 @@ LogHighlighter::~LogHighlighter() { }
 void LogHighlighter::highlightBlock(const QString &text)
 {
     // Try each highlighting pattern and apply formatting if it matches
-    Q_FOREACH (const LogHighlightingRule &rule, m_highlightingRules) {
-        //		const QRegExp expression(rule.pattern);
-        //		int index = text.indexOf(expression);
+    for (const LogHighlightingRule &rule: m_highlightingRules) {
+        // const QRegExp expression(rule.pattern);
+        // int index = text.indexOf(expression);
         QRegExp expression(rule.pattern);
         int index = expression.indexIn(text);
         while (index >= 0) {
             const int length = expression.matchedLength();
             setFormat(index, length, rule.format);
-            //			index = text.indexOf(expression, index + length);
+            // index = text.indexOf(expression, index + length);
             index = expression.indexIn(text, index + length);
         }
     }
