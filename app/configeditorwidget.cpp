@@ -223,11 +223,11 @@ void ConfigEditorWidget::fillCodecComboBox(QComboBox *cb)
     const QList<QByteArray> ca(QTextCodec::availableCodecs());
     QVector<ComboItem> ciList;
     ciList.reserve(ca.length());
-    for (const QByteArray &ba: ca) {
+    for (const auto &ba : ca) {
         ciList.append(ComboItem(codecNameToString(ba), ba));
     }
     std::sort(ciList.begin(), ciList.end());
-    for (const ComboItem &ci: ciList) {
+    for (const auto &ci : ciList) {
         cb->addItem(ci.text, ci.data);
     }
 }

@@ -245,7 +245,7 @@ static QList<qreal> tikzCoordinates(const QString &tikzFileBaseName)
         while (!tikzAuxFileStream.atEnd()) {
             QStringList tikzCoordinateStringList =
                     tikzAuxFileStream.readLine().split(QLatin1Char(';'));
-            for (const QString &tikzCoordinateString: tikzCoordinateStringList) {
+            for (const auto &tikzCoordinateString : tikzCoordinateStringList) {
                 tikzCoordinateList << tikzCoordinateString.toDouble();
             }
         }

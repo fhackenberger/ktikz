@@ -82,7 +82,7 @@ void ConfigDialog::writeSettings()
 
 void ConfigDialog::setTranslatedHighlightTypeNames(const QStringList &typeNames)
 {
-    for (const QString &typeName: typeNames) {
+    for (const auto &typeName : typeNames) {
         m_configAppearanceWidget->addItem(typeName);
     }
 }
