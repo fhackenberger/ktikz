@@ -169,7 +169,7 @@ void TikzHighlighter::highlightBlock(const QString &text)
                                                   // reality "\node" as a command is written
                     setFormat(index, length, m_formatList[rule.type]);
                 //				index = text.indexOf(rule.matchString, index +
-                //length);
+                // length);
                 index = indexOf(text, rule.matchString, index + length);
             }
         } else // match the pattern

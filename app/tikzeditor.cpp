@@ -340,7 +340,7 @@ void TikzEditor::printWhiteSpaces(QPainter &painter)
             const QRect rect = cursorRect(cursor);
 
             //			const QFontMetrics fontMetrics =
-            //QFontMetrics(cursor.charFormat().font());
+            // QFontMetrics(cursor.charFormat().font());
 
             if (m_showWhiteSpaces && text.at(i) == QLatin1Char(' ')) {
                 if (painter.pen() != whiteSpacesPen)

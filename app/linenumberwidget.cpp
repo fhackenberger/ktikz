@@ -79,7 +79,7 @@ void LineNumberWidget::paintEvent(QPaintEvent *event)
                                      QLatin1String("B"));
                     painter.setPen(m_highlightPen);
                     //					update(0, top, width(), lineHeight); // make
-                    //sure the bookmark is visible even when the line is wrapped
+                    // sure the bookmark is visible even when the line is wrapped
                     break;
                 }
             }
