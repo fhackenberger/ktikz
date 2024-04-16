@@ -239,7 +239,7 @@ static TikzCommandList loadChildCommandsJson(QJsonObject sectionObject,
                             restoreNewLines(insertion); // this must be done before the next line
                     insertion.replace(QLatin1String("\\\\"), QLatin1String("\\"));
                     //					insertion.replace(QLatin1String("&#8226;"),
-                    //QString(0x2022));
+                    // QString(0x2022));
 
                     if (description.isEmpty()) // if both name and description are empty, setting
                                                // the description first ensures that name is also
@@ -518,7 +518,7 @@ void TikzCommandInserter::showItemsInDockWidget()
         connect(tikzListWidget, SIGNAL(itemActivated(QListWidgetItem *)), this,
                 SLOT(insertTag(QListWidgetItem *)));
         //		connect(tikzListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this,
-        //SLOT(insertTag(QListWidgetItem*)));
+        // SLOT(insertTag(QListWidgetItem*)));
 
         QString comboItemText = m_tikzSections.children.at(i).title;
         m_commandsCombo->addItem(comboItemText.remove(QLatin1Char('&')));
@@ -567,7 +567,7 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
     connect(tikzListWidget, SIGNAL(itemActivated(QListWidgetItem *)), this,
             SLOT(insertTag(QListWidgetItem *)));
     //	connect(tikzListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this,
-    //SLOT(insertTag(QListWidgetItem*)));
+    // SLOT(insertTag(QListWidgetItem*)));
     m_commandsCombo->addItem(tr("General"));
     m_commandsStack->addWidget(tikzListWidget);
 
@@ -699,7 +699,7 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
 
             command = command.left(end);
             //				command = command.replace(QLatin1Char('\\'),
-            //QLatin1String("\\\\"));
+            // QLatin1String("\\\\"));
             rule.type = highlightTypeNames.at(0);
             //				rule.pattern = QRegExp(command);
             //				rule.pattern.setPattern(command);
@@ -724,7 +724,7 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
             break;
         case 3:
             //				command = command.replace(QLatin1Char('|'),
-            //QLatin1String("\\|"));
+            // QLatin1String("\\|"));
             end = command.indexOf(QLatin1Char('='), 0) + 1;
             if (end > 0)
                 command = command.left(end);

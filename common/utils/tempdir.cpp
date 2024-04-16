@@ -54,7 +54,9 @@ bool TempDir::cleanUp()
 
     bool success = true;
     const QStringList fileList = tempDir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries);
-    Q_FOREACH (const QString &fileName, fileList)
+    for (const auto &fileName : fileList) {
         success = success && tempDir.remove(fileName);
+    }
+
     return success;
 }

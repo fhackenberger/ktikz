@@ -82,8 +82,9 @@ void ConfigDialog::writeSettings()
 
 void ConfigDialog::setTranslatedHighlightTypeNames(const QStringList &typeNames)
 {
-    Q_FOREACH (const QString &typeName, typeNames)
+    for (const auto &typeName : typeNames) {
         m_configAppearanceWidget->addItem(typeName);
+    }
 }
 
 void ConfigDialog::setHighlightTypeNames(const QStringList &typeNames)

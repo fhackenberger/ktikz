@@ -240,7 +240,7 @@ MainWindow::MainWindow()
 
     // delayed initialization
     //	QTimer::singleShot(0, this, SLOT(init())); // this causes flicker at startup and init() is
-    //not executed in a separate thread anyway :(
+    // not executed in a separate thread anyway :(
     init();
     // qCritical() << "mainwindow" << t.msecsTo(QTime::currentTime());
 }
