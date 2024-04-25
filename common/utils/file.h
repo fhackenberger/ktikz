@@ -100,7 +100,7 @@ public:
     File(const QUrl &url, const OpenMode &mode);
     ~File();
 
-    bool open(const QFile::OpenMode &mode = 0);
+    bool open(const QFile::OpenMode &mode = QFile::OpenMode());
     bool close();
     QFile *file();
     QString errorString() const;
