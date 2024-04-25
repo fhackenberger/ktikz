@@ -52,7 +52,7 @@ protected:
     /** Implements QSyntaxHighlighter::highlightBlock()
      * @see QSyntaxHighlighter::highlightBlock()
      */
-    void highlightBlock(const QString &text);
+    void highlightBlock(const QString &text) override;
 
 private:
     /// All highlighting rules with their formatting for easy iteration

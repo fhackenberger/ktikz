@@ -34,7 +34,7 @@ public:
     explicit TikzPreviewMessageWidget(QWidget *parent = 0);
     ~TikzPreviewMessageWidget();
 
-    virtual QSize sizeHint() const;
+    virtual QSize sizeHint() const override;
     void setText(const QString &message, PixmapVisibility pixmapVisibility = PixmapNotVisible);
 
 private:

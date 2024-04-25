@@ -33,7 +33,7 @@ public:
     Ui::UserCommandEditDialog ui;
 
 public Q_SLOTS:
-    void accept();
+    void accept() override;
 
 private Q_SLOTS:
     void readSettings();

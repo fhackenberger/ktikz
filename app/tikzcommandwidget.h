@@ -28,7 +28,7 @@ class TikzCommandWidget : public QWidget
 
 public:
     explicit TikzCommandWidget(QWidget *parent = 0);
-    virtual QSize sizeHint() const;
+    virtual QSize sizeHint() const override;
 };
 
 #endif

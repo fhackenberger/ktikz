@@ -47,16 +47,12 @@ public:
 
     void updateCompleter(bool useCompletion, const QStringList &words);
 
-    // bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool
-    // userInsertion, const KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
     KTextEditor::Range completionRange(KTextEditor::View *view,
-                                       const KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
-    // QString filterString(KTextEditor::View *view, const KTextEditor::Range &range, const
-    // KTextEditor::Cursor &position) Q_DECL_OVERRIDE;
+                                       const KTextEditor::Cursor &position) override;
 
     void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range,
-                           KTextEditor::CodeCompletionModel::InvocationType it) Q_DECL_OVERRIDE;
-    QVariant data(const QModelIndex &index, int role) const Q_DECL_OVERRIDE;
+                           KTextEditor::CodeCompletionModel::InvocationType it) override;
+    QVariant data(const QModelIndex &index, int role) const override;
 
 private:
     void findMatches();

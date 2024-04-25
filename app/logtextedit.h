@@ -31,7 +31,7 @@ class LogTextEdit : public QTextEdit
 public:
     explicit LogTextEdit(QWidget *parent = 0);
     ~LogTextEdit();
-    virtual QSize sizeHint() const;
+    virtual QSize sizeHint() const override;
 
 public Q_SLOTS:
     void updateLog(const QString &logText);

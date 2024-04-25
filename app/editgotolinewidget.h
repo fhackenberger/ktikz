@@ -39,7 +39,7 @@ Q_SIGNALS:
     void focusEditor();
 
 protected:
-    virtual void keyPressEvent(QKeyEvent *event);
+    virtual void keyPressEvent(QKeyEvent *event) override;
 
 protected Q_SLOTS:
     void hide();

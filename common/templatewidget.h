@@ -41,7 +41,7 @@ Q_SIGNALS:
     void focusEditor();
 
 protected:
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
 
 private Q_SLOTS:
     void selectTemplateFile();

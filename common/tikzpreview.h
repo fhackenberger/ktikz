@@ -43,7 +43,7 @@ public:
     explicit TikzPreview(QWidget *parent = 0);
     ~TikzPreview();
 
-    virtual QSize sizeHint() const;
+    virtual QSize sizeHint() const override;
     QList<QAction *> actions();
     QToolBar *toolBar();
     QImage renderToImage(double xres, double yres, int pageNumber);
@@ -67,11 +67,11 @@ Q_SIGNALS:
     void generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor, int currentPage);
 
 protected:
-    void contextMenuEvent(QContextMenuEvent *event);
-    void paintEvent(QPaintEvent *event);
-    void wheelEvent(QWheelEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mousePressEvent(QMouseEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+    void wheelEvent(QWheelEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
 
 private Q_SLOTS:
     void setZoomFactor(qreal zoomFactor);

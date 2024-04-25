@@ -41,8 +41,8 @@ Q_SIGNALS:
     void replace(const QString &text, const QString &replacement, QTextDocument::FindFlags flags);
 
 protected:
-    virtual void showEvent(QShowEvent *event);
-    virtual void keyPressEvent(QKeyEvent *event);
+    virtual void showEvent(QShowEvent *event) override;
+    virtual void keyPressEvent(QKeyEvent *event) override;
 
 protected Q_SLOTS:
     void hide();
