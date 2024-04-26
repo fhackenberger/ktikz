@@ -157,7 +157,8 @@ void TikzEditorView::setFont(const QFont &editorFont)
     fm.setFontPointSize(editorFont.pointSize());
     m_tikzEditor->setCurrentCharFormat(fm);
 
-    m_tikzEditor->setTabStopWidth(m_tikzEditor->fontMetrics().width(QLatin1String("    ")));
+    m_tikzEditor->setTabStopDistance(
+            m_tikzEditor->fontMetrics().horizontalAdvance(QLatin1String("    ")));
 }
 
 void TikzEditorView::createActions()

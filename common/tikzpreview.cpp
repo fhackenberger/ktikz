@@ -25,6 +25,7 @@
 #include <QDesktopWidget>
 #include <QGraphicsProxyWidget>
 #include <QMenu>
+#include <QScreen>
 #include <QScrollBar>
 #include <QToolBar>
 
@@ -92,7 +93,7 @@ void TikzPreview::contextMenuEvent(QContextMenuEvent *event)
 
 QSize TikzPreview::sizeHint() const
 {
-    const int screenWidth = QApplication::desktop()->availableGeometry().width();
+    const int screenWidth = this->screen()->geometry().width();
     if (screenWidth > 1200)
         return QSize(500, 400);
     else if (screenWidth > 1024)
@@ -404,7 +405,7 @@ void TikzPreview::setBackgroundColor(QColor color)
 void TikzPreview::wheelEvent(QWheelEvent *event)
 {
     if (event->modifiers() == Qt::ControlModifier) {
-        if (event->delta() > 0)
+        if (event->angleDelta().y() > 0)
             zoomIn();
         else
             zoomOut();

@@ -36,6 +36,7 @@
 #endif
 
 #include <QMenuBar>
+#include <QScreen>
 #include <QStatusBar>
 #include <QtCore/QTextCodec>
 #include <QtCore/QProcess>
@@ -44,7 +45,6 @@
 #include <QtCore/QTimer>
 #include <QtGui/QCloseEvent>
 #include <QtGui/QDesktopServices>
-#include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMessageBox>
@@ -955,7 +955,7 @@ void MainWindow::readSettings()
 
     QSettings settings;
     settings.beginGroup(QLatin1String("MainWindow"));
-    const int screenWidth = QApplication::desktop()->availableGeometry().width();
+    const int screenWidth = this->screen()->geometry().width();
     QSize size;
     if (screenWidth > 1200)
         size = settings.value(QLatin1String("size"), QSize(1200, 600)).toSize();
