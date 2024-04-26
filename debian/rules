@@ -25,13 +25,13 @@ override_dh_auto_configure:
 	dh_auto_configure
 	# configure the Qt version (qmake)
 	mkdir $(QTBUILD)
-	cd $(QTBUILD) && qmake $(QMAKECONFIG) ../qtikz.pro
+	QT_SELECT=5 cd $(QTBUILD) && qmake $(QMAKECONFIG) ../qtikz.pro
 
 override_dh_auto_build:
 	# build the KDE version (cmake)
 	dh_auto_build
 	# build the Qt version (qmake)
-	make -C $(QTBUILD)
+	QT_SELECT=5 make -C $(QTBUILD)
 
 override_dh_auto_install:
 	# install the KDE version (cmake)
