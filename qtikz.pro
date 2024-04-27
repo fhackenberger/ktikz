@@ -7,6 +7,10 @@ APPNAME = qtikz
 APPEXENAME = qtikz
 APPVERSION = 0.13.2
 
+QMAKE_CXXFLAGS += $$(CXXFLAGS)
+QMAKE_CFLAGS += $$(CFLAGS)
+QMAKE_LFLAGS += $$(LDFLAGS)
+
 include(qmake/qtikzconfig.pri)
 include(qmake/qtikzdefaults.pri)
 include(qmake/qtikzmacros.pri)
