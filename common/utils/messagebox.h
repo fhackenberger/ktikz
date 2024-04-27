@@ -31,7 +31,6 @@ public:
                              const QString &caption = QString(),
                              const QString &yesButtonText = QString(),
                              const QString &noButtonText = QString());
-    static void sorry(QWidget *parent, const QString &text, const QString &caption = QString());
     static void error(QWidget *parent, const QString &text, const QString &caption = QString());
 };
 

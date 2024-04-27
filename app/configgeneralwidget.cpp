@@ -129,7 +129,7 @@ void ConfigGeneralWidget::searchTikzDocumentation()
 {
     const QString tikzDocFile = TikzDocumentationController::searchTikzDocumentationInTexTree();
     if (tikzDocFile.isEmpty())
-        MessageBox::sorry(this, tr("Cannot find TikZ documentation."),
+        MessageBox::error(this, tr("Cannot find TikZ documentation."),
                           KtikzApplication::applicationName());
     else
         ui.tikzDocEdit->setText(tikzDocFile);
