@@ -42,7 +42,7 @@ jobs:
       - name: Build QTikZ
         run: |
           mkdir -p build-qt5-ubuntu && cd build-qt5-ubuntu
-          QT_SELECT=5 qmake ../qtikz.pro
+          QT_SELECT=5 qmake -Wall -Wdeprecated ../qtikz.pro
           QT_SELECT=5 make -j4
 
   linux-kde:
