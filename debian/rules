@@ -40,9 +40,9 @@ override_dh_auto_install:
 	INSTALL_ROOT=$(CURDIR)/debian/qtikz make -C $(QTBUILD) install
 	rm $(CURDIR)/debian/qtikz/usr/share/qtikz/LICENSE.GPL2
 	# Make icons for Debian menu
-	convert -background none -geometry 32x32 ./app/icons/ktikz.svg \
+	convert -background none -geometry 32x32 ./app/icons/sc-apps-ktikz.svg \
 	  $(CURDIR)/debian/ktikz/usr/share/pixmaps/ktikz32.xpm
-	convert -background none -geometry 16x16 ./app/icons/ktikz.svg \
+	convert -background none -geometry 16x16 ./app/icons/sc-apps-ktikz.svg \
 	  $(CURDIR)/debian/ktikz/usr/share/pixmaps/ktikz16.xpm
 	convert -background none -geometry 32x32 ./app/icons/qtikz.svg \
 	  $(CURDIR)/debian/qtikz/usr/share/pixmaps/qtikz32.xpm

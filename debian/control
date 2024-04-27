@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Joao Carreira <jfmcarreira@gmail.com>
 Uploaders: Stuart Prescott <stuart+debian@nanonanonano.net>
 Build-Depends: debhelper (>= 7.3.16~),
-                pkg-kde-tools (>= 0.5~),
+                pkg-config,
                 cmake,
                 qtbase5-dev,
                 qtchooser,
@@ -14,6 +14,7 @@ Build-Depends: debhelper (>= 7.3.16~),
                 qttools5-dev-tools,
                 extra-cmake-modules,
                 libpoppler-qt5-dev,
+                pkg-kde-tools (>= 0.5~),
                 libkf5xmlgui-dev,
                 libkf5texteditor-dev,
                 libkf5doctools-dev,
