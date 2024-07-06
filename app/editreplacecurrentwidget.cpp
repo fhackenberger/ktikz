@@ -50,10 +50,10 @@ ReplaceCurrentWidget::ReplaceCurrentWidget(QWidget *parent) : QWidget(parent)
 
     setFocusProxy(m_replaceButton);
 
-    connect(m_replaceButton, SIGNAL(clicked()), this, SIGNAL(replace()));
-    connect(replaceAllButton, SIGNAL(clicked()), this, SIGNAL(replaceAll()));
-    connect(dontReplaceButton, SIGNAL(clicked()), this, SLOT(dontReplace()));
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(hide()));
+    connect(m_replaceButton, &QAbstractButton::clicked, this, &ReplaceCurrentWidget::replace);
+    connect(replaceAllButton, &QAbstractButton::clicked, this, &ReplaceCurrentWidget::replaceAll);
+    connect(dontReplaceButton, &QAbstractButton::clicked, this, &ReplaceCurrentWidget::dontReplace);
+    connect(cancelButton, &QAbstractButton::clicked, this, &ReplaceCurrentWidget::hide);
 }
 
 ReplaceCurrentWidget::~ReplaceCurrentWidget() { }

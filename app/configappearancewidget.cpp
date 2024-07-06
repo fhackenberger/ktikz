@@ -36,7 +36,8 @@ ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent) : QWidget(parent
     buttonGroup->addButton(ui.standardAppearanceCheck);
     buttonGroup->addButton(ui.customAppearanceCheck);
     buttonGroup->setExclusive(true);
-    connect(buttonGroup, SIGNAL(buttonClicked(QAbstractButton *)), this, SLOT(toggleCustom()));
+    connect(buttonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked), this,
+            [this](QAbstractButton *) { toggleCustom(); });
 
     QPalette palette = ui.itemTable->palette();
     QColor highlightBackgroundColor(QApplication::style()->standardPalette().color(
@@ -51,11 +52,13 @@ ConfigAppearanceWidget::ConfigAppearanceWidget(QWidget *parent) : QWidget(parent
     palette.setColor(QPalette::Disabled, QPalette::Highlight, highlightBackgroundColor);
     ui.itemTable->setPalette(palette);
     m_itemHighlighted = -1;
-    connect(ui.itemTable, SIGNAL(currentItemChanged(QTableWidgetItem *, QTableWidgetItem *)), this,
-            SLOT(setItemHighlighted(QTableWidgetItem *)));
+    connect(ui.itemTable, &QTableWidget::currentItemChanged, this,
+            &ConfigAppearanceWidget::setItemHighlighted);
 
-    connect(ui.fontButton, SIGNAL(clicked()), this, SLOT(showFontDialog()));
-    connect(ui.colorButton, SIGNAL(clicked()), this, SLOT(showColorDialog()));
+    connect(ui.fontButton, &QAbstractButton::clicked, this,
+            &ConfigAppearanceWidget::showFontDialog);
+    connect(ui.colorButton, &QAbstractButton::clicked, this,
+            &ConfigAppearanceWidget::showColorDialog);
 }
 
 void ConfigAppearanceWidget::readSettings(const QString &settingsGroup)

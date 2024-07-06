@@ -55,11 +55,12 @@ ConfigGeneralWidget::ConfigGeneralWidget(QWidget *parent) : QWidget(parent)
     ui.pdftopsButton->setIcon(Icon(QLatin1String("document-open")));
     ui.editorButton->setIcon(Icon(QLatin1String("document-open")));
 
-    connect(ui.tikzDocButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
-    connect(ui.tikzDocSearchButton, SIGNAL(clicked()), this, SLOT(searchTikzDocumentation()));
-    connect(ui.latexButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
-    connect(ui.pdftopsButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
-    connect(ui.editorButton, SIGNAL(clicked()), this, SLOT(browseCommand()));
+    connect(ui.tikzDocButton, &QAbstractButton::clicked, this, [this]() { browseCommand(); });
+    connect(ui.tikzDocSearchButton, &QAbstractButton::clicked, this,
+            &ConfigGeneralWidget::searchTikzDocumentation);
+    connect(ui.latexButton, &QAbstractButton::clicked, this, [this]() { browseCommand(); });
+    connect(ui.pdftopsButton, &QAbstractButton::clicked, this, [this]() { browseCommand(); });
+    connect(ui.editorButton, &QAbstractButton::clicked, this, [this]() { browseCommand(); });
 }
 
 ConfigGeneralWidget::~ConfigGeneralWidget()

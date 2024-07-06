@@ -64,13 +64,13 @@ void UserCommandInserter::updateMenu()
     for (int i = 0; i < m_names.size(); ++i) {
         QAction *action = m_userMenu->addAction(m_names.at(i));
         action->setData(i);
-        connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));
+        connect(action, &QAction::triggered, this, [this]() { insertTag(); });
     }
 
     m_userMenu->addSeparator();
 
     QAction *action = m_userMenu->addAction(tr("&Edit user commands"));
-    connect(action, SIGNAL(triggered()), this, SLOT(editCommands()));
+    connect(action, &QAction::triggered, this, &UserCommandInserter::editCommands);
 }
 
 /*

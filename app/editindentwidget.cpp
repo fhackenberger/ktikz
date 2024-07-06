@@ -30,8 +30,8 @@ IndentWidget::IndentWidget(QWidget *parent) : QWidget(parent)
 
     readSettings();
 
-    connect(ui.pushButtonIndent, SIGNAL(clicked()), this, SLOT(indent()));
-    connect(ui.pushButtonClose, SIGNAL(clicked()), this, SLOT(hide()));
+    connect(ui.pushButtonIndent, &QAbstractButton::clicked, this, [this]() { indent(); });
+    connect(ui.pushButtonClose, &QAbstractButton::clicked, this, &IndentWidget::hide);
 }
 
 IndentWidget::~IndentWidget() { }

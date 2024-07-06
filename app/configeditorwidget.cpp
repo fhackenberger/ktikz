@@ -31,7 +31,7 @@ ConfigEditorWidget::ConfigEditorWidget(QWidget *parent) : QWidget(parent)
 {
     ui.setupUi(this);
 
-    connect(ui.generalFontButton, SIGNAL(clicked()), this, SLOT(selectFont()));
+    connect(ui.generalFontButton, &QAbstractButton::clicked, this, &ConfigEditorWidget::selectFont);
 
     // ** Encoding
     initializeEncoding();

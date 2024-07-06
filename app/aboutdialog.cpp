@@ -59,7 +59,7 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
     textEdit->setReadOnly(true);
     textEdit->setOpenExternalLinks(true);
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &AboutDialog::accept);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(topWidget);
