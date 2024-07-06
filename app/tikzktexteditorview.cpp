@@ -42,17 +42,17 @@ TikzKTextEditorView::TikzKTextEditorView(QWidget *parent) : TikzEditorViewAbstra
 
     m_currentDoc->setMode(QStringLiteral("LaTeX"));
 
-    connect(m_currentDoc, SIGNAL(modifiedChanged(KTextEditor::Document *)), this,
-            SLOT(setDocumentModified(KTextEditor::Document *)));
+    connect(m_currentDoc, &KTextEditor::Document::modifiedChanged, this,
+            &TikzKTextEditorView::setDocumentModified);
 
-    connect(m_documentView, SIGNAL(focusIn(KTextEditor::View *)), this, SIGNAL(focusIn()));
-    connect(m_documentView, SIGNAL(focusOut(KTextEditor::View *)), this, SIGNAL(focusOut()));
+    connect(m_documentView, &KTextEditor::View::focusIn, this, &TikzKTextEditorView::focusIn);
+    connect(m_documentView, &KTextEditor::View::focusOut, this, &TikzKTextEditorView::focusOut);
 
-    connect(m_currentDoc, SIGNAL(textChanged(KTextEditor::Document *)), this,
-            SIGNAL(contentsChanged()));
+    connect(m_currentDoc, &KTextEditor::Document::textChanged, this,
+            &TikzKTextEditorView::contentsChanged);
 
-    connect(m_currentDoc, SIGNAL(urlChanged(const QUrl &)), this,
-            SIGNAL(documentUrlChanged(const QUrl &)));
+    connect(m_currentDoc, &KTextEditor::Document::urlChanged, this,
+            &TikzKTextEditorView::documentUrlChanged);
 
     KTextEditor::CodeCompletionInterface *cci =
             qobject_cast<KTextEditor::CodeCompletionInterface *>(m_documentView);

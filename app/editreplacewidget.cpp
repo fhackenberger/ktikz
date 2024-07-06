@@ -41,18 +41,20 @@ ReplaceWidget::ReplaceWidget(QWidget *parent) : QWidget(parent)
 #ifdef KTIKZ_USE_KDE
     // activate completion
     KCompletion *completion = ui.comboBoxFind->completionObject();
-    connect(ui.comboBoxFind, SIGNAL(returnPressed(QString)), completion, SLOT(addItem(QString)));
+    connect(ui.comboBoxFind, QOverload<const QString &>::of(&KComboBox::returnPressed), completion,
+            [completion](const QString &text) { completion->addItem(text); });
     completion = ui.comboBoxReplace->completionObject();
-    connect(ui.comboBoxReplace, SIGNAL(returnPressed(QString)), completion, SLOT(addItem(QString)));
+    connect(ui.comboBoxReplace, QOverload<const QString &>::of(&KComboBox::returnPressed),
+            completion, [completion](const QString &text) { completion->addItem(text); });
 #endif
 
     setFocusProxy(ui.comboBoxFind);
 
-    connect(ui.pushButtonBackward, SIGNAL(clicked()), this, SLOT(setBackward()));
-    connect(ui.pushButtonForward, SIGNAL(clicked()), this, SLOT(setForward()));
-    connect(ui.pushButtonFind, SIGNAL(clicked()), this, SLOT(doFind()));
-    connect(ui.pushButtonReplace, SIGNAL(clicked()), this, SLOT(doReplace()));
-    connect(ui.pushButtonClose, SIGNAL(clicked()), this, SLOT(hide()));
+    connect(ui.pushButtonBackward, &QAbstractButton::clicked, this, &ReplaceWidget::setBackward);
+    connect(ui.pushButtonForward, &QAbstractButton::clicked, this, [this]() { setForward(); });
+    connect(ui.pushButtonFind, &QAbstractButton::clicked, this, &ReplaceWidget::doFind);
+    connect(ui.pushButtonReplace, &QAbstractButton::clicked, this, &ReplaceWidget::doReplace);
+    connect(ui.pushButtonClose, &QAbstractButton::clicked, this, &ReplaceWidget::hide);
 }
 
 ReplaceWidget::~ReplaceWidget() { }

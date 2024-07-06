@@ -60,6 +60,7 @@
 #include "logtextedit.h"
 #include "tikzcommandinserter.h"
 #include "tikzdocumentationcontroller.h"
+#include "tikzeditorviewabstract.h"
 #include "tikzeditorhighlighter.h"
 #include "tikzeditorview.h"
 #include "usercommandinserter.h"
@@ -192,8 +193,8 @@ MainWindow::MainWindow()
         createGUI("ktikzui_frameworks.rc");
         guiFactory()->addClient(m_tikzKTextEditor->view());
 
-        connect(m_tikzKTextEditor, SIGNAL(documentUrlChanged(const QUrl &)), this,
-                SLOT(changedUrl(const QUrl &)));
+        connect(m_tikzKTextEditor, &TikzKTextEditorView::documentUrlChanged, this,
+                &MainWindow::changedUrl);
     }
 #  endif
 #endif
@@ -205,12 +206,12 @@ MainWindow::MainWindow()
     {
         setTabOrder(m_tikzPreviewController->templateWidget()->lastTabOrderWidget(),
                     m_tikzQtEditorView->editor());
-        connect(m_tikzQtEditorView, SIGNAL(showStatusMessage(QString, int)), statusBar(),
-                SLOT(showMessage(QString, int)));
+        connect(m_tikzQtEditorView, &TikzEditorView::showStatusMessage, statusBar(),
+                &QStatusBar::showMessage);
     }
 
-    connect(m_commandInserter, SIGNAL(showStatusMessage(QString, int)), statusBar(),
-            SLOT(showMessage(QString, int)));
+    connect(m_commandInserter, &TikzCommandInserter::showStatusMessage, statusBar(),
+            &QStatusBar::showMessage);
 
     connect(m_tikzEditorView, SIGNAL(modificationChanged(bool)), this,
             SLOT(setDocumentModified(bool)));
@@ -220,14 +221,19 @@ MainWindow::MainWindow()
     connect(m_tikzEditorView, SIGNAL(focusIn()), this, SLOT(checkForFileChanges()));
     connect(m_tikzEditorView, SIGNAL(focusOut()), this, SLOT(saveLastInternalModifiedDateTime()));
 
-    connect(m_tikzPreviewController, SIGNAL(updateLog(QString, bool)), m_logTextEdit,
-            SLOT(updateLog(QString, bool)));
-    connect(m_tikzPreviewController, SIGNAL(appendLog(QString, bool)), m_logTextEdit,
-            SLOT(appendLog(QString, bool)));
-    connect(m_tikzPreviewController, SIGNAL(showMouseCoordinates(qreal, qreal, int, int)), this,
-            SLOT(showMouseCoordinates(qreal, qreal, int, int)));
+    connect(m_tikzPreviewController, &TikzPreviewController::updateLog, m_logTextEdit,
+            [this](const QString &logText, bool runFailed) {
+                m_logTextEdit->updateLog(logText, runFailed);
+            });
+    connect(m_tikzPreviewController, &TikzPreviewController::appendLog, m_logTextEdit,
+            [this](const QString &logText, bool runFailed) {
+                m_logTextEdit->appendLog(logText, runFailed);
+            });
+    connect(m_tikzPreviewController, &TikzPreviewController::showMouseCoordinates, this,
+            &MainWindow::showMouseCoordinates);
 
-    connect(m_userCommandInserter, SIGNAL(updateCompleter()), this, SLOT(updateCompleter()));
+    connect(m_userCommandInserter, &UserCommandInserter::updateCompleter, this,
+            &MainWindow::updateCompleter);
 
     readSettings(); // must be run after defining tikzController and tikzHighlighter, and after
                     // creating the toolbars, and after the connects
@@ -289,8 +295,8 @@ void MainWindow::init()
         m_insertAction->setMenu(m_commandInserter->getMenu());
     else
         m_commandInserter->showItemsInDockWidget();
-    connect(m_userCommandInserter, SIGNAL(insertTag(QString)), m_commandInserter,
-            SLOT(insertTag(QString)));
+    connect(m_userCommandInserter, QOverload<const QString &>::of(&UserCommandInserter::insertTag),
+            m_commandInserter, [this](const QString &tag) { m_commandInserter->insertTag(tag); });
 
     // the following disconnect ensures that the following signal is not unnecessarily triggered
     // twice when a file is loaded in a new window
@@ -580,7 +586,7 @@ void MainWindow::createActions()
         m_reloadAction->setShortcut(QKeySequence::Refresh);
         m_reloadAction->setStatusTip(tr("Reload the current document"));
         m_reloadAction->setWhatsThis(tr("<p>Reload the current document from disk.</p>"));
-        connect(m_reloadAction, SIGNAL(triggered()), this, SLOT(reload()));
+        connect(m_reloadAction, &Action::triggered, this, &MainWindow::reload);
     }
 
     // General action
@@ -611,14 +617,15 @@ void MainWindow::createActions()
     m_buildAction->setStatusTip(tr("Build preview"));
     m_buildAction->setWhatsThis(
             tr("<p>Generate preview by building the current TikZ code in the editor.</p>"));
-    connect(m_buildAction, SIGNAL(triggered()), m_tikzPreviewController, SLOT(regeneratePreview()));
+    connect(m_buildAction, &Action::triggered, m_tikzPreviewController,
+            &TikzPreviewController::regeneratePreviewAfterDelay);
 
     m_viewLogAction = new Action(Icon(QLatin1String("run-build-file")), tr("View &Log"), this,
                                  QLatin1String("view_log"));
     m_viewLogAction->setStatusTip(tr("View log messages produced by the last executed process"));
     m_viewLogAction->setWhatsThis(tr("<p>Show the log messages produced by the last executed "
                                      "process in the Messages box.</p>"));
-    connect(m_viewLogAction, SIGNAL(triggered()), this, SLOT(updateLog()));
+    connect(m_viewLogAction, &Action::triggered, this, &MainWindow::updateLog);
 
     // Configure
     m_configureAction = StandardAction::preferences(this, SLOT(configure()), this);
@@ -636,7 +643,7 @@ void MainWindow::createActions()
                                      QLatin1String("show_tikz_doc"));
     m_showTikzDocAction->setStatusTip(tr("Show the manual of TikZ and PGF"));
     m_showTikzDocAction->setWhatsThis(tr("<p>Show the manual of TikZ and PGF.</p>"));
-    connect(m_showTikzDocAction, SIGNAL(triggered()), this, SLOT(showTikzDocumentation()));
+    connect(m_showTikzDocAction, &Action::triggered, this, &MainWindow::showTikzDocumentation);
 
 #ifdef KTIKZ_USE_KDE
     m_whatsThisAction = KStandardAction::whatsThis(this, SLOT(toggleWhatsThisMode()), this);
@@ -645,7 +652,7 @@ void MainWindow::createActions()
                                tr("%1 &Handbook").arg(KtikzApplication::applicationName()), this);
     m_helpAction->setStatusTip(tr("Show the application's documentation"));
     m_helpAction->setShortcut(QKeySequence::HelpContents);
-    connect(m_helpAction, SIGNAL(triggered()), this, SLOT(showDocumentation()));
+    connect(m_helpAction, &QAction::triggered, this, &MainWindow::showDocumentation);
 
     m_whatsThisAction = QWhatsThis::createAction(this);
     m_whatsThisAction->setIcon(Icon(QLatin1String("help-contextual")));
@@ -654,12 +661,12 @@ void MainWindow::createActions()
     m_aboutAction = new QAction(QIcon(QLatin1String(":/icons/qtikz-22.png")),
                                 tr("&About %1").arg(KtikzApplication::applicationName()), this);
     m_aboutAction->setStatusTip(tr("Show the application's About box"));
-    connect(m_aboutAction, SIGNAL(triggered()), this, SLOT(about()));
+    connect(m_aboutAction, &QAction::triggered, this, &MainWindow::about);
 
     m_aboutQtAction =
             new QAction(QIcon(QLatin1String(":/icons/qt-logo-22.png")), tr("About &Qt"), this);
     m_aboutQtAction->setStatusTip(tr("Show the Qt library's About box"));
-    connect(m_aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+    connect(m_aboutQtAction, &QAction::triggered, qApp, &QApplication::aboutQt);
 #endif
 }
 
@@ -671,8 +678,8 @@ void MainWindow::addActionCloneToCollection(const QString &actionName, QAction *
     actionCollection()->addAction(actionName, actionClone);
     actionClone->setText(action->text());
     actionClone->setIcon(action->icon());
-    connect(action, SIGNAL(toggled(bool)), actionClone, SLOT(setChecked(bool)));
-    connect(actionClone, SIGNAL(triggered()), action, SLOT(trigger()));
+    connect(action, &QAction::toggled, actionClone, &KToggleAction::setChecked);
+    connect(actionClone, &KToggleAction::triggered, action, &QAction::trigger);
 }
 #else
 void MainWindow::createMenus()
@@ -732,18 +739,18 @@ void MainWindow::createMenus()
     m_settingsMenu->addMenu(m_sideBarMenu);
     m_settingsMenu->addSeparator();
     m_settingsMenu->addAction(m_configureAction);
-    connect(m_fileToolBar->toggleViewAction(), SIGNAL(toggled(bool)), this,
-            SLOT(setToolBarStatusTip(bool)));
-    connect(m_editToolBar->toggleViewAction(), SIGNAL(toggled(bool)), this,
-            SLOT(setToolBarStatusTip(bool)));
-    connect(m_viewToolBar->toggleViewAction(), SIGNAL(toggled(bool)), this,
-            SLOT(setToolBarStatusTip(bool)));
-    connect(m_runToolBar->toggleViewAction(), SIGNAL(toggled(bool)), this,
-            SLOT(setToolBarStatusTip(bool)));
-    connect(m_previewDock->toggleViewAction(), SIGNAL(toggled(bool)), this,
-            SLOT(setDockWidgetStatusTip(bool)));
-    connect(m_logDock->toggleViewAction(), SIGNAL(toggled(bool)), this,
-            SLOT(setDockWidgetStatusTip(bool)));
+    connect(m_fileToolBar->toggleViewAction(), &QAction::toggled, this,
+            &MainWindow::setToolBarStatusTip);
+    connect(m_editToolBar->toggleViewAction(), &QAction::toggled, this,
+            &MainWindow::setToolBarStatusTip);
+    connect(m_viewToolBar->toggleViewAction(), &QAction::toggled, this,
+            &MainWindow::setToolBarStatusTip);
+    connect(m_runToolBar->toggleViewAction(), &QAction::toggled, this,
+            &MainWindow::setToolBarStatusTip);
+    connect(m_previewDock->toggleViewAction(), &QAction::toggled, this,
+            &MainWindow::setDockWidgetStatusTip);
+    connect(m_logDock->toggleViewAction(), &QAction::toggled, this,
+            &MainWindow::setDockWidgetStatusTip);
 
     menuBar()->addSeparator();
 
@@ -827,8 +834,8 @@ void MainWindow::createCommandInsertWidget()
         m_sideBarMenu->insertAction(m_sideBarMenu->actions().at(1),
                                     m_commandsDock->toggleViewAction());
 #endif
-        connect(m_commandsDock->toggleViewAction(), SIGNAL(toggled(bool)), this,
-                SLOT(setDockWidgetStatusTip(bool)));
+        connect(m_commandsDock->toggleViewAction(), &QAction::toggled, this,
+                &MainWindow::setDockWidgetStatusTip);
     } else {
         // add commands action (menu will be added later in init())
         m_insertAction = new Action(tr("&Insert"), this, QLatin1String("insert"));
@@ -892,7 +899,7 @@ void MainWindow::configure()
                 TikzHighlighter::getTranslatedHighlightTypeNames());
         m_configDialog->setHighlightTypeNames(TikzHighlighter::getHighlightTypeNames());
         m_configDialog->setDefaultHighlightFormats(TikzHighlighter::getDefaultHighlightFormats());
-        connect(m_configDialog, SIGNAL(settingsChanged()), this, SLOT(applySettings()));
+        connect(m_configDialog, &ConfigDialog::settingsChanged, this, &MainWindow::applySettings);
     }
     disconnect(m_tikzEditorView, SIGNAL(contentsChanged()), m_tikzPreviewController,
                SLOT(regeneratePreviewAfterDelay()));

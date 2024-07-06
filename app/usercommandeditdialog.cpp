@@ -29,18 +29,21 @@ UserCommandEditDialog::UserCommandEditDialog(QWidget *parent) : QDialog(parent),
 
     ui.comboBoxItem->setMinimumContentsLength(QString(tr("Menu item 100")).length());
 
-    connect(ui.pushButtonAdd, SIGNAL(clicked()), this, SLOT(addItem()));
-    connect(ui.pushButtonRemove, SIGNAL(clicked()), this, SLOT(removeItem()));
-    connect(ui.comboBoxItem, SIGNAL(currentIndexChanged(int)), this, SLOT(changeItem(int)));
-    connect(ui.pushButtonInsertPlaceHolder, SIGNAL(clicked()), this, SLOT(insertPlaceHolder()));
-    connect(ui.buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(ui.pushButtonAdd, &QPushButton::clicked, this, &UserCommandEditDialog::addItem);
+    connect(ui.pushButtonRemove, &QPushButton::clicked, this, &UserCommandEditDialog::removeItem);
+    connect(ui.comboBoxItem, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+            &UserCommandEditDialog::changeItem);
+    connect(ui.pushButtonInsertPlaceHolder, &QPushButton::clicked, this,
+            &UserCommandEditDialog::insertPlaceHolder);
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &UserCommandEditDialog::accept);
 
     readSettings();
 }
 
 void UserCommandEditDialog::readSettings()
 {
-    disconnect(ui.comboBoxItem, SIGNAL(currentIndexChanged(int)), this, SLOT(changeItem(int)));
+    disconnect(ui.comboBoxItem, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+               &UserCommandEditDialog::changeItem);
     QSettings settings;
     int size = settings.beginReadArray(QLatin1String("UserCommands"));
     ui.comboBoxItem->clear();
@@ -52,7 +55,8 @@ void UserCommandEditDialog::readSettings()
         ui.comboBoxItem->insertItem(i, QString(tr("Menu item %1").arg(QString::number(i + 1))));
     }
     settings.endArray();
-    connect(ui.comboBoxItem, SIGNAL(currentIndexChanged(int)), this, SLOT(changeItem(int)));
+    connect(ui.comboBoxItem, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+            &UserCommandEditDialog::changeItem);
 
     if (m_names.size() > 0) {
         setEditingEnabled(true);
@@ -116,7 +120,8 @@ void UserCommandEditDialog::addItem()
 
 void UserCommandEditDialog::removeItem()
 {
-    disconnect(ui.comboBoxItem, SIGNAL(currentIndexChanged(int)), this, SLOT(changeItem(int)));
+    disconnect(ui.comboBoxItem, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+               &UserCommandEditDialog::changeItem);
 
     int index = ui.comboBoxItem->currentIndex();
     m_names.removeAt(index);
@@ -133,7 +138,8 @@ void UserCommandEditDialog::removeItem()
     if (index < 0)
         setEditingEnabled(false);
 
-    connect(ui.comboBoxItem, SIGNAL(currentIndexChanged(int)), this, SLOT(changeItem(int)));
+    connect(ui.comboBoxItem, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+            &UserCommandEditDialog::changeItem);
 }
 
 void UserCommandEditDialog::changeItem(int index)

@@ -64,17 +64,17 @@ TikzEditorView::TikzEditorView(QWidget *parent)
 
     createActions();
 
-    connect(m_tikzEditor->document(), SIGNAL(modificationChanged(bool)), this,
-            SIGNAL(modificationChanged(bool)));
-    connect(m_tikzEditor->document(), SIGNAL(contentsChanged()), this, SIGNAL(contentsChanged()));
-    connect(m_tikzEditor, SIGNAL(cursorPositionChanged(int, int)), this,
-            SIGNAL(cursorPositionChanged(int, int)));
-    connect(m_tikzEditor, SIGNAL(showStatusMessage(QString, int)), this,
-            SIGNAL(showStatusMessage(QString, int)));
-    connect(m_tikzEditor, SIGNAL(tabIndent(bool)), this, SLOT(tabIndent(bool)));
+    connect(m_tikzEditor->document(), &QTextDocument::modificationChanged, this,
+            &TikzEditorView::modificationChanged);
+    connect(m_tikzEditor->document(), &QTextDocument::contentsChanged, this,
+            &TikzEditorView::contentsChanged);
+    connect(m_tikzEditor, &TikzEditor::cursorPositionChanged, this,
+            &TikzEditorView::cursorPositionChanged);
+    connect(m_tikzEditor, &TikzEditor::showStatusMessage, this, &TikzEditorView::showStatusMessage);
+    connect(m_tikzEditor, &TikzEditor::tabIndent, this, &TikzEditorView::tabIndent);
 
-    connect(m_tikzEditor, SIGNAL(focusIn()), this, SIGNAL(focusIn()));
-    connect(m_tikzEditor, SIGNAL(focusOut()), this, SIGNAL(focusOut()));
+    connect(m_tikzEditor, &TikzEditor::focusIn, this, &TikzEditorView::focusIn);
+    connect(m_tikzEditor, &TikzEditor::focusOut, this, &TikzEditorView::focusOut);
 }
 
 TikzEditorView::~TikzEditorView()
@@ -190,7 +190,7 @@ void TikzEditorView::createActions()
     action->setShortcut(tr("Ctrl+I", "Edit|Indent"));
     action->setStatusTip(tr("Indent the current line or selection"));
     action->setWhatsThis(tr("<p>Indent the current line or selection.</p>"));
-    connect(action, SIGNAL(triggered()), this, SLOT(editIndent()));
+    connect(action, &Action::triggered, this, &TikzEditorView::editIndent);
     m_editActions.append(action);
 
     action = new Action(Icon(QLatin1String("format-indent-less")), tr("Unind&ent..."), this,
@@ -198,21 +198,21 @@ void TikzEditorView::createActions()
     action->setShortcut(tr("Ctrl+Shift+I", "Edit|Unindent"));
     action->setStatusTip(tr("Unindent the current line or selection"));
     action->setWhatsThis(tr("<p>Unindent the current line or selection.</p>"));
-    connect(action, SIGNAL(triggered()), this, SLOT(editUnindent()));
+    connect(action, &Action::triggered, this, &TikzEditorView::editUnindent);
     m_editActions.append(action);
 
     action = new Action(tr("C&omment"), this, QLatin1String("edit_comment"));
     action->setShortcut(tr("Ctrl+D", "Edit|Comment"));
     action->setStatusTip(tr("Comment the current line or selection"));
     action->setWhatsThis(tr("<p>Comment the current line or selection.</p>"));
-    connect(action, SIGNAL(triggered()), this, SLOT(editComment()));
+    connect(action, &Action::triggered, this, &TikzEditorView::editComment);
     m_editActions.append(action);
 
     action = new Action(tr("Unco&mment"), this, QLatin1String("edit_uncomment"));
     action->setShortcut(tr("Ctrl+Shift+D", "Edit|Uncomment"));
     action->setStatusTip(tr("Uncomment the current line or selection"));
     action->setWhatsThis(tr("<p>Uncomment the current line or selection.</p>"));
-    connect(action, SIGNAL(triggered()), this, SLOT(editUncomment()));
+    connect(action, &Action::triggered, this, &TikzEditorView::editUncomment);
     m_editActions.append(action);
 
     action = new Action(this);
@@ -243,32 +243,34 @@ void TikzEditorView::createActions()
     // don't do m_pasteAction->setEnabled(m_tikzEditor->canPaste()); here, because
     // m_tikzEditor->canPaste() is slow if the clipboard contains any text
 
-    connect(m_tikzEditor, SIGNAL(undoAvailable(bool)), m_undoAction, SLOT(setEnabled(bool)));
-    connect(m_tikzEditor, SIGNAL(redoAvailable(bool)), m_redoAction, SLOT(setEnabled(bool)));
-    connect(m_tikzEditor, SIGNAL(copyAvailable(bool)), m_cutAction, SLOT(setEnabled(bool)));
-    connect(m_tikzEditor, SIGNAL(copyAvailable(bool)), m_copyAction, SLOT(setEnabled(bool)));
-    connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(setPasteEnabled()));
+    connect(m_tikzEditor, &TikzEditor::undoAvailable, m_undoAction, &QAction::setEnabled);
+    connect(m_tikzEditor, &TikzEditor::redoAvailable, m_redoAction, &QAction::setEnabled);
+    connect(m_tikzEditor, &TikzEditor::copyAvailable, m_cutAction, &QAction::setEnabled);
+    connect(m_tikzEditor, &TikzEditor::copyAvailable, m_copyAction, &QAction::setEnabled);
+    connect(QApplication::clipboard(), &QClipboard::dataChanged, this,
+            &TikzEditorView::setPasteEnabled);
 
     m_setBookmarkAction = new Action(Icon(QLatin1String("bookmark-new")), tr("Set &Bookmark"), this,
                                      QLatin1String("bookmarks_set"));
     m_setBookmarkAction->setShortcut(tr("Ctrl+B", "Bookmarks|Set"));
     m_setBookmarkAction->setStatusTip(tr("Set or unset a bookmark at the current line"));
     m_setBookmarkAction->setWhatsThis(tr("<p>Set or unset a bookmark at the current line.</p>"));
-    connect(m_setBookmarkAction, SIGNAL(triggered()), m_tikzEditor, SLOT(toggleUserBookmark()));
+    connect(m_setBookmarkAction, &Action::triggered, m_tikzEditor,
+            [this]() { m_tikzEditor->toggleUserBookmark(); });
 
     m_previousBookmarkAction =
             new Action(tr("&Previous Bookmark"), this, QLatin1String("bookmarks_prev"));
     m_previousBookmarkAction->setShortcut(tr("Alt+Up", "Bookmarks|Previous"));
     m_previousBookmarkAction->setStatusTip(tr("Go to the previous bookmark"));
     m_previousBookmarkAction->setWhatsThis(tr("<p>Go to the previous bookmark.</p>"));
-    connect(m_previousBookmarkAction, SIGNAL(triggered()), m_tikzEditor,
-            SLOT(previousUserBookmark()));
+    connect(m_previousBookmarkAction, &Action::triggered, m_tikzEditor,
+            &TikzEditor::previousUserBookmark);
 
     m_nextBookmarkAction = new Action(tr("&Next Bookmark"), this, QLatin1String("bookmarks_next"));
     m_nextBookmarkAction->setShortcut(tr("Alt+Down", "Bookmarks|Next"));
     m_nextBookmarkAction->setStatusTip(tr("Go to the next bookmark"));
     m_nextBookmarkAction->setWhatsThis(tr("<p>Go to the next bookmark.</p>"));
-    connect(m_nextBookmarkAction, SIGNAL(triggered()), m_tikzEditor, SLOT(nextUserBookmark()));
+    connect(m_nextBookmarkAction, &Action::triggered, m_tikzEditor, &TikzEditor::nextUserBookmark);
 }
 
 #ifndef KTIKZ_USE_KDE
@@ -394,8 +396,10 @@ void TikzEditorView::initGoToLineWidget()
     m_goToLineWidget = new GoToLineWidget(this);
     layout()->addWidget(m_goToLineWidget);
 
-    connect(m_goToLineWidget, SIGNAL(goToLine(int)), this, SLOT(goToLine(int)));
-    connect(m_goToLineWidget, SIGNAL(focusEditor()), m_tikzEditor, SLOT(setFocus()));
+    connect(m_goToLineWidget, QOverload<int>::of(&GoToLineWidget::goToLine), this,
+            &TikzEditorView::goToLine);
+    connect(m_goToLineWidget, &GoToLineWidget::focusEditor, m_tikzEditor,
+            [this]() { m_tikzEditor->setFocus(); });
 }
 
 void TikzEditorView::setLine(const QString &line)
@@ -450,8 +454,10 @@ void TikzEditorView::initIndentWidget()
     m_indentWidget = new IndentWidget(this);
     layout()->addWidget(m_indentWidget);
 
-    connect(m_indentWidget, SIGNAL(hidden()), m_tikzEditor, SLOT(setFocus()));
-    connect(m_indentWidget, SIGNAL(indent(QChar, int, bool)), this, SLOT(indent(QChar, int, bool)));
+    connect(m_indentWidget, &IndentWidget::hidden, m_tikzEditor,
+            [this]() { m_tikzEditor->setFocus(); });
+    connect(m_indentWidget, QOverload<QChar, int, bool>::of(&IndentWidget::indent), this,
+            &TikzEditorView::indent);
 }
 
 void TikzEditorView::openIndentWidget()
@@ -611,16 +617,19 @@ void TikzEditorView::initReplaceWidgets()
     layout()->addWidget(m_replaceWidget);
     layout()->addWidget(m_replaceCurrentWidget);
 
-    connect(m_replaceWidget, SIGNAL(search(QString, QTextDocument::FindFlags)), this,
-            SLOT(search(QString, QTextDocument::FindFlags)));
-    connect(m_replaceWidget, SIGNAL(replace(QString, QString, QTextDocument::FindFlags)), this,
-            SLOT(replace(QString, QString, QTextDocument::FindFlags)));
-    connect(m_replaceWidget, SIGNAL(focusEditor()), m_tikzEditor, SLOT(setFocus()));
+    connect(m_replaceWidget, &ReplaceWidget::search, this,
+            [this](const QString &text, QTextDocument::FindFlags flags) { search(text, flags); });
+    connect(m_replaceWidget, &ReplaceWidget::replace, this,
+            [this](const QString &text) { replace(text); });
+    connect(m_replaceWidget, &ReplaceWidget::focusEditor, m_tikzEditor,
+            [this]() { m_tikzEditor->setFocus(); });
 
-    connect(m_replaceCurrentWidget, SIGNAL(hidden()), m_tikzEditor, SLOT(setFocus()));
-    connect(m_replaceCurrentWidget, SIGNAL(search()), this, SLOT(search()));
-    connect(m_replaceCurrentWidget, SIGNAL(replace()), this, SLOT(replace()));
-    connect(m_replaceCurrentWidget, SIGNAL(replaceAll()), this, SLOT(replaceAll()));
+    connect(m_replaceCurrentWidget, &ReplaceCurrentWidget::hidden, m_tikzEditor,
+            [this]() { m_tikzEditor->setFocus(); });
+    connect(m_replaceCurrentWidget, &ReplaceCurrentWidget::search, this, [this]() { search(); });
+    connect(m_replaceCurrentWidget, &ReplaceCurrentWidget::replace, this, [this]() { replace(); });
+    connect(m_replaceCurrentWidget, &ReplaceCurrentWidget::replaceAll, this,
+            &TikzEditorView::replaceAll);
 }
 
 void TikzEditorView::openReplaceWidget()

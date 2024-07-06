@@ -29,8 +29,8 @@ GoToLineWidget::GoToLineWidget(QWidget *parent) : QWidget(parent)
 
     setFocusProxy(ui.spinBoxGo);
 
-    connect(ui.pushButtonGo, SIGNAL(clicked()), this, SLOT(goToLine()));
-    connect(ui.pushButtonClose, SIGNAL(clicked()), this, SLOT(hide()));
+    connect(ui.pushButtonGo, &QAbstractButton::clicked, this, [this]() { goToLine(); });
+    connect(ui.pushButtonClose, &QAbstractButton::clicked, this, &GoToLineWidget::hide);
 }
 
 GoToLineWidget::~GoToLineWidget() { }

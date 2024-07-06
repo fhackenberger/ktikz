@@ -413,8 +413,9 @@ QMenu *TikzCommandInserter::getMenu(const TikzCommandList &commandList, QWidget 
                     commandList.commands.at(i)
                             .number); // link to the corresponding item in m_tikzCommandsList
             action->setStatusTip(commandList.commands.at(i).description);
-            connect(action, SIGNAL(triggered()), this, SLOT(insertTag()));
-            connect(action, SIGNAL(hovered()), this, SLOT(updateDescriptionToolTip()));
+            connect(action, &QAction::triggered, this, [this]() { insertTag(); });
+            connect(action, &QAction::hovered, this,
+                    &TikzCommandInserter::updateDescriptionToolTip);
         }
     }
 
@@ -511,14 +512,12 @@ void TikzCommandInserter::showItemsInDockWidget()
         QListWidget *tikzListWidget = new QListWidget;
         addListWidgetItems(tikzListWidget, standardPalette, m_tikzSections.children.at(i));
         tikzListWidget->setMouseTracking(true);
-        connect(tikzListWidget, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)),
-                this, SLOT(setListStatusTip(QListWidgetItem *)));
-        connect(tikzListWidget, SIGNAL(itemEntered(QListWidgetItem *)), this,
-                SLOT(setListStatusTip(QListWidgetItem *)));
-        connect(tikzListWidget, SIGNAL(itemActivated(QListWidgetItem *)), this,
-                SLOT(insertTag(QListWidgetItem *)));
-        //		connect(tikzListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this,
-        // SLOT(insertTag(QListWidgetItem*)));
+        connect(tikzListWidget, &QListWidget::currentItemChanged, this,
+                &TikzCommandInserter::setListStatusTip);
+        connect(tikzListWidget, &QListWidget::itemEntered, this,
+                &TikzCommandInserter::setListStatusTip);
+        connect(tikzListWidget, &QListWidget::itemActivated, this,
+                [this](QListWidgetItem *tag) { insertTag(tag); });
 
         QString comboItemText = m_tikzSections.children.at(i).title;
         m_commandsCombo->addItem(comboItemText.remove(QLatin1Char('&')));
@@ -549,25 +548,25 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
     QAction *focusTikzDockAction = new QAction(parent);
     focusTikzDockAction->setShortcut(QKeySequence(tr("Alt+I")));
     tikzDock->addAction(focusTikzDockAction);
-    connect(focusTikzDockAction, SIGNAL(triggered()), tikzDock, SLOT(setFocus()));
+    connect(focusTikzDockAction, &QAction::triggered, tikzDock,
+            [tikzDock]() { tikzDock->setFocus(); });
 
     QLabel *commandsComboLabel = new QLabel(tr("Category:"));
     m_commandsCombo = new ComboBox;
     m_commandsCombo->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     m_commandsStack = new QStackedWidget;
-    connect(m_commandsCombo, SIGNAL(currentIndexChanged(int)), m_commandsStack,
-            SLOT(setCurrentIndex(int)));
+    connect(m_commandsCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), m_commandsStack,
+            &QStackedWidget::setCurrentIndex);
 
     QListWidget *tikzListWidget = new QListWidget;
     tikzListWidget->setMouseTracking(true);
-    connect(tikzListWidget, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), this,
-            SLOT(setListStatusTip(QListWidgetItem *)));
-    connect(tikzListWidget, SIGNAL(itemEntered(QListWidgetItem *)), this,
-            SLOT(setListStatusTip(QListWidgetItem *)));
-    connect(tikzListWidget, SIGNAL(itemActivated(QListWidgetItem *)), this,
-            SLOT(insertTag(QListWidgetItem *)));
-    //	connect(tikzListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this,
-    // SLOT(insertTag(QListWidgetItem*)));
+    connect(tikzListWidget, &QListWidget::currentItemChanged, this,
+            &TikzCommandInserter::setListStatusTip);
+    connect(tikzListWidget, &QListWidget::itemEntered, this,
+            &TikzCommandInserter::setListStatusTip);
+    connect(tikzListWidget, &QListWidget::itemActivated, this,
+            [this](QListWidgetItem *tag) { insertTag(tag); });
+
     m_commandsCombo->addItem(tr("General"));
     m_commandsStack->addWidget(tikzListWidget);
 

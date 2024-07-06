@@ -70,16 +70,15 @@ TikzEditor::TikzEditor(QWidget *parent)
     m_lineNumberArea = new LineNumberWidget(this);
     updateLineNumberAreaWidth();
 
-    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
+    connect(this, &TikzEditor::cursorPositionChanged, this, &TikzEditor::highlightCurrentLine);
     highlightCurrentLine();
 
-    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(showCursorPosition()));
-    connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(matchBrackets()));
-    connect(document(), SIGNAL(contentsChange(int, int, int)), this,
-            SLOT(recalculateBookmarks(int)));
+    connect(this, &TikzEditor::cursorPositionChanged, this, &TikzEditor::showCursorPosition);
+    connect(this, &TikzEditor::cursorPositionChanged, this, &TikzEditor::matchBrackets);
+    connect(document(), &QTextDocument::contentsChange, this, &TikzEditor::recalculateBookmarks);
 
-    connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth()));
-    connect(this, SIGNAL(updateRequest(QRect, int)), this, SLOT(updateLineNumberArea(QRect, int)));
+    connect(this, &TikzEditor::blockCountChanged, this, &TikzEditor::updateLineNumberAreaWidth);
+    connect(this, &TikzEditor::updateRequest, this, &TikzEditor::updateLineNumberArea);
 }
 
 TikzEditor::~TikzEditor() { }
@@ -598,7 +597,8 @@ void TikzEditor::updateCompleter(bool useCompletion, const QStringList &words)
         m_completer->setCompletionMode(QCompleter::PopupCompletion);
         m_completer->setCaseSensitivity(Qt::CaseInsensitive);
         m_completer->setWrapAround(false);
-        connect(m_completer, SIGNAL(activated(QString)), this, SLOT(insertCompletion(QString)));
+        connect(m_completer, QOverload<const QString &>::of(&QCompleter::activated), this,
+                &TikzEditor::insertCompletion);
     }
 
     QStringListModel *model = new QStringListModel(words, m_completer);
