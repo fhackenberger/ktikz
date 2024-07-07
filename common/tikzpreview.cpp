@@ -65,10 +65,10 @@ TikzPreview::TikzPreview(QWidget *parent)
     createActions();
 
     m_tikzPreviewRenderer = new TikzPreviewRenderer();
-    connect(this, SIGNAL(generatePreview(Poppler::Document *, qreal, int)), m_tikzPreviewRenderer,
-            SLOT(generatePreview(Poppler::Document *, qreal, int)));
-    connect(m_tikzPreviewRenderer, SIGNAL(showPreview(QImage, qreal)), this,
-            SLOT(showPreview(QImage, qreal)));
+    connect(this, &TikzPreview::generatePreview, m_tikzPreviewRenderer,
+            &TikzPreviewRenderer::generatePreview);
+    connect(m_tikzPreviewRenderer, &TikzPreviewRenderer::showPreview, this,
+            &TikzPreview::showPreview);
 }
 
 TikzPreview::~TikzPreview()
@@ -116,7 +116,7 @@ void TikzPreview::createActions()
     m_zoomToAction = new ZoomAction(Icon(QLatin1String("zoom-original")), tr("&Zoom"), this,
                                     QLatin1String("zoom_to"));
     m_zoomToAction->setZoomFactor(m_zoomFactor);
-    connect(m_zoomToAction, SIGNAL(zoomFactorAdded(qreal)), this, SLOT(setZoomFactor(qreal)));
+    connect(m_zoomToAction, &ZoomAction::zoomFactorAdded, this, &TikzPreview::setZoomFactor);
 
     m_previousPageAction = new Action(Icon(QLatin1String("go-previous")), tr("&Previous image"),
                                       this, QLatin1String("view_previous_image"));
@@ -124,7 +124,7 @@ void TikzPreview::createActions()
     m_previousPageAction->setStatusTip(tr("Show previous image in preview"));
     m_previousPageAction->setWhatsThis(
             tr("<p>Show the preview of the previous tikzpicture in the TikZ code.</p>"));
-    connect(m_previousPageAction, SIGNAL(triggered()), this, SLOT(showPreviousPage()));
+    connect(m_previousPageAction, &Action::triggered, this, &TikzPreview::showPreviousPage);
 
     m_nextPageAction = new Action(Icon(QLatin1String("go-next")), tr("&Next image"), this,
                                   QLatin1String("view_next_image"));
@@ -132,7 +132,7 @@ void TikzPreview::createActions()
     m_nextPageAction->setStatusTip(tr("Show next image in preview"));
     m_nextPageAction->setWhatsThis(
             tr("<p>Show the preview of the next tikzpicture in the TikZ code.</p>"));
-    connect(m_nextPageAction, SIGNAL(triggered()), this, SLOT(showNextPage()));
+    connect(m_nextPageAction, &Action::triggered, this, &TikzPreview::showNextPage);
 
     m_previousPageAction->setVisible(false);
     m_previousPageAction->setEnabled(false);

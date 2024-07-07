@@ -28,8 +28,10 @@ PageDialog::PageDialog(QWidget *parent) : KPageDialog(parent)
     QPushButton *okButton = buttonBox()->button(QDialogButtonBox::Ok);
     okButton->setDefault(true);
     okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
-    connect(buttonBox()->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(accept()));
-    connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(okButton, &QPushButton::clicked, this, &PageDialog::accept);
+
+    QPushButton *applyButton = buttonBox()->button(QDialogButtonBox::Apply);
+    connect(applyButton, &QPushButton::clicked, this, &PageDialog::accept);
 }
 
 void PageDialog::addPage(QWidget *widget, const QString &title, const QString &iconName)
@@ -73,8 +75,8 @@ PageDialog::PageDialog(QWidget *parent) : QDialog(parent)
     buttonBox->addButton(whatsThisButton, QDialogButtonBox::HelpRole);
     buttonBox->addButton(QDialogButtonBox::Ok);
     buttonBox->addButton(QDialogButtonBox::Cancel);
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &PageDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &PageDialog::reject);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(centerWidget());
@@ -104,9 +106,9 @@ QWidget *PageDialog::centerWidget()
 
     // add pages
     m_pagesStackedWidget = new QStackedWidget;
-    connect(m_pagesListWidget, SIGNAL(currentRowChanged(int)), m_pagesStackedWidget,
-            SLOT(setCurrentIndex(int)));
-    connect(m_pagesListWidget, SIGNAL(currentRowChanged(int)), this, SLOT(setCurrentPage(int)));
+    connect(m_pagesListWidget, &QListWidget::currentRowChanged, m_pagesStackedWidget,
+            &QStackedWidget::setCurrentIndex);
+    connect(m_pagesListWidget, &QListWidget::currentRowChanged, this, &PageDialog::setCurrentPage);
 
     QWidget *mainWidget = new QWidget;
     QGridLayout *mainLayout = new QGridLayout;

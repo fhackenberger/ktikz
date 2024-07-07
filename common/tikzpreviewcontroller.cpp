@@ -33,6 +33,8 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QPushButton>
 
+#include <poppler-qt5.h>
+
 #include "templatewidget.h"
 #include "tikzpreview.h"
 #include "mainwidget.h"
@@ -61,24 +63,24 @@ TikzPreviewController::TikzPreviewController(MainWidget *mainWidget)
     createActions();
 
     qRegisterMetaType<QList<qreal>>("QList<qreal>");
-    connect(m_tikzPreviewGenerator, SIGNAL(pixmapUpdated(Poppler::Document *, QList<qreal>)),
-            m_tikzPreview, SLOT(pixmapUpdated(Poppler::Document *, QList<qreal>)));
-    connect(m_tikzPreviewGenerator, SIGNAL(showErrorMessage(QString)), m_tikzPreview,
-            SLOT(showErrorMessage(QString)));
-    connect(m_tikzPreviewGenerator, SIGNAL(setExportActionsEnabled(bool)), this,
-            SLOT(setExportActionsEnabled(bool)));
-    connect(m_tikzPreviewGenerator, SIGNAL(updateLog(QString, bool)), this,
-            SIGNAL(updateLog(QString, bool)));
-    connect(m_tikzPreviewGenerator, SIGNAL(appendLog(QString, bool)), this,
-            SIGNAL(appendLog(QString, bool)));
-    connect(m_templateWidget, SIGNAL(fileNameChanged(QString)), this,
-            SLOT(setTemplateFileAndRegenerate(QString)));
-    connect(m_tikzPreview, SIGNAL(showMouseCoordinates(qreal, qreal, int, int)), this,
-            SIGNAL(showMouseCoordinates(qreal, qreal, int, int)));
+    connect(m_tikzPreviewGenerator, &TikzPreviewGenerator::pixmapUpdated, m_tikzPreview,
+            &TikzPreview::pixmapUpdated);
+    connect(m_tikzPreviewGenerator, &TikzPreviewGenerator::showErrorMessage, m_tikzPreview,
+            &TikzPreview::showErrorMessage);
+    connect(m_tikzPreviewGenerator, &TikzPreviewGenerator::setExportActionsEnabled, this,
+            &TikzPreviewController::setExportActionsEnabled);
+    connect(m_tikzPreviewGenerator, &TikzPreviewGenerator::updateLog, this,
+            &TikzPreviewController::updateLog);
+    connect(m_tikzPreviewGenerator, &TikzPreviewGenerator::appendLog, this,
+            &TikzPreviewController::appendLog);
+    connect(m_templateWidget, &TemplateWidget::fileNameChanged, this,
+            &TikzPreviewController::setTemplateFileAndRegenerate);
+    connect(m_tikzPreview, &TikzPreview::showMouseCoordinates, this,
+            &TikzPreviewController::showMouseCoordinates);
 
     m_regenerateTimer = new QTimer(this);
     m_regenerateTimer->setSingleShot(true);
-    connect(m_regenerateTimer, SIGNAL(timeout()), this, SLOT(regeneratePreview()));
+    connect(m_regenerateTimer, &QTimer::timeout, this, &TikzPreviewController::regeneratePreview);
 
     m_tempDir = new TempDir();
     m_tikzPreviewGenerator->setTikzFileBaseName(tempFileBaseName());
@@ -149,7 +151,7 @@ void TikzPreviewController::createActions()
     exportEpsAction->setData(QLatin1String("image/x-eps"));
     exportEpsAction->setStatusTip(tr("Export to EPS"));
     exportEpsAction->setWhatsThis(tr("<p>Export to EPS.</p>"));
-    connect(exportEpsAction, SIGNAL(triggered()), this, SLOT(exportImage()));
+    connect(exportEpsAction, &Action::triggered, this, &TikzPreviewController::exportImage);
     exportMenu->addAction(exportEpsAction);
 
     Action *exportPdfAction = new Action(Icon(QLatin1String("application-pdf")),
@@ -158,7 +160,7 @@ void TikzPreviewController::createActions()
     exportPdfAction->setData(QLatin1String("application/pdf"));
     exportPdfAction->setStatusTip(tr("Export to PDF"));
     exportPdfAction->setWhatsThis(tr("<p>Export to PDF.</p>"));
-    connect(exportPdfAction, SIGNAL(triggered()), this, SLOT(exportImage()));
+    connect(exportPdfAction, &Action::triggered, this, &TikzPreviewController::exportImage);
     exportMenu->addAction(exportPdfAction);
 
     QStringList mimeTypes;
@@ -177,16 +179,16 @@ void TikzPreviewController::createActions()
         exportImageAction->setData(QLatin1String("image/") + mimeTypes.at(i));
         exportImageAction->setStatusTip(tr("Export to %1").arg(mimeTypes.at(i).toUpper()));
         exportImageAction->setWhatsThis(tr("<p>Export to %1.</p>").arg(mimeTypes.at(i).toUpper()));
-        connect(exportImageAction, SIGNAL(triggered()), this, SLOT(exportImage()));
+        connect(exportImageAction, &Action::triggered, this, &TikzPreviewController::exportImage);
         exportMenu->addAction(exportImageAction);
     }
 
 #ifndef KTIKZ_KPART // don't have two "Print" actions in the kpart
-    m_printPreviewAction = StandardAction::printPreview(this, SLOT(printPreviewImage()), this);
+    m_printPreviewAction = StandardAction::printPreview(this, "printPreviewImage", this);
     m_printPreviewAction->setStatusTip(tr("Print preview image"));
     m_printPreviewAction->setWhatsThis(tr("<p>Show print preview of the preview image.</p>"));
 
-    m_printAction = StandardAction::print(this, SLOT(printImage()), this);
+    m_printAction = StandardAction::print(this, "printImage", this);
     m_printAction->setStatusTip(tr("Print image"));
     m_printAction->setWhatsThis(tr("<p>Print the preview image.</p>"));
 #endif
@@ -201,7 +203,7 @@ void TikzPreviewController::createActions()
     m_procStopAction->setWhatsThis(
             tr("<p>Abort the execution of the currently running process.</p>"));
     m_procStopAction->setEnabled(false);
-    connect(m_procStopAction, SIGNAL(triggered()), this, SLOT(abortProcess()));
+    connect(m_procStopAction, &Action::triggered, this, &TikzPreviewController::abortProcess);
 
     m_shellEscapeAction =
             new ToggleAction(Icon(QLatin1String("application-x-executable")), tr("S&hell Escape"),
@@ -212,10 +214,11 @@ void TikzPreviewController::createActions()
             "using gnuplot within TikZ."
             "</p><p><strong>Warning:</strong> Enabling this may cause malicious software to be run "
             "on your computer! Check the LaTeX code to see which commands are executed.</p>"));
-    connect(m_shellEscapeAction, SIGNAL(toggled(bool)), this, SLOT(toggleShellEscaping(bool)));
+    connect(m_shellEscapeAction, &ToggleAction::toggled, this,
+            &TikzPreviewController::toggleShellEscaping);
 
-    connect(m_tikzPreviewGenerator, SIGNAL(processRunning(bool)), this,
-            SLOT(setProcessRunning(bool)));
+    connect(m_tikzPreviewGenerator, &TikzPreviewGenerator::processRunning, this,
+            &TikzPreviewController::setProcessRunning);
 }
 
 #ifndef KTIKZ_USE_KDE
@@ -384,7 +387,8 @@ void TikzPreviewController::printPreviewImage()
 
     // show print preview
     PrintPreviewDialog preview(&printer);
-    connect(&preview, SIGNAL(paintRequested(QPrinter *)), this, SLOT(printImage(QPrinter *)));
+    connect(&preview, &PrintPreviewDialog::paintRequested, this,
+            [this](QPrinter *printer) { printImage(printer); });
     preview.exec();
 }
 
@@ -520,10 +524,12 @@ void TikzPreviewController::applySettings()
             settings.value(QLatin1String("PdftopsCommand"), QLatin1String("pdftops")).toString());
     const bool useShellEscaping = settings.value(QLatin1String("UseShellEscaping"), false).toBool();
 
-    disconnect(m_shellEscapeAction, SIGNAL(toggled(bool)), this, SLOT(toggleShellEscaping(bool)));
+    disconnect(m_shellEscapeAction, &Action::toggled, this,
+               &TikzPreviewController::toggleShellEscaping);
     m_shellEscapeAction->setChecked(useShellEscaping);
     m_tikzPreviewGenerator->setShellEscaping(useShellEscaping);
-    connect(m_shellEscapeAction, SIGNAL(toggled(bool)), this, SLOT(toggleShellEscaping(bool)));
+    connect(m_shellEscapeAction, &Action::toggled, this,
+            &TikzPreviewController::toggleShellEscaping);
 
     setTemplateFile(settings.value(QLatin1String("TemplateFile")).toString());
     const QString replaceText =

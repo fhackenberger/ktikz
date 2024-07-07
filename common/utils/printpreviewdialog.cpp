@@ -35,32 +35,33 @@ PrintPreviewDialog::PrintPreviewDialog(QPrinter *printer, QWidget *parent) : QDi
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
     m_printPreviewWidget = new QPrintPreviewWidget(printer, this);
-    connect(m_printPreviewWidget, SIGNAL(paintRequested(QPrinter *)), this,
-            SIGNAL(paintRequested(QPrinter *)));
-    connect(m_printPreviewWidget, SIGNAL(previewChanged()), this, SLOT(updateZoomFactor()));
+    connect(m_printPreviewWidget, &QPrintPreviewWidget::paintRequested, this,
+            &PrintPreviewDialog::paintRequested);
+    connect(m_printPreviewWidget, &QPrintPreviewWidget::previewChanged, this,
+            &PrintPreviewDialog::updateZoomFactor);
 
     ToolBar *toolBar = new ToolBar(QLatin1String("printpreview_toolbar"), this);
     Action *action = new Action(Icon(QLatin1String("zoom-fit-width")), tr("Fit &width"), this,
                                 QLatin1String("printpreview_fit_width"));
-    connect(action, SIGNAL(triggered()), m_printPreviewWidget, SLOT(fitToWidth()));
+    connect(action, &Action::triggered, m_printPreviewWidget, &QPrintPreviewWidget::fitToWidth);
     toolBar->addAction(action);
     action = new Action(Icon(QLatin1String("zoom-fit-best")), tr("Fit p&age"), this,
                         QLatin1String("printpreview_fit_page"));
-    connect(action, SIGNAL(triggered()), m_printPreviewWidget, SLOT(fitInView()));
+    connect(action, &Action::triggered, m_printPreviewWidget, &QPrintPreviewWidget::fitInView);
     toolBar->addAction(action);
     m_zoomToAction = new ZoomAction(Icon(QLatin1String("zoom-original")), tr("&Zoom"), this,
                                     QLatin1String("printpreview_zoom_to"));
-    connect(m_zoomToAction, SIGNAL(zoomFactorAdded(qreal)), this, SLOT(setZoomFactor(qreal)));
+    connect(m_zoomToAction, &ZoomAction::zoomFactorAdded, this, &PrintPreviewDialog::setZoomFactor);
     toolBar->addAction(m_zoomToAction);
     toolBar->addAction(StandardAction::zoomIn(this, SLOT(zoomIn()), this));
     toolBar->addAction(StandardAction::zoomOut(this, SLOT(zoomOut()), this));
     action = new Action(Icon(QLatin1String("document-print")), tr("&Print"), this,
                         QLatin1String("printpreview_print"));
-    connect(action, SIGNAL(triggered()), this, SLOT(print()));
+    connect(action, &Action::triggered, this, &PrintPreviewDialog::print);
     toolBar->addAction(action);
     action = new Action(Icon(QLatin1String("window-close")), tr("&Close"), this,
                         QLatin1String("printpreview_close"));
-    connect(action, SIGNAL(triggered()), this, SLOT(reject()));
+    connect(action, &Action::triggered, this, &PrintPreviewDialog::reject);
     toolBar->addAction(action);
 
     mainLayout->addWidget(toolBar);
@@ -87,9 +88,10 @@ void PrintPreviewDialog::setZoomFactor(qreal zoomFactor)
 
 void PrintPreviewDialog::updateZoomFactor()
 {
-    disconnect(m_zoomToAction, SIGNAL(zoomFactorAdded(qreal)), this, SLOT(setZoomFactor(qreal)));
+    disconnect(m_zoomToAction, &ZoomAction::zoomFactorAdded, this,
+               &PrintPreviewDialog::setZoomFactor);
     m_zoomToAction->setZoomFactor(m_printPreviewWidget->zoomFactor());
-    connect(m_zoomToAction, SIGNAL(zoomFactorAdded(qreal)), this, SLOT(setZoomFactor(qreal)));
+    connect(m_zoomToAction, &ZoomAction::zoomFactorAdded, this, &PrintPreviewDialog::setZoomFactor);
 }
 
 void PrintPreviewDialog::zoomIn()
