@@ -46,10 +46,13 @@ void PartConfigGeneralWidget::readSettings(const QString &settingsGroup)
     ui.replaceEdit->setText(settings.value("TemplateReplaceText", "<>").toString());
     settings.endGroup();
 
-    connect(ui.latexUrlRequester, SIGNAL(textChanged(QString)), this, SLOT(setModified()));
-    connect(ui.pdftopsUrlRequester, SIGNAL(textChanged(QString)), this, SLOT(setModified()));
-    connect(ui.editorUrlRequester, SIGNAL(textChanged(QString)), this, SLOT(setModified()));
-    connect(ui.replaceEdit, SIGNAL(textChanged(QString)), this, SLOT(setModified()));
+    connect(ui.latexUrlRequester, &KUrlRequester::textChanged, this,
+            &PartConfigGeneralWidget::setModified);
+    connect(ui.pdftopsUrlRequester, &KUrlRequester::textChanged, this,
+            &PartConfigGeneralWidget::setModified);
+    connect(ui.editorUrlRequester, &KUrlRequester::textChanged, this,
+            &PartConfigGeneralWidget::setModified);
+    connect(ui.replaceEdit, &QLineEdit::textChanged, this, &PartConfigGeneralWidget::setModified);
 }
 
 void PartConfigGeneralWidget::setModified()

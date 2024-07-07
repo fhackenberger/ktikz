@@ -93,10 +93,10 @@ Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
 
     // document watcher and reloader
     m_watcher = new KDirWatch(this);
-    connect(m_watcher, SIGNAL(dirty(QString)), this, SLOT(slotFileDirty(QString)));
+    connect(m_watcher, &KDirWatch::dirty, this, &Part::slotFileDirty);
     m_dirtyHandler = new QTimer(this);
     m_dirtyHandler->setSingleShot(true);
-    connect(m_dirtyHandler, SIGNAL(timeout()), this, SLOT(slotDoFileDirty()));
+    connect(m_dirtyHandler, &QTimer::timeout, this, &Part::slotDoFileDirty);
 
     new BrowserExtension(
             this, m_tikzPreviewController); // needed to be able to use Konqueror's "Print" action
@@ -155,7 +155,7 @@ void Part::createActions()
     action = actionCollection()->addAction("help_about_ktikz");
     action->setText(i18n("About KtikZ Viewer"));
     action->setIcon(QIcon::fromTheme("ktikz"));
-    connect(action, SIGNAL(triggered()), this, SLOT(showAboutDialog()));
+    connect(action, &QAction::triggered, this, &Part::showAboutDialog);
 }
 
 /***************************************************************************/
@@ -209,7 +209,7 @@ void Part::saveAs()
         return;
 
     KIO::Job *job = KIO::file_copy(srcUrl, dstUrl, -1, KIO::Overwrite | KIO::HideProgressInfo);
-    connect(job, SIGNAL(result(KJob *)), this, SLOT(showJobError(KJob *)));
+    connect(job, &KIO::Job::result, this, &Part::showJobError);
 }
 
 bool Part::closeUrl()
@@ -312,7 +312,7 @@ void Part::configure()
 {
     if (m_configDialog == 0) {
         m_configDialog = new PartConfigDialog(widget());
-        connect(m_configDialog, SIGNAL(settingsChanged(QString)), this, SLOT(applySettings()));
+        connect(m_configDialog, &PartConfigDialog::settingsChanged, this, &Part::applySettings);
     }
     m_configDialog->readSettings();
     m_configDialog->show();
