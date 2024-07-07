@@ -47,6 +47,8 @@ private Q_SLOTS:
 private:
     void init();
     void setCurrentZoomFactor(qreal newZoomFactor = 1);
+
+    QMetaObject::Connection m_triggerConnection;
 };
 
 #endif

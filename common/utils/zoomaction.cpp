@@ -49,7 +49,8 @@ void ZoomAction::init()
                     "Alternatively, you can also introduce a zoom factor and "
                     "press Enter.</p>"));
     setCurrentZoomFactor();
-    connect(this, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
+    m_triggerConnection = connect(this, &ZoomAction::textTriggered, this,
+                                  [this](const QString &factor) { setZoomFactor(factor); });
 }
 
 ZoomAction::~ZoomAction() { }
@@ -106,12 +107,13 @@ void ZoomAction::setCurrentZoomFactor(qreal newZoomFactor)
         newZoomFactorPosition = zoomFactorNumber;
     }
 
-    disconnect(this, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
+    disconnect(m_triggerConnection);
     removeAllActions();
     setItems(zoomFactorList);
     if (newZoomFactorPosition >= 0)
         setCurrentItem(newZoomFactorPosition);
-    connect(this, SIGNAL(triggered(QString)), this, SLOT(setZoomFactor(QString)));
+    m_triggerConnection = connect(this, &ZoomAction::textTriggered, this,
+                                  [this](const QString &factor) { setZoomFactor(factor); });
 }
 
 void ZoomAction::setZoomFactor(qreal zoomFactor)

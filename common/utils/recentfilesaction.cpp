@@ -30,21 +30,18 @@
 RecentFilesAction::RecentFilesAction(QObject *parent) : KRecentFilesAction(parent)
 {
     Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
-    // connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
 }
 
 RecentFilesAction::RecentFilesAction(const QString &text, QObject *parent)
     : KRecentFilesAction(text, parent)
 {
     Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
-    // connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
 }
 
 RecentFilesAction::RecentFilesAction(const Icon &icon, const QString &text, QObject *parent)
     : KRecentFilesAction(icon, text, parent)
 {
     Action::actionCollection()->addAction(QLatin1String("file_open_recent"), this);
-    // connect(this, SIGNAL(urlSelected(QUrl)), this, SLOT(selectUrl(QUrl)));
 }
 
 void RecentFilesAction::loadEntries()
@@ -115,7 +112,7 @@ void RecentFilesAction::createRecentFilesList()
     for (int i = 0; i < m_numOfRecentFiles; ++i) {
         QAction *action = new QAction(this);
         action->setVisible(false);
-        connect(action, SIGNAL(triggered()), this, SLOT(openRecentFile()));
+        connect(action, &QAction::triggered, this, &RecentFilesAction::openRecentFile);
         m_recentFileActions.append(action);
     }
 

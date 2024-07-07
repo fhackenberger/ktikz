@@ -58,7 +58,7 @@ public:
     QStringList items() const;
 
 Q_SIGNALS:
-    void triggered(const QString &text);
+    void textTriggered(const QString &text);
 
 private Q_SLOTS:
     void setCurrentItem();

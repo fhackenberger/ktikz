@@ -47,8 +47,8 @@ void LineEdit::init()
     m_clearButton->setStyleSheet(QLatin1String("QToolButton { border: none; padding: 0px; }"));
     m_clearButton->setToolTip(tr("Clear input field"));
     m_clearButton->hide();
-    connect(m_clearButton, SIGNAL(clicked()), this, SLOT(clear()));
-    connect(this, SIGNAL(textChanged(QString)), this, SLOT(updateClearButton(QString)));
+    connect(m_clearButton, &QToolButton::clicked, this, &LineEdit::clear);
+    connect(this, &LineEdit::textChanged, this, &LineEdit::updateClearButton);
     //	const int frameWidth = style()->pixelMetric(QStyle::PM_DefaultFrameWidth);
     //	setStyleSheet(QString("QLineEdit { padding-right: %1px; width: %2px; height: %3px; }")
     //	              .arg(m_clearButton->sizeHint().width() + frameWidth + 1)

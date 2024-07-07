@@ -30,13 +30,13 @@
 
 ColorButton::ColorButton(QWidget *parent) : QToolButton(parent)
 {
-    connect(this, SIGNAL(clicked()), this, SLOT(showColorDialog()));
+    connect(this, &ColorButton::clicked, this, &ColorButton::showColorDialog);
 }
 
 ColorButton::ColorButton(const QColor &color, QWidget *parent) : QToolButton(parent)
 {
     setColor(color);
-    connect(this, SIGNAL(clicked()), this, SLOT(showColorDialog()));
+    connect(this, &ColorButton::clicked, this, &ColorButton::showColorDialog);
 }
 
 void ColorButton::showColorDialog()

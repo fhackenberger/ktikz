@@ -28,6 +28,7 @@
 #include <QtGui/QTextDocument>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
 
 #include "utils/combobox.h"
 #include "utils/filedialog.h"
@@ -53,11 +54,13 @@ TemplateWidget::TemplateWidget(QWidget *parent) : QWidget(parent)
     m_urlCompletion = new UrlCompletion(this);
     ui.templateCombo->setCompletionObject(m_urlCompletion);
 
-    connect(ui.templateChooseButton, SIGNAL(clicked()), this, SLOT(selectTemplateFile()));
-    connect(ui.templateEditButton, SIGNAL(clicked()), this, SLOT(editTemplateFile()));
-    connect(ui.templateReloadButton, SIGNAL(clicked()), this, SLOT(reloadTemplateFile()));
-    connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)), this,
-            SIGNAL(fileNameChanged(QString)));
+    connect(ui.templateChooseButton, &QPushButton::clicked, this,
+            &TemplateWidget::selectTemplateFile);
+    connect(ui.templateEditButton, &QPushButton::clicked, this, &TemplateWidget::editTemplateFile);
+    connect(ui.templateReloadButton, &QPushButton::clicked, this,
+            &TemplateWidget::reloadTemplateFile);
+    connect(ui.templateCombo->lineEdit(), &QLineEdit::textChanged, this,
+            &TemplateWidget::fileNameChanged);
 
     readRecentTemplates();
 }
@@ -98,15 +101,15 @@ void TemplateWidget::saveRecentTemplates()
 
 void TemplateWidget::setFileName(const QString &fileName)
 {
-    disconnect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)), this,
-               SIGNAL(fileNameChanged(QString)));
+    disconnect(ui.templateCombo->lineEdit(), &QLineEdit::textChanged, this,
+               &TemplateWidget::fileNameChanged);
     const int index = ui.templateCombo->findText(fileName);
     if (index >= 0) // then remove item in order to re-add it at the top
         ui.templateCombo->removeItem(index);
     ui.templateCombo->insertItem(0, fileName);
     ui.templateCombo->lineEdit()->setText(QString());
-    connect(ui.templateCombo->lineEdit(), SIGNAL(textChanged(QString)), this,
-            SIGNAL(fileNameChanged(QString)));
+    connect(ui.templateCombo->lineEdit(), &QLineEdit::textChanged, this,
+            &TemplateWidget::fileNameChanged);
     ui.templateCombo->setCurrentIndex(0);
 }
 
