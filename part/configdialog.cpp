@@ -45,22 +45,23 @@ PartConfigDialog::PartConfigDialog(QWidget *parent) : QDialog(parent)
     QPushButton *okButton = m_buttonBox->button(QDialogButtonBox::Ok);
     okButton->setDefault(true);
     okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
-    connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(m_buttonBox, &QDialogButtonBox::accepted, this, &PartConfigDialog::accept);
+    connect(m_buttonBox, &QDialogButtonBox::rejected, this, &PartConfigDialog::reject);
     // PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please
     // move it.
     mainLayout->addWidget(m_buttonBox);
 
+    QPushButton *applyButton = m_buttonBox->button(QDialogButtonBox::Apply);
+    applyButton->setEnabled(false);
+
     setLayout(mainLayout);
 
-    connect(m_buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this,
-            SLOT(writeSettings()));
-    connect(okButton, SIGNAL(clicked()), this, SLOT(writeSettings()));
-    connect(m_buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()), this,
-            SLOT(setDefaults()));
-    connect(m_configGeneralWidget, SIGNAL(changed(bool)), this,
-            SLOT(buttonBox->button(QDialogButtonBox::Apply)->setEnabled(bool)));
-    m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
+    connect(applyButton, &QPushButton::clicked, this, &PartConfigDialog::writeSettings);
+    connect(okButton, &QPushButton::clicked, this, &PartConfigDialog::writeSettings);
+    connect(m_buttonBox->button(QDialogButtonBox::RestoreDefaults), &QPushButton::clicked, this,
+            &PartConfigDialog::setDefaults);
+    connect(m_configGeneralWidget, &PartConfigGeneralWidget::changed, applyButton,
+            &QPushButton::setEnabled);
 }
 
 PartConfigDialog::~PartConfigDialog() { }
@@ -78,7 +79,7 @@ QWidget *PartConfigDialog::viewerWidget()
                   "by another program.</para>"));
     viewerLayout->addWidget(m_watchFileCheckBox);
 
-    connect(m_watchFileCheckBox, SIGNAL(toggled(bool)), this, SLOT(setModified()));
+    connect(m_watchFileCheckBox, &QCheckBox::toggled, this, &PartConfigDialog::setModified);
 
     return viewerGroupBox;
 }
