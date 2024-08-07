@@ -104,10 +104,10 @@ endif()
 
 install(TARGETS ktikz DESTINATION ${KDE_INSTALL_BINDIR})
 if(KTIKZ_USE_KTEXTEDITOR)
-    install(FILES ktikzui_frameworks.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/ktikz)
+    install(FILES kxmlgui5/ktikz/ktikzui_frameworks.rc DESTINATION ${KDE_INSTALL_KXMLGUIDIR}/ktikz)
 endif()
 
-install(FILES ktikzui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/ktikz)
+install(FILES kxmlgui5/ktikz/ktikzui.rc DESTINATION ${KDE_INSTALL_KXMLGUIDIR}/ktikz)
 install(FILES ../common/ktikz.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 add_subdirectory(icons)
@@ -119,8 +119,8 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${KTIKZ_TRANSLATIONS_INSTALL_DIR}
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${KTIKZ_TEMPLATES_INSTALL_DIR}
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${KTIKZ_DATA_INSTALL_DIR}
-    COMMAND ${CMAKE_COMMAND} -E remove_directory ${KXMLGUI_INSTALL_DIR}/ktikz
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${KDE_INSTALL_KXMLGUIDIR}/ktikz
     COMMENT
-        "Removing directories ${KTIKZ_TRANSLATIONS_INSTALL_DIR} ${KTIKZ_TEMPLATES_INSTALL_DIR} ${KTIKZ_DATA_INSTALL_DIR} ${KXMLGUI_INSTALL_DIR}/ktikz"
+        "Removing directories ${KTIKZ_TRANSLATIONS_INSTALL_DIR} ${KTIKZ_TEMPLATES_INSTALL_DIR} ${KTIKZ_DATA_INSTALL_DIR} ${KDE_INSTALL_KXMLGUIDIR}/ktikz"
     VERBATIM
 )
