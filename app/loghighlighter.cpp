@@ -38,7 +38,7 @@ LogHighlighter::LogHighlighter(QTextDocument *parent) : QSyntaxHighlighter(paren
                                                         // TikzPreviewGenerator::getParsedLogText()
             << tr("This program will not work!");
     for (const auto &pattern : keywordPatterns) {
-        rule.pattern = QRegExp(pattern);
+        rule.pattern = QRegularExpression(pattern);
         rule.format = keywordFormat;
         m_highlightingRules.append(rule);
     }
@@ -46,7 +46,7 @@ LogHighlighter::LogHighlighter(QTextDocument *parent) : QSyntaxHighlighter(paren
     QTextCharFormat commandFormat;
     commandFormat.setForeground(Qt::darkBlue);
     commandFormat.setFontWeight(QFont::Bold);
-    rule.pattern = QRegExp(QLatin1String("^\\[[^\\]\\d][^\\]]*\\]"));
+    rule.pattern = QRegularExpression("^\\[[^\\]\\d][^\\]]*\\]");
     rule.format = commandFormat;
     m_highlightingRules.append(rule);
 
@@ -61,15 +61,12 @@ void LogHighlighter::highlightBlock(const QString &text)
 {
     // Try each highlighting pattern and apply formatting if it matches
     for (const auto &rule : m_highlightingRules) {
-        // const QRegExp expression(rule.pattern);
-        // int index = text.indexOf(expression);
-        QRegExp expression(rule.pattern);
-        int index = expression.indexIn(text);
-        while (index >= 0) {
-            const int length = expression.matchedLength();
+        auto m = rule.pattern.match(text);
+        while (m.hasMatch()) {
+            int index = m.lastCapturedIndex();
+            const int length = m.capturedLength();
             setFormat(index, length, rule.format);
-            // index = text.indexOf(expression, index + length);
-            index = expression.indexIn(text, index + length);
+            m = rule.pattern.match(text, m.lastCapturedIndex());
         }
     }
 

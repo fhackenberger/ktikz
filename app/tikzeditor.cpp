@@ -47,10 +47,11 @@
 #include <QtWidgets/QScrollBar>
 #include <QtGui/QPainterPath>
 #include <QtCore/QStringListModel>
+#include <QtCore/QRegularExpression>
 
 #include "linenumberwidget.h"
 
-static const QString s_completionPlaceHolder(0x2022);
+static const QString s_completionPlaceHolder(QChar(0x2022));
 
 TikzEditor::TikzEditor(QWidget *parent)
     : QPlainTextEdit(parent),
@@ -619,8 +620,9 @@ void TikzEditor::insertCompletion(const QString &completion)
 
     // remove all options (between <...>) and put cursor at the first option
     QString insertWord = completion.right(extra);
-    const QRegExp rx(QLatin1String("<[^<>]*>"));
-    const int offset = rx.indexIn(insertWord) - 1; // put cursor at the first option
+    const QRegularExpression rx("<[^<>]*>");
+    const auto m = rx.match(insertWord);
+    const int offset = m.lastCapturedIndex() - 1; // put cursor at the first option
     insertWord.replace(rx, s_completionPlaceHolder);
 
     cursor.insertText(insertWord);

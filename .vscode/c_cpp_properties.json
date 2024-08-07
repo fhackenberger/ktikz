@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "name": "Qt",
+            "includePath": [
+                "/usr/include/**"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "configurationProvider": "vector-of-bool.cmake-tools"
+        }
+    ],
+    "version": 4
+}

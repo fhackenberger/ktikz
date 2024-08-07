@@ -22,7 +22,7 @@
 #include "configeditorwidget.h"
 
 #include <QtCore/QSettings>
-#include <QTextCodec>
+#include <QtCore5Compat/QTextCodec>
 #include <QtWidgets/QApplication>
 
 #include "../common/utils/fontdialog.h"

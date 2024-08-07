@@ -21,6 +21,7 @@
 #ifndef LOGHIGHLIGHTER_H
 #define LOGHIGHLIGHTER_H
 
+#include <QtCore/QRegularExpression>
 #include <QtGui/QSyntaxHighlighter>
 #include <QtGui/QTextCharFormat>
 
@@ -44,7 +45,7 @@ protected:
 private:
     struct LogHighlightingRule
     {
-        QRegExp pattern; /// The pattern to match for formatting
+        QRegularExpression pattern; /// The pattern to match for formatting
         QTextCharFormat format; /// The style of the formatting
     };
     /// All highlighting rules with their formatting for easy iteration

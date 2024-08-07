@@ -38,7 +38,7 @@
 #include <QMenuBar>
 #include <QScreen>
 #include <QStatusBar>
-#include <QtCore/QTextCodec>
+#include <QtCore5Compat/QTextCodec>
 #include <QtCore/QProcess>
 #include <QtCore/QSettings>
 #include <QtCore/QTextStream>
@@ -140,7 +140,7 @@ MainWindow::MainWindow()
     QWidget *mainWidget = new QWidget(this);
     QVBoxLayout *mainLayout = new QVBoxLayout(mainWidget);
     mainLayout->setSpacing(0);
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addWidget(m_tikzPreviewController->templateWidget());
     mainLayout->addWidget(m_tikzEditorView);
 
@@ -1069,7 +1069,7 @@ void MainWindow::loadUrl(const QUrl &url)
         QApplication::setOverrideCursor(Qt::WaitCursor);
         this->configureStreamDecoding(in);
         m_tikzQtEditorView->editor()->setPlainText(in.readAll());
-        setCurrentEncoding(in.codec());
+        //setCurrentEncoding(in.codec());
     }
 
     QApplication::restoreOverrideCursor();
@@ -1169,7 +1169,7 @@ void MainWindow::configureStreamEncoding(QTextStream &textStream)
 {
     QTextCodec *encoder = this->getEncoder();
     if (Q_LIKELY(encoder)) // should be true
-        textStream.setCodec(encoder);
+        {}//textStream.setCodec(encoder);
     else
         qWarning("The encoder variable should not be null.");
 
@@ -1179,7 +1179,7 @@ void MainWindow::configureStreamEncoding(QTextStream &textStream)
 void MainWindow::configureStreamDecoding(QTextStream &textStream)
 {
     if (m_overrideDecoder) {
-        textStream.setCodec(m_overrideDecoder);
+        //textStream.setCodec(m_overrideDecoder);
     }
     textStream.setAutoDetectUnicode(true);
 }

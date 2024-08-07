@@ -1,0 +1,31 @@
+{
+    "files.associations": {
+        "*.desktop": "ini",
+        "vimrc": "viml",
+        "zshrc": "shellscript",
+        ".zpreztorc": "shellscript",
+        "zpreztorc": "shellscript",
+        "asv.conf.json": "jsonc",
+        "*.tags": "lua",
+        "*.tikz": "context",
+        "*.lmtx": "context",
+        ".prettierrc": "jsonc",
+        "*.yaml": "jinja-yaml",
+        "*.j2": "jinja-md",
+        "qdir": "cpp",
+        "qsyntaxhighlighter": "cpp",
+        "qpointer": "cpp",
+        "qtextcodec": "cpp",
+        "qdatetime": "cpp",
+        "qstatusbar": "cpp",
+        "qapplication": "cpp",
+        "filecopyjob": "cpp",
+        "statjob": "cpp",
+        "kmessagebox": "cpp",
+        "klocalizedstring": "cpp",
+        "readonlypart": "cpp",
+        "qtranslator": "cpp",
+        "kpluginfactory": "cpp",
+        "*.moc": "cpp"
+    }
+}

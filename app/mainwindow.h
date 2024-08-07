@@ -35,6 +35,7 @@ class AssistantController;
 
 #include <QtCore/QDateTime>
 #include <QtCore/QPointer>
+#include <QtCore5Compat/QTextCodec>
 #include "../common/mainwidget.h"
 
 class QAction;

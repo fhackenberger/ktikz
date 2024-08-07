@@ -43,7 +43,7 @@ ReplaceCurrentWidget::ReplaceCurrentWidget(QWidget *parent) : QWidget(parent)
     buttonsLayout->addWidget(dontReplaceButton);
     buttonsLayout->addWidget(cancelButton);
     buttonsLayout->addStretch();
-    buttonsLayout->setMargin(0);
+    buttonsLayout->setContentsMargins(0, 0, 0, 0);
     buttonsWidget->setLayout(buttonsLayout);
     mainLayout->addWidget(m_replaceLabel);
     mainLayout->addWidget(buttonsWidget);

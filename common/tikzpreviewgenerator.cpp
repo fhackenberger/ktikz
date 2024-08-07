@@ -31,8 +31,9 @@
 #include <QtCore/QTextStream>
 #include <QtGui/QPixmap>
 #include <QtCore/QStandardPaths>
+#include <QtCore/QRegularExpression>
 #include <QtWidgets/QPlainTextEdit>
-#include <poppler-qt5.h>
+#include <poppler-qt6.h>
 
 #include "tikzpreviewcontroller.h"
 #include "mainwidget.h"
@@ -71,8 +72,6 @@ TikzPreviewGenerator::~TikzPreviewGenerator()
         m_thread.wait();
     }
     //	Q_EMIT processRunning(false); // this causes a segmentation fault on exit on Arch Linux
-
-    delete m_tikzPdfDoc;
 }
 
 /***************************************************************************/
@@ -144,7 +143,7 @@ static QString getParsedLogText(QTextStream *logStream)
 {
     QString logText;
 
-    QRegExp errorPattern(QLatin1String("(\\S*):(\\d+): (.*$)"));
+    const QRegularExpression errorPattern("(\\S*):(\\d+): (.*$)");
     QList<QLatin1String> errorMessageList;
     errorMessageList << QLatin1String("Undefined control sequence")
                      << QLatin1String("LaTeX Warning:") << QLatin1String("LaTeX Error:")
@@ -154,17 +153,19 @@ static QString getParsedLogText(QTextStream *logStream)
     QString logLine;
     while (!logStream->atEnd()) {
         logLine = logStream->readLine();
-        if (errorPattern.indexIn(logLine) > -1) {
+        const auto errorMatch = errorPattern.match(logLine);
+        if (errorMatch.hasMatch()) {
             // show error message and correct line number
-            QString lineNum = QString::number(errorPattern.cap(2).toInt());
-            const QString errorMsg = errorPattern.cap(3);
+            QString lineNum = QString::number(errorMatch.captured(2).toInt());
+            const QString errorMsg = errorMatch.captured(3);
             logText += QLatin1String("[LaTeX] Line ") + lineNum + QLatin1String(": ") + errorMsg;
 
             // while we don't get a line starting with "l.<number> ...", we have to add the line to
             // the first error message
-            QRegExp rx(QLatin1String("^l\\.(\\d+)(.*)"));
+            const QRegularExpression rx("^l\\.(\\d+)(.*)");
             logLine = logStream->readLine();
-            while (rx.indexIn(logLine) < 0 && !logStream->atEnd()) {
+            const auto m = rx.match(logLine);
+            while (m.hasMatch() && !logStream->atEnd()) {
                 if (logLine.isEmpty())
                     logText += QLatin1String("\n[LaTeX] Line ") + lineNum + QLatin1String(": ");
                 if (!logLine.startsWith(
@@ -178,8 +179,8 @@ static QString getParsedLogText(QTextStream *logStream)
                 break;
 
             // add the line starting with "l.<number> ..." and the next line
-            lineNum = QString::number(rx.cap(1).toInt() - 7);
-            logLine = QLatin1String("l.") + lineNum + rx.cap(2);
+            lineNum = QString::number(m.captured(1).toInt() - 7);
+            logLine = QLatin1String("l.") + lineNum + m.captured(2);
             logText += logLine + QLatin1Char('\n');
             logText += logStream->readLine() + QLatin1Char('\n');
         } else {
@@ -306,7 +307,7 @@ void TikzPreviewGenerator::createPreview()
             // Update widget
             if (m_tikzPdfDoc)
                 delete m_tikzPdfDoc;
-            m_tikzPdfDoc = Poppler::Document::load(tikzPdfFileInfo.absoluteFilePath());
+            m_tikzPdfDoc = Poppler::Document::load(tikzPdfFileInfo.absoluteFilePath()).release();
             if (m_tikzPdfDoc) {
                 m_shortLogText = QLatin1String("[LaTeX] ")
                         + tr("Process finished successfully.", "info process");
