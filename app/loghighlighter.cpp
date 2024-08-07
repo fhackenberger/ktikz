@@ -63,10 +63,10 @@ void LogHighlighter::highlightBlock(const QString &text)
     for (const auto &rule : m_highlightingRules) {
         auto m = rule.pattern.match(text);
         while (m.hasMatch()) {
-            int index = m.lastCapturedIndex();
+            int index = m.capturedStart();
             const int length = m.capturedLength();
             setFormat(index, length, rule.format);
-            m = rule.pattern.match(text, m.lastCapturedIndex());
+            m = rule.pattern.match(text, m.capturedEnd());
         }
     }
 

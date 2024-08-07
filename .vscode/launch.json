@@ -13,7 +13,7 @@
             "cwd": "${workspaceFolder}",
             "environment": [
                 { "name": "XDG_DATA_DIRS", "value": "${workspaceFolder}/app:${env:XDG_DATA_DIRS-/usr/local/share:/usr/share}" },
-            ]
-        }
-    ]
+            ],
+        },
+    ],
 }

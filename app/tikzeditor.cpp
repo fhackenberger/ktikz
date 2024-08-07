@@ -622,7 +622,7 @@ void TikzEditor::insertCompletion(const QString &completion)
     QString insertWord = completion.right(extra);
     const QRegularExpression rx("<[^<>]*>");
     const auto m = rx.match(insertWord);
-    const int offset = m.lastCapturedIndex() - 1; // put cursor at the first option
+    const int offset = m.capturedStart() - 1; // put cursor at the first option
     insertWord.replace(rx, s_completionPlaceHolder);
 
     cursor.insertText(insertWord);

@@ -178,10 +178,10 @@ void TikzHighlighter::highlightBlock(const QString &text)
             auto m = rule.pattern.match(text);
             while (m.hasMatch()) {
                 const int length = m.capturedLength();
-                const int index = m.lastCapturedIndex();
+                const int index = m.capturedStart();
                 if (index == 0 || text.at(index - 1) != QLatin1Char('\\'))
                     setFormat(index, length, m_formatList[rule.type]);
-                m = rule.pattern.match(text, index + length);
+                m = rule.pattern.match(text, m.capturedEnd());
             }
         }
     }
