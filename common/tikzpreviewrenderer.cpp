@@ -19,7 +19,7 @@
 #include "tikzpreviewrenderer.h"
 
 #include <QtGui/QImage>
-#include <poppler-qt5.h>
+#include <poppler-qt6.h>
 
 TikzPreviewRenderer::TikzPreviewRenderer()
 {
@@ -38,9 +38,8 @@ TikzPreviewRenderer::~TikzPreviewRenderer()
 void TikzPreviewRenderer::generatePreview(Poppler::Document *tikzPdfDoc, qreal zoomFactor,
                                           int currentPage)
 {
-    Poppler::Page *pdfPage = tikzPdfDoc->page(currentPage);
+    std::unique_ptr<Poppler::Page> pdfPage = tikzPdfDoc->page(currentPage);
     const QImage tikzImage = pdfPage->renderToImage(zoomFactor * 72, zoomFactor * 72);
-    delete pdfPage;
 
     Q_EMIT showPreview(tikzImage, zoomFactor);
 }

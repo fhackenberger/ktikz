@@ -25,7 +25,7 @@
 #include "tikzcommandinserter.h"
 #include "usercommandeditdialog.h"
 
-static const QString s_completionPlaceHolder(0x2022);
+static const QString s_completionPlaceHolder(QChar(0x2022));
 
 UserCommandInserter::UserCommandInserter(QWidget *parent) : QObject(parent), m_userMenu(0)
 {

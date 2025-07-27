@@ -23,7 +23,6 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
-#include <KTextEditor/CodeCompletionInterface>
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -37,7 +36,7 @@ TikzKTextEditorView::TikzKTextEditorView(QWidget *parent) : TikzEditorViewAbstra
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     mainLayout->setSpacing(0);
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addWidget(m_documentView);
 
     m_currentDoc->setMode(QStringLiteral("LaTeX"));
@@ -54,12 +53,8 @@ TikzKTextEditorView::TikzKTextEditorView(QWidget *parent) : TikzEditorViewAbstra
     connect(m_currentDoc, &KTextEditor::Document::urlChanged, this,
             &TikzKTextEditorView::documentUrlChanged);
 
-    KTextEditor::CodeCompletionInterface *cci =
-            qobject_cast<KTextEditor::CodeCompletionInterface *>(m_documentView);
-    if (cci) {
-        m_completion = new TikzKTextEditorCompletion(this);
-        cci->registerCompletionModel(m_completion);
-    }
+    m_completion = new TikzKTextEditorCompletion(this);
+    m_documentView->registerCompletionModel(m_completion);
 }
 
 TikzKTextEditorView::~TikzKTextEditorView() { }

@@ -42,7 +42,7 @@ class Part : public KParts::ReadOnlyPart, public MainWidget
     Q_OBJECT
 
 public:
-    explicit Part(QWidget *parentWidget, QObject *parent, const QVariantList &args);
+    explicit Part(QWidget *parentWidget, QObject *parent, const KPluginMetaData &data, const QVariantList &args);
     virtual ~Part() override;
 
     static KAboutData *createAboutData();

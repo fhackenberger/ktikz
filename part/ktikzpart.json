@@ -1,0 +1,16 @@
+{
+    "KPlugin": {
+        "Icon": "ktikz",
+        "InitialPreference": 12,
+        "MimeTypes": [
+            "text/x-pgf"
+        ],
+        "Name": "KtikZ - TikZ File Viewer",
+        "Name[es]": "Visor de ficheros TikZ - KtikZ",
+        "Name[fr]": "Visionneuse de fichiers TikZ - KtikZ",
+        "ServiceTypes": [
+            "KParts/ReadOnlyPart"
+        ]
+    },
+    "MimeType": "text/x-pgf;"
+}

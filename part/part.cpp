@@ -45,10 +45,12 @@
 #include <KDirWatch>
 #include <KMessageBox>
 #include <KIO/Job>
+#include <KIO/FileCopyJob>
 #include <KIO/JobUiDelegate>
 #include <QtCore/QSettings>
 #include <QtCore/QTimer>
 #include <QtCore/QTranslator>
+#include <QtCore/QtPlugin>
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QDir>
@@ -60,12 +62,11 @@
 #include "../common/tikzpreview.h"
 #include "../common/tikzpreviewcontroller.h"
 #include "../common/utils/action.h"
-#include "browserextension.h"
 
 namespace KtikZ {
 
-Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
-    : KParts::ReadOnlyPart(parent)
+Part::Part(QWidget *parentWidget, QObject *parent, const KPluginMetaData &data, const QVariantList &args)
+    : KParts::ReadOnlyPart(parent, data)
 {
     Q_UNUSED(args);
 
@@ -83,7 +84,7 @@ Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
     QWidget *mainWidget = new QWidget(parentWidget);
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setSpacing(0);
-    mainLayout->setMargin(0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addWidget(m_tikzPreviewController->templateWidget());
     mainLayout->addWidget(m_tikzPreviewController->tikzPreview());
     mainWidget->setLayout(mainLayout);
@@ -97,9 +98,6 @@ Part::Part(QWidget *parentWidget, QObject *parent, const QVariantList &args)
     m_dirtyHandler = new QTimer(this);
     m_dirtyHandler->setSingleShot(true);
     connect(m_dirtyHandler, &QTimer::timeout, this, &Part::slotDoFileDirty);
-
-    new BrowserExtension(
-            this, m_tikzPreviewController); // needed to be able to use Konqueror's "Print" action
 
     setXMLFile("ktikzpart/ktikzpart.rc");
 
@@ -346,7 +344,7 @@ QTranslator *Part::createTranslator(const QString &transName)
     return translator;
 }
 
-K_PLUGIN_FACTORY(ktikzPartFactory, registerPlugin<KtikZ::Part>();)
+K_PLUGIN_FACTORY_WITH_JSON(ktikzPartFactory, "ktikzpart.json", registerPlugin<KtikZ::Part>();)
 
 #include "part.moc"
 

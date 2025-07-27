@@ -6,7 +6,6 @@ add_definitions(-DKTIKZ_TRANSLATIONS_INSTALL_DIR=\"${KTIKZ_TRANSLATIONS_INSTALL_
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../common)
 
 set(ktikzpart_SRCS
-    browserextension.cpp
     configdialog.cpp
     configgeneralwidget.cpp
     part.cpp
@@ -45,20 +44,20 @@ kconfig_add_kcfg_files(ktikzpart_SRCS ../common/settings.kcfgc)
 add_library(ktikzpart MODULE ${ktikzpart_SRCS})
 target_link_libraries(
     ktikzpart
-    KF5::Parts
-    KF5::IconThemes
-    KF5::CoreAddons
-    KF5::KIOCore
-    KF5::KIOFileWidgets
-    KF5::KIOWidgets
-    KF5::KIONTLM
-    Qt5::PrintSupport
-    Poppler::Qt5
+    KF6::Parts
+    KF6::IconThemes
+    KF6::CoreAddons
+    KF6::KIOCore
+    KF6::KIOFileWidgets
+    KF6::KIOWidgets
+    KF6::I18n
+    Qt6::PrintSupport
+    Poppler::Qt6
 )
 
 install(TARGETS ktikzpart DESTINATION ${KDE_INSTALL_PLUGINDIR})
 install(FILES ktikzpart.rc DESTINATION ${KTIKZPART_DATA_INSTALL_DIR})
-install(FILES ktikzpart.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
+#install(FILES ktikzpart.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
 
 add_custom_target(uninstalldirs_part)
 add_custom_command(

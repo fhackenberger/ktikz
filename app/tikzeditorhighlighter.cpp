@@ -20,6 +20,7 @@
 
 #include <QDebug>
 #include <QtCore/QSettings>
+#include <QtCore/QRegularExpression>
 #include <QtWidgets/QApplication>
 
 #include "tikzeditorhighlighter.h"
@@ -43,13 +44,13 @@ void TikzHighlighter::setHighlightingRules(const QVector<HighlightingRule> &high
                     << QLatin1String("\\\\end\\{[^\\}]*\\}");
     for (const auto &pattern : keywordPatterns) {
         rule.type = highlightTypeNames.at(currentIndex);
-        rule.pattern = QRegExp(pattern);
+        rule.pattern = QRegularExpression(pattern);
         rule.isRegExp = true;
         m_highlightingRules.append(rule);
     }
     // comments
     rule.type = highlightTypeNames.at(currentIndex + 1);
-    rule.pattern = QRegExp(QLatin1String("%[^\n]*"));
+    rule.pattern = QRegularExpression(QLatin1String("%[^\n]*"));
     rule.isRegExp = true;
     m_highlightingRules.append(rule);
 
@@ -174,12 +175,13 @@ void TikzHighlighter::highlightBlock(const QString &text)
             }
         } else // match the pattern
         {
-            int index = rule.pattern.indexIn(text);
-            while (index >= 0) {
-                const int length = rule.pattern.matchedLength();
+            auto m = rule.pattern.match(text);
+            while (m.hasMatch()) {
+                const int length = m.capturedLength();
+                const int index = m.capturedStart();
                 if (index == 0 || text.at(index - 1) != QLatin1Char('\\'))
                     setFormat(index, length, m_formatList[rule.type]);
-                index = rule.pattern.indexIn(text, index + length);
+                m = rule.pattern.match(text, m.capturedEnd());
             }
         }
     }

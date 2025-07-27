@@ -75,8 +75,8 @@ ki18n_wrap_ui(ktikz_UI_FILES
     ../common/templatewidget.ui
 )
 kconfig_add_kcfg_files(ktikz_SRCS ../common/settings.kcfgc)
-qt5_add_resources(ktikz_SRCS ktikz.qrc)
-qt5_add_resources(ktikz_SRCS qtikz.qrc)
+qt_add_resources(ktikz_SRCS ktikz.qrc)
+qt_add_resources(ktikz_SRCS qtikz.qrc)
 
 file(GLOB icons_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/icons/*-apps-ktikz.png")
 # add icons for win32 and mac; this command assumes that the first arg is of the
@@ -86,23 +86,28 @@ ecm_add_app_icon(ktikz_SRCS ICONS ${icons_SRCS})
 add_executable(ktikz ${ktikz_SRCS} ${ktikz_UI_FILES})
 target_link_libraries(
     ktikz
-    KF5::XmlGui
-    KF5::TextEditor
-    KF5::IconThemes
-    Qt5::PrintSupport
-    Poppler::Qt5
+    KF6::XmlGui
+    KF6::TextEditor
+    KF6::IconThemes
+    KF6::KIOWidgets
+    KF6::KIOFileWidgets
+    KF6::WidgetsAddons
+    KF6::I18n
+    Qt6::Core5Compat  # QTextCodec
+    Qt6::PrintSupport
+    Poppler::Qt6
 )
 
 if(KTIKZ_USE_KTEXTEDITOR)
-    target_link_libraries(ktikz KF5::TextEditor)
+    target_link_libraries(ktikz KF6::TextEditor)
 endif()
 
 install(TARGETS ktikz DESTINATION ${KDE_INSTALL_BINDIR})
 if(KTIKZ_USE_KTEXTEDITOR)
-    install(FILES ktikzui_frameworks.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/ktikz)
+    install(FILES kxmlgui5/ktikz/ktikzui_frameworks.rc DESTINATION ${KDE_INSTALL_KXMLGUIDIR}/ktikz)
 endif()
 
-install(FILES ktikzui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/ktikz)
+install(FILES kxmlgui5/ktikz/ktikzui.rc DESTINATION ${KDE_INSTALL_KXMLGUIDIR}/ktikz)
 install(FILES ../common/ktikz.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 add_subdirectory(icons)
@@ -114,8 +119,8 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${KTIKZ_TRANSLATIONS_INSTALL_DIR}
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${KTIKZ_TEMPLATES_INSTALL_DIR}
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${KTIKZ_DATA_INSTALL_DIR}
-    COMMAND ${CMAKE_COMMAND} -E remove_directory ${KXMLGUI_INSTALL_DIR}/ktikz
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${KDE_INSTALL_KXMLGUIDIR}/ktikz
     COMMENT
-        "Removing directories ${KTIKZ_TRANSLATIONS_INSTALL_DIR} ${KTIKZ_TEMPLATES_INSTALL_DIR} ${KTIKZ_DATA_INSTALL_DIR} ${KXMLGUI_INSTALL_DIR}/ktikz"
+        "Removing directories ${KTIKZ_TRANSLATIONS_INSTALL_DIR} ${KTIKZ_TEMPLATES_INSTALL_DIR} ${KTIKZ_DATA_INSTALL_DIR} ${KDE_INSTALL_KXMLGUIDIR}/ktikz"
     VERBATIM
 )

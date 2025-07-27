@@ -55,7 +55,7 @@ TikzPreviewMessageWidget::TikzPreviewMessageWidget(QWidget *parent) : QFrame(par
                                         "}")));
 
     QHBoxLayout *infoLayout = new QHBoxLayout(this);
-    infoLayout->setMargin(10);
+    infoLayout->setContentsMargins(10, 10, 10, 10);
     infoLayout->addWidget(m_infoPixmapLabel);
     infoLayout->addWidget(m_infoLabel);
 

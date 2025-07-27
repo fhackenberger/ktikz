@@ -9,6 +9,10 @@ endif()
 set(KTIKZ_VERSION "0.13.2")
 set(KTIKZ_USE_KTEXTEDITOR TRUE CACHE BOOL "Use KTextEditor framework")
 
+set(QT_MIN_VERSION "6.5.0")
+set(KF6_DEP_VERSION "6.0.0")
+set(QT_MAJOR_VERSION "6")
+
 add_definitions(-DORGNAME=\"Florian_Hackenberger\")
 add_definitions(-DAPPNAME=\"ktikz\")
 add_definitions(-DAPPVERSION=\"${KTIKZ_VERSION}\")
@@ -32,16 +36,15 @@ include(KDECMakeSettings)
 include(FeatureSummary)
 
 find_package(
-    Qt5
-    5.15
-    CONFIG
-    REQUIRED Core Gui Widgets Xml PrintSupport LinguistTools
+    Qt6
+    REQUIRED
+    COMPONENTS Core Gui Widgets Xml PrintSupport LinguistTools Core5Compat
 )
 
 find_package(
-    KF5
-    5.92
-    REQUIRED DocTools XmlGui TextEditor Parts IconThemes
+    KF6
+    REQUIRED
+    COMPONENTS DocTools XmlGui TextEditor Parts IconThemes KIO WidgetsAddons I18n
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -58,9 +61,9 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     endif()
 endif()
 
-find_package(Poppler "22.02" REQUIRED Qt5 Core)
+find_package(Poppler "24.06" REQUIRED Qt6 Core)
 set_package_properties(
-    "Poppler-Qt5"
+    "Poppler-Qt6"
     PROPERTIES
     DESCRIPTION "A PDF rendering library"
     URL "http://poppler.freedesktop.org"

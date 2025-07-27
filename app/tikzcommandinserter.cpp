@@ -46,7 +46,7 @@
 #include "tikzcommandwidget.h"
 #include "../common/utils/combobox.h"
 
-static const QString s_completionPlaceHolder(0x2022);
+static const QString s_completionPlaceHolder(QChar(0x2022));
 
 TikzCommandList TikzCommandInserter::m_tikzSections;
 QList<TikzCommand> TikzCommandInserter::m_tikzCommandsList;
@@ -93,7 +93,7 @@ static QString translateOptions(const QString &text)
     for (int pos = 0, oldPos = 0; pos >= 0;) {
         oldPos = pos;
         pos = text.indexOf(QLatin1Char('<'), pos); // option is between < and >
-        translatedText += text.midRef(
+        translatedText += QStringView(text).mid(
                 oldPos, pos - oldPos + 1); // add text between the current option and the previous
                                            // option; this also adds the end of the original string,
                                            // except when there are no options
@@ -326,15 +326,15 @@ QStringList TikzCommandInserter::getCommandWords()
 {
     QStringList words;
 
-    //	QRegExp rx1(QLatin1String("^([^a-z\\\\<>]*<[^>]*>)*"));
-    //	QRegExp rx2(QLatin1String("^[^a-z\\\\]*"));
+    //	QRegularExpression rx1(QLatin1String("^([^a-z\\\\<>]*<[^>]*>)*"));
+    //	QRegularExpression rx2(QLatin1String("^[^a-z\\\\]*"));
     //	QString allowedLetters = QLatin1String("abcdefghijklmnopqrstuvwxyz\\");
     for (int i = 0; i < m_tikzCommandsList.size(); ++i) {
         QString word = m_tikzCommandsList.at(i).description;
         // remove all special characters and <options> at the beginning of the word
         /*
                         if (!word.isEmpty() && !allowedLetters.contains(word.at(0))) // minimize the
-           number of uses of QRegExp
+           number of uses of QRegularExpression
                         {
                                 word.remove(rx1);
                                 word.remove(rx2);
@@ -346,7 +346,7 @@ QStringList TikzCommandInserter::getCommandWords()
                                 word = m_tikzCommandsList.at(i).command;
                                 // remove all special characters and <options> at the beginning of
            the word if (!word.isEmpty() && !allowedLetters.contains(word.at(0))) // minimize the
-           number of uses of QRegExp
+           number of uses of QRegularExpression
                                 {
                                         word.remove(rx1);
                                         word.remove(rx2);
@@ -574,7 +574,7 @@ QDockWidget *TikzCommandInserter::getDockWidget(QWidget *parent)
     tikzLayout->addWidget(commandsComboLabel, 0, 0);
     tikzLayout->addWidget(m_commandsCombo, 0, 1);
     tikzLayout->addWidget(m_commandsStack, 1, 0, 1, 2);
-    tikzLayout->setMargin(5);
+    tikzLayout->setContentsMargins(5, 5, 5, 5);
 
     TikzCommandWidget *tikzWidget = new TikzCommandWidget;
     tikzWidget->setLayout(tikzLayout);
@@ -682,7 +682,7 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
         int end;
         rule.isRegExp = false;
         if (!m_tikzCommandsList.at(i).highlightString.isEmpty()) {
-            rule.pattern = QRegExp(m_tikzCommandsList.at(i).highlightString);
+            rule.pattern = QRegularExpression(m_tikzCommandsList.at(i).highlightString);
             rule.isRegExp = true;
         }
         switch (type) {
@@ -700,7 +700,7 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
             //				command = command.replace(QLatin1Char('\\'),
             // QLatin1String("\\\\"));
             rule.type = highlightTypeNames.at(0);
-            //				rule.pattern = QRegExp(command);
+            //				rule.pattern = QRegularExpression(command);
             //				rule.pattern.setPattern(command);
             rule.matchString = command;
             highlightingRules.append(rule);
@@ -716,7 +716,7 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
             command = command.remove(QLatin1String(" (:::)"));
             command = command.remove(QLatin1String(" {} "));
             rule.type = highlightTypeNames.at(1);
-            //				rule.pattern = QRegExp(command);
+            //				rule.pattern = QRegularExpression(command);
             //				rule.pattern.setPattern(command);
             rule.matchString = command;
             highlightingRules.append(rule);
@@ -728,7 +728,7 @@ QVector<HighlightingRule> TikzCommandInserter::getHighlightingRules()
             if (end > 0)
                 command = command.left(end);
             rule.type = highlightTypeNames.at(2);
-            //				rule.pattern = QRegExp(command);
+            //				rule.pattern = QRegularExpression(command);
             //				rule.pattern.setPattern(command);
             rule.matchString = command;
             highlightingRules.append(rule);
@@ -801,7 +801,7 @@ void TikzCommandInserter::insertTag(const QString &tag, int dx, int dy)
 
         // replace all options (between <...>) by a place holder
         QString insertWord = tag;
-        const QRegExp rx(QLatin1String("<[^<>]*>"));
+        const QRegularExpression rx(QLatin1String("<[^<>]*>"));
         insertWord.replace(rx, s_completionPlaceHolder);
 
         QTextCursor cur = m_mainEdit->textCursor();

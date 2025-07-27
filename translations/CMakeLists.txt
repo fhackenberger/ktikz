@@ -2,7 +2,7 @@ include(../KtikzConfig.cmake)
 
 ### Install qm files
 file(GLOB ktikz_TS_FILES */qtikz_*.ts)
-qt5_add_translation(ktikz_QM_FILES ${ktikz_TS_FILES})
+qt_add_translation(ktikz_QM_FILES ${ktikz_TS_FILES})
 add_custom_target(translations ALL DEPENDS ${ktikz_QM_FILES})
 install(FILES ${ktikz_QM_FILES} DESTINATION ${KTIKZ_TRANSLATIONS_INSTALL_DIR})
 

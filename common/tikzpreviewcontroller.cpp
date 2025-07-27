@@ -33,7 +33,7 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QPushButton>
 
-#include <poppler-qt5.h>
+#include <poppler-qt6.h>
 
 #include "templatewidget.h"
 #include "tikzpreview.h"
