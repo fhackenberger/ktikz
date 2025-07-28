@@ -35,7 +35,7 @@ class TikzKTextEditorView : public TikzEditorViewAbstract
 
 public:
     explicit TikzKTextEditorView(QWidget *parent = 0);
-    virtual ~TikzKTextEditorView();
+    ~TikzKTextEditorView() override = default;
 
     KTextEditor::Document *editor();
     KTextEditor::Document *document();

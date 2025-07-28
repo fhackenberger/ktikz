@@ -933,12 +933,22 @@ void MainWindow::applySettings()
     updateCompleter();
     settings.beginGroup(QLatin1String("encoding"));
     QVariant qv = settings.value(QLatin1String("default"));
-    setCurrentEncoding(qv.isNull() ? QTextCodec::codecForLocale()
-                                   : QTextCodec::codecForName(qv.toByteArray()));
+    constexpr auto kDefaultEncoding = QStringConverter::Utf8;
+    setCurrentEncoding(qv.isNull() ? kDefaultEncoding
+                                   : QStringConverter::encodingForName(qv.toByteArray())
+                                             .value_or(kDefaultEncoding));
     qv = settings.value(QLatin1String("encoder"));
-    m_overrideEncoder = qv.isNull() ? NULL : QTextCodec::codecForName(qv.toByteArray());
+    if (!qv.isNull()) {
+        m_overrideEncoder = QStringConverter::encodingForName(qv.toByteArray());
+    } else {
+        m_overrideEncoder.reset();
+    }
     qv = settings.value(QLatin1String("decoder"));
-    m_overrideDecoder = qv.isNull() ? NULL : QTextCodec::codecForName(qv.toByteArray());
+    if (!qv.isNull()) {
+        m_overrideDecoder = QStringConverter::encodingForName(qv.toByteArray());
+    } else {
+        m_overrideDecoder.reset();
+    }
     m_encoderBom = settings.value(QLatin1String("bom"), true).toBool();
     settings.endGroup();
 
@@ -1069,7 +1079,7 @@ void MainWindow::loadUrl(const QUrl &url)
         QApplication::setOverrideCursor(Qt::WaitCursor);
         this->configureStreamDecoding(in);
         m_tikzQtEditorView->editor()->setPlainText(in.readAll());
-        //setCurrentEncoding(in.codec());
+        setCurrentEncoding(in.encoding());
     }
 
     QApplication::restoreOverrideCursor();
@@ -1131,7 +1141,7 @@ bool MainWindow::saveUrl(const QUrl &url)
     return true;
 }
 
-void MainWindow::setCurrentEncoding(QTextCodec *codec)
+void MainWindow::setCurrentEncoding(QStringConverter::Encoding codec)
 {
     m_currentEncoding = codec;
     // TODO: implement user warning and suggestion to reload the file.
@@ -1160,26 +1170,21 @@ QString MainWindow::strippedName(const QUrl &url) const
     return (fileName.isEmpty()) ? QLatin1String("untitled.txt") : fileName;
 }
 
-QTextCodec *MainWindow::getEncoder() const
+QStringConverter::Encoding MainWindow::getEncoder() const
 {
-    return this->m_overrideEncoder ? this->m_overrideEncoder : this->m_currentEncoding;
+    return this->m_overrideEncoder.value_or(this->m_currentEncoding);
 }
 
 void MainWindow::configureStreamEncoding(QTextStream &textStream)
 {
-    QTextCodec *encoder = this->getEncoder();
-    if (Q_LIKELY(encoder)) // should be true
-        {}//textStream.setCodec(encoder);
-    else
-        qWarning("The encoder variable should not be null.");
-
+    textStream.setEncoding(this->getEncoder());
     textStream.setGenerateByteOrderMark(this->m_encoderBom);
 }
 
 void MainWindow::configureStreamDecoding(QTextStream &textStream)
 {
     if (m_overrideDecoder) {
-        //textStream.setCodec(m_overrideDecoder);
+        // textStream.setCodec(m_overrideDecoder);
     }
     textStream.setAutoDetectUnicode(true);
 }

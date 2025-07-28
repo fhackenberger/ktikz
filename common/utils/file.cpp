@@ -45,8 +45,8 @@ bool File::fileExists(const QUrl &url)
     if (!(url.isValid())) {
         return false;
     }
-    KIO::StatJob *existsJob = KIO::stat(url, KIO::StatJob::DestinationSide, KIO::StatBasic,
-                                        KIO::HideProgressInfo);
+    KIO::StatJob *existsJob =
+            KIO::stat(url, KIO::StatJob::DestinationSide, KIO::StatBasic, KIO::HideProgressInfo);
     existsJob->exec();
     return (existsJob->error() == KJob::NoError);
 }

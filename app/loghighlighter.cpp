@@ -66,6 +66,7 @@ void LogHighlighter::highlightBlock(const QString &text)
             int index = m.capturedStart();
             const int length = m.capturedLength();
             setFormat(index, length, rule.format);
+            // TODO: @JC Global matching??
             m = rule.pattern.match(text, m.capturedEnd());
         }
     }

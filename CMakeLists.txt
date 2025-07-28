@@ -7,7 +7,7 @@ if(POLICY CMP0160)
 endif()
 
 set(KTIKZ_VERSION "0.13.2")
-set(KTIKZ_USE_KTEXTEDITOR TRUE CACHE BOOL "Use KTextEditor framework")
+set(KTIKZ_USE_KTEXTEDITOR FALSE CACHE BOOL "Use KTextEditor framework")
 
 set(QT_MIN_VERSION "6.5.0")
 set(KF6_DEP_VERSION "6.0.0")
@@ -35,17 +35,37 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
 include(FeatureSummary)
 
-find_package(
-    Qt6
-    REQUIRED
-    COMPONENTS Core Gui Widgets Xml PrintSupport LinguistTools Core5Compat
+find_package(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED
+    Core
+    Gui
+    Widgets
+    Xml
+    PrintSupport
+    LinguistTools
+    Core5Compat
 )
 
-find_package(
-    KF6
-    REQUIRED
-    COMPONENTS DocTools XmlGui TextEditor Parts IconThemes KIO WidgetsAddons I18n
+find_package(KF6 ${KF6_DEP_VERSION} REQUIRED
+    DocTools
+    XmlGui
+    TextEditor
+    Parts
+    IconThemes
+    KIO
+    WidgetsAddons
+    I18n
 )
+
+option(BUILD_WITH_SANITIZERS "Build with sanitizers" OFF)
+if(BUILD_WITH_SANITIZERS)
+  if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize=undefined")
+  elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize=undefined -fsanitize=leak")
+  else()
+    # TODO @JC check if MSVC supports sanitizers
+  endif()
+endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_definitions(-DQT_STRICT_ITERATORS)

@@ -1,2 +1,4 @@
-/.vscode/
+/.vscode/**
+/.cache/**
 /build/
+.clangd

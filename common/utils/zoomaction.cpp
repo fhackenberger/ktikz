@@ -136,8 +136,7 @@ void ZoomAction::setZoomFactor(qreal zoomFactor)
 
 void ZoomAction::setZoomFactor(const QString &zoomFactorText)
 {
-    const QRegularExpression rx(QString(QLatin1String("[^\\d\\%1]*"))
-                                .arg(GlobalLocale::decimalSymbol()));
-    setZoomFactor(GlobalLocale::readNumber(QString(zoomFactorText).remove(rx))
-                  / 100.0);
+    const QRegularExpression rx(
+            QString(QLatin1String("[^\\d\\%1]*")).arg(GlobalLocale::decimalSymbol()));
+    setZoomFactor(GlobalLocale::readNumber(QString(zoomFactorText).remove(rx)) / 100.0);
 }

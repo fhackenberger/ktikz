@@ -57,7 +57,6 @@ target_link_libraries(
 
 install(TARGETS ktikzpart DESTINATION ${KDE_INSTALL_PLUGINDIR})
 install(FILES ktikzpart.rc DESTINATION ${KTIKZPART_DATA_INSTALL_DIR})
-#install(FILES ktikzpart.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
 
 add_custom_target(uninstalldirs_part)
 add_custom_command(

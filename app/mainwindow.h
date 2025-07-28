@@ -135,7 +135,7 @@ private Q_SLOTS:
     /// Change the codec for the current document
     /// @param isUserRequest set to true if the user requested the changement (in this case, the
     /// application should warn the user -- not implemented yet.).
-    void setCurrentEncoding(QTextCodec *codec /*, bool isUserRequest = false */);
+    void setCurrentEncoding(QStringConverter::Encoding codec);
 
 private:
     void createActions();
@@ -226,15 +226,15 @@ private:
     QPointer<ConfigDialog> m_configDialog;
 
     QUrl m_currentUrl;
-    QTextCodec *m_currentEncoding;
+    QStringConverter::Encoding m_currentEncoding;
     /// If not null, override the encoder (rather than @ref m_currentEncoding)
-    QTextCodec *m_overrideEncoder;
+    std::optional<QStringConverter::Encoding> m_overrideEncoder;
     /// If not null, override the decoder
-    QTextCodec *m_overrideDecoder;
+    std::optional<QStringConverter::Encoding> m_overrideDecoder;
     /// True if a BOM must be added to the PGF-file
     bool m_encoderBom;
     /// Return the current encoder (m_currentEncoding or another if encoder is overriden).
-    /*virtual*/ QTextCodec *getEncoder() const;
+    /*virtual*/ QStringConverter::Encoding getEncoder() const;
 
     QUrl m_lastUrl;
     QDateTime m_lastInternalModifiedDateTime;
